@@ -11,4 +11,5 @@ return [
     'topic' => 'LeetCode · Greedy',
     'kind' => 'algo',
     'tags' => ['greedy', 'strings', 'heap', 'leetcode'],
+    'related_session' => 'strong-password-checker',
 ];

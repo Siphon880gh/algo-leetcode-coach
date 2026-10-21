@@ -11,4 +11,5 @@ return [
     'topic' => 'LeetCode · Matrix',
     'kind' => 'algo',
     'tags' => ['matrix', 'dfs', 'arrays', 'leetcode'],
+    'related_session' => 'battleships-in-a-board',
 ];

@@ -11,4 +11,5 @@ return [
     'topic' => 'LeetCode · Design',
     'kind' => 'algo',
     'tags' => ['design', 'hash-table', 'linked-list', 'leetcode'],
+    'related_session' => 'all-oone-data-structure',
 ];

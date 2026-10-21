@@ -11,4 +11,5 @@ return [
     'topic' => 'LeetCode · Divide and Conquer',
     'kind' => 'algo',
     'tags' => ['divide-and-conquer', 'trees', 'matrix', 'leetcode'],
+    'related_session' => 'construct-quad-tree',
 ];

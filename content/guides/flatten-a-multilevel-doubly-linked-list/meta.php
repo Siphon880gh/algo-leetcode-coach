@@ -11,4 +11,5 @@ return [
     'topic' => 'LeetCode · Linked List',
     'kind' => 'algo',
     'tags' => ['linked-list', 'dfs', 'doubly-linked-list', 'leetcode'],
+    'related_session' => 'flatten-a-multilevel-doubly-linked-list',
 ];

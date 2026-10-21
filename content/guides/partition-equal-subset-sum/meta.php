@@ -11,4 +11,5 @@ return [
     'topic' => 'LeetCode · Dynamic Programming',
     'kind' => 'algo',
     'tags' => ['dynamic-programming', 'knapsack', 'arrays', 'leetcode'],
+    'related_session' => 'partition-equal-subset-sum',
 ];

@@ -11,4 +11,5 @@ return [
     'topic' => 'LeetCode · Binary Search',
     'kind' => 'algo',
     'tags' => ['binary-search', 'sorting', 'intervals', 'leetcode'],
+    'related_session' => 'find-right-interval',
 ];

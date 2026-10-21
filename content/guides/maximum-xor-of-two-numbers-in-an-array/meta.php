@@ -11,4 +11,5 @@ return [
     'topic' => 'LeetCode · Trie',
     'kind' => 'algo',
     'tags' => ['trie', 'bit-manipulation', 'hash-table', 'leetcode'],
+    'related_session' => 'maximum-xor-of-two-numbers-in-an-array',
 ];

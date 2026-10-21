@@ -11,4 +11,5 @@ return [
     'topic' => 'LeetCode · Trees',
     'kind' => 'algo',
     'tags' => ['trees', 'bst', 'linked-list', 'leetcode'],
+    'related_session' => 'convert-binary-search-tree-to-sorted-doubly-linked-list',
 ];

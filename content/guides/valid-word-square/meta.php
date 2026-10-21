@@ -11,4 +11,5 @@ return [
     'topic' => 'LeetCode · Matrix',
     'kind' => 'algo',
     'tags' => ['matrix', 'arrays', 'strings', 'leetcode'],
+    'related_session' => 'valid-word-square',
 ];

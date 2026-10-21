@@ -11,4 +11,5 @@ return [
     'topic' => 'LeetCode · BFS',
     'kind' => 'algo',
     'tags' => ['bfs', 'strings', 'hash-table', 'leetcode'],
+    'related_session' => 'minimum-genetic-mutation',
 ];

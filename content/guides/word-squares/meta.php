@@ -11,4 +11,5 @@ return [
     'topic' => 'LeetCode · Trie',
     'kind' => 'algo',
     'tags' => ['trie', 'backtracking', 'strings', 'leetcode'],
+    'related_session' => 'word-squares',
 ];

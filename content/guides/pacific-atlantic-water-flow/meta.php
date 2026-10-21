@@ -11,4 +11,5 @@ return [
     'topic' => 'LeetCode · Graphs',
     'kind' => 'algo',
     'tags' => ['graphs', 'bfs', 'dfs', 'matrix', 'leetcode'],
+    'related_session' => 'pacific-atlantic-water-flow',
 ];

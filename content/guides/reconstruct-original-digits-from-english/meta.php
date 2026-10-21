@@ -11,4 +11,5 @@ return [
     'topic' => 'LeetCode · Hash Table',
     'kind' => 'algo',
     'tags' => ['hash-table', 'math', 'strings', 'leetcode'],
+    'related_session' => 'reconstruct-original-digits-from-english',
 ];

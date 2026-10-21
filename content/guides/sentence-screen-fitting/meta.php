@@ -11,4 +11,5 @@ return [
     'topic' => 'LeetCode · Strings',
     'kind' => 'algo',
     'tags' => ['strings', 'dynamic-programming', 'simulation', 'leetcode'],
+    'related_session' => 'sentence-screen-fitting',
 ];

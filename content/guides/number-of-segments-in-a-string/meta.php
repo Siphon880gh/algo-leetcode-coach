@@ -11,4 +11,5 @@ return [
     'topic' => 'LeetCode · Strings',
     'kind' => 'algo',
     'tags' => ['strings', 'simulation', 'leetcode'],
+    'related_session' => 'number-of-segments-in-a-string',
 ];

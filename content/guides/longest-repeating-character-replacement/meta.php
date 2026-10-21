@@ -11,4 +11,5 @@ return [
     'topic' => 'LeetCode · Sliding Window',
     'kind' => 'algo',
     'tags' => ['sliding-window', 'strings', 'hash-table', 'leetcode'],
+    'related_session' => 'longest-repeating-character-replacement',
 ];

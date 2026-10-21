@@ -11,4 +11,5 @@ return [
     'topic' => 'LeetCode · Greedy',
     'kind' => 'algo',
     'tags' => ['greedy', 'sorting', 'intervals', 'leetcode'],
+    'related_session' => 'non-overlapping-intervals',
 ];

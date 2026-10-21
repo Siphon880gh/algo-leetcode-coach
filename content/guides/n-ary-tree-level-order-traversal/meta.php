@@ -11,4 +11,5 @@ return [
     'topic' => 'LeetCode · Trees',
     'kind' => 'algo',
     'tags' => ['trees', 'bfs', 'n-ary-tree', 'leetcode'],
+    'related_session' => 'n-ary-tree-level-order-traversal',
 ];

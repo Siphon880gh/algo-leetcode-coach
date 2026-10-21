@@ -11,4 +11,5 @@ return [
     'topic' => 'LeetCode · Trees',
     'kind' => 'algo',
     'tags' => ['trees', 'bfs', 'serialization', 'leetcode'],
+    'related_session' => 'serialize-and-deserialize-n-ary-tree',
 ];
