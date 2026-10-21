@@ -1,0 +1,38 @@
+<p>Given two strings <code>s</code> and <code>goal</code>, return <code>true</code> <em>if and only if</em> <code>s</code> <em>can become</em> <code>goal</code> <em>after some number of <strong>shifts</strong> on</em> <code>s</code>.</p>
+
+<p>A <strong>shift</strong> on <code>s</code> consists of moving the leftmost character of <code>s</code> to the rightmost position.</p>
+
+<ul>
+	<li>For example, if <code>s = "abcde"</code>, then it will be <code>"bcdea"</code> after one shift.</li>
+</ul>
+
+<p><strong>Example 1:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "abcde", goal = "cdeab"</span></p>
+
+<p><strong>Output:</strong> <span>true</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>Rotating <code>s</code> to the left by 2 positions moves <code>"ab"</code> to the end, resulting in <code>"cdeab"</code>, which is equal to <code>goal</code>.</p>
+</div>
+
+<p><strong>Example 2:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "abcde", goal = "abced"</span></p>
+
+<p><strong>Output:</strong> <span>false</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>No sequence of rotations of <code>s</code> can produce <code>"abced"</code>. The characters appear in a different relative order, so <code>goal</code> is not a rotation of <code>s</code>.</p>
+</div>
+
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>1 &lt;= s.length, goal.length &lt;= 100</code></li>
+	<li><code>s</code> and <code>goal</code> consist of lowercase English letters.</li>
+</ul>
