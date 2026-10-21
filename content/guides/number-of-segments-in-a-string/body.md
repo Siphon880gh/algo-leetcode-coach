@@ -1,7 +1,3 @@
-String `s`, length 0 to 300. Only space is `' '`. Letters, digits, and punctuation can sit inside a segment. Return how many contiguous non-space runs there are.
-
-`"Hello, my name is John"` → 5: `Hello,` / `my` / `name` / `is` / `John`. `"Hello"` → 1.
-
 ## Count a start, not every letter
 
 Walk index `i`. If `s[i]` is not a space and (`i` is 0 or `s[i-1]` is a space), this is the first character of a new segment — add 1. Extra spaces between words do not add extra counts. Leading or trailing spaces do not. An empty string or all spaces is 0.

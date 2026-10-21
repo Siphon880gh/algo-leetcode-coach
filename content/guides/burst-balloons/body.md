@@ -1,5 +1,3 @@
-`n` balloons, values `nums[i]`. Burst all. Bursting index `i` scores `nums[i−1] × nums[i] × nums[i+1]`; missing neighbors count as `1`. Maximize total coins. `[3,1,5,8]` → 167. `[1,5]` → 10. `n` up to 300; values `0`..`100`.
-
 ## Enumerate the last balloon left in (i, j)
 
 Greedy “burst the smallest first” fails: order changes which neighbors are still alive. Think **last**. Pad `arr = [1] + nums + [1]`. Let `f[i][j]` be the max coins from bursting every balloon **strictly between** `i` and `j` (endpoints `i` and `j` stay). Answer `f[0][n+1]`.

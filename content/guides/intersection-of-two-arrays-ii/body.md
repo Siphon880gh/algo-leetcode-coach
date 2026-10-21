@@ -1,5 +1,3 @@
-Two integer arrays `nums1` and `nums2` (length 1..1000, values 0..1000). Return their intersection with multiplicity: a value `x` appears as many times as it shows in both arrays (the smaller of the two counts). Any order. `[1,2,2,1]` and `[2,2]` → `[2,2]`. `[4,9,5]` and `[9,4,9,8,4]` → `[4,9]`.
-
 ## Count one array; spend those counts on the other
 
 Hash (or a 1001-slot table) `cnt[x]` = how often `x` appears in `nums1`. Scan `nums2`: if `cnt[x] > 0`, append `x` and decrement. That emits at most the leftover budget, so the result length is the sum of the pairwise mins.

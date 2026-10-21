@@ -1,5 +1,3 @@
-Array `nums` of unique ints, length 1..50. `reset()` returns the original order. `shuffle()` returns one permutation; all `n!` permutations must be equally likely. At most 1e4 mixed calls. Example: `[1, 2, 3]` shuffles to some permutation, reset is `[1, 2, 3]`, shuffle again is another permutation.
-
 ## Copy for reset, Fisher–Yates for shuffle
 
 Store `original = nums.copy()`. `reset` copies `original` back into the working array. `shuffle`: for `i` from 0 to `n−1`, pick `j = randrange(i, n)` and swap `nums[i]` with `nums[j]`. After `i` is fixed, later steps never touch it, so each remaining suffix is a uniform permutation.

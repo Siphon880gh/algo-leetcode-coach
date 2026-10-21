@@ -1,7 +1,3 @@
-`candidates` are distinct positive integers. Return every unique multiset that sums to `target`. The same value may be used any number of times. Order of a combination does not matter. At most 150 answers. `target ≤ 40`.
-
-`[2,3,6,7]`, target `7` → `[[2,2,3],[7]]`. `[2,3,5]`, target `8` → `[[2,2,2,2],[2,3,3],[3,5]]`.
-
 ## Reuse the same index
 
 Unbounded knapsack, listed as combinations. Sort `candidates` first so you can stop when the remaining sum is smaller than `candidates[i]`.

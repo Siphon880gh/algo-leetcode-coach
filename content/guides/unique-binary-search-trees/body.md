@@ -1,7 +1,3 @@
-How many structurally unique BSTs use each value `1..n` once. Return the count. `n ≤ 19`.
-
-`n = 3` → `5`. `n = 1` → `1`.
-
 ## Catalan DP, count only
 
 Unique BST II builds every forest (`n ≤ 8`). Unique Paths adds two incoming grid routes. Climbing Stairs adds `f[i-1] + f[i-2]`. Here you only need how many shapes, and left forests combine independently with right forests.

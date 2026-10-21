@@ -1,7 +1,5 @@
 Return every unique quadruplet of **values** (distinct indices) that sums to `target`. n ≤ 200, values and target up to 10⁹, so four ints can overflow 32-bit addition.
 
-`[1,0,-1,0,-2,2]`, target `0` → `[[-2,-1,1,2],[-2,0,0,2],[-1,0,0,1]]`. `[2,2,2,2,2]`, target `8` → `[[2,2,2,2]]`.
-
 ## 3Sum with an extra outer index
 
 Sort. Nested loops on `i` then `j > i`. Skip `i` / `j` when equal to the previous first / second value. Two pointers `k = j + 1`, `l = n - 1` on the suffix:

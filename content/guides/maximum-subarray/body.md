@@ -1,7 +1,3 @@
-Find a nonempty contiguous slice with the largest sum. Return that sum. n ≤ 10⁵, values can be negative.
-
-`[-2,1,-3,4,-1,2,1,-5,4]` → 6 (`[4,-1,2,1]`). `[1]` → 1. `[5,4,-1,7,8]` → 23.
-
 ## Drop a negative prefix
 
 Let `f` be the best sum of a subarray that **ends at the current index**. Then `f = max(f, 0) + x`: if the run so far is negative, start fresh at `x`. The answer is the max `f` seen.

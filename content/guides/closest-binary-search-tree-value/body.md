@@ -1,4 +1,4 @@
-BST `root` and a float `target`. Return the node value closest to `target`. If two values are equally close, return the **smaller**. `[4,2,5,1,3]`, target `3.714286` → `4`. Single node `[1]`, any target → `1`. Up to `10⁴` nodes.
+BST `root` and a float `target`. Return the node value closest to `target`. If two values are equally close, return the **smaller**. `[4,2,5,1,3]`, target `3.714286` → `4`. Single node `[1]`, any target → `1`. Up to `10⁴` nodes. _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## One search path; update on a tighter (or equal-and-smaller) gap
 

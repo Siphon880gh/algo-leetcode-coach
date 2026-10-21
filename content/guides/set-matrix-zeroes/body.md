@@ -1,7 +1,3 @@
-If a cell is 0, set its entire row and column to 0, **in place**. m, n ≤ 200.
-
-`[[1,1,1],[1,0,1],[1,1,1]]` → `[[1,0,1],[0,0,0],[1,0,1]]`. `[[0,1,2,0],[3,4,5,2],[1,3,1,5]]` → `[[0,0,0,0],[0,4,5,0],[0,3,1,0]]`.
-
 ## Mark rows and cols first
 
 A 0 you write in the same scan looks like an original 0 and then zeros extra lines. Scan once: if `matrix[i][j] == 0`, set `row[i]` and `col[j]`. Scan again: if either mark is set, write 0.

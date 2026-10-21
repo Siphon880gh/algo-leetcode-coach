@@ -1,5 +1,3 @@
-Two axis-aligned rectangles: A by bottom-left `(ax1, ay1)` and top-right `(ax2, ay2)`, B the same with `b`. Return the **union** area (overlap counted once). Coords in `−10⁴ .. 10⁴`. Sample `A = [−3,0]–[3,4]`, `B = [0,−1]–[9,2]` → 45. Identical squares of side 4 → 16.
-
 ## A plus B minus `max(w, 0) × max(h, 0)`
 
 Maximal Rectangle / Largest Rectangle in Histogram scan a grid of bars. Maximal Square is DP on cells. Here there are only two boxes; no grid.

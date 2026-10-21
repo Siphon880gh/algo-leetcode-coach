@@ -1,5 +1,3 @@
-Integer array `coins` (up to 12 denominations) and `amount` (0..10⁴). Return the **fewest** coins that sum to `amount`. Infinite supply of each coin. Impossible → `−1`. `[1,2,5]`, `11` → `3` (`5+5+1`). `[2]`, `3` → `−1`. `amount = 0` → `0`.
-
 ## Unbounded knapsack; inner loop goes forward
 
 Greedy largest-first fails: coins `[1,3,4]`, amount `6` is two `3`s, not `4+1+1`. 0-1 knapsack (each coin once) is the wrong model. Coin Change II (518) **counts** combinations; this problem asks for a **minimum count**. Perfect Squares (279) is this same DP with coins `1, 4, 9, …`.

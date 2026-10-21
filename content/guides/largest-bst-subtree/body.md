@@ -1,4 +1,4 @@
-Binary tree `root`. Return the size (node count) of the largest subtree that is also a BST. A subtree includes every descendant. Empty tree → 0. `[10,5,15,1,8,null,7]` → 3 (the `5 / 1, 8` side). Up to 1e4 nodes. Follow-up: O(n).
+Binary tree `root`. Return the size (node count) of the largest subtree that is also a BST. A subtree includes every descendant. Empty tree → 0. `[10,5,15,1,8,null,7]` → 3 (the `5 / 1, 8` side). Up to 1e4 nodes. Follow-up: O(n). _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## Bottom-up: BST here, or poison the range
 

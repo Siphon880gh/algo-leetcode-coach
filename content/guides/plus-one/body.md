@@ -1,7 +1,3 @@
-`digits` is a large integer, most-significant first, no leading zeros. Add one and return the digit array. Length ≤ 100.
-
-`[1,2,3]` → `[1,2,4]`. `[4,3,2,1]` → `[4,3,2,2]`. `[9]` → `[1,0]`.
-
 ## Carry from the last digit
 
 Walk right to left. At each index: add 1, then take the result modulo 10. If that digit is not 0, the carry died and every digit to the left stays the same — return. If the loop finishes, every digit rolled to 0 (the number was all 9s): prepend 1 (`[9,9]` → `[1,0,0]`).

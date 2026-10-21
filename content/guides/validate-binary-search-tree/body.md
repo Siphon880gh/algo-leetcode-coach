@@ -1,5 +1,3 @@
-Is this binary tree a BST? `[2,1,3]` → true. `[5,1,4,null,null,3,6]` → false (4 sits right of 5). Nodes 1..10⁴. A node may hold `INT_MIN`.
-
 ## Inorder must strictly increase
 
 Only checking `left.val < node.val < right.val` misses a far descendant: 3 can sit in 5’s right subtree under 6 and still look fine next to 6. Unique BST I counts shapes. Inorder Traversal returns the values. BFS does not encode BST order.

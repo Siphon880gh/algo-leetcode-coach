@@ -1,4 +1,4 @@
-`pattern` and string `s` (both lowercase, length 1..20). True iff there is a **bijection** from letters to non-empty substrings: replace each letter by its string and you get `s`. No two letters share a string; no letter maps to two strings. `"abab"` / `"redblueredblue"` → true (`a` → `"red"`, `b` → `"blue"`). `"aaaa"` / `"asdasdasdasd"` → true (`a` → `"asd"`). `"aabb"` / `"xyzabcxzyabc"` → false.
+`pattern` and string `s` (both lowercase, length 1..20). True iff there is a **bijection** from letters to non-empty substrings: replace each letter by its string and you get `s`. No two letters share a string; no letter maps to two strings. `"abab"` / `"redblueredblue"` → true (`a` → `"red"`, `b` → `"blue"`). `"aaaa"` / `"asdasdasdasd"` → true (`a` → `"asd"`). `"aabb"` / `"xyzabcxzyabc"` → false. _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## Word Pattern already splits; here you invent the cuts
 

@@ -1,4 +1,4 @@
-3×3 lock grid, dots numbered 1..9. Count unique valid patterns whose length is at least `m` and at most `n` (both 1..9). Dots in a pattern are distinct. If a segment between two consecutive dots passes through the center of another dot, that midpoint must already be in the pattern. `m = n = 1` → 9. `m = 1`, `n = 2` → 65.
+3×3 lock grid, dots numbered 1..9. Count unique valid patterns whose length is at least `m` and at most `n` (both 1..9). Dots in a pattern are distinct. If a segment between two consecutive dots passes through the center of another dot, that midpoint must already be in the pattern. `m = n = 1` → 9. `m = 1`, `n = 2` → 65. _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## Midpoint table, then DFS; fold by symmetry
 

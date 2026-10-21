@@ -1,7 +1,5 @@
 Longest consecutive **value** run in an unsorted array, in O(n). Empty → `0`. Duplicates collapse. Values can sit anywhere in the index order.
 
-`[100,4,200,1,3,2]` → `4` (`1..4`). `[0,3,7,2,5,8,4,6,0,1]` → `9`. `[1,0,1,2]` → `3`.
-
 ## Only begin where the left neighbor is missing
 
 Sort then scan is O(n log n), too slow for the bound. Longest Increasing Subsequence is increasing, not consecutive. Maximum Subarray cares about index adjacency, not `1,2,3,4` sitting at scattered indices. Word Ladder is a string graph. You cannot allocate a parent array over 1e9 values.

@@ -1,5 +1,3 @@
-`m` by `n` board of `'X'` (ship) and `'.'` (empty), each side 1 to 200. Ships are a straight 1-by-k row or k-by-1 column. Two ships never share an edge. Return how many ships. The pictured board is 2. `[["."]]` → 0.
-
 ## Count heads, not cells
 
 Every ship has exactly one top-left `'X'`: no `'X'` immediately above, and no `'X'` immediately to the left. Walk every cell once; increment when you see that head. Skip `'.'`. Skip an `'X'` that continues a ship from above or from the left.

@@ -1,7 +1,3 @@
-Reverse only the sublist from 1-indexed `left` to `right`. n ≤ 500.
-
-`[1,2,3,4,5]`, left = 2, right = 4 → `[1,4,3,2,5]`. `[5]`, left = 1, right = 1 → `[5]`.
-
 ## One segment, then relink
 
 A full reverse would put 5 first. Reverse Nodes in k-Group flips disjoint windows. Rotate List moves the tail to the front. Swap Nodes in Pairs flips fixed pairs. Prefix and suffix stay put.

@@ -1,7 +1,3 @@
-`words` are all the same length `k`. A hit is a substring that is some permutation of those words glued together (duplicates in `words` matter). Return every start index in `s`. Order of indices does not matter.
-
-`"barfoothefoobarman"`, `["foo","bar"]` → `[0,9]`. `"wordgoodgoodgoodbestword"`, `["word","good","best","word"]` → `[]`.
-
 Checking every start with a fresh count is O(starts × n × k). Align windows to word length instead.
 
 ## k residue classes

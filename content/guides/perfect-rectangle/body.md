@@ -1,5 +1,3 @@
-Each rectangle is `[x, y, a, b]`: bottom-left `(x, y)`, top-right `(a, b)`, axis-aligned. Return true iff the pieces form an exact cover of one larger rectangle — no gaps, no overlaps. Up to `2e4` rectangles. The five-piece example is true; a gap is false; an overlap is false.
-
 ## Bounding area, then corner parity
 
 Add each rectangle’s area (width × height). Track `minX, minY, maxX, maxY`. If the total area is not the bounding-box area, there is a gap or an overlap (or both). Use a 64-bit accumulator: one rectangle can already overflow 32-bit ints.

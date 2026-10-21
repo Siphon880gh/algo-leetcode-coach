@@ -1,4 +1,4 @@
-True iff `s` and `t` differ by exactly one insert, delete, or replace. `ab` vs `acb` → true. Empty vs empty → false. Lengths up to 10⁴. Letters and digits.
+True iff `s` and `t` differ by exactly one insert, delete, or replace. `ab` vs `acb` → true. Empty vs empty → false. Lengths up to 10⁴. Letters and digits. _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## First mismatch, then the suffixes
 

@@ -1,4 +1,4 @@
-Array `wordsDict` and two **different** words that both appear. Return the smallest index gap between a `word1` and a `word2`. Length up to `3 × 10⁴`. `["practice","makes","perfect","coding","makes"]`, `"coding"` vs `"practice"` → 3; `"makes"` vs `"coding"` → 1.
+Array `wordsDict` and two **different** words that both appear. Return the smallest index gap between a `word1` and a `word2`. Length up to `3 × 10⁴`. `["practice","makes","perfect","coding","makes"]`, `"coding"` vs `"practice"` → 3; `"makes"` vs `"coding"` → 1. _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## Latest index of each, min gap
 

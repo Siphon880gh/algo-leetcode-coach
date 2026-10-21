@@ -1,7 +1,3 @@
-k sorted lists, merge into one sorted list by splicing nodes. k and total nodes are at most 10⁴. Empty `lists` or empty inner lists → `[]`.
-
-`[[1,4,5],[1,3,4],[2,6]]` → `[1,1,2,3,4,4,5,6]`.
-
 Naive merge-two-at-a-time from the left is O(k n) in the worst case. Need log k.
 
 ## Min-heap of heads

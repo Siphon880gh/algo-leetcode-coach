@@ -1,5 +1,3 @@
-Distinct positive integers `nums` (n up to 1000). Return any largest subset where for every pair, one divides the other. `[1,2,3]` → `[1,2]` or `[1,3]`. `[1,2,4,8]` → the whole array.
-
 ## Sort, then extend a divisible chain
 
 This is a subset, not a subsequence: order does not matter, so sort first. After sorting, a larger value can sit after a smaller one iff `larger mod smaller == 0`. Transitivity: if a divides b and b divides c, then a divides c, so a chain of such links is a valid subset.

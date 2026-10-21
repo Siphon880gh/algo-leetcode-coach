@@ -1,7 +1,3 @@
-After lowercasing and dropping non-alphanumeric characters, does `s` read the same both ways? Length up to 2e5; printable ASCII.
-
-`"A man, a plan, a canal: Panama"` → true. `"race a car"` → false. `" "` → true.
-
 ## Skip junk, then compare lowercase
 
 Palindrome Number reverses digits of an int. Reversing the raw string makes the Panama sample fail because of spaces, commas, and `A` vs `a`. Valid Palindrome II lets you delete one character. Max Path Sum is a tree. This is a boolean on one string with skips.

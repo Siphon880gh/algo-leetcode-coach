@@ -1,5 +1,3 @@
-`s` is a valid NestedInteger serialization (length up to about 5×10^4): digits, `-`, commas, and `[]`. Return a `NestedInteger` — either one integer or a list of NestedIntegers. `"324"` → integer 324. `"[123,[456,[789]]]"` → a list holding 123 and a nested list. Empty list is `"[]"`.
-
 ## Recurse on top-level slices, or a stack
 
 If `s` does not start with `[`, it is a (possibly negative) integer: `NestedInteger(int(s))`. `"[]"` is an empty NestedInteger list.

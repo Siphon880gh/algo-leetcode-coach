@@ -1,5 +1,3 @@
-Online median: `addNum(num)` then `findMedian()`. Odd count: middle value. Even count: mean of the two middles. At least one number before `findMedian`. Up to 5×10⁴ calls. Add 1, add 2 → 1.5. Add 3 → 2.0.
-
 ## Two heaps, not a full sort each query
 
 Sliding Window Median (480) is a window, not the whole stream. Kth Largest (215) asks one order statistic of a fixed array. Here the set grows.

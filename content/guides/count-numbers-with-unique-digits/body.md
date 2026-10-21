@@ -1,5 +1,3 @@
-Given `n` (0..8), count integers `x` with all distinct digits where `0 ≤ x < 10^n`. `n = 2` → 91 (0..99 except 11, 22, …, 99). `n = 0` → 1.
-
 ## Add permutations for each length
 
 Include 0 as the one 0-digit / `n = 0` answer. Length 1 contributes 10. For length `k` from 2 to `n`, the first digit has 9 choices (1..9), then 9, 8, … leftover digits: `9 × 9 × 8 × … × (11 − k)`. Sum those layers.

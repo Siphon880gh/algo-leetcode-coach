@@ -1,5 +1,3 @@
-Find every combination of **exactly** `k` distinct integers from `1` through `9` that sum to `n`. Each digit at most once. Any order. `2 ≤ k ≤ 9`, `1 ≤ n ≤ 60`. `k = 3`, `n = 7` → `[[1,2,4]]`. `k = 3`, `n = 9` → `[[1,2,6],[1,3,5],[2,3,4]]`. `k = 4`, `n = 1` → `[]` (smallest four-digit sum is 10).
-
 ## Take or skip the next digit; length must be k
 
 Combination Sum reuses the same index. Combination Sum II spends an index and skips equal values at one depth. Combinations is `C(n, k)` with no target. Here the pool is always `1 .. 9` and you must hit both the sum **and** the count.

@@ -1,5 +1,3 @@
-Same `next` job as 116, but the tree is **not** perfect: a parent can miss a child, leaves can sit on different depths. Set each `next` to the node on its right on the same level; last in a row → `None`. Empty → empty. Up to 6000 nodes.
-
 `[1,2,3,4,5,null,7]` serializes as `[1,#,2,3,#,4,5,7,#]` — so `5.next` is `7`, not a missing left of `3`.
 
 ## Same BFS row as 116

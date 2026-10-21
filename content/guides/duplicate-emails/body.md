@@ -1,5 +1,3 @@
-`Person` has `id` and `email` (lowercase, never `NULL`). Report emails that appear more than once. Any order. Sample: two `a@b.com` and one `c@d.com` → only `a@b.com`.
-
 ## Count per email, keep the repeats
 
 Employees vs Managers joined two **roles**. Here you collapse rows that share a value.

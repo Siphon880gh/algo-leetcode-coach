@@ -1,4 +1,4 @@
-Given `root`, group values by vertical column, each column top to bottom. Same row and column: left to right. Empty tree → `[]`. Sample `[3,9,20,null,null,15,7]` → `[[9],[3,15],[20],[7]]`. Sample `[3,9,8,4,0,1,7]` → `[[4],[9],[3,0,1],[8],[7]]` (0 and 1 share the root’s column under 3). Up to 100 nodes.
+Given `root`, group values by vertical column, each column top to bottom. Same row and column: left to right. Empty tree → `[]`. Sample `[3,9,20,null,null,15,7]` → `[[9],[3,15],[20],[7]]`. Sample `[3,9,8,4,0,1,7]` → `[[4],[9],[3,0,1],[8],[7]]` (0 and 1 share the root’s column under 3). Up to 100 nodes. _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## BFS already orders a column; 987 is a different sort
 

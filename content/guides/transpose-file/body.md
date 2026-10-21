@@ -1,5 +1,3 @@
-Transpose `file.txt`: every row has the same number of space-separated fields. Sample `name age` / `alice 21` / `ryan 30` becomes `name alice ryan` and `age 21 30`.
-
 ## One awk array, one string per column
 
 Valid Phone Numbers keeps or drops whole lines. Word Frequency counts tokens. Rotate Image is a matrix in memory. Here the file is the matrix and `awk` walks fields.

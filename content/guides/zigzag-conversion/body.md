@@ -1,5 +1,3 @@
-Write `s` down a column of `numRows`, then diagonally up, then down again. Read row by row. `"PAYPALISHIRING"` with 3 rows becomes `"PAHNAPLSIIGYIR"`. If `numRows` is 1, the string is already the answer.
-
 You do not need a full 2D grid of empty cells. Keep `numRows` lists (the rows) and a row index `i` that **bounces**.
 
 ## Simulation

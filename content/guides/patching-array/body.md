@@ -1,5 +1,3 @@
-Sorted positive array `nums` and integer `n`. Add as few extra numbers as possible so every integer in `[1, n]` is a subset sum of the patched array. `[1,3]`, `n = 6` → 1 (patch `2`). `[1,5,10]`, `n = 20` → 2. `[1,2,2]`, `n = 5` → 0. `n` can be `2³¹ − 1`.
-
 ## Covered prefix `[1, x−1]`; greedy patch is `x`
 
 Let `x` be the smallest positive integer you still cannot form. Then `[1, x−1]` is fully covered (empty when `x = 1`). To cover `x` you must add a value at most `x`. Adding exactly `x` is best: the new uncovered start becomes `2x`. Adding a smaller `x'` only reaches `x + x'`, which is worse than doubling.

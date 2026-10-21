@@ -1,7 +1,3 @@
-Capture every `O`-region that does **not** touch the border: flip those `O`s to `X`, in place. An `O` on the edge stays. Up to 200×200, cells are `X` or `O`.
-
-Sample: inner `O`s become `X`; the bottom-edge `O` remains. `[["X"]]` stays `[["X"]]`.
-
 ## Mark from the rim, then flip leftovers
 
 Flipping every `O` would capture the border too. Number of Islands counts components. Word Search hunts a string. Set Matrix Zeroes marks rows. Word Ladder is a letter-swap graph. You must edit the same board; do not return a copy.

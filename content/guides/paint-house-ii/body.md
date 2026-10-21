@@ -1,4 +1,4 @@
-A row of `n` houses, `k` colors (`2 ≤ k ≤ 20`). Neighbors cannot share a color. `costs` is `n × k`; `costs[i][j]` paints house `i` with color `j`. Return the min total. `[[1,5,3],[2,9,4]]` → 5 (color 0 then 2, or 2 then 0). `n ≤ 100`.
+A row of `n` houses, `k` colors (`2 ≤ k ≤ 20`). Neighbors cannot share a color. `costs` is `n × k`; `costs[i][j]` paints house `i` with color `j`. Return the min total. `[[1,5,3],[2,9,4]]` → 5 (color 0 then 2, or 2 then 0). `n ≤ 100`. _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## Rolling k totals; skip the same color
 

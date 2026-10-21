@@ -1,4 +1,4 @@
-Character array `s`. Reverse the **order of words** in place — no extra buffer of words. A word is a run of non-spaces. Words are separated by exactly one space; no leading or trailing space; at least one word. Length up to 1e5. `['t','h','e',' ','s','k','y',' ','i','s',' ','b','l','u','e']` → `blue is sky the` as chars. `['a']` stays.
+Character array `s`. Reverse the **order of words** in place — no extra buffer of words. A word is a run of non-spaces. Words are separated by exactly one space; no leading or trailing space; at least one word. Length up to 1e5. `['t','h','e',' ','s','k','y',' ','i','s',' ','b','l','u','e']` → `blue is sky the` as chars. `['a']` stays. _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## Two reverses, not split-and-join
 

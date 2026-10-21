@@ -1,7 +1,3 @@
-`intervals` is already sorted by start and pairwise non-overlapping. Insert `newInterval` and merge any ranges that share a point. n ≤ 10⁴.
-
-`[[1,3],[6,9]]` plus `[2,5]` → `[[1,5],[6,9]]`. `[[1,2],[3,5],[6,7],[8,10],[12,16]]` plus `[4,8]` → `[[1,2],[3,10],[12,16]]`. Empty list → just the new range.
-
 ## Append, then merge like 56
 
 A binary-search splice by start leaves overlaps: `[1,3]` and `[2,5]` would sit as two items. Merge Intervals on the original list alone drops `newInterval`.

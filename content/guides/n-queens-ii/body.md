@@ -1,7 +1,5 @@
 Return **how many** distinct n-queen boards exist. Do not return the boards. n ≤ 9.
 
-`n = 4` → 2. `n = 1` → 1.
-
 ## Count placements, skip the board
 
 Reuse N-Queens: `dfs(i)` places one queen in row `i`. Block `col[j]`, `diag[i+j]`, `anti[n-i+j]` (or `i-j+n`). Recurse, then unmark.

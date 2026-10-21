@@ -1,5 +1,3 @@
-Given `root`, return every root-to-leaf path as a string, any order. A leaf has no children. `[1,2,3,null,5]` → `["1->2->5","1->3"]`. `[1]` → `["1"]`. Nodes 1 to 100.
-
 ## Record only at leaves; pop the node on the way up
 
 Path Sum II (113) keeps paths whose **sum** hits a target. Binary Tree Level Order is BFS rows. Flatten rewires pointers. Here you want **every** root-to-leaf chain, formatted with `->` between values — not a sum, not an inorder dump.

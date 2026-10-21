@@ -1,4 +1,4 @@
-`n` points on the plane. True iff there is a line parallel to the y-axis that reflects the set onto itself. Repeated points are allowed. `[[1,1],[-1,1]]` → true (`x = 0`). `[[1,1],[-1,-1]]` → false (different y). Up to 10^4 points.
+`n` points on the plane. True iff there is a line parallel to the y-axis that reflects the set onto itself. Repeated points are allowed. `[[1,1],[-1,1]]` → true (`x = 0`). `[[1,1],[-1,-1]]` → false (different y). Up to 10^4 points. _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## Put points in a set; partner is `s − x`
 

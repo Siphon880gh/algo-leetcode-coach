@@ -1,5 +1,3 @@
-True if `t` is an anagram of `s` (same letters, same multiplicities, any order). Lowercase English. Length up to `5 × 10⁴`. `"anagram"` / `"nagaram"` → true. `"rat"` / `"car"` → false.
-
 ## Count 26, or sort both
 
 Group Anagrams (49) buckets many words. Ransom Note / Valid Palindrome are different predicates. Here you only compare two strings.

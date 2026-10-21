@@ -1,5 +1,3 @@
-`m` by `n` integer matrix. Return the length (cell count) of the longest path where each step is strictly larger than the last. Four directions only: up, down, left, right. No diagonal. No wrap. `[[9,9,4],[6,6,8],[2,1,1]]` → 4 (`1,2,6,9`). `[[3,4,5],[3,2,6],[2,2,1]]` → 4 (`3,4,5,6`). One cell → 1. Up to 200 by 200.
-
 ## Memo DFS; strict increase is a DAG
 
 Longest Increasing Subsequence (300) is a 1-D subsequence. Here the moves are grid edges. Equals do not extend. Naive DFS from every cell without a cache is exponential.

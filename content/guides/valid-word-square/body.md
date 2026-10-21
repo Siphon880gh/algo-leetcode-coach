@@ -1,4 +1,4 @@
-List `words` of 1 to 500 lowercase strings, each length 1 to 500. Return true if it is a word square: the k-th row and the k-th column read the same string. Rows need not all have the same length. `["abcd","bnrt","crmy","dtye"]` → true. `["abcd","bnrt","crm","dt"]` → true (jagged). `["ball","area","read","lady"]` → false because row 2 is `read` and column 2 is `lead`.
+List `words` of 1 to 500 lowercase strings, each length 1 to 500. Return true if it is a word square: the k-th row and the k-th column read the same string. Rows need not all have the same length. `["abcd","bnrt","crmy","dtye"]` → true. `["abcd","bnrt","crm","dt"]` → true (jagged). `["ball","area","read","lady"]` → false because row 2 is `read` and column 2 is `lead`. _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## Mirror cells; missing cell is false
 

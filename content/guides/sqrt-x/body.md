@@ -1,7 +1,5 @@
 Floor of the square root of a non-negative integer `x` (x up to 2³¹ − 1). Do not use a language `sqrt`, `pow`, or `** 0.5`.
 
-`4` → 2. `8` → 2 (2.828… rounded down).
-
 ## Binary search, compare with divide
 
 Search the largest integer `mid` with `mid × mid ≤ x` on `[0, x]`. Mid is biased up: `mid = (l + r + 1) >> 1`. If `mid > x // mid`, the square is too big — `r = mid - 1`. Else `l = mid`. When the loop ends, return `l`.

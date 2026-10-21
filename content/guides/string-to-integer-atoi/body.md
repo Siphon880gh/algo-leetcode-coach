@@ -5,8 +5,6 @@ Implement `myAtoi`: turn a string into a signed 32-bit int with a fixed scan, no
 3. Read digits until a non-digit or end of string. Leading zeros are just a `0` accumulator. No digits → `0`.
 4. If the value would leave `[-2³¹, 2³¹−1]`, **clamp** (unlike Reverse Integer, which returns 0).
 
-`"  -042"` → `-42`. `"1337c0d3"` → `1337`. `"0-1"` → `0` (the `-` after a digit stops conversion).
-
 ## Overflow while accumulating
 
 Keep `res` non-negative and apply `sign` at the end. Before `res = res * 10 + c`, if `res` is already past `⌊(2³¹−1)/10⌋`, or equal to it and `c > 7`, you cannot stay in range: return `2³¹−1` when `sign` is positive, else `-2³¹`.

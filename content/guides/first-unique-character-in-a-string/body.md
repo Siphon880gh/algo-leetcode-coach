@@ -1,5 +1,3 @@
-String `s` of lowercase letters, length 1..1e5. Return the index of the first character that appears exactly once. If every letter repeats, return `−1`. `leetcode` → 0 (`l`). `loveleetcode` → 2 (`v`). `aabb` → `−1`.
-
 ## Frequency array, then a left-to-right pass
 
 Count every character (`Counter` or 26 slots). Walk `s` from the left and return the first `i` with `cnt[s[i]] == 1`. If none, `−1`.

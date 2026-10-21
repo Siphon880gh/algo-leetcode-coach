@@ -1,5 +1,3 @@
-Non-negative `num` (0 through 2³¹ − 1). Return English words with spaces, no extra trailing space. `123` → `One Hundred Twenty Three`. `12345` → `Twelve Thousand Three Hundred Forty Five`. `1234567` → `One Million Two Hundred Thirty Four Thousand Five Hundred Sixty Seven`.
-
 ## Zero; then chunks of three digits
 
 Integer to Roman maps place values to symbols. Here the unit is a **three-digit group** plus a scale word: Billion, Million, Thousand, or nothing for the last group.

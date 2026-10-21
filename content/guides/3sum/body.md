@@ -1,7 +1,5 @@
 Return every distinct triplet `nums[i] + nums[j] + nums[k] == 0` with three different indices. Order of triplets does not matter. n can be 3000, so O(n³) is too slow.
 
-`[-1,0,1,2,-1,-4]` → `[[-1,-1,2],[-1,0,1]]`. `[0,1,1]` → `[]`. `[0,0,0]` → `[[0,0,0]]`.
-
 ## Sort, then two pointers
 
 Sort first so duplicates sit together and two-sum on a suffix is linear.

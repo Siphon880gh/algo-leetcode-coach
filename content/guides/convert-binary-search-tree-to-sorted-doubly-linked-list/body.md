@@ -1,4 +1,4 @@
-BST, 0 to 2000 unique-valued nodes. Convert in place to a sorted circular doubly linked list: `left` becomes prev, `right` becomes next. Return the smallest node. Empty tree → null. `[4,2,5,1,3]` → `1↔2↔3↔4↔5` with last linked back to first.
+BST, 0 to 2000 unique-valued nodes. Convert in place to a sorted circular doubly linked list: `left` becomes prev, `right` becomes next. Return the smallest node. Empty tree → null. `[4,2,5,1,3]` → `1↔2↔3↔4↔5` with last linked back to first. _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## Inorder stitch, then close the circle
 

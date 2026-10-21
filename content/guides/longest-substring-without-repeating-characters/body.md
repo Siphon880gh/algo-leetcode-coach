@@ -1,5 +1,3 @@
-Find the length of the longest **substring** (contiguous) with all unique characters. `"pwke"` is a subsequence of `"pwwkew"` and does not count; `"wke"` does.
-
 A nested scan of every `[i, j]` pair is O(n²) and too slow for n up to 10⁵.
 
 ## Sliding window

@@ -1,5 +1,3 @@
-`Employee` has `id` and `salary`. Write `getNthHighestSalary(N)`: the Nth highest **distinct** salary, or `NULL` if fewer than N unique salaries. n = 2 on 100, 200, 300 → 200. n = 2 on a single 100 → null. Same table, n = 1 → 300.
-
 ## Parameterize Second Highest Salary
 
 176 hardcoded “skip the max.” Here N is an argument. Unique salaries sorted descending; pick index N (1-based). Too few uniques → `NULL`.

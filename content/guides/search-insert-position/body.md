@@ -1,7 +1,5 @@
 `nums` is strictly increasing. If `target` is present, return its index. If not, return the index where you would insert it to keep the array sorted. Must be O(log n). n ≤ 10⁴.
 
-`[1,3,5,6]`: target `5` → 2. Target `2` → 1. Target `7` → 4.
-
 ## Lower bound
 
 This is exactly `lower_bound(target)`: the first index `i` with `nums[i] >= target` (or `n` if `target` is larger than every value).

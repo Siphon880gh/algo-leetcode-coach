@@ -1,4 +1,4 @@
-String `s`, integer `k`. Length of the longest substring that uses at most `k` distinct characters. `"eceba"`, `k = 2` → 3 (`"ece"`). `"aa"`, `k = 1` → 2. `k = 0` → 0. Length up to 5e4; `k` up to 50.
+String `s`, integer `k`. Length of the longest substring that uses at most `k` distinct characters. `"eceba"`, `k = 2` → 3 (`"ece"`). `"aa"`, `k = 1` → 2. `k = 0` → 0. Length up to 5e4; `k` up to 50. _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## Grow right; shrink while the map has more than k keys
 

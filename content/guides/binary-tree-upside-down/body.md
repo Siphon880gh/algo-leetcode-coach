@@ -1,4 +1,4 @@
-Turn a binary tree upside down and return the new root. Original left becomes the new root; original root becomes the new right; original right becomes the new left. `[1,2,3,4,5]` → `[4,5,2,null,null,3,1]`. Empty → empty. `[1]` → `[1]`. Every right has a left sibling and no children. At most 10 nodes.
+Turn a binary tree upside down and return the new root. Original left becomes the new root; original root becomes the new right; original right becomes the new left. `[1,2,3,4,5]` → `[4,5,2,null,null,3,1]`. Empty → empty. `[1]` → `[1]`. Every right has a left sibling and no children. At most 10 nodes. _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## Recurse the left spine; rewire on the way up
 

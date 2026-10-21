@@ -1,7 +1,3 @@
-Return whether the whole string is a valid number under this grammar. Length ≤ 20. Letters, digits, `+`, `-`, and `.` only.
-
-True: `"0"`, `"4."`, `"-.9"`, `"2e10"`, `"+6e-1"`. False: `"e"`, `"."`, `"1e"`, `"e3"`, `"99e2.5"`, `"1a"`.
-
 ## Grammar scan, not language float
 
 Optional leading `+` or `-` (a sign alone is false). Then a significand: at most one `.`, and **at least one digit**. That is why `"4."` and `"-.9"` pass but `"."` and `".e"` fail. Then an optional `e` or `E`, not first and not last: optional sign, then one or more digits. No second dot, no second exponent, no leftover letters.

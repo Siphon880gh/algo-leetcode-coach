@@ -1,5 +1,3 @@
-Return postorder values of a binary tree. `[1,null,2,3]` → `[3,2,1]`. Preorder of that tree is `[1,2,3]`. Inorder is `[1,3,2]`. Empty → `[]`. Up to 100 nodes.
-
 ## Both children first, this node last
 
 Visit-first is preorder `[1,2,3]`. Visit-between is inorder `[1,3,2]`. BFS is `1,2,3` on this skinny tree. Floyd is a list cycle trick. Unique BST I’s Catalan count counts trees; it does not list values.

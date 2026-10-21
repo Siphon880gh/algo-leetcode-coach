@@ -1,4 +1,4 @@
-Screen `rows` by `cols` (each up to 2e4) and a sentence of at most 100 lowercase words (each length 1 to 10). Count how many times the sentence can be written, in order, wrapping to the next line when a word would not fit. Words do not split; consecutive words on a line have exactly one space. `["hello","world"]`, 2 rows, 8 cols → 1. `["a","bcd","e"]`, 3×6 → 2. `["i","had","apple","pie"]`, 4×5 → 1.
+Screen `rows` by `cols` (each up to 2e4) and a sentence of at most 100 lowercase words (each length 1 to 10). Count how many times the sentence can be written, in order, wrapping to the next line when a word would not fit. Words do not split; consecutive words on a line have exactly one space. `["hello","world"]`, 2 rows, 8 cols → 1. `["a","bcd","e"]`, 3×6 → 2. `["i","had","apple","pie"]`, 4×5 → 1. _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## Join once; each row is a cursor jump of cols
 

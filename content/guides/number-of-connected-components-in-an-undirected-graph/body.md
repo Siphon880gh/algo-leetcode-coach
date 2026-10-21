@@ -1,4 +1,4 @@
-Integer `n` (nodes `0 .. n−1`) and undirected `edges` `[a, b]`. Return how many **connected components**. `n = 5`, `[[0,1],[1,2],[3,4]]` → 2. Same n with a path through all nodes → 1. Isolated vertices count as their own component. No self-loops or duplicate edges. `n` up to 2000.
+Integer `n` (nodes `0 .. n−1`) and undirected `edges` `[a, b]`. Return how many **connected components**. `n = 5`, `[[0,1],[1,2],[3,4]]` → 2. Same n with a path through all nodes → 1. Isolated vertices count as their own component. No self-loops or duplicate edges. `n` up to 2000. _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## Paint from each unvisited start; or merge and count leftovers
 

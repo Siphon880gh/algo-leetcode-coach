@@ -1,4 +1,4 @@
-Same shortest-gap question as 243, but the dict is built once and `shortest(word1, word2)` is called up to 5000 times. `word1 ≠ word2`, both present. Dict length up to `3 × 10⁴`. Sample: `"coding"` vs `"practice"` → 3, then `"makes"` vs `"coding"` → 1.
+Same shortest-gap question as 243, but the dict is built once and `shortest(word1, word2)` is called up to 5000 times. `word1 ≠ word2`, both present. Dict length up to `3 × 10⁴`. Sample: `"coding"` vs `"practice"` → 3, then `"makes"` vs `"coding"` → 1. _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## Map word → sorted indices, merge two lists
 

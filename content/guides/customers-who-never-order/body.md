@@ -1,5 +1,3 @@
-`Customers` has `id`, `name`. `Orders` has `id`, `customerId` (FK to Customers). Names of customers with **no** order row. Any order. Sample: Joe and Sam ordered; Henry and Max did not.
-
 ## Anti-join, not “customers minus something by hand”
 
 Duplicate Emails grouped a single table. Combine Two Tables left-joined to **fill** address. Here the left join is a filter: start from `Customers c LEFT JOIN Orders o ON c.id = o.customerId`, then `WHERE o.id IS NULL`. Unmatched customers have a NULL order primary key. Filter on `o.id`, not on `customerId` after an inner join — an inner join would drop the people you want.

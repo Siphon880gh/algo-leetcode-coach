@@ -1,4 +1,4 @@
-Numbers factor as products. `8 = 2 × 2 × 2 = 2 × 4`. Given `n`, return **all** combinations of factors, each factor in `[2, n − 1]`, any order of lists. `12` → `[[2,6],[3,4],[2,2,3]]`. `1` and primes (for example `37`) → `[]`. `1 ≤ n ≤ 10⁷`.
+Numbers factor as products. `8 = 2 × 2 × 2 = 2 × 4`. Given `n`, return **all** combinations of factors, each factor in `[2, n − 1]`, any order of lists. `12` → `[[2,6],[3,4],[2,2,3]]`. `1` and primes (for example `37`) → `[]`. `1 ≤ n ≤ 10⁷`. _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## Split remain; start the next factor at the last one
 

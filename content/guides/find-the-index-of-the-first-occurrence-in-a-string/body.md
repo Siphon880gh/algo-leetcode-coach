@@ -1,7 +1,5 @@
 Return the first index where `needle` occurs in `haystack`, or `-1`. Lengths 1..10⁴, lowercase only. Empty needle is not in these constraints (both lengths at least 1).
 
-`"sadbutsad"`, `"sad"` → 0 (also matches at 6). `"leetcode"`, `"leeto"` → `-1`.
-
 ## Window compare
 
 Let `n`, `m` be the lengths. For `i` from `0` to `n - m`, if `haystack[i : i+m] == needle`, return `i`. Then return `-1`.

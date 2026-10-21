@@ -1,5 +1,3 @@
-`m` by `n` grid of characters `'1'` (land) and `'0'` (water). An island is 4-connected land (up, down, left, right — not diagonal). Edges of the grid are water. Return how many islands. First sample is one blob. Second sample is three. Up to 300 by 300.
-
 ## Paint the component, then count plus one
 
 Right Side View walked a tree by depth. Surrounded Regions flood-fills from the **border**. Here you flood from every unvisited land cell.

@@ -1,7 +1,5 @@
 Intervals `[start, end)`, length 1 to 1e5. Starts and ends in −5e4 to 5e4, start strictly less than end. Return the fewest intervals to delete so the rest do not overlap. Two intervals that only share an endpoint (`[1,2]` and `[2,3]`) are non-overlapping.
 
-`[[1,2],[2,3],[3,4],[1,3]]` → 1 (drop `[1,3]`). Three copies of `[1,2]` → 2. Already touching `[1,2],[2,3]` → 0.
-
 ## Sort by finish; keep if it starts after (or at) last end
 
 Sort by right end. `pre` starts at −inf. Walk left-to-right: if `start >= pre`, keep it and set `pre = end`; else it overlaps a kept interval, so drop it. Count of drops is `n` minus the keep count (the doocs code starts `ans = n` and decrements on each keep).

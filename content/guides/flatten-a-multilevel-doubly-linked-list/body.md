@@ -1,5 +1,3 @@
-Doubly linked list, at most 1000 nodes. Each node has `prev`, `next`, and an optional `child` that starts another list (which may have children of its own). Flatten into one level: a child’s nodes go after `curr` and before `curr.next`. Every `child` must be null in the result. Empty → empty. Sample → `[1,2,3,7,8,11,12,9,10,4,5,6]`.
-
 ## Save next, dive into child, then resume
 
 DFS with a dummy predecessor. On `cur`: link `pre.next = cur` and `cur.prev = pre`. Save `t = cur.next`. Recurse `preorder(cur, cur.child)` to get the tail of the spliced child. Set `cur.child = None`. Then `preorder(that tail, t)` so the original next comes after the child. Unlink the dummy’s next from pointing backward at the dummy.

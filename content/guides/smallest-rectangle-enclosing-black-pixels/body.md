@@ -1,4 +1,4 @@
-`m` by `n` matrix of characters `'0'` / `'1'`. Black pixels form **one** 4-connected component. You are given one black cell `(x, y)` (`x` is the row). Return the **area** of the smallest axis-aligned rectangle that covers every `'1'`. Sample with a seed at `(0, 2)` → 6. `[["1"]]` → 1. Must run faster than a full `m` by `n` scan.
+`m` by `n` matrix of characters `'0'` / `'1'`. Black pixels form **one** 4-connected component. You are given one black cell `(x, y)` (`x` is the row). Return the **area** of the smallest axis-aligned rectangle that covers every `'1'`. Sample with a seed at `(0, 2)` → 6. `[["1"]]` → 1. Must run faster than a full `m` by `n` scan. _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## Search the four sides, do not flood the blob
 

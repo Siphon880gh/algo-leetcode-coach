@@ -1,7 +1,3 @@
-Partition a linked list so values < `x` come first, then values ≥ `x`. Keep each side’s original order. Up to 200 nodes.
-
-`[1,4,3,2,5,2]`, `x = 3` → `[1,2,2,4,3,5]`. `[2,1]`, `x = 2` → `[1,2]`.
-
 ## Two chains, then join
 
 A full sort would reorder 4, 3, 5 among themselves. Sort Colors mutates an array with three pointers. List II deletes duplicated values. Here you keep every node and stay stable.

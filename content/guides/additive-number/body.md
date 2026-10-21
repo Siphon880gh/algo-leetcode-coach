@@ -1,5 +1,3 @@
-Digit string `num`. True iff you can split it into **at least three** numbers where each after the first two is the sum of the previous two. No leading zeros (`1, 02, 3` is invalid; a lone `0` is fine). `"112358"` → true (`1,1,2,3,5,8`). `"199100199"` → true (`1,99,100,199`). Length 1 to 35.
-
 ## First two cuts, then the sum is forced
 
 Fibonacci Number (509) asks F(n). Split Array into Fibonacci Sequence (842) returns one list. Here you only need yes/no, but the same search: the first two lengths are free; after that the next number is determined.

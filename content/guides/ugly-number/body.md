@@ -1,5 +1,3 @@
-An **ugly number** is a positive integer whose prime factors are only 2, 3, and 5. Return whether `n` is ugly. Range includes negatives and 0. `6` → true (`2 × 3`). `1` → true (no prime factors). `14` → false (factor 7).
-
 ## Strip 2, 3, 5; leftover must be 1
 
 Power of Two keeps dividing by 2 (or checks one set bit). Count Primes sieves every integer up to `n`. Happy Number walks digit squares. Ugly Number II asks for the nth ugly value. Here you only test one integer.

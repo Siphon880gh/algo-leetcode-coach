@@ -1,5 +1,3 @@
-Given `head` and integer `val`, drop every node whose value equals `val` and return the new head. Up to 10⁴ nodes. `[1,2,6,3,4,5,6]`, `val = 6` → `[1,2,3,4,5]`. Empty list stays empty. `[7,7,7,7]`, `val = 7` → empty.
-
 ## Dummy predecessor; skip, do not step, when next matches
 
 Remove Nth from End used a dummy so deleting the real head is the same splice. Sorted list 83 skips a duplicate next and stays. Here the match is a **given** `val`, not “equal to current,” and a run of matches can sit at the front.

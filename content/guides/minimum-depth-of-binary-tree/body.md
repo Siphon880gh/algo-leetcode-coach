@@ -1,7 +1,3 @@
-Min depth is nodes on the shortest root-to-leaf path. A leaf has no children. Empty is allowed.
-
-`[3,9,20,null,null,15,7]` → `2`. Skewed `[2,null,3,null,4,null,5,null,6]` → `5`.
-
 ## Shortest path to a real leaf
 
 Max Depth is `1 + max` of both sides. Blind `1 + min(left, right)` would treat a missing child as a leaf — the skewed sample would return `1`, not `5`. Balanced Tree is a boolean. Level Order is nested lists.

@@ -1,5 +1,3 @@
-`t` is a shuffle of `s` plus one extra lowercase letter (`t.length == s.length + 1`, `s` may be empty). Return the added letter. `"abcd"` / `"abcde"` → `e`. `""` / `"y"` → `y`. Lengths up to 1000.
-
 ## Count, XOR, or sum of code points
 
 Count letters in `s`. Walk `t` and decrement; when a count goes negative, that character is extra. XOR of every character in `s` and `t` leaves the extra bit pattern. Sum of `ord` values: `chr(sum(t) − sum(s))`.

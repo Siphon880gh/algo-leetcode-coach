@@ -1,7 +1,5 @@
 `n × n` matrix. Rotate 90° clockwise **in place**. Do not allocate a second n × n grid. n ≤ 20.
 
-`[[1,2,3],[4,5,6],[7,8,9]]` → `[[7,4,1],[8,5,2],[9,6,3]]`.
-
 ## Reverse then transpose
 
 The cell `(i, j)` must land at `(j, n-1-i)`. Two reflections compose that map:

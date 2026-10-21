@@ -1,5 +1,3 @@
-Round-trip a binary tree through a string. Nodes 0..10⁴, values −1000..1000. `[1,2,3,null,null,4,5]` round-trips. Empty tree → empty string. Any format is legal; LeetCode’s level-order with `null` is one option.
-
 ## Queue the children, including holes
 
 Encode and Decode Strings (271) prefixes **list** lengths. Serialize BST (449) can skip nulls because BST order reconstructs shape. A general binary tree needs **sentinels**.

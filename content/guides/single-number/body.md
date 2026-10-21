@@ -1,7 +1,5 @@
 Every value appears twice except one. Return that single. Linear time and O(1) extra space.
 
-`[2,2,1]` → `1`. `[4,1,2,1,2]` → `4`. `[1]` → `1`.
-
 ## XOR everything; pairs vanish
 
 A hash set of leftovers is O(n) extra. Sort then scan is O(n log n). A frequency map is also extra O(n). Candy’s two slopes and Gray code’s `i XOR (i>>1)` are different problems. Single Number II is “appears three times,” not twice.

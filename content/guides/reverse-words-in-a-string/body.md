@@ -1,5 +1,3 @@
-Reverse the order of words in `s`. Collapse extra spaces; no leading or trailing space. `the sky is blue` → `blue is sky the`. A padded `hello world` → `world hello`. At least one word.
-
 ## Collect tokens, reverse the list
 
 Reversing every character would scramble letters inside each word. Length of Last Word only returns a length. RPN and Simplify Path are different stacks. The output uses exactly one space between words and none at the ends. `a good` then three spaces then `example` becomes `example good a`.

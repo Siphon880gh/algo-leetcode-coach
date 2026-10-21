@@ -1,7 +1,3 @@
-Fill every `.` on a 9×9 board so each row, column, and 3×3 box holds `1`–`9` once. The input is guaranteed to have exactly one solution. Write the answer in place.
-
-Valid Sudoku only **checks** filled cells. This problem **places** digits.
-
 ## DFS over empty cells
 
 Reuse the same three “already used” maps as Valid Sudoku: `row[i][d]`, `col[j][d]`, `box[k][d]` with `k = (i // 3) * 3 + (j // 3)`. Seed them from the given digits.

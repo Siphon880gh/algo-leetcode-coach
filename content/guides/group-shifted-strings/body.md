@@ -1,4 +1,4 @@
-Group strings that belong to the same wrap-around Caesar sequence: every letter steps the same number of places, `z` wraps to `a`. Order of groups does not matter. Lowercase only. Up to 200 strings, each length 1..50. `["abc","bcd","acef","xyz","az","ba","a","z"]` → groups `{abc,bcd,xyz}`, `{az,ba}`, `{a,z}`, `{acef}`.
+Group strings that belong to the same wrap-around Caesar sequence: every letter steps the same number of places, `z` wraps to `a`. Order of groups does not matter. Lowercase only. Up to 200 strings, each length 1..50. `["abc","bcd","acef","xyz","az","ba","a","z"]` → groups `{abc,bcd,xyz}`, `{az,ba}`, `{a,z}`, `{acef}`. _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## Normalize the first letter to a
 

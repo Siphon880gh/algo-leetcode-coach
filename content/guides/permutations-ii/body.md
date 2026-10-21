@@ -1,7 +1,3 @@
-`nums` may contain duplicates. Return each **unique** permutation once. n ≤ 8.
-
-`[1,1,2]` → `[[1,1,2],[1,2,1],[2,1,1]]`. Distinct `[1,2,3]` is the same six lists as Permutations.
-
 ## Skip an unused twin
 
 Same `dfs(i)` / `vis[j]` skeleton as Permutations: fill slot `i` with an unused index. After sorting, equal values sit next to each other.

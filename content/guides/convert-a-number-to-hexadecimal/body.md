@@ -1,5 +1,3 @@
-A 32-bit integer `num`. Return its lowercase hex string. Negatives use two’s complement (no minus sign). No leading zeros except the number 0 itself. You may not call a built-in that prints hex. `26` → `1a`. `-1` → `ffffffff`.
-
 ## Eight nibbles from high to low
 
 If `num` is 0, return `0`. Otherwise walk `i` from 7 down to 0. Each nibble is the 4 bits starting at bit `4i`: shift `num` right by `4i`, then mask with `0xF`. Map 0–15 through `0123456789abcdef`. Skip a nibble while the answer is still empty and the nibble is 0; after the first nonzero digit, keep every later nibble (including zeros).

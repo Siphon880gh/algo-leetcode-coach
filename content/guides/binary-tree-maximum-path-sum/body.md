@@ -1,7 +1,5 @@
 Max sum of any non-empty path of nodes (need not pass the root). Values can be negative. At least one node; up to 3e4.
 
-`[1,2,3]` → `6` (`2-1-3`). `[-10,9,20,null,null,15,7]` → `42` (`15-20-7`).
-
 ## Bend at a node, hand one side up
 
 Path Sum I/II start at the root and stop at a leaf. Here a path may bend through a node and skip the root entirely. Max Depth is height. Flatten 114 rewires a preorder spine. Triangle is a grid min. None of those pick a max-sum path that can turn.

@@ -1,4 +1,4 @@
-Design `TwoSum`: `add(number)` and `find(value)` on a stream. `find` is true iff some pair (distinct uses of the stream) sums to `value`. Sample: add 1, 3, 5; `find(4)` is true (1+3); `find(7)` is false. At most 10⁴ calls.
+Design `TwoSum`: `add(number)` and `find(value)` on a stream. `find` is true iff some pair (distinct uses of the stream) sums to `value`. Sample: add 1, 3, 5; `find(4)` is true (1+3); `find(7)` is false. At most 10⁴ calls. _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## Count map; find walks complements
 

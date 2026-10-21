@@ -1,4 +1,4 @@
-Return every palindromic permutation of `s`, no duplicates, any order. Empty list if none exist. Length at most 16, lowercase. `"aabb"` → `["abba","baab"]`. `"abc"` → `[]`.
+Return every palindromic permutation of `s`, no duplicates, any order. Empty list if none exist. Length at most 16, lowercase. `"aabb"` → `["abba","baab"]`. `"abc"` → `[]`. _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## Center from the odd letter; wrap pairs
 

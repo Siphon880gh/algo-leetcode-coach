@@ -1,4 +1,4 @@
-Sorted `nums`. Return `f(x) = a × x² + b × x + c` for every x, already in sorted order. `[-4,-2,2,4]` with `a=1, b=3, c=5` → `[3,9,15,33]`. Same nums with `a=-1` → `[-23,-5,1,7]`. Follow-up is linear time: do not map then sort.
+Sorted `nums`. Return `f(x) = a × x² + b × x + c` for every x, already in sorted order. `[-4,-2,2,4]` with `a=1, b=3, c=5` → `[3,9,15,33]`. Same nums with `a=-1` → `[-23,-5,1,7]`. Follow-up is linear time: do not map then sort. _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## Parabola ends vs vertex
 

@@ -1,5 +1,3 @@
-Each equation `Ai / Bi = values[i]` is a directed ratio. Queries ask for `Cj / Dj`. If either name never appeared, or they are not in the same connected component, return `−1`. Same known variable over itself is `1`. Example: `a/b = 2`, `b/c = 3` → `a/c = 6`, `b/a = 0.5`, `a/e = −1`, `a/a = 1`, `x/x = −1` (x never defined). At most 20 equations and 20 queries.
-
 ## Store x over its parent; multiply weights while you compress
 
 Treat each variable as a node. `w[x]` means the current value of `x / parent(x)`. On `find(x)`, recurse to the root first, then set parent to that root and multiply `w[x]` by the old parent’s weight so the product still equals `x / root`.

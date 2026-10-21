@@ -1,5 +1,3 @@
-Integer array `distance`. Start at `(0, 0)`. Move `distance[0]` north, then west, south, east, and so on (counter-clockwise). True iff the path ever crosses itself. `[2,1,1,2]` → true (meets at `(0, 1)`). `[1,2,3,4]` → false (growing spiral). `[1,1,1,2,1]` → true (back to the origin). Length up to 1e5; each step up to 1e5.
-
 ## Only three ways the current edge can hit the past
 
 You cannot stamp every lattice point: a single step can be 1e5 long. A CCW spiral only collides with a few recent edges. For `i` from 3 onward (`d = distance`):

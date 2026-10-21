@@ -1,7 +1,3 @@
-Bottom-up level order, left to right on each row. Up to 2000 nodes.
-
-`[3,9,20,null,null,15,7]` → `[[15,7],[9,20],[3]]`. Single node → `[[1]]`. Empty → `[]`.
-
 ## BFS, then reverse the rows
 
 Problem 102 would give `[[3],[9,20],[15,7]]` — root first. Zigzag shuffles left/right inside a row, not the row order. Inorder emits one list. Construct Tree allocates nodes.

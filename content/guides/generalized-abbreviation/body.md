@@ -1,4 +1,4 @@
-Lowercase `word`, length 1..15. Return every **generalized abbreviation**: replace any set of non-overlapping, **non-adjacent** substrings with their lengths. `"word"` has 16 strings including `"4"`, `"3d"`, `"2r1"`, `"word"`. `"a"` → `["1","a"]`. Adjacent replacements like `"23"` from `"abcde"` are illegal — they would merge into `"5"`.
+Lowercase `word`, length 1..15. Return every **generalized abbreviation**: replace any set of non-overlapping, **non-adjacent** substrings with their lengths. `"word"` has 16 strings including `"4"`, `"3d"`, `"2r1"`, `"word"`. `"a"` → `["1","a"]`. Adjacent replacements like `"23"` from `"abcde"` are illegal — they would merge into `"5"`. _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## One bit per character; flush the count on a keep
 

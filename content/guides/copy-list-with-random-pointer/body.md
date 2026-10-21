@@ -1,7 +1,3 @@
-Deep-copy a list where each node has `next` and `random` (`random` may be null). New nodes must not point at originals. Empty `head` → `None`.
-
-`[[7,null],[13,0],[11,4],[10,2],[1,0]]` clones the same shape.
-
 ## Map old to new, then wire random
 
 Copying only `next` and leaving `random` on the originals is a shallow copy — judges check node identity. Clone Graph walks an undirected neighbor list. XOR (Single Number) is unrelated. Setting `next` and `random` in one pass fails when `random` skips ahead: the target clone may not exist yet.

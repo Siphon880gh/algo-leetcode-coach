@@ -1,4 +1,4 @@
-Non-negative integer as a singly linked list, most significant digit at `head`. Plus one. Length 1..100, no leading zeros except `0` itself. `[1,2,3]` → `[1,2,4]`. `[0]` → `[1]`. All nines grow a new head (`[9,9]` → `[1,0,0]`).
+Non-negative integer as a singly linked list, most significant digit at `head`. Plus one. Length 1..100, no leading zeros except `0` itself. `[1,2,3]` → `[1,2,4]`. `[0]` → `[1]`. All nines grow a new head (`[9,9]` → `[1,0,0]`). _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## Last node that is not 9
 

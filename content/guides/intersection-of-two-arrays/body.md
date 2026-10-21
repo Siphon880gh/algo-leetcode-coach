@@ -1,5 +1,3 @@
-Two integer arrays `nums1` and `nums2` (length 1..1000, values 0..1000). Return their intersection: each value at most once, any order. `[1,2,2,1]` and `[2,2]` → `[2]`. `[4,9,5]` and `[9,4,9,8,4]` → `[9,4]` or `[4,9]`.
-
 ## Set of one array; emit-and-clear on the other
 
 Put every value of `nums1` in a set (or a bool array of size 1001). Scan `nums2`: if `x` is still in the set, append it to the answer and remove it so a second copy of `x` is not emitted again. That is O(n + m) time.

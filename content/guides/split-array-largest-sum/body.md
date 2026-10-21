@@ -1,5 +1,3 @@
-Array `nums` (length 1 to 1000, values 0 to 1e6) and integer `k` (1 to min(50, n)). Split `nums` into exactly `k` non-empty contiguous subarrays so the largest subarray sum is as small as possible. Return that minimized largest sum. `[7,2,5,10,8]`, `k = 2` → `18` (`[7,2,5]` and `[10,8]`). `[1,2,3,4,5]`, `k = 2` → `9`.
-
 ## Binary search the cap; greedy count of pieces
 
 A larger allowed piece-sum never needs more pieces, so search the cap. Low bound: `max(nums)` (one element cannot be split). High bound: `sum(nums)` (one piece). For `mid`, walk left to right and start a new piece whenever adding `x` would exceed `mid`. If the number of pieces is at most `k`, try a smaller cap; else raise the low bound.

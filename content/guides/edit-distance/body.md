@@ -1,7 +1,3 @@
-Minimum operations to turn `word1` into `word2`. Allowed ops: insert, delete, or replace one character. Lengths ≤ 500.
-
-`"horse"` → `"ros"` is 3. `"intention"` → `"execution"` is 5.
-
 ## Min of insert, delete, replace
 
 Let `f[i][j]` be the min cost to convert the first i letters of `word1` into the first j of `word2`. Borders: `f[i][0] = i` (i deletes) and `f[0][j] = j` (j inserts) — empty is not free.

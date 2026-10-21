@@ -1,5 +1,3 @@
-Binary tree `root`. Values you would see standing on the right, top to bottom. Empty → `[]`. `[1,2,3,null,5,null,4]` → `[1,3,4]`. `[1,2,3,4,null,null,null,5]` → `[1,3,4,5]` — 4 and 5 sit on the left but they are the only nodes at those depths. Up to 100 nodes.
-
 ## Rightmost per level, not “always go right”
 
 House Robber was 1D DP. Level Order collected every value on a row. Here you keep **one** value per depth: the rightmost.

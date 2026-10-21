@@ -1,5 +1,3 @@
-`num` is a digit string of length up to `10⁵` (no leading zeros except `0` itself). Delete exactly `k` digits (`1 ≤ k ≤ n`) so the remaining digits, in order, form the smallest integer. Return it as a string with no leading zeros, or `"0"` if nothing useful remains. `1432219` and `k = 3` → `1219` (drop 4, 3, 2). `10200` and `k = 1` → `200` (drop the leading 1). `10` and `k = 2` → `0`.
-
 ## Pop a larger top when a smaller digit arrives
 
 Build a stack that stays non-decreasing. For each digit `c`, while `k` is still positive and the top is greater than `c`, pop the top and spend one removal. Then push `c`. After the scan, leftover removals chop the tail (the number was already non-decreasing). Keep only the first `n − k` digits of the stack (Python slices to `remain = n − k` even if extra digits were pushed). Strip leading zeros.

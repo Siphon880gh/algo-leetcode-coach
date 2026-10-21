@@ -1,7 +1,5 @@
 `nums` was strictly increasing, then left-rotated at some unknown `k`. Values are unique. Return the index of `target`, or `-1`. Must be O(log n). n ≤ 5000.
 
-`[4,5,6,7,0,1,2]`, target `0` → 4. Same array, target `3` → `-1`. `[1]`, target `0` → `-1`.
-
 ## Sorted half first
 
 A normal binary search dies because the whole range is not monotone. After a rotation, **one** of the two halves `[lo, mid]` or `[mid, hi]` is still sorted. Decide which, then ask whether `target` lives in that sorted run.

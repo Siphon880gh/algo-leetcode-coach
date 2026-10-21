@@ -1,5 +1,3 @@
-Drop every `val` in place. Return `k`, the count of remaining values. The judge sorts `nums[0..k-1]` and ignores the rest. n ≤ 100.
-
 `[3,2,2,3]`, val = 3 → k = 2, prefix two `2`s. `[0,1,2,2,3,0,4,2]`, val = 2 → k = 5 (the non-2s in any order).
 
 ## Same write pointer as LC 26

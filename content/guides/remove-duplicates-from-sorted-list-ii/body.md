@@ -1,7 +1,3 @@
-Sorted linked list: delete every node whose value appears more than once. Up to 300 nodes.
-
-`[1,2,3,3,4,4,5]` → `[1,2,5]`. `[1,1,1,2,3]` → `[2,3]`.
-
 ## Drop every duplicated value
 
 Problem 83 keeps a single copy. Array II keeps two copies in a vector. Remove Nth Node from End uses a fixed gap. Here any duplicated number is removed entirely.

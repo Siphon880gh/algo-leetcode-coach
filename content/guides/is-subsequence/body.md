@@ -1,5 +1,3 @@
-Given `s` and `t` (lowercase), return true if `s` is a subsequence of `t`: keep relative order, deletions allowed. `"abc"` / `"ahbgdc"` → true. `"axc"` / `"ahbgdc"` → false. `"ace"` is a subsequence of `"abcde"`; `"aec"` is not (order broke). `s` length up to 100, `t` up to `1e4`. Empty `s` is true.
-
 ## Greedy two pointers
 
 Pointer `i` on `s`, `j` on `t`. Walk `t`. When `s[i] == t[j]`, advance `i`. Always advance `j`. If `i` reaches `len(s)` before `t` runs out (or exactly when both end), every letter of `s` found in order.

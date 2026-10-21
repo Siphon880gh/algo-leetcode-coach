@@ -1,7 +1,3 @@
-True iff some root-to-leaf path sums to `targetSum`. A leaf has no children. Up to 5000 nodes.
-
-`[5,4,8,11,null,13,4,7,2,null,null,null,1]`, `22` → true. `[1,2,3]`, `5` → false. Empty, `0` → false.
-
 ## A root-to-leaf total equals target
 
 Min Depth is a node count. Unique Paths counts grid routes. Path Sum II collects every matching path. Matching a non-leaf prefix can hit the target mid-path and still fail (or succeed later). Empty has no root-to-leaf path.

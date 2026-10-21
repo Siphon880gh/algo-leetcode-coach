@@ -1,5 +1,3 @@
-Start with `1..n` sorted. Delete every other value left to right, then right to left, and keep alternating until one number remains. `n = 9` → `6` (`1 2 3 4 5 6 7 8 9` → `2 4 6 8` → `2 6` → `6`). `n = 1` → `1`. `n` is up to `1e9`.
-
 ## Track the remaining head, not the list
 
 Building `arr` is impossible at `1e9`. After each pass the survivors form an arithmetic sequence: first value `head`, gap `step`, count `remaining`.

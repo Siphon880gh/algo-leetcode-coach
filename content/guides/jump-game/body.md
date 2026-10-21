@@ -1,7 +1,3 @@
-From index 0, `nums[i]` is the **maximum** hop you may take (any landing in `1 .. nums[i]`). Return whether you can reach the last index. n ≤ 10⁴.
-
-`[2,3,1,1,4]` → true (0 → 1 → 4). `[3,2,1,0,4]` → false (every path dies at the 0).
-
 ## Farthest index, not hop count
 
 Keep `mx`, the farthest index any earlier landing can still reach. Walk left to right. If `mx < i`, you never arrived at `i`, so later cells are also cut off — return false. Otherwise fold in this pad: `mx = max(mx, i + nums[i])`. If the scan finishes, return true.

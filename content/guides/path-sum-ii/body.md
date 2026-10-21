@@ -1,7 +1,3 @@
-Return every root-to-leaf path whose values sum to `targetSum`. Up to 5000 nodes.
-
-`[5,4,8,11,null,13,4,7,2,null,null,5,1]`, `22` → `[[5,4,11,2],[5,8,4,5]]`. `[1,2,3]`, `5` → `[]`.
-
 ## Collect every matching leaf path
 
 Path Sum I only asks whether one path exists. Unique Paths counts grid routes. Level Order is BFS rows. Flatten rewires pointers. Still only record at a leaf — a prefix that equals the target is not enough.

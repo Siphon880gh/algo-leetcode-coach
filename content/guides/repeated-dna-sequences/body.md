@@ -1,5 +1,3 @@
-DNA string `s` over `A`, `C`, `G`, `T`. Return every length-10 substring that appears more than once, any order. `"AAAAACCCCCAAAAACCCCCCAAAAAGGGTTT"` → `"AAAAACCCCC"` and `"CCCCCAAAAA"`. `"AAAAAAAAAAAAA"` (13 As) → `"AAAAAAAAAA"` once. Length 1 to 1e5. Shorter than 10 → empty list.
-
 ## Count the window, emit only the second time
 
 Reverse Words II reversed a char array. Here the unit is a **fixed 10-letter** slice.

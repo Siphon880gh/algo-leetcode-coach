@@ -1,7 +1,3 @@
-Build the tree from inorder and postorder. Values are unique. Length 1..3000.
-
-`inorder = [9,3,15,20,7]`, `postorder = [9,15,7,20,3]` → `[3,9,20,null,null,15,7]`. A single value `[-1]` is one node.
-
 ## Postorder last is root
 
 Problem 105 takes `preorder[0]` as the root. Postorder finishes at the root — `postorder[0]` here would pick 9, a left leaf, not 3. Reversing preorder is not postorder (left still comes before right). Unique BST II enumerates Catalan trees. Level Order lists rows.

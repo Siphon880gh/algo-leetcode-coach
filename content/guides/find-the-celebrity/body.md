@@ -1,4 +1,4 @@
-Party of `n` people `0 .. n−1`. At most one celebrity: everyone else knows them, they know nobody. You only call `knows(a, b)` (the `n × n` matrix is not yours). Return the label, or `−1`. Sample `[[1,1,0],[0,1,0],[1,1,1]]` → `1`. Cycle with no sink → `−1`. `2 ≤ n ≤ 100`. Follow-up: at most about `3 n` API calls.
+Party of `n` people `0 .. n−1`. At most one celebrity: everyone else knows them, they know nobody. You only call `knows(a, b)` (the `n × n` matrix is not yours). Return the label, or `−1`. Sample `[[1,1,0],[0,1,0],[1,1,1]]` → `1`. Cycle with no sink → `−1`. `2 ≤ n ≤ 100`. Follow-up: at most about `3 n` API calls. _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## One candidate, then a full check
 

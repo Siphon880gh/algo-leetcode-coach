@@ -1,7 +1,3 @@
-Integer quotient of `dividend / divisor`, truncated toward zero. You may not use `*`, `/`, or `%`. Only 32-bit signed ints: clamp anything above `2^31 - 1` to that max. Divisor is never 0.
-
-`10 / 3` → 3. `7 / -3` → -2.
-
 ## Overflow first
 
 `INT_MIN / -1` cannot be represented (it would be `2^31`). Return `2^31 - 1`. `divisor == 1` is just the dividend.

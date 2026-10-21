@@ -1,5 +1,3 @@
-`WordDictionary`: `addWord(word)` stores lowercase words; `search(word)` is true if some stored word matches, where `.` matches any letter. At most two dots per search. At most `10⁴` mixed calls. After `addWord("bad")`, `"dad"`, `"mad"`: `search("pad")` false, `"bad"` true, `".ad"` true, `"b.."` true.
-
 ## Same trie as Implement Trie; branch on `.`
 
 Implement Trie already walks 26 slots and sets `isEnd`. `addWord` is that same insert. The new work is `search`: a letter must take that child (missing child → false). A `.` tries **every non-null child** and succeeds if any suffix walk succeeds. After the last character, return that node’s `isEnd` — `".ad"` must be a full word, not a prefix of `"baddy"`.

@@ -1,7 +1,3 @@
-Sorted linked list: each value once. Up to 300 nodes.
-
-`[1,1,2]` → `[1,2]`. `[1,1,2,3,3]` → `[1,2,3]`.
-
 ## Keep one of each value
 
 List II drops both 3s. Array compact returns `k`. Here you keep a single 1, a single 2, a single 3. Adjacent equals are collapsed, not erased as a group.

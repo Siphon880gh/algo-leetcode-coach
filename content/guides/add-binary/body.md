@@ -1,7 +1,3 @@
-Add two binary strings and return a binary string. Lengths up to 10⁴. No leading zeros except `"0"`.
-
-`"11"` + `"1"` → `"100"`. `"1010"` + `"1011"` → `"10101"`.
-
 ## Carry from the last bit
 
 Two pointers at the last characters, plus a `carry`. While either index is still in range **or** `carry` is nonzero: add the two bits (0 if a pointer is past the start) into `carry`, append `carry % 2`, then set `carry` to `carry // 2`. Reverse the collected bits.

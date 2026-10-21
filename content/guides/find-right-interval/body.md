@@ -1,7 +1,3 @@
-Intervals `[start, end]`, length 1 to 2e4. Starts are unique. Coordinates −1e6 to 1e6, start at most end. For each i, find j whose `start` is the smallest value still `>= end_i`. `j` may equal `i` (a point interval can be its own right interval). If none, put `-1`.
-
-`[[1,2]]` → `[-1]`. `[[3,4],[2,3],[1,2]]` → `[-1,0,1]` (`[2,3]` maps to `[3,4]` at index 0; `[1,2]` maps to `[2,3]` at index 1). `[[1,4],[2,3],[3,4]]` → `[-1,2,-1]`.
-
 ## Sort starts; lower-bound each end
 
 Build `(start, original index)` and sort by start. For each interval in original order, binary-search the first pair whose start is at least that interval’s end (`bisect_left` on `(end, −inf)` so equal starts still match). Write that stored index, or `-1` if the insertion point is past the last pair.

@@ -1,7 +1,5 @@
 Every value appears three times except one that appears once. Return that one. Linear time, O(1) extra space.
 
-`[2,2,3,2]` → `3`. `[0,1,0,1,0,1,99]` → `99`.
-
 ## Bits of triples are multiples of 3
 
 XOR-ing the whole array like Single Number I fails: `x XOR x XOR x` is `x`, so triples do not cancel. A frequency map or a set of uniques is extra O(n). Gray code’s `i XOR (i>>1)` is a different sequence. Candy’s two slopes are neighbor ratings, not bits. `(3 × unique-sum − total) / 2` still needs a set.

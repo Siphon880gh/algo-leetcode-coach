@@ -1,4 +1,4 @@
-Same NestedInteger as 339: an integer or a list. Depth is how many lists wrap it (outer list is 1). Let `maxDepth` be the deepest integer. Weight is `maxDepth − depth + 1` (shallow integers weigh more). Return sum of value × weight. `[[1,1],2,[1,1]]` → 8. `[1,[4,[6]]]` → 17. No empty lists. Depth at most 50.
+Same NestedInteger as 339: an integer or a list. Depth is how many lists wrap it (outer list is 1). Let `maxDepth` be the deepest integer. Weight is `maxDepth − depth + 1` (shallow integers weigh more). Return sum of value × weight. `[[1,1],2,[1,1]]` → 8. `[1,[4,[6]]]` → 17. No empty lists. Depth at most 50. _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## One DFS: (maxDepth + 1) × s − ws
 

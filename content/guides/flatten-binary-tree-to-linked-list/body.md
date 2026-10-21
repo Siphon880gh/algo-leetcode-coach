@@ -1,7 +1,3 @@
-Flatten in place into a preorder “linked list”: `right` is next, `left` is always `None`. Void. Up to 2000 nodes.
-
-`[1,2,5,3,4,null,6]` → `[1,null,2,null,3,null,4,null,5,null,6]`. Empty stays empty. `[0]` stays `[0]`.
-
 ## Preorder spine on the right
 
 Path Sum II copies values. A new `ListNode` chain would not use `TreeNode.left` / `right`. Inorder is left-visit-right; the required order is root, then left, then right.

@@ -1,4 +1,4 @@
-Given `intervals[i] = [start, end]`, return the **minimum** number of rooms so every meeting gets a room. `[[0,30],[5,10],[15,20]]` → 2. `[[7,10],[2,4]]` → 1. n up to 10⁴, times up to 10⁶.
+Given `intervals[i] = [start, end]`, return the **minimum** number of rooms so every meeting gets a room. `[[0,30],[5,10],[15,20]]` → 2. `[[7,10],[2,4]]` → 1. n up to 10⁴, times up to 10⁶. _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## Peak concurrent, not a yes/no
 

@@ -1,5 +1,3 @@
-Array `citations[i]` is cites for paper i. Return the largest `h` such that at least `h` papers have **at least** `h` citations each. `[3,0,6,1,5]` → `3`. `[1,3,1]` → `1`. Length 1..5000, cites 0..1000.
-
 ## Sort descending, or count and scan down
 
 H-Index II (275) is the same definition on a **non-decreasing** array (binary search). Here the array is unsorted.

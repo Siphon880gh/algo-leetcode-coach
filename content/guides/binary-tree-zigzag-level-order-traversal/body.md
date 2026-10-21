@@ -1,7 +1,3 @@
-Zigzag level order — left to right, then right to left, then left to right. Up to 2000 nodes.
-
-`[3,9,20,null,null,15,7]` → `[[3],[20,9],[15,7]]`. Empty → `[]`. Single node → `[[1]]`.
-
 ## Reverse every other row
 
 Plain Level Order would emit `[9,20]` on the second row. Zigzag Conversion fills a string by bouncing a row index — not a tree queue. Inorder mixes depths.

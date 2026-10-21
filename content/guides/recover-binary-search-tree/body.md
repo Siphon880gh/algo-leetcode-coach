@@ -1,7 +1,5 @@
 Exactly two nodes in a BST had their values swapped. Recover it in place; do not change structure. Nodes 2..1000.
 
-`[1,3,null,null,2]` → swap 1 and 3. `[3,1,4,null,null,2]` → swap 3 and 2.
-
 ## Swap the two inorder inversions
 
 Validate BST only answers yes/no. Unique BST II builds every shape from `1..n`. Here the shape is already correct; two values sit in the wrong nodes. Do not allocate a new tree.

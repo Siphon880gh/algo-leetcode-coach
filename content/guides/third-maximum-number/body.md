@@ -1,5 +1,3 @@
-Integer array `nums`, length 1 to 1e4, values from −2^31 to 2^31−1. Return the third distinct maximum. If there are fewer than three unique values, return the maximum. `[3,2,1]` → 1. `[1,2]` → 2. `[2,2,3,1]` → 1 (the two 2s count once).
-
 ## Three slots; skip a value already stored
 
 Keep `m1 > m2 > m3`, starting at −inf (or a 64-bit sentinel below −2^31). For each `num`: if it already equals a slot, skip. If it is bigger than `m1`, shift `m3 ← m2`, `m2 ← m1`, `m1 ← num`. Else if bigger than `m2`, shift `m3 ← m2`, `m2 ← num`. Else if bigger than `m3`, set `m3`. At the end, if `m3` is still the sentinel, return `m1`; else return `m3`.

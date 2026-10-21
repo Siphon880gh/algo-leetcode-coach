@@ -1,5 +1,3 @@
-Delete the nth node from the **tail** and return the new head. `n` is always in range. `[1,2,3,4,5]`, n = 2 → `[1,2,3,5]`. Single node, n = 1 → `[]`.
-
 A two-pass count-then-index works; the follow-up is one pass.
 
 ## Dummy and a lead of n

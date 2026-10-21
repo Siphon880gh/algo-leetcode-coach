@@ -1,7 +1,3 @@
-Return all k-combinations from `[1, n]`. `[1,2]` and `[2,1]` are the same. n ≤ 20.
-
-`n = 4`, `k = 2` → `[[1,2],[1,3],[1,4],[2,3],[2,4],[3,4]]`.
-
 ## Choose or skip each integer
 
 A `used[]` permutation tree emits both orders. Combination Sum may reuse a candidate to hit a target. Combination Sum II skips duplicate values. Here there is no target — only k distinct picks, so the next index only moves forward.

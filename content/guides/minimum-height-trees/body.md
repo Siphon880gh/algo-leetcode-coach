@@ -1,5 +1,3 @@
-`n` nodes labeled `0` … `n−1`, plus `n−1` undirected edges that form a tree. Pick any node as root; height is the longest downward path in edges. Return **every** root that achieves the minimum height (any order). Sample `n = 4`, edges `[[1,0],[1,2],[1,3]]` → `[1]`. Sample `n = 6`, edges `[[3,0],[3,1],[3,2],[3,4],[5,4]]` → `[3,4]`. `n` up to 2×10⁴. `n = 1` → `[0]`.
-
 ## Last remaining layer is the center
 
 Height from a leaf is large; height from a middle node is small. The MHT roots are the tree’s **centroids**: always one node, or two adjacent nodes when the diameter is even. Computing height from every candidate is O(n²) and too slow.

@@ -1,5 +1,3 @@
-Return whether integer `x` reads the same forward and backward. Follow-up: **no string**.
-
 `-121` is not a palindrome (the minus sign only appears on the left). `10` reverses to `01`, which is not `10`.
 
 ## Reverse half the digits

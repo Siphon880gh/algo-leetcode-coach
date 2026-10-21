@@ -1,5 +1,3 @@
-Positive `n` up to `2³¹ − 1`. Even: replace with `n / 2`. Odd: replace with `n + 1` or `n − 1`. Return the fewest replacements to reach `1`. `8` → `3` (`8 → 4 → 2 → 1`). `7` → `4` (`7 → 8 → …` or `7 → 6 → 3 → 2 → 1`). `4` → `2`. `n = 1` is already done (`0` steps).
-
 ## Halve evens; on odds, bump when you sit on `11`
 
 Always shift right when the low bit is 0. When odd, look at the last two bits (`n AND 3`). If they are `11` and `n` is not `3`, add 1 (that run of ones becomes a carry you can shift off). Otherwise subtract 1. The `3` exception: `3 → 2 → 1` is two steps; `3 → 4 → 2 → 1` is three.

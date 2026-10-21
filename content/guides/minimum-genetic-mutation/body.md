@@ -1,5 +1,3 @@
-8-letter gene strings over `A`, `C`, `G`, `T`. One mutation flips exactly one character. Every intermediate (except possibly `startGene`) must appear in `bank`. Return the fewest mutations from `startGene` to `endGene`, or `-1`. Bank size is at most 10. Start is valid even if it is missing from the bank.
-
 `AACCGGTT` → `AACCGGTA` with bank `[AACCGGTA]` is 1. The second sample needs two hops: `AACCGGTT` → `AACCGGTA` → `AAACGGTA`.
 
 ## BFS on the bank

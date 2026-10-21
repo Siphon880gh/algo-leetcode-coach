@@ -1,5 +1,3 @@
-Integer array `data` (length up to `2e4`, each value `0..255`). Only the low 8 bits are the byte. Return true iff the bytes are a valid UTF-8 sequence of 1-to-4-byte characters.
-
 Patterns: `0xxxxxxx` (1 byte); `110xxxxx 10xxxxxx` (2); `1110xxxx` plus two `10xxxxxx`; `11110xxx` plus three `10xxxxxx`. `[197,130,1]` → true (`11000101 10000010 00000001`). `[235,140,4]` → false (a 3-byte lead, one good continuation, then `00000100` is not `10xxxxxx`).
 
 ## Remaining continuation count

@@ -1,7 +1,3 @@
-Rotated sorted `nums`, duplicates allowed. Return whether `target` is present. n ≤ 5000.
-
-`[2,5,6,0,0,1,2]`, 0 → true, 3 → false.
-
 ## Shrink when mid equals right
 
 Problem 33 has distinct values, so one half is always strictly sorted, and it returns an index. Here `nums[mid] == nums[r]` can hide which side wraps. This is not Search a 2D Matrix’s flatten (each row starts after the previous ends).

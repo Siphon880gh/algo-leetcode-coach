@@ -1,5 +1,3 @@
-`Employee` has `id`, `name`, `salary`, `managerId`. Return names of employees whose salary is strictly greater than their manager’s. Any order. Sample: Joe 70k reports to Sam 60k → Joe. Henry 80k reports to Max 90k → out. Sam and Max have `NULL` managerId → out.
-
 ## Same table twice: worker and boss
 
 Consecutive Numbers joined three copies on **adjacent ids**. Here the join key is a foreign key: `e1.managerId = e2.id`. Alias `e1` as the worker, `e2` as the manager. `WHERE e1.salary > e2.salary`. Project `e1.name AS Employee`.

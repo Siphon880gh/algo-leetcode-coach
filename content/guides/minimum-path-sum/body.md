@@ -1,7 +1,3 @@
-Non-negative `m × n` grid. Start at `(0, 0)`, finish at `(m-1, n-1)`, only down or right. Return the smallest sum of cells on a path. m, n ≤ 200.
-
-`[[1,3,1],[1,5,1],[4,2,1]]` → 7 (`1 → 3 → 1 → 1 → 1`). `[[1,2,3],[4,5,6]]` → 12.
-
 ## Min of up and left, plus the cell
 
 Let `f[i][j]` be the cheapest cost to that cell. Seed `f[0][0] = grid[0][0]`. First row and first column have one parent, so they are prefix sums. Interior: `min(f[i-1][j], f[i][j-1]) + grid[i][j]`. Answer `f[m-1][n-1]`.

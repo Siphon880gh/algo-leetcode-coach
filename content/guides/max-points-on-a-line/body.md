@@ -1,5 +1,3 @@
-Max number of unique points on one straight line. `[[1,1],[2,2],[3,3]]` → 3. Second sample → 4. `n` ≤ 300.
-
 ## GCD-reduced slope keys
 
 Float `dy/dx` as a hash key collides or misses from rounding. Sort List, LRU, and tree max path sum are different problems. Hashing raw `(dx, dy)` splits `(2,4)` and `(1,2)` into different buckets even though they are the same slope from origin `i`. Cross-product collinearity `(y2−y1) × (x3−x1) == (y3−y1) × (x2−x1)` also works in O(n³) and is fine at `n` = 300.

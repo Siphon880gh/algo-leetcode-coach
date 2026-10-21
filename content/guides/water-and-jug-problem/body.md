@@ -1,5 +1,3 @@
-Jugs hold `x` and `y` liters. Infinite tap. You may fill a jug, empty a jug, or pour from one into the other until the source is empty or the dest is full. True if some reachable state has `target` liters in one jug or in both combined. `x = 3, y = 5, target = 4` → true (Die Hard). `2, 6, 5` → false. `1, 2, 3` → true (fill both). Capacities and target up to 1000.
-
 ## Bézout: multiples of gcd, up to x + y
 
 Every pour changes the amounts by ±x or ±y, so every reachable total is a multiple of `gcd(x, y)`. You cannot hold more than `x + y`. So:

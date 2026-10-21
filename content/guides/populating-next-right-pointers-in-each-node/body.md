@@ -1,7 +1,3 @@
-Perfect binary tree: every parent has two children, all leaves on one level. Set each `next` to the node on its right on the same level; last in a row → `None`. Empty → empty.
-
-`[1,2,3,4,5,6,7]` serializes as `[1,#,2,3,#,4,5,6,7,#]`.
-
 ## Link each BFS level
 
 Flatten 114 makes a preorder list on `.right`. Level Order returns nested value lists. Distinct Subsequences counts string ways. Here you keep the tree and fill `.next` across siblings (and across `2 → 3`, `5 → 6`).

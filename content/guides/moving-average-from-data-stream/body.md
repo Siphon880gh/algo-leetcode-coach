@@ -1,4 +1,4 @@
-Stream of integers, window size `size` (1..1000). `MovingAverage(size)` then `next(val)` returns the mean of the last `min(count, size)` values as a float. At most 1e4 calls. Size 3: `1` → `1.0`; `10` → `5.5`; `3` → about `4.66667`; `5` → `6.0` (the first 1 has left).
+Stream of integers, window size `size` (1..1000). `MovingAverage(size)` then `next(val)` returns the mean of the last `min(count, size)` values as a float. At most 1e4 calls. Size 3: `1` → `1.0`; `10` → `5.5`; `3` → about `4.66667`; `5` → `6.0` (the first 1 has left). _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## Running sum; drop the outgoing slot
 

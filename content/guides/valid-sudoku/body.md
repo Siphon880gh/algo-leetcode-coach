@@ -1,7 +1,5 @@
 A 9×9 board of digits `1`–`9` and `.`. Return whether the **filled** cells already obey Sudoku: no repeat in any row, any column, or any of the nine 3×3 boxes. Do not solve the puzzle. A valid board may still be unsolvable.
 
-The classic false case is two `8`s in the same top-left box even when rows look fine.
-
 ## Seen in three places
 
 You only need one walk of the 81 cells. Keep three boolean grids (or three sets of `(group, digit)`):

@@ -1,7 +1,5 @@
 Compute `x` to the power `n` (integer `n`, including negative). Do not call the language `pow`. n can be −2³¹, so negate it in a wider integer.
 
-`2.0`¹⁰ → `1024`. `2.0`⁻² → `0.25`.
-
 ## Binary exponentiation
 
 `n` in binary is a sum of powers of two. `x^n` is the product of `x^(2^k)` for each set bit.

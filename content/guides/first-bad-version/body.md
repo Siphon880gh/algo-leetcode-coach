@@ -1,5 +1,3 @@
-You have versions `1 .. n`. There is a first bad version `bad`; every version after it is also bad. Call `isBadVersion(version)` as few times as possible. Return that first bad index. `n = 5`, `bad = 4` → `4`. `n = 1`, `bad = 1` → `1`. `n` up to `2³¹ − 1`.
-
 ## Lower bound on a monotone false…true array
 
 H-Index II searches a sorted citations array. Guess Number is a different API. Here `isBadVersion` is **monotone**: once it becomes true, it stays true. The answer is the leftmost true.

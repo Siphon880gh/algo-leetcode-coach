@@ -1,4 +1,4 @@
-`n` posts, `k` colors. Paint every post. You **may** use the same color on two neighbors, but **not** on three in a row. Return the number of paintings. `n = 3`, `k = 2` → `6` (all-red and all-green are illegal). `n = 1`, `k = 1` → `1`. `n = 7`, `k = 2` → `42`. Answer fits in 32-bit signed.
+`n` posts, `k` colors. Paint every post. You **may** use the same color on two neighbors, but **not** on three in a row. Return the number of paintings. `n = 3`, `k = 2` → `6` (all-red and all-green are illegal). `n = 1`, `k = 1` → `1`. `n = 7`, `k = 2` → `42`. Answer fits in 32-bit signed. _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## Two counts: last pair different vs last pair same
 

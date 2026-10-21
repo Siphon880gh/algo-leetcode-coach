@@ -1,5 +1,3 @@
-Print the 10th line of `file.txt`. Sample: a file whose tenth line is `Line 10` prints that line. If the file has fewer than 10 lines, print nothing.
-
 ## Address line 10; do not dump the rest
 
 Transpose File rebuilds every column. Valid Phone Numbers filters by a regex. Word Frequency counts tokens. Here you only need one numbered line.

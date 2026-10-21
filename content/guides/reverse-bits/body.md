@@ -1,5 +1,3 @@
-Reverse the 32 bits of a signed integer `n` and return that integer. `n` is even, from 0 through 2³¹ − 2. `43261596` → `964176192`. `2147483644` → `1073741822`.
-
 ## 32 peels: low bit of n into bit 31−i
 
 Single Number XOR-folds values; Gray code maps `i` to `i XOR (i >> 1)`; Number of 1 Bits will count set bits. None of those reverse bit order.

@@ -1,7 +1,3 @@
-Merge overlapping `[start, end]` ranges into a cover with no overlaps. n ≤ 10⁴. A shared endpoint counts as overlap.
-
-`[[1,3],[2,6],[8,10],[15,18]]` → `[[1,6],[8,10],[15,18]]`. `[[1,4],[4,5]]` → `[[1,5]]`. Input may be unsorted: `[[4,7],[1,4]]` → `[[1,7]]`.
-
 ## Sort, then extend the right end
 
 Sort by left endpoint first. Neighbors in the given list are not time-neighbors — without the sort, `[4,7]` and `[1,4]` never sit next to each other.

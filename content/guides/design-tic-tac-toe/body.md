@@ -1,4 +1,4 @@
-n×n board, `n` from 2 to 100. Two players (ids 1 and 2) alternate. `move(row, col, player)` is always a valid empty cell; cells are unique. Return `0` if nobody has won yet, else the winner’s id. A win is `n` of that player’s marks in one row, one column, or one of the two main diagonals. At most `n²` moves. Follow-up: better than scanning the whole board each move.
+n×n board, `n` from 2 to 100. Two players (ids 1 and 2) alternate. `move(row, col, player)` is always a valid empty cell; cells are unique. Return `0` if nobody has won yet, else the winner’s id. A win is `n` of that player’s marks in one row, one column, or one of the two main diagonals. At most `n²` moves. Follow-up: better than scanning the whole board each move. _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## Count the affected lines only
 

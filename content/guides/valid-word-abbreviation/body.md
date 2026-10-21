@@ -1,4 +1,4 @@
-`word` is lowercase (length 1 to 20). `abbr` is letters and digits (length 1 to 10). Return whether `abbr` is a valid abbreviation: replaced runs are non-empty, not adjacent, and numbers have no leading zeros. `internationalization` / `i12iz4n` → true. `apple` / `a2e` → false.
+`word` is lowercase (length 1 to 20). `abbr` is letters and digits (length 1 to 10). Return whether `abbr` is a valid abbreviation: replaced runs are non-empty, not adjacent, and numbers have no leading zeros. `internationalization` / `i12iz4n` → true. `apple` / `a2e` → false. _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## Two pointers plus a skip count
 

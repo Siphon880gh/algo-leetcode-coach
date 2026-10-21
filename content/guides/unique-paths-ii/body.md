@@ -1,7 +1,5 @@
 Same down-or-right count as Unique Paths, but `1` cells are obstacles you cannot enter. m, n ≤ 100.
 
-`[[0,0,0],[0,1,0],[0,0,0]]` → 2. `[[0,1],[0,0]]` → 1.
-
 ## A 1 is a wall, return 0
 
 `dfs(i, j)` is the number of paths from that cell to the finish:

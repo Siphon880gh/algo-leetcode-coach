@@ -1,5 +1,3 @@
-An ugly number is a positive integer whose prime factors are only 2, 3, and 5. Return the **nth** ugly number (`1 ≤ n ≤ 1690`). Sequence starts `1, 2, 3, 4, 5, 6, 8, 9, 10, 12`. `n = 10` → `12`. `n = 1` → `1`.
-
 ## Three pointers, min of three candidates
 
 Ugly Number (263) tests one integer by dividing out 2, 3, 5. Here you must **generate** the ordered sequence. Trial-dividing every integer until you have n uglies is too slow at 1690.

@@ -1,7 +1,3 @@
-One buy, then one later sell. Return the max profit, or `0` if prices only fall. `n` up to 1e5.
-
-`[7,1,5,3,6,4]` → `5` (buy `1`, sell `6`). `[7,6,4,3,1]` → `0`.
-
 ## Prefix min, then today minus that min
 
 Stock II lets you add every uphill (`1→5` and `3→6` would be `7`) — here you may complete only one transaction. Buying on day 0 at `7` and selling last at `4` loses money. Triangle and Unique Paths are grid DP. Nested `i < j` over every pair is O(n²) and `n` is 1e5.

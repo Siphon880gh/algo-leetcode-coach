@@ -1,7 +1,3 @@
-n children in a line. Each gets at least 1 candy. A strictly higher rating than a neighbor must get strictly more candies than that neighbor. Return the minimum total. `n` up to 5e4.
-
-`[1,0,2]` → `5` (`2,1,2`). `[1,2,2]` → `4` (`1,2,1`).
-
 ## Left slope, right slope, then max
 
 Giving `ratings[i]` candies overspends. Gas Station resets a tank. One left-to-right pass that only beats the left neighbor fails on a peak: on `[1,0,2]` the last child can be left with 1 while the left slope already used `2,1` — the right constraint is missing. Trapping Rain Water mins two height maxima. Equal ratings may share a candy count — `[1,2,2]` ends `1,2,1`, not a forced difference of 1.

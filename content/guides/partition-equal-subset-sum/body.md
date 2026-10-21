@@ -1,5 +1,3 @@
-Integer array `nums`, length 1 to 200, each value 1 to 100. Return true if you can split into two subsets with equal sums. `[1,5,11,5]` → true (`[1,5,5]` and `[11]`). `[1,2,3,5]` → false.
-
 ## Odd total is impossible; then subset-sum to s/2
 
 Let `s` be the total. If `s` is odd, return false. Otherwise the question is: can some subset sum to `m = s/2`? Each number is taken at most once. 2D: `f[i][j]` is whether the first `i` numbers can make sum `j`. Take or skip `x`: `f[i][j] = f[i-1][j] or (j >= x and f[i-1][j-x])`. 1D: boolean array of size `m+1`, start `f[0] = true`, walk `j` from `m` down to `x` so each `x` is used once. Answer is `f[m]`.

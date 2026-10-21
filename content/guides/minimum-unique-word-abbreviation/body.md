@@ -1,4 +1,4 @@
-`target` length `m` is 1 to 21. `dictionary` has up to 1000 other lowercase words. Return a shortest abbreviation of `target` that is not a valid abbreviation of any dictionary word (any shortest is fine). Abbreviation length = kept letters plus the count of replaced runs (`s10n` has length 3). Adjacent runs are illegal, same as 320. `apple` / `[blade]` → `a4`. `apple` / `[blade,plain,amber]` → `1p3` (or `2p2` / `3l1`).
+`target` length `m` is 1 to 21. `dictionary` has up to 1000 other lowercase words. Return a shortest abbreviation of `target` that is not a valid abbreviation of any dictionary word (any shortest is fine). Abbreviation length = kept letters plus the count of replaced runs (`s10n` has length 3). Adjacent runs are illegal, same as 320. `apple` / `[blade]` → `a4`. `apple` / `[blade,plain,amber]` → `1p3` (or `2p2` / `3l1`). _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## Diff masks, then every keep-mask
 

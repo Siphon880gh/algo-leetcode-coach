@@ -1,5 +1,3 @@
-Stream of non-negative integers. After each `addNum`, the set of values seen so far should be summarized as sorted disjoint closed intervals. `getIntervals` returns that list. Example: 1, then 3, then 7, then 2 (merges to `[1, 3]`), then 6 (touches 7) → `[[1, 3], [6, 7]]`. Values up to 10^4; about 3×10^4 mixed calls, but at most 100 `getIntervals`.
-
 ## Floor, ceiling, then one of four cases
 
 Keep an ordered map from interval start to `[start, end]`. For `val`, look at the interval with the greatest start ≤ `val` (floor) and the least start ≥ `val` (ceiling).

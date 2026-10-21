@@ -1,4 +1,4 @@
-You may only call `read4(buf4)`, which copies up to 4 file characters and returns how many. Implement `read(buf, n)`: write up to `n` characters into `buf`, return the count written. Called once per test. File `abc`, `n=4` → 3. `abcde`, `n=5` → 5. `buf` is large enough for `n`. File length 1 to 500; `n` up to 1000.
+You may only call `read4(buf4)`, which copies up to 4 file characters and returns how many. Implement `read(buf, n)`: write up to `n` characters into `buf`, return the count written. Called once per test. File `abc`, `n=4` → 3. `abcde`, `n=5` → 5. `buf` is large enough for `n`. File length 1 to 500; `n` up to 1000. _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## Copy from each 4-slot until n or a short read
 

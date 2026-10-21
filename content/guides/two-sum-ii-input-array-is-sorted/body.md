@@ -1,5 +1,3 @@
-`numbers` is sorted, 1-indexed. Return the two indices (already +1) that sum to `target`. Exactly one pair. Constant extra space. `[2,7,11,15]`, target 9 → `[1,2]`. `[2,3,4]`, target 6 → `[1,3]`. `[-1,0]`, target −1 → `[1,2]`. Length up to 3×10⁴.
-
 ## Close in from both ends; return 1-based indices
 
 Two Sum I’s complement map is O(n) extra memory; this problem forbids that. 3Sum looks for three numbers. Fraction-to-decimal remainders are a different hash. The judge wants 1-based positions: `[1,2]`, not `[0,1]`.

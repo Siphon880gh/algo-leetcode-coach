@@ -1,5 +1,3 @@
-A wiggle sequence has successive differences that strictly alternate positive and negative (first step either way). One element is a wiggle; two unequal elements are a wiggle. A zero difference is not. Return the length of the longest wiggle subsequence (keep order, skip allowed). `[1,7,4,9,2,5]` → `6`. `[1,17,5,10,13,15,10,5,16,8]` → `7`. Strictly increasing `[1,2, …, 9]` → `2`. Length up to 1000.
-
 ## Up ending vs down ending
 
 Let `f[i]` be the longest wiggle that ends at `i` with an up (`nums[j] < nums[i]`). Let `g[i]` end at `i` with a down. Start both at 1. For each `i`, scan earlier `j`: if `nums[j] < nums[i]`, `f[i] = max(f[i], g[j] + 1)` (you need a down before this up). If `nums[j] > nums[i]`, extend `g[i]` from `f[j]`. Equals do not extend either side. Answer is the max of all `f` and `g`. Time O(n²) is fine at n = 1000.

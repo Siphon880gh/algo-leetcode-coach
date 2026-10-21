@@ -1,4 +1,4 @@
-N-ary tree, 0 to 1e4 nodes, height at most 1000. Encode it as a binary tree and decode back to the original. The codec must be stateless. Empty → empty.
+N-ary tree, 0 to 1e4 nodes, height at most 1000. Encode it as a binary tree and decode back to the original. The codec must be stateless. Empty → empty. _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## Left is first child, right is next sibling
 

@@ -1,4 +1,4 @@
-Design `Vector2D`: `next()` and `hasNext()` over a 2D list `vec` in row-major order. `next` is only called when `hasNext` is true. `[[1,2],[3],[4]]` yields 1, 2, 3, then `hasNext` true, true, 4, then false. Up to 200 rows, 500 cols, 10⁵ calls.
+Design `Vector2D`: `next()` and `hasNext()` over a 2D list `vec` in row-major order. `next` is only called when `hasNext` is true. `[[1,2],[3],[4]]` yields 1, 2, 3, then `hasNext` true, true, 4, then false. Up to 200 rows, 500 cols, 10⁵ calls. _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## Two indices; skip empty inner lists
 

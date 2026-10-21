@@ -1,5 +1,3 @@
-Return true if any value in `nums` appears at least twice, else false (all distinct). `n ≤ 10⁵`. `[1,2,3,1]` → true. `[1,2,3,4]` → false. `[1,1,1,3,3,4,3,2,4,2]` → true.
-
 ## Seen set; sort is the extra-space trade
 
 Two Sum stored values to find a complement. Duplicate Emails / Delete Duplicate Emails are SQL. Contains Duplicate II asks whether a duplicate sits inside a window of size `k`. Here any second copy anywhere is enough.

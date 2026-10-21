@@ -1,7 +1,3 @@
-An empty `m × n` grid. Start at `(0, 0)`, finish at `(m-1, n-1)`, only down or right. Return the number of routes. m, n ≤ 100.
-
-`3 × 7` → 28. `3 × 2` → 3 (right-down-down, down-down-right, down-right-down).
-
 ## Add from above and left
 
 Let `f[i][j]` be the number of paths to that cell. Seed `f[0][0] = 1`. Then `f[i][j]` is `f[i-1][j]` when `i > 0`, plus `f[i][j-1]` when `j > 0`. A path last stepped from exactly one neighbor, so the two incoming sets are disjoint — add, do not multiply.

@@ -1,5 +1,3 @@
-Number of **words** in the shortest `beginWord → endWord` ladder (one letter per step, words from the list). If `endWord` is missing or unreachable, return `0`.
-
 `hit → cog` with `[hot,dot,dog,lot,log,cog]` → `5` (`hit-hot-dot-dog-cog`). Not `4` letter-changes.
 
 ## BFS layers, return the word count

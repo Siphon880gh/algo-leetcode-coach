@@ -1,7 +1,3 @@
-Is the tree height-balanced — every node’s two subtree heights differ by at most 1? Up to 5000 nodes.
-
-`[3,9,20,null,null,15,7]` → true. `[1,2,2,3,3,null,null,4,4]` → false. Empty → true.
-
 ## Height or -1 if a tilt
 
 Max Depth returns a number. Convert Sorted Array builds a tree. Validate BST checks order. Unique BST I counts trees. Balance is about heights, not values.

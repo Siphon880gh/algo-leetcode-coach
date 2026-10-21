@@ -1,5 +1,3 @@
-`stones` is a strictly increasing list of positions, `stones[0] = 0`, length 2 to 2000, values up to `2³¹ − 1`. The frog starts on the first stone. The first jump must be exactly 1 unit. After a jump of `k`, the next jump is `k − 1`, `k`, or `k + 1` units, always forward, and must land on a stone. Return whether the last stone is reachable. `[0,1,3,5,6,8,12,17]` is true (jumps 1, 2, 2, 3, 4, 5). `[0,1,2,3,4,8,9,11]` is false: after the early 1-unit steps the gap 4 → 8 is too wide.
-
 ## State is (stone index, last jump)
 
 Map each position to its index. `dfs(i, k)` is true if you can finish from stone `i` after arriving with jump `k`. If `i` is the last index, true. Else try `j` in `k−1, k, k+1` with `j > 0`; if `stones[i] + j` is a stone, recurse to that index with last jump `j`. Memoize `(i, k)`.

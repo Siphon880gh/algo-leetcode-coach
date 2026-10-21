@@ -1,5 +1,3 @@
-String `s` (lowercase, length up to `1e4`) and integer `k` (up to `1e5`). Return the length of the longest substring in which every character appears at least `k` times, or `0` if none. `"aaabb"`, `k = 3` → `3` (`"aaa"`). `"ababbc"`, `k = 2` → `5` (`"ababb"`). If `k` is larger than `len(s)`, the answer is `0`. If `k = 1`, the whole string works.
-
 ## Rare letters are walls
 
 Count letters on the current closed range `[l, r]`. If every letter that appears has count at least `k`, the whole range is valid — return `r − l + 1`. Otherwise pick one letter whose count is positive but below `k`. It cannot sit in any valid substring of this range, so split the range on every run of that letter and recurse on the leftover pieces. Take the max.

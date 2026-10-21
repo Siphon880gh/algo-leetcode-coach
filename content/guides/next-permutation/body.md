@@ -1,7 +1,5 @@
 Rearrange `nums` in place to the next lexicographic permutation. If it is already the last (strictly non-increasing), wrap to the first: ascending order. O(1) extra memory. n ≤ 100.
 
-`[1,2,3]` → `[1,3,2]`. `[2,3,1]` → `[3,1,2]`. `[3,2,1]` → `[1,2,3]`. `[1,1,5]` → `[1,5,1]`.
-
 ## Pivot, successor, reverse
 
 Walk from the right. Let `i` be the last index with `nums[i] < nums[i+1]` (the pivot). If none, the whole array is descending: reverse it and stop.

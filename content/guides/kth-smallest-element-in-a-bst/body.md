@@ -1,5 +1,3 @@
-Given a BST `root` and 1-indexed `k`, return the k-th smallest node value. `[3,1,4,null,2]`, `k = 1` → `1`. `[5,3,6,2,4,null,null,1]`, `k = 3` → `3`. `1 ≤ k ≤ n ≤ 10⁴`.
-
 ## Inorder is already sorted; halt at k
 
 Inorder traversal (94) lists every value. Validate BST (98) checks that list strictly increases. Kth Largest in an Array (215) heaps an unordered array — here the tree order is the sort. Flattening all n values then picking index `k − 1` is correct but wastes work when k is small.

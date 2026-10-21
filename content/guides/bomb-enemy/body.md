@@ -1,4 +1,4 @@
-`m` by `n` grid: `W` wall, `E` enemy, `0` empty. Place one bomb on a `0`. The blast follows the row and column until a wall. Return the most enemies one bomb can kill. First example → 3. Second (`WWW` / `000` / `EEE`) → 1. `m, n` up to 500. No empty cell → 0.
+`m` by `n` grid: `W` wall, `E` enemy, `0` empty. Place one bomb on a `0`. The blast follows the row and column until a wall. Return the most enemies one bomb can kill. First example → 3. Second (`WWW` / `000` / `EEE`) → 1. `m, n` up to 500. No empty cell → 0. _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## Running enemy counts, reset at W
 

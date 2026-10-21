@@ -1,5 +1,3 @@
-Unique strings `words`. Return every `(i, j)` with `i ≠ j` such that `words[i]` concatenated with `words[j]` is a palindrome. `["abcd","dcba","lls","s","sssll"]` → `[[0,1],[1,0],[3,2],[2,4]]`. `["bat","tab","cat"]` → `[[0,1],[1,0]]`. `["a",""]` → `[[0,1],[1,0]]` (the empty word pairs with a palindrome). Up to 5000 words, each length at most 300.
-
 ## Hash the word; only the leftover must be a palindrome
 
 Checking every ordered pair is too slow (n² concatenations). Map each string to its index (words are unique). For each `w` at index `i`, try every cut `j` so `a = w[:j]` and `b = w[j:]`:

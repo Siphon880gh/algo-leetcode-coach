@@ -1,4 +1,4 @@
-A row of `n` houses. Each house is red, blue, or green; neighbors cannot share a color. `costs[i][0/1/2]` is the price of that color on house `i`. Return the min total. `[[17,2,17],[16,16,5],[14,3,19]]` → 10 (blue, green, blue: 2 + 5 + 3). One house → that house’s cheapest color. `n ≤ 100`.
+A row of `n` houses. Each house is red, blue, or green; neighbors cannot share a color. `costs[i][0/1/2]` is the price of that color on house `i`. Return the min total. `[[17,2,17],[16,16,5],[14,3,19]]` → 10 (blue, green, blue: 2 + 5 + 3). One house → that house’s cheapest color. `n ≤ 100`. _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## Three states, not House Robber’s skip/take
 

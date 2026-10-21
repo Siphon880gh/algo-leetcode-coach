@@ -1,4 +1,4 @@
-Reorder `nums` **in place** so `nums[0] ≤ nums[1] ≥ nums[2] ≤ nums[3] …`. A valid answer is guaranteed. `[3,5,2,1,6,4]` → `[3,5,1,6,2,4]` (other waves are fine). `[6,6,5,6,3,8]` can stay. Length up to `5×10⁴`. Follow-up: O(n).
+Reorder `nums` **in place** so `nums[0] ≤ nums[1] ≥ nums[2] ≤ nums[3] …`. A valid answer is guaranteed. `[3,5,2,1,6,4]` → `[3,5,1,6,2,4]` (other waves are fine). `[6,6,5,6,3,8]` can stay. Length up to `5×10⁴`. Follow-up: O(n). _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## Adjacent swap on the broken edge
 

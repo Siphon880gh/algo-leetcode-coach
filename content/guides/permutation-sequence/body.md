@@ -1,7 +1,3 @@
-The set `1 .. n` has `n!` permutations in lex order. Return the k-th as a string (k is 1-based). n ≤ 9.
-
-`n = 3`, `k = 3` → `"213"`. `n = 4`, `k = 9` → `"2314"`. `n = 3`, `k = 1` → `"123"`.
-
 ## Pick by (n-i-1)! blocks
 
 Once the first digit is fixed, the rest form `(n-1)!` strings. For slot `i` (0-based), that block size is `fact = (n-i-1)!`. Walk unused digits `1 .. n` in order. If `k > fact`, this digit is not in the answer yet: subtract `fact` and try the next unused. Otherwise append it, mark `vis`, and move to the next slot.

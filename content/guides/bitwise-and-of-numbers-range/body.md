@@ -1,5 +1,3 @@
-Inclusive range `[left, right]`. Return the bitwise AND of every integer in that range. `0 ≤ left ≤ right ≤ 2³¹ − 1`. `5..7` → `4`. `0..0` → `0`. `1..2147483647` → `0`.
-
 ## Clear the lowest 1 of right until it no longer exceeds left
 
 Number of 1 Bits used `n AND (n − 1)` to drop one set bit per loop. Reverse Bits moved bits; Single Number XOR-folded pairs. Here you AND a whole interval — you cannot walk every integer when the span can be two billion.

@@ -1,7 +1,3 @@
-Return the shortest substring of `s` that covers every character of `t`, including duplicates. If none exists, return `""`. Lengths up to 10^5.
-
-`s = "ADOBECODEBANC"`, `t = "ABC"` → `"BANC"`. `s = "a"`, `t = "aa"` → `""`.
-
 ## Cover t, then shrink
 
 This is not Longest Substring Without Repeating Characters (a max unique window) and not Substring with Concatenation of All Words (fixed word hops). Extra unused letters are allowed; `t` may repeat letters.

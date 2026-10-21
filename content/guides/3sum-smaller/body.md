@@ -1,4 +1,4 @@
-Count index triples `i < j < k` with `nums[i] + nums[j] + nums[k] < target`. `[-2,0,1,3]`, target `2` → `2` (`[-2,0,1]` and `[-2,0,3]`). Empty or one element → `0`. `n ≤ 3500`. The answer fits in 10⁹.
+Count index triples `i < j < k` with `nums[i] + nums[j] + nums[k] < target`. `[-2,0,1,3]`, target `2` → `2` (`[-2,0,1]` and `[-2,0,3]`). Empty or one element → `0`. `n ≤ 3500`. The answer fits in 10⁹. _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## Count windows, do not skip duplicates like 3Sum
 

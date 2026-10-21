@@ -1,7 +1,3 @@
-Binary matrix of 0/1; largest rectangle of only 1s, return area. Rows and cols ≤ 200.
-
-Example grid → 6. `[["0"]]` → 0. `[["1"]]` → 1.
-
 ## Histogram per row
 
 Unique Paths counts routes. Search a 2D Matrix flattens a fully sorted grid. Set Matrix Zeroes writes 0s from original zeros. Largest Rectangle in Histogram is the 1D subroutine. Here you want a solid block of 1s sitting on each row as the floor.

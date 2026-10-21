@@ -1,5 +1,3 @@
-At most `k` buy-sell pairs; sell before you buy again. `k` from 1 to 100; `n` up to 1000. `k = 2`, `[2,4,1]` → 2. `k = 2`, `[3,2,6,5,0,3]` → 7 (2→6 then 0→3).
-
 ## k copies of the Stock III machine
 
 Stock I is one pair. Stock II has no cap (sum every up-day). Stock III is exactly this machine with `k = 2` and four rolling variables. Here `k` is an argument. Count a transaction when you **buy**. `f[j][0]` = best cash after `j` buys, not holding. `f[j][1]` = holding after `j` buys.

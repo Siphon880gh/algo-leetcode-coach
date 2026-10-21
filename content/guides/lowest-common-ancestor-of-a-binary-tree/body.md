@@ -1,5 +1,3 @@
-Binary tree `root`, nodes `p` and `q` (distinct, both present, unique values). Return their lowest common ancestor. A node is an ancestor of itself. `[3,5,1,6,2,0,8,…]`, `p=5`, `q=1` → `3`. Same tree, `p=5`, `q=4` → `5`. `[1,2]`, `p=1`, `q=2` → `1`. Up to `10⁵` nodes.
-
 ## Recurse both children; a split is the answer
 
 LCA of a BST (235) walks left or right by key order. Kth Largest Quickselects an array. This tree is not a BST, so you cannot compare `val` to choose a child.

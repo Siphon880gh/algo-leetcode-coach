@@ -1,7 +1,5 @@
 Vertical lines at `i` have height `height[i]`. Pick two indices so the rectangle with the x-axis holds the most water: area is `min(height[l], height[r]) * (r - l)`. You may not slant. n can be 10⁵, so O(n²) pairs are too slow.
 
-`[1,8,6,2,5,4,8,3,7]` → 49 (the 8 at index 1 and the 7 at the end: min 7 × width 7).
-
 ## Two pointers
 
 Start `l = 0`, `r = n - 1`. Record the area, then **move the shorter line** inward (if equal, either side). The width always shrinks by 1. The only way area can grow is a taller limiting wall.

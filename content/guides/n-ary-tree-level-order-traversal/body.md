@@ -1,5 +1,3 @@
-N-ary tree, 0 to 1e4 nodes, height at most 1000. Return values grouped by level, left to right. Empty root → `[]`. `[1,null,3,2,4,null,5,6]` → `[[1],[3,2,4],[5,6]]`.
-
 ## BFS one level at a time
 
 If root is null, return empty. Push the root. While the queue is nonempty, note `k =` current length. Pop `k` nodes: append each value to this level’s list, then `extend` with that node’s full `children` list (zero or more). Push the level list onto the answer.

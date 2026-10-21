@@ -1,5 +1,3 @@
-Singly linked list. You receive only the node to delete — **not** `head`. Values unique. `node` is in the list and **not** the tail. After the call, that value is gone, length drops by one, order of the other values stays. `[4,5,1,9]`, delete `5` → `[4,1,9]`. Same list, delete `1` → `[4,5,9]`. Length 2 to 1000.
-
 ## Overwrite this node with its successor
 
 Remove Linked List Elements (203) walks from a dummy `head` and skips matches. Reverse Linked List rewires the whole chain. Palindrome Linked List reverses the right half. Here you cannot find the previous pointer, so you cannot `prev.next = node.next`.

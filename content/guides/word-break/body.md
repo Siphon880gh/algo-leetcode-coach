@@ -1,7 +1,3 @@
-Return true if `s` can be split into one or more dictionary words. Reuse is allowed. `n` up to 300.
-
-`leetcode` with `[leet, code]` → true. `applepenapple` with `[apple, pen]` → true. `catsandog` with `[cats, dog, sand, and, cat]` → false.
-
 ## Prefix DP, not greedy longest
 
 This is a boolean, not Word Break II’s list of sentences. Word Ladder changes letters. Greedy longest match can eat `cat` then `sand` and get stuck even when another split might work. You may skip unused dict words. Decode Ways uses digit rules and a count of ways. Palindrome Partitioning lists palindrome cuts, not a boolean cover.

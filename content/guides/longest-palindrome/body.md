@@ -1,5 +1,3 @@
-String `s` of English letters, length 1 to 2000, mixed case. Return the length of the longest palindrome you can build by rearranging those letters. `A` and `a` are different. `abccccdd` → 7 (`dccaccd`). `a` → 1.
-
 ## Even counts in pairs; at most one odd in the middle
 
 Count each character (`Counter` or 128 slots). For every count `v`, add the largest even number that does not exceed `v` (pairs of that letter). If the running total is still less than `n`, at least one letter had an odd leftover — add 1 for the center.

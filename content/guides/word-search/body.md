@@ -1,7 +1,3 @@
-Does `word` exist as a path of up/down/left/right cells, no cell twice? m, n ≤ 6.
-
-`[["A","B","C","E"],["S","F","C","S"],["A","D","E","E"]]`, `"ABCCED"` → true, `"ABCB"` → false.
-
 ## DFS four ways, mark used
 
 Unique Paths counts empty-grid routes. Sudoku fills digits. Word Search II returns a list of words with a trie. Here you match one given string on a letter grid.

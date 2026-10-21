@@ -1,5 +1,3 @@
-Valid expression `s` of digits, `+`, `-`, `(`, `)`, spaces. No `eval`. Return the integer value. `n ≤ 3 × 10⁵`. `"1 + 1"` → 2. `" 2-1 + 2 "` → 3. `"(1+(4+5+2)-3)+(6+8)"` → 23. Unary `-` is allowed (`"-1"`, `"-(2+3)"`); unary `+` is not. Numbers and the running total fit in 32-bit signed ints.
-
 ## Sign times number; parentheses save the outer total
 
 Evaluate Reverse Polish Notation already has operators postfix. Basic Calculator II adds times and divide with no parens. Here only plus/minus and nested parens.

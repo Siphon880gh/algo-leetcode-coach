@@ -1,5 +1,3 @@
-`Employee` has `id` and `salary`. Return one column `SecondHighestSalary`: the second-highest **distinct** salary. If there is no such value (one unique salary, or empty), return `NULL` (`None` in Pandas). Example: 100, 200, 300 → 200. One row 100 → null. Two rows both 300 → null (no second distinct).
-
 ## Skip the max of the distinct set
 
 Combine Two Tables keeps every Person with a left join. Here you need rank among unique numbers, not among rows.

@@ -1,7 +1,3 @@
-Sorted singly linked list → height-balanced BST. Up to 2×10⁴ nodes. Empty head → empty tree.
-
-`[-10,-3,0,5,9]` accepts `[0,-3,9,-10,null,5]`.
-
 ## Array first, then mid
 
 Problem 108 indexes `nums[mid]` in O(1). A `ListNode` only has `.next`. Unique BST II enumerates Catalan trees. Level Order lists rows. Always using the list head as root makes a right spine, which is not height-balanced.

@@ -1,7 +1,3 @@
-Min path sum from the top of a triangle to the bottom. From index `j` you may step to `j` or `j+1` on the next row. Up to 200 rows; entries can be negative.
-
-`[[2],[3,4],[6,5,7],[4,1,8,3]]` → `11` (`2+3+5+1`). `[[-10]]` → `-10`.
-
 ## Bottom-up: cell plus min of the two below
 
 Minimum Path Sum 64 is a rectangle with only down and right. Unique Paths counts routes. Pascal I/II fill binomial rows, not a min. Greedy “always the smaller neighbor” can trap you: a cheap next step can sit above a costly bottom.

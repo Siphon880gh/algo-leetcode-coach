@@ -1,5 +1,3 @@
-`m` by `n` board of `0` (dead) and `1` (live). Update **in place** to the next generation. Eight neighbors (including diagonals). Live with fewer than 2 or more than 3 live neighbors dies; live with 2 or 3 lives on; dead with exactly 3 live neighbors becomes live. All cells use the **current** generation together. Sample `[[0,1,0],[0,0,1],[1,1,1],[0,0,0]]` → `[[0,0,0],[1,0,1],[0,1,1],[0,1,0]]`. Up to 25 by 25. Void return.
-
 ## 2 and −1 keep the old live bit readable
 
 Set Matrix Zeroes marks in a first pass so written zeros do not cascade. Number of Islands paints `'1'` to `'0'` because order does not matter. Here a write of `0` or `1` would change a later neighbor count.

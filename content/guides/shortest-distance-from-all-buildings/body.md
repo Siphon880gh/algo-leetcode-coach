@@ -1,4 +1,4 @@
-`m` by `n` grid, values `0` / `1` / `2`. Empty land is passable, buildings and obstacles are not. Place a house on a `0` that can 4-walk to **every** building, minimizing the sum of those path lengths. Impossible → `−1`. Sample `[[1,0,2,0,1],[0,0,0,0,0],[0,0,1,0,0]]` → 7 (cell `(1,2)`). `[[1,0]]` → 1. `[[1]]` → `−1`. `m`, `n` up to 50. At least one building.
+`m` by `n` grid, values `0` / `1` / `2`. Empty land is passable, buildings and obstacles are not. Place a house on a `0` that can 4-walk to **every** building, minimizing the sum of those path lengths. Impossible → `−1`. Sample `[[1,0,2,0,1],[0,0,0,0,0],[0,0,1,0,0]]` → 7 (cell `(1,2)`). `[[1,0]]` → 1. `[[1]]` → `−1`. `m`, `n` up to 50. At least one building. _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## Multi-source BFS from buildings, not the 296 median
 

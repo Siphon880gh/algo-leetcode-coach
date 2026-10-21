@@ -1,7 +1,5 @@
 Sort an array of only 0, 1, and 2 in place (red, white, blue). No library sort. Follow-up: one pass, O(1) extra.
 
-`[2,0,2,1,1,0]` → `[0,0,1,1,2,2]`. `[2,0,1]` → `[0,1,2]`.
-
 ## Three pointers, Dutch flag
 
 Count-then-rewrite is two passes. Bubble is extra comparisons. Use `i = -1` (right edge of the 0-block), `j = n` (left edge of the 2-block), and `k = 0` walking the unknown middle while `k < j`.

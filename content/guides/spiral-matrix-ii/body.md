@@ -1,7 +1,3 @@
-Build an `n × n` matrix filled with `1 .. n²` in clockwise spiral order. n ≤ 20.
-
-`n = 3` → `[[1,2,3],[8,9,4],[7,6,5]]`. `n = 1` → `[[1]]`.
-
 ## Fill 1 to n², turn on occupied
 
 Same heading as Spiral Matrix I: `dirs = (0, 1, 0, -1, 0)` for right, down, left, up. Start from zeros. For `v` from 1 to `n²`: write `v` at `(i, j)`, peek the next cell. If that peek is out of bounds or already nonzero, rotate `k = (k + 1) % 4`. Then step.

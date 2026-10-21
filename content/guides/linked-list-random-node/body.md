@@ -1,5 +1,3 @@
-Singly linked list of length 1..1e4. `getRandom()` returns a node value; every node equally likely. At most 1e4 calls. Example list `[1, 2, 3]`: each of 1, 2, 3 has probability 1/3. Follow-up: the list may be huge and the length unknown — no extra array of values.
-
 ## Reservoir of size 1
 
 Keep `ans` and a counter `k` starting at 0. Walk from `head`. For each node, increment `k` and with probability `1/k` set `ans = node.val`. Equivalently: draw `randint(1, k)` and replace when the draw equals `k`. After the tail, `ans` is uniform.

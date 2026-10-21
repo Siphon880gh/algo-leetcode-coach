@@ -1,4 +1,4 @@
-`SnakeGame(width, height, food)` then `move(U|D|L|R)` returning the score, or −1 if the snake hits a wall or its own body. Start at `(0, 0)` with length 1. Food appears in order: the next `food[i]` only after the previous is eaten. Eating grows length and score by 1. Example on a 3×2 board with food `(1,2)` then `(0,1)`: `R, D, R, U, L, U` → `0, 0, 1, 1, 2, −1`. Up to 10^4 moves; width and height up to 10^4.
+`SnakeGame(width, height, food)` then `move(U|D|L|R)` returning the score, or −1 if the snake hits a wall or its own body. Start at `(0, 0)` with length 1. Food appears in order: the next `food[i]` only after the previous is eaten. Eating grows length and score by 1. Example on a 3×2 board with food `(1,2)` then `(0,1)`: `R, D, R, U, L, U` → `0, 0, 1, 1, 2, −1`. Up to 10^4 moves; width and height up to 10^4. _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## Queue plus set; remove the tail before the bite check
 

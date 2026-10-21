@@ -1,7 +1,3 @@
-Power set of `nums` that may contain duplicates; unique subsets only. n ≤ 10.
-
-`[1,2,2]` → `[[],[1],[1,2],[1,2,2],[2],[2,2]]`. `[0]` → `[[],[0]]`.
-
 ## Sort, then skip twins
 
 Subsets assumed unique nums — two 2s would emit `[2]` twice. Combination Sum II skips twins but filters by a target. Permutations II lists orderings. Gray Code is a bit sequence. Combinations asks for one `k`.

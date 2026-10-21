@@ -1,4 +1,4 @@
-String `currentState` of `+` and `-`, length 1..500. A move flips two consecutive `++` into `--`. Return **every** string after exactly one valid move, any order. No move → `[]`. `"++++"` → `"--++"`, `"+--+"`, `"++--"`. `"+"` → `[]`.
+String `currentState` of `+` and `-`, length 1..500. A move flips two consecutive `++` into `--`. Return **every** string after exactly one valid move, any order. No move → `[]`. `"++++"` → `"--++"`, `"+--+"`, `"++--"`. `"+"` → `[]`. _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## One scan of adjacent pairs; Flip Game II is a different problem
 

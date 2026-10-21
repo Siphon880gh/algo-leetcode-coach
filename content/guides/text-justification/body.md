@@ -1,7 +1,5 @@
 Pack `words` into lines of exactly `maxWidth`. Greedy: as many words as fit. Each line is a string of that width. At least one word; no word is longer than `maxWidth`.
 
-`["This","is","an","example","of","text","justification."]`, width 16 → `"This    is    an"`, `"example  of text"`, `"justification.  "`.
-
 ## Last line left, others even gaps
 
 Take the next word, then keep adding `1 + next length` while that still fits. Then format:

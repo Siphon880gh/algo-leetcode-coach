@@ -1,7 +1,3 @@
-`candidates` may contain duplicates. Each **index** may be used at most once. Return unique combinations that sum to `target` (no duplicate multisets). `n ≤ 100`, `target ≤ 30`.
-
-`[10,1,2,7,6,1,5]`, target `8` → `[[1,1,6],[1,2,5],[1,7],[2,6]]`. `[2,5,2,1,2]`, target `5` → `[[1,2,2],[5]]`.
-
 ## Skip twins at this depth
 
 Combination Sum allowed `dfs(j, …)` so a value could be reused. Here call `dfs(j + 1, remain - candidates[j])` so that slot is spent.

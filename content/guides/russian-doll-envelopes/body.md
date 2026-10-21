@@ -1,5 +1,3 @@
-Each envelope is `[w, h]`. You may nest A inside B only if `w` and `h` are both strictly larger. You may not rotate. Return the longest nest chain. `[[5,4],[6,4],[6,7],[2,3]]` → 3 (`[2,3]` then `[5,4]` then `[6,7]`). Three copies of `[1,1]` → 1. Up to 1e5 envelopes.
-
 ## Width up, height down, then LIS
 
 Sort by increasing width. On equal width, put taller first. Then compute LIS on the height sequence with the usual patience-sort tails array: if `h` is larger than every tail, append; else replace the first tail that is ≥ `h`. The length of that array is the answer.

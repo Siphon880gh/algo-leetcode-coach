@@ -1,5 +1,3 @@
-Reverse the decimal digits of a signed 32-bit `x`. If the reverse would sit outside `[-2³¹, 2³¹ − 1]`, return `0`. The usual interview constraint: you may not stash the answer in a 64-bit integer and clamp afterward.
-
 `123 → 321`, `-123 → -321`, `120 → 21` (leading zeros on the reverse disappear because they are just smaller magnitude).
 
 ## Math

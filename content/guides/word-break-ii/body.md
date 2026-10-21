@@ -1,7 +1,3 @@
-Return every way to insert spaces so each piece is in the dict (any order). Reuse allowed. `n` ≤ 20.
-
-`catsanddog` with `[cat, cats, and, sand, dog]` → `[cats and dog, cat sand dog]`. `catsandog` → `[]`.
-
 ## DFS every dict prefix
 
 Word Break I’s `f[n]` only says whether a split exists. Word Ladder II is a different graph. Greedy keeps one split. Palindrome Partitioning cuts palindromes, not dictionary words. Decode Ways returns a count of mappings, not `List[str]` sentences.

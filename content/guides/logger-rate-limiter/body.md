@@ -1,4 +1,4 @@
-Stream of `(timestamp, message)` in non-decreasing time. Print a unique message at most once every 10 seconds: if it printed at `t`, the next identical print is allowed at `t + 10`. Several messages may share a timestamp. Example: `foo` at 1 (true), `bar` at 2 (true), `foo` at 3/10 (false), `foo` at 11 (true). At most 10^4 calls.
+Stream of `(timestamp, message)` in non-decreasing time. Print a unique message at most once every 10 seconds: if it printed at `t`, the next identical print is allowed at `t + 10`. Several messages may share a timestamp. Example: `foo` at 1 (true), `bar` at 2 (true), `foo` at 3/10 (false), `foo` at 11 (true). At most 10^4 calls. _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## Map message → next allowed time
 

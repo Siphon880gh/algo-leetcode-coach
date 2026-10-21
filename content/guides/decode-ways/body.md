@@ -1,7 +1,3 @@
-Count ways to map a digit string to A–Z (1..26). Length ≤ 100.
-
-`12` → 2. `226` → 3. `06` → 0.
-
 ## One digit or two, skip 0
 
 Climbing Stairs always adds `f[i-1] + f[i-2]`. Here a 0 cannot stand alone, and 27 is not a letter. Atoi reads one number. Unique Paths counts a grid. Integer to Roman emits one numeral.

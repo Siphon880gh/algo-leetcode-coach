@@ -1,4 +1,4 @@
-Given `root`, collect nodes as if you repeatedly strip every current leaf until the tree is gone. Return a list of those waves. `[1,2,3,4,5]` → `[[4,5,3],[2],[1]]` (any order inside a wave is fine). Single node → `[[1]]`. Up to 100 nodes.
+Given `root`, collect nodes as if you repeatedly strip every current leaf until the tree is gone. Return a list of those waves. `[1,2,3,4,5]` → `[[4,5,3],[2],[1]]` (any order inside a wave is fine). Single node → `[[1]]`. Up to 100 nodes. _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## Post-order height measured from the leaves
 

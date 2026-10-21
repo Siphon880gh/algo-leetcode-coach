@@ -1,5 +1,3 @@
-Sort a singly linked list by insertion sort. `[4,2,1,3]` → `[1,2,3,4]`. `[-1,5,3,4,0]` → `[-1,0,3,4,5]`. Up to 5000 nodes.
-
 ## Splice into a growing sorted prefix
 
 The problem asks for insertion sort on the list, not n log n merge (that is Sort List) and not copying values into an array. Reorder List’s weave and LRU’s map are different problems. Swap Pairs only exchanges neighbors once; insertion sort may move a node many places left.

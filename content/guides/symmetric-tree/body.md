@@ -1,7 +1,3 @@
-Is the tree a mirror of itself around the center? Nodes 1..1000.
-
-`[1,2,2,3,4,4,3]` → true. `[1,2,2,null,3,null,3]` → false.
-
 ## Left mirrors right
 
 Same Tree compares identical positions on two roots. A mirror pairs outer children with outer children and inner with inner. Validate BST is about sorted keys. An inorder palindrome can miss a null vs a node on the opposite side.

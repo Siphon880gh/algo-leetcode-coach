@@ -1,4 +1,4 @@
-Binary tree `root`. Return the length of the longest path that **increases by one** at each step, parent to child only (no walking up). Path may start at any node. `[1,null,3,2,4,null,null,null,5]` → 3 (`3-4-5`). `[2,null,3,2,null,1]` → 2 (`2-3`, not `3-2-1`). Nodes 1..3×10⁴.
+Binary tree `root`. Return the length of the longest path that **increases by one** at each step, parent to child only (no walking up). Path may start at any node. `[1,null,3,2,4,null,null,null,5]` → 3 (`3-4-5`). `[2,null,3,2,null,1]` → 2 (`2-3`, not `3-2-1`). Nodes 1..3×10⁴. _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## Downward plus-one; reset when the child is not next
 

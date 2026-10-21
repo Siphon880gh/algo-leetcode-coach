@@ -1,7 +1,3 @@
-`s` is only `(` and `)`. Return the length of the longest well-formed contiguous substring. Empty string is 0. n ≤ 3×10⁴.
-
-`"(()"` → 2 (`"()"`). `")()())"` → 4 (`"()()"`).
-
 ## Stack of indices
 
 Valid-parentheses only asks “is the whole string balanced.” Here you need the **longest** balanced run, so leftover junk on either side is allowed.

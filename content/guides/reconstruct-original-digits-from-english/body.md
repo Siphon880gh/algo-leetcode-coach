@@ -1,5 +1,3 @@
-String `s` of length 1 to 1e5, letters from the English names of 0–9, guaranteed to be a valid mix. Return the digits those words encode, sorted ascending. `"owoztneoer"` → `"012"`. `"fviefuro"` → `"45"`.
-
 ## Unique letters pin the even digits; subtract for the odds
 
 Count every character. Some letters belong to only one even word: `z` only in zero, `w` only in two, `u` only in four, `x` only in six, `g` only in eight. That gives counts of 0, 2, 4, 6, 8.

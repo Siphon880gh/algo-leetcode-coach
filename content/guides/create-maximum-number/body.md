@@ -1,5 +1,3 @@
-Two digit arrays `nums1`, `nums2` (length up to 500) and `k`. Build the **largest** length-`k` number by picking digits from both, keeping relative order **inside** each array. `[3,4,6,5]` and `[9,1,2,5,8,3]`, `k = 5` → `[9,8,6,5,3]`. `[6,7]` and `[6,0,4]`, `k = 5` → `[6,7,6,0,4]`. `k` is at most `m + n`.
-
 ## Split, drop with a stack, merge by leftover suffix
 
 This is not Remove K Digits (402) on a concatenation. You choose how many digits come from each array: `x` from `nums1` and `k − x` from `nums2`, with `x` in `[max(0, k − n), min(k, m)]`.

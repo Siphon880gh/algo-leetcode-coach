@@ -1,5 +1,3 @@
-Array `words` of lowercase strings, length 2..1000, each word up to 1000. Return the max `len(i) × len(j)` for a pair that share **no** letter. None → `0`. `["abcw","baz","foo","bar","xtfn","abcdef"]` → 16 (`"abcw"` and `"xtfn"`). `["a","ab","abc","d","cd","bcd","abcd"]` → 4. `["a","aa","aaa","aaaa"]` → 0.
-
 ## One bit per letter; AND tests overlap
 
 A nested scan of characters per pair is O(n² L). Encode the alphabet once: `mask[i] |= 1 << (c − 'a')`. Two words are disjoint iff `mask[i] & mask[j] == 0`. Then the product uses **full word lengths**, not unique-letter counts (`"aa"` still has length 2).

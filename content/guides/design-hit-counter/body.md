@@ -1,4 +1,4 @@
-Count hits in the past 5 minutes (300 seconds). `hit(timestamp)` records one hit. `getHits(timestamp)` returns how many recorded hits have `time` in `[timestamp − 299, timestamp]`. Timestamps arrive in non-decreasing order. Several hits may share a second. Example: hits at 1, 2, 3 → `getHits(4)` is 3; hit at 300 → `getHits(300)` is 4; `getHits(301)` is 3 (the hit at 1 aged out). At most 300 calls. Timestamp up to 2e9.
+Count hits in the past 5 minutes (300 seconds). `hit(timestamp)` records one hit. `getHits(timestamp)` returns how many recorded hits have `time` in `[timestamp − 299, timestamp]`. Timestamps arrive in non-decreasing order. Several hits may share a second. Example: hits at 1, 2, 3 → `getHits(4)` is 3; hit at 300 → `getHits(300)` is 4; `getHits(301)` is 3 (the hit at 1 aged out). At most 300 calls. Timestamp up to 2e9. _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## Binary search a sorted list, or drop a deque front
 

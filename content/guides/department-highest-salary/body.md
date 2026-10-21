@@ -1,5 +1,3 @@
-`Employee` has `id`, `name`, `salary`, `departmentId`. `Department` has `id`, `name`. For each department, every employee who holds that department’s highest salary (ties all stay). Columns: Department, Employee, Salary. Any order. Sample: IT Jim 90k and Max 90k; Sales Henry 80k. Joe 70k and Sam 60k drop.
-
 ## Groupwise max, not a global sort
 
 Customers Who Never Order was an anti-join. Rank Scores ranked one list. Here the max is **per department**.

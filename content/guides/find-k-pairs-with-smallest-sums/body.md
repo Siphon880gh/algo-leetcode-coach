@@ -1,5 +1,3 @@
-Two integer arrays `nums1` and `nums2`, each sorted non-decreasing, lengths up to 1e5, and an integer `k` up to 1e4. A pair is one value from each array. Return `k` pairs with the smallest sums (any order among ties is fine if the sums match the smallest). `[1,7,11]` and `[2,4,6]`, `k = 3` → `[[1,2],[1,4],[1,6]]`. Duplicate values count as distinct pairs: `[1,1,2]` and `[1,2,3]`, `k = 2` → two copies of `[1,1]`.
-
 `k` is at most the product of the two lengths, so a full answer always exists. Building every pair then sorting is the product of the lengths — too big.
 
 ## Min-heap of the frontier: next unused column per row

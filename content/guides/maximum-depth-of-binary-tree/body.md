@@ -1,7 +1,3 @@
-Maximum depth — nodes on the longest root-to-leaf path. Empty is allowed (0 nodes). Nodes up to 10⁴.
-
-`[3,9,20,null,null,15,7]` → `3`. `[1,null,2]` → `2`.
-
 ## 1 plus the deeper child
 
 Level Order returns `[[3],[9,20],[15,7]]`; depth is how many of those rows exist, not the lists. Unique Paths counts grid walks. Counting every node is the size of the tree — five nodes can still have depth 3. Same Tree and Symmetric Tree return booleans.

@@ -1,5 +1,3 @@
-`m` by `n` matrix, integer `k`. Return the largest rectangle sum that is still at most `k`. A rectangle that fits is guaranteed. `[[1,0,1],[0,-2,3]]`, `k=2` → 2 (the right 2×2). `[[2,2,-1]]`, `k=3` → 3. `m, n` up to 100. Values can be negative.
-
 ## Fix two rows, then 1D max subarray ≤ k
 
 Enumerate top row `i` and bottom row `j`. Maintain `nums[c]` = sum of column `c` from `i` through `j`. That strip is now a 1D array. The rectangle is a contiguous segment of `nums`.

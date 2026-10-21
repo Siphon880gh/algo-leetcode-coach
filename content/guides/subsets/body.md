@@ -1,7 +1,5 @@
 Return all subsets of unique `nums` (the power set). n ≤ 10. Do not emit both `[1,2]` and `[2,1]`.
 
-`[1,2,3]` includes `[]` and `[1,2,3]`. `[0]` → `[[],[0]]`.
-
 ## Skip or take, record at the end
 
 Combinations asked for one `k`. Here every length is required, including the empty list. Record once per finished scan, not at a fixed size. A permutation tree would emit both orders; the index only moves forward. Subsets II later skips duplicates after a sort — these `nums` are unique.

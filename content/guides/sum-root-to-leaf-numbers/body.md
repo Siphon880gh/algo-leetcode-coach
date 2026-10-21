@@ -1,7 +1,3 @@
-Each root-to-leaf path is a **decimal number**; return their sum. Digits 0–9, at least one node, depth at most 10.
-
-`[1,2,3]` → `12+13=25`. `[4,9,0,5,1]` → `495+491+40=1026`.
-
 ## Carry `s × 10 + val`, add at a true leaf
 
 Path Sum I is a boolean; Path Sum II returns lists of values added along the way. Max Path Sum can bend left+node+right. Here `1-2` is the integer `12`, not `3`. Min Depth, Flatten, and Longest Consecutive do not fold digits into a base-10 number.

@@ -1,7 +1,5 @@
 Insert dots so `s` becomes valid IPv4: four parts, each 0..255, no leading zeros. Do not reorder or drop digits. Length ≤ 20.
 
-`25525511135` → `255.255.11.135` and `255.255.111.35`. `0000` → `0.0.0.0`.
-
 ## Four octets, no leading zeros
 
 Decode Ways counts 1–26 letter codes. atoi reads one integer. Generate Parentheses prunes by balance. An IP needs exactly four octets.

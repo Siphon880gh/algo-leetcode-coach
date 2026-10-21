@@ -1,5 +1,3 @@
-Count how many times the **decimal digit** `1` appears in all integers from `0` through `n`. `13` → `6` (`1`, `10`, `11` twice, `12`, `13`). `0` → `0`. `0 ≤ n ≤ 10⁹`.
-
 ## Place-by-place search, not a loop to n
 
 Number of 1 Bits (191) counts **binary** 1s of a single `n`. Plus One adds to a digit array. Scanning `1 .. n` is O(n) and dies at a billion. You count 1s in the decimal writing of every value `≤ n`.

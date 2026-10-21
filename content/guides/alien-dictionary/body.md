@@ -1,4 +1,4 @@
-A list `words` claimed to be sorted in an unknown alphabet (lowercase English). Return any string of the unique letters in that alien order, or `""` if the list cannot be sorted that way. `["wrt","wrf","er","ett","rftt"]` → `"wertf"`. `["z","x"]` → `"zx"`. `["z","x","z"]` → `""`.
+A list `words` claimed to be sorted in an unknown alphabet (lowercase English). Return any string of the unique letters in that alien order, or `""` if the list cannot be sorted that way. `["wrt","wrf","er","ett","rftt"]` → `"wertf"`. `["z","x"]` → `"zx"`. `["z","x","z"]` → `""`. _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## Consecutive pairs become directed edges; then peel
 

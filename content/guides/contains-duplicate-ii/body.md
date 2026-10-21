@@ -1,5 +1,3 @@
-True if some value appears at two **distinct** indices `i`, `j` with `abs(i − j) ≤ k`. `n` and `k` up to `10⁵`. `[1,2,3,1]`, `k = 3` → true. `[1,0,1,1]`, `k = 1` → true. `[1,2,3,1,2,3]`, `k = 2` → false (the repeats sit 3 apart).
-
 ## Last index, not “any duplicate”
 
 Contains Duplicate (217) is a yes if the value appears **anywhere**. Contains Duplicate III (220) also bounds the **value** gap. Here the extra constraint is only the index window.

@@ -1,5 +1,3 @@
-Houses in a line, `nums[i]` is cash. Rob a subset so no two chosen houses are adjacent. Return the maximum total. Length 1 to 100; values 0 to 400. `[1,2,3,1]` → 4 (first and third). `[2,7,9,3,1]` → 12 (2, 9, and 1). One house → that house.
-
 ## Linear DP, not greedy peaks
 
 Rising Temperature was a SQL date join. Climbing Stairs **counts** sequences of 1 and 2. Here you **maximize** cash with a gap constraint. Taking every local max can lose: 2, 7, 9 wants 2+9, not 7 alone.

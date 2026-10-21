@@ -1,7 +1,5 @@
 `nums` is non-decreasing. Return the first and last index of `target`, or `[-1, -1]` if it is absent. Must be O(log n). n ≤ 10⁵.
 
-`[5,7,7,8,8,10]`, target `8` → `[3,4]`. Same array, target `6` → `[-1,-1]`. Empty array → `[-1,-1]`.
-
 ## Two lower bounds
 
 A linear scan from both ends is O(n). Duplicates make a single “find any hit then walk out” also O(n) in the worst case (the whole array is `target`).

@@ -1,4 +1,4 @@
-`n` nodes labeled `0 .. n−1`, undirected `edges` `[a, b]`. Return true iff those edges form a **tree**. `n = 5`, `[[0,1],[0,2],[0,3],[1,4]]` → true. Same n with an extra `[1,3]` → false (a cycle). `1 ≤ n ≤ 2000`. No self-loops or duplicate edges.
+`n` nodes labeled `0 .. n−1`, undirected `edges` `[a, b]`. Return true iff those edges form a **tree**. `n = 5`, `[[0,1],[0,2],[0,3],[1,4]]` → true. Same n with an extra `[1,3]` → false (a cycle). `1 ≤ n ≤ 2000`. No self-loops or duplicate edges. _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## Connected and acyclic, not a DAG check
 

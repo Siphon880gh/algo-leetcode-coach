@@ -1,7 +1,3 @@
-Build the tree from preorder and inorder. Values are unique. Length 1..3000.
-
-`preorder = [3,9,20,15,7]`, `inorder = [9,3,15,20,7]` → `[3,9,20,null,null,15,7]`. A single value `[-1]` is one node.
-
 ## Preorder root, split inorder
 
 Inorder Traversal emits values; here you already have those lists and must allocate nodes. Unique BST II enumerates Catalan trees. Max Depth returns a number. Level Order is BFS rows, not root-left-right. Same Tree compares two trees.

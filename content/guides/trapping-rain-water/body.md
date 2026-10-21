@@ -1,7 +1,5 @@
 `height[i]` is a bar of width 1. After rain, water sits above a bar only if both sides have a taller wall. Return the total units trapped. n ≤ 2×10⁴.
 
-`[0,1,0,2,1,0,1,3,2,1,2,1]` → 6. `[4,2,0,3,2,5]` → 9.
-
 ## Min of left and right max
 
 At index `i`, the water line is `min(tallest to the left including i, tallest to the right including i)`. Units there are that line minus `height[i]` (never negative). Prefix and suffix max arrays compute this in O(n) time and O(n) space.

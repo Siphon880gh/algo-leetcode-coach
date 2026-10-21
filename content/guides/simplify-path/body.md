@@ -1,7 +1,3 @@
-Unix absolute path to canonical form. Always starts with `/`. Length ≤ 3000.
-
-`"/home/"` → `"/home"`. `"/home//foo/"` → `"/home/foo"`. `"/../"` → `"/"`. `"/.../a/../b/c/../d/./"` → `"/.../b/d"`.
-
 ## Stack names, skip `.` and empty
 
 Split on `/`. Empty tokens are extra slashes — drop them. A lone `.` is the current directory — drop it. A `..` pops the last name if the stack is nonempty; at root it is a no-op so `"/../"` stays `"/"`. Any other token is a real name, including `...`.

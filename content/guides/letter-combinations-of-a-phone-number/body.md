@@ -1,7 +1,3 @@
-Digits `2`–`9` map like a phone keypad: `2` `abc`, `3` `def`, … `7` `pqrs`, `9` `wxyz`. Return every string you can type by picking one letter per digit. Order does not matter. Length is at most 4, so 4⁴ = 256 strings is the worst case.
-
-`"23"` → `ad ae af bd be bf cd ce cf`. `"2"` → `a b c`. Empty input → `[]`.
-
 ## Product of prefixes
 
 Keep `ans = [""]`. For each digit, replace `ans` with `{prefix + letter}` for every old prefix and every letter on that key. That is BFS-style expansion; DFS backtracking (append, recurse, pop) builds the same set.

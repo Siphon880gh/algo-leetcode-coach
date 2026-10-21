@@ -1,5 +1,3 @@
-Are trees `p` and `q` the same — same structure and same values? Up to 100 nodes each; either may be empty.
-
 `[1,2,3]` vs `[1,2,3]` → true. `[1,2]` vs `[1,null,2]` → false. `[1,2,1]` vs `[1,1,2]` → false.
 
 ## Match structure and values

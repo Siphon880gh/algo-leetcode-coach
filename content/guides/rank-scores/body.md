@@ -1,5 +1,3 @@
-`Scores` has `id` and `score` (two decimal places). Return `score` and `rank`, ordered by score high to low. Ties share a rank. After a tie, the next rank is the next integer — no holes. Sample: two 4.00s are both 1; 3.85 is 2 (not 3); two 3.65s are 3; 3.50 is 4.
-
 ## DENSE_RANK, not RANK, not ROW_NUMBER
 
 Nth Highest Salary **picked** the row whose dense rank is N. Here you **emit** that dense rank for every score.

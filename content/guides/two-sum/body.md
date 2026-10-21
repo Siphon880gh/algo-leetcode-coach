@@ -1,5 +1,3 @@
-Given an array of integers `nums` and an integer `target`, return the indices of the two numbers that add up to `target`. You may assume exactly one solution, and you may not use the same element twice.
-
 ## Why brute force hurts
 
 Checking every pair is `O(n²)` time. For interview and contest scale, that is usually too slow — and it wastes the structure of the problem: for each value `x`, you only need to know whether `target - x` already appeared.

@@ -1,5 +1,3 @@
-Least count of **perfect squares** that add to `n`. Squares are `1, 4, 9, 16, …`. `12` → `3` (`4+4+4`). `13` → `2` (`4+9`). `1 ≤ n ≤ 10⁴`.
-
 ## Squares as coins you may reuse
 
 Coin Change (322) is unbounded knapsack on an arbitrary coin list. Here the coins are `i²` for `i = 1 .. floor(sqrt(n))`. Greedy “largest square first” fails: `12` as `9+1+1+1` uses four, but three `4`s win.

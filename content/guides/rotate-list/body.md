@@ -1,7 +1,3 @@
-Rotate a singly linked list **right** by k places. k can be 2×10⁹. n ≤ 500. Empty or a single node stays as-is.
-
-`[1,2,3,4,5]`, k = 2 → `[4,5,1,2,3]`. `[0,1,2]`, k = 4 → `[2,0,1]`.
-
 ## k mod n, then a gap of k
 
 Count n first, then `k %= n`. A full turn is a no-op; walking 2×10⁹ steps would TLE. If k becomes 0, return `head`.

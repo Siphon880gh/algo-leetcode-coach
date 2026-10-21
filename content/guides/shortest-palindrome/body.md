@@ -1,5 +1,3 @@
-Given `s` (lowercase, length 0 to `5×10⁴`), add as few characters as possible **in front** so the result is a palindrome. `"aacecaaa"` → `"aaacecaaa"`. `"abcd"` → `"dcbabcd"`. Empty or already a palindrome → `s`.
-
 ## Longest palindromic prefix; prepend the rest reversed
 
 Valid Palindrome only checks. Longest Palindromic Substring finds any center. Here the palindrome must **start at index 0** after you pad the left, so you keep the longest prefix of `s` that is already a palindrome and copy the leftover suffix reversed onto the front.

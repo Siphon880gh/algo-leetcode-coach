@@ -1,7 +1,3 @@
-All structurally unique BSTs using each value 1..n once. n ≤ 8.
-
-`n = 3` → five trees. `n = 1` → `[[1]]`.
-
 ## Pick each root, cartesian kids
 
 Unique Paths counts grid routes. Inorder lists values of one tree. Unique BST I returns the Catalan count. Every BST on 1..n has the same inorder — you need the shapes.

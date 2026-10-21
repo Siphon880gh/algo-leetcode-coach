@@ -1,4 +1,4 @@
-Same shortest-gap question as 243, except `word1` **may equal** `word2`. They still stand for two distinct occurrences. Dict length up to `10⁵`. `"makes"` vs `"coding"` → 1. `"makes"` vs `"makes"` → 3 (the two `"makes"` in the sample).
+Same shortest-gap question as 243, except `word1` **may equal** `word2`. They still stand for two distinct occurrences. Dict length up to `10⁵`. `"makes"` vs `"coding"` → 1. `"makes"` vs `"makes"` → 3 (the two `"makes"` in the sample). _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## Split on equality, or consecutive same-word indices
 

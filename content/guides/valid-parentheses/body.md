@@ -1,7 +1,5 @@
 `s` is only `()[]{}`. Valid means every closer matches the most recent unmatched opener, same type, and nothing is left over.
 
-`"()"` and `"()[]{}"` and `"([])"` are true. `"(]"` and `"([)]"` are false. Length up to 10⁴.
-
 ## Stack
 
 Walk left to right:

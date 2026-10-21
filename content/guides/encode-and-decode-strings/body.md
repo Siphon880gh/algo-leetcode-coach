@@ -1,4 +1,4 @@
-Design `encode(strs)` → one string and `decode(s)` → the original list. Strings may be empty and may hold any of 256 ASCII bytes. Length at most 200 strings, each length at most 200. `["Hello","World"]` round-trips. `[""]` round-trips to one empty string. No `eval`.
+Design `encode(strs)` → one string and `decode(s)` → the original list. Strings may be empty and may hold any of 256 ASCII bytes. Length at most 200 strings, each length at most 200. `["Hello","World"]` round-trips. `[""]` round-trips to one empty string. No `eval`. _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## Length, then payload; never a naive join
 

@@ -1,4 +1,4 @@
-You get a nested list. Each `NestedInteger` is either one integer or a list of more `NestedInteger`s. The depth of an integer is how many lists enclose it; the input list itself is depth 1. Return the sum of each integer times its depth. `[[1,1],2,[1,1]]` → 10 (four 1s at depth 2, one 2 at depth 1). `[1,[4,[6]]]` → 27. `[0]` → 0. At most 50 top-level items; depth at most 50; values in `[−100, 100]`.
+You get a nested list. Each `NestedInteger` is either one integer or a list of more `NestedInteger`s. The depth of an integer is how many lists enclose it; the input list itself is depth 1. Return the sum of each integer times its depth. `[[1,1],2,[1,1]]` → 10 (four 1s at depth 2, one 2 at depth 1). `[1,[4,[6]]]` → 27. `[0]` → 0. At most 50 top-level items; depth at most 50; values in `[−100, 100]`. _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## DFS: add value × depth, or recurse depth + 1
 

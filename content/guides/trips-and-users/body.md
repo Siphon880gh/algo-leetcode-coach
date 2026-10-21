@@ -1,5 +1,3 @@
-`Trips` (`id`, `client_id`, `driver_id`, `city_id`, `status`, `request_at`) and `Users` (`users_id`, `banned`, `role`). Status is `completed`, `cancelled_by_driver`, or `cancelled_by_client`. Cancellation rate = cancelled trips / all trips that day, **only** when both client and driver have `banned = 'No'`. Days `2013-10-01` through `2013-10-03` that have at least one such trip. Round to two decimals. Sample: `0.33`, `0.00`, `0.50`.
-
 ## Join Users twice; AVG of not-completed
 
 Customers Who Never Order is an anti-join. Rising Temperature self-joins dates. Duplicate Emails groups one table. Here each trip has **two** users that must both be unbanned.

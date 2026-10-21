@@ -1,5 +1,3 @@
-Return the first `numRows` of Pascal’s triangle. Each interior value is the two numbers directly above added. `numRows` is 1..30.
-
 `5` → `[[1],[1,1],[1,2,1],[1,3,3,1],[1,4,6,4,1]]`. `1` → `[[1]]`, not `[1]`.
 
 ## 1s on the edge, pairwise from the finished row

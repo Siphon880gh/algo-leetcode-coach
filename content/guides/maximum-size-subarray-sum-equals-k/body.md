@@ -1,4 +1,4 @@
-Integer array `nums` (length up to `2×10⁵`, values may be negative) and target `k`. Return the **maximum length** of a contiguous subarray that sums to `k`, or `0` if none. `[1,-1,5,-2,3]`, `k = 3` → `4` (`[1,-1,5,-2]`). `[-2,-1,2,1]`, `k = 1` → `2`.
+Integer array `nums` (length up to `2×10⁵`, values may be negative) and target `k`. Return the **maximum length** of a contiguous subarray that sums to `k`, or `0` if none. `[1,-1,5,-2,3]`, `k = 3` → `4` (`[1,-1,5,-2]`). `[-2,-1,2,1]`, `k = 1` → `2`. _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## First index of each prefix; not a shrinking window
 

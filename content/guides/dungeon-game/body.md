@@ -1,5 +1,3 @@
-Knight starts top-left, princess bottom-right. Only right or down. Health must stay at least 1 after every room. Negative cells hurt; positive cells heal. Return the minimum initial health. `[[-2,-3,3],[-5,-10,1],[10,30,-5]]` → 7 (right, right, down, down). `[[0]]` → 1. Grid up to 200 by 200.
-
 ## Work backward from the princess
 
 Forward max-path (or Unique Paths / min path sum) fails: a huge heal later cannot rescue a 0 on the way, and greedy “avoid −10” is not the same as min start HP. BST Iterator is a tree stack. Factorial trailing zeroes counts 5s.

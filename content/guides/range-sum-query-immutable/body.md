@@ -1,5 +1,3 @@
-Integer array `nums` is **immutable**. Implement `NumArray`: constructor, then many `sumRange(left, right)` calls (inclusive). `[-2,0,3,-5,2,-1]` → `sumRange(0,2)=1`, `(2,5)=-1`, `(0,5)=-3`. Length and query count up to 10⁴.
-
 ## Prefix once, then subtract
 
 Range Sum Query 2D (304) needs a 2-D prefix. Range Sum Query Mutable (307) needs Fenwick or a segment tree because values change. Here nothing is updated, so a 1-D prefix is enough. Scanning `left..right` on every call is O(n) per query and fails the 10⁴ × 10⁴ bound.

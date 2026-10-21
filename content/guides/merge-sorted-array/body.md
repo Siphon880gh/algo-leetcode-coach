@@ -1,5 +1,3 @@
-`nums1` has `m` values then `n` zeros; `nums2` has `n` values. Merge into `nums1` in non-decreasing order. Void. `m + n` ≤ 200.
-
 `[1,2,3,0,0,0]` and `[2,5,6]` → `[1,2,2,3,5,6]`. `m = 0`: only `nums2` is copied in. `n = 0`: the loop never runs.
 
 ## Fill from the back

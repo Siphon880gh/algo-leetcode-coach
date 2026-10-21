@@ -1,5 +1,3 @@
-Return preorder values of a binary tree. `[1,null,2,3]` → `[1,2,3]`. Empty → `[]`. Inorder of that tree would be `[1,3,2]`. Up to 100 nodes.
-
 ## Visit this node before either child
 
 Inorder on the sample is `1,3,2`. Postorder is `3,2,1`. Level order happens to be `1,2,3` on this skinny tree but fails on a fuller one: `[1,2,3,4,5]` → preorder `[1,2,4,5,3]`, not BFS `[1,2,3,4,5]`. Floyd and Reorder List are list pointer tricks, not tree DFS order.

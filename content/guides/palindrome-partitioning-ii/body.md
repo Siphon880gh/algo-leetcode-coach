@@ -1,7 +1,3 @@
-Fewest cuts so every piece is a palindrome. `n` up to 2000.
-
-`aab` → `1` (`aa|b`). `a` → `0`. `ab` → `1`.
-
 ## Palindrome table, then min-cut DP
 
 Palindrome Partitioning I returns `[[a,a,b],[aa,b]]`. Enumerating partitions is exponential; at 2000 that is too slow. Valid Palindrome is a boolean. Longest Palindromic Substring is one window. Edit Distance is insert/delete/replace. You only need the smallest cut count.

@@ -1,5 +1,3 @@
-`citations` is **non-decreasing**. Same h-index as 274: largest `h` such that at least `h` papers have at least `h` cites. You must run in logarithmic time. `[0,1,3,5,6]` → `3`. `[1,2,100]` → `2`. n up to `10⁵`.
-
 ## Search h, not a paper index
 
 H-Index (274) sorts or counts because the array is unsorted. Here the order is given. The last `h` papers are the most cited. They all meet the bar iff `citations[n − h] ≥ h` (0-based: the first of those last `h` papers).

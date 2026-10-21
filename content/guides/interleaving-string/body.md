@@ -1,7 +1,3 @@
-Is `s3` an interleaving of `s1` and `s2` — each source stays in order, letters may alternate. Lengths up to 100 + 100.
-
-`aabcc` + `dbbca` → `aadbbcbcac` is true, `aadbbbaccc` is false. Empty + empty + empty is true.
-
 ## Take s1 or s2, memo
 
 Concatenate `s1+s2` is one order, not every mix. Unique Paths counts grid walks. Scramble String swaps halves of one string. Greedy “take the first matching letter” dies on `aadbbbaccc`.

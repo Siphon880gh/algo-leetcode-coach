@@ -1,4 +1,4 @@
-`mat1` is `m` by `k`, `mat2` is `k` by `n`. Return `mat1 × mat2` (always legal). Sample `[[1,0,0],[-1,0,3]]` × `[[7,0,0],[0,0,0],[0,0,1]]` → `[[7,0,0],[-7,0,3]]`. `[[0]]` × `[[0]]` → `[[0]]`. Dimensions up to 100; entries in `[-100, 100]`.
+`mat1` is `m` by `k`, `mat2` is `k` by `n`. Return `mat1 × mat2` (always legal). Sample `[[1,0,0],[-1,0,3]]` × `[[7,0,0],[0,0,0],[0,0,1]]` → `[[7,0,0],[-7,0,3]]`. `[[0]]` × `[[0]]` → `[[0]]`. Dimensions up to 100; entries in `[-100, 100]`. _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## Compress nonzero cells, then scatter products
 

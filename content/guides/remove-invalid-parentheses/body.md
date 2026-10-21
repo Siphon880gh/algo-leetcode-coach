@@ -1,5 +1,3 @@
-String `s` of lowercase letters and `(` / `)`. Delete the **fewest** parentheses so the rest is valid. Return **all unique** valid strings (any order). `"()())()"` → `"(())()"`, `"()()()"`. `")("` → `""`. Length up to 25; at most 20 parentheses.
-
 ## Count the extras, then skip or keep
 
 Valid Parentheses (20) only asks whether one string is already valid. Generate Parentheses (22) builds from empty with a pair budget. Here you start from a dirty string and must not delete more than necessary.

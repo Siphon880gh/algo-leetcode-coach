@@ -1,7 +1,3 @@
-`nums` is strictly increasing; convert it to a height-balanced BST. Length 1..10⁴.
-
-`[-10,-3,0,5,9]` accepts `[0,-3,9,-10,null,5]`. `[1,3]` accepts `[3,1]` or `[1,null,3]`.
-
 ## Mid of the slice is root
 
 Unique BST II enumerates every Catalan shape. Unique BST I returns a count. Level Order lists rows. Construct from inorder and postorder needs two arrays. Here `nums` is already the inorder of the tree you must build.

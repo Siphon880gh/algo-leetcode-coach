@@ -1,7 +1,3 @@
-Every piece of a cut must be a palindrome; return **all** cuts. `n` ≤ 16, lowercase letters.
-
-`aab` → `[[a,a,b],[aa,b]]`. `a` → `[[a]]`.
-
 ## Palindrome table, then DFS partitions
 
 Valid Palindrome is a boolean. Palindrome Number is digits of an int. Longest Palindromic Substring is one span. Palindrome Partitioning II is the fewest extra cuts (an integer). Restore IP is four numeric octets. Subsets take/skip without a palindrome check. Here you list every partition of the whole string.

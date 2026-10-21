@@ -1,5 +1,3 @@
-Sorted unique `nums`. Cover every value with the smallest list of inclusive ranges, as strings: `"a->b"` when `a ≠ b`, else `"a"`. No extra integers. `[0,1,2,4,5,7]` → `["0->2","4->5","7"]`. `[0,2,3,4,6,8,9]` → `["0","2->4","6","8->9"]`. Length 0 to 20. Empty → `[]`.
-
 ## Two pointers on already-sorted uniques
 
 Merge Intervals unions overlapping `[start, end]` pairs. Missing Ranges (163) emits the **holes**. Here the array is already sorted and unique; you only glue values that differ by exactly 1.

@@ -1,5 +1,3 @@
-How many primes are **strictly less than** `n`. `0 ≤ n ≤ 5×10⁶`. `10` → `4` (2, 3, 5, 7). `0` and `1` → `0`.
-
 ## Mark multiples; count what stays true
 
 Happy Number mapped digits. Factorial trailing zeroes counted fives. Here you need every prime below `n`, and `n` can be five million — trial-dividing each `i` up to `√n` times out.

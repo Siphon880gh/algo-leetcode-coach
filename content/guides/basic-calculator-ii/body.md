@@ -1,5 +1,3 @@
-Expression `s` of non-negative integers, `+`, `-`, times, divide, and spaces. No parentheses. Divide truncates toward zero. No `eval`. `"3+2×2"` → 7. `" 3/2 "` → 1. `" 3+5 / 2 "` → 5. `n ≤ 3 × 10⁵`. Intermediate values fit in 32-bit signed ints.
-
 ## Previous operator decides how this number joins the stack
 
 Basic Calculator (224) has parens and only plus/minus. RPN is already postfix. Here times and divide bind tighter than plus/minus, with no grouping.

@@ -1,5 +1,3 @@
-Tickets `[from, to]`. Rebuild a trip that uses every ticket exactly once, starting at `JFK`. If several such trips exist, return the one whose airport list is lexicographically smallest. `[["MUC","LHR"],["JFK","MUC"],["SFO","SJC"],["LHR","SFO"]]` → `["JFK","MUC","LHR","SFO","SJC"]`. Second sample: `["JFK","ATL","JFK","SFO","ATL","SFO"]` beats the larger `JFK,SFO,...` route. Up to 300 tickets. At least one valid trip exists.
-
 ## Eulerian path, not greedy next-city
 
 This is a directed multigraph (duplicate tickets are extra edges). You need an Eulerian path from `JFK`: every edge once. Hierholzer: from airport `f`, while unused outs remain, pop one destination and recurse; when none remain, append `f`. Reverse the append list to get the path. To prefer lex-small destinations, sort tickets reverse so a stack/list pop yields the smallest unused `to` first.

@@ -1,5 +1,3 @@
-I pick an integer in `1 .. n` (n up to `2³¹ − 1`). You guess it by calling `guess(num)`, which returns `−1` if `num` is higher than the pick, `1` if `num` is lower, and `0` if equal. Return the pick. `n = 10`, pick `6` → `6`. `n = 1`, pick `1` → `1`. `n = 2`, pick `1` → `1`.
-
 ## Lower bound: first x with guess(x) ≤ 0
 
 `guess(x)` is positive while `x` is still below the pick, then non-positive from the pick onward. So the answer is the leftmost x where `guess(x) ≤ 0`.

@@ -1,4 +1,4 @@
-True if digit string `num` looks the same after a 180° rotation (upside down). Length 1..50, digits only, no leading zeros except `"0"`. `"69"` and `"88"` → true. `"962"` → false.
+True if digit string `num` looks the same after a 180° rotation (upside down). Length 1..50, digits only, no leading zeros except `"0"`. `"69"` and `"88"` → true. `"962"` → false. _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## Map each digit, then two pointers
 

@@ -1,4 +1,4 @@
-Given a binary tree, return how many **subtrees** have the same value on every node (uni-value). Empty → 0. `[5,1,5,5,5,null,5]` → 4. `[5,5,5,5,5,null,5]` → 6. Up to 1000 nodes.
+Given a binary tree, return how many **subtrees** have the same value on every node (uni-value). Empty → 0. `[5,1,5,5,5,null,5]` → 4. `[5,5,5,5,5,null,5]` → 6. Up to 1000 nodes. _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## Postorder boolean, increment when this whole subtree matches
 

@@ -1,7 +1,3 @@
-Roman digits are `I` 1, `V` 5, `X` 10, `L` 50, `C` 100, `D` 500, `M` 1000. Left to right they usually decrease. Six subtractive pairs flip the sign of the smaller digit: `IV` `IX` `XL` `XC` `CD` `CM`.
-
-`MCMXCIV` → 1994 (`M` 1000, `CM` 900, `XC` 90, `IV` 4). Input is a valid numeral, length at most 15, value in `1..3999`.
-
 ## Look ahead one
 
 Keep a map from character to value. Scan `s[0..n-2]`. If `value[s[i]] < value[s[i+1]]`, subtract `value[s[i]]`; otherwise add it. Always add the last character.

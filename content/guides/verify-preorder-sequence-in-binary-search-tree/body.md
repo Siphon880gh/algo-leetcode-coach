@@ -1,4 +1,4 @@
-`preorder` is unique integers. Return true iff it is the preorder of some BST. `[5,2,1,3,6]` → true. `[5,2,6,1,3]` → false (1 appears after you already went right of 5). Length up to 10⁴. Follow-up: O(1) extra space.
+`preorder` is unique integers. Return true iff it is the preorder of some BST. `[5,2,1,3,6]` → true. `[5,2,6,1,3]` → false (1 appears after you already went right of 5). Length up to 10⁴. Follow-up: O(1) extra space. _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## Once you leave a left subtree, nothing smaller may appear
 

@@ -1,4 +1,4 @@
-`m × n` binary grid; each `1` is a friend’s home. At least two friends. Return the minimum total **Manhattan** travel: for a meeting cell `p`, sum `|p.row − home.row| + |p.col − home.col|`. Meeting may be any cell (even empty). `[[1,0,0,0,1],[0,0,0,0,0],[0,0,1,0,0]]` → 6 (meet at `(0,2)`). `[[1,1]]` → 1. m, n up to 200.
+`m × n` binary grid; each `1` is a friend’s home. At least two friends. Return the minimum total **Manhattan** travel: for a meeting cell `p`, sum `|p.row − home.row| + |p.col − home.col|`. Meeting may be any cell (even empty). `[[1,0,0,0,1],[0,0,0,0,0],[0,0,1,0,0]]` → 6 (meet at `(0,2)`). `[[1,1]]` → 1. m, n up to 200. _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## L1 separates; the 1-D optimum is the median
 

@@ -1,4 +1,4 @@
-`m` by `n` grid `rooms`: `−1` wall, `0` gate, `INF` (`2³¹ − 1`) empty. Fill each empty cell with the distance to the **nearest** gate. Unreachable stays `INF`. In place. Sample becomes `[[3,−1,0,1],[2,2,1,−1],[1,−1,2,−1],[0,−1,3,4]]`. `[[−1]]` stays. Up to 250 by 250.
+`m` by `n` grid `rooms`: `−1` wall, `0` gate, `INF` (`2³¹ − 1`) empty. Fill each empty cell with the distance to the **nearest** gate. Unreachable stays `INF`. In place. Sample becomes `[[3,−1,0,1],[2,2,1,−1],[1,−1,2,−1],[0,−1,3,4]]`. `[[−1]]` stays. Up to 250 by 250. _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## Start BFS from all gates together
 

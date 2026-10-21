@@ -1,7 +1,3 @@
-Start at index 0. From `i` you may land on any index in `i .. i + nums[i]` (in bounds). Return the **minimum** number of jumps to `n-1`. You are guaranteed to be able to finish. n ≤ 10⁴.
-
-`[2,3,1,1,4]` → 2 (0 → 1 → 4). `[2,3,0,1,4]` → 2.
-
 ## Jump when the range ends
 
 This is BFS on a line: each jump is one layer. You do not need a queue.

@@ -1,5 +1,3 @@
-Binary tree `root`. Invert it (swap every left/right pair) and return the root. `[4,2,7,1,3,6,9]` → `[4,7,2,9,6,3,1]`. `[2,1,3]` → `[2,3,1]`. Empty → empty. Up to 100 nodes.
-
 ## Recurse both sides, then swap — save both first
 
 Symmetric Tree only **checks** a mirror. Same Tree pairs the same child on two trees. Here you **mutate**. Count Complete Tree Nodes skipped a perfect half; you still visit every node.

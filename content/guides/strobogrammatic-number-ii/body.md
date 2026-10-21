@@ -1,4 +1,4 @@
-Given `n`, return every strobogrammatic number of length `n` (any order). Same 180° rotate map as Strobogrammatic Number (246): 0↔0, 1↔1, 8↔8, 6↔9, 9↔6. `n = 2` → `["11","69","88","96"]`. `n = 1` → `["0","1","8"]`. `1 ≤ n ≤ 14`.
+Given `n`, return every strobogrammatic number of length `n` (any order). Same 180° rotate map as Strobogrammatic Number (246): 0↔0, 1↔1, 8↔8, 6↔9, 9↔6. `n = 2` → `["11","69","88","96"]`. `n = 1` → `["0","1","8"]`. `1 ≤ n ≤ 14`. _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## Build length n from length n−2
 

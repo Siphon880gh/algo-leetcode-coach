@@ -1,7 +1,3 @@
-Place `n` queens on an `n × n` board so none share a row, column, or diagonal. Return every distinct board as strings of `Q` and `.`. n ≤ 9.
-
-`n = 4` has two solutions. `n = 1` is `[["Q"]]`.
-
 ## One row at a time, mark attacks
 
 Exactly one queen per row, so `dfs(i)` only chooses a **column** `j` for row `i`.

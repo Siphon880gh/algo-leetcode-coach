@@ -1,5 +1,3 @@
-A super ugly number is a positive integer whose prime factors all sit in `primes`. Return the **nth** one (`n` up to 10⁵; it fits in a 32-bit signed int). `primes` is unique, sorted, length up to 100. Sample `n = 12`, `primes = [2,7,13,19]` → `32` (sequence `1,2,4,7,8,13,14,16,19,26,28,32`). `n = 1` → `1` (no prime factors).
-
 ## Same merge as Ugly Number II, k lanes
 
 Ugly Number (263) tests one integer. Ugly Number II (264) merges three streams (`× 2`, `× 3`, `× 5`). Here the stream count is `k = len(primes)`.

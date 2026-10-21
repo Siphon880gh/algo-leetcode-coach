@@ -1,5 +1,3 @@
-`Person` has `personId`, first name, last name. `Address` has `addressId`, `personId`, city, state. Report first name, last name, city, and state for every person. If that `personId` has no address row, city and state are `NULL`. Any order. Sample: Allen Wang has no address → nulls; Bob Alice has New York City, New York. Address `personId` 3 has no Person row and does not appear.
-
 ## LEFT JOIN, not INNER JOIN
 
 Dungeon Game is grid DP. This is the first Database problem: keep the left table whole.

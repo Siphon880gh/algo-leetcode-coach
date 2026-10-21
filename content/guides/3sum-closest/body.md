@@ -1,7 +1,5 @@
 Pick three distinct indices so `nums[i] + nums[j] + nums[k]` is as close as possible to `target`. Return that **sum**, not the indices. The input has exactly one closest answer. n ≤ 500.
 
-`[-1,2,1,-4]`, target `1` → `2` (`-1 + 2 + 1`). `[0,0,0]`, target `1` → `0`.
-
 ## Same skeleton as 3Sum
 
 Sort, then for each `i` set `j = i + 1`, `k = n - 1`. Let `t = nums[i] + nums[j] + nums[k]`.

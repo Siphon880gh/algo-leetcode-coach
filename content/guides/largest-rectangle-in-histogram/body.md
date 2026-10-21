@@ -1,7 +1,3 @@
-Bars of width 1; return the largest rectangle area. n up to 10^5.
-
-`[2,1,5,6,2,3]` → 10. `[2,4]` → 4.
-
 ## Monotonic stack of bars
 
 Trapping Rain Water sums units above bars. Container With Most Water uses two ends as walls. Maximal Rectangle is a later 2D grid. Here a rectangle must sit under a chosen height across a contiguous span. Nested pairs are O(n²) and time out.

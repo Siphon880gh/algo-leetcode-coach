@@ -1,7 +1,3 @@
-Return the length of the last word: a maximal run of non-space characters. n ≤ 10⁴. At least one word exists.
-
-`"Hello World"` → 5. `"   fly me   to   the moon  "` → 4. `"luffy is still joyboy"` → 6.
-
 ## Skip trailing spaces first
 
 Start at `i = n-1`. While `s[i]` is a space, decrement `i` — the last characters may be padding. Then set `j = i` and walk left while `s[j]` is not a space. After that loop, `j` sits on the space (or just before the string), so `i - j` is the letter count.

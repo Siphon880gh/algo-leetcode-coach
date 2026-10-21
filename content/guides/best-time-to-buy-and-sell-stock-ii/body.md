@@ -1,7 +1,3 @@
-As many trades as you want, but hold at most one share. Return max profit (`0` if prices only fall). Length up to 3e4.
-
-`[7,1,5,3,6,4]` → `7` (`1→5` and `3→6`). `[1,2,3,4,5]` → `4`. `[7,6,4,3,1]` → `0`.
-
 ## Sum every positive adjacent gap
 
 Stock I is one buy and one later sell — that sample would be `5` (buy `1`, sell `6`). Here you may sell and buy again, so the two disjoint rises add to `7`. Stock III caps at two trades. Triangle and Unique Paths are grids. This problem has no trade-count cap, only “one share at a time.”

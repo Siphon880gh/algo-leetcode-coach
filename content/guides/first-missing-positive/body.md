@@ -1,7 +1,5 @@
 Unsorted `nums`. Return the smallest positive integer that is not in the array. Must be O(n) time and O(1) extra space. n ≤ 10⁵.
 
-`[1,2,0]` → 3. `[3,4,-1,1]` → 2. `[7,8,9,11,12]` → 1.
-
 ## Seat x at index x-1
 
 The answer is in `1 .. n+1`. If `1..n` are all present, the answer is `n+1`. Negatives, zeros, and values larger than `n` cannot be that missing positive, so they are junk for seating.

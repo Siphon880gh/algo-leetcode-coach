@@ -1,4 +1,4 @@
-BST `root` and a node `p` in it. Return `p`’s inorder successor: the node with the **smallest key greater than `p.val`**, or `null` if none. Unique values. `[2,1,3]`, `p = 1` → `2`. `[5,3,6,2,4,null,null,1]`, `p = 6` → `null`. Up to 1e4 nodes.
+BST `root` and a node `p` in it. Return `p`’s inorder successor: the node with the **smallest key greater than `p.val`**, or `null` if none. Unique values. `[2,1,3]`, `p = 1` → `2`. `[5,3,6,2,4,null,null,1]`, `p = 6` → `null`. Up to 1e4 nodes. _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## Candidate when greater; then hunt left
 

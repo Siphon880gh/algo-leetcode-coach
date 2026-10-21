@@ -1,5 +1,3 @@
-`Weather` has unique `id`, unique `recordDate`, and `temperature`. Return ids whose temperature is strictly higher than the previous calendar day. Any order. Sample: 10, 25, 20, 30 on consecutive January dates → ids 2 and 4 (25 after 10, 30 after 20). Id 3 is cooler than the day before, so it is out.
-
 ## Date plus one, then compare temperatures
 
 Delete Duplicate Emails joins two Person aliases on the same email. Combine Two Tables left-joins Address. Here the key is **yesterday**, not id.

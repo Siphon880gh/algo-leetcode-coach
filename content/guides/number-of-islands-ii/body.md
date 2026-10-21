@@ -1,4 +1,4 @@
-Empty `m` by `n` water grid. `positions[k] = [r, c]` turns that cell into land. Return, after each op, how many 4-connected islands exist. `m=n=3`, `[[0,0],[0,1],[1,2],[2,1]]` → `[1,1,2,3]`. Duplicate land ops leave the count unchanged. `m`, `n`, and `k` up to 10⁴, with `m × n` also ≤ 10⁴.
+Empty `m` by `n` water grid. `positions[k] = [r, c]` turns that cell into land. Return, after each op, how many 4-connected islands exist. `m=n=3`, `[[0,0],[0,1],[1,2],[2,1]]` → `[1,1,2,3]`. Duplicate land ops leave the count unchanged. `m`, `n`, and `k` up to 10⁴, with `m × n` also ≤ 10⁴. _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## Union-find online, not flood-fill 200
 

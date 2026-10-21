@@ -1,4 +1,4 @@
-True if some permutation of `s` is a palindrome. Lowercase English, length up to 5000. `"code"` → false. `"aab"` → true (`aba`). `"carerac"` → true (`racecar`).
+True if some permutation of `s` is a palindrome. Lowercase English, length up to 5000. `"code"` → false. `"aab"` → true (`aba`). `"carerac"` → true (`racecar`). _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## Count letters; at most one odd
 

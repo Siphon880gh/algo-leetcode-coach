@@ -1,5 +1,3 @@
-Integer `n` from 2 to 58. Break it into `k ≥ 2` positive integers that sum to `n`, and maximize their product. `n = 2` → `1` (`1+1`). `n = 10` → `36` (`3+3+4`).
-
 ## Break into 3s; leftover 1 is poison
 
 Among integers, 3 is the best factor (2 is close; 4 = `2+2` with the same product; 5 and up should be split further). Because `k ≥ 2`, you cannot return `n` itself: `n = 2` and `n = 3` are `n − 1`.

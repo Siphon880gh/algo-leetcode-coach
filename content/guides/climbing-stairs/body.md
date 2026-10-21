@@ -1,7 +1,3 @@
-n stairs. Each move is 1 or 2 steps. Count distinct sequences. n ≤ 45.
-
-`n = 2` → 2 (`1+1`, `2`). `n = 3` → 3 (`1+1+1`, `1+2`, `2+1`).
-
 ## Last step 1 or 2
 
 Let `f[i]` be the number of ways to reach stair i. The last hop is either 1 (from i−1) or 2 (from i−2), so `f[i] = f[i-1] + f[i-2]`. Seed so `n = 1` returns 1. Roll two ints n times; extra space is O(1).

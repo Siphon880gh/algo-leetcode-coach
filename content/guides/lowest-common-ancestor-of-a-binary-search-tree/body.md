@@ -1,5 +1,3 @@
-BST `root`, nodes `p` and `q` (distinct, both present, unique values). Return their lowest common ancestor. A node is an ancestor of itself. `[6,2,8,0,4,7,9,…]`, `p=2`, `q=8` → `6`. Same tree, `p=2`, `q=4` → `2`. `[2,1]`, `p=2`, `q=1` → `2`. Up to `10⁵` nodes.
-
 ## BST order points at the fork
 
 Kth Smallest walks inorder. Validate BST checks that inorder strictly increases. LCA of a Binary Tree (236) cannot assume left < node < right, so it searches both subtrees. Here the search path is unique: from `root`, while true: if `root.val < min(p.val, q.val)` go right; elif `root.val > max(p.val, q.val)` go left; else return `root` — one value sits on each side, or `root` is `p` or `q`.

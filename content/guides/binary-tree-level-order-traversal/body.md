@@ -1,7 +1,3 @@
-Return values level by level, left to right. Up to 2000 nodes.
-
-`[3,9,20,null,null,15,7]` → `[[3],[9,20],[15,7]]`. Single node → `[[1]]`. Empty → `[]`.
-
 ## BFS one level per snapshot
 
 Inorder mixes levels (`[9,3,15,20,7]`). Same Tree compares two roots. Zigzag Level Order alternates direction. Unique Paths counts grid walks.

@@ -1,7 +1,5 @@
 Group strings that are anagrams of each other. Order of groups and order inside a group do not matter. Lowercase letters only. n ≤ 10⁴, each string length ≤ 100.
 
-`["eat","tea","tan","ate","nat","bat"]` → `[["bat"],["nat","tan"],["ate","eat","tea"]]`.
-
 ## Sorted letters as the key
 
 Two words are anagrams iff they have the same letter multiset. Sorting a word is a canonical fingerprint: `"eat"`, `"tea"`, `"ate"` all become `"aet"`.

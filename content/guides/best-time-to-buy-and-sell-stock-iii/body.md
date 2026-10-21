@@ -1,7 +1,3 @@
-At most two transactions; sell before you buy again. `n` up to 1e5.
-
-`[3,3,5,0,0,3,1,4]` → `6`. `[1,2,3,4,5]` → `4`. `[7,6,4,3,1]` → `0`.
-
 ## Four states, return the second sale
 
 Stock I is one pair — that first sample is `4` (buy `0`, sell `4`). Stock II has no cap, so it can take three rises and score `8`. Here `k` is 2, so the extra rise is illegal. Triangle and Unique Paths are other grids. You do not need a full n-by-k table: four rolling variables are enough.

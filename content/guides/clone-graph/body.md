@@ -1,5 +1,3 @@
-Deep-copy a connected undirected graph. Return a new `Node` (the clone of the given start). `[]` → `None`. A lone node clones with empty neighbors. `[[2,4],[1,3],[2,4],[1,3]]` clones 4 nodes with the same edges.
-
 ## Map old → new, store before neighbors
 
 A shallow copy still points at the original neighbors. Same Tree is binary. Surrounded Regions walks a grid. Word Ladder is a string graph. The return type is a `Node`, not an adjacency list of ints.

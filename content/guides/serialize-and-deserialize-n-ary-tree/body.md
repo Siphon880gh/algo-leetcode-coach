@@ -1,4 +1,4 @@
-N-ary tree, 0 to 1e4 nodes, height at most 1000. Encode to a string and decode back to the same tree. The codec must be stateless. Empty root → empty string / null.
+N-ary tree, 0 to 1e4 nodes, height at most 1000. Encode to a string and decode back to the same tree. The codec must be stateless. Empty root → empty string / null. _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## BFS: children of a node, then `#`
 

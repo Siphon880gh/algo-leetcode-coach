@@ -1,4 +1,4 @@
-Two integer lists `v1` and `v2`. `next()` / `hasNext()` return elements **alternately**: first of v1, first of v2, second of v1, …. When one list runs out, keep draining the other. `[1,2]` and `[3,4,5,6]` → `1,3,2,4,5,6`. One empty list still yields the other. Lengths up to 1000, at least one element in total. Follow-up: `k` lists in cyclic order (`[1,2,3]`, `[4,5,6,7]`, `[8,9]` → `1,4,8,2,5,9,3,6,7`).
+Two integer lists `v1` and `v2`. `next()` / `hasNext()` return elements **alternately**: first of v1, first of v2, second of v1, …. When one list runs out, keep draining the other. `[1,2]` and `[3,4,5,6]` → `1,3,2,4,5,6`. One empty list still yields the other. Lengths up to 1000, at least one element in total. Follow-up: `k` lists in cyclic order (`[1,2,3]`, `[4,5,6,7]`, `[8,9]` → `1,4,8,2,5,9,3,6,7`). _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## One cursor per list; skip spent lists
 

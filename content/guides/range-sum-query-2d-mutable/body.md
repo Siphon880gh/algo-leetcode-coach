@@ -1,4 +1,4 @@
-`m` by `n` matrix that **changes**. `update(row, col, val)` sets a cell. `sumRegion(r1, c1, r2, c2)` is inclusive. Sample rectangle 8, then `update(3,2,2)` → 10. Up to 200 by 200; 5000 mixed calls.
+`m` by `n` matrix that **changes**. `update(row, col, val)` sets a cell. `sumRegion(r1, c1, r2, c2)` is inclusive. Sample rectangle 8, then `update(3,2,2)` → 10. Up to 200 by 200; 5000 mixed calls. _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## Per-row Fenwick, not a 304 prefix
 

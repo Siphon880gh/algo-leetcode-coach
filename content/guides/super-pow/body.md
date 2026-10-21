@@ -1,5 +1,3 @@
-Positive integer `a` (up to 2³¹ − 1) and digit array `b` (length 1..2000, no leading zeros). Return `a^b mod 1337`. `a = 2`, `b = [3]` → `8`. `a = 2`, `b = [1,0]` → `1024`. `a = 1` with a huge `b` → `1`.
-
 ## Last digit first: consume d, then raise the base to 10
 
 You cannot join `b` into a machine int. If `b = […, d1, d0]`, then `a^b = a^d0 × (a^10)^d1 × (a^100)^d2 × …`. Walk `b` from the right: multiply `ans` by `pow(a, d, 1337)`, then replace `a` with `pow(a, 10, 1337)`. Each `pow` is binary exponentiation: square the base, multiply into the answer when the exponent’s low bit is set, always mod 1337.

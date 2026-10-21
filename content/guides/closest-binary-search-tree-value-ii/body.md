@@ -1,4 +1,4 @@
-BST `root`, float `target`, integer `k`. Return the **k** node values closest to `target`, any order. The closest set of size `k` is unique. `[4,2,5,1,3]`, target ≈ 3.71, `k = 2` → `[4,3]`. Single node `[1]`, `k = 1` → `[1]`. Up to `10⁴` nodes, `1 ≤ k ≤ n`.
+BST `root`, float `target`, integer `k`. Return the **k** node values closest to `target`, any order. The closest set of size `k` is unique. `[4,2,5,1,3]`, target ≈ 3.71, `k = 2` → `[4,3]`. Single node `[1]`, `k = 1` → `[1]`. Up to `10⁴` nodes, `1 ≤ k ≤ n`. _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## Inorder is sorted; a window of k consecutive values is enough
 

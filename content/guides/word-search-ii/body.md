@@ -1,5 +1,3 @@
-`m × n` board of lowercase letters, `words` unique, length at most 10, up to `3×10⁴` words. Return every word that appears as a 4-neighbor path with no cell reused in that word. `[["o","a","a","n"],["e","t","a","e"],["i","h","k","r"],["i","f","l","v"]]`, `["oath","pea","eat","rain"]` → `["eat","oath"]`. `[["a","b"],["c","d"]]`, `["abcb"]` → `[]`.
-
 ## One DFS; the trie is the word list
 
 Word Search matches **one** string from every start. Repeating that for 30k words times out. Implement Trie / Design Add and Search Words already store prefixes. Insert each word with its index in `ref` (`−1` means “not a word”). From every cell, `dfs(node, i, j)`: if this letter has no child, return. Step to that child. If `ref ≥ 0`, append `words[ref]` and set `ref = −1` so a later path does not emit twice. Write `#` on the cell, recurse on four in-bound neighbors that are not `#`, then restore the letter.

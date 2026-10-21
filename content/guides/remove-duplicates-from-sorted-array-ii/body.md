@@ -1,7 +1,5 @@
 Sorted `nums`, in place, each value at most twice. Return `k` for the kept prefix. O(1) extra. n up to 3 × 10^4.
 
-`[1,1,1,2,2,3]` → k = 5, `[1,1,2,2,3]`. `[0,0,1,1,1,1,2,3,3]` → k = 7, `[0,0,1,1,2,3,3]`.
-
 ## Keep at most two
 
 Problem 26 compares `nums[k-1]` and keeps a single copy. Here two 1s stay; only the third is dropped. Remove Element drops every `val`. Sort Colors is a void partition. Do not allocate a second array.

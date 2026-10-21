@@ -1,4 +1,4 @@
-String `s` (lowercase) and integer `k`. Rearrange so any two equal letters are at least `k` positions apart. If that is impossible, return empty. `aabbcc` with `k = 3` → `abcabc`. `aaabc` with `k = 3` → empty. Length up to 3×10^5. `k = 0` means no gap rule.
+String `s` (lowercase) and integer `k`. Rearrange so any two equal letters are at least `k` positions apart. If that is impossible, return empty. `aabbcc` with `k = 3` → `abcabc`. `aaabc` with `k = 3` → empty. Length up to 3×10^5. `k = 0` means no gap rule. _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## Place the current most-frequent leftover; wait k before reuse
 

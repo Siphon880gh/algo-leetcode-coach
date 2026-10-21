@@ -1,4 +1,4 @@
-Unique lowercase words, all the same length `n` (1 to 4), at most 1000 of them. Return every word square you can build. The same word may appear more than once in a square. `["area","lead","wall","lady","ball"]` → two squares starting `ball` and `wall`. `["abat","baba","atan","atal"]` → two squares that reuse `baba`.
+Unique lowercase words, all the same length `n` (1 to 4), at most 1000 of them. Return every word square you can build. The same word may appear more than once in a square. `["area","lead","wall","lady","ball"]` → two squares starting `ball` and `wall`. `["abat","baba","atan","atal"]` → two squares that reuse `baba`. _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## Next prefix is already written down the column
 

@@ -1,5 +1,3 @@
-Each person is `[h, k]`: height `h`, and exactly `k` people in front who are at least as tall. Reconstruct the queue. Length 1 to 2000. `[[7,0],[4,4],[7,1],[5,0],[6,1],[5,2]]` → `[[5,0],[7,0],[5,2],[6,1],[4,4],[7,1]]`.
-
 ## Sort tallest first, then insert at k
 
 Sort `people` by height descending; ties by `k` ascending. Start with an empty list. For each person `p`, insert `p` at index `p[1]`. After the tall people are placed, a shorter person’s `k` is exactly the slot among those already-present taller-or-equal bodies. Later shorter inserts shift them right but do not change who stood in front at insert time.

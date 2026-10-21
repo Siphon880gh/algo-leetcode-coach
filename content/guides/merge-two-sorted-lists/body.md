@@ -1,7 +1,5 @@
 Both lists are sorted non-decreasing. Splice their nodes into one sorted list (reuse nodes, do not allocate new value nodes). Empty lists are allowed.
 
-`[1,2,4]` and `[1,3,4]` → `[1,1,2,3,4,4]`. Two empties → `[]`. One empty and `[0]` → `[0]`.
-
 ## Dummy tail (iterative)
 
 Dummy plus a `cur` pointer. While both lists are live, attach the smaller head to `cur.next` and advance that list. Then `cur.next = list1 or list2` (the remainder). Return `dummy.next`. O(1) extra memory besides the output chain.

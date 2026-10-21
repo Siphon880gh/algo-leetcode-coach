@@ -1,4 +1,4 @@
-Given `intervals[i] = [start, end]`, return whether one person can attend **all** of them. Two meetings that meet at the same instant (`end = t` and next `start = t`) do **not** overlap. `[[0,30],[5,10],[15,20]]` → false. `[[7,10],[2,4]]` → true. Length 0..10⁴. Empty → true.
+Given `intervals[i] = [start, end]`, return whether one person can attend **all** of them. Two meetings that meet at the same instant (`end = t` and next `start = t`) do **not** overlap. `[[0,30],[5,10],[15,20]]` → false. `[[7,10],[2,4]]` → true. Length 0..10⁴. Empty → true. _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## Sort, then only check neighbors
 

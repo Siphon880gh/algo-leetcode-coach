@@ -1,5 +1,3 @@
-Evaluate Reverse Polish tokens. Operators are plus, minus, times, and divide. Division truncates toward zero. Valid expression, 32-bit ints. `2 1 + 3 ×` → 9. `4 13 5 / +` → 6.
-
 ## Stack: push numbers, pop two on an operator
 
 RPN already encodes order; there are no parentheses to match. Valid Parentheses, Max Points, and Simplify Path are different problems. Max path sum bends at a tree node. RPN is a linear token scan with a stack, not a binary tree walk.

@@ -1,5 +1,3 @@
-`m` by `n` matrix of `'0'` / `'1'`. Return the **area** of the largest square of 1s (not the side). First sample → 4. `[["0","1"],["1","0"]]` → 1. `[["0"]]` → 0. Up to 300 by 300.
-
 ## Square DP, not a histogram rectangle
 
 Number of Islands counts 4-connected blobs. Maximal Rectangle (85) allows non-square histograms. Here the shape must be a square.

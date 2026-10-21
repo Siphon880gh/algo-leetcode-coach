@@ -1,5 +1,3 @@
-Integer `n` from 1 to 1e4. Return a 1-indexed string list of length `n`: `FizzBuzz` when `i` is divisible by both 3 and 5, `Fizz` when only by 3, `Buzz` when only by 5, otherwise the decimal of `i`. `n = 3` → `["1","2","Fizz"]`. `n = 5` → `["1","2","Fizz","4","Buzz"]`. `n = 15` ends with `FizzBuzz`.
-
 ## Walk 1..n; joint multiple first
 
 For each `i`, test `i % 15 == 0` before the single-factor tests. If you test 3 first and return `Fizz`, 15 never becomes `FizzBuzz`. Concatenating `Fizz` then `Buzz` when each factor hits is the same joint case. The array is 1-indexed in the statement (`answer[i]` talks about value `i`), but you still append in order from 1.

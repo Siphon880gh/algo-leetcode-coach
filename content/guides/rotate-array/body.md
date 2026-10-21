@@ -1,5 +1,3 @@
-Right-rotate `nums` by `k` steps, in place, no return value. `k` is 0 or more. `[1,2,3,4,5,6,7]`, k = 3 → `[5,6,7,1,2,3,4]`. `[-1,-100,3,99]`, k = 2 → `[3,99,-1,-100]`. Length up to 1e5.
-
 ## Three reverses, k modulo n
 
 Rotate List does this on a linked list (gap of k, then cut). Reverse Words II uses the same two-pointer reverse on a char array. Here: `k %= n` so a full turn is a no-op. Then:

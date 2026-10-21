@@ -1,5 +1,3 @@
-Column title to Excel number. A=1 … Z=26, AA=27, AB=28. `"A"` → 1. `"AB"` → 28. `"ZY"` → 701. Length 1 to 7, uppercase only. Inverse of Excel Sheet Column Title (subtract-1, then emit letters).
-
 ## Horner: times 26, then add this letter
 
 Column Title walks remainders and reverses. Here you already have the most-significant letter first. Two Sum III is a stream pair map. Majority Element is a vote.

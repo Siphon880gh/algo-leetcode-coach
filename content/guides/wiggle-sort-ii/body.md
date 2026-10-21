@@ -1,5 +1,3 @@
-Reorder `nums` **in place** so `nums[0] < nums[1] > nums[2] < nums[3] …` (strict). A valid answer is guaranteed. `[1,5,1,1,6,4]` → `[1,6,1,5,1,4]` (other waves are fine). `[1,3,2,2,3,1]` → `[2,3,1,3,1,2]`. Length up to `5×10⁴`. Values sit in `0..5000`.
-
 ## Sort, then write from the two ends backward
 
 Wiggle Sort (280) allows `≤` / `≥` and a linear adjacent swap. Here equals cannot sit next to each other as a peak/valley pair. A one-pass 280 swap can leave `1,1` neighbors.

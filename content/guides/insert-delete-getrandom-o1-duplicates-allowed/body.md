@@ -1,5 +1,3 @@
-`RandomizedCollection` is a multiset. `insert(val)` always stores a new copy and returns true only when `val` was missing. `remove(val)` drops one copy if any exist. `getRandom()` picks uniformly from the bag, so copies weigh more: insert 1, 1, 2 then 1 with probability 2/3. Average constant time. At most about 2×10^5 mixed calls. `getRandom` is never called on empty.
-
 ## List plus value → set of indices
 
 Keep `l` (every copy in order) and `m[val]` a set of indices into `l`. Insert: add `len(l)` to `m[val]`, append, return whether that set just became size 1.

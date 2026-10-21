@@ -1,4 +1,4 @@
-`nums` is sorted and unique inside `[lower, upper]`. Return the shortest list of inclusive ranges that cover every missing integer. `[0,1,3,50,75]`, 0..99 → `[[2,2],[4,49],[51,74],[76,99]]`. `[-1]` with bounds −1..−1 → `[]`. At most 100 values.
+`nums` is sorted and unique inside `[lower, upper]`. Return the shortest list of inclusive ranges that cover every missing integer. `[0,1,3,50,75]`, 0..99 → `[[2,2],[4,49],[51,74],[76,99]]`. `[-1]` with bounds −1..−1 → `[]`. At most 100 values. _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## Prefix hole, pairwise holes, suffix hole
 

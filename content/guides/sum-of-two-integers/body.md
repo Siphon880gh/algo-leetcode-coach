@@ -1,5 +1,3 @@
-Integers `a` and `b` in `−1000 .. 1000`. Return `a + b` without using `+` or `−`. `1, 2` → `3`. `2, 3` → `5`.
-
 ## XOR is the bits; AND-shift is the carry
 
 XOR (`a xor b`) is addition if no two 1s sit in the same bit. Where both bits are 1, that is a carry into the next column: `(a AND b) shifted left 1`. Set `a` to the XOR, `b` to the carry, and loop until the carry is 0. Then `a` is the sum.

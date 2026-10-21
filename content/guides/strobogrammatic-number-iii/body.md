@@ -1,4 +1,4 @@
-Given digit strings `low` and `high` (`low ≤ high`, length 1..15, no leading zeros except `"0"`), return how many strobogrammatic numbers lie in the closed range `[low, high]`. `"50"`..`"100"` → 3 (`69`, `88`, `96`). `"0"`..`"0"` → 1.
+Given digit strings `low` and `high` (`low ≤ high`, length 1..15, no leading zeros except `"0"`), return how many strobogrammatic numbers lie in the closed range `[low, high]`. `"50"`..`"100"` → 3 (`69`, `88`, `96`). `"0"`..`"0"` → 1. _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## Generate by length, then test the endpoints
 

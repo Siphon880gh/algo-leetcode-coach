@@ -1,5 +1,3 @@
-Implement `RandomizedSet`: `insert(val)` true iff it was new, `remove(val)` true iff it was present, `getRandom()` a uniform member (the set is never empty on that call). Average constant time per op. Example: insert 1, remove 2 (false), insert 2, getRandom is 1 or 2, remove 1, insert 2 (false), getRandom is 2. At most about 2×10^5 mixed calls.
-
 ## List plus value → index
 
 Keep `q` (the values) and `d` (index of each value in `q`). Insert: if `val` is already in `d`, false; else `d[val] = len(q)`, append, true.

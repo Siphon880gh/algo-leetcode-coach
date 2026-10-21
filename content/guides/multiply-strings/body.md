@@ -1,7 +1,5 @@
 `num1` and `num2` are non-negative integers as digit strings (no leading zeros except `"0"`). Return their product as a string. Do not parse the whole input as a machine int and do not call a BigInteger library. Lengths up to 200.
 
-`"2"` × `"3"` → `"6"`. `"123"` × `"456"` → `"56088"`.
-
 ## Grade-school into m+n slots
 
 The product has at most `m + n` digits. Allocate `arr[0 .. m+n-1]` as those positions, index 0 the most significant.

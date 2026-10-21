@@ -1,4 +1,4 @@
-Slots `0 .. maxNumbers−1` (`maxNumbers` up to 1e4). `get()` assigns any unused number, or `−1` if none are left. `check(number)` is true iff that slot is still free. `release(number)` returns a slot to the pool. Example with 3 slots: `get, get, check(2)` → some two numbers assigned, 2 still free; next `get` takes 2; `check(2)` is false; `release(2)` then `check(2)` is true. At most about 2×10^4 mixed calls.
+Slots `0 .. maxNumbers−1` (`maxNumbers` up to 1e4). `get()` assigns any unused number, or `−1` if none are left. `check(number)` is true iff that slot is still free. `release(number)` returns a slot to the pool. Example with 3 slots: `get, get, check(2)` → some two numbers assigned, 2 still free; next `get` takes 2; `check(2)` is false; `release(2)` then `check(2)` is true. At most about 2×10^4 mixed calls. _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## Hash set (or queue) of unused ids
 

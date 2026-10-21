@@ -1,7 +1,3 @@
-Count distinct subsequences of `s` that equal `t` (keep order, skip letters). Lengths up to 1000. The answer fits in a 32-bit signed integer.
-
-`s = rabbbit`, `t = rabbit` → `3`. `s = babgbag`, `t = bag` → `5`.
-
 ## Ways s can form t
 
 Interleaving String is true/false on two sources. Edit Distance is a min cost. Unique Paths counts grid walks. Unique BST I counts tree shapes. Flatten rewires a tree.

@@ -1,5 +1,3 @@
-`m` by `n` height grid, 1 to 200 on each side. Pacific touches the top and left; Atlantic touches the bottom and right. Water flows to a 4-neighbor whose height is less than or equal to the current cell, and from an ocean-adjacent cell into that ocean. Return every `[r, c]` that can reach both oceans. Example grid in the writeup includes `[0,4]`, `[2,2]`, `[3,0]`. `[[1]]` → `[[0,0]]`.
-
 ## Search from the oceans, not from every cell
 
 From every cell, downhill search is too slow. Reverse the edges: start BFS or DFS at Pacific border cells and walk to neighbors with height greater or equal (water could have flowed down that edge). Do the same from the Atlantic border. A cell in both visited sets can drain both ways.

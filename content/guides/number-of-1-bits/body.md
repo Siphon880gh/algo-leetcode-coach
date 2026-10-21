@@ -1,5 +1,3 @@
-Count the set bits of a positive integer `n` (Hamming weight). `1 ≤ n ≤ 2³¹ − 1`. `11` → `3` (binary 1011). `128` → `1`. `2147483645` → `30`.
-
 ## Clear the lowest 1, once per loop
 
 Reverse Bits rearranges all 32 slots; Single Number XOR-folds an array; Gray code maps `i` to `i XOR (i >> 1)`. Here you only need how many 1s exist.

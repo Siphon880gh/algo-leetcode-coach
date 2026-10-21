@@ -1,5 +1,3 @@
-True if some distinct `i`, `j` satisfy `abs(i − j) ≤ indexDiff` and `abs(nums[i] − nums[j]) ≤ valueDiff`. Call those `k` and `t`. `n ≤ 10⁵`. `[1,2,3,1]`, `k = 3`, `t = 0` → true (the two 1s). `[1,5,9,1,5,9]`, `k = 2`, `t = 3` → false.
-
 ## Nearby in **index** and **value**
 
 Contains Duplicate (217) ignores distance. Contains Duplicate II (219) requires equal values inside `k`. Here values may differ by up to `t`. Nested loops are O(n²) and miss the limit. Use 64-bit arithmetic so `v ± t` does not wrap.

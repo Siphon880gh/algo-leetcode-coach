@@ -1,5 +1,3 @@
-Encoded `s` (length up to 30): letters, digits, and well-formed `[]`. `k[chunk]` repeats `chunk` exactly `k` times (`k` in `1..300`). Digits appear only as those counts. Output length stays within `1e5`. `"3[a]2[bc]"` → `"aaabcbc"`. `"3[a2[c]]"` → `"accaccacc"`. `"2[abc]3[cd]ef"` → `"abcabccdcdcdef"`.
-
 ## Count stack and prefix stack
 
 Keep a running `num` and a current string `res`. Walk left to right:

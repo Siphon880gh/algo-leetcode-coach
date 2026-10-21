@@ -1,4 +1,4 @@
-Longest substring with at most two distinct characters. `eceba` → 3 (`ece`). `ccaabbb` → 5 (`aabbb`). Length up to 10⁵. English letters.
+Longest substring with at most two distinct characters. `eceba` → 3 (`ece`). `ccaabbb` → 5 (`aabbb`). Length up to 10⁵. English letters. _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## Shrink only while more than two keys
 

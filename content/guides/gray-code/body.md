@@ -1,7 +1,3 @@
-n-bit Gray sequence of 2^n integers in `[0, 2^n − 1]`, start at 0, each value once, adjacent (and first/last) differ by exactly one bit. 1 ≤ n ≤ 16.
-
-`n = 2` → `[0,1,3,2]`. `n = 1` → `[0,1]`.
-
 ## i XOR (i shifted right)
 
 `0,1,2,3` is `00,01,10,11` — 1 to 2 flips two bits. Permutations generates all orders. Subsets records collections of numbers. Bit reversal is a different permutation. Hamming Distance returns a count.

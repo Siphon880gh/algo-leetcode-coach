@@ -1,4 +1,4 @@
-String `currentState` of `+` and `-`, length 1..60, at most 20 consecutive pluses. Players alternate flipping two consecutive `++` into `--`. No legal move loses. True iff the starting player can force a win. `"++++"` → true (flip the middle pair to `"+--+"`). `"+"` → false.
+String `currentState` of `+` and `-`, length 1..60, at most 20 consecutive pluses. Players alternate flipping two consecutive `++` into `--`. No legal move loses. True iff the starting player can force a win. `"++++"` → true (flip the middle pair to `"+--+"`). `"+"` → false. _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## Flip Game lists children; here you search for a losing reply
 

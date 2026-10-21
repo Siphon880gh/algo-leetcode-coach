@@ -1,7 +1,3 @@
-`nums` are distinct. Return every ordering. n ≤ 6, so n-factorial answers (at most 720) fit.
-
-`[1,2,3]` → the six orderings. `[1]` → `[[1]]`.
-
 ## Fill unused indices
 
 Build a path of length n. `dfs(i)` fills position `i`. A boolean `vis[j]` means index `j` is already on the path.

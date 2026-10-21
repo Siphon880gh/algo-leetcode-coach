@@ -1,4 +1,4 @@
-Integer `length` (n up to 1e5) and `updates` of size up to 1e4. Start from a zero array of that length. Each update `[start, end, inc]` adds `inc` to every index in the inclusive range `[start, end]`. Return the array after all updates. `length = 5`, `[[1,3,2],[2,4,3],[0,2,−2]]` → `[−2,0,3,5,3]`.
+Integer `length` (n up to 1e5) and `updates` of size up to 1e4. Start from a zero array of that length. Each update `[start, end, inc]` adds `inc` to every index in the inclusive range `[start, end]`. Return the array after all updates. `length = 5`, `[[1,3,2],[2,4,3],[0,2,−2]]` → `[−2,0,3,5,3]`. _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## Mark the boundaries; prefix to restore
 

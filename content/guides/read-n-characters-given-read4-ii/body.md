@@ -1,4 +1,4 @@
-Same `read4` API as Read N Given Read4, but `read(buf, n)` may be called many times on one file. File `abc`, queries `[1,2,1]` → `[1,2,0]`. `[4,1]` → `[3,0]`. Reset instance state between test cases. File length 1 to 500; up to 10 queries.
+Same `read4` API as Read N Given Read4, but `read(buf, n)` may be called many times on one file. File `abc`, queries `[1,2,1]` → `[1,2,0]`. `[4,1]` → `[3,0]`. Reset instance state between test cases. File length 1 to 500; up to 10 queries. _(Restated from memory; limits and examples may differ slightly from the official statement.)_
 
 ## Drain leftovers before the next read4
 

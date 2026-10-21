@@ -1,7 +1,3 @@
-Return inorder values of a binary tree. Up to 100 nodes.
-
-`[1,null,2,3]` → `[1,3,2]`. Empty → `[]`. `[1]` → `[1]`.
-
 ## Left, visit, right
 
 Preorder visits the root first. Level order walks by BFS. Postorder visits the node after both children. The sample is 1, 3, 2 — left subtree of 2 before 2 itself. Valid Parentheses matches delimiters. Restore IP splits a string. Unique Binary Search Trees later builds trees.

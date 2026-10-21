@@ -1,5 +1,3 @@
-Column number to Excel title. A=1 … Z=26, AA=27, AB=28. `1` → `A`. `28` → `AB`. `701` → `ZY`. `columnNumber` up to 2³¹−1.
-
 ## Subtract 1 so remainder 0 means Z
 
 Excel is 1-based: there is no 0 digit. Skipping `n -= 1` maps 26 to a remainder 0 and an extra quotient 1, which is not Z. Title-to-number is the inverse problem. Two Sum II is pointers. 26 is Z, not AA. AA is 27.
