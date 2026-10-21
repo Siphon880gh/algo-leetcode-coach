@@ -1,0 +1,58 @@
+<p>You are given a parentheses string <code>s</code> containing only the characters <code>'('</code> and <code>')'</code>. A parentheses string is <strong>balanced</strong> if it can be formed using the following rules:</p>
+
+<ul>
+	<li>The empty string is balanced.</li>
+	<li>If <code>A</code> is balanced, then <code>'('</code> + <code>A</code> + <code>'))'</code> is balanced.</li>
+	<li>If <code>A</code> and <code>B</code> are balanced, then their concatenation is balanced.</li>
+</ul>
+
+<p>In other words, every left parenthesis <code>'('</code> must have a corresponding pair of two consecutive right parentheses <code>'))'</code> that comes after it, and every right parenthesis must belong to exactly one such matching pair.</p>
+
+<p>For example, <code>"())"</code>, <code>"())(())))"</code> and <code>"(())())))"</code> are balanced, while <code>")()"</code>, <code>"()))"</code> and <code>"(()))"</code> are not balanced.</p>
+
+<p>You can insert the characters <code>'('</code> and <code>')'</code> at any position of the string to balance it if needed.</p>
+
+<p>Return the <strong>minimum</strong> number of insertions needed to make <code>s</code> balanced.</p>
+
+<p><strong>Example 1:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "(()))"</span></p>
+
+<p><strong>Output:</strong> <span>1</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>The second <code>'('</code> is matched with two consecutive <code>')'</code>, but the first <code>'('</code> has only one matching <code>')'</code>. We need to insert one more <code>')'</code> at the end to make the string <code>"(())))"</code>, which is balanced.</p>
+</div>
+
+<p><strong>Example 2:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "())"</span></p>
+
+<p><strong>Output:</strong> <span>0</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>The string is already balanced because its <code>'('</code> is followed by two consecutive <code>')'</code>, and both right parentheses belong to that matching pair.</p>
+</div>
+
+<p><strong>Example 3:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "))())("</span></p>
+
+<p><strong>Output:</strong> <span>3</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>Insert <code>'('</code> at the beginning to match the first <code>'))'</code>, and insert <code>'))'</code> at the end to match the last <code>'('</code>. Three insertions are needed in total.</p>
+</div>
+
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>1 &lt;= s.length &lt;= 10<sup>5</sup></code></li>
+	<li><code>s</code> consists of <code>'('</code> and <code>')'</code> only.</li>
+</ul>
