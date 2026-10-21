@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: s is lowercase, length 1 to 1e4. k is 1 to 1e5. Return the length of the longest substring where every letter in that substring appears at least k times. None exists → 0. aaabb, k=3 → 3 (aaa). ababbc, k=2 → 5 (ababb).\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Treat this as Longest Substring Without Repeating (3), or At Most K Distinct (340)', 'next' => 'wrong_340'],

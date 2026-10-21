@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: merge two sorted lists. [1,2,4] and [1,3,4] → [1,1,2,3,4,4]. Splice existing nodes; empty list is a valid head.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Walk list1 to its tail, then set that tail.next to list2', 'next' => 'concat'],

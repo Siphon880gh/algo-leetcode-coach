@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: group odd-index nodes, then even-index nodes. First node is odd (1-based). Order inside each group stays. [1,2,3,4,5] → [1,3,5,2,4]. O(n) time, O(1) extra.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Partition by node.val % 2 (like 86), or copy into an array', 'next' => 'wrong_val'],

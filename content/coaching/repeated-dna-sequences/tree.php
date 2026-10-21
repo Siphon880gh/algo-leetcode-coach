@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: DNA string over A, C, G, T. Return every length-10 substring that appears more than once, any order. Sample: AAAAACCCCCAAAAACCCCCCAAAAAGGGTTT → AAAAACCCCC and CCCCCAAAAA. Thirteen As → AAAAAAAAAA once. Shorter than 10 → empty.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Count every substring of any length, keep those with count greater than 1', 'next' => 'any'],

@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: next generation of Conway’s Life, in place. Eight neighbors. Live dies unless 2 or 3 live neighbors; dead becomes live on exactly 3. All cells use the current generation together.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Write 0 or 1 as you scan; later cells read the new values', 'next' => 'wrong_write'],

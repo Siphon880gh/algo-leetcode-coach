@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: houses in a circle — first and last are neighbors. nums[i] is cash; no two adjacent (including the wrap). Max total. [2,3,2] → 3. [1,2,3,1] → 4. [1,2,3] → 3. One house → that house.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Run linear House Robber on the whole array; first and last may both be taken', 'next' => 'line'],

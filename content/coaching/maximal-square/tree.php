@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: m by n grid of '0'/'1'. Return the area of the largest all-1s square (not the side). First sample → 4. [[0,1],[1,0]] → 1. [[0]] → 0. Up to 300 by 300.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Number of Islands flood-fill, or Maximal Rectangle histograms (non-square OK)', 'next' => 'rect'],

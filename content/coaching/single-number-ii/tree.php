@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: every value appears three times except one that appears once. Return that one. Linear time, O(1) extra space. [2,2,3,2] → 3. [0,1,0,1,0,1,99] → 99.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'XOR the whole array like Single Number I, a frequency map, or Gray code’s i XOR (i>>1)', 'next' => 'xor1'],

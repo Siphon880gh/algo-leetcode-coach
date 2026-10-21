@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: getNthHighestSalary(N) — the Nth highest distinct salary, or NULL if fewer than N uniques. n = 2 on 100, 200, 300 → 200. n = 2 on a single 100 → null. Same table, n = 1 → 300.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Hard-code skip 1 like 176, or OFFSET N on raw rows without DISTINCT', 'next' => 'raw'],

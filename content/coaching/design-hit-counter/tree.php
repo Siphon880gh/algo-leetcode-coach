@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: hit(timestamp) records a hit. getHits(timestamp) counts hits in the past 300 seconds, i.e. timestamps ≥ t−299. Calls arrive in order; several hits may share t. Hits at 1, 2, 3 then getHits(4) is 3; hit 300 then getHits(300) is 4 and getHits(301) is 3. At most 300 calls.\nWhat do you try first?",
+            'message' => "Problem: hit(timestamp) records a hit. getHits(timestamp) counts hits in the past 300 seconds, i.e. timestamps ≥ t−299. Calls arrive in order; several hits may share t. Hits at 1, 2, 3 then getHits(4) is 3; hit 300 then getHits(300) is 4 and getHits(301) is 3. At most 300 calls. (Restated from memory; limits and examples may differ slightly.)\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Keep one running total with no expiry, or reuse Logger Rate Limiter (359) per message', 'next' => 'wrong_total'],

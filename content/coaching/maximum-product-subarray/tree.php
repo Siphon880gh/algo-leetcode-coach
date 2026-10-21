@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: nonempty contiguous subarray with the largest product. [2,3,-2,4] → 6 from [2,3]. [-2,0,-1] → 0, not 2, because [-2,-1] is not a subarray. n ≤ 2e4.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Sum Kadane (drop a negative prefix), Reverse Words, Jump Game farthest, or product of the whole array', 'next' => 'sum'],

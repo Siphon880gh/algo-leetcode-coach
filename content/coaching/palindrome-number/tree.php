@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: is x a palindrome integer? 121 → true, −121 → false, 10 → false.\nFollow-up: do it without converting to a string.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Convert to a string and two-pointer from both ends', 'next' => 'as_str'],

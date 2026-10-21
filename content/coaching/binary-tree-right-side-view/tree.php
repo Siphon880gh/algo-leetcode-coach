@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: values you would see standing on the right, top to bottom. [1,2,3,null,5,null,4] → [1,3,4]. [1,2,3,4,null,null,null,5] → [1,3,4,5]. Empty → []. Up to 100 nodes.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Walk only the right spine (root, right, right, …) or dump every level like Level Order', 'next' => 'spine'],

@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: as many trades as you want, but hold at most one share. [7,1,5,3,6,4] → 7 (1→5 and 3→6). [1,2,3,4,5] → 4. [7,6,4,3,1] → 0.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Stock I: one prefix-min pass, so the sample is 5 (buy 1, sell 6)', 'next' => 'one'],

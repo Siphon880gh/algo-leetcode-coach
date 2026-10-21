@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: m by n grid of '1' (land) and '0' (water). Count 4-connected islands (not diagonal). First sample → 1. Second sample → 3. Up to 300 by 300.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Count every 1, connect on diagonals, or flood from the border like Surrounded Regions', 'next' => 'count'],

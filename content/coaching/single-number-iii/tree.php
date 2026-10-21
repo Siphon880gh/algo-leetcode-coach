@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: exactly two values appear once; the rest twice. Return those two in linear time and constant extra space. [1,2,1,3,2,5] → [3,5].\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Hash-count leftovers, or Single Number (136): XOR all and return that one leftover', 'next' => 'hash'],

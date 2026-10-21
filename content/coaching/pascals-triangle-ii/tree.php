@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: return the 0-indexed rowIndex-th row of Pascal’s triangle. 3 → [1,3,3,1]. 0 → [1]. 1 → [1,1]. rowIndex 0..33. Follow-up: O(rowIndex) extra space.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Return all rows like Pascal I, or Unique Paths’ single integer', 'next' => 'all'],

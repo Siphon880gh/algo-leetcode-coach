@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: 2 to 2000 strictly increasing stone positions, stones[0]=0, values up to 2^31−1. Frog starts on stone 0. First jump must be 1. If the last jump was k, the next is k−1, k, or k+1, only forward, and must land on a stone. Can it reach the last stone? [0,1,3,5,6,8,12,17] true. [0,1,2,3,4,8,9,11] false.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Treat this as Jump Game (55): from i you may jump any 1..k freely', 'next' => 'wrong_55'],

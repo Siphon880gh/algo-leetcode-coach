@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: WordDictionary. addWord stores lowercase words. search is true if some stored word matches; a dot matches any letter (at most two dots). After addWord(\"bad\"), \"dad\", \"mad\": search(\"pad\") false, \"bad\" true, \".ad\" true, \"b..\" true.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Keep a list of all words; on search, scan every string and match dots by brute force', 'next' => 'list'],

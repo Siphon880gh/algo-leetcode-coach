@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: shouldPrintMessage(timestamp, message) on a chronological stream. A unique message prints at most once every 10 seconds: if it printed at t, the next identical print is allowed at t+10. Several messages may share a timestamp. foo at 1 is true, bar at 2 is true, foo at 3 and 10 are false, foo at 11 is true. At most 1e4 calls.\nWhat do you try first?",
+            'message' => "Problem: shouldPrintMessage(timestamp, message) on a chronological stream. A unique message prints at most once every 10 seconds: if it printed at t, the next identical print is allowed at t+10. Several messages may share a timestamp. foo at 1 is true, bar at 2 is true, foo at 3 and 10 are false, foo at 11 is true. At most 1e4 calls. (Restated from memory; limits and examples may differ slightly.)\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Keep one last-print clock for the whole logger; every message shares that cooldown', 'next' => 'wrong_global'],

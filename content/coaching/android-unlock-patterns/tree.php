@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: 3 by 3 lock, dots 1..9. Count unique valid patterns of length in [m, n]. Distinct dots. A hop through another dot’s center is legal only if that midpoint was already used. m=n=1 → 9. m=1, n=2 → 65.\nWhat do you try first?",
+            'message' => "Problem: 3 by 3 lock, dots 1..9. Count unique valid patterns of length in [m, n]. Distinct dots. A hop through another dot’s center is legal only if that midpoint was already used. m=n=1 → 9. m=1, n=2 → 65. (Restated from memory; limits and examples may differ slightly.)\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Allow 1 to 3 without visiting 2, or reuse a dot later in the same pattern', 'next' => 'wrong_mid'],

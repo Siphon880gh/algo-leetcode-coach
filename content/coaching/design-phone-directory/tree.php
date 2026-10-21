@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: maxNumbers slots 0..n−1 (n up to 1e4). get assigns any unused number, or −1 if none remain. check(number) is true iff that slot is still free. release(number) returns a slot to the pool. Example n=3: two gets, check(2) can still be true; a third get takes 2; check(2) is false; release(2) then check(2) is true. About 2×10⁴ mixed calls.\nWhat do you try first?",
+            'message' => "Problem: maxNumbers slots 0..n−1 (n up to 1e4). get assigns any unused number, or −1 if none remain. check(number) is true iff that slot is still free. release(number) returns a slot to the pool. Example n=3: two gets, check(2) can still be true; a third get takes 2; check(2) is false; release(2) then check(2) is true. About 2×10⁴ mixed calls. (Restated from memory; limits and examples may differ slightly.)\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Scan 0..n−1 on every get, or treat this as LRU (146) / GetRandom (380)', 'next' => 'wrong_scan'],

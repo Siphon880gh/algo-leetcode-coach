@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: n bulbs start off. Round i (1 through n) toggles every i-th bulb. How many are on after n rounds? n = 3 → 1. n = 0 → 0. n = 1 → 1. n up to 1e9.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Simulate n rounds on a boolean array, or count primes up to n', 'next' => 'wrong_sim'],

@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: is a 9x9 board valid? Only filled cells count. Rows, columns, and each 3x3 box must have unique digits 1-9. Dots are empty. The board need not be solvable.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Backtrack to fill every dot and see if a solution exists', 'next' => 'solve'],

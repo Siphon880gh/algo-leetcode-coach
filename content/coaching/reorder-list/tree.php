@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: reorder in place to L0 → Ln → L1 → Ln-1 → … . Do not rewrite node.val. Void return. [1,2,3,4] → [1,4,2,3]. [1,2,3,4,5] → [1,5,2,4,3]. n up to 5e4.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Swap values, Swap Pairs only, reverse the whole list, Cycle I/II’s meet, or Copy List’s map', 'next' => 'vals'],

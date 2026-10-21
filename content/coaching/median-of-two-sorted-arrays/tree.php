@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: nums1 = [1, 3], nums2 = [2]. Return the median of the two already-sorted arrays.\nThe required time is O(log(m+n)). What do you try first?",
+            'message' => "Read the problem statement above.\nThe required time is O(log(m+n)). What do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Merge both arrays, then pick the middle index(es)', 'next' => 'merge'],

@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: distinct candidates, unlimited reuse. Return unique combinations that sum to target. [2,3,6,7], target 7 → [[2,2,3],[7]]. Candidates length ≤ 30.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Nested for-loops whose depth is target divided by the smallest candidate', 'next' => 'nested'],

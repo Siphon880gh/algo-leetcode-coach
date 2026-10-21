@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: daily prices. Unlimited buy/sell, one share at a time, cooldown: after you sell you cannot buy the next day. [1,2,3,0,2] → 3 (buy, sell, cooldown, buy, sell). [1] → 0. Length up to 5000.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Stock II (122): sell and buy on consecutive days, or Stock I one trade', 'next' => 'wrong_ii'],

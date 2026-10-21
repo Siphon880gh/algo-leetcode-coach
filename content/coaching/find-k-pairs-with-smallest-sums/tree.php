@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: two arrays sorted non-decreasing, lengths up to 1e5, k up to 1e4. Return k pairs (one from each array) with the smallest sums. [1,7,11] and [2,4,6], k=3 → [[1,2],[1,4],[1,6]]. Duplicate values are distinct pairs: [1,1,2] and [1,2,3], k=2 → two copies of [1,1]. k is at most the product of the lengths.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Build every pair, sort by sum, take the first k', 'next' => 'wrong_all'],

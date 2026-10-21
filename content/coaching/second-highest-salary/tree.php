@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: one column SecondHighestSalary — the second-highest distinct salary, or NULL if none. 100, 200, 300 → 200. One row 100 → null. Two rows both 300 → null.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'LIMIT 1 OFFSET 1 on raw rows, or a LEFT JOIN like Combine Two Tables', 'next' => 'raw'],

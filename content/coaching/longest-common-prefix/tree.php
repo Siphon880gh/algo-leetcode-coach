@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: longest common prefix. [\"flower\",\"flow\",\"flight\"] → \"fl\". [\"dog\",\"racecar\",\"car\"] → \"\".\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Glue every string together, then take a prefix of that blob', 'next' => 'concat'],

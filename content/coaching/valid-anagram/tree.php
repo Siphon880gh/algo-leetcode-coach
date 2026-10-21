@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: true if t is a rearrangement of s (same letters, same counts). Lowercase English, length up to 5 × 10⁴. \"anagram\" / \"nagaram\" → true. \"rat\" / \"car\" → false.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Group Anagrams: bucket many words, or return true when s equals t', 'next' => 'group'],

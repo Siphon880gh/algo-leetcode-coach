@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: inorder iterator on a BST. next() and hasNext(). Constructor sits before the smallest, so the first next is the min. Tree [7, 3, 15, null, null, 9, 20]: next is 3, then 7, hasNext true, then 9, 15, 20. Follow-up: average O(1) per call, extra O(h).\nWhat do you store?",
+            'message' => "Read the problem statement above.\nWhat do you store?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Flatten the whole inorder list in the constructor, or walk BFS levels', 'next' => 'flat'],

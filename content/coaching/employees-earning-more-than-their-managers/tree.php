@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: Employee has id, name, salary, managerId. Names of workers whose salary is strictly greater than their manager’s. Sample: Joe 70k under Sam 60k → Joe. Henry 80k under Max 90k → out. Sam and Max have NULL managerId → out.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'LEFT JOIN so CEOs stay, then compare salary to a NULL manager', 'next' => 'left'],

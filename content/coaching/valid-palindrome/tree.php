@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: after lowercasing and dropping non-alphanumeric chars, does s read the same both ways? \"A man, a plan, a canal: Panama\" → true. \"race a car\" → false. \" \" → true. n up to 2e5.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Palindrome Number’s reverse-the-integer, or reverse s including commas and case', 'next' => 'raw'],

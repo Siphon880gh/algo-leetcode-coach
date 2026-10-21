@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: capture every O-region that does not touch the border (flip those O’s to X, in place). An O on the edge stays. Sample: inner O’s become X; the bottom-edge O remains.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Flip every O, Number of Islands’ count, Word Search’s word DFS, or Set Matrix Zeroes’ row marks', 'next' => 'flip'],

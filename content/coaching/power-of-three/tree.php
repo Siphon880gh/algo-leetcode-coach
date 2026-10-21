@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: true iff n equals 3 to some integer power. 27 → true. 1 → true (3^0). 0 → false. −1 → false. Follow-up: no loop, no recursion.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Power of Two bit mask (231), or log(n)/log(3) equality', 'next' => 'wrong_bit'],

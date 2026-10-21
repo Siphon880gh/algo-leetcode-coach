@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: floor of sqrt(x) for x in 0 .. 2^31-1. Must not use pow or ** 0.5. 4 → 2. 8 → 2.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Call the language sqrt or pow(x, 0.5) and cast to int', 'next' => 'as_lib'],

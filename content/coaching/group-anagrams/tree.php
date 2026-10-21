@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: group anagrams. [\"eat\",\"tea\",\"tan\",\"ate\",\"nat\",\"bat\"] → [eat/tea/ate], [tan/nat], [bat]. n ≤ 1e4, each length ≤ 100, lowercase.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'For every pair of strings, test anagram and union their groups', 'next' => 'nested'],

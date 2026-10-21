@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: m by n grid of '0'/'1'. One 4-connected black blob. You get one black cell (x, y) (x is the row). Return the area of the smallest axis-aligned rectangle covering every '1'. Seed (0, 2) → 6. Must be faster than a full m by n scan.\nWhat do you try first?",
+            'message' => "Problem: m by n grid of '0'/'1'. One 4-connected black blob. You get one black cell (x, y) (x is the row). Return the area of the smallest axis-aligned rectangle covering every '1'. Seed (0, 2) → 6. Must be faster than a full m by n scan. (Restated from memory; limits and examples may differ slightly.)\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Flood-fill from (x, y) like Number of Islands, tracking min/max row and column', 'next' => 'wrong_flood'],

@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: is s3 an interleaving of s1 and s2? aabcc and dbbca make aadbbcbcac (true) but not aadbbbaccc (false). Empty, empty, empty → true. Lengths up to 100 + 100.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Concatenate s1+s2, or Unique Paths counting grid walks', 'next' => 'concat'],

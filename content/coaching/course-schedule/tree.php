@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: numCourses labeled 0..n−1. Pair [a, b] means take b before a. Return true if you can finish every course. [[1,0]] → true. [[1,0],[0,1]] → false.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Treat the graph as undirected, or emit a full order like Course Schedule II', 'next' => 'undir'],

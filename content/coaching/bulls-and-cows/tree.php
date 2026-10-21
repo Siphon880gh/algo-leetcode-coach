@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: secret and guess, same length, digits. Return xAyB. Bulls: same digit and same index. Cows: leftover digits that could rearrange into bulls. \"1807\" / \"7810\" → 1A3B. \"1123\" / \"0111\" → 1A1B.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Treat it as Guess Number or First Bad Version (binary search API)', 'next' => 'wrong_kind'],

@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: n up to about 5e4. Return every integer in [1, n] in lexicographical order. n=13 → [1, 10, 11, 12, 13, 2, 3, 4, 5, 6, 7, 8, 9]. Must be O(n) time and O(1) extra space besides the answer.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Stringify 1..n and sort, or write 1,2,3 then insert tens by hand', 'next' => 'wrong_sort'],

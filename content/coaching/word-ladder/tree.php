@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: number of words in the shortest begin→end ladder (one letter per step). hit→cog with [hot,dot,dog,lot,log,cog] → 5. If cog is missing → 0.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Word Ladder II’s list of all shortest paths, or DFS that may wander onto a longer ladder', 'next' => 'paths'],

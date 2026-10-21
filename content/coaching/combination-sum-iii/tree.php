@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: exactly k distinct integers from 1 through 9, each at most once, summing to n. k=3, n=7 → [[1,2,4]]. k=3, n=9 → [[1,2,6],[1,3,5],[2,3,4]]. k=4, n=1 → [] (smallest four-sum is 10).\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Combination Sum I: reuse the same digit; any length as long as the sum is n', 'next' => 'reuse'],

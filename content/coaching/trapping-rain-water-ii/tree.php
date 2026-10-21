@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: m by n height map, sides 1 to 200. Return how much water the 2D elevation can trap. [[1,4,3,1,3,2],[3,2,1,3,2,4],[2,3,3,2,3,1]] → 4. The other sample of a 3-ring around a 1 traps 10.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Run 1D Trapping Rain Water (42) on every row and every column and add them', 'next' => 'wrong_42'],

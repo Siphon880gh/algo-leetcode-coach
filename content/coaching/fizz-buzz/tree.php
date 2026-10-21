@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: given n from 1 to 1e4, return a 1-indexed string list of length n. For each i from 1 to n: FizzBuzz if i is divisible by 3 and 5, Fizz if only by 3, Buzz if only by 5, else the decimal of i. n=3 → 1,2,Fizz. n=15 ends with FizzBuzz.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Spawn four threads with a lock (1195), or start i at 0', 'next' => 'wrong_1195'],

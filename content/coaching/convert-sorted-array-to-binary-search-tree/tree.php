@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: nums is strictly increasing; convert it to a height-balanced BST. [-10,-3,0,5,9] accepts [0,-3,9,-10,null,5]. Length 1..10^4.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Unique BST II: generate every Catalan tree on 1..n', 'next' => 'all'],

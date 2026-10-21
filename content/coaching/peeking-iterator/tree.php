@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: wrap an iterator so peek returns the next value without advancing, while next and hasNext still work. [1,2,3]: next → 1, peek → 2, next → 2, next → 3, hasNext → false.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Copy nums into your own list and ignore the given Iterator', 'next' => 'wrong_copy'],

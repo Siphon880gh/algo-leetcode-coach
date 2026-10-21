@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: sorted nums, in-place, each value at most twice. Return k for the kept prefix. [1,1,1,2,2,3] → k=5, [1,1,2,2,3]. O(1) extra. n up to 3e4.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Keep x when it differs from nums[k-1], like Remove Duplicates from Sorted Array (at most one)', 'next' => 'one'],

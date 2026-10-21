@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: NestedInteger (integer or list). Depth is how many lists wrap an integer (outer is 1). Weight is maxDepth − depth + 1 (shallow integers weigh more). Return sum of value × weight. [[1,1],2,[1,1]] → 8. [1,[4,[6]]] → 17. No empty lists. Depth at most 50.\nWhat do you try first?",
+            'message' => "Problem: NestedInteger (integer or list). Depth is how many lists wrap an integer (outer is 1). Weight is maxDepth − depth + 1 (shallow integers weigh more). Return sum of value × weight. [[1,1],2,[1,1]] → 8. [1,[4,[6]]] → 17. No empty lists. Depth at most 50. (Restated from memory; limits and examples may differ slightly.)\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Use raw depth as the weight (the 339 formula)', 'next' => 'wrong_339'],

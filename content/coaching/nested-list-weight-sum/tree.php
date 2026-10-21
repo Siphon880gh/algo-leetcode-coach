@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: nested list; each item is an integer or another list. Depth of an integer is how many lists wrap it; the input list is depth 1. Sum value × depth. [[1,1],2,[1,1]] → 10. [1,[4,[6]]] → 27.\nWhat do you try first?",
+            'message' => "Problem: nested list; each item is an integer or another list. Depth of an integer is how many lists wrap it; the input list is depth 1. Sum value × depth. [[1,1],2,[1,1]] → 10. [1,[4,[6]]] → 27. (Restated from memory; limits and examples may differ slightly.)\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Start depth at 0, or invert like Nested List Weight Sum II (364)', 'next' => 'wrong_364'],

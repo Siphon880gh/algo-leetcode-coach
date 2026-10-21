@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: return the nth ugly number (prime factors only 2, 3, 5). Sequence 1, 2, 3, 4, 5, 6, 8, 9, 10, 12. n = 10 → 12. n = 1 → 1. 1 ≤ n ≤ 1690.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Ugly Number (263): scan every integer and keep those that divide out to 1 until you have n of them', 'next' => 'scan'],

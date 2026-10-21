@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: lowercase s, length up to 5×10⁴. Add as few characters as possible in front so the result is a palindrome. \"aacecaaa\" → \"aaacecaaa\". \"abcd\" → \"dcbabcd\". Empty or already a palindrome → s.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Append the reverse of s at the end, or brute two-pointer-check every prefix', 'next' => 'wrongish'],

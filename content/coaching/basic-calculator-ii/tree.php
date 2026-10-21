@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: expression of non-negative integers, plus, minus, times, divide, spaces. No parens. Divide toward zero. No eval. n up to 3 × 10⁵. \"3+2×2\" → 7. \" 3/2 \" → 1. \" 3+5 / 2 \" → 5.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'eval(s), or Basic Calculator (224) paren stack, or RPN postfix', 'next' => 'wrongish'],

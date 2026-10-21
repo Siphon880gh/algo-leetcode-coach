@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: zero array of length n (up to 1e5). Up to 1e4 updates. Each [start, end, inc] adds inc on the inclusive range [start, end]. Return the array. length 5, [[1,3,2],[2,4,3],[0,2,−2]] → [−2,0,3,5,3].\nWhat do you try first?",
+            'message' => "Problem: zero array of length n (up to 1e5). Up to 1e4 updates. Each [start, end, inc] adds inc on the inclusive range [start, end]. Return the array. length 5, [[1,3,2],[2,4,3],[0,2,−2]] → [−2,0,3,5,3]. (Restated from memory; limits and examples may differ slightly.)\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'For each update, loop i from start to end and add inc to arr[i]', 'next' => 'wrong_naive'],

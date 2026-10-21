@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: TwoSum on a stream. add(number), find(value) true iff two stored numbers (distinct uses) sum to value. add 1, 3, 5; find(4) is true; find(7) is false. At most 10^4 calls.\nWhat do you store?",
+            'message' => "Problem: TwoSum on a stream. add(number), find(value) true iff two stored numbers (distinct uses) sum to value. add 1, 3, 5; find(4) is true; find(7) is false. At most 10^4 calls. (Restated from memory; limits and examples may differ slightly.)\nWhat do you store?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Rebuild Two Sum I on a list each find, or Two Sum II two pointers on unsorted data', 'next' => 'rebuild'],

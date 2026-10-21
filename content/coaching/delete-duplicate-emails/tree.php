@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: Person has id and lowercase email. Delete duplicate emails, keep the smallest id per address. Write DELETE, not SELECT. Sample: keep john id 1, drop john id 3, keep bob id 2.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'SELECT like Duplicate Emails (182), listing emails that appear more than once', 'next' => 'other'],

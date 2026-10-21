@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: n people, at most one celebrity (known by everyone, knows nobody). Only knows(a, b). Return the label or −1. Sample: person 1 is the sink → 1.\nWhat do you try first?",
+            'message' => "Problem: n people, at most one celebrity (known by everyone, knows nobody). Only knows(a, b). Return the label or −1. Sample: person 1 is the sink → 1. (Restated from memory; limits and examples may differ slightly.)\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Call knows on every pair (n² queries)', 'next' => 'all'],

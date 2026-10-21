@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: non-decreasing citations. Largest h such that at least h papers have at least h cites. Must be log time. [0,1,3,5,6] → 3. [1,2,100] → 2.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Sort descending or count buckets like H-Index (274)', 'next' => 'sort'],

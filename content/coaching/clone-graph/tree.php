@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: deep-copy a connected undirected graph. [[2,4],[1,3],[2,4],[1,3]] clones 4 nodes with the same edges. [] → None. A lone node clones with empty neighbors.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Reuse the same Node objects (shallow), Same Tree’s binary recursion, or Surrounded Regions’ grid DFS', 'next' => 'shallow'],

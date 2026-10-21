@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: n houses, k colors (2 ≤ k ≤ 20), neighbors cannot share a color. costs is n by k. Return min total. [[1,5,3],[2,9,4]] → 5.\nWhat do you try first?",
+            'message' => "Problem: n houses, k colors (2 ≤ k ≤ 20), neighbors cannot share a color. costs is n by k. Return min total. [[1,5,3],[2,9,4]] → 5. (Restated from memory; limits and examples may differ slightly.)\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Paint House (256) three named integers; or greedy cheapest color on every house', 'next' => 'three'],

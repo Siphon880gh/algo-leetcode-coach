@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: ValidWordAbbr. Abbr is first letter, count of letters between, last letter (length under 3 stays itself). isUnique(word) is true if no other dictionary word shares that abbr. Sample: cake is unique; dear is not (deer).\nWhat do you try first?",
+            'message' => "Problem: ValidWordAbbr. Abbr is first letter, count of letters between, last letter (length under 3 stays itself). isUnique(word) is true if no other dictionary word shares that abbr. Sample: cake is unique; dear is not (deer). (Restated from memory; limits and examples may differ slightly.)\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'If word is already in the dictionary, return false', 'next' => 'wrong_self'],

@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: RandomizedCollection is a multiset. insert(val) always stores a new copy and returns true only when val was missing. remove(val) drops one copy if any exist. getRandom picks uniformly from the bag, so insert 1, 1, 2 then 1 with probability 2/3. Average O(1). About 2×10⁵ mixed calls. getRandom is never called on empty.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Reuse 380 (one index per value), or sample a random key of the map', 'next' => 'wrong_380'],

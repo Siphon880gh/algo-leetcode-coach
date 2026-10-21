@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: answer[i] is the product of all nums[j] with j ≠ i. O(n) time, no division. [1,2,3,4] → [24,12,8,6]. [-1,1,0,-3,3] → [0,0,9,0,0]. Length 2 to 10⁵. Follow-up: O(1) extra besides answer.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Total product, then divide by nums[i]; or nested “times everything except i”', 'next' => 'div'],

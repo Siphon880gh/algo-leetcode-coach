@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: are trees p and q the same — same structure and same values? [1,2,3] vs [1,2,3] → true. [1,2] vs [1,null,2] → false. [1,2,1] vs [1,1,2] → false. Up to 100 nodes each; either may be empty.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Compare inorder lists, or Validate BST’s strictly increasing walk', 'next' => 'inorder'],

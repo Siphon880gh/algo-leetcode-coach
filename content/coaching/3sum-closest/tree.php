@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: 3Sum Closest. nums = [-1,2,1,-4], target = 1 → 2 (because -1+2+1). Return the sum, not the triplet. n ≤ 500.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'List every distinct 3Sum triplet, then pick the one with values nearest target', 'next' => 'list_all'],

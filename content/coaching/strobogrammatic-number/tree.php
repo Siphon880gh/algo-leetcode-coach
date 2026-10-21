@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: true if digit string num looks the same after a 180° rotate. Length 1..50. \"69\" and \"88\" → true. \"962\" → false.\nWhat do you try first?",
+            'message' => "Problem: true if digit string num looks the same after a 180° rotate. Length 1..50. \"69\" and \"88\" → true. \"962\" → false. (Restated from memory; limits and examples may differ slightly.)\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Palindrome Number: num[i] == num[j]; or Palindrome Permutation: at most one odd count', 'next' => 'pal'],

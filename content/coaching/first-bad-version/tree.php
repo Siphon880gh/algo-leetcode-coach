@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: versions 1..n. First bad version; every later version is also bad. Call isBadVersion as few times as possible. n = 5, bad = 4 → 4. n = 1 → 1.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Scan from 1 to n until isBadVersion is true', 'next' => 'scan'],

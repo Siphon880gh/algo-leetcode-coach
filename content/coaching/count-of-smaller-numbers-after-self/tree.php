@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: counts[i] is how many later values are strictly smaller than nums[i]. [5,2,6,1] → [2,1,1,0]. [-1] → [0]. [-1,-1] → [0,0] (equals do not count). Length up to 1e5; values in [-1e4, 1e4].\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Nested scan of j > i, or count smaller values anywhere in nums', 'next' => 'wrong_scan'],

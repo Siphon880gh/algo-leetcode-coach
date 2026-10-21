@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: count distinct subsequences of s that equal t. s=rabbbit, t=rabbit → 3. s=babgbag, t=bag → 5. Lengths up to 1000.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Interleaving String’s boolean, or Edit Distance’s min operations', 'next' => 'bool'],

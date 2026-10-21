@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: count index triples i < j < k with nums[i]+nums[j]+nums[k] < target. [-2,0,1,3], target 2 → 2. Empty → 0.\nWhat do you try first?",
+            'message' => "Problem: count index triples i < j < k with nums[i]+nums[j]+nums[k] < target. [-2,0,1,3], target 2 → 2. Empty → 0. (Restated from memory; limits and examples may differ slightly.)\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => '3Sum (15): skip equal neighbors and list distinct value triples that equal 0', 'next' => 'eq'],

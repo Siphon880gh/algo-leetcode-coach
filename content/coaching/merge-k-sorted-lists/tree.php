@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: merge k sorted lists. [[1,4,5],[1,3,4],[2,6]] → [1,1,2,3,4,4,5,6]. k up to 10^4, total nodes n ≤ 10^4. Empty lists happen.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Each step scan all k heads and pick the min — O(k) per node', 'next' => 'scan_k'],

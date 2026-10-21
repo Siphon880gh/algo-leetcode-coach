@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: nums has n distinct values from 0..n; return the missing one. [3,0,1] → 2. [0,1] → 2. Follow-up: O(n) time, O(1) extra.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Hash set of 0..n, or First Missing Positive seating at index x−1', 'next' => 'set'],

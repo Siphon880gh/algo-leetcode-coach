@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: all root-to-leaf paths as strings, any order. A leaf has no children. [1,2,3,null,5] → [\"1->2->5\",\"1->3\"]. [1] → [\"1\"].\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Path Sum II: keep paths whose sum hits a target; or dump inorder values', 'next' => 'sum'],

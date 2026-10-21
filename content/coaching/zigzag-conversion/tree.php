@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: s = \"PAYPALISHIRING\", numRows = 3. Write the string in a zigzag and read it row by row → \"PAHNAPLSIIGYIR\".\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Build a full 2D grid of spaces, then scan every cell', 'next' => 'grid'],

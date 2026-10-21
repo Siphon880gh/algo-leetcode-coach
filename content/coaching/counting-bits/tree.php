@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: array of length n+1; ans[i] is the number of 1-bits in i. n=2 → [0,1,1]. n=5 → [0,1,1,2,1,2]. n up to 1e5. No built-in popcount.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Call popcount / 191 on every i (O(n log n) follow-up, not the linear pass)', 'next' => 'wrong_pop'],

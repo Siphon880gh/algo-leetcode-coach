@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: return every way to insert spaces so each piece is in the dict (any order). Reuse allowed. catsanddog with [cat, cats, and, sand, dog] → [cats and dog, cat sand dog]. catsandog → []. n ≤ 20.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Word Break I’s f[n] boolean, Word Ladder II’s BFS paths, or greedy one longest split', 'next' => 'bool'],

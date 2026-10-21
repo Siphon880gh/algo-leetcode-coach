@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: sort nums of only 0, 1, 2 in place, red-white-blue order, no library sort. [2,0,2,1,1,0] → [0,0,1,1,2,2]. Follow-up: one pass, O(1) extra.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Call a language sort, or count 0/1/2 then rewrite in a second pass', 'next' => 'count'],

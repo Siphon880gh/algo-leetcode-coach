@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: longest nest of envelopes. A fits in B only if both width and height are strictly larger. No rotation. [[5,4],[6,4],[6,7],[2,3]] → 3 ([2,3] then [5,4] then [6,7]). Three copies of [1,1] → 1. n up to 1e5.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'For each envelope, scan all others and run O(n squared) LIS-style DP', 'next' => 'wrong_n2'],

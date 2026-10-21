@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: two axis-aligned rectangles, bottom-left and top-right corners. Return the union area (overlap counted once). Sample A=[−3,0]–[3,4], B=[0,−1]–[9,2] → 45. Identical side-4 squares → 16.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Maximal Rectangle / Maximal Square on a grid, or add A+B and count the overlap twice', 'next' => 'grid'],

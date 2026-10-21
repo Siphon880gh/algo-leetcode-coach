@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: is this binary tree a BST? [2,1,3] → true. [5,1,4,null,null,3,6] → false (4 sits right of 5). Nodes 1..10^4. Values may be INT_MIN.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Only check left.val < node.val < right.val on each node, or Unique BST I’s Catalan count', 'next' => 'local'],

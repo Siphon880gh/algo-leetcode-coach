@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: expression of digits and plus, minus, times. Return every value you can get by fully parenthesizing, any order. Length at most 20. \"2-1-1\" → [0, 2]. \"2×3-4×5\" includes two −10s.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Basic Calculator / II: one left-to-right or precedence pass; or Unique BST count of trees', 'next' => 'one'],

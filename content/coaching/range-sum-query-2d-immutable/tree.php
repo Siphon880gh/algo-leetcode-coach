@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: NumMatrix on an immutable grid. sumRegion(row1, col1, row2, col2) inclusive, O(1) per call. Sample sumRegion(2,1,4,3) → 8. Up to 200 by 200, 10^4 queries.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => '1-D prefix per row (303) looping rows, or Fenwick because 307 exists', 'next' => 'wrong_kind'],

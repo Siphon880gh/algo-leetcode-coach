@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: all k-combinations from [1, n]. n=4, k=2 → [[1,2],[1,3],[1,4],[2,3],[2,4],[3,4]]. [1,2] and [2,1] are the same. n ≤ 20.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'DFS with a used[] mask and every order, like Permutations', 'next' => 'perm'],

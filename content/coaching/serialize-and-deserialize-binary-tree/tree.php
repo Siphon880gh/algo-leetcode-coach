@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: round-trip a binary tree through a string. [1,2,3,null,null,4,5] round-trips. Empty → empty string. Values −1000..1000, up to 10⁴ nodes.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Inorder only, or skip nulls like Serialize BST (449)', 'next' => 'wrong_shape'],

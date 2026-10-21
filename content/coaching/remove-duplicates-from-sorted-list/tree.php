@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: sorted linked list; each value once. [1,1,2] → [1,2]. [1,1,2,3,3] → [1,2,3]. Up to 300 nodes.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Unlink every duplicated value entirely, like Remove Duplicates from Sorted List II', 'next' => 'ii'],

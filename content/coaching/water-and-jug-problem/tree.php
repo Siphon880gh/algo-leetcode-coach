@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: jugs of x and y liters, infinite tap. Fill, empty, or pour until full/empty. True if some reachable state has target liters in one jug or in both combined. 3, 5, 4 → true. 2, 6, 5 → false. 1, 2, 3 → true. Capacities and target up to 1000.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Always fill the larger jug once and hope the remainder is target', 'next' => 'wrong_greedy'],

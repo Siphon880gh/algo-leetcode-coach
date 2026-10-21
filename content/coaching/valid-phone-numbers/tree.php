@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: bash on file.txt, one candidate per line, no extra spaces. Keep exactly ddd-ddd-dddd or (ddd) ddd-dddd. Sample: 987-123-4567 and (123) 456-7890 print; 123 456 7890 does not.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Word Frequency pipes, or keep any line that contains ten digits somewhere', 'next' => 'other'],

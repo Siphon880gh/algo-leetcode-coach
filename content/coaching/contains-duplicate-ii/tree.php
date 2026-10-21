@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: true if some value sits at two distinct indices i, j with abs(i − j) ≤ k. n and k up to 10⁵. [1,2,3,1] k=3 → true. [1,0,1,1] k=1 → true. [1,2,3,1,2,3] k=2 → false.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Seen set like Contains Duplicate, or also bound the value gap like Contains Duplicate III', 'next' => 'any'],

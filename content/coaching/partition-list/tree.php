@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: partition a linked list so values < x come first, then values ≥ x. Keep each side’s original order. [1,4,3,2,5,2], x = 3 → [1,2,2,4,3,5]. Up to 200 nodes.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Sort the list by value, or Dutch-flag swap like Sort Colors', 'next' => 'sort'],

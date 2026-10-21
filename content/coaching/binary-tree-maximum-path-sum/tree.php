@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: max sum of any non-empty path (need not pass the root). [1,2,3] → 6 (2-1-3). [-10,9,20,null,null,15,7] → 42 (15-20-7). Node values can be negative.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Path Sum I (boolean to a target) or Path Sum II (all root-to-leaf lists)', 'next' => 'ps'],

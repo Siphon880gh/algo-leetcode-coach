@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: delete the fewest parentheses so the rest is valid. Return every unique valid string. \"()())()\" → \"(())()\" and \"()()()\". \")(\" → \"\". Letters stay.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Treat it as Valid Parentheses (20) yes/no, or Generate Parentheses (22) from empty', 'next' => 'wrong_kind'],

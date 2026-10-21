@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: true if any value in nums appears at least twice, else false. n ≤ 10⁵. [1,2,3,1] → true. [1,2,3,4] → false. [1,1,1,3,3,4,3,2,4,2] → true.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Nested every pair, or require the two copies to be at most k apart (Contains Duplicate II)', 'next' => 'nested'],

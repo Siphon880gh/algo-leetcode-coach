@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: n people, 1 to 2000. Each is [h, k]: height h, and exactly k people in front with height ≥ h. Reconstruct the queue. [[7,0],[4,4],[7,1],[5,0],[6,1],[5,2]] → [[5,0],[7,0],[5,2],[6,1],[4,4],[7,1]]. Guaranteed possible.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Sort by k only, or place shortest people first so later taller inserts do not move them', 'next' => 'wrong_sort'],

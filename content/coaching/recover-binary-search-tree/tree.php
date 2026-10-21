@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: exactly two nodes in a BST had their values swapped. Recover it in place; do not change structure. [1,3,null,null,2] → swap 1 and 3. [3,1,4,null,null,2] → swap 3 and 2. Nodes 2..1000.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Return a boolean like Validate BST, or rebuild a new tree like Unique BST II', 'next' => 'validate'],

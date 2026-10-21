@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: true iff n equals 2ˣ for some integer x. Follow-up: no loop, no recursion. −2³¹ ≤ n ≤ 2³¹ − 1. 1 → true. 16 → true. 3 → false.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Number of 1 Bits (191) count, or keep dividing by 2 in a loop, or log2 floating equality', 'next' => 'wrongish'],

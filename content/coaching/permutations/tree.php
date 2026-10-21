@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: nums are distinct. Return every permutation, any order. [1,2,3] → six lists. n ≤ 6.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Next Permutation in a loop until the array returns to the start', 'next' => 'nextp'],

@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: s = \"barfoothefoobarman\", words = [\"foo\",\"bar\"]. All words have equal length k. Return every start index of a substring that is some permutation of words concatenated. Output [0,9]. n up to 5000, |s| up to 10^4.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Generate every permutation of words, then search each concat in s', 'next' => 'perms'],

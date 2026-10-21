@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: RandomizedSet. insert(val) is true iff it was new. remove(val) is true iff it was present. getRandom is a uniform member (the set is never empty on that call). Average O(1) per op. Example: insert 1, remove 2 (false), insert 2, getRandom is 1 or 2, remove 1, insert 2 (false), getRandom is 2. About 2×10⁵ mixed calls.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Hash set only, or an array you scan on every remove', 'next' => 'wrong_set'],

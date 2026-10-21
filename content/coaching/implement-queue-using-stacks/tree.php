@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: FIFO queue (push back, pop/peek front, empty) using only stack ops: push top, pop/peek top, size, empty. At most 100 calls. push 1, push 2, peek → 1, pop → 1, empty → false. Follow-up: amortized O(1).\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Implement Stack using Queues (225) rotate-on-push, or pop the bottom of a deque', 'next' => 'opp'],

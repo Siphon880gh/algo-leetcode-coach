@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: max length(i) × length(j) for two words that share no letter. None → 0. [\"abcw\",\"baz\",\"foo\",\"bar\",\"xtfn\",\"abcdef\"] → 16 (abcw and xtfn). [\"a\",\"ab\",\"abc\",\"d\",\"cd\",\"bcd\",\"abcd\"] → 4. [\"a\",\"aa\",\"aaa\",\"aaaa\"] → 0. Up to 1000 words, each length up to 1000, lowercase.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Set-intersect letters on every pair, or multiply unique-letter counts', 'next' => 'wrong_set'],

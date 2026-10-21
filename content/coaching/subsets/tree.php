@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: all subsets of unique nums (the power set). [1,2,3] includes [] and [1,2,3]. n ≤ 10.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Only record paths of length k, like Combinations', 'next' => 'konly'],

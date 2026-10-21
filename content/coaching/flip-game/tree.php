@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: string of + and -. A move flips two consecutive ++ into --. Return every string after exactly one move, any order. ++++ → --++, +--+, ++--. Lone + → []. Length 1..500.\nWhat do you try first?",
+            'message' => "Problem: string of + and -. A move flips two consecutive ++ into --. Return every string after exactly one move, any order. ++++ → --++, +--+, ++--. Lone + → []. Length 1..500. (Restated from memory; limits and examples may differ slightly.)\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Recurse / minimax: can the first player force a win (Flip Game II)', 'next' => 'wrong_ii'],

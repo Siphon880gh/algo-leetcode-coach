@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: build an n×n matrix filled 1..n² in clockwise spiral. n=3 → [[1,2,3],[8,9,4],[7,6,5]]. n=1 → [[1]]. n ≤ 20.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Fill 1..n² in row-major order, then read it with Spiral Matrix I', 'next' => 'read'],

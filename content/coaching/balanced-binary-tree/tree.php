@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: is the tree height-balanced? [3,9,20,null,null,15,7] → true. [1,2,2,3,3,null,null,4,4] → false. Empty → true. Up to 5000 nodes.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Return Max Depth’s integer, or rebuild like Convert Sorted Array to BST', 'next' => 'depth'],

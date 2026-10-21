@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: words claimed sorted in an unknown alphabet. Return any string of the unique letters in that order, or empty if impossible. [\"wrt\",\"wrf\",\"er\",\"ett\",\"rftt\"] → wertf. [\"z\",\"x\"] → zx. [\"z\",\"x\",\"z\"] → empty.\nWhat do you try first?",
+            'message' => "Problem: words claimed sorted in an unknown alphabet. Return any string of the unique letters in that order, or empty if impossible. [\"wrt\",\"wrf\",\"er\",\"ett\",\"rftt\"] → wertf. [\"z\",\"x\"] → zx. [\"z\",\"x\",\"z\"] → empty. (Restated from memory; limits and examples may differ slightly.)\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Sort the unique letters in English a..z, or Course Schedule II on a given edge list', 'next' => 'eng'],

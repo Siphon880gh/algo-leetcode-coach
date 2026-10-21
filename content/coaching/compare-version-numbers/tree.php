@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: compare two dotted version strings. Each revision is an integer (leading zeros ignored). Missing revisions are 0. Return -1, 1, or 0. 1.2 vs 1.10 → -1. 1.01 vs 1.001 → 0. 1.0 vs 1.0.0.0 → 0.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Lexicographic string compare, float(1.10), or Maximum Gap buckets', 'next' => 'lex'],

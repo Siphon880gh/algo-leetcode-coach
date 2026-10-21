@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: TicTacToe(n), then move(row, col, player) on an n by n board. Moves are valid and unique. Return 0, 1, or 2. n from 2 to 100. Sample 3 by 3: last move (2,1) by player 1 fills the bottom row → 1.\nWhat do you try first?",
+            'message' => "Problem: TicTacToe(n), then move(row, col, player) on an n by n board. Moves are valid and unique. Return 0, 1, or 2. n from 2 to 100. Sample 3 by 3: last move (2,1) by player 1 fills the bottom row → 1. (Restated from memory; limits and examples may differ slightly.)\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Scan all n² cells after every move, or treat this as Valid Tic-Tac-Toe State (794)', 'next' => 'wrong_scan'],

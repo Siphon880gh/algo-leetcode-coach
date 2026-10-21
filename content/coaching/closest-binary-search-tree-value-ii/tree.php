@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: BST root, float target, integer k. Return the k closest node values (any order). [4,2,5,1,3], target 3.714286, k = 2 → [4,3]. Single node [1], k = 1 → [1].\nWhat do you try first?",
+            'message' => "Problem: BST root, float target, integer k. Return the k closest node values (any order). [4,2,5,1,3], target 3.714286, k = 2 → [4,3]. Single node [1], k = 1 → [1]. (Restated from memory; limits and examples may differ slightly.)\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => '270’s one search path: keep a single closer (or smaller-on-tie) champion', 'next' => 'one'],

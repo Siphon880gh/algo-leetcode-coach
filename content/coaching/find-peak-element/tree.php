@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: return any peak index. A peak is strictly greater than its neighbors; imagine nums[-1] and nums[n] are -∞. Neighbors never equal. Must be O(log n). [1,2,3,1] → 2.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Linear scan for a local max, Find Min Rotated vs last, or One Edit suffixes', 'next' => 'lin'],

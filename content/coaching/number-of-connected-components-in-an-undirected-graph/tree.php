@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: n nodes 0..n−1, undirected edges [a, b]. Count connected components. n=5, [[0,1],[1,2],[3,4]] → 2. Isolated vertices count. No self-loops or duplicate edges.\nWhat do you try first?",
+            'message' => "Problem: n nodes 0..n−1, undirected edges [a, b]. Count connected components. n=5, [[0,1],[1,2],[3,4]] → 2. Isolated vertices count. No self-loops or duplicate edges. (Restated from memory; limits and examples may differ slightly.)\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Treat as a grid (200), a directed graph (207), or require a tree (261)', 'next' => 'wrong_model'],

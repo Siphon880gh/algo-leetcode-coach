@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: l1 = [2, 4, 3], l2 = [5, 6, 4].\nDigits are stored in reverse order (342 + 465). Return the sum as a linked list.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Convert each list to an integer, add, convert back', 'next' => 'wrong_as_int'],

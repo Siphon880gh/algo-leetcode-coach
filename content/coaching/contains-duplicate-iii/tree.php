@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: true if distinct i, j have abs(i − j) ≤ indexDiff (k) and abs(nums[i] − nums[j]) ≤ valueDiff (t). n up to 10⁵. [1,2,3,1] k=3 t=0 → true. [1,5,9,1,5,9] k=2 t=3 → false.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Seen set like 217, or last-index map like 219 (equal values only)', 'next' => 'eq'],

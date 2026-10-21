@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: reorder nums in place so nums[0] ≤ nums[1] ≥ nums[2] ≤ …. [3,5,2,1,6,4] may become [3,5,1,6,2,4]. Equals are allowed.\nWhat do you try first?",
+            'message' => "Problem: reorder nums in place so nums[0] ≤ nums[1] ≥ nums[2] ≤ …. [3,5,2,1,6,4] may become [3,5,1,6,2,4]. Equals are allowed. (Restated from memory; limits and examples may differ slightly.)\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Wiggle Sort II: strict peaks via median and virtual indices', 'next' => 'wrong_ii'],

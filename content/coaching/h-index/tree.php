@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: largest h such that at least h papers have at least h citations. [3,0,6,1,5] → 3. [1,3,1] → 1.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Average the citations, or require exactly h cites per paper', 'next' => 'avg'],

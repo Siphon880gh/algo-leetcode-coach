@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: start at (0,0). Move distance[0] north, then west, south, east, repeating CCW. True iff the path crosses itself. [2,1,1,2] → true. [1,2,3,4] → false. [1,1,1,2,1] → true. n up to 1e5.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Stamp every lattice point in a set, or ray-cast the polygon', 'next' => 'wrong_hash'],

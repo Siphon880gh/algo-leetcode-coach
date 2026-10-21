@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: tickets [from, to]. Use every ticket exactly once, start at JFK. If several trips exist, return the lex-smallest airport list. [[MUC,LHR],[JFK,MUC],[SFO,SJC],[LHR,SFO]] → [JFK,MUC,LHR,SFO,SJC].\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Shortest path, or visit each airport once (Hamiltonian)', 'next' => 'wrong_path'],

@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: fill each empty room (INF) with distance to the nearest gate (0). Walls are −1. Unreachable stays INF. In place.\nWhat do you try first?",
+            'message' => "Problem: fill each empty room (INF) with distance to the nearest gate (0). Walls are −1. Unreachable stays INF. In place. (Restated from memory; limits and examples may differ slightly.)\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'BFS from every empty room to the nearest gate', 'next' => 'wrong_rooms'],

@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: bash on words.txt. Lowercase letters and spaces; one or more spaces between words. Print word then count, highest count first. Ties unique. Sample: the 4, is 3, sunny 2, day 1.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'GROUP BY like Duplicate Emails, or a Python dict on stdin', 'next' => 'other'],

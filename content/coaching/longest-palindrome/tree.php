@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: string s, length 1 to 2000, letters only, case-sensitive. Return the length of the longest palindrome you can build by rearranging those letters. abccccdd → 7 (dccaccd). a → 1. Aa is not a palindrome.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Treat this as Longest Palindromic Substring (5): find a contiguous span in s', 'next' => 'wrong_5'],

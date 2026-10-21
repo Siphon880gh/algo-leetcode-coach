@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: bitwise AND of every integer in [left, right], inclusive. 5..7 → 4. 0..0 → 0. 1..2147483647 → 0. 0 ≤ left ≤ right ≤ 2³¹ − 1.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Loop i from left to right ANDing every integer, or Hamming-weight the endpoints', 'next' => 'loop'],

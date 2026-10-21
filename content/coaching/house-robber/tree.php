@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: houses in a line, nums[i] is cash. Rob a subset with no two adjacent. Max total. [1,2,3,1] → 4. [2,7,9,3,1] → 12. One house → that house.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Always take the local max, or always take even indices then compare odd indices', 'next' => 'greedy'],

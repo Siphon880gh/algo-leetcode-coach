@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: Trie with insert, search (full word), startsWith (any inserted word has that prefix). Lowercase only. After insert(\"apple\"): search(\"apple\") true, search(\"app\") false, startsWith(\"app\") true; then insert(\"app\") makes search(\"app\") true.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Keep a hash set of whole words; startsWith scans every word', 'next' => 'hashset'],

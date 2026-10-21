@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: sorted singly linked list → height-balanced BST. [-10,-3,0,5,9] accepts [0,-3,9,-10,null,5]. Empty head → []. Up to 2·10^4 nodes.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Index the list like 108’s nums[mid] without converting', 'next' => 'idx'],

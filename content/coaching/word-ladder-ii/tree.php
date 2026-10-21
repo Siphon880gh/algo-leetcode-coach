@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: return every shortest begin→end ladder (one letter per step, words from the list). hit→cog with [hot,dot,dog,lot,log,cog] → two paths of length 5. If cog is missing → [].\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Word Ladder I’s integer length, or DFS/backtracking alone without a shortest-layer BFS', 'next' => 'len'],

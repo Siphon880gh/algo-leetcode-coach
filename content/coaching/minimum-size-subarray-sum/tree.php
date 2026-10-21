@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: positive nums, positive target. Shortest contiguous subarray whose sum is at least target. None → 0. target 7, [2,3,1,2,4,3] → 2 ([4,3]). [1,4,4] vs 4 → 1. Eight 1s vs 11 → 0. n up to 10⁵.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Nested every left/right pair and sum the slice each time', 'next' => 'nested'],

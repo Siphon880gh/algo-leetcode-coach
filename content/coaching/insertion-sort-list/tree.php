@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: sort a singly linked list by insertion sort. [4,2,1,3] → [1,2,3,4]. Up to 5000 nodes.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Copy vals into an array and sort, merge-sort like Sort List, Reorder List’s weave, or LRU’s map', 'next' => 'array'],

@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: return whether s is a valid number. \"0\" and \"4.\" and \"-.9\" and \"2e10\" are true. \"e\", \".\", \"1e\", \"e3\", and \"99e2.5\" are false. Length ≤ 20.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Hand s to the language float parser and see if it succeeds', 'next' => 'as_lib'],

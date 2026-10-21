@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: m by n grid of 0 (empty, passable), 1 (building), 2 (obstacle). Place a house on a 0 that 4-walks to every building; minimize the sum of those path lengths. Impossible → −1. Sample [[1,0,2,0,1],[0,0,0,0,0],[0,0,1,0,0]] → 7. [[1,0]] → 1. [[1]] → −1. m, n up to 50.\nWhat do you try first?",
+            'message' => "Problem: m by n grid of 0 (empty, passable), 1 (building), 2 (obstacle). Place a house on a 0 that 4-walks to every building; minimize the sum of those path lengths. Impossible → −1. Sample [[1,0,2,0,1],[0,0,0,0,0],[0,0,1,0,0]] → 7. [[1,0]] → 1. [[1]] → −1. m, n up to 50. (Restated from memory; limits and examples may differ slightly.)\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => '296 median (Manhattan, no walls), or BFS from every empty cell', 'next' => 'wrong_296'],

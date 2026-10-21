@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: elevation bars of width 1. How much rain is trapped? [0,1,0,2,1,0,1,3,2,1,2,1] → 6. [4,2,0,3,2,5] → 9. n up to 2e4.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Reuse Container With Most Water: two pointers that maximize (min height)×width', 'next' => 'container'],

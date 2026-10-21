@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: all generalized abbreviations of word. Replace non-overlapping, non-adjacent substrings with their lengths. \"word\" has 16 forms (\"4\", \"3d\", \"2r1\", \"word\", …). \"a\" → [\"1\",\"a\"]. \"23\" from \"abcde\" is illegal (adjacent replacements). Length 1..15, lowercase.\nWhat do you try first?",
+            'message' => "Problem: all generalized abbreviations of word. Replace non-overlapping, non-adjacent substrings with their lengths. \"word\" has 16 forms (\"4\", \"3d\", \"2r1\", \"word\", …). \"a\" → [\"1\",\"a\"]. \"23\" from \"abcde\" is illegal (adjacent replacements). Length 1..15, lowercase. (Restated from memory; limits and examples may differ slightly.)\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Allow adjacent counts like 23, or Unique Word Abbreviation (288)', 'next' => 'wrong_adj'],

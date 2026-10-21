@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: every value that appears more than floor(n/3) times. Follow-up: O(n) time, O(1) extra. n up to 5 × 10⁴. [3,2,3] → [3]. [1] → [1]. [1,2] → [1,2].\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Majority Element (169) one candidate with no verify, or a hash of all counts', 'next' => 'wrongish'],

@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: n stairs; each move is 1 or 2 steps. Count distinct sequences. n=2 → 2. n=3 → 3. n ≤ 45.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'DFS every 1/2 walk to n and increment a counter, no cache', 'next' => 'dfs'],

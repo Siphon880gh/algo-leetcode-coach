@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: add two binary strings and return a binary string. \"11\" + \"1\" → \"100\". \"1010\" + \"1011\" → \"10101\". Lengths up to 10^4.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Parse both as ints, add, then convert the sum back to binary', 'next' => 'as_int'],

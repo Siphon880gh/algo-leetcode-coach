@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: from index 0, nums[i] is the max jump length. Return whether you can reach n-1 (boolean). [2,3,1,1,4] → true. [3,2,1,0,4] → false. n up to 1e4.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Count minimum jumps like Jump Game II, then check that the count is finite', 'next' => 'j2'],

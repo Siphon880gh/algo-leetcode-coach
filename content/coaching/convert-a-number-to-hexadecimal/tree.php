@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: 32-bit signed int num in −2^31 .. 2^31−1. Return its lowercase hex string. Negatives use two’s complement, not a minus sign. No leading zeros except the number 0. Built-in hex formatters are banned. 26 → 1a. −1 → ffffffff.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Call hex() / format / toString(16), or emit a minus sign for negatives', 'next' => 'wrong_builtin'],

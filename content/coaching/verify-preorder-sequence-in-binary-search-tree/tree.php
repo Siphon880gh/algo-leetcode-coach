@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: unique preorder array. True iff it is preorder of some BST. [5,2,1,3,6] is true. [5,2,6,1,3] is false.\nWhat do you try first?",
+            'message' => "Problem: unique preorder array. True iff it is preorder of some BST. [5,2,1,3,6] is true. [5,2,6,1,3] is false. (Restated from memory; limits and examples may differ slightly.)\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Sort and check inorder; or rebuild the tree then Validate BST (98)', 'next' => 'sort'],

@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: n is 1 to 2^31−1. Write 1, 2, 3, … as one digit stream. Return the nth digit. n=3 → 3. n=11 → 0 because 10 contributes digits 1 then 0.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Build the concatenated string up to n, or treat this as Integer to English (273)', 'next' => 'wrong_build'],

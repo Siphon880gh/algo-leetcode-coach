@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: insert plus, minus, or times between digits of num so the expression equals target. \"123\" to 6 → 1×2×3 and 1+2+3. Operands may span digits. No leading zeros.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'eval every finished string after inserting operators', 'next' => 'wrong_eval'],

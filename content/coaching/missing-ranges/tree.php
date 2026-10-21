@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: nums is sorted and unique inside [lower, upper]. Return the shortest list of inclusive ranges that cover every missing integer. [0,1,3,50,75], 0..99 → [[2,2],[4,49],[51,74],[76,99]]. [-1] with bounds -1..-1 → [].\nWhat do you try first?",
+            'message' => "Problem: nums is sorted and unique inside [lower, upper]. Return the shortest list of inclusive ranges that cover every missing integer. [0,1,3,50,75], 0..99 → [[2,2],[4,49],[51,74],[76,99]]. [-1] with bounds -1..-1 → []. (Restated from memory; limits and examples may differ slightly.)\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Find Peak, Merge Intervals, or string ranges of the numbers that are present', 'next' => 'merge'],

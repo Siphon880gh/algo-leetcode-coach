@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: move all 0s to the end of nums, keep the relative order of the non-zeros. In place. [0,1,0,3,12] → [1,3,12,0,0].\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Sort the array so zeros drift to the end', 'next' => 'wrong_sort'],

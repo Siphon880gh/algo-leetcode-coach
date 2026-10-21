@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: m by n grid of W (wall), E (enemy), and 0 (empty). Place one bomb on a 0. The blast follows that row and column until a wall. Return the most enemies one bomb can kill. First example is 3. WWW / 000 / EEE is 1. m and n up to 500. No empty cell → 0.\nWhat do you try first?",
+            'message' => "Problem: m by n grid of W (wall), E (enemy), and 0 (empty). Place one bomb on a 0. The blast follows that row and column until a wall. Return the most enemies one bomb can kill. First example is 3. WWW / 000 / EEE is 1. m and n up to 500. No empty cell → 0. (Restated from memory; limits and examples may differ slightly.)\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'From every empty cell, walk four rays until a wall and count E', 'next' => 'wrong_scan'],

@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: n×n matrix (n up to 300), each row and each column non-decreasing. Return the kth smallest in sorted order, not the kth distinct. [[1,5,9],[10,11,13],[12,13,15]], k = 8 → 13 (sorted: 1,5,9,10,11,12,13,13,15). [[-5]], k = 1 → -5. Memory should beat flattening the whole matrix.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Flatten then sort, or treat this as Kth Largest (215) on an unsorted 1D array', 'next' => 'wrong_flat'],

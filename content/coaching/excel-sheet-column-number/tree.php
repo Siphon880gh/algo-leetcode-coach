@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: Excel title → column number. A is 1, Z is 26, AA is 27, AB is 28. \"A\" → 1. \"AB\" → 28. \"ZY\" → 701. Uppercase, length 1 to 7.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Subtract 1 like Column Title, treat A as 0, or reverse the string first', 'next' => 'inverse'],

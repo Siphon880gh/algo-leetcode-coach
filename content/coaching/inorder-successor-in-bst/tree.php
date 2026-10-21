@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: inorder successor of p in a BST — the node with the smallest key greater than p.val, or null. [2,1,3], p = 1 → 2. p = 6 in a tree whose max is 6 → null. Unique values.\nWhat do you try first?",
+            'message' => "Problem: inorder successor of p in a BST — the node with the smallest key greater than p.val, or null. [2,1,3], p = 1 → 2. p = 6 in a tree whose max is 6 → null. Unique values. (Restated from memory; limits and examples may differ slightly.)\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Dump the whole inorder list, then scan for p and take the next entry', 'next' => 'wrong_dump'],

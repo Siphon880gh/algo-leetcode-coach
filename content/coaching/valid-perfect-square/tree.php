@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: positive integer num (1 .. 2^31 − 1). True iff some integer k has k × k = num. You must not call a language sqrt. 16 → true (4 × 4). 14 → false.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Call sqrt (or floor sqrt like 69) and see if the result squared equals num', 'next' => 'wrong_sqrt'],

@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: numbers is sorted, 1-indexed. Return the two indices (already +1) that sum to target. Exactly one pair. Constant extra space. [2,7,11,15], target 9 → [1,2].\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Two Sum I hash map, 3Sum triplets, or Fraction-to-decimal remainders', 'next' => 'hash'],

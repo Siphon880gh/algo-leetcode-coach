@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: cache of capacity; get(key) is the value or -1; put updates or inserts and evicts the least recently used when over capacity. get and put O(1). Sample capacity 2: get 1 after putting 1 and 2 is 1; put 3 evicts 2.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'A plain dict (no recency), a FIFO queue, an O(n) scan list, Copy List’s random map, or tree preorder', 'next' => 'plain'],

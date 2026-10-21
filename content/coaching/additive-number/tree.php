@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: digit string. True iff you can split into at least three numbers where each after the first two is the sum of the previous two. No leading zeros (1, 02, 3 is invalid; a lone 0 is fine). \"112358\" → true. \"199100199\" → true.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Check whether the whole string is a Fibonacci number F(n) (509)', 'next' => 'wrong_fib'],

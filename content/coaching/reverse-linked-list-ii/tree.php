@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: reverse only the sublist from 1-indexed left to right. [1,2,3,4,5], left=2, right=4 → [1,4,3,2,5]. n ≤ 500.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Reverse the whole list, or reverse every k-window like Reverse Nodes in k-Group', 'next' => 'whole'],

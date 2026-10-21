@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: same n-queens attacks as LeetCode 51, but return how many distinct boards exist, not the boards. n=4 → 2. n=1 → 1. n ≤ 9.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Call N-Queens I, build every string board, then return the list length', 'next' => 'boards'],

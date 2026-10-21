@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: m×n grid of non-negative numbers. Start at (0,0), end at (m-1,n-1), only down or right. Minimize the sum of cells on the path. [[1,3,1],[1,5,1],[4,2,1]] → 7. m,n ≤ 200.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Copy Unique Paths: f[0][0]=1 and add ways from above and left', 'next' => 'count'],

@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: non-negative integer as a singly linked list, most significant digit at head. Plus one. Length 1..100, no leading zeros except 0 itself. [1,2,3] → [1,2,4]. [0] → [1]. [9,9] → [1,0,0].\nWhat do you try first?",
+            'message' => "Problem: non-negative integer as a singly linked list, most significant digit at head. Plus one. Length 1..100, no leading zeros except 0 itself. [1,2,3] → [1,2,4]. [0] → [1]. [9,9] → [1,0,0]. (Restated from memory; limits and examples may differ slightly.)\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Join digits into a machine int, add 1, rebuild the list', 'next' => 'wrong_int'],

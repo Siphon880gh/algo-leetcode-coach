@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: Weather has unique id, unique recordDate, temperature. Return ids hotter than yesterday. Any order. Sample 10, 25, 20, 30 on consecutive January dates → ids 2 and 4.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Join on w1.id = w2.id + 1, or compare each row to the global min temperature', 'next' => 'other'],

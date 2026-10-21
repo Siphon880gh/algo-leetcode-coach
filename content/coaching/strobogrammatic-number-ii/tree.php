@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: all strobogrammatic numbers of length n (any order). n = 2 → [\"11\",\"69\",\"88\",\"96\"]. n = 1 → [\"0\",\"1\",\"8\"]. 1 ≤ n ≤ 14.\nWhat do you try first?",
+            'message' => "Problem: all strobogrammatic numbers of length n (any order). n = 2 → [\"11\",\"69\",\"88\",\"96\"]. n = 1 → [\"0\",\"1\",\"8\"]. 1 ≤ n ≤ 14. (Restated from memory; limits and examples may differ slightly.)\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => '246: test one string with two pointers; or Palindrome Permutation II wrap the same letter both sides', 'next' => 'check'],

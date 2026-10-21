@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: merge overlapping [start, end] ranges. [[1,3],[2,6],[8,10],[15,18]] → [[1,6],[8,10],[15,18]]. Touching counts: [1,4] and [4,5] → [1,5]. Unsorted input: [[4,7],[1,4]] → [[1,7]]. n up to 1e4.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Walk the list in given order and merge each pair with its neighbor', 'next' => 'nosort'],

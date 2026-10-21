@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: ransomNote and magazine are lowercase, lengths up to 1e5. Return true iff you can build the note using letters from the magazine, each magazine letter at most once. a / b → false. aa / ab → false. aa / aab → true.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Require the two strings to be anagrams (242), or scan magazine from scratch for every note letter', 'next' => 'wrong_ana'],

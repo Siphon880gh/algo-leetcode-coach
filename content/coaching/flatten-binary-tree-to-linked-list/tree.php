@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: flatten in place into a preorder “linked list”: right is next, left is always None. [1,2,5,3,4,null,6] → [1,null,2,null,3,null,4,null,5,null,6]. Void. Up to 2000 nodes.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Return Path Sum II’s lists of values, or build a new ListNode chain', 'next' => 'vals'],

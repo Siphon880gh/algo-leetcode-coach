@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: digit string num, length n is 1 to 1e5, k in 1..n. Return the smallest integer you can get by deleting exactly k digits (order of leftover digits stays). No leading zeros in the answer except 0 itself. 1432219, k=3 → 1219. 10200, k=1 → 200. 10, k=2 → 0.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Treat this as Remove Duplicate Letters (316), or drop the k largest digits anywhere', 'next' => 'wrong_316'],

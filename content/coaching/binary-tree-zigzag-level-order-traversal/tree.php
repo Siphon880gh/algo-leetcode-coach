@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: zigzag level order — LTR, then RTL, then LTR… [3,9,20,null,null,15,7] → [[3],[20,9],[15,7]]. Empty → []. Up to 2000 nodes.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Plain Level Order (always LTR), or Zigzag Conversion bouncing string rows', 'next' => 'plain'],

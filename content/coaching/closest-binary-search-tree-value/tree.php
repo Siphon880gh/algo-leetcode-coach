@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: BST root and a float target. Return the closest node value. On a tie, the smaller. [4,2,5,1,3], target 3.714286 → 4. Single node [1] → 1.\nWhat do you try first?",
+            'message' => "Problem: BST root and a float target. Return the closest node value. On a tie, the smaller. [4,2,5,1,3], target 3.714286 → 4. Single node [1] → 1. (Restated from memory; limits and examples may differ slightly.)\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Inorder dump every value then scan, or Closest BST Value II’s window of k neighbors', 'next' => 'dump'],

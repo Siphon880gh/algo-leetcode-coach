@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: n-bit Gray sequence of 2^n integers in [0, 2^n-1], start at 0, each value once, adjacent (and first/last) differ by exactly one bit. n = 2 → [0,1,3,2]. 1 ≤ n ≤ 16.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'List 0..2^n-1 in order, or permute like Permutations', 'next' => 'order'],

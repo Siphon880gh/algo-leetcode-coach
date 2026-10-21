@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: addNum then getIntervals — summarize seen values as sorted disjoint closed intervals. 1, 3, 7, 2, 6 → finally [[1, 3], [6, 7]]. Values up to 1e4; about 3×10^4 mixed calls.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Keep every number, then run Merge Intervals (56) on a full list each getIntervals', 'next' => 'wrong_56'],

@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: nums has length n+1, values in 1..n, exactly one value repeats (two or more times). Return it. Do not mutate nums. O(1) extra. [1,3,4,2,2] → 2.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Hash set of seen values (O(n) extra)', 'next' => 'wrong_set'],

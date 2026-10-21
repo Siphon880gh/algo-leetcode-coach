@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: reorder nums so nums[0] < nums[1] > nums[2] < … (strict). A valid answer is guaranteed. [1,5,1,1,6,4] → [1,6,1,5,1,4]. Length up to 5e4; values 0..5000.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Wiggle Sort 280 adjacent swap (≤ / ≥), or sort then interleave forward', 'next' => 'wrong_280'],

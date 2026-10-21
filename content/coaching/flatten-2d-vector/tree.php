@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: Vector2D next/hasNext over vec in row-major order. next is only called when hasNext is true. [[1,2],[3],[4]] yields 1, 2, 3, 4. Empty inner lists are allowed.\nWhat do you try first?",
+            'message' => "Problem: Vector2D next/hasNext over vec in row-major order. next is only called when hasNext is true. [[1,2],[3],[4]] yields 1, 2, 3, 4. Empty inner lists are allowed. (Restated from memory; limits and examples may differ slightly.)\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Copy every integer into one array in the constructor; or Flatten Binary Tree to Linked List (114)', 'next' => 'copy'],

@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: input (length up to 1e4) is a valid file tree. Lines split by newline; depth is leading tabs. Return the length of the longest absolute file path, or 0 if there is no file. dir / subdir2 / file.ext is 20. The longer sample is 32. A lone a is a directory, so 0.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Split on spaces, or treat every name (including directories) as a file path', 'next' => 'wrong_split'],

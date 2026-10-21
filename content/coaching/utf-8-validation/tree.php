@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: data is bytes (low 8 bits of each int, 0..255, length up to 2e4). Return true iff they form valid UTF-8 of 1-to-4-byte characters: 0xxxxxxx; 110xxxxx then 10xxxxxx; 1110xxxx plus two 10s; 11110xxx plus three 10s. [197,130,1] → true. [235,140,4] → false.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Treat this as Decode String (394), or accept 5-byte 111110 leads', 'next' => 'wrong_394'],

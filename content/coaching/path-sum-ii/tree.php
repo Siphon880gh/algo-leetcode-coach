@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: return every root-to-leaf path whose values sum to targetSum. [5,4,8,11,null,13,4,7,2,null,null,5,1], 22 → [[5,4,11,2],[5,8,4,5]]. [1,2,3], 5 → []. Up to 5000 nodes.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Return Path Sum’s boolean, or Unique Paths counting grid walks', 'next' => 'bool'],

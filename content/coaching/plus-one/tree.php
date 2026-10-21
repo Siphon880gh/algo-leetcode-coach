@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: digits is a large integer, most-significant first, no leading zeros. Add one and return the digit array. [1,2,3] → [1,2,4]. [9] → [1,0]. Length ≤ 100.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Join the digits into an int, add 1, then split back into digits', 'next' => 'as_int'],

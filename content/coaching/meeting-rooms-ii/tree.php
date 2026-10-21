@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: minimum conference rooms so every meeting gets one. [[0,30],[5,10],[15,20]] → 2. [[7,10],[2,4]] → 1.\nWhat do you try first?",
+            'message' => "Problem: minimum conference rooms so every meeting gets one. [[0,30],[5,10],[15,20]] → 2. [[7,10],[2,4]] → 1. (Restated from memory; limits and examples may differ slightly.)\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Meeting Rooms (252): return whether one person can attend all; or Merge Intervals and output 1', 'next' => 'bool'],

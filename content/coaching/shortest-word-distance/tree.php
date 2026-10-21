@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: wordsDict plus two different words that both appear. Return the smallest index gap. Length up to 3 × 10⁴. coding vs practice → 3; makes vs coding → 1.\nWhat do you try first?",
+            'message' => "Problem: wordsDict plus two different words that both appear. Return the smallest index gap. Length up to 3 × 10⁴. coding vs practice → 3; makes vs coding → 1. (Restated from memory; limits and examples may differ slightly.)\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Collect every index of each word, then nested abs of every pair; or only adjacent words', 'next' => 'nested'],

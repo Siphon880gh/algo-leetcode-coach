@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: true iff n is a positive integer whose only prime factors are 2, 3, and 5. 6 → true (2 × 3). 1 → true (no primes). 14 → false (factor 7). n can be 0 or negative.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Sieve every integer up to n (Count Primes) and check the factor list', 'next' => 'sieve'],

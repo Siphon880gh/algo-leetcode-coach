@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: how many primes are strictly less than n. 10 → 4 (2, 3, 5, 7). 0 and 1 → 0. n up to 5 × 10⁶.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Trial-divide every i < n, or count primes ≤ n (include n if prime)', 'next' => 'trial'],

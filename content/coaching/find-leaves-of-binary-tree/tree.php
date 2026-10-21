@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: collect all current leaves, remove them, repeat until the tree is empty. Return those waves. [1,2,3,4,5] → [[4,5,3],[2],[1]] (order inside a wave does not matter). Single node → [[1]]. Up to 100 nodes.\nWhat do you try first?",
+            'message' => "Problem: collect all current leaves, remove them, repeat until the tree is empty. Return those waves. [1,2,3,4,5] → [[4,5,3],[2],[1]] (order inside a wave does not matter). Single node → [[1]]. Up to 100 nodes. (Restated from memory; limits and examples may differ slightly.)\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'BFS from the root and group by depth (level order, maybe reversed like 107)', 'next' => 'wrong_level'],

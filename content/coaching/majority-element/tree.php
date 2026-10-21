@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: the majority value appears more than n/2 times and is guaranteed to exist. Follow-up: linear time, O(1) extra space. [3,2,3] → 3. [2,2,1,1,1,2,2] → 2.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Hash counts, sort and pick the median, Excel titles, or Two Sum II', 'next' => 'hash'],

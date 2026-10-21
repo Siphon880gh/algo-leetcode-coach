@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: start with 1..n sorted. Delete every other value left to right, then right to left, and keep alternating until one number remains. n=9 → 6. n=1 → 1. n is up to 1e9.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Build a deque or list and simulate, or use one-direction Josephus (1823 / 2L+1)', 'next' => 'wrong_sim'],

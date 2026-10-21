@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: sorted nums; min patches so every integer in [1, n] is a subset sum. [1,3], n=6 → 1 (patch 2). [1,2,2], n=5 → 0. n up to 2³¹−1.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Coin Change (322) DP, or patch a value larger than the hole', 'next' => 'wrong_coin'],

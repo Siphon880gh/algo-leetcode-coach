@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: return values level by level, left to right. [3,9,20,null,null,15,7] → [[3],[9,20],[15,7]]. Single node → [[1]]. Empty → []. Up to 2000 nodes.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Inorder DFS (left, visit, right), or Same Tree pairing two roots', 'next' => 'dfs'],

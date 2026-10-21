@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: smallest positive integer not in nums. Must be O(n) time and O(1) extra. [1,2,0] → 3. [3,4,-1,1] → 2. [7,8,9,11,12] → 1. n up to 1e5.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Sort nums, then walk 1, 2, 3, … until a gap', 'next' => 'sort'],

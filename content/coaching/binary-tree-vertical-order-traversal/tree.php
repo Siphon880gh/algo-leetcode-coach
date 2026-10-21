@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: group values by vertical column, each column top to bottom. Same row and column: left to right. Empty → []. [3,9,20,null,null,15,7] → [[9],[3,15],[20],[7]]. [3,9,8,4,0,1,7] → [[4],[9],[3,0,1],[8],[7]]. Up to 100 nodes.\nWhat do you try first?",
+            'message' => "Problem: group values by vertical column, each column top to bottom. Same row and column: left to right. Empty → []. [3,9,20,null,null,15,7] → [[9],[3,15],[20],[7]]. [3,9,8,4,0,1,7] → [[4],[9],[3,0,1],[8],[7]]. Up to 100 nodes. (Restated from memory; limits and examples may differ slightly.)\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => '987: sort same-cell ties by node value, or dump inorder', 'next' => 'wrong_987'],

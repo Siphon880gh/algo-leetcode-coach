@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: nth positive integer whose prime factors all sit in primes. n up to 1e5; answer fits 32-bit signed. n=12, primes=[2,7,13,19] → 32. n=1 → 1.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Ugly Number (263): trial-divide every integer until you collect n hits', 'next' => 'wrong_scan'],

@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: Roman to int. \"III\" → 3, \"LVIII\" → 58, \"MCMXCIV\" → 1994.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Add every symbol’s value, ignoring order', 'next' => 'sum_all'],

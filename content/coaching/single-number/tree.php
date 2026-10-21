@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: every value appears twice except one. Return that single. Linear time and O(1) extra space. [2,2,1] → 1. [4,1,2,1,2] → 4. [1] → 1.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'A hash set of leftovers, sort then scan, Candy’s two slopes, or Gray code’s i XOR (i>>1) as the answer', 'next' => 'hash'],

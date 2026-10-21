@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: nums unique ints, length 1 to 50. reset returns the original order. shuffle returns one permutation; every permutation equally likely. At most 1e4 mixed calls. Example [1, 2, 3]: shuffle is some permutation, reset is [1, 2, 3].\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Enumerate all permutations and pick one, or shuffle the stored original in place so reset is gone', 'next' => 'wrong_enum'],

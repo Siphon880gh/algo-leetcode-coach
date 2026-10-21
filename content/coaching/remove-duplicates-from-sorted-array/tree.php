@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: remove duplicates from a sorted array in place. [1,1,2] → k = 2, nums[:k] = [1,2]. [0,0,1,1,1,2,2,3,3,4] → k = 5. n up to 3·10^4.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Copy into a set (or extra array), then write back', 'next' => 'extra'],

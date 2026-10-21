@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: longest consecutive value run in an unsorted array, in O(n). [100,4,200,1,3,2] → 4 (1..4). [0,3,7,2,5,8,4,6,0,1] → 9. [1,0,1,2] → 3. Empty → 0.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Sort then scan (O(n log n)), Longest Increasing Subsequence, or Maximum Subarray’s index window', 'next' => 'sort'],

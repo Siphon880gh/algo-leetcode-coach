@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: a singly linked list is a palindrome iff values read the same forward and backward. [1,2,2,1] → true. [1,2] → false. Length 1 to 10⁵. Follow-up: O(n) time, O(1) extra space.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Copy every val into an array (or Palindrome Number on the whole integer) then two-index check', 'next' => 'copy'],

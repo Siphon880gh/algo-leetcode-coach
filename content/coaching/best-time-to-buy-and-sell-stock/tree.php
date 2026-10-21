@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: one buy, then one later sell. [7,1,5,3,6,4] → 5 (buy 1, sell 6). [7,6,4,3,1] → 0. n up to 1e5.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Stock II: add every uphill (1 to 5 and 3 to 6) for 7, or buy day 0 and sell the last day', 'next' => 'ii'],

@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: BST root and 1-indexed k. Return the k-th smallest value. 1 ≤ k ≤ n ≤ 10⁴. [3,1,4,null,2], k=1 → 1. [5,3,6,2,4,null,null,1], k=3 → 3.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Dump inorder into a list then pick index k, or a heap like Kth Largest in an Array (215)', 'next' => 'wrongish'],

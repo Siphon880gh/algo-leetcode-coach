@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: arrange non-negative nums into the largest number, as a string (it can overflow a 64-bit int). [10,2] → \"210\". [3,30,34,5,9] → \"9534330\".\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Sort the integers descending and join: 10 then 2 is \"102\"', 'next' => 'numeric'],

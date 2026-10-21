@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: true iff n equals 4 to a non-negative integer power. 16 → true. 5 → false. 1 → true (4 to the 0). Follow-up: no loop, no recursion.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Only Power of Two (231), or loop n = n / 4, or treat this as Power of Three (326)', 'next' => 'wrong_231'],

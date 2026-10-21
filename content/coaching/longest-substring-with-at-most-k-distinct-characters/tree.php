@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: longest substring of s with at most k distinct characters. eceba, k=2 → 3 (ece). aa, k=1 → 2. k=0 → 0. Length up to 5e4.\nWhat do you try first?",
+            'message' => "Problem: longest substring of s with at most k distinct characters. eceba, k=2 → 3 (ece). aa, k=1 → 2. k=0 → 0. Length up to 5e4. (Restated from memory; limits and examples may differ slightly.)\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Check every substring, or restart the window at right when you exceed k', 'next' => 'wrong_brute'],

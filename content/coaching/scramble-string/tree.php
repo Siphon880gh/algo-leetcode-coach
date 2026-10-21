@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: can s2 be obtained by recursively splitting s1 and optionally swapping the two halves? Same length. great vs rgeat → true. abcde vs caebd → false. Length ≤ 30.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Any permutation, or same letter counts like Group Anagrams', 'next' => 'anagram'],

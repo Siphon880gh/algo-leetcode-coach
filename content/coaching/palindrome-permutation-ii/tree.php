@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: return every palindromic permutation of s, no duplicates. Empty list if none. \"aabb\" → abba, baab. \"abc\" → []. Length ≤ 16.\nWhat do you try first?",
+            'message' => "Problem: return every palindromic permutation of s, no duplicates. Empty list if none. \"aabb\" → abba, baab. \"abc\" → []. Length ≤ 16. (Restated from memory; limits and examples may differ slightly.)\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Palindrome Permutation (266) yes/no, or permute all n! strings then keep palindromes', 'next' => 'perm'],

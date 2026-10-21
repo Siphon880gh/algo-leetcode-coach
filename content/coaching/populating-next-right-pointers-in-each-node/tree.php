@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: perfect binary tree. Set each next to the node on its right on the same level; last in a row → None. [1,2,3,4,5,6,7] serializes as [1,#,2,3,#,4,5,6,7,#]. Empty → [].\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Flatten into a preorder right spine, or return Level Order’s nested value lists', 'next' => 'flat'],

@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: non-negative num to English words. 123 → One Hundred Twenty Three. 12345 → Twelve Thousand Three Hundred Forty Five. 0 → Zero.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Integer to Roman: map place values to I, V, X style symbols', 'next' => 'roman'],

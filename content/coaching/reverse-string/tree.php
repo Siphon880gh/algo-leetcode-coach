@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: reverse character array s in place. O(1) extra memory. hello → olleh. Hannah → hannaH. Length up to 1e5. Mutate s; return nothing.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Allocate a reversed copy, or reverse the words like Reverse Words in a String (151)', 'next' => 'wrong_copy'],

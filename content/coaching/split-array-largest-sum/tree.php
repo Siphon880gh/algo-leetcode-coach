@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: nums length 1 to 1000, values 0 to 1e6, k from 1 to min(50, n). Split into exactly k nonempty contiguous subarrays. Minimize the largest subarray sum. [7,2,5,10,8] k=2 → 18 ([7,2,5] and [10,8]). [1,2,3,4,5] k=2 → 9.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Kadane (53) for one max subarray, or split into k non-contiguous groups', 'next' => 'wrong_53'],

@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: unique words. Return every (i, j) with i ≠ j such that words[i] plus words[j] is a palindrome. [abcd, dcba, lls, s, sssll] → [[0,1],[1,0],[3,2],[2,4]]. Empty word pairs with a palindrome. Up to 5000 words, length ≤ 300.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Concatenate every ordered pair, or treat this as palindromic substrings (5)', 'next' => 'wrong_n2'],

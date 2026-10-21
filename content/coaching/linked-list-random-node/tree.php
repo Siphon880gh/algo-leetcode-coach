@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: singly linked list, length 1..1e4. getRandom returns a node value; every node equally likely. At most 1e4 calls. Example [1, 2, 3]: each has probability 1/3. Follow-up: the list may be huge and the length unknown — no extra array of values.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Copy every value into an array (or reuse GetRandom 380), then pick an index', 'next' => 'wrong_arr'],

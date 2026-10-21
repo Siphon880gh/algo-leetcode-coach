@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: true iff some vertical line reflects the point set onto itself. Duplicates allowed. [[1,1],[-1,1]] → true (x = 0). [[1,1],[-1,-1]] → false (y does not match). Up to 1e4 points.\nWhat do you try first?",
+            'message' => "Problem: true iff some vertical line reflects the point set onto itself. Duplicates allowed. [[1,1],[-1,1]] → true (x = 0). [[1,1],[-1,-1]] → false (y does not match). Up to 1e4 points. (Restated from memory; limits and examples may differ slightly.)\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Try every pair of points as a possible axis and test the rest', 'next' => 'wrong_pairs'],

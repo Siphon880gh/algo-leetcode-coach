@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: how many subtrees have the same value on every node. Empty → 0. [5,1,5,5,5,null,5] → 4. [5,5,5,5,5,null,5] → 6.\nWhat do you try first?",
+            'message' => "Problem: how many subtrees have the same value on every node. Empty → 0. [5,1,5,5,5,null,5] → 4. [5,5,5,5,5,null,5] → 6. (Restated from memory; limits and examples may differ slightly.)\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Count nodes equal to the root; or Closest BST Value: one search path, ignore children as subtrees', 'next' => 'root'],

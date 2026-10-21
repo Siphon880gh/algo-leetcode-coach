@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: knight top-left, princess bottom-right, only right or down. Health must stay at least 1 after every room. Return min initial health. [[-2,-3,3],[-5,-10,1],[10,30,-5]] → 7. [[0]] → 1.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Forward min path sum, Unique Paths counting, or greedy skip of −10', 'next' => 'fwd'],

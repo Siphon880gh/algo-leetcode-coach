@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: sorted linked list; delete every node whose value appears more than once. [1,2,3,3,4,4,5] → [1,2,5]. [1,1,1,2,3] → [2,3]. Up to 300 nodes.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Keep one of each value, like Remove Duplicates from Sorted List, or keep two like the array II problem', 'next' => 'keep'],

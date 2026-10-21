@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: n balloons, values nums[i]. Burst all. Bursting i scores nums[i−1] times nums[i] times nums[i+1]; missing neighbors count as 1. Maximize coins. [3,1,5,8] → 167. [1,5] → 10. n up to 300.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Greedy: always burst the smallest remaining balloon first', 'next' => 'wrong_greedy'],

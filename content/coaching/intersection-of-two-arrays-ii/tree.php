@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: intersection with multiplicity. A value x appears as many times as it shows in both arrays (the smaller count). Any order. [1,2,2,1] and [2,2] → [2,2]. Lengths up to 1000.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Unique only like Intersection of Two Arrays (349), so example 1 is [2]', 'next' => 'wrong_349'],

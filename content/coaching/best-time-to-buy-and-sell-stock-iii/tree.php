@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: at most two transactions; sell before you buy again. [3,3,5,0,0,3,1,4] → 6. [1,2,3,4,5] → 4. [7,6,4,3,1] → 0. n up to 1e5.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Stock I’s one pair (4) or Stock II’s sum of every rise (8 on the first sample)', 'next' => 'cap'],

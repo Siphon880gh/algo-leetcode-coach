@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: nums length 1 to 2e4, values any 32-bit int, duplicates allowed. pick(target) must return an index i with nums[i] equal to target; target is guaranteed to appear. Each matching index equally likely. At most 1e4 picks. [1,2,3,3,3] pick(3) is 2, 3, or 4; pick(1) is 0.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Always return the first match, or shuffle the whole array on every pick', 'next' => 'wrong_first'],

@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: s is a valid NestedInteger serialization (digits, minus, commas, brackets). Return a NestedInteger: one integer or a list of NestedIntegers. \"324\" → integer 324. \"[123,[456,[789]]]\" → a list holding 123 and a nested list. \"[]\" is an empty list.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'eval / json.loads, or split on every comma without tracking brackets', 'next' => 'wrong_eval'],

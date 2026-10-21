@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: return true if s can be split into one or more dictionary words. Reuse is allowed. leetcode with [leet, code] → true. applepenapple with [apple, pen] → true. catsandog with [cats, dog, sand, and, cat] → false. n up to 300.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Word Ladder’s BFS, Word Break II’s list of sentences, greedy longest match, or require using every dict word', 'next' => 'other'],

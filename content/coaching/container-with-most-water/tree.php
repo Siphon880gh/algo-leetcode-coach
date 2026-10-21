@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: height = [1, 8, 6, 2, 5, 4, 8, 3, 7]. Pick two lines that form a container with the x-axis (no slant). Max water is 49.\nn can be 10⁵. What do you try first?",
+            'message' => "Read the problem statement above.\nn can be 10⁵. What do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Try every pair of indices and take the max area', 'next' => 'brute'],

@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: distinct positives nums (n up to 200) and target up to 1000. Count sequences that sum to target. Order matters: [1,2,3], target 4 → 7 because (1,3) and (3,1) both count. [9], target 3 → 0.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Combination Sum (39) DFS of unique sets, or Coin Change (322) fewest coins', 'next' => 'wrong_39'],

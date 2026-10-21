@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: reverse the digits of a signed 32-bit int x. 123 → 321, −123 → −321, 120 → 21. If the reverse is outside [−2³¹, 2³¹−1], return 0. You may not store 64-bit integers.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Turn x into a string, reverse it, parse back', 'next' => 'as_string'],

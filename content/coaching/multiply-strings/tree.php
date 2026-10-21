@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: multiply two non-negative integers given as strings. Must not parse them as a machine int or use a BigInteger library. \"2\" × \"3\" → \"6\". \"123\" × \"456\" → \"56088\". Lengths ≤ 200.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'int(num1) * int(num2), then convert the product back to a string', 'next' => 'parse'],

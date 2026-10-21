@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: report firstName, lastName, city, state for every Person. If that personId has no Address row, city and state are NULL. Any order. Sample: Allen Wang → nulls; Bob Alice → New York City, New York. Address personId 3 has no Person and does not appear.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'INNER JOIN, or start from Address, or Dungeon Game DP on a grid', 'next' => 'inner'],

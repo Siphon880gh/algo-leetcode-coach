@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: integers a and b in −1000 .. 1000. Return a plus b without using the plus or minus operators. 1, 2 → 3. 2, 3 → 5.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Call plus, minus, or a language sum helper anyway', 'next' => 'wrong_plus'],

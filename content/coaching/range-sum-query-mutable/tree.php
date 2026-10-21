@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: NumArray. update(index, val) sets nums[index]. sumRange(left, right) is inclusive. [1,3,5] → sum 9; update(1, 2) → sum 8. Length and call count up to 3e4.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => '303 static prefix rebuilt on every update, or scan left..right each query', 'next' => 'wrong_static'],

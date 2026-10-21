@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: pick is hidden in 1..n (n up to 2^31 − 1). Call guess(num): −1 if num is too high, 1 if too low, 0 if exact. Return the pick. n=10, pick=6 → 6. n=1, pick=1 → 1.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Scan 1, 2, … n with guess, or treat this as First Bad Version (278)', 'next' => 'wrong_scan'],

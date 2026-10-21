@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: reverse the 32 bits of n. 43261596 → 964176192. 2147483644 → 1073741822. n is even, 0 through 2³¹ − 2.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Reverse the decimal digits, or count set bits like Number of 1 Bits', 'next' => 'other'],

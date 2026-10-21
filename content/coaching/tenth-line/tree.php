@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: print the 10th line of file.txt. Sample tenth line is Line 10. Fewer than 10 lines → print nothing.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'cat the whole file, or grep for the string 10', 'next' => 'other'],

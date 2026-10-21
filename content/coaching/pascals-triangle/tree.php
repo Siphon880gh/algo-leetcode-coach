@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: return the first numRows of Pascal’s triangle. 5 → [[1],[1,1],[1,2,1],[1,3,3,1],[1,4,6,4,1]]. 1 → [[1]]. numRows 1..30.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Unique Paths counting grid walks, or Next Right II linking tree pointers', 'next' => 'paths'],

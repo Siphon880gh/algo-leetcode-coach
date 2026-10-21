@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: reverse only the vowels of s. Vowels are a e i o u in both cases. IceCreAm → AceCreIm. leetcode → leotcede. Length up to 3e5.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Reverse the whole string (344), or reverse words (151), or treat y as a vowel', 'next' => 'wrong_344'],

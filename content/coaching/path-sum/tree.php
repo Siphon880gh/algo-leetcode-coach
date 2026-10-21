@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: true iff some root-to-leaf path sums to targetSum. [5,4,8,11,null,13,4,7,2,null,null,null,1], 22 → true. [1,2,3], 5 → false. Empty, 0 → false. Up to 5000 nodes.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Return Min Depth’s integer, or Unique Paths counting grid walks', 'next' => 'depth'],

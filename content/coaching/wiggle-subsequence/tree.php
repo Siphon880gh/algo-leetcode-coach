@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: longest subsequence whose successive diffs strictly alternate +/− (first step either way). One element is a wiggle; two unequal elements are a wiggle; a zero diff is not. [1,7,4,9,2,5] → 6. Rising [1,2,…,9] → 2. n up to 1000.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'LIS (300) on values, or treat this as Wiggle Sort (280) and reorder in place', 'next' => 'wrong_lis'],

@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: reverse the whole singly linked list. [1,2,3,4,5] → [5,4,3,2,1]. [1,2] → [2,1]. Empty → empty. Up to 5000 nodes. Iterative and recursive both count.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Reverse only [left, right] like Reverse List II, or invert a binary tree’s children', 'next' => 'other'],

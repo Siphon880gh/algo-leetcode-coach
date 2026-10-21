@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: Hamming weight of n — how many 1s in binary. 11 → 3 (1011). 128 → 1. 2147483645 → 30. n from 1 through 2³¹ − 1.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Reverse the 32 bits, or count decimal digits', 'next' => 'other'],

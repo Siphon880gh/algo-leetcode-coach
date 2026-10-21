@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: Unix absolute path to canonical form. \"/home/\" → \"/home\". \"/home//foo/\" → \"/home/foo\". \"/../\" → \"/\". \"/.../a/../b/c/../d/.\" → \"/.../b/d\". Length ≤ 3000.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Regex: collapse slashes and strip a trailing slash; leave .. and . in the string', 'next' => 'regex'],

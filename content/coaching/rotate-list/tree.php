@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: rotate a linked list right by k. [1,2,3,4,5], k=2 → [4,5,1,2,3]. k can be 2e9. Empty or one node stays. n ≤ 500.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Reverse rows then transpose — that is Rotate Image on a matrix', 'next' => 'image'],

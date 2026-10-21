@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: nums may contain duplicates. Return unique permutations. [1,1,2] → [[1,1,2],[1,2,1],[2,1,1]]. n ≤ 8.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Copy Permutations: vis[j] only, no sort and no equal-neighbor skip', 'next' => 'copy46'],

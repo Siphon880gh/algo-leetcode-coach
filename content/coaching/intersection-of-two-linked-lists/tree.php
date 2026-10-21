@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: return the first node shared by headA and headB, or null. Lists have no cycles. Same value is not enough: in [4,1,8,4,5] and [5,6,1,8,4,5] the two 1s are different objects; they meet at the 8.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Floyd cycle, match by val, or hash every node of A then scan B', 'next' => 'floyd'],

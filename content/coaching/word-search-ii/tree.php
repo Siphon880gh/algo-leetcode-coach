@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: m by n board, unique words (up to 30k, length ≤ 10). Return every word that appears as a 4-neighbor path with no cell reused in that word. Sample board with oath/pea/eat/rain → [\"eat\",\"oath\"]. 2 by 2 abcd vs abcb → [].\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Word Search I for each word: from every cell, DFS that one string', 'next' => 'loop'],

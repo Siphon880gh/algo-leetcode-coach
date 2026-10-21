@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: swap nodes in pairs. [1,2,3,4] → [2,1,4,3]. [1,2,3] → [2,1,3]. You must not rewrite node.val — only change next pointers.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Walk the list and swap val between each pair of nodes', 'next' => 'vals'],

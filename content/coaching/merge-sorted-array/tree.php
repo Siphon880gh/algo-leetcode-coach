@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: nums1 has m values then n zeros; nums2 has n values. Merge into nums1 in non-decreasing order. Void. [1,2,3,0,0,0] and [2,5,6] → [1,2,2,3,5,6]. m+n ≤ 200.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Dummy-splice like Merge Two Sorted Lists, or sort nums1 after copying nums2 in', 'next' => 'list'],

@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: n×n matrix, rotate 90 degrees clockwise in place. Do not allocate another n×n matrix. [[1,2,3],[4,5,6],[7,8,9]] → [[7,4,1],[8,5,2],[9,6,3]]. n ≤ 20.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'New matrix: dest[j][n-1-i] = matrix[i][j], then copy dest back', 'next' => 'extra'],

@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: k-th lexicographic permutation of 1..n as a string (k is 1-based). n=3, k=3 → \"213\". n=4, k=9 → \"2314\". n ≤ 9.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Generate every permutation like Permutations I, then return index k-1', 'next' => 'all'],

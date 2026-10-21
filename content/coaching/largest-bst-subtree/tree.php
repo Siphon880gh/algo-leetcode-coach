@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: largest subtree that is a BST, by node count. Subtree includes every descendant. [10,5,15,1,8,null,7] → 3 (the 5 / 1, 8 side). Empty → 0.\nWhat do you try first?",
+            'message' => "Problem: largest subtree that is a BST, by node count. Subtree includes every descendant. [10,5,15,1,8,null,7] → 3 (the 5 / 1, 8 side). Empty → 0. (Restated from memory; limits and examples may differ slightly.)\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Validate BST (98) on the whole tree, or return the subtree root', 'next' => 'wrong_98'],

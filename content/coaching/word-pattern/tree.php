@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: does s follow pattern? Bijection: each letter maps to one word, each word to one letter. Split s on spaces. abba / dog cat cat dog → true. abba / dog cat cat fish → false. aaaa / dog cat cat dog → false.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'One map letter → word only; skip the length check', 'next' => 'wrong_one'],

@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: n nodes 0..n−1, undirected edges. True iff they form a tree. n=5, [[0,1],[0,2],[0,3],[1,4]] is true. Extra [1,3] is a cycle, false.\nWhat do you try first?",
+            'message' => "Problem: n nodes 0..n−1, undirected edges. True iff they form a tree. n=5, [[0,1],[0,2],[0,3],[1,4]] is true. Extra [1,3] is a cycle, false. (Restated from memory; limits and examples may differ slightly.)\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Course Schedule (207): directed Kahn / leftover nodes; or Zigzag Iterator on the edge list', 'next' => 'dir'],

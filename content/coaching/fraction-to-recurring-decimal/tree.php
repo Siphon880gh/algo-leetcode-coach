@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: numerator / denominator as a string. Wrap the repeating fractional digits in parentheses. 1/2 → 0.5. 2/1 → 2. 4/333 → 0.(012). Numerator 0 → 0.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Language float, Compare Version dots, or always wrap the whole fraction in parens', 'next' => 'flt'],

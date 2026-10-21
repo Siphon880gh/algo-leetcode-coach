@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: LIFO stack (push, pop, top, empty) using only queue ops: enqueue back, dequeue/peek front, size, empty. At most 100 calls. push 1, push 2, top → 2, pop → 2, empty → false. Follow-up: one queue.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Implement Queue using Stacks (232), or pop/peek the back of a deque', 'next' => 'opp'],

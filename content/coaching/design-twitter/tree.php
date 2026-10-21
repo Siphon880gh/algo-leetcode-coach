@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: postTweet, follow, unfollow, getNewsFeed of up to 10 tweet ids, newest first. Feed = self plus followees. User 1 posts 5 → [5]. Follows 2; 2 posts 6 → [6, 5]. Unfollow 2 → [5]. About 3×10^4 mixed calls. A user does not follow themself.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Keep one global list of every tweet and sort it on each getNewsFeed', 'next' => 'wrong_all'],

@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: bars of width 1; largest rectangle area. [2,1,5,6,2,3] → 10. n up to 1e5.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Trap water with left/right max, or two pointers like Container With Most Water', 'next' => 'water'],

@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: longest path of strictly increasing cells. Four directions; no diagonal, no wrap. [[9,9,4],[6,6,8],[2,1,1]] → 4 (1,2,6,9). One cell → 1. Up to 200 by 200.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => '1-D LIS (300), or DFS without a cache, or allow equals / diagonals', 'next' => 'wrong_lis'],

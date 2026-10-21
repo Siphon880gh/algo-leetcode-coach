@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: invert the binary tree (swap every left/right pair) and return the root. [4,2,7,1,3,6,9] → [4,7,2,9,6,3,1]. [2,1,3] → [2,3,1]. Empty → empty. Up to 100 nodes.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Symmetric Tree (only check a mirror) or Same Tree (same-side pairing)', 'next' => 'check'],

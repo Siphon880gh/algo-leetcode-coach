@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: window of length k slides left to right. Report the max of each window. [1,3,-1,-3,5,3,6,7], k=3 → [3,3,5,5,6,7]. n up to 10⁵ — nested max per window times out.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'For each start, scan the k values; or Minimum Size Subarray Sum (grow/shrink a running sum)', 'next' => 'slow'],

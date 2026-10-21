@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: does word exist as a path of up/down/left/right cells, no cell twice? [[A,B,C,E],[S,F,C,S],[A,D,E,E]], \"ABCCED\" → true, \"ABCB\" → false. m,n ≤ 6.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Count paths like Unique Paths, or fill empty cells like Sudoku Solver', 'next' => 'paths'],

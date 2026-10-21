@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: fewest perfect squares that sum to n. 12 → 3 (4+4+4). 13 → 2 (4+9).\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Greedy: peel the largest square (12 as 9+1+1+1)', 'next' => 'greedy'],

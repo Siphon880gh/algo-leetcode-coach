@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: max number of unique points on one straight line. [[1,1],[2,2],[3,3]] → 3. Second sample → 4. n ≤ 300.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Float dy/dx as the key, Sort List merge, LRU’s recency list, or tree max path sum', 'next' => 'float'],

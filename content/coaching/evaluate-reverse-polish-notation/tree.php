@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: evaluate Reverse Polish tokens. Operators are +, -, *, /. Division truncates toward zero. Valid expression, 32-bit ints. 2, 1, +, 3, * → 9. 4, 13, 5, /, + → 6.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Parse infix with parentheses, Valid Parentheses matching, Max Points slopes, or Simplify Path names', 'next' => 'infix'],

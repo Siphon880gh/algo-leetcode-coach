@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: drop duplicate letters so each letter appears once, and among those subsequences pick the lexicographically smallest. \"bcabc\" → \"abc\". \"cbacdcbc\" → \"acdb\" (not \"abcd\"). Length up to 1e4; lowercase only. Same as 1081.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Sort unique letters, or keep the first occurrence of each letter', 'next' => 'wrong_sort'],

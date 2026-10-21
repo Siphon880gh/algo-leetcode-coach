@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: length of the longest well-formed parentheses substring. \"(()\" → 2. \")()())\" → 4 (the \"()()\"). \"\" → 0. Only ( and ). n up to 3·10^4.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Count how many () pairs exist anywhere, then return 2 × that count', 'next' => 'count'],

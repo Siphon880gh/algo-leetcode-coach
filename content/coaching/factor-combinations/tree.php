@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: all factor combinations of n, each factor in [2, n−1]. 12 → [[2,6],[3,4],[2,2,3]]. 1 and 37 → []. The trivial [n] is not allowed.\nWhat do you try first?",
+            'message' => "Problem: all factor combinations of n, each factor in [2, n−1]. 12 → [[2,6],[3,4],[2,2,3]]. 1 and 37 → []. The trivial [n] is not allowed. (Restated from memory; limits and examples may differ slightly.)\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Combination Sum (39): add candidates to a target; or emit only the prime factorization', 'next' => 'sum'],

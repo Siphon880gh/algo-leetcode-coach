@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: buildings [left, right, height] on the ground. Return contour key points sorted by x: left of each horizontal run, last y is 0. No consecutive equal heights. Sample → [[2,10],[3,15],[7,12],[12,0],[15,10],[20,8],[24,0]]. Two abutting height-3 blocks → [[0,3],[5,0]].\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Merge Intervals on [left, right], or prefix times suffix like Product of Array Except Self', 'next' => 'merge'],

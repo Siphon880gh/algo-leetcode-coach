@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: n posts, k colors. Two neighbors may match; three in a row may not. n = 3, k = 2 → 6. n = 1, k = 1 → 1.\nWhat do you try first?",
+            'message' => "Problem: n posts, k colors. Two neighbors may match; three in a row may not. n = 3, k = 2 → 6. n = 1, k = 1 → 1. (Restated from memory; limits and examples may differ slightly.)\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Paint House: min cost, neighbors must differ', 'next' => 'house'],

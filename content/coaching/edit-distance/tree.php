@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: min operations to turn word1 into word2. Ops: insert, delete, replace one char. \"horse\" → \"ros\" is 3. Lengths ≤ 500.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Copy Regular Expression Matching: DFS on . and * for a boolean match', 'next' => 'regex'],

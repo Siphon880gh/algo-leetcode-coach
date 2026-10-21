@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: same read4 API, but read(buf, n) may be called many times on one file. file abc, queries [1,2,1] → [1,2,0]. [4,1] → [3,0]. Reset instance state between test cases.\nWhat do you try first?",
+            'message' => "Problem: same read4 API, but read(buf, n) may be called many times on one file. file abc, queries [1,2,1] → [1,2,0]. [4,1] → [3,0]. Reset instance state between test cases. (Restated from memory; limits and examples may differ slightly.)\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Stateless Read4 I (discard unread of the last 4), Reverse Words, or index the file string', 'next' => 'once'],

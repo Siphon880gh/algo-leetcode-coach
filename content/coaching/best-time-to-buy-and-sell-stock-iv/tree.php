@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: at most k buy-sell pairs; sell before you buy again. k = 2, [2,4,1] → 2. k = 2, [3,2,6,5,0,3] → 7 (2→6 then 0→3). k up to 100, n up to 1000.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Stock II: sum every up-day, ignore k', 'next' => 'ii'],

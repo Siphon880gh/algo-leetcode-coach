@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: nums length 1 to 5000, values -1000 to 1000. Count contiguous subarrays of length at least 3 whose consecutive differences are equal. [1,2,3,4] → 3 ([1,2,3], [2,3,4], [1,2,3,4]). [1] → 0.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Count arithmetic subsequences (446), or require the whole array to be arithmetic', 'next' => 'wrong_446'],

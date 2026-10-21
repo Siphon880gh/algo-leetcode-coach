@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: Customers has id, name. Orders has id, customerId. Names of customers with no order row. Any order. Sample: Joe and Sam ordered; Henry and Max did not.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'INNER JOIN Customers to Orders on id = customerId, then SELECT name', 'next' => 'inner'],

@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: compute x^n. n is a 32-bit integer (can be negative). 2^10 → 1024. 2^-2 → 0.25. |n| up to 2^31.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Multiply x into ans, n times, or call the language pow', 'next' => 'naive'],

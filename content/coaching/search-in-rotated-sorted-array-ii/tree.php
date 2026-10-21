@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: rotated sorted nums, duplicates allowed. Return whether target is present. [2,5,6,0,0,1,2], 0 → true, 3 → false. n ≤ 5000.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Same as Search in Rotated Sorted Array: always pick a sorted half from mid vs l, return an index', 'next' => 'one'],

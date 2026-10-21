@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: count how many times decimal digit 1 appears in all integers from 0 through n. 0 ≤ n ≤ 10⁹. 13 → 6 (1, 10, 11 twice, 12, 13). 0 → 0.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Loop 1..n and count 1s, or Number of 1 Bits (191) on n’s binary form', 'next' => 'wrongish'],

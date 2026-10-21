@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: complete binary tree (last level packed left). Return the node count in better than O(n). Empty → 0. [1,2,3,4,5,6] → 6. [1] → 1. Up to 5 × 10⁴ nodes.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => '1 + count(left) + count(right) on every node, or 2^h − 1 as if the whole tree were perfect', 'next' => 'naive'],

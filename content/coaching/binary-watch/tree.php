@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: turnedOn is 0..10. A watch has 4 hour bits (0–11) and 6 minute bits (0–59). Return every valid time whose total 1-bits equal turnedOn. Hour has no leading zero (1:00 not 01:00). Minutes are two digits (10:02 not 10:2). Any order. turnedOn=1 includes 0:01 and 8:00. turnedOn=9 is empty.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Treat this as Number of 1 Bits (191) on a single int, or use hours 0–23', 'next' => 'wrong_191'],

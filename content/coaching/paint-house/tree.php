@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: n houses, three colors, neighbors cannot share a color. costs[i][0/1/2] is the price. Return min total. [[17,2,17],[16,16,5],[14,3,19]] → 10 (blue, green, blue).\nWhat do you try first?",
+            'message' => "Problem: n houses, three colors, neighbors cannot share a color. costs[i][0/1/2] is the price. Return min total. [[17,2,17],[16,16,5],[14,3,19]] → 10 (blue, green, blue). (Restated from memory; limits and examples may differ slightly.)\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'House Robber skip/take; or greedy cheapest color on every house', 'next' => 'rob'],

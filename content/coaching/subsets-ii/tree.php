@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: power set of nums that may contain duplicates; unique subsets only. [1,2,2] → [[],[1],[1,2],[1,2,2],[2],[2,2]]. n ≤ 10.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Copy Subsets: skip/take each index with no extra skip, even though twins exist', 'next' => 'plain'],

@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: can one person attend all meetings? intervals[i] = [start, end]. Meetings that meet at the same instant do not overlap. [[0,30],[5,10],[15,20]] is false. [[7,10],[2,4]] is true. Empty is true.\nWhat do you try first?",
+            'message' => "Problem: can one person attend all meetings? intervals[i] = [start, end]. Meetings that meet at the same instant do not overlap. [[0,30],[5,10],[15,20]] is false. [[7,10],[2,4]] is true. Empty is true. (Restated from memory; limits and examples may differ slightly.)\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Merge Intervals (56) into unions; or Meeting Rooms II: count how many rooms you need', 'next' => 'merge'],

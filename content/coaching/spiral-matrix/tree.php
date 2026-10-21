@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: emit every cell of an m×n matrix in clockwise spiral order. [[1,2,3],[4,5,6],[7,8,9]] → [1,2,3,6,9,8,7,4,5]. m,n ≤ 10.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'DFS maze: from each cell pick any unvisited neighbor', 'next' => 'maze'],

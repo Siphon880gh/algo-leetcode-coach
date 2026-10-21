@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: sorted unique nums. Smallest list of inclusive ranges covering exactly those values, as strings. \"a->b\" if a ≠ b, else \"a\". Length 0..20. Empty → []. [0,1,2,4,5,7] → [\"0->2\",\"4->5\",\"7\"]. [0,2,3,4,6,8,9] → [\"0\",\"2->4\",\"6\",\"8->9\"].\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Merge Intervals on [start,end] pairs, or Missing Ranges (163) to emit the holes', 'next' => 'wrongish'],

@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: remove the n-th node from the end. [1,2,3,4,5], n = 2 → [1,2,3,5]. [1], n = 1 → []. Follow-up: one pass.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Walk the list to count sz, then walk again to index sz − n and splice', 'next' => 'two_pass'],

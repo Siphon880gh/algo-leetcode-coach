@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: nums is strictly increasing. Return the index of target, or where it would be inserted. [1,3,5,6], target = 5 → 2; target = 2 → 1; target = 7 → 4. O(log n). n up to 10^4.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Scan until nums[i] >= target, else return n', 'next' => 'linear'],

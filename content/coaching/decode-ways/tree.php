@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: count ways to map a digit string to A–Z (1..26). 12 → 2. 226 → 3. 06 → 0. Length ≤ 100.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Climbing Stairs: always add f[i-1]+f[i-2], even on a 0', 'next' => 'stairs'],

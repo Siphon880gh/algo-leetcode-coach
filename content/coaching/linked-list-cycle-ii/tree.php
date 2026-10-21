@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: return the node where the cycle starts, or None. Do not modify the list. pos is not an input. [3,2,0,-4] cycle into index 1 → that node. [1] acyclic → None.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Cycle I’s true/false, return the Floyd meeting node, Copy List’s map, or Word Break’s f[n]', 'next' => 'bool'],

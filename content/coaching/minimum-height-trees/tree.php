@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: n nodes 0 .. n−1, n−1 undirected edges forming a tree. Height is the longest downward path in edges from a chosen root. Return every root that achieves the minimum height. n=4, edges [[1,0],[1,2],[1,3]] → [1]. n=6 sample → [3,4]. n=1 → [0]. n up to 2e4.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'DFS or BFS height from every node as root', 'next' => 'wrong_all'],

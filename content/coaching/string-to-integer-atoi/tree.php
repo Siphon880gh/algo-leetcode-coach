@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: myAtoi(s) — skip leading spaces, read an optional sign, then digits, clamp to 32-bit.\n\"42\" → 42, \"   -042\" → −42, \"1337c0d3\" → 1337.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Hand the whole string to the language parseInt / int()', 'next' => 'as_lib'],

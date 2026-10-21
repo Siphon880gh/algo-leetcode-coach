@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: count contiguous ranges whose sum sits in [lower, upper]. [-2,5,-1] with [-2, 2] → 3. n up to 1e5; values ±2³¹.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Nested i,j sums, or 560 exact s−k, or 303 one range query', 'next' => 'wrong_slow'],

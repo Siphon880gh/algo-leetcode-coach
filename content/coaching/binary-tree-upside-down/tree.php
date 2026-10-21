@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: turn a binary tree upside down. Original left becomes the new root; original root becomes the new right; original right becomes the new left. [1,2,3,4,5] → [4,5,2,null,null,3,1]. Every right has a left sibling and no kids. At most 10 nodes.\nWhat do you try first?",
+            'message' => "Problem: turn a binary tree upside down. Original left becomes the new root; original root becomes the new right; original right becomes the new left. [1,2,3,4,5] → [4,5,2,null,null,3,1]. Every right has a left sibling and no kids. At most 10 nodes. (Restated from memory; limits and examples may differ slightly.)\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Swap left and right like invert/symmetric, Flatten Tree’s preorder spine, Min Stack, or BFS level reverse', 'next' => 'invert'],

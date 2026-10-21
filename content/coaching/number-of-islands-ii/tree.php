@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: empty m by n water. positions[k] = [r, c] turns that cell to land. After each op, how many 4-connected islands? 3 by 3, [[0,0],[0,1],[1,2],[2,1]] → [1,1,2,3]. Duplicate land leaves the count unchanged.\nWhat do you try first?",
+            'message' => "Problem: empty m by n water. positions[k] = [r, c] turns that cell to land. After each op, how many 4-connected islands? 3 by 3, [[0,0],[0,1],[1,2],[2,1]] → [1,1,2,3]. Duplicate land leaves the count unchanged. (Restated from memory; limits and examples may differ slightly.)\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Re-run Number of Islands (200) flood fill after every addLand', 'next' => 'wrong_flood'],

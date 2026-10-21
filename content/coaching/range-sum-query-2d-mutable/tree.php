@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: NumMatrix. update(row, col, val) sets a cell. sumRegion(r1, c1, r2, c2) is inclusive. Sample rectangle 8, then update(3,2,2) → 10. Up to 200 by 200; 5000 mixed calls.\nWhat do you try first?",
+            'message' => "Problem: NumMatrix. update(row, col, val) sets a cell. sumRegion(r1, c1, r2, c2) is inclusive. Sample rectangle 8, then update(3,2,2) → 10. Up to 200 by 200; 5000 mixed calls. (Restated from memory; limits and examples may differ slightly.)\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => '304 padded prefix rebuilt on update, or scan the rectangle each query', 'next' => 'wrong_static'],

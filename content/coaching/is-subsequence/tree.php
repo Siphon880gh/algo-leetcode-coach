@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: s and t are lowercase. Return true if s is a subsequence of t: keep relative order, deletions allowed. abc / ahbgdc → true. axc / ahbgdc → false. ace is a subsequence of abcde; aec is not. Empty s is true. s up to 100, t up to 1e4.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Require a contiguous substring, or compute LCS length (1143)', 'next' => 'wrong_sub'],

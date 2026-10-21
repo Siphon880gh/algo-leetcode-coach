@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: distinct positives, n up to 1000. Return any largest subset where for every pair, one divides the other. [1,2,3] → [1,2] or [1,3]. [1,2,4,8] → the whole array.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'LIS in the original order (300): compare values, never sort, never test divisibility', 'next' => 'wrong_lis'],

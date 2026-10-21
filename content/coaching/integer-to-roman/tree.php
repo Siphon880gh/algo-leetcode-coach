@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: convert num in 1..3999 to Roman. 3749 → \"MMMDCCXLIX\", 58 → \"LVIII\", 1994 → \"MCMXCIV\".\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Write four I\'s for 4, nine I\'s for 9', 'next' => 'repeat'],

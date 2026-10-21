@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: every piece of a cut must be a palindrome; return all cuts. aab → [[a,a,b],[aa,b]]. a → [[a]]. n ≤ 16.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Valid Palindrome’s boolean, Palindrome Number, Longest Palindromic Substring, or min-cut Partitioning II', 'next' => 'bool'],

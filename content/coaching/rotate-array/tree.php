@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: right-rotate nums by k steps in place. [1,2,3,4,5,6,7], k = 3 → [5,6,7,1,2,3,4]. [-1,-100,3,99], k = 2 → [3,99,-1,-100]. n up to 1e5.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Rotate List’s k-gap on a linked list, or Rotate Image’s row reverse plus transpose', 'next' => 'other'],

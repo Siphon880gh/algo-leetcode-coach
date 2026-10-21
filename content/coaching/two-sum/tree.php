@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: nums = [2, 7, 11, 15], target = 9.\nYou need the indices of two numbers that add to 9.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Check every pair (nested loops)', 'next' => 'brute'],

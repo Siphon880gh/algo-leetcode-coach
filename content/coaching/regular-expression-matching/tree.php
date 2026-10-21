@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: does s match p entirely? '.' is any one character; '*' is zero or more of the preceding element.\n\"aa\" vs \"a\" → false (must cover the whole string). \"aa\" vs \"a*\" → true. \"ab\" vs \".*\" → true.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Hand s and p to the language regex engine', 'next' => 'as_lib'],

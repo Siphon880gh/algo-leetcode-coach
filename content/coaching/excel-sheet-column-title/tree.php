@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: column number → Excel title. A=1 … Z=26, AA=27, AB=28. 1 → A. 28 → AB. 701 → ZY.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Plain 0-based base-26, Two Sum II pointers, or the inverse (title to number)', 'next' => 'base0'],

@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: pack words into lines of exactly maxWidth. Greedy: as many words as fit. Extra spaces even; leftover extra spaces go to the left gaps. Last line is left-justified. maxWidth=16, last line is \"shall be\" plus trailing pad, not extra gaps between the two words.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Fully justify every line the same way, including the last', 'next' => 'same'],

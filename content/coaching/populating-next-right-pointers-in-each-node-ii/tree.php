@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: same next pointers as 116, but the tree is not perfect. [1,2,3,4,5,null,7] → [1,#,2,3,#,4,5,7,#] so 5.next is 7. Empty → []. Up to 6000 nodes.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => '116’s perfect-tree wiring: left.next = right; right.next = parent.next.left', 'next' => 'perf'],

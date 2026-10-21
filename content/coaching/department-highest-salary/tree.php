@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: Employee has id, name, salary, departmentId. Department has id, name. For each department, every employee who holds that department’s highest salary (ties all stay). Columns: Department, Employee, Salary. Sample: IT Jim 90k and Max 90k; Sales Henry 80k. Joe 70k and Sam 60k drop.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'ORDER BY salary DESC LIMIT 1 — one global highest row', 'next' => 'global'],

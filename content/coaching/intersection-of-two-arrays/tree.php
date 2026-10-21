@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: unique values that appear in both nums1 and nums2, any order. [1,2,2,1] and [2,2] → [2]. [4,9,5] and [9,4,9,8,4] → [9,4] or [4,9]. Lengths up to 1000.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Keep multiplicity like Intersection of Two Arrays II (350), so example 1 is [2,2]', 'next' => 'wrong_350'],

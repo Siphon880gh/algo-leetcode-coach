@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: nums is non-decreasing. Return [first, last] index of target, or [-1,-1]. [5,7,7,8,8,10], target = 8 → [3,4]. Empty → [-1,-1]. Must be O(log n). n up to 10^5.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Binary-search any hit, then walk left and right while nums[i] == target', 'next' => 'expand'],

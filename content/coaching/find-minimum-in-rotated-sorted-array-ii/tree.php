@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: rotated sorted array, duplicates allowed; return the minimum. [1,3,5] → 1. [2,2,2,0,1] → 0. Follow-up: duplicates change the bound.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Same as Find Min I (unique vs last), Search Rotated II’s boolean, or linear min() only', 'next' => 'one'],

@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: s = \"babad\". Return the longest palindromic substring (\"bab\" or \"aba\" both work).\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Reverse every substring and compare — O(n³)', 'next' => 'brute'],

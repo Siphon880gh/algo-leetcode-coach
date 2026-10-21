@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: I pick in 1..n (n up to 200). A miss on x costs x dollars, then higher/lower and continue. Return the smallest bankroll that still wins no matter which number I picked. n=10 → 16. n=1 → 0. n=2 → 1.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Reuse 374: call guess() until you find the pick (or always guess the midpoint for cash)', 'next' => 'wrong_374'],

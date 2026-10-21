@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: n is 1 to 2^31−1. Even: replace with n/2. Odd: replace with n+1 or n−1. Return the fewest operations to reach 1. 8 → 3 (8→4→2→1). 7 → 4. 4 → 2.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Treat this as Collatz (always 3n+1), or BFS every integer up to 2^31', 'next' => 'wrong_collatz'],

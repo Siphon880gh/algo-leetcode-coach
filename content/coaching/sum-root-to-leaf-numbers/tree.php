@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: each root-to-leaf path is a decimal number; return their sum. [1,2,3] → 12+13=25. [4,9,0,5,1] → 495+491+40=1026. Digits 0-9, depth ≤ 10.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Path Sum I’s boolean, Path Sum II’s lists, or Max Path Sum’s bend through a node', 'next' => 'ps'],

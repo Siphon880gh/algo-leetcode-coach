@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: nums length n is 1 to 1e5, values −100..100. After a clockwise rotate by k, F(k) is 0 times arr[0] + 1 times arr[1] + … + (n−1) times arr[n−1]. Return the max of F(0)..F(n−1). [4,3,2,6] → 26. [100] → 0. Fits in 32-bit.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Treat this as Rotate Array (189), or rebuild every F in O(n²)', 'next' => 'wrong_189'],

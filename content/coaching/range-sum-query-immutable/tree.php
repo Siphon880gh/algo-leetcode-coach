@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: NumArray on an immutable nums. Many sumRange(left, right) calls, inclusive. [-2,0,3,-5,2,-1] → (0,2)=1, (2,5)=-1, (0,5)=-3. Length and queries up to 10^4.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Fenwick / segment tree (307), or a 2-D prefix (304), or loop left..right each call', 'next' => 'wrong_kind'],

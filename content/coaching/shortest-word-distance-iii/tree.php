@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: shortest index gap, but word1 may equal word2 (two distinct occurrences). Dict up to 10⁵. makes vs coding → 1. makes vs makes → 3.\nWhat do you try first?",
+            'message' => "Problem: shortest index gap, but word1 may equal word2 (two distinct occurrences). Dict up to 10⁵. makes vs coding → 1. makes vs makes → 3. (Restated from memory; limits and examples may differ slightly.)\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Always 243: two latest indices; or always a WordDistance map like 244', 'next' => 'always'],

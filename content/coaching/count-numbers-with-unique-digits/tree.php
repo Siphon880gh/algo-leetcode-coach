@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: count integers x with all distinct digits where 0 ≤ x < 10^n. n is 0..8. n = 2 → 91 (0..99 except 11, 22, …, 99). n = 0 → 1.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Loop every integer from 0 to 10^n − 1 and test digit uniqueness', 'next' => 'wrong_enum'],

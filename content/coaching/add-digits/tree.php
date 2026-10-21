@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: repeatedly add digits until one digit remains. 38 → 2 (3+8=11, then 1+1=2). 0 → 0. Follow-up: O(1), no loop.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Happy Number: sum squares of digits until 1 or a cycle', 'next' => 'happy'],

@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: binary matrix of 0/1; largest rectangle of only 1s, return area. Example → 6. rows, cols ≤ 200.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Count paths like Unique Paths, or flatten like Search a 2D Matrix', 'next' => 'paths'],

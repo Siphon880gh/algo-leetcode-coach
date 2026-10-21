@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: target length m is 1 to 21. dictionary has up to 1000 other lowercase words (never equal to target). Return a shortest abbreviation of target that is not a valid abbreviation of any dictionary word. Length counts kept letters plus replaced runs (s10n has length 3). apple / [blade] → a4.\nWhat do you try first?",
+            'message' => "Problem: target length m is 1 to 21. dictionary has up to 1000 other lowercase words (never equal to target). Return a shortest abbreviation of target that is not a valid abbreviation of any dictionary word. Length counts kept letters plus replaced runs (s10n has length 3). apple / [blade] → a4. (Restated from memory; limits and examples may differ slightly.)\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Validate with 408, or list every abbreviation of target (320) and pick the first', 'next' => 'wrong_408'],

@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: kth largest in nums in sorted order, not kth distinct. 1 ≤ k ≤ n ≤ 10⁵. [3,2,1,5,6,4], k=2 → 5. [3,2,3,1,2,4,5,5,6], k=4 → 4 (descending 6, 5, 5, 4). Follow-up: without a full sort.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Drop duplicates then take the kth, or inorder a BST of the values', 'next' => 'wrongish'],

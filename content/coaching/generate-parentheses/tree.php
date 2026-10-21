@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: generate parentheses. n = 3 → [\"((()))\",\"(()())\",\"(())()\",\"()(())\",\"()()()\"]. n = 1 → [\"()\"]. n ≤ 8.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'List every string of 2n slots filled with ( and ), then filter with Valid Parentheses', 'next' => 'brute'],

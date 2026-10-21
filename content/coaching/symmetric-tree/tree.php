@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: is the tree a mirror of itself around the center? [1,2,2,3,4,4,3] → true. [1,2,2,null,3,null,3] → false. Nodes 1..1000.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Same Tree: compare left-left and right-right on two copies of the tree', 'next' => 'same'],

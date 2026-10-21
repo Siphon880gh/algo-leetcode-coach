@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: each rectangle is [x, y, a, b] (bottom-left to top-right), axis-aligned. Return true iff the pieces exact-cover one larger rectangle: no gaps, no overlaps. Up to 2e4 rectangles. The five-piece sample is true; a gap is false; an overlap is false.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Return the union area like 223 / 850, or accept any tiling whose areas add up', 'next' => 'wrong_union'],

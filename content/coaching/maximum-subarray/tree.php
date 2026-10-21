@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: nonempty contiguous subarray with the largest sum. Example: [-2,1,-3,4,-1,2,1,-5,4] → 6 from [4,-1,2,1]. Single [1] → 1. Length up to 1e5.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Nested loops: try every left and right end and sum the slice', 'next' => 'n2'],

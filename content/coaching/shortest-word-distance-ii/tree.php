@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: build WordDistance from wordsDict, then shortest(word1, word2) up to 5000 times. Distinct words, both present. Dict up to 3 × 10⁴. coding/practice → 3; makes/coding → 1.\nWhat do you try first?",
+            'message' => "Problem: build WordDistance from wordsDict, then shortest(word1, word2) up to 5000 times. Distinct words, both present. Dict up to 3 × 10⁴. coding/practice → 3; makes/coding → 1. (Restated from memory; limits and examples may differ slightly.)\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Each shortest: one scan of the whole dict like 243; or nest every index of A with every index of B', 'next' => 'rescan'],

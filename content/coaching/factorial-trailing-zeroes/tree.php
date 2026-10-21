@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: how many trailing zeroes in n factorial. 3 → 0 (six has none). 5 → 1 (120). 0 → 0. n up to 10⁴. Follow-up: logarithmic — do not compute the factorial.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Compute n factorial then count zeros, or count the 2s, or Horner like column numbers', 'next' => 'fact'],

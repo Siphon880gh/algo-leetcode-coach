@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: maximum depth — nodes on the longest root-to-leaf path. [3,9,20,null,null,15,7] → 3. [1,null,2] → 2. Empty is allowed (0 nodes).\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Return Level Order’s nested lists, or Unique Paths counting grid walks', 'next' => 'lists'],

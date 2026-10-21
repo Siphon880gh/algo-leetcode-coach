@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: fill every '.' so each row, column, and 3x3 box has digits 1-9 once. The board has exactly one solution. Modify in place.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Only run Valid Sudoku on the given board and return', 'next' => 'valid'],

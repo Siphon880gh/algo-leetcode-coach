@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: comma-separated preorder; # is null. Do not rebuild the tree. “9,3,4,#,#,1,#,#,2,#,6,#,#” → true. “1,#” → false. “9,#,#,1” → false.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Allocate TreeNode objects, or accept a node with only one child', 'next' => 'wrong_rebuild'],

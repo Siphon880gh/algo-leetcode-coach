@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: valid parentheses. \"()\" and \"()[]{}\" and \"([])\" are true. \"(]\" and \"([)]\" are false. Only ()[]{}.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Count each opener and closer; equal counts mean valid', 'next' => 'count'],

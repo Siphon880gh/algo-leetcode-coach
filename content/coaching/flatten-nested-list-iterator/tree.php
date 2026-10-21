@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: NestedInteger is an integer or a list of NestedInteger. Build NestedIterator: next returns the next integer left to right; hasNext is true while any integer remains. [[1,1],2,[1,1]] → [1,1,2,1,1]. [1,[4,[6]]] → [1,4,6]. Do not implement NestedInteger yourself.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Weighted sum like Nested List Weight Sum (339), or write NestedInteger yourself', 'next' => 'wrong_339'],

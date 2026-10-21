@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: from index 0, nums[i] is the farthest you may jump forward. Return the minimum number of jumps to n-1. You can always reach. [2,3,1,1,4] → 2. n up to 1e4.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Answer 1 if the last index is reachable, else 0 — that is Jump Game I', 'next' => 'can'],

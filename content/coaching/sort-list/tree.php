@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: sort a linked list ascending. [4,2,1,3] → [1,2,3,4]. Up to 5e4 nodes, so O(n²) Insertion Sort List is too slow. Empty list is []. Follow-up: O(n log n) time.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Insertion-sort splices, Sort Colors on vals, Reorder List’s weave, or array sort then rebuild', 'next' => 'insert'],

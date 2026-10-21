@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: addNum then findMedian on a growing stream. Odd count: middle. Even: mean of the two middles. Add 1, add 2 → 1.5. Add 3 → 2.0. Up to 5×10⁴ calls.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Keep a list and sort (or scan) on every findMedian', 'next' => 'wrong_sort'],

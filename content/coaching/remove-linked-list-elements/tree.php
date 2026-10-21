@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: drop every node whose value equals val. [1,2,6,3,4,5,6], val=6 → [1,2,3,4,5]. Empty stays empty. [7,7,7,7], val=7 → []. Up to 10⁴ nodes.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Remove only the first match, or start at head with no dummy', 'next' => 'first'],

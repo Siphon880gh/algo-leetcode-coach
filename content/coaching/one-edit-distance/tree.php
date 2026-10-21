@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: true iff s and t differ by exactly one insert, delete, or replace. ab vs acb → true. empty vs empty → false. This is not min Levenshtein (Edit Distance).\nWhat do you try first?",
+            'message' => "Problem: true iff s and t differ by exactly one insert, delete, or replace. ab vs acb → true. empty vs empty → false. This is not min Levenshtein (Edit Distance). (Restated from memory; limits and examples may differ slightly.)\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Full DP table like Edit Distance, or true when the strings are equal', 'next' => 'dp'],

@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: how many structurally unique BSTs with values 1..n? n = 3 → 5. n = 1 → 1. n ≤ 19.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Build every tree like Unique BST II, then len(); or Unique Paths on a grid', 'next' => 'build'],

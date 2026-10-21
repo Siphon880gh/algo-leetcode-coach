@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: two non-negative integers as digit strings, each length 1 to 1e4, no leading zeros except 0. Return their sum as a string. Do not parse the whole string into a language integer. 11 + 123 → 134. 456 + 77 → 533. 0 + 0 → 0.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Parse with int() or BigInt, or walk digits from the left', 'next' => 'wrong_parse'],

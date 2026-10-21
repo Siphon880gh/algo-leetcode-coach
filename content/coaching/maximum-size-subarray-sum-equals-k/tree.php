@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: longest contiguous subarray summing to k; 0 if none. nums may be negative. [1,−1,5,−2,3], k=3 → 4 ([1,−1,5,−2]). Length up to 2e5.\nWhat do you try first?",
+            'message' => "Problem: longest contiguous subarray summing to k; 0 if none. nums may be negative. [1,−1,5,−2,3], k=3 → 4 ([1,−1,5,−2]). Length up to 2e5. (Restated from memory; limits and examples may differ slightly.)\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Two-pointer shrink (209) or count how many subarrays hit k (560)', 'next' => 'wrong_209'],

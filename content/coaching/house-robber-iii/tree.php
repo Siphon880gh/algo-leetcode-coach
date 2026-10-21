@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: binary tree of houses. Parent and child cannot both be robbed. [3,2,3,null,3,null,1] → 7. [3,4,5,1,3,null,1] → 9. Up to 1e4 nodes.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'House Robber (198) on a line, or rob every other level as a block', 'next' => 'wrong_198'],

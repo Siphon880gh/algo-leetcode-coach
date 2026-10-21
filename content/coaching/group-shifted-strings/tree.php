@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: group strings that sit on the same wrap-around Caesar sequence (z→a). Any group order. [\"abc\",\"bcd\",\"acef\",\"xyz\",\"az\",\"ba\",\"a\",\"z\"] has four groups.\nWhat do you try first?",
+            'message' => "Problem: group strings that sit on the same wrap-around Caesar sequence (z→a). Any group order. [\"abc\",\"bcd\",\"acef\",\"xyz\",\"az\",\"ba\",\"a\",\"z\"] has four groups. (Restated from memory; limits and examples may differ slightly.)\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Group Anagrams: sort letters as the key; or bucket by length only', 'next' => 'ana'],

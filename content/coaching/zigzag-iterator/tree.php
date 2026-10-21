@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: iterator over v1 and v2 that returns elements alternately. [1,2] and [3,4,5,6] → 1,3,2,4,5,6. One empty list still yields the other.\nWhat do you try first?",
+            'message' => "Problem: iterator over v1 and v2 that returns elements alternately. [1,2] and [3,4,5,6] → 1,3,2,4,5,6. One empty list still yields the other. (Restated from memory; limits and examples may differ slightly.)\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Flatten 2D Vector: drain all of v1, then all of v2', 'next' => 'wrong_251'],

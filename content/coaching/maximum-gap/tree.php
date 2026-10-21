@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: max difference between successive elements after sorting. n < 2 → 0. Must be linear time and linear extra space. [3,6,9,1] → 3. [10] → 0.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Comparison sort then adjacent diffs, Missing Ranges holes, or Find Peak', 'next' => 'sort'],

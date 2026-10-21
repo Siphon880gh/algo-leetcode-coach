@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: every score plus its rank, high to low. Ties share a rank. After a tie the next rank is the next integer (no holes). Sample: two 4.00s are 1; 3.85 is 2; two 3.65s are 3; 3.50 is 4.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'RANK() OVER (ORDER BY score DESC), or ROW_NUMBER so each row is unique', 'next' => 'holes'],

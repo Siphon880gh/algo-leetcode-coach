@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: can you replace characters of s to get t? Same letter always maps to the same target; two letters cannot share a target; a letter may map to itself. egg/add → true. paper/title → true. f11/b23 → false. Lengths equal, ASCII, n ≤ 5 × 10⁴.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'One map s→t only, or sort both strings and compare', 'next' => 'one'],

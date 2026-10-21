@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: count strobogrammatic numbers in [low, high] (digit strings, length 1..15). \"50\"..\"100\" → 3 (69, 88, 96). \"0\"..\"0\" → 1.\nWhat do you try first?",
+            'message' => "Problem: count strobogrammatic numbers in [low, high] (digit strings, length 1..15). \"50\"..\"100\" → 3 (69, 88, 96). \"0\"..\"0\" → 1. (Restated from memory; limits and examples may differ slightly.)\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Walk every integer from low to high and run 246; or return the list like 247', 'next' => 'scan'],

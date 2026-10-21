@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: two digit arrays nums1, nums2 and k. Largest length-k number using digits from both, keeping order inside each array. [3,4,6,5] and [9,1,2,5,8,3], k = 5 → [9,8,6,5,3]. [6,7] and [6,0,4], k = 5 → [6,7,6,0,4]. Lengths up to 500; k ≤ m + n.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => '402 Remove K Digits on the concatenation, or shuffle digits across arrays', 'next' => 'wrong_402'],

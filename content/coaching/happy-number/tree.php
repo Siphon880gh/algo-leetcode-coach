@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: is n happy? Replace n by the sum of its digit squares; true if you hit 1, false if you loop without 1. 19 → true (82, 68, 100, 1). 2 → false. 1 ≤ n ≤ 2³¹ − 1.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'AND the range [1, n], or recurse digit squares with no seen set', 'next' => 'other'],

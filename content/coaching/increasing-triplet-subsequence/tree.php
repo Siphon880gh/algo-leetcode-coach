@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: true iff indices i < j < k with strictly increasing values. Not a subarray. [1,2,3,4,5] → true. [5,4,3,2,1] → false. [2,1,5,0,4,6] → true (1,4,6). n up to 5e5.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'LIS (300) O(n²) table, or require adjacent indices', 'next' => 'wrong_300'],

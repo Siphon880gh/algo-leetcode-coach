@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: s is a valid encoding of lowercase letters, digits, and []. k[chunk] means repeat chunk k times; brackets nest. k is 1..300 and may be more than one digit. Output length stays under 1e5. 3[a]2[bc] → aaabcbc. 3[a2[c]] → accaccacc. 2[abc]3[cd]ef → abcabccdcdcdef.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Treat this as UTF-8 Validation (393), or as a calculator of + and ×', 'next' => 'wrong_393'],

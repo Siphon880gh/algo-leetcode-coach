@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: nums length 1 to 1e4. Return the third distinct maximum. If fewer than three unique values exist, return the maximum. [3,2,1] → 1. [1,2] → 2. [2,2,3,1] → 1.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Rank like Kth Largest (215), so the two 2s in [2,2,3,1] take first and second', 'next' => 'wrong_215'],

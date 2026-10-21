@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: longest substring with at most two distinct characters. eceba → 3 (ece). ccaabbb → 5 (aabbb). n can be 10⁵.\nWhat do you try first?",
+            'message' => "Problem: longest substring with at most two distinct characters. eceba → 3 (ece). ccaabbb → 5 (aabbb). n can be 10⁵. (Restated from memory; limits and examples may differ slightly.)\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Same as LC 3: shrink whenever any letter repeats, or scan every substring', 'next' => 'lc3'],

@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: same ++ to -- flips as Flip Game. No move loses. True iff the starting player can force a win. ++++ → true (middle cut to +--+). + → false. Length up to 60, at most 20 consecutive pluses.\nWhat do you try first?",
+            'message' => "Problem: same ++ to -- flips as Flip Game. No move loses. True iff the starting player can force a win. ++++ → true (middle cut to +--+). + → false. Length up to 60, at most 20 consecutive pluses. (Restated from memory; limits and examples may differ slightly.)\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Only list one-move strings (Flip Game) or count ++ windows', 'next' => 'wrong_list'],

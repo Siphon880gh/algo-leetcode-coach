@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: stack with push, pop, top, and getMin, each O(1). Sample: push -2, 0, -3; getMin is -3; pop; top is 0; getMin is -2. Pop/top/getMin only on nonempty.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Scan the whole stack for min, LRU’s map+DLL, RPN evaluate, or one global min that never updates on pop', 'next' => 'scan'],

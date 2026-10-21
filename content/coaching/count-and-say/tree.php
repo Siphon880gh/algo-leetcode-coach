@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: countAndSay(1) = \"1\". Each later term is the run-length encoding of the previous: consecutive group of c,c,c becomes count then c. n = 4 → \"1211\". 1 ≤ n ≤ 30.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Count how many times each digit 0-9 appears in the previous string (a histogram)', 'next' => 'hist'],

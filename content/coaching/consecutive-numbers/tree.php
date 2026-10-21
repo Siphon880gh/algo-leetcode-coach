@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: Logs has autoincrement id from 1 and num. Return distinct nums that appear on at least three consecutive ids. Sample: ids 1-3 are all 1 → 1. Later 1s and pairs of 2s do not count.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'GROUP BY num HAVING COUNT(1) >= 3 — three rows anywhere', 'next' => 'anywhere'],

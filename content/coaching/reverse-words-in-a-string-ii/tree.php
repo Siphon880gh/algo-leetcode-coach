@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: char array s. Reverse the order of words in place. Words separated by exactly one space; no leading or trailing space. Sample: the sky is blue as chars → blue is sky the. a stays.\nWhat do you try first?",
+            'message' => "Problem: char array s. Reverse the order of words in place. Words separated by exactly one space; no leading or trailing space. Sample: the sky is blue as chars → blue is sky the. a stays. (Restated from memory; limits and examples may differ slightly.)\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'split on space, reverse the word list, join — extra buffer of words', 'next' => 'split'],

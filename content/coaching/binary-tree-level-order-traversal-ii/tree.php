@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: bottom-up level order, left to right on each row. [3,9,20,null,null,15,7] → [[15,7],[9,20],[3]]. Single node → [[1]]. Empty → []. Up to 2000 nodes.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Return 102’s rows as-is, or zigzag reverse every other row', 'next' => 'top'],

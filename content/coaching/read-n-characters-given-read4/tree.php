@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: you may only call read4(buf4), which copies up to 4 file chars and returns how many. Implement read(buf, n): write up to n chars into buf, return the count written. Called once per test. file abc, n=4 → 3. abcde, n=5 → 5.\nWhat do you try first?",
+            'message' => "Problem: you may only call read4(buf4), which copies up to 4 file chars and returns how many. Implement read(buf, n): write up to n chars into buf, return the count written. Called once per test. file abc, n=4 → 3. abcde, n=5 → 5. (Restated from memory; limits and examples may differ slightly.)\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Index the file string directly, Reverse Words, Upside Down tree, or Read4 II leftover across calls', 'next' => 'direct'],

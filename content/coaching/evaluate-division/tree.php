@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: equations[i] = [Ai, Bi] with Ai / Bi = values[i]. Queries ask Cj / Dj. Return −1.0 if a name never appeared or the two variables are disconnected. Input has no contradiction and no divide-by-zero. a/b=2, b/c=3 → a/c=6, b/a=0.5, a/e=−1, a/a=1, x/x=−1.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Unweighted union-find (same as Number of Provinces), or answer 1 for every x/x', 'next' => 'wrong_uf'],

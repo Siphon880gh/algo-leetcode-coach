@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: nums is already sorted. Return f(x) = a × x² + b × x + c for every x, already in sorted order. [-4, -2, 2, 4] with a = 1, b = 3, c = 5 → [3, 9, 15, 33]. Same nums with a = -1 → [-23, -5, 1, 7]. n is at most 200. Follow-up is linear time.\nWhat do you try first?",
+            'message' => "Problem: nums is already sorted. Return f(x) = a × x² + b × x + c for every x, already in sorted order. [-4, -2, 2, 4] with a = 1, b = 3, c = 5 → [3, 9, 15, 33]. Same nums with a = -1 → [-23, -5, 1, 7]. n is at most 200. Follow-up is linear time. (Restated from memory; limits and examples may differ slightly.)\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Compute f at every index, then sort those n values', 'next' => 'wrong_sort'],

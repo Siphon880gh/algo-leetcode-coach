@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: lowercase s, length 1 to 1e5. Return the index of the first character that appears exactly once. If every letter repeats, return −1. leetcode → 0 (l). loveleetcode → 2 (v). aabb → −1.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'From every i, scan the rest of s to test uniqueness', 'next' => 'wrong_nest'],

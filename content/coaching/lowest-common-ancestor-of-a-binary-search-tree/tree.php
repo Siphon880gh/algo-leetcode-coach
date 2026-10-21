@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: BST root, distinct nodes p and q both present, unique keys. Return their lowest common ancestor. A node is an ancestor of itself. [6,2,8,…], p=2, q=8 → 6. Same tree, p=2, q=4 → 2. Up to 10⁵ nodes.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'LCA of a Binary Tree (236): recurse both children, or walk parents to the root and scan', 'next' => 'bt'],

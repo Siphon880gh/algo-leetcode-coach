@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: transpose file.txt. Same number of space-separated fields per row. Sample name age / alice 21 / ryan 30 → name alice ryan and age 21 30.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Rotate Image in RAM, or print the original rows again', 'next' => 'other'],

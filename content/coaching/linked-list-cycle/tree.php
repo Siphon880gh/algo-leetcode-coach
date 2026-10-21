@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: return true if the list has a cycle. pos is not an input. [3,2,0,-4] with a cycle into index 1 → true. [1] acyclic → false. Follow-up: O(1) extra memory.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Linked List Cycle II’s entrance node, a set of values, Copy List’s random map, or treat pos as a parameter', 'next' => 'other'],

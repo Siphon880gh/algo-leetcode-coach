@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: insert dots so s becomes valid IPv4: four parts, each 0..255, no leading zeros. 25525511135 → 255.255.11.135 and 255.255.111.35. 0000 → 0.0.0.0. Length ≤ 20.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Count partitions like Decode Ways (1–26), or parse one number like atoi', 'next' => 'decode'],

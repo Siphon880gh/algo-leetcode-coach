@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: reverse the order of words in s. Collapse extra spaces; no leading or trailing space. the sky is blue → blue is sky the. A padded hello world → world hello. At least one word.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Reverse every character, Length of Last Word’s count only, RPN’s operator stack, or Simplify Path pops', 'next' => 'chars'],

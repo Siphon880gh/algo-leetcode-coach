@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: MovingAverage(size), then next(val) is the mean of the last min(count, size) stream values. Size 3: 1 → 1.0, then 10 → 5.5, then 3 → about 4.66667, then 5 → 6.0. At most 1e4 calls.\nWhat do you try first?",
+            'message' => "Problem: MovingAverage(size), then next(val) is the mean of the last min(count, size) stream values. Size 3: 1 → 1.0, then 10 → 5.5, then 3 → about 4.66667, then 5 → 6.0. At most 1e4 calls. (Restated from memory; limits and examples may differ slightly.)\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Re-sum the whole window each next, or treat this as Sliding Window Maximum (239) or Median (295 / 480)', 'next' => 'wrong_scan'],

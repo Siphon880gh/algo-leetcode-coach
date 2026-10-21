@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: singly linked list. You receive only the node to delete — not head. Values unique. node is in the list and not the tail. After the call that value is gone, length drops by one. [4,5,1,9] delete 5 → [4,1,9]. Void function.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Remove Linked List Elements (203): walk from a dummy head and skip matches, or set prev.next', 'next' => 'head'],

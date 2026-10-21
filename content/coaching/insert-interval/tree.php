@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: intervals is already sorted and non-overlapping. Insert newInterval and merge if it overlaps (shared endpoint counts). [[1,3],[6,9]] + [2,5] → [[1,5],[6,9]]. n up to 1e4.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Binary-search the start, splice newInterval in, and leave the rest unchanged', 'next' => 'splice'],

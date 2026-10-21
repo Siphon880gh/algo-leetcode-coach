@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: encode a list of strings to one string, then decode back. Strings may be empty and may hold any ASCII, including commas and hashes. [\"Hello\",\"World\"] round-trips. [\"\"] is one empty string.\nWhat do you try first?",
+            'message' => "Problem: encode a list of strings to one string, then decode back. Strings may be empty and may hold any ASCII, including commas and hashes. [\"Hello\",\"World\"] round-trips. [\"\"] is one empty string. (Restated from memory; limits and examples may differ slightly.)\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Join with commas (or hashes) and split, or eval a Python list', 'next' => 'join'],

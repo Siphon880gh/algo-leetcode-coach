@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: fewest cuts so every piece is a palindrome. aab → 1 (aa|b). a → 0. ab → 1. n up to 2000.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Partitioning I’s list of all cuts, Valid Palindrome’s boolean, or DFS of every partition (2^n)', 'next' => 'lists'],

@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: length of the last word (max non-space substring). \"Hello World\" → 5. Trailing spaces: \"   fly me   to   the moon  \" → 4. At least one word. n up to 1e4.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Split on every space character and take the length of the last token', 'next' => 'split'],

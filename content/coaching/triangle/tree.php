@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: min path sum top to bottom. From index j you may go to j or j+1 on the next row. [[2],[3,4],[6,5,7],[4,1,8,3]] → 11 (2+3+5+1). [[-10]] → -10. Up to 200 rows.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Minimum Path Sum’s grid (only down and right), or Pascal I’s binomial rows', 'next' => 'grid'],

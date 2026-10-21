@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: rewrite nums in place as the next lexicographic permutation. [1,2,3] → [1,3,2]. [2,3,1] → [3,1,2]. [3,2,1] → [1,2,3] (wrap to sorted). Constant extra memory. n ≤ 100.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Generate every permutation, sort them, pick the one after nums', 'next' => 'all'],

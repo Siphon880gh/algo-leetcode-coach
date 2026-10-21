@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: remove every val from nums in place. Return k; the first k slots must be the keepers (order may change). [3,2,2,3], val = 3 → k = 2, nums[:k] = [2,2]. [0,1,2,2,3,0,4,2], val = 2 → k = 5. n ≤ 100.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Filter into a new array, then copy back', 'next' => 'extra'],

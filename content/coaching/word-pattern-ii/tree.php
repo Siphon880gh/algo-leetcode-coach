@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: s has no spaces. True iff letters bijection-map to non-empty substrings that concatenate to s. abab / redblueredblue → true. aaaa / asdasdasdasd → true. aabb / xyzabcxzyabc → false. Lengths up to 20.\nWhat do you try first?",
+            'message' => "Problem: s has no spaces. True iff letters bijection-map to non-empty substrings that concatenate to s. abab / redblueredblue → true. aaaa / asdasdasdasd → true. aabb / xyzabcxzyabc → false. Lengths up to 20. (Restated from memory; limits and examples may differ slightly.)\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Split s on spaces like Word Pattern (290)', 'next' => 'wrong_split'],

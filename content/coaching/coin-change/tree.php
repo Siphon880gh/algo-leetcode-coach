@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: fewest coins to make amount; infinite supply of each denomination. Impossible → −1. [1,2,5] and 11 → 3 (5+5+1). [2] and 3 → −1. amount 0 → 0. Up to 12 coins; amount up to 1e4.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Greedy largest-first, or 518 (count combinations), or 0-1 each coin once', 'next' => 'wrong_greedy'],

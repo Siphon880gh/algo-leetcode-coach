@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: min depth is nodes on the shortest root-to-leaf path. A leaf has no children. [3,9,20,null,null,15,7] → 2. Skewed [2,null,3,null,4,null,5,null,6] → 5. Empty allowed.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Same as Max Depth: 1 + min(left, right) even when a child is missing', 'next' => 'max'],

@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: positive a (up to 2^31 − 1) and digit array b (length 1..2000, no leading zeros). Return a to the power b, mod 1337. a=2, b=[3] → 8. a=2, b=[1,0] → 1024. a=1 with a huge b → 1.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Join b into a machine int, then call a language pow (or treat this as 50)', 'next' => 'wrong_int'],

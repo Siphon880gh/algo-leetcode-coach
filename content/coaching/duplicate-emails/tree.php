@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: Person has id and email (lowercase, never NULL). Return emails that appear more than once. Any order. Sample: two a@b.com and one c@d.com → only a@b.com.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'WHERE COUNT(1) > 1 on the raw Person table, then SELECT email', 'next' => 'where'],

@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: Trips (client_id, driver_id, status, request_at) and Users (users_id, banned). Cancellation rate per day 2013-10-01..03: cancelled trips / all trips that day, but only when both client and driver have banned = No. Round to two decimals. Sample: 0.33, 0.00, 0.50.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'GROUP BY request_at and COUNT cancelled over all trips — ignore banned', 'next' => 'noban'],

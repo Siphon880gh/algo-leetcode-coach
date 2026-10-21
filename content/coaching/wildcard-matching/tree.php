@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: full match of s against p. '?' is any one character. '*' is any sequence, including empty. \"aa\" vs \"a\" → false. \"aa\" vs \"*\" → true. \"cb\" vs \"?a\" → false. Lengths ≤ 2000.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Reuse Regular Expression Matching: * means zero or more of the preceding token', 'next' => 'regex'],

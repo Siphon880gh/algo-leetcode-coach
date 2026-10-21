@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: place n queens on n×n so none attack. Return all boards as strings of Q and dots. n=4 → two solutions. n=1 → [[\"Q\"]]. n ≤ 9.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Copy Sudoku solver: try Q or dot in every cell, then validate the full board', 'next' => 'sudoku'],

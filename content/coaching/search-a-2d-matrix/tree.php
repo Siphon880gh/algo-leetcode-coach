@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: each row is sorted, and matrix[i][0] > matrix[i-1][n-1]. Find target in O(log(m·n)). [[1,3,5,7],[10,11,16,20],[23,30,34,60]], 3 → true, 13 → false.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Scan every cell, or treat it like Search in Rotated Sorted Array', 'next' => 'scan'],

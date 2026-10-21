@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: nums is ascending then possibly left-rotated; values are distinct. Return the index of target, or -1. [4,5,6,7,0,1,2], target = 0 → 4. Must be O(log n). n up to 5000.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Scan left to right until you hit target', 'next' => 'linear'],

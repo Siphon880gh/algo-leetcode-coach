@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: valid expression of digits, plus, minus, parens, spaces. No eval. Return the integer. n up to 3 × 10⁵. \"1 + 1\" → 2. \" 2-1 + 2 \" → 3. \"(1+(4+5+2)-3)+(6+8)\" → 23. Unary minus OK; unary plus is not.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'eval(s), or Basic Calculator II times/divide with no parens, or RPN postfix', 'next' => 'wrongish'],

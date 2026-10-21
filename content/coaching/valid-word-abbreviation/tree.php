@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: word length 1 to 20, abbr length 1 to 10. An abbreviation replaces non-adjacent nonempty substrings with their lengths; those lengths must not have leading zeros. Does abbr match word? internationalization / i12iz4n → true. apple / a2e → false.\nWhat do you try first?",
+            'message' => "Problem: word length 1 to 20, abbr length 1 to 10. An abbreviation replaces non-adjacent nonempty substrings with their lengths; those lengths must not have leading zeros. Does abbr match word? internationalization / i12iz4n → true. apple / a2e → false. (Restated from memory; limits and examples may differ slightly.)\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Generate every abbreviation of word (320) and see if abbr is in the list', 'next' => 'wrong_320'],

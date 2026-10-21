@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: binary tree (not necessarily a BST), distinct nodes p and q both present. Return their lowest common ancestor. A node is an ancestor of itself. [3,5,1,…], p=5, q=1 → 3. Same tree, p=5, q=4 → 5. Up to 10⁵ nodes.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'LCA of a BST (235): walk left/right by key, or pick the first node whose val sits between p and q', 'next' => 'bst'],

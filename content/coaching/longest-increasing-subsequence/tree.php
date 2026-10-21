@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: length of a longest strictly increasing subsequence (keep order, skip allowed, not a subarray). [10,9,2,5,3,7,101,18] → 4 ([2,3,7,101]). All equal → 1.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Treat it as Longest Consecutive Sequence (128) or sort then scan consecutive values', 'next' => 'wrong_kind'],

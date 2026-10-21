@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: binary tree, 1 to 1000 nodes, values −1000 to 1000. Return the sum of all left leaves. A leaf has no children. A left leaf is a leaf that is someone’s left child. [3,9,20,null,null,15,7] → 24 (9 and 15). [1] → 0.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Treat this as Maximum Depth of Binary Tree (104), or add every left child even if it has descendants', 'next' => 'wrong_104'],

@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: return the first index of needle in haystack, or -1. haystack = \"sadbutsad\", needle = \"sad\" → 0. haystack = \"leetcode\", needle = \"leeto\" → -1. Lengths 1..10^4, lowercase.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Replace needle with a marker, then scan for the marker', 'next' => 'replace'],

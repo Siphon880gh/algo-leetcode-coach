@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: m×n empty grid. Start at (0,0), end at (m-1,n-1), only down or right. Count routes. 3×7 → 28. 3×2 → 3. m,n ≤ 100.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'DFS every down/right walk and increment a counter', 'next' => 'dfs'],

@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: 3Sum. nums = [-1,0,1,2,-1,-4] → [[-1,-1,2],[-1,0,1]]. Distinct value triplets, not index triples. n can be 3000.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Triple nested loops over every i < j < k', 'next' => 'brute'],

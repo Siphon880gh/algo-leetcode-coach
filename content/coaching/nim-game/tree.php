@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: n stones, you start, each turn take 1, 2, or 3. Last stone wins. Both optimal. True iff you can force a win. n=4 → false. n=1 and n=2 → true. n up to 2³¹ − 1.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'DP or minimax over remaining stones for every n', 'next' => 'wrong_dp'],

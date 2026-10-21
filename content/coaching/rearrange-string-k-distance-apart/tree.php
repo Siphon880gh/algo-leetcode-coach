@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: rearrange s so two equal letters are at least k positions apart, or return empty. aabbcc with k = 3 → abcabc. aaabc with k = 3 → empty. Length up to 3×10^5. k = 0 means no gap rule.\nWhat do you try first?",
+            'message' => "Problem: rearrange s so two equal letters are at least k positions apart, or return empty. aabbcc with k = 3 → abcabc. aaabc with k = 3 → empty. Length up to 3×10^5. k = 0 means no gap rule. (Restated from memory; limits and examples may differ slightly.)\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'DFS / backtrack every permutation of s', 'next' => 'wrong_bt'],

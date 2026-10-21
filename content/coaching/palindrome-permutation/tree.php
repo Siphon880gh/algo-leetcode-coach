@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: true if some permutation of s is a palindrome. Lowercase English. \"code\" → false. \"aab\" → true (aba). \"carerac\" → true (racecar).\nWhat do you try first?",
+            'message' => "Problem: true if some permutation of s is a palindrome. Lowercase English. \"code\" → false. \"aab\" → true (aba). \"carerac\" → true (racecar). (Restated from memory; limits and examples may differ slightly.)\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Check that s is already a palindrome, or generate every permutation', 'next' => 'already'],

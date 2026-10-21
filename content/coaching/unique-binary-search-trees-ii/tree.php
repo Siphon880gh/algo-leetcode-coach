@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: all structurally unique BSTs using each value 1..n once. n = 3 → five trees. n = 1 → [[1]]. n ≤ 8.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Count grid paths like Unique Paths, or only list inorder like problem 94', 'next' => 'count'],

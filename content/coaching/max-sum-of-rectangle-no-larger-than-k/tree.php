@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: m by n matrix (up to 100) and integer k. Return the largest rectangle sum that is still ≤ k. A valid rectangle is guaranteed. [[1, 0, 1], [0, -2, 3]], k = 2 → 2 (the right 2 by 2). [[2, 2, -1]], k = 3 → 3. Values can be negative.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Enumerate every left, right, top, bottom bound and sum each rectangle from scratch', 'next' => 'wrong_brute'],

@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: t is a shuffle of s plus one extra lowercase letter (t is one longer; s may be empty). Return the added letter. abcd / abcde → e. empty / y → y. Lengths up to 1000.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Treat this as first unique in one string (387), or assume the extra is always the last char of t', 'next' => 'wrong_387'],

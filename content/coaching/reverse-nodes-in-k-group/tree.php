@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: reverse nodes in k-group. [1,2,3,4,5], k = 2 → [2,1,4,3,5]. k = 3 → [3,2,1,4,5]. Leftover nodes stay in order. Do not rewrite vals.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Reverse the whole list, then reverse leftover nodes at the front', 'next' => 'whole'],

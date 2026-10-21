@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: each row sorted left to right, each column sorted top to bottom. The next row does not start after the previous row’s last cell. Return whether target is in the grid. 5 → true; 20 → false. m, n up to 300.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Search a 2D Matrix (74): flatten with mid / n, mid % n as one sorted stream', 'next' => 'flat'],

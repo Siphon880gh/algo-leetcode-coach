@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: quotient of dividend / divisor without *, /, or %. Truncate toward zero. 10 / 3 → 3. 7 / -3 → -2. 32-bit signed only; clamp if the true quotient is outside [-2³¹, 2³¹−1]. divisor ≠ 0.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Subtract |divisor| once per loop until the remainder is smaller', 'next' => 'linear'],

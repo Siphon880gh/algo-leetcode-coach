@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: numCourses labeled 0..n−1. Pair [a, b] means take b before a. Return any valid order of all courses, or [] if a cycle. [[1,0]] → [0,1]. [[1,0],[2,0],[3,1],[3,2]] → [0,2,1,3] or [0,1,2,3]. One course, no edges → [0].\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Same as Course Schedule: return true/false; any permutation of 0..n−1 is fine', 'next' => 'bool'],

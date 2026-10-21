@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: return the k most frequent values in nums, any order. The set is unique. [1,1,1,2,2,3], k=2 → [1,2]. Length up to 1e5. Follow-up: better than O(n log n).\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Kth Largest (215) on the values themselves, or return the k highest counts instead of the keys', 'next' => 'wrong_215'],

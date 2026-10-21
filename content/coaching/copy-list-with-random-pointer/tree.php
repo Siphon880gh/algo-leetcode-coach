@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: deep-copy a list where each node has next and random (random may be null). New nodes must not point at originals. [[7,null],[13,0],[11,4],[10,2],[1,0]] clones the same shape. Empty head → None.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Copy only next, leave random on the originals, Clone Graph’s neighbor DFS, or XOR like Single Number', 'next' => 'shallow'],

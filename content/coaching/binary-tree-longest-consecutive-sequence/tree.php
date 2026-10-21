@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: longest consecutive path in a binary tree. Values increase by 1, parent to child only (no walking up). May start at any node. [1,null,3,2,4,null,null,null,5] → 3 (3-4-5). [2,null,3,2,null,1] → 2 (2-3, not 3-2-1).\nWhat do you try first?",
+            'message' => "Problem: longest consecutive path in a binary tree. Values increase by 1, parent to child only (no walking up). May start at any node. [1,null,3,2,4,null,null,null,5] → 3 (3-4-5). [2,null,3,2,null,1] → 2 (2-3, not 3-2-1). (Restated from memory; limits and examples may differ slightly.)\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Treat it as array LCS (128) or allow up-and-down through a node (549)', 'next' => 'wrong_kind'],

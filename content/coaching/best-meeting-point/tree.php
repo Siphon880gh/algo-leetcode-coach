@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: binary grid, 1 is a home. Min total Manhattan travel to one meeting cell (empty cells allowed). Sample three homes at (0,0), (0,4), (2,2) → 6 at (0,2). [[1,1]] → 1.\nWhat do you try first?",
+            'message' => "Problem: binary grid, 1 is a home. Min total Manhattan travel to one meeting cell (empty cells allowed). Sample three homes at (0,0), (0,4), (2,2) → 6 at (0,2). [[1,1]] → 1. (Restated from memory; limits and examples may differ slightly.)\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'BFS from every cell, or meet at the mean / centroid', 'next' => 'wrong_bfs'],

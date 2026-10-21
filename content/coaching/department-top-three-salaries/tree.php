@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: Employee has id, name, salary, departmentId. Department has id, name. Keep people whose salary is among the top three unique salaries of that department. Sample IT: Max 90k (1), Joe and Randy 85k (2), Will 70k (3); Janet 69k is out. Sales has only two unique salaries — both stay.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'RANK() OVER (PARTITION BY departmentId ORDER BY salary DESC), keep rk ≤ 3', 'next' => 'rank'],

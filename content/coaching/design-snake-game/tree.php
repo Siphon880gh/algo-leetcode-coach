@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: SnakeGame(width, height, food) then move(U|D|L|R). Start at (0, 0), length 1. Return score, or −1 on wall or self. Food appears one piece at a time. 3×2 board, food (1, 2) then (0, 1): R, D, R, U, L, U → 0, 0, 1, 1, 2, −1. Width and height up to 1e4; about 1e4 moves.\nWhat do you try first?",
+            'message' => "Problem: SnakeGame(width, height, food) then move(U|D|L|R). Start at (0, 0), length 1. Return score, or −1 on wall or self. Food appears one piece at a time. 3×2 board, food (1, 2) then (0, 1): R, D, R, U, L, U → 0, 0, 1, 1, 2, −1. Width and height up to 1e4; about 1e4 moves. (Restated from memory; limits and examples may differ slightly.)\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Allocate a height by width grid and rewrite every cell each move', 'next' => 'wrong_grid'],

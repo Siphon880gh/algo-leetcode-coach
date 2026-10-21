@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: n stations on a circle. From i, you gain gas[i] and spend cost[i] to reach i+1. Start with an empty tank. Return the unique start index that can complete one clockwise loop, or -1. [1,2,3,4,5] vs [3,4,5,1,2] → 3. [2,3,4] vs [3,4,3] → -1. n up to 1e5.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Simulate a full lap from every i (O(n²)), Jump Game’s farthest index, or start at the station with the most gas', 'next' => 'naive'],

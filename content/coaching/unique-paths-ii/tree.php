@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: same down/right count as Unique Paths, but grid 1s are obstacles you cannot enter. [[0,0,0],[0,1,0],[0,0,0]] → 2. [[0,1],[0,0]] → 1. m,n ≤ 100.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Copy Unique Paths I: f[0][0]=1 and add from up and left, ignore the 1s', 'next' => 'empty'],

@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: break n into k ≥ 2 positive integers that sum to n; maximize the product. n from 2 to 58. n=2 → 1 (1+1). n=10 → 36 (3+3+4).\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Return n itself, or count the number of partitions', 'next' => 'wrong_n'],

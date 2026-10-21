@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: mat1 is m by k, mat2 is k by n. Return mat1 times mat2 (always legal). Sample [[1,0,0],[-1,0,3]] times [[7,0,0],[0,0,0],[0,0,1]] → [[7,0,0],[-7,0,3]]. [[0]] times [[0]] → [[0]]. Dimensions up to 100.\nWhat do you try first?",
+            'message' => "Problem: mat1 is m by k, mat2 is k by n. Return mat1 times mat2 (always legal). Sample [[1,0,0],[-1,0,3]] times [[7,0,0],[0,0,0],[0,0,1]] → [[7,0,0],[-7,0,3]]. [[0]] times [[0]] → [[0]]. Dimensions up to 100. (Restated from memory; limits and examples may differ slightly.)\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Add corresponding cells (matrix addition), or transpose mat2 first for no reason', 'next' => 'wrong_add'],

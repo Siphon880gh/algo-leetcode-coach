@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: candidates may contain duplicates. Each index is used at most once. Return unique combinations that sum to target. [10,1,2,7,6,1,5], target 8 → [1,1,6], [1,2,5], [1,7], [2,6].\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Copy Combination Sum: recurse dfs(j, remaining) so the same index can be reused', 'next' => 'reuse'],

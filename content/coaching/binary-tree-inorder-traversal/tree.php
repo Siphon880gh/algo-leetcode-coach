@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: return inorder values of a binary tree. [1,null,2,3] → [1,3,2]. Empty → []. Up to 100 nodes.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Visit root first (preorder), or walk level by level (BFS)', 'next' => 'order'],

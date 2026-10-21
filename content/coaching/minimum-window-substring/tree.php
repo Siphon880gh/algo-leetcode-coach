@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: shortest substring of s that covers every character of t, including duplicates. s = \"ADOBECODEBANC\", t = \"ABC\" → \"BANC\". s = \"a\", t = \"aa\" → \"\". Lengths up to 1e5.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Grow a unique-character window like Longest Substring Without Repeating Characters', 'next' => 'unique'],

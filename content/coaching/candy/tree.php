@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "Problem: n children in a line. Each gets at least 1 candy. A strictly higher rating than a neighbor must get strictly more candies than that neighbor. Return the minimum total. [1,0,2] → 5 (2,1,2). [1,2,2] → 4 (1,2,1). n up to 5e4.\nWhat do you try first?",
+            'message' => "Read the problem statement above.\nWhat do you try first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Give ratings[i] candies, Gas Station’s tank reset, or one left-to-right pass that only beats the left neighbor', 'next' => 'oneway'],
