@@ -49,6 +49,15 @@ The app is for a student or person studying system design, data structures, algo
 - In guides (and when helpful in game/step-by-step intros), include a **copyable Cursor prompt** telling the student to use `.agents/skills/harness` to create another game or step-by-step session — prefer an `[!ui-builder]` widget when the student should fill in variables (topic, slug, etc.)
 - When authoring LeetCode or DSA artifacts, consult matching solutions and writeups under `context/` (run `bash context/clone.sh` first if those folders are missing). See `context/README.md`.
 
+### Problem statement (numbered LeetCode)
+
+Algo Guides and Step-by-step sessions with `'leetcode' => N` show the **official LeetCode problem statement first**. It is stored once per problem in `content/problems/{N}.html` and rendered by `includes/problem.php` (a **Problem** section above the guide body; a collapsible **Problem** header above the session, open on the first step). Before writing the page:
+
+1. Fetch and build it with `.agents/skills/fetch-leetcode-problems` (`fetch.py N`, then `build.py N`).
+2. Confirm `content/problems/{N}.html` exists, or that `N` is listed in `content/problems/premium.json`.
+3. **Free problem:** do not restate the problem in `body.md` or in the session `start` message. Start the guide with the approach. Start the session with `Read the problem statement above.` and then the first decision.
+4. **Premium problem** (no public statement): keep a short restatement in your own words (inputs, output, one example, key constraints) at the top of `body.md` and in the `start` message. Never log in to LeetCode to get it.
+
 ### Filing (category / subcategory)
 
 Algo Guides and Mini games lists are not a flat dump: each tile shows a `Category / Subcategory` breadcrumb, and a browse panel accordion opens category → subcategory → topics.
@@ -129,6 +138,7 @@ Prefer `body.md` for all new guides. Legacy `body.php` still renders if `body.md
 **body.md**
 
 - Markdown fragments (not a full HTML document); title/summary come from `meta.php`
+- The official problem statement is rendered above the body (see **Problem statement** above); do not repeat it — open with the approach (premium problems: open with a short restatement)
 - Cover the idea, complexity (time/space) when relevant, and steps
 - Use normal Markdown: headings (`#` / `##`), lists, `inline code`, `**bold**`, fenced code blocks
 - End with (or include) copyable Cursor prompts via **`[!ui-builder]`** when the learner fills in variables; plain fenced prompts are OK only when there are no fields to fill
@@ -252,6 +262,7 @@ return [
 - At least one `outcome => 'wrong'` leaf with `rewind_to` set to an earlier decision node
 - Prefer a `success` leaf for a correct finish
 - Wrong leaf message must tell the learner they are wrong and when to step back
+- The `start` message assumes the learner has the official statement on screen: begin with `Read the problem statement above.` then ask the first question (premium problems: begin with a short `Problem: …` restatement instead)
 - No randomness, no live AI — fixed graph only
 - Path visualizer is app UI only; do not add breadcrumbs files under `content/coaching/`
 
@@ -262,7 +273,7 @@ return [
 ## Workflow checklist
 
 1. Confirm which artifact (guide / game / step-by-step)
-2. Pick slug, category, subcategory, and tags. For numbered LeetCode, look up Easy/Med/Hard and set `'leetcode'` + `'difficulty'`
+2. Pick slug, category, subcategory, and tags. For numbered LeetCode, look up Easy/Med/Hard and set `'leetcode'` + `'difficulty'`, and fetch the problem statement first (`.agents/skills/fetch-leetcode-problems`)
 3. Write files under the correct `content/.../{slug}/` tree
 4. For guides: write `body.md`; add `[!ui-builder]` when the student should fill variables before copying a Cursor prompt
 5. Match contracts exactly so list/view/play/session pick them up

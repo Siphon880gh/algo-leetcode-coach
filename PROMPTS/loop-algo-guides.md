@@ -19,11 +19,12 @@ Use `.agents/skills/harness` (section 1, kind `algo`) and `.agents/skills/harnes
 1. Read [`loop-algo-guides.track.json`](loop-algo-guides.track.json). If `exhausted` is `true`, stop the loop and say the queue is finished.
 2. If `context/doocs-leetcode` is missing, run `bash context/clone.sh` from the repo root, then continue.
 3. Resolve sources for `next.repo` + `next.id` using **Problem IDs** below. Read the writeup and at least one solution.
+   - **Problem statement first.** For a numbered LeetCode problem `N`, run `python3 .agents/skills/fetch-leetcode-problems/scripts/fetch.py N` then `python3 .agents/skills/fetch-leetcode-problems/scripts/build.py N` (pass `N` so a problem without a page yet is built too). Confirm `content/problems/{N}.html` exists (the app renders it as the **Problem** section at the top of the guide) or that `N` is in `content/problems/premium.json`. Never log in to LeetCode. If the fetch fails (network), stop the tick without writing the guide and report it.
 4. Derive a kebab-case `slug` from the problem title (`0001.Two Sum` → `two-sum`).
 5. If `content/guides/{slug}/` already exists, do **not** overwrite. Append to `skipped` with `"reason": "slug_exists"` and advance `next`.
 6. Otherwise create:
    - `content/guides/{slug}/meta.php` — `title`, `summary`, `category`, `subcategory`, `topic` (`{category} · {subcategory}`), `kind` => `'algo'`, `tags`, and `leetcode` plus `difficulty` (`Easy` \| `Med` \| `Hard`) when **LeetCode number** applies
-   - `content/guides/{slug}/body.md` — idea, approach from `context/`, time/space, steps, then `[!ui-builder]` for a follow-on game and/or step-by-step (mention `.agents/skills/harness`)
+   - `content/guides/{slug}/body.md` — idea, approach from `context/`, time/space, steps, then `[!ui-builder]` for a follow-on game and/or step-by-step (mention `.agents/skills/harness`). Do not restate the problem: the official statement is rendered above the body. **Premium fallback:** when `N` is in `premium.json`, open `body.md` with a short restatement in your own words (inputs, output, one example, key constraints).
    - If `content/coaching/{slug}/` already exists, set `'related_session' => '{slug}'` on this guide and `'related_guide' => '{slug}'` on that session. Do not backfill other pairs.
    - Scan `content/games/*/meta.php` for an existing mini game for this problem: folder slug equals `{slug}`, `related_guide` is `{slug}`, or `leetcode` matches this problem. If found, set `'related_game' => '{gameSlug}'` on this guide and `'related_guide' => '{slug}'` on that game. Do not create a game in this loop.
 7. English guide body even if the source is Chinese. Do not paste copyrighted writeups verbatim; teach the same idea in original wording.

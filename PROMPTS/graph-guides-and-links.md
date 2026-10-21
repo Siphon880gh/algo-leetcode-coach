@@ -24,6 +24,10 @@ This graph:
 
 When an author half creates a numbered LeetCode Algo Guide or Step-by-step, `meta.php` must set `'leetcode'` and `'difficulty'` (`Easy` | `Med` | `Hard`) as in the child prompt. Look up from `context-leetcode-urls/data-difficulty.json` (do not `Read()` the file whole). Do not invent. Never put Easy / Med / Hard in `title`. Mini games created by `loop-mini-games.md` use the same keys.
 
+## Problem statement first (author halves)
+
+Before an author half writes a numbered LeetCode guide or session, it must fetch the official statement with `.agents/skills/fetch-leetcode-problems` (`fetch.py N`, then `build.py N`) so `content/problems/{N}.html` exists, or `N` is recorded in `content/problems/premium.json`. The app renders that statement at the top of both page types; the new page must not restate it (premium problems keep a short own-words restatement instead). If the fetch fails for network reasons, end the tick without authoring and report it. Never log in to LeetCode.
+
 ## Counts (every tick)
 
 Ignore `kind => 'cursor'` guides (for example `add-mini-game`). Missing `kind` counts as algo.
