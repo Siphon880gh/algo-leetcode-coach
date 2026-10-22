@@ -1,0 +1,76 @@
+<p>You are given a string <code>caption</code> of length <code>n</code>. A <strong>good</strong> caption is a string where <strong>every</strong> character appears in groups of <strong>at least 3</strong> consecutive occurrences.</p>
+
+<p>For example:</p>
+
+<ul>
+	<li><code>"aaabbb"</code> and <code>"aaaaccc"</code> are <strong>good</strong> captions.</li>
+	<li><code>"aabbb"</code> and <code>"ccccd"</code> are <strong>not</strong> good captions.</li>
+</ul>
+
+<p>You can perform the following operation <strong>any</strong> number of times:</p>
+
+<p>Choose an index <code>i</code> (where <code>0 &lt;= i &lt; n</code>) and change the character at that index to either:</p>
+
+<ul>
+	<li>The character immediately <strong>before</strong> it in the alphabet (if <code>caption[i] != 'a'</code>).</li>
+	<li>The character immediately <strong>after</strong> it in the alphabet (if <code>caption[i] != 'z'</code>).</li>
+</ul>
+
+<p>Your task is to convert the given <code>caption</code> into a <strong>good</strong> caption using the <strong>minimum</strong> number of operations, and return it. If there are <strong>multiple</strong> possible good captions, return the <strong><span>lexicographically smallest</span></strong> one among them. If it is <strong>impossible</strong> to create a good caption, return an empty string <code>""</code>.</p>
+
+<p><strong>Example 1:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>caption = "cdcd"</span></p>
+
+<p><strong>Output:</strong> <span>"cccc"</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>It can be shown that the given caption cannot be transformed into a good caption with fewer than 2 operations. The possible good captions that can be created using exactly 2 operations are:</p>
+
+<ul>
+	<li><code>"dddd"</code>: Change <code>caption[0]</code> and <code>caption[2]</code> to their next character <code>'d'</code>.</li>
+	<li><code>"cccc"</code>: Change <code>caption[1]</code> and <code>caption[3]</code> to their previous character <code>'c'</code>.</li>
+</ul>
+
+<p>Since <code>"cccc"</code> is lexicographically smaller than <code>"dddd"</code>, return <code>"cccc"</code>.</p>
+</div>
+
+<p><strong>Example 2:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>caption = "aca"</span></p>
+
+<p><strong>Output:</strong> <span>"aaa"</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>It can be proven that the given caption requires at least 2 operations to be transformed into a good caption. The only good caption that can be obtained with exactly 2 operations is as follows:</p>
+
+<ul>
+	<li>Operation 1: Change <code>caption[1]</code> to <code>'b'</code>. <code>caption = "aba"</code>.</li>
+	<li>Operation 2: Change <code>caption[1]</code> to <code>'a'</code>. <code>caption = "aaa"</code>.</li>
+</ul>
+
+<p>Thus, return <code>"aaa"</code>.</p>
+</div>
+
+<p><strong>Example 3:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>caption = "bc"</span></p>
+
+<p><strong>Output:</strong> <span>""</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>It can be shown that the given caption cannot be converted to a good caption by using any number of operations.</p>
+</div>
+
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>1 &lt;= caption.length &lt;= 5 * 10<sup>4</sup></code></li>
+	<li><code>caption</code> consists only of lowercase English letters.</li>
+</ul>

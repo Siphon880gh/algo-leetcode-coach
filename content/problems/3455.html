@@ -1,0 +1,63 @@
+<p>You are given a string <code>s</code> and a pattern string <code>p</code>, where <code>p</code> contains <strong>exactly two</strong> <code>'*'</code> characters.</p>
+
+<p>The <code>'*'</code> in <code>p</code> matches any sequence of zero or more characters.</p>
+
+<p>Return the length of the <strong>shortest</strong> <span>substring</span> in <code>s</code> that matches <code>p</code>. If there is no such substring, return -1.</p>
+<strong>Note:</strong> The empty substring is considered valid.
+
+<p><strong>Example 1:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "abaacbaecebce", p = "ba*c*ce"</span></p>
+
+<p><strong>Output:</strong> <span>8</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>The shortest matching substring of <code>p</code> in <code>s</code> is <code>"<u><strong>ba</strong></u>e<u><strong>c</strong></u>eb<u><strong>ce</strong></u>"</code>.</p>
+</div>
+
+<p><strong>Example 2:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "baccbaadbc", p = "cc*baa*adb"</span></p>
+
+<p><strong>Output:</strong> <span>-1</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>There is no matching substring in <code>s</code>.</p>
+</div>
+
+<p><strong>Example 3:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "a", p = "**"</span></p>
+
+<p><strong>Output:</strong> <span>0</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>The empty substring is the shortest matching substring.</p>
+</div>
+
+<p><strong>Example 4:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "madlogic", p = "*adlogi*"</span></p>
+
+<p><strong>Output:</strong> <span>6</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>The shortest matching substring of <code>p</code> in <code>s</code> is <code>"<strong><u>adlogi</u></strong>"</code>.</p>
+</div>
+
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>1 &lt;= s.length &lt;= 10<sup>5</sup></code></li>
+	<li><code>2 &lt;= p.length &lt;= 10<sup>5</sup></code></li>
+	<li><code>s</code> contains only lowercase English letters.</li>
+	<li><code>p</code> contains only lowercase English letters and exactly two <code>'*'</code>.</li>
+</ul>

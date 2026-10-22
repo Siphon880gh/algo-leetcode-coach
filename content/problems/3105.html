@@ -1,0 +1,56 @@
+<p>You are given an array of integers <code>nums</code>. Return <em>the length of the <strong>longest</strong> <span>subarray</span> of </em><code>nums</code><em> which is either <strong><span>strictly increasing</span></strong> or <strong><span>strictly decreasing</span></strong></em>.</p>
+
+<p><strong>Example 1:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>nums = [1,4,3,3,2]</span></p>
+
+<p><strong>Output:</strong> <span>2</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>The strictly increasing subarrays of <code>nums</code> are <code>[1]</code>, <code>[2]</code>, <code>[3]</code>, <code>[3]</code>, <code>[4]</code>, and <code>[1,4]</code>.</p>
+
+<p>The strictly decreasing subarrays of <code>nums</code> are <code>[1]</code>, <code>[2]</code>, <code>[3]</code>, <code>[3]</code>, <code>[4]</code>, <code>[3,2]</code>, and <code>[4,3]</code>.</p>
+
+<p>Hence, we return <code>2</code>.</p>
+</div>
+
+<p><strong>Example 2:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>nums = [3,3,3,3]</span></p>
+
+<p><strong>Output:</strong> <span>1</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>The strictly increasing subarrays of <code>nums</code> are <code>[3]</code>, <code>[3]</code>, <code>[3]</code>, and <code>[3]</code>.</p>
+
+<p>The strictly decreasing subarrays of <code>nums</code> are <code>[3]</code>, <code>[3]</code>, <code>[3]</code>, and <code>[3]</code>.</p>
+
+<p>Hence, we return <code>1</code>.</p>
+</div>
+
+<p><strong>Example 3:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>nums = [3,2,1]</span></p>
+
+<p><strong>Output:</strong> <span>3</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>The strictly increasing subarrays of <code>nums</code> are <code>[3]</code>, <code>[2]</code>, and <code>[1]</code>.</p>
+
+<p>The strictly decreasing subarrays of <code>nums</code> are <code>[3]</code>, <code>[2]</code>, <code>[1]</code>, <code>[3,2]</code>, <code>[2,1]</code>, and <code>[3,2,1]</code>.</p>
+
+<p>Hence, we return <code>3</code>.</p>
+</div>
+
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>1 &lt;= nums.length &lt;= 50</code></li>
+	<li><code>1 &lt;= nums[i] &lt;= 50</code></li>
+</ul>

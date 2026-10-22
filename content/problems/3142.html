@@ -1,0 +1,57 @@
+<p>You are given a 2D matrix <code>grid</code> of size <code>m x n</code>. You need to check if each cell <code>grid[i][j]</code> is:</p>
+
+<ul>
+	<li>Equal to the cell below it, i.e. <code>grid[i][j] == grid[i + 1][j]</code> (if it exists).</li>
+	<li>Different from the cell to its right, i.e. <code>grid[i][j] != grid[i][j + 1]</code> (if it exists).</li>
+</ul>
+
+<p>Return <code>true</code> if <strong>all</strong> the cells satisfy these conditions, otherwise, return <code>false</code>.</p>
+
+<p><strong>Example 1:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>grid = [[1,0,2],[1,0,2]]</span></p>
+
+<p><strong>Output:</strong> <span>true</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p><strong><img src="https://assets.leetcode.com/uploads/2024/04/15/examplechanged.png" alt="" loading="lazy"></strong></p>
+
+<p>All the cells in the grid satisfy the conditions.</p>
+</div>
+
+<p><strong>Example 2:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>grid = [[1,1,1],[0,0,0]]</span></p>
+
+<p><strong>Output:</strong> <span>false</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p><strong><img src="https://assets.leetcode.com/uploads/2024/03/27/example21.png" alt="" loading="lazy"></strong></p>
+
+<p>All cells in the first row are equal.</p>
+</div>
+
+<p><strong>Example 3:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>grid = [[1],[2],[3]]</span></p>
+
+<p><strong>Output:</strong> <span>false</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p><img src="https://assets.leetcode.com/uploads/2024/03/31/changed.png" alt="" loading="lazy"></p>
+
+<p>Cells in the first column have different values.</p>
+</div>
+
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>1 &lt;= n, m &lt;= 10</code></li>
+	<li><code>0 &lt;= grid[i][j] &lt;= 9</code></li>
+</ul>

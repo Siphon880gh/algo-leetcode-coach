@@ -1,0 +1,50 @@
+<p>You are given an array of strings <code>words</code>. Find all <strong>shortest common supersequences (SCS)</strong> of <code>words</code> that are not <span>permutations</span> of each other.</p>
+
+<p>A <strong>shortest common supersequence</strong> is a string of <strong>minimum</strong> length that contains each string in <code>words</code> as a <span>subsequence</span>.</p>
+
+<p>Return a 2D array of integers <code>freqs</code> that represent all the SCSs. Each <code>freqs[i]</code> is an array of size 26, representing the frequency of each letter in the lowercase English alphabet for a single SCS. You may return the frequency arrays in any order.</p>
+
+<p><strong>Example 1:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>words = ["ab","ba"]</span></p>
+
+<p><strong>Output: </strong>[[1,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[2,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]</p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>The two SCSs are <code>"aba"</code> and <code>"bab"</code>. The output is the letter frequencies for each one.</p>
+</div>
+
+<p><strong>Example 2:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>words = ["aa","ac"]</span></p>
+
+<p><strong>Output: </strong>[[2,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]</p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>The two SCSs are <code>"aac"</code> and <code>"aca"</code>. Since they are permutations of each other, keep only <code>"aac"</code>.</p>
+</div>
+
+<p><strong>Example 3:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>words = </span>["aa","bb","cc"]</p>
+
+<p><strong>Output: </strong>[[2,2,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]]</p>
+
+<p><strong>Explanation:</strong></p>
+
+<p><code>"aabbcc"</code> and all its permutations are SCSs.</p>
+</div>
+
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>1 &lt;= words.length &lt;= 256</code></li>
+	<li><code>words[i].length == 2</code></li>
+	<li>All strings in <code>words</code> will altogether be composed of no more than 16 unique lowercase letters.</li>
+	<li>All strings in <code>words</code> are unique.</li>
+</ul>

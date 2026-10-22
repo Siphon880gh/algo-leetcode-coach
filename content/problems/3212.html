@@ -1,0 +1,50 @@
+<p>Given a 2D character matrix <code>grid</code>, where <code>grid[i][j]</code> is either <code>'X'</code>, <code>'Y'</code>, or <code>'.'</code>, return the number of <span>submatrices</span> that contain:</p>
+
+<ul>
+	<li><code>grid[0][0]</code></li>
+	<li>an <strong>equal</strong> frequency of <code>'X'</code> and <code>'Y'</code>.</li>
+	<li><strong>at least</strong> one <code>'X'</code>.</li>
+</ul>
+
+<p><strong>Example 1:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>grid = [["X","Y","."],["Y",".","."]]</span></p>
+
+<p><strong>Output:</strong> <span>3</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p><strong><img src="https://assets.leetcode.com/uploads/2024/06/07/examplems.png" alt="" loading="lazy"></strong></p>
+</div>
+
+<p><strong>Example 2:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>grid = [["X","X"],["X","Y"]]</span></p>
+
+<p><strong>Output:</strong> <span>0</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>No submatrix has an equal frequency of <code>'X'</code> and <code>'Y'</code>.</p>
+</div>
+
+<p><strong>Example 3:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>grid = [[".","."],[".","."]]</span></p>
+
+<p><strong>Output:</strong> <span>0</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>No submatrix has at least one <code>'X'</code>.</p>
+</div>
+
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>1 &lt;= grid.length, grid[i].length &lt;= 1000</code></li>
+	<li><code>grid[i][j]</code> is either <code>'X'</code>, <code>'Y'</code>, or <code>'.'</code>.</li>
+</ul>

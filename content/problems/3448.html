@@ -1,0 +1,48 @@
+<p>You are given a string <code>s</code> consisting of digits.</p>
+
+<p>Return the <strong>number</strong> of <span>substrings</span> of <code>s</code> <strong>divisible</strong> by their <strong>non-zero</strong> last digit.</p>
+
+<p><strong>Note</strong>: A substring may contain leading zeros.</p>
+
+<p><strong>Example 1:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "12936"</span></p>
+
+<p><strong>Output:</strong> <span>11</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>Substrings <code>"29"</code>, <code>"129"</code>, <code>"293"</code> and <code>"2936"</code> are not divisible by their last digit. There are 15 substrings in total, so the answer is <code>15 - 4 = 11</code>.</p>
+</div>
+
+<p><strong>Example 2:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "5701283"</span></p>
+
+<p><strong>Output:</strong> <span>18</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>Substrings <code>"01"</code>, <code>"12"</code>, <code>"701"</code>, <code>"012"</code>, <code>"128"</code>, <code>"5701"</code>, <code>"7012"</code>, <code>"0128"</code>, <code>"57012"</code>, <code>"70128"</code>, <code>"570128"</code>, and <code>"701283"</code> are all divisible by their last digit. Additionally, all substrings that are just 1 non-zero digit are divisible by themselves. Since there are 6 such digits, the answer is <code>12 + 6 = 18</code>.</p>
+</div>
+
+<p><strong>Example 3:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "1010101010"</span></p>
+
+<p><strong>Output:</strong> <span>25</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>Only substrings that end with digit <code>'1'</code> are divisible by their last digit. There are 25 such substrings.</p>
+</div>
+
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>1 &lt;= s.length &lt;= 10<sup>5</sup></code></li>
+	<li><code>s</code> consists of digits only.</li>
+</ul>

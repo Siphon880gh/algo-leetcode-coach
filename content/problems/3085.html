@@ -1,0 +1,45 @@
+<p>You are given a string <code>word</code> and an integer <code>k</code>.</p>
+
+<p>We consider <code>word</code> to be <strong>k-special</strong> if <code>|freq(word[i]) - freq(word[j])| &lt;= k</code> for all indices <code>i</code> and <code>j</code> in the string.</p>
+
+<p>Here, <code>freq(x)</code> denotes the <span>frequency</span> of the character <code>x</code> in <code>word</code>, and <code>|y|</code> denotes the absolute value of <code>y</code>.</p>
+
+<p>Return <em>the <strong>minimum</strong> number of characters you need to delete to make</em> <code>word</code> <strong><em>k-special</em></strong>.</p>
+
+<p><strong>Example 1:</strong></p>
+
+<div>
+<p><strong>Input: </strong><span>word = "aabcaba", k = 0</span></p>
+
+<p><strong>Output: </strong><span>3</span></p>
+
+<p><strong>Explanation:</strong> We can make <code>word</code> <code>0</code>-special by deleting <code>2</code> occurrences of <code>"a"</code> and <code>1</code> occurrence of <code>"c"</code>. Therefore, <code>word</code> becomes equal to <code>"baba"</code> where <code>freq('a') == freq('b') == 2</code>.</p>
+</div>
+
+<p><strong>Example 2:</strong></p>
+
+<div>
+<p><strong>Input: </strong><span>word = "dabdcbdcdcd", k = 2</span></p>
+
+<p><strong>Output: </strong><span>2</span></p>
+
+<p><strong>Explanation:</strong> We can make <code>word</code> <code>2</code>-special by deleting <code>1</code> occurrence of <code>"a"</code> and <code>1</code> occurrence of <code>"d"</code>. Therefore, <code>word</code> becomes equal to "bdcbdcdcd" where <code>freq('b') == 2</code>, <code>freq('c') == 3</code>, and <code>freq('d') == 4</code>.</p>
+</div>
+
+<p><strong>Example 3:</strong></p>
+
+<div>
+<p><strong>Input: </strong><span>word = "aaabaaa", k = 2</span></p>
+
+<p><strong>Output: </strong><span>1</span></p>
+
+<p><strong>Explanation:</strong> We can make <code>word</code> <code>2</code>-special by deleting <code>1</code> occurrence of <code>"b"</code>. Therefore, <code>word</code> becomes equal to <code>"aaaaaa"</code> where each letter's frequency is now uniformly <code>6</code>.</p>
+</div>
+
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>1 &lt;= word.length &lt;= 10<sup>5</sup></code></li>
+	<li><code>0 &lt;= k &lt;= 10<sup>5</sup></code></li>
+	<li><code>word</code> consists only of lowercase English letters.</li>
+</ul>

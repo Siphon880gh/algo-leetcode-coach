@@ -1,0 +1,109 @@
+<p>You are given a 2D matrix <code>grid</code> of size <code>3 x 3</code> consisting only of characters <code>'B'</code> and <code>'W'</code>. Character <code>'W'</code> represents the white color, and character <code>'B'</code> represents the black color.</p>
+
+<p>Your task is to change the color of <strong>at most one</strong> cell so that the matrix has a <code>2 x 2</code> square where all cells are of the same color.</p>
+
+<p>Return <code>true</code> if it is possible to create a <code>2 x 2</code> square of the same color, otherwise, return <code>false</code>.</p>
+
+<p><strong>Example 1:</strong></p>
+
+<div>
+<div> </div>
+
+<div> </div>
+
+<div> </div>
+
+<div> </div>
+
+<div> </div>
+
+<div> </div>
+
+<div> </div>
+
+<div> </div>
+
+<div> </div>
+</div>
+
+<div>
+<p><strong>Input:</strong> <span>grid = [["B","W","B"],["B","W","W"],["B","W","B"]]</span></p>
+
+<p><strong>Output:</strong> <span>true</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>It can be done by changing the color of the <code>grid[0][2]</code>.</p>
+</div>
+
+<p><strong>Example 2:</strong></p>
+
+<div>
+<div> </div>
+
+<div> </div>
+
+<div> </div>
+
+<div> </div>
+
+<div> </div>
+
+<div> </div>
+
+<div> </div>
+
+<div> </div>
+
+<div> </div>
+</div>
+
+<div>
+<p><strong>Input:</strong> <span>grid = [["B","W","B"],["W","B","W"],["B","W","B"]]</span></p>
+
+<p><strong>Output:</strong> <span>false</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>It cannot be done by changing at most one cell.</p>
+</div>
+
+<p><strong>Example 3:</strong></p>
+
+<div>
+<div> </div>
+
+<div> </div>
+
+<div> </div>
+
+<div> </div>
+
+<div> </div>
+
+<div> </div>
+
+<div> </div>
+
+<div> </div>
+
+<div> </div>
+</div>
+
+<div>
+<p><strong>Input:</strong> <span>grid = [["B","W","B"],["B","W","W"],["B","W","W"]]</span></p>
+
+<p><strong>Output:</strong> <span>true</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>The <code>grid</code> already contains a <code>2 x 2</code> square of the same color.</p>
+</div>
+
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>grid.length == 3</code></li>
+	<li><code>grid[i].length == 3</code></li>
+	<li><code>grid[i][j]</code> is either <code>'W'</code> or <code>'B'</code>.</li>
+</ul>

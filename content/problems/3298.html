@@ -1,0 +1,47 @@
+<p>You are given two strings <code>word1</code> and <code>word2</code>.</p>
+
+<p>A string <code>x</code> is called <strong>valid</strong> if <code>x</code> can be rearranged to have <code>word2</code> as a <span>prefix</span>.</p>
+
+<p>Return the total number of <strong>valid</strong> <span>substrings</span> of <code>word1</code>.</p>
+
+<p><strong>Note</strong> that the memory limits in this problem are <strong>smaller</strong> than usual, so you <strong>must</strong> implement a solution with a <em>linear</em> runtime complexity.</p>
+
+<p><strong>Example 1:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>word1 = "bcca", word2 = "abc"</span></p>
+
+<p><strong>Output:</strong> <span>1</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>The only valid substring is <code>"bcca"</code> which can be rearranged to <code>"abcc"</code> having <code>"abc"</code> as a prefix.</p>
+</div>
+
+<p><strong>Example 2:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>word1 = "abcabc", word2 = "abc"</span></p>
+
+<p><strong>Output:</strong> <span>10</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>All the substrings except substrings of size 1 and size 2 are valid.</p>
+</div>
+
+<p><strong>Example 3:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>word1 = "abcabc", word2 = "aaabc"</span></p>
+
+<p><strong>Output:</strong> <span>0</span></p>
+</div>
+
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>1 &lt;= word1.length &lt;= 10<sup>6</sup></code></li>
+	<li><code>1 &lt;= word2.length &lt;= 10<sup>4</sup></code></li>
+	<li><code>word1</code> and <code>word2</code> consist only of lowercase English letters.</li>
+</ul>

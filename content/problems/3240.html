@@ -1,0 +1,52 @@
+<p>You are given an <code>m x n</code> binary matrix <code>grid</code>.</p>
+
+<p>A row or column is considered <strong>palindromic</strong> if its values read the same forward and backward.</p>
+
+<p>You can <strong>flip</strong> any number of cells in <code>grid</code> from <code>0</code> to <code>1</code>, or from <code>1</code> to <code>0</code>.</p>
+
+<p>Return the <strong>minimum</strong> number of cells that need to be flipped to make <strong>all</strong> rows and columns <strong>palindromic</strong>, and the total number of <code>1</code>'s in <code>grid</code> <strong>divisible</strong> by <code>4</code>.</p>
+
+<p><strong>Example 1:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>grid = [[1,0,0],[0,1,0],[0,0,1]]</span></p>
+
+<p><strong>Output:</strong> <span>3</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p><img src="https://assets.leetcode.com/uploads/2024/08/01/image.png" alt="" loading="lazy"></p>
+</div>
+
+<p><strong>Example 2:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>grid = [[0,1],[0,1],[0,0]]</span></p>
+
+<p><strong>Output:</strong> <span>2</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p><img src="https://assets.leetcode.com/uploads/2024/07/08/screenshot-from-2024-07-09-01-37-48.png" alt="" loading="lazy"></p>
+</div>
+
+<p><strong>Example 3:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>grid = [[1],[1]]</span></p>
+
+<p><strong>Output:</strong> <span>2</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p><img src="https://assets.leetcode.com/uploads/2024/08/01/screenshot-from-2024-08-01-23-05-26.png" alt="" loading="lazy"></p>
+</div>
+
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>m == grid.length</code></li>
+	<li><code>n == grid[i].length</code></li>
+	<li><code>1 &lt;= m * n &lt;= 2 * 10<sup>5</sup></code></li>
+	<li><code>0 &lt;= grid[i][j] &lt;= 1</code></li>
+</ul>

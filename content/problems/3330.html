@@ -1,0 +1,46 @@
+<p>Alice is attempting to type a specific string on her computer. However, she tends to be clumsy and <strong>may</strong> press a key for too long, resulting in a character being typed <strong>multiple</strong> times.</p>
+
+<p>Although Alice tried to focus on her typing, she is aware that she may still have done this <strong>at most</strong> <em>once</em>.</p>
+
+<p>You are given a string <code>word</code>, which represents the <strong>final</strong> output displayed on Alice's screen.</p>
+
+<p>Return the total number of <em>possible</em> original strings that Alice <em>might</em> have intended to type.</p>
+
+<p><strong>Example 1:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>word = "abbcccc"</span></p>
+
+<p><strong>Output:</strong> <span>5</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>The possible strings are: <code>"abbcccc"</code>, <code>"abbccc"</code>, <code>"abbcc"</code>, <code>"abbc"</code>, and <code>"abcccc"</code>.</p>
+</div>
+
+<p><strong>Example 2:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>word = "abcd"</span></p>
+
+<p><strong>Output:</strong> <span>1</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>The only possible string is <code>"abcd"</code>.</p>
+</div>
+
+<p><strong>Example 3:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>word = "aaaa"</span></p>
+
+<p><strong>Output:</strong> <span>4</span></p>
+</div>
+
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>1 &lt;= word.length &lt;= 100</code></li>
+	<li><code>word</code> consists only of lowercase English letters.</li>
+</ul>

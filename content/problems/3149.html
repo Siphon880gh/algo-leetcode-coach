@@ -1,0 +1,40 @@
+<p>You are given an array <code>nums</code> which is a <span>permutation</span> of <code>[0, 1, 2, ..., n - 1]</code>. The <strong>score</strong> of any permutation of <code>[0, 1, 2, ..., n - 1]</code> named <code>perm</code> is defined as:</p>
+
+<p><code>score(perm) = |perm[0] - nums[perm[1]]| + |perm[1] - nums[perm[2]]| + ... + |perm[n - 1] - nums[perm[0]]|</code></p>
+
+<p>Return the permutation <code>perm</code> which has the <strong>minimum</strong> possible score. If <em>multiple</em> permutations exist with this score, return the one that is <span>lexicographically smallest</span> among them.</p>
+
+<p><strong>Example 1:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>nums = [1,0,2]</span></p>
+
+<p><strong>Output:</strong> <span>[0,1,2]</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p><strong><img src="https://assets.leetcode.com/uploads/2024/04/04/example0gif.gif" alt="" loading="lazy"></strong></p>
+
+<p>The lexicographically smallest permutation with minimum cost is <code>[0,1,2]</code>. The cost of this permutation is <code>|0 - 0| + |1 - 2| + |2 - 1| = 2</code>.</p>
+</div>
+
+<p><strong>Example 2:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>nums = [0,2,1]</span></p>
+
+<p><strong>Output:</strong> <span>[0,2,1]</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p><strong><img src="https://assets.leetcode.com/uploads/2024/04/04/example1gif.gif" alt="" loading="lazy"></strong></p>
+
+<p>The lexicographically smallest permutation with minimum cost is <code>[0,2,1]</code>. The cost of this permutation is <code>|0 - 1| + |2 - 2| + |1 - 0| = 2</code>.</p>
+</div>
+
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>2 &lt;= n == nums.length &lt;= 14</code></li>
+	<li><code>nums</code> is a permutation of <code>[0, 1, 2, ..., n - 1]</code>.</li>
+</ul>
