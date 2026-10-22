@@ -175,10 +175,16 @@ if (is_file($mdPath)) {
                         <p>If the service eventually becomes commercial and can sustain the cost of AI tokens, AI processing could be integrated directly into the app for a more seamless experience.</p>
                     </div>
                 </details>
-                <p class="import-ai-panel__preview-label">Highlighted</p>
-                <pre id="guide-ask-highlight" class="import-ai-panel__preview import-ai-panel__preview--short"></pre>
                 <label class="import-ai-panel__preview-label" for="guide-ask-question">Question</label>
                 <textarea id="guide-ask-question" class="guide-ask-question" rows="3" placeholder="Type a question about this passage"></textarea>
+                <div class="guide-ask-highlight-head">
+                    <p class="import-ai-panel__preview-label">Highlighted text</p>
+                    <div class="guide-ask-expand" role="group" aria-label="Expand highlighted text">
+                        <button type="button" id="guide-ask-expand-sentence" aria-pressed="false">Rest of sentence</button>
+                        <button type="button" id="guide-ask-expand-paragraph" aria-pressed="false">Rest of paragraph</button>
+                    </div>
+                </div>
+                <pre id="guide-ask-highlight" class="import-ai-panel__preview import-ai-panel__preview--short"></pre>
                 <p class="import-ai-panel__preview-label">Prompt preview</p>
                 <pre id="guide-ask-preview" class="import-ai-panel__preview import-ai-panel__preview--tall"></pre>
                 <div class="import-ai-panel__actions">

@@ -2543,6 +2543,10 @@
   var lastGuideAskFocus = null;
   var savedGuideSelectionText = '';
   var savedGuideExplanation = '';
+  var guideAskPassages = { selection: '', sentence: '', paragraph: '' };
+  var guideAskPassageMode = 'selection';
+  var guideAskExpandSentence = document.getElementById('guide-ask-expand-sentence');
+  var guideAskExpandParagraph = document.getElementById('guide-ask-expand-paragraph');
   var lastGuideGenFocus = null;
   var guideSelectTimer = null;
 
@@ -2788,12 +2792,123 @@
     return parts.join('\n\n').trim();
   }
 
+  function askBlockEl(node) {
+    var el = guideClosestEl(node);
+    if (!el || !guideSelectRoot || !guideSelectRoot.contains(el)) return null;
+    var block = el.closest('p, li, blockquote, pre, h1, h2, h3, h4, h5, h6, td, th, dd');
+    if (!block || !guideSelectRoot.contains(block) || block === guideSelectRoot) return null;
+    return block;
+  }
+
+  function textThroughBlockEnd(startContainer, startOffset, endBlock) {
+    var range = document.createRange();
+    range.setStart(startContainer, startOffset);
+    var end = document.createRange();
+    end.selectNodeContents(endBlock);
+    range.setEnd(end.endContainer, end.endOffset);
+    return range.toString();
+  }
+
+  function sentenceCut(text, fromIndex) {
+    var i = fromIndex;
+    while (i < text.length) {
+      var ch = text.charAt(i);
+      if (ch === '.' || ch === '!' || ch === '?') {
+        var j = i + 1;
+        while (j < text.length && /["')\]]/.test(text.charAt(j))) j++;
+        if (j >= text.length || /\s/.test(text.charAt(j))) return j;
+      }
+      i++;
+    }
+    return text.length;
+  }
+
+  function selectionEndsSentence(text, fromIndex) {
+    var i = fromIndex;
+    while (i > 0 && /["')\]]/.test(text.charAt(i - 1))) i--;
+    if (i <= 0) return false;
+    var ch = text.charAt(i - 1);
+    if (ch !== '.' && ch !== '!' && ch !== '?') return false;
+    var after = fromIndex < text.length ? text.charAt(fromIndex) : '';
+    return !after || /\s/.test(after);
+  }
+
+  function captureGuideAskPassages(sel) {
+    var selection = String(sel && sel.toString ? sel.toString() : '').trim();
+    var sentence = selection;
+    var paragraph = selection;
+    try {
+      var range = sel.getRangeAt(0);
+      var endBlock = askBlockEl(range.endContainer) || askBlockEl(range.startContainer);
+      if (endBlock) {
+        var through = textThroughBlockEnd(range.startContainer, range.startOffset, endBlock);
+        var rawSel = range.toString();
+        if (through.indexOf(rawSel) === 0) {
+          paragraph = through.trim() || selection;
+          var endAt = rawSel.length;
+          var cut = selectionEndsSentence(through, endAt) ? endAt : sentenceCut(through, endAt);
+          sentence = through.slice(0, cut).trim() || selection;
+        }
+      }
+    } catch (err) {}
+    guideAskPassages = {
+      selection: selection,
+      sentence: sentence || selection,
+      paragraph: paragraph || selection
+    };
+  }
+
+  function guideAskHighlightText() {
+    if (guideAskPassageMode === 'sentence') return guideAskPassages.sentence || guideAskPassages.selection || savedGuideSelectionText;
+    if (guideAskPassageMode === 'paragraph') return guideAskPassages.paragraph || guideAskPassages.selection || savedGuideSelectionText;
+    return guideAskPassages.selection || savedGuideSelectionText;
+  }
+
+  function sameAskText(a, b) {
+    return String(a || '').replace(/\s+/g, ' ').trim() === String(b || '').replace(/\s+/g, ' ').trim();
+  }
+
+  function syncGuideAskExpand() {
+    var selection = guideAskPassages.selection || savedGuideSelectionText;
+    if (guideAskExpandSentence) {
+      var sentenceSame = sameAskText(guideAskPassages.sentence, selection);
+      guideAskExpandSentence.disabled = sentenceSame;
+      guideAskExpandSentence.setAttribute('aria-pressed', !sentenceSame && guideAskPassageMode === 'sentence' ? 'true' : 'false');
+    }
+    if (guideAskExpandParagraph) {
+      var paragraphSame = sameAskText(guideAskPassages.paragraph, selection);
+      guideAskExpandParagraph.disabled = paragraphSame;
+      guideAskExpandParagraph.setAttribute('aria-pressed', !paragraphSame && guideAskPassageMode === 'paragraph' ? 'true' : 'false');
+    }
+    if (guideAskHighlight) guideAskHighlight.textContent = guideAskHighlightText();
+  }
+
+  function setGuideAskPassageMode(mode) {
+    guideAskPassageMode = guideAskPassageMode === mode ? 'selection' : mode;
+    syncGuideAskExpand();
+    refreshGuideAskPreview();
+  }
+
   function buildGuideAskPrompt(question) {
     var guide = guideAskGuideText();
     var q = String(question || '').trim();
-    if (!guide) return q;
-    if (!q) return guide;
-    return guide + '\n\n' + q;
+    var highlight = String(guideAskHighlightText() || '').trim();
+    var lines = [
+      '## Question',
+      q,
+      '',
+      '## Highlighted text',
+      highlight,
+      '',
+      'Answer the question about the highlighted text. The guide after the divider is context.'
+    ];
+    if (guide) {
+      lines.push('');
+      lines.push('---');
+      lines.push('');
+      lines.push(guide);
+    }
+    return lines.join('\n');
   }
 
   function currentGuideAskPrompt() {
@@ -2821,6 +2936,7 @@
 
   function captureGuideSelection(sel) {
     savedGuideSelectionText = String(sel.toString() || '').trim();
+    captureGuideAskPassages(sel);
     try {
       savedGuideExplanation = explanationThroughSelection(sel);
     } catch (err) {
@@ -2893,9 +3009,7 @@
   function refreshGuideAskPreview() {
     if (!guideAskPreview) return;
     guideAskPreview.textContent = currentGuideAskPrompt();
-    if (guideAskQuestion && String(guideAskQuestion.value || '').trim()) {
-      guideAskPreview.scrollTop = guideAskPreview.scrollHeight;
-    }
+    guideAskPreview.scrollTop = 0;
   }
 
   function setGuideAskCursorNoteOpen(open) {
@@ -2910,8 +3024,16 @@
     if (open) {
       hideGuideSelectMenu();
       setGuideAskCursorNoteOpen(false);
-      if (guideAskHighlight) guideAskHighlight.textContent = savedGuideSelectionText;
+      guideAskPassageMode = 'selection';
+      if (!guideAskPassages.selection) {
+        guideAskPassages = {
+          selection: savedGuideSelectionText,
+          sentence: savedGuideSelectionText,
+          paragraph: savedGuideSelectionText
+        };
+      }
       if (guideAskQuestion) guideAskQuestion.value = '';
+      syncGuideAskExpand();
       refreshGuideAskPreview();
       if (guideAskQuestion && typeof guideAskQuestion.focus === 'function') guideAskQuestion.focus();
     } else if (lastGuideAskFocus && typeof lastGuideAskFocus.focus === 'function') {
@@ -3063,6 +3185,18 @@
 
       if (guideAskQuestion) {
         guideAskQuestion.addEventListener('input', refreshGuideAskPreview);
+      }
+
+      if (guideAskExpandSentence) {
+        guideAskExpandSentence.addEventListener('click', function () {
+          setGuideAskPassageMode('sentence');
+        });
+      }
+
+      if (guideAskExpandParagraph) {
+        guideAskExpandParagraph.addEventListener('click', function () {
+          setGuideAskPassageMode('paragraph');
+        });
       }
 
       if (guideAskCopy) {

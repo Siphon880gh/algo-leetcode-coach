@@ -2498,6 +2498,67 @@ body.modal-open {
   outline-offset: 1px;
 }
 
+.guide-ask-highlight-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.35rem 0.75rem;
+  margin: 0 0 0.25rem;
+}
+
+.guide-ask-highlight-head .import-ai-panel__preview-label {
+  margin: 0;
+}
+
+.guide-ask-expand {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.guide-ask-expand button {
+  appearance: none;
+  -webkit-appearance: none;
+  margin: 0;
+  padding: 0.15rem 0.45rem;
+  border: 1px solid var(--panel-edge);
+  border-radius: var(--radius);
+  background: transparent;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  cursor: pointer;
+}
+
+.guide-ask-expand button:hover:not(:disabled) {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.guide-ask-expand button[aria-pressed="true"] {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+}
+
+.guide-ask-expand button:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.guide-ask-expand button:focus {
+  outline: none;
+}
+
+.guide-ask-expand button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
 #guide-ask-modal .import-ai-panel {
   display: flex;
   flex-direction: column;
@@ -2509,6 +2570,7 @@ body.modal-open {
 #guide-ask-modal .import-ai-panel__preview-label,
 #guide-ask-modal .import-ai-panel__preview--short,
 #guide-ask-modal .guide-ask-question,
+#guide-ask-modal .guide-ask-highlight-head,
 #guide-ask-modal .import-ai-panel__actions,
 #guide-ask-modal .guide-gen-cursor-note {
   flex-shrink: 0;
