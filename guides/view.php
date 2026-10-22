@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 require_once dirname(__DIR__) . '/includes/layout.php';
 require_once dirname(__DIR__) . '/includes/guide_md.php';
+require_once dirname(__DIR__) . '/includes/problem.php';
 
 $slug = isset($_GET['id']) ? (string) $_GET['id'] : '';
 $item = load_content('guides', $slug);
@@ -42,8 +43,17 @@ layout_start([
     <?php else: ?>
         <?php render_leetcode_row($meta); ?>
     <?php endif; ?>
+    <?php if ($kind !== 'algo'): ?>
     <p><?= e((string) ($meta['summary'] ?? '')) ?></p>
+    <?php endif; ?>
 </div>
+
+<?php if ($kind === 'algo'): ?>
+<?php render_problem_statement($meta, 'guide'); ?>
+<?php if (trim((string) ($meta['summary'] ?? '')) !== ''): ?>
+<p class="page-summary"><?= e((string) $meta['summary']) ?></p>
+<?php endif; ?>
+<?php endif; ?>
 
 <article
     class="guide-body"
@@ -59,7 +69,15 @@ if (is_file($mdPath)) {
         echo '<p class="empty-state">Could not read body.md.</p>';
     } else {
         if ($kind === 'algo') {
+            $leetcodeNo = content_leetcode_number($meta);
+            if ($leetcodeNo !== null && problem_has_premium_statement($leetcodeNo)) {
+                $markdown = problem_strip_restated_intro($markdown);
+            }
             $guideSourceMd = guide_md_prompt_source($markdown);
+            $problemText = $leetcodeNo !== null ? problem_statement_text($leetcodeNo) : '';
+            if ($problemText !== '') {
+                $guideSourceMd = "## Problem\n\n" . $problemText . "\n\n" . $guideSourceMd;
+            }
         }
         $existingSession = $kind === 'algo' ? guide_existing_session_slug($meta, $slug) : null;
         $existingGame = $kind === 'algo' ? companion_existing_game_slug($meta, $slug) : null;
@@ -79,6 +97,7 @@ if (is_file($mdPath)) {
 <?php endif; ?>
 <div id="guide-select-menu" class="guide-select-menu" hidden role="toolbar" aria-label="Selected text">
     <button type="button" class="guide-select-menu__btn" id="guide-select-generate">Generate Code</button>
+    <button type="button" class="guide-select-menu__btn" id="guide-select-ask">Ask</button>
     <button type="button" class="guide-select-menu__btn" id="guide-select-copy">Copy</button>
 </div>
 
@@ -130,6 +149,53 @@ if (is_file($mdPath)) {
         </div>
         <footer class="modal__footer">
             <button type="button" id="guide-gen-modal-done" class="modal__done">Done</button>
+        </footer>
+    </div>
+</div>
+
+<div id="guide-ask-modal" class="modal" hidden>
+    <div class="modal__backdrop" data-action="close-guide-ask-modal"></div>
+    <div class="modal__panel modal__panel--wide" role="dialog" aria-modal="true" aria-labelledby="guide-ask-modal-title" tabindex="-1">
+        <header class="modal__header">
+            <h3 id="guide-ask-modal-title" class="modal__title">Ask</h3>
+        </header>
+        <div class="import-modal__body">
+            <div class="import-ai-panel">
+                <details class="why-not-auto">
+                    <summary class="why-not-auto__summary"><span class="why-not-auto__icon" aria-hidden="true">i</span> Why is this not automatic</summary>
+                    <div class="why-not-auto__body">
+                        <p>Weng provides this service for free and cannot cover the ongoing cost of AI tokens. That's why this Prompt Builder is designed to let users supply their own AI processing resources rather than having the app pay for them. This is also why AI processing isn't integrated directly into the app for a more seamless experience.</p>
+                        <p>There are several ways to accomplish this:</p>
+                        <ol>
+                            <li><strong>Copy the generated prompt into ChatGPT or Claude:</strong> Users can use their existing AI subscriptions to process the prompt.</li>
+                            <li><strong>Copy the generated prompt into an AI harness like Cursor or Claude Code:</strong> Users can leverage their own AI coding environments and available token allowances.</li>
+                            <li><strong>Provide their own API key:</strong> The app could process prompts directly using the user's API key, with usage billed to the user. However, this requires trusting that the app does not store, log, or copy the key. This is generally easier to verify with a locally running application or a Chrome extension, although neither is inherently secure without reviewing how it handles credentials.</li>
+                        </ol>
+                        <p><strong>For now, letting you use your own AI tools is the most practical approach.</strong> It keeps the service free while allowing you to use AI resources you already have access to. This app uses the method best suited to its particular workflow.</p>
+                        <p>If the service eventually becomes commercial and can sustain the cost of AI tokens, AI processing could be integrated directly into the app for a more seamless experience.</p>
+                    </div>
+                </details>
+                <p class="import-ai-panel__preview-label">Highlighted</p>
+                <pre id="guide-ask-highlight" class="import-ai-panel__preview import-ai-panel__preview--short"></pre>
+                <label class="import-ai-panel__preview-label" for="guide-ask-question">Question</label>
+                <textarea id="guide-ask-question" class="guide-ask-question" rows="3" placeholder="Type a question about this passage"></textarea>
+                <p class="import-ai-panel__preview-label">Prompt preview</p>
+                <pre id="guide-ask-preview" class="import-ai-panel__preview import-ai-panel__preview--tall"></pre>
+                <div class="import-ai-panel__actions">
+                    <button type="button" id="guide-ask-copy" class="import-ai-panel__copy">Copy prompt</button>
+                    <span class="import-ai-panel__open-label">Open in</span>
+                    <a href="https://chatgpt.com/" target="_blank" rel="noopener noreferrer" id="guide-ask-open-chatgpt" class="import-ai-panel__service"><svg class="import-ai-panel__service-icon import-ai-panel__service-icon--chatgpt" width="14" height="14" aria-hidden="true" focusable="false"><use href="#icon-chatgpt"></use></svg><span>ChatGPT</span></a>
+                    <a href="https://claude.ai/new" target="_blank" rel="noopener noreferrer" id="guide-ask-open-claude" class="import-ai-panel__service"><svg class="import-ai-panel__service-icon import-ai-panel__service-icon--claude" width="14" height="14" aria-hidden="true" focusable="false"><use href="#icon-claude"></use></svg><span>Claude</span></a>
+                    <button type="button" id="guide-ask-open-cursor" class="import-ai-panel__service" aria-expanded="false" aria-controls="guide-ask-cursor-note">
+                        <span>Cursor</span>
+                        <span class="guide-gen-cursor-i" aria-hidden="true">i</span>
+                    </button>
+                </div>
+                <p id="guide-ask-cursor-note" class="guide-gen-cursor-note" hidden>Copy this prompt into Cursor for this repo. Use Ask Mode so it will not touch the codebase.</p>
+            </div>
+        </div>
+        <footer class="modal__footer">
+            <button type="button" id="guide-ask-modal-done" class="modal__done">Done</button>
         </footer>
     </div>
 </div>

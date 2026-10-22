@@ -2,6 +2,7 @@
 declare(strict_types=1);
 
 require_once dirname(__DIR__) . '/includes/layout.php';
+require_once dirname(__DIR__) . '/includes/problem.php';
 
 $slug = isset($_GET['id']) ? (string) $_GET['id'] : '';
 $item = load_content('coaching', $slug);
@@ -174,6 +175,7 @@ if (isset($meta['tags']) && is_array($meta['tags'])) {
 $pathAi = [
     'title' => (string) ($meta['title'] ?? $slug),
     'summary' => (string) ($meta['summary'] ?? ''),
+    'problem' => ($sessionLeetcodeNo = content_leetcode_number($meta)) !== null ? problem_statement_text($sessionLeetcodeNo) : '',
     'topic' => (string) ($meta['topic'] ?? ''),
     'category' => (string) ($meta['category'] ?? ''),
     'subcategory' => (string) ($meta['subcategory'] ?? ''),
@@ -235,13 +237,15 @@ layout_start([
     <?php render_content_crumb($meta, 'coaching/index.php', []); ?>
     <h1><?= e((string) ($meta['title'] ?? $slug)) ?></h1>
     <?php render_resource_head_chrome('session', $meta, $slug, 'coaching/index.php'); ?>
-    <?php
-    $sessionSummary = trim((string) ($meta['summary'] ?? ''));
-    if ($sessionSummary !== ''):
-    ?>
-    <p><?= e($sessionSummary) ?></p>
-    <?php endif; ?>
 </div>
+
+<?php render_problem_statement($meta, 'session', $pathDepth === 0); ?>
+<?php
+$sessionSummary = trim((string) ($meta['summary'] ?? ''));
+if ($sessionSummary !== ''):
+?>
+<p class="page-summary"><?= e($sessionSummary) ?></p>
+<?php endif; ?>
 
 <div
     id="coaching-session"

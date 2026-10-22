@@ -6,6 +6,8 @@
 
 declare(strict_types=1);
 
+require_once __DIR__ . '/premium.php';
+
 function content_root(): string
 {
     return dirname(__DIR__) . '/content';
@@ -67,7 +69,7 @@ function list_content(string $type): array
             continue;
         }
         $meta = require $metaPath;
-        if (!is_array($meta)) {
+        if (!is_array($meta) || premium_item_hidden($type, $meta)) {
             continue;
         }
         $items[] = [
@@ -99,7 +101,7 @@ function load_content(string $type, string $slug): ?array
     }
 
     $meta = require $metaPath;
-    if (!is_array($meta)) {
+    if (!is_array($meta) || premium_item_hidden($type, $meta)) {
         return null;
     }
 
@@ -1178,8 +1180,20 @@ function render_content_filter_companies(array $groups): void
             role="dialog"
             aria-label="Companies"
         >
+            <div class="filter-company-search">
+                <input
+                    type="search"
+                    data-filter-company-search
+                    placeholder="Find a company"
+                    aria-label="Find a company"
+                    autocomplete="off"
+                    spellcheck="false"
+                >
+            </div>
+            <p class="filter-company-empty" data-filter-company-empty hidden>No companies match.</p>
             <ul class="pop__list">
                 <?php foreach ($groups as $group): ?>
+                    <?php if ($group['companies'] === []) continue; ?>
                     <?php $levelId = 'resource-filter-companies-' . $group['id']; ?>
                     <li class="filter-company-level" data-filter-company-level="<?= e($group['id']) ?>">
                         <button
@@ -1228,7 +1242,7 @@ function render_content_filter_companies(array $groups): void
                                             title="<?= e($payHint) ?>"
                                             aria-label="<?= e($company['name'] . ', ' . $payLabel) ?>"
                                             <?php endif; ?>
-                                        ><?= e($company['name']) ?><?php if ($payLabel !== ''): ?> <span class="resource-n"><?= e($payLabel) ?></span><?php endif; ?></button>
+                                        ><span class="filter-company__name"><?= e($company['name']) ?></span><?php if ($payLabel !== ''): ?><span class="resource-n"><?= e($payLabel) ?></span><?php endif; ?></button>
                                     </li>
                                 <?php endforeach; ?>
                             </ul>
@@ -1272,6 +1286,56 @@ function render_user_tag_page(string $script, string $slug): void
 }
 
 /**
+ * Hidden marker that app.js reads to record this page in the Recent list
+ * (type, name, link, LeetCode id, and Filter-dropdown categories).
+ * $from is `guide`, `session`, or `game`. Optional meta `categories` (list of
+ * "Category / Subcategory" strings) adds extra categories beyond the main taxonomy.
+ *
+ * @param array<string, mixed> $meta
+ */
+function render_recent_visit_marker(string $from, array $meta, string $slug): void
+{
+    $scripts = [
+        'guide' => 'guides/view.php',
+        'game' => 'games/play.php',
+        'session' => 'coaching/session.php',
+    ];
+    if (!isset($scripts[$from]) || $slug === '') {
+        return;
+    }
+
+    $categories = [];
+    $seen = [];
+    $pairs = [content_taxonomy($meta)];
+    if (isset($meta['categories']) && is_array($meta['categories'])) {
+        foreach ($meta['categories'] as $extra) {
+            if (is_string($extra) && trim($extra) !== '') {
+                $pairs[] = content_taxonomy(['topic' => $extra]);
+            }
+        }
+    }
+    foreach ($pairs as $tax) {
+        $key = strtolower($tax['category'] . "\0" . $tax['subcategory']);
+        if (isset($seen[$key])) {
+            continue;
+        }
+        $seen[$key] = true;
+        $categories[] = [$tax['category'], $tax['subcategory']];
+    }
+
+    $data = [
+        'type' => $from,
+        'slug' => $slug,
+        'title' => (string) ($meta['title'] ?? $slug),
+        'href' => url($scripts[$from] . '?id=' . rawurlencode($slug)),
+        'leetcode' => content_leetcode_number($meta),
+        'categories' => $categories,
+    ];
+    $json = json_encode($data, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+    echo '<span hidden data-recent-visit="' . e(is_string($json) ? $json : '{}') . '"></span>';
+}
+
+/**
  * Page-head actions: + Tag, LeetCode, YouTube, then companion links.
  * $from is `guide`, `session`, or `game`.
  *
@@ -1279,6 +1343,7 @@ function render_user_tag_page(string $script, string $slug): void
  */
 function render_resource_head_chrome(string $from, array $meta, string $ownSlug, string $tagScript): void
 {
+    render_recent_visit_marker($from, $meta, $ownSlug);
     echo '<div class="page-head__links">';
     render_user_tag_page($tagScript, $ownSlug);
 
@@ -1512,15 +1577,15 @@ function render_content_browse(array $items, array $opts): void
                         role="dialog"
                         aria-label="Filter"
                     >
+                        <?php if ($companyGroups !== []): ?>
+                            <?php render_content_filter_companies($companyGroups); ?>
+                        <?php endif; ?>
                         <?php if ($userTags): ?>
                             <?php render_content_filter_tag_group('first-pass', 'First-Pass Tag', '①'); ?>
                             <?php render_content_filter_tag_group('second-pass', 'Second-Pass Tag', '②'); ?>
                         <?php endif; ?>
                         <?php if ($hasDifficulty): ?>
                             <?php render_content_filter_difficulty(); ?>
-                        <?php endif; ?>
-                        <?php if ($companyGroups !== []): ?>
-                            <?php render_content_filter_companies($companyGroups); ?>
                         <?php endif; ?>
                         <p class="pop__title"><?= $userTags ? 'Topics' : 'Filter' ?></p>
                         <ul class="pop__list pop__list--topics">
@@ -1654,7 +1719,7 @@ function base_path(): string
 
     $script = str_replace('\\', '/', (string) ($_SERVER['SCRIPT_NAME'] ?? ''));
     $dir = dirname($script);
-    foreach (['/guides', '/games', '/coaching'] as $suffix) {
+    foreach (['/guides', '/games', '/coaching', '/lists'] as $suffix) {
         $len = strlen($suffix);
         if ($len > 0 && substr($dir, -$len) === $suffix) {
             $dir = dirname($dir);

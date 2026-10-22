@@ -9,7 +9,7 @@ $sub = isset($_GET['sub']) ? trim((string) $_GET['sub']) : '';
 
 layout_start([
     'title' => 'Step-by-step',
-    'description' => 'Deterministic wizards that branch on your choices — step back when you go wrong.',
+    'description' => 'Sessions where you step through a problem step by step. Each choice leads to a fixed next message, and a wrong ending tells you when to step back.',
     'active' => 'coaching',
 ]);
 ?>
@@ -17,8 +17,8 @@ layout_start([
 <div class="page-head">
     <h1>Step-by-step</h1>
     <p>
-        Deterministic wizards: each choice leads to a fixed next message. Reach a wrong ending and you are told
-        when to step back. Use Step back to return to the previous decision (or the rewind point named on that leaf).
+        These are sessions where you step through a problem step by step. Each choice leads to a fixed next message.
+        Reach a wrong ending and you are told when to step back.
     </p>
 </div>
 

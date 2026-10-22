@@ -41,6 +41,16 @@ function layout_start(array $opts = []): void
                 <a class="nav__link<?= $active === 'games' ? ' is-active' : '' ?>" href="<?= e(url('games/index.php')) ?>">Mini games</a>
                 <a class="nav__link<?= $active === 'guides-algo' ? ' is-active' : '' ?>" href="<?= e(guide_list_url('algo')) ?>">Algo Guides</a>
                 <a class="nav__link<?= $active === 'coaching' ? ' is-active' : '' ?>" href="<?= e(url('coaching/index.php')) ?>">Step-by-step</a>
+                <a class="nav__link<?= $active === 'lists' ? ' is-active' : '' ?>" href="<?= e(url('lists/index.php')) ?>">Lists</a>
+                <span class="nav__divider" aria-hidden="true"></span>
+                <div class="recent-split" data-recent-split>
+                    <button type="button" class="recent-open" id="recent-open" aria-expanded="false" aria-controls="recent-panel">Recent <span class="recent-open__n" data-recent-count hidden></span></button>
+                    <span class="recent-split-sep" aria-hidden="true"></span>
+                    <button type="button" class="recent-menu-toggle" id="recent-menu-toggle" aria-expanded="false" aria-haspopup="menu" aria-controls="recent-menu" aria-label="Recent actions"><span aria-hidden="true">▾</span></button>
+                    <div id="recent-menu" class="recent-menu" role="menu" hidden>
+                        <button type="button" class="recent-menu-item" id="recent-clear" role="menuitem">Clear recent</button>
+                    </div>
+                </div>
             </nav>
         </div>
     </header>
@@ -76,6 +86,79 @@ function layout_end(): void
             </details>
         </div>
     </footer>
+    <?= premium_key_html() ?>
+    <div id="recent-root" class="recent-root" aria-hidden="true">
+        <button type="button" class="recent-backdrop" id="recent-backdrop" aria-label="Close recent" tabindex="-1"></button>
+        <aside id="recent-panel" class="recent-panel" role="dialog" aria-modal="true" aria-labelledby="recent-title">
+            <div class="recent-header">
+                <h2 id="recent-title" class="recent-title">Recently visited</h2>
+                <button type="button" class="recent-close" id="recent-close" aria-label="Close recent"><span aria-hidden="true">×</span></button>
+            </div>
+            <div class="recent-filters">
+                <label class="recent-filter">
+                    <span class="recent-filter__label">Category</span>
+                    <select id="recent-filter-cat" class="recent-filter__select"></select>
+                </label>
+                <label class="recent-filter">
+                    <span class="recent-filter__label">Resource Type</span>
+                    <select id="recent-filter-type" class="recent-filter__select"></select>
+                </label>
+            </div>
+            <details class="recent-cats" id="recent-cats">
+                <summary class="recent-cats__summary">Count per category</summary>
+                <div class="recent-count-wrap">
+                    <table class="recent-count-table" id="recent-cat-table">
+                        <thead>
+                            <tr>
+                                <th scope="col" aria-sort="none"><button type="button" class="recent-sort" data-sort="name">Category <span class="recent-sort__icon" aria-hidden="true">↕</span></button></th>
+                                <th scope="col" class="recent-count__num" aria-sort="none"><button type="button" class="recent-sort" data-sort="count">Count <span class="recent-sort__icon" aria-hidden="true">↕</span></button></th>
+                                <th scope="col" class="recent-count__num" aria-sort="none"><button type="button" class="recent-sort" data-sort="time">Time <span class="recent-sort__icon" aria-hidden="true">↕</span></button></th>
+                            </tr>
+                        </thead>
+                        <tbody id="recent-cat-counts"></tbody>
+                    </table>
+                </div>
+            </details>
+            <details class="recent-cats" id="recent-types">
+                <summary class="recent-cats__summary">Count per resource type</summary>
+                <div class="recent-count-wrap">
+                    <table class="recent-count-table" id="recent-type-table">
+                        <thead>
+                            <tr>
+                                <th scope="col" aria-sort="none"><button type="button" class="recent-sort" data-sort="name">Resource type <span class="recent-sort__icon" aria-hidden="true">↕</span></button></th>
+                                <th scope="col" class="recent-count__num" aria-sort="none"><button type="button" class="recent-sort" data-sort="count">Count <span class="recent-sort__icon" aria-hidden="true">↕</span></button></th>
+                                <th scope="col" class="recent-count__num" aria-sort="none"><button type="button" class="recent-sort" data-sort="time">Time <span class="recent-sort__icon" aria-hidden="true">↕</span></button></th>
+                            </tr>
+                        </thead>
+                        <tbody id="recent-type-counts"></tbody>
+                    </table>
+                </div>
+            </details>
+            <p class="recent-summary" id="recent-summary" aria-live="polite"></p>
+            <div class="recent-body">
+                <p id="recent-empty" class="recent-empty" hidden>Nothing visited yet. Open an Algo Guide, mini game, or Step-by-step session.</p>
+                <table id="recent-table" class="recent-table">
+                    <thead>
+                        <tr>
+                            <th scope="col" aria-sort="none"><button type="button" class="recent-sort" data-sort="name">Name <span class="recent-sort__icon" aria-hidden="true">↕</span></button></th>
+                            <th scope="col" aria-sort="none"><button type="button" class="recent-sort" data-sort="date">Last visited <span class="recent-sort__icon" aria-hidden="true">↕</span></button></th>
+                            <th scope="col" aria-sort="none"><button type="button" class="recent-sort" data-sort="time">Time <span class="recent-sort__icon" aria-hidden="true">↕</span></button></th>
+                            <th scope="col" class="recent-delete-col"><span class="recent-sr">Delete</span></th>
+                        </tr>
+                    </thead>
+                    <tbody id="recent-rows"></tbody>
+                </table>
+            </div>
+            <div class="recent-footer" id="recent-footer">
+                <button type="button" class="recent-clear-all" id="recent-clear-all">Clear all</button>
+                <label class="recent-advanced">
+                    <input type="checkbox" id="recent-advanced">
+                    <span class="recent-advanced-track" aria-hidden="true"></span>
+                    <span class="recent-advanced-label">Advanced</span>
+                </label>
+            </div>
+        </aside>
+    </div>
     <script src="<?= e(url('assets/js/app.js')) ?>?v=<?= (int) @filemtime(dirname(__DIR__) . '/assets/js/app.js') ?>" defer></script>
 </body>
 </html>

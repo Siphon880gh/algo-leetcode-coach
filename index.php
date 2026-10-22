@@ -42,6 +42,7 @@ layout_start([
         <a class="btn btn--ghost" href="<?= e(guide_list_url('cursor')) ?>">Cursor AI Guides</a>
         <a class="btn btn--ghost" href="<?= e(url('games/index.php')) ?>">Mini games</a>
         <a class="btn btn--ghost" href="<?= e(url('coaching/index.php')) ?>">Step-by-step</a>
+        <a class="btn btn--ghost" href="<?= e(url('lists/index.php')) ?>">Blind 75 · NeetCode 150</a>
     </div>
 </section>
 
