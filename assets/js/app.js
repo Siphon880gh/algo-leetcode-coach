@@ -937,6 +937,21 @@
     });
   }
 
+  function syncMenuLayer() {
+    document.querySelectorAll('.browse, .clist').forEach(function (root) {
+      var open = false;
+      var nodes = root.querySelectorAll('[data-pop-panel], [data-filter-tags-panel], [data-filter-companies-panel], [data-filter-difficulty-panel], [data-filter-company-level-panel], [data-user-tag-picker]');
+      var i;
+      for (i = 0; i < nodes.length; i++) {
+        if (nodes[i].hidden) continue;
+        if (nodes[i].parentElement && nodes[i].parentElement.closest('[hidden]')) continue;
+        open = true;
+        break;
+      }
+      root.classList.toggle('is-menu-open', open);
+    });
+  }
+
   function closeUserTagPickers(except) {
     document.querySelectorAll('[data-user-tag-picker]').forEach(function (picker) {
       if (except && picker === except) return;
@@ -944,6 +959,7 @@
       var open = picker.parentNode && picker.parentNode.querySelector('[data-user-tag-open]');
       if (open) open.setAttribute('aria-expanded', 'false');
     });
+    syncMenuLayer();
   }
 
   function initUserTags() {
@@ -961,6 +977,7 @@
       if (!open) wrap.classList.remove('is-pinned');
       panel.hidden = !open;
       btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      syncMenuLayer();
     }
 
     bootUserTags().then(function (boot) {
@@ -1163,6 +1180,7 @@
             renderPicker(tile);
             picker.hidden = false;
             openBtn.setAttribute('aria-expanded', 'true');
+            syncMenuLayer();
           }
         });
         picker.addEventListener('click', function (e) {
@@ -1180,7 +1198,7 @@
           closeFilterTagsFlyout(root, true, wrap);
           setTagFlyoutOpen(wrap, true);
         });
-        wrap.addEventListener('mouseleave', function () {
+        holdFlyout(wrap, function () {
           if (!wrap.classList.contains('is-pinned')) setTagFlyoutOpen(wrap, false);
         });
         btn.addEventListener('click', function (e) {
@@ -1523,6 +1541,7 @@
       if (panel) panel.hidden = true;
       if (btn) btn.setAttribute('aria-expanded', 'false');
     });
+    syncMenuLayer();
   }
 
   function clearFlyoutPlace(panel) {
@@ -1539,6 +1558,9 @@
     panel.style.width = '';
     panel.style.visibility = '';
     panel.style.zIndex = '';
+    panel.classList.remove('is-open-right');
+    var list = panel.querySelector(':scope > .pop__list');
+    if (list) list.style.maxHeight = '';
   }
 
   function placeFilterFlyout(panel, anchor) {
@@ -1556,8 +1578,10 @@
     var openLeft = spaceLeft >= spaceRight;
     var space = openLeft ? spaceLeft : spaceRight;
     space = Math.max(140, Math.min(space, vw - margin * 2));
+    var available = Math.max(160, vh - topLimit - margin);
 
     var placing = panel.style.position !== 'fixed';
+    panel.classList.toggle('is-open-right', !openLeft);
     panel.style.position = 'fixed';
     panel.style.margin = '0';
     panel.style.right = 'auto';
@@ -1565,12 +1589,21 @@
     panel.style.zIndex = panel.hasAttribute('data-filter-company-level-panel') ? '36' : '35';
     panel.style.width = '';
     panel.style.maxWidth = space + 'px';
-    panel.style.maxHeight = Math.max(160, vh - topLimit - margin) + 'px';
+    panel.style.maxHeight = '';
     panel.style.minWidth = space < 320 ? '0px' : '';
     if (placing) {
       panel.style.visibility = 'hidden';
       panel.style.left = margin + 'px';
       panel.style.top = margin + 'px';
+    }
+
+    var list = panel.querySelector(':scope > .pop__list');
+    if (list && !panel.closest('.is-searching')) {
+      list.style.maxHeight = available + 'px';
+      var panelBox = panel.getBoundingClientRect();
+      var listBox = list.getBoundingClientRect();
+      var chrome = Math.max(0, panelBox.height - listBox.height);
+      list.style.maxHeight = Math.max(120, available - chrome) + 'px';
     }
 
     var rect = panel.getBoundingClientRect();
@@ -1645,6 +1678,7 @@
         clearFlyoutPlace(panel);
       }
       if (btn) btn.setAttribute('aria-expanded', 'false');
+      syncMenuLayer();
       return;
     }
     if (panel) {
@@ -1652,6 +1686,7 @@
       placeFilterFlyout(panel, btn || level);
     }
     if (btn) btn.setAttribute('aria-expanded', 'true');
+    syncMenuLayer();
   }
 
   function closeFilterCompaniesFlyout(root, unpin) {
@@ -1667,6 +1702,7 @@
       clearFlyoutPlace(panel);
     }
     if (btn) btn.setAttribute('aria-expanded', 'false');
+    syncMenuLayer();
   }
 
   function closeFilterDifficultyFlyout(root, unpin) {
@@ -1676,6 +1712,7 @@
     if (unpin && wrap) wrap.classList.remove('is-pinned');
     if (panel) panel.hidden = true;
     if (btn) btn.setAttribute('aria-expanded', 'false');
+    syncMenuLayer();
   }
 
   function closeFilterNested(panel) {
@@ -1942,6 +1979,7 @@
       }
       difficultyPanel.hidden = false;
       difficultyBtn.setAttribute('aria-expanded', 'true');
+      syncMenuLayer();
     }
 
     wrap.addEventListener('mouseenter', function () {
@@ -1949,7 +1987,7 @@
       closeFilterCompaniesFlyout(root, true);
       setDifficultyOpen(true);
     });
-    wrap.addEventListener('mouseleave', function () {
+    holdFlyout(wrap, function () {
       if (!wrap.classList.contains('is-pinned')) setDifficultyOpen(false);
     });
     difficultyBtn.addEventListener('click', function (e) {
@@ -2441,6 +2479,7 @@
       panel.hidden = !open;
       btn.setAttribute('aria-expanded', open ? 'true' : 'false');
       if (!open) closeFilterNested(panel);
+      syncMenuLayer();
     }
 
     function closeAll() {
@@ -2453,6 +2492,7 @@
           closeFilterNested(otherPanel);
         }
       });
+      syncMenuLayer();
     }
 
     btn.addEventListener('click', function (e) {

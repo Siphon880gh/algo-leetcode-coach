@@ -997,6 +997,22 @@ code {
   gap: 0.15rem;
 }
 
+/* Open menus sit above resource cards and keep the pointer. */
+.browse.is-menu-open .browse__actions,
+.clist.is-menu-open .browse__actions {
+  position: relative;
+  z-index: 40;
+}
+
+.browse.is-menu-open .content-tiles,
+.clist.is-menu-open .clist-items {
+  pointer-events: none;
+}
+
+.browse.is-menu-open .content-tile:has([aria-expanded="true"]) {
+  pointer-events: auto;
+}
+
 .pop {
   position: relative;
   flex: 0 0 auto;
@@ -1041,8 +1057,8 @@ code {
   right: 0;
   z-index: 30;
   min-width: 13.5rem;
-  max-height: min(24rem, 70vh);
-  overflow: auto;
+  max-height: none;
+  overflow: visible;
   padding: var(--space-2);
   background: var(--panel);
   border: 1px solid var(--panel-edge);
@@ -1050,12 +1066,29 @@ code {
   box-shadow: 0 10px 28px rgba(26, 31, 36, 0.12);
 }
 
+/* Catch the pointer in the gap and along the edges, over the cards beneath. */
+.pop__panel::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: -0.45rem;
+  right: -0.85rem;
+  bottom: -0.85rem;
+  left: -0.85rem;
+}
+
+.pop__panel > .pop__list {
+  max-height: min(22rem, 65vh);
+  overflow: auto;
+}
+
 .pop__panel--browse {
   min-width: 17rem;
   max-width: 20rem;
+  max-height: min(24rem, 70vh);
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .pop__panel--browse[hidden] {
@@ -1079,6 +1112,11 @@ code {
   max-height: none;
   overflow: visible;
   padding: var(--space-2);
+}
+
+.pop__panel--filter > .pop__list {
+  max-height: none;
+  overflow: visible;
 }
 
 .pop__panel--filter[hidden] {
@@ -1156,8 +1194,8 @@ code {
   z-index: 4;
   min-width: 16.5rem;
   max-width: min(22rem, calc(100vw - 4rem));
-  max-height: min(28rem, 75vh);
-  overflow: auto;
+  max-height: none;
+  overflow: visible;
   padding: var(--space-2);
   background: var(--panel);
   border: 1px solid var(--panel-edge);
@@ -1165,13 +1203,24 @@ code {
   box-shadow: 0 10px 28px rgba(26, 31, 36, 0.12);
 }
 
+.filter-tags__panel > .pop__list {
+  max-height: min(26rem, 68vh);
+  overflow: auto;
+}
+
+/* Bridge the gap to the trigger. overflow on the panel used to clip this. */
 .filter-tags__panel::before {
   content: "";
   position: absolute;
-  top: 0;
-  bottom: 0;
+  top: -0.5rem;
+  bottom: -0.5rem;
   left: 100%;
-  width: 0.45rem;
+  width: 0.7rem;
+}
+
+.filter-tags__panel.is-open-right::before {
+  left: auto;
+  right: 100%;
 }
 
 .filter-tags__panel[hidden] {
@@ -1189,7 +1238,7 @@ code {
   max-height: none;
 }
 
-.filter-companies > .filter-tags__panel::before {
+.filter-companies.is-searching .filter-tags__panel::before {
   content: none;
 }
 
@@ -1228,8 +1277,10 @@ code {
   max-width: min(22rem, calc(100vw - 1rem));
 }
 
-.filter-company-level__panel::before {
-  content: none;
+.filter-companies.is-searching > .filter-tags__panel > .pop__list,
+.filter-companies.is-searching .filter-company-level__panel > .pop__list {
+  max-height: none;
+  overflow: visible;
 }
 
 .filter-company__name {
