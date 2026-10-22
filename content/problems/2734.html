@@ -1,0 +1,62 @@
+<p>Given a string <code>s</code> consisting of lowercase English letters. Perform the following operation:</p>
+
+<ul>
+	<li>Select any non-empty <span>substring</span> then replace every letter of the substring with the preceding letter of the English alphabet. For example, 'b' is converted to 'a', and 'a' is converted to 'z'.</li>
+</ul>
+
+<p>Return the <span><strong>lexicographically smallest</strong></span> string <strong>after performing the operation</strong>.</p>
+
+<p><strong>Example 1:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "cbabc"</span></p>
+
+<p><strong>Output:</strong> <span>"baabc"</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>Perform the operation on the substring starting at index 0, and ending at index 1 inclusive.</p>
+</div>
+
+<p><strong>Example 2:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "aa"</span></p>
+
+<p><strong>Output:</strong> <span>"az"</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>Perform the operation on the last letter.</p>
+</div>
+
+<p><strong>Example 3:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "acbbc"</span></p>
+
+<p><strong>Output:</strong> <span>"abaab"</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>Perform the operation on the substring starting at index 1, and ending at index 4 inclusive.</p>
+</div>
+
+<p><strong>Example 4:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "leetcode"</span></p>
+
+<p><strong>Output:</strong> <span>"kddsbncd"</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>Perform the operation on the entire string.</p>
+</div>
+
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>1 &lt;= s.length &lt;= 3 * 10<sup>5</sup></code></li>
+	<li><code>s</code> consists of lowercase English letters</li>
+</ul>

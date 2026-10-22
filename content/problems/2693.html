@@ -1,0 +1,50 @@
+<p>Enhance all functions to have the <code>callPolyfill</code> method. The method accepts an object <code>obj</code> as its first parameter and any number of additional arguments. The <code>obj</code> becomes the <code>this</code> context for the function. The additional arguments are passed to the function (that the <code>callPolyfill</code> method belongs on).</p>
+
+<p>For example if you had the function:</p>
+
+<pre>
+function tax(price, taxRate) {
+  const totalCost = price * (1 + taxRate);
+  console.log(`The cost of ${this.item} is ${totalCost}`);
+}
+</pre>
+
+<p>Calling this function like <code>tax(10, 0.1)</code> will log <code>"The cost of undefined is 11"</code>. This is because the <code>this</code> context was not defined.</p>
+
+<p>However, calling the function like <code>tax.callPolyfill({item: "salad"}, 10, 0.1)</code> will log <code>"The cost of salad is 11"</code>. The <code>this</code> context was appropriately set, and the function logged an appropriate output.</p>
+
+<p>Please solve this without using the built-in <code>Function.call</code> method.</p>
+
+<p><strong>Example 1:</strong></p>
+
+<pre>
+<strong>Input:</strong>
+fn = function add(b) {
+  return this.a + b;
+}
+args = [{"a": 5}, 7]
+<strong>Output:</strong> 12
+<strong>Explanation:</strong>
+fn.callPolyfill({"a": 5}, 7); // 12
+callPolyfill sets the "this" context to {"a": 5}. 7 is passed as an argument.
+</pre>
+
+<p><strong>Example 2:</strong></p>
+
+<pre>
+<strong>Input:</strong> 
+fn = function tax(price, taxRate) { 
+ return `The cost of the ${this.item} is ${price * taxRate}`; 
+}
+args = [{"item": "burger"}, 10, 1.1]
+<strong>Output:</strong> "The cost of the burger is 11"
+<strong>Explanation:</strong> callPolyfill sets the "this" context to {"item": "burger"}. 10 and 1.1 are passed as additional arguments.
+</pre>
+
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>typeof args[0] == 'object' and args[0] != null</code></li>
+	<li><code>1 &lt;= args.length &lt;= 100</code></li>
+	<li><code>2 &lt;= JSON.stringify(args[0]).length &lt;= 10<sup>5</sup></code></li>
+</ul>
