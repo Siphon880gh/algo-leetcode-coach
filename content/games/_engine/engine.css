@@ -1,0 +1,198 @@
+/* Shared look for every mini game built on content/games/_engine/engine.js.
+   Palette and type match content/games/two-sum-pointers. */
+:root {
+  --bg: #f7f4ee;
+  --ink: #1a1f24;
+  --muted: #5a6570;
+  --accent: #0d6e6e;
+  --ok: #166534;
+  --bad: #9a3412;
+  --warn: #a16207;
+  --panel: #fff;
+  --edge: #cfc7b8;
+  --dark: #1e252b;
+  --mono: "IBM Plex Mono", Consolas, monospace;
+  --sans: "IBM Plex Sans", system-ui, sans-serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--ink);
+  padding: 1rem 1.25rem 1.25rem;
+}
+.lc-head h1 { font-size: 1.15rem; margin: 0 0 0.3rem; letter-spacing: -0.02em; }
+.lc-rule {
+  margin: 0 0 0.75rem;
+  color: var(--muted);
+  font-size: 0.92rem;
+  max-width: 44rem;
+}
+.lc-rule strong { color: var(--ink); }
+.lc-stats {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.1rem;
+  margin-bottom: 0.6rem;
+  align-items: center;
+}
+.lc-stats strong { color: var(--accent); }
+.lc-lives { color: var(--bad); letter-spacing: 0.1em; }
+.lc-lives .lost { color: var(--edge); }
+.lc-setup {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  background: var(--dark);
+  color: #d4e0e0;
+  padding: 0.55rem 0.8rem;
+  border-radius: 2px;
+  margin-bottom: 0.7rem;
+  white-space: pre-wrap;
+}
+.lc-board { display: flex; flex-wrap: wrap; gap: 0.7rem 1.4rem; margin-bottom: 0.7rem; align-items: flex-start; }
+.lc-panel { min-width: 0; max-width: 100%; }
+.lc-panel--wide { flex-basis: 100%; }
+.lc-plabel {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  margin: 0 0 0.3rem;
+}
+/* array */
+.lc-arr { display: flex; flex-wrap: nowrap; gap: 0.3rem; overflow-x: auto; padding-bottom: 0.1rem; }
+.lc-col { display: flex; flex-direction: column; align-items: center; min-width: 2.4rem; }
+.lc-cell {
+  font-family: var(--mono);
+  font-size: 0.95rem;
+  min-width: 2.4rem;
+  height: 2.4rem;
+  padding: 0 0.35rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--edge);
+  background: var(--panel);
+  border-radius: 2px;
+  transition: background 0.15s, border-color 0.15s, transform 0.15s;
+}
+.lc-bars { display: flex; align-items: flex-end; gap: 0.3rem; }
+.lc-bar-wrap { display: flex; flex-direction: column; align-items: center; justify-content: flex-end; min-width: 2.1rem; }
+.lc-bar {
+  width: 1.7rem;
+  background: color-mix(in srgb, var(--accent) 35%, white);
+  border: 1px solid var(--accent);
+  border-radius: 2px 2px 0 0;
+  position: relative;
+}
+.lc-bar__water {
+  position: absolute;
+  left: -1px; right: -1px;
+  bottom: 100%;
+  background: color-mix(in srgb, #2563eb 30%, white);
+  border: 1px dashed #2563eb;
+  border-bottom: 0;
+}
+.lc-bar-val { font-family: var(--mono); font-size: 0.75rem; margin-top: 0.15rem; }
+.lc-idx { font-family: var(--mono); font-size: 0.65rem; color: var(--muted); margin-top: 0.15rem; }
+.lc-ptr { font-family: var(--mono); font-size: 0.7rem; color: var(--accent); font-weight: 700; min-height: 1.1em; margin-top: 0.1rem; white-space: nowrap; }
+.lc-in-win { background: color-mix(in srgb, var(--accent) 14%, white); border-color: var(--accent); }
+.is-hit, .lc-cell.is-hit { background: color-mix(in srgb, var(--accent) 22%, white); border-color: var(--accent); }
+.is-ok, .lc-cell.is-ok { background: color-mix(in srgb, var(--ok) 20%, white); border-color: var(--ok); }
+.is-bad, .lc-cell.is-bad { background: color-mix(in srgb, var(--bad) 18%, white); border-color: var(--bad); }
+.is-warn, .lc-cell.is-warn { background: color-mix(in srgb, var(--warn) 18%, white); border-color: var(--warn); }
+.is-dim, .lc-cell.is-dim { opacity: 0.4; }
+.is-done, .lc-cell.is-done { background: #ece7dc; color: var(--muted); }
+.is-blue, .lc-cell.is-blue { background: color-mix(in srgb, #2563eb 18%, white); border-color: #2563eb; }
+.is-dark, .lc-cell.is-dark { background: var(--dark); color: #d4e0e0; border-color: var(--dark); }
+.is-land, .lc-cell.is-land { background: #c7b98f; border-color: #a39367; }
+.is-water, .lc-cell.is-water { background: #cfe3ee; border-color: #a9c7d8; color: #6a8796; }
+.pickable { cursor: pointer; }
+.lc-cell.pickable:hover, .lc-node.pickable:hover circle, .lc-gnode.pickable:hover circle { outline: 2px solid var(--accent); stroke: var(--accent); stroke-width: 3; }
+/* stack / queue */
+.lc-stack { display: flex; flex-direction: column-reverse; gap: 0.2rem; min-width: 3rem; min-height: 2.6rem; border: 1px dashed var(--edge); border-top: 0; padding: 0.25rem; }
+.lc-stack .lc-cell { min-width: 2.6rem; height: 2rem; }
+.lc-stack .lc-cell.is-top { border-color: var(--accent); border-width: 2px; }
+.lc-queue { display: flex; gap: 0.2rem; min-height: 2.6rem; min-width: 4rem; border: 1px dashed var(--edge); border-left: 0; border-right: 0; padding: 0.25rem; }
+.lc-empty { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); align-self: center; padding: 0 0.3rem; }
+/* vars */
+.lc-vars { font-family: var(--mono); font-size: 0.82rem; display: grid; grid-template-columns: auto auto; gap: 0.15rem 0.7rem; }
+.lc-vars dt { color: var(--muted); }
+.lc-vars dd { margin: 0; font-weight: 600; }
+/* grid / table */
+.lc-grid { border-collapse: separate; border-spacing: 3px; }
+.lc-grid td, .lc-grid th { padding: 0; }
+.lc-grid th { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); font-weight: 500; padding: 0 0.25rem; }
+.lc-grid .lc-cell { min-width: 2.1rem; height: 2.1rem; font-size: 0.85rem; }
+/* svg boards */
+.lc-svg { display: block; max-width: 100%; height: auto; }
+.lc-svg text { font-family: var(--mono); font-size: 13px; }
+.lc-node circle, .lc-gnode circle { fill: #fff; stroke: var(--edge); stroke-width: 1.5; }
+.lc-node.is-hit circle, .lc-gnode.is-hit circle { fill: color-mix(in srgb, var(--accent) 25%, white); stroke: var(--accent); }
+.lc-node.is-ok circle, .lc-gnode.is-ok circle { fill: color-mix(in srgb, var(--ok) 25%, white); stroke: var(--ok); }
+.lc-node.is-bad circle, .lc-gnode.is-bad circle { fill: color-mix(in srgb, var(--bad) 22%, white); stroke: var(--bad); }
+.lc-node.is-warn circle, .lc-gnode.is-warn circle { fill: color-mix(in srgb, var(--warn) 25%, white); stroke: var(--warn); }
+.lc-node.is-done circle, .lc-gnode.is-done circle { fill: #ece7dc; }
+.lc-node.is-dim, .lc-gnode.is-dim { opacity: 0.35; }
+.lc-node.is-blue circle, .lc-gnode.is-blue circle { fill: color-mix(in srgb, #2563eb 22%, white); stroke: #2563eb; }
+.lc-edge { stroke: var(--edge); stroke-width: 1.5; }
+.lc-edge.is-hit { stroke: var(--accent); stroke-width: 2.5; }
+.lc-edge.is-ok { stroke: var(--ok); stroke-width: 2.5; }
+.lc-edge.is-bad { stroke: var(--bad); stroke-width: 2.5; }
+.lc-edge.is-dim { opacity: 0.3; }
+.lc-tag { font-size: 11px; fill: var(--accent); font-weight: 700; }
+.lc-ival rect { fill: color-mix(in srgb, var(--accent) 25%, white); stroke: var(--accent); }
+.lc-ival.is-ok rect { fill: color-mix(in srgb, var(--ok) 25%, white); stroke: var(--ok); }
+.lc-ival.is-bad rect { fill: color-mix(in srgb, var(--bad) 22%, white); stroke: var(--bad); }
+.lc-ival.is-dim { opacity: 0.35; }
+.lc-ival.is-hit rect { stroke-width: 2.5; }
+.lc-ival.is-warn rect { fill: color-mix(in srgb, var(--warn) 25%, white); stroke: var(--warn); }
+.lc-ival.is-blue rect { fill: color-mix(in srgb, #2563eb 22%, white); stroke: #2563eb; }
+.lc-axis { stroke: var(--muted); stroke-width: 1; }
+.lc-axis-t { font-size: 10px; fill: var(--muted); }
+/* linked list */
+.lc-list { display: flex; align-items: flex-start; gap: 0; flex-wrap: nowrap; overflow-x: auto; }
+.lc-lnode { display: flex; flex-direction: column; align-items: center; min-width: 2.6rem; }
+.lc-link { font-family: var(--mono); font-size: 1rem; width: 1.6rem; height: 2.4rem; display: flex; align-items: center; justify-content: center; color: var(--muted); }
+.lc-link.is-hit { color: var(--accent); font-weight: 700; }
+.lc-lnext { font-family: var(--mono); font-size: 0.62rem; color: var(--muted); margin-top: 0.1rem; white-space: nowrap; }
+/* prompt */
+.lc-ask { font-size: 0.98rem; font-weight: 600; margin: 0 0 0.5rem; }
+.lc-choices { display: flex; flex-wrap: wrap; gap: 0.45rem; margin-bottom: 0.6rem; }
+.lc-btn {
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  padding: 0.5rem 0.8rem;
+  border: 1px solid var(--ink);
+  background: var(--panel);
+  color: var(--ink);
+  cursor: pointer;
+  border-radius: 2px;
+}
+.lc-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+.lc-btn:disabled { opacity: 0.5; cursor: default; }
+.lc-btn kbd { font-family: var(--mono); font-size: 0.65rem; color: var(--muted); margin-right: 0.35rem; }
+.lc-btn--primary { background: var(--ink); color: var(--bg); }
+.lc-btn--primary:hover:not(:disabled) { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+.lc-num { display: flex; gap: 0.45rem; margin-bottom: 0.6rem; }
+.lc-num input { font-family: var(--mono); font-size: 0.95rem; width: 7rem; padding: 0.45rem 0.55rem; border: 1px solid var(--edge); border-radius: 2px; }
+.lc-num input:focus { outline: 2px solid var(--accent); border-color: var(--accent); }
+.lc-pickhint { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); margin: 0 0 0.6rem; }
+.lc-msg { font-size: 0.92rem; margin: 0 0 0.6rem; min-height: 1.35em; }
+.lc-msg.ok { color: var(--ok); }
+.lc-msg.bad { color: var(--bad); }
+.lc-msg.win { color: var(--ok); font-weight: 600; }
+.lc-foot { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+.lc-shake { animation: lc-shake 0.3s; }
+@keyframes lc-shake { 25% { transform: translateX(-4px); } 75% { transform: translateX(4px); } }
+.lc-bar.is-hit { background: color-mix(in srgb, var(--accent) 70%, white); }
+.lc-bar.is-ok { background: color-mix(in srgb, var(--ok) 55%, white); border-color: var(--ok); }
+.lc-grid .lc-cell.is-ok { background: color-mix(in srgb, var(--ok) 35%, white); border-color: var(--ok); color: var(--ink); }
+.lc-grid .lc-cell.is-hit { background: color-mix(in srgb, var(--accent) 45%, white); border-color: var(--accent); color: var(--ink); }
+.lc-grid .lc-cell.is-done { background: #8a9a7b; border-color: #6b7a5e; color: #fff; }
+.lc-grid .lc-cell.is-bad { background: color-mix(in srgb, var(--bad) 45%, white); border-color: var(--bad); }
+.lc-grid .lc-cell.is-blue { background: color-mix(in srgb, #2563eb 35%, white); border-color: #2563eb; }
