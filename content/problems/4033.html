@@ -1,0 +1,113 @@
+<p>You are given an integer array <code>nums</code> and an integer <code>k</code>.</p>
+
+<p>You are also given a 2D integer array <code>queries</code>, where <code>queries[i] = [l<sub>i</sub>, r<sub>i</sub>]</code> represents the <span><strong>subarray</strong></span> <code>nums[l<sub>i</sub>..r<sub>i</sub>]</code>.</p>
+
+<p>For each query, the <strong>subarray</strong> <code>nums[l<sub>i</sub>..r<sub>i</sub>]</code> is considered <strong>valid</strong> if:</p>
+
+<ul>
+	<li>It contains <strong>exactly</strong> <code>k</code> <strong>distinct</strong> numbers, and</li>
+	<li>The <span><strong>frequency</strong></span> of every number in the <strong>subarray</strong> is <strong>even</strong>.</li>
+</ul>
+
+<p>Return a boolean array <code>ans</code>, where <code>ans[i]</code> is <code>true</code> if <code>nums[l<sub>i</sub>..r<sub>i</sub>]</code> is <strong>valid</strong>, and <code>false</code> otherwise.</p>
+
+<p><strong>Example 1:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>nums = [1,2,2,1], k = 2, queries = [[0,1],[0,3],[1,2]]</span></p>
+
+<p><strong>Output:</strong> <span>[false,true,false]</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<table>
+	<tbody>
+		<tr>
+			<th><code>i</code></th>
+			<th><code>[l<sub>i</sub>, r<sub>i</sub>]</code></th>
+			<th>Subarray</th>
+			<th>Unique numbers</th>
+			<th>Frequency</th>
+			<th>Validity check</th>
+		</tr>
+		<tr>
+			<td>0</td>
+			<td>[0, 1]</td>
+			<td>[1, 2]</td>
+			<td>{1, 2} → 2</td>
+			<td>{1: 1, 2: 1}</td>
+			<td><code>false</code>: Element counts are not even.</td>
+		</tr>
+		<tr>
+			<td>1</td>
+			<td>[0, 3]</td>
+			<td>[1, 2, 2, 1]</td>
+			<td>{1, 2} → 2</td>
+			<td>{1: 2, 2: 2}</td>
+			<td><code>true</code>: Exactly <code>k = 2</code> distinct elements, all appear an even number of times.</td>
+		</tr>
+		<tr>
+			<td>2</td>
+			<td>[1, 2]</td>
+			<td>[2, 2]</td>
+			<td>{2} → 1</td>
+			<td>{2: 2}</td>
+			<td><code>false</code>: Number of distinct elements is less than <code>k = 2</code>.</td>
+		</tr>
+	</tbody>
+</table>
+
+<p>Thus, <code>ans = [false, true, false]</code>.</p>
+</div>
+
+<p><strong>Example 2:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>nums = [3,3,3], k = 1, queries = [[1,2],[0,2]]</span></p>
+
+<p><strong>Output:</strong> <span>[true,false]</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<table>
+	<tbody>
+		<tr>
+			<th><code>i</code></th>
+			<th><code>[l<sub>i</sub>, r<sub>i</sub>]</code></th>
+			<th>Subarray</th>
+			<th>Unique numbers</th>
+			<th>Frequency</th>
+			<th>Validity check</th>
+		</tr>
+		<tr>
+			<td>0</td>
+			<td>[1, 2]</td>
+			<td>[3, 3]</td>
+			<td>{3} → 1</td>
+			<td>{3: 2}</td>
+			<td><code>true</code>: Exactly <code>k = 1</code> distinct element, appears an even number of times.</td>
+		</tr>
+		<tr>
+			<td>1</td>
+			<td>[0, 2]</td>
+			<td>[3, 3, 3]</td>
+			<td>{3} → 1</td>
+			<td>{3: 3}</td>
+			<td><code>false</code>: 3 does not appear an even number of times.</td>
+		</tr>
+	</tbody>
+</table>
+
+<p>Thus, <code>ans = [true, false]</code>.</p>
+</div>
+
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>2 &lt;= n == nums.length &lt;= 10<sup>5</sup></code></li>
+	<li><code>1 &lt;= nums[i] &lt;= 10<sup>5</sup></code></li>
+	<li><code>1 &lt;= k &lt;= n</code></li>
+	<li><code>1 &lt;= queries.length &lt;= 10<sup>5</sup></code></li>
+	<li><code>queries[i] == [l<sub>i</sub>, r<sub>i</sub>]</code></li>
+	<li><code>0 &lt;= l<sub>i</sub> &lt; r<sub>i</sub> &lt;= n - 1</code></li>
+</ul>

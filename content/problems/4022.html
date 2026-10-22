@@ -1,0 +1,56 @@
+<p>You are given an integer <code>k</code>.</p>
+
+<p>An <strong>infinite</strong> string is formed by <strong>concatenating</strong> the <strong>decimal</strong> representations of the <strong>positive</strong> integers, without separators.</p>
+
+<p>For every nonnegative integer <code>b</code>, block <code>b</code> contains the <strong>positive</strong> integers from <code>10 * b</code> through <code>10 * b + 9</code>. The integers in each block are appended as follows:</p>
+
+<ul>
+	<li>If <code>b</code> is even, append the integers in <strong>increasing</strong> order.</li>
+	<li>If <code>b</code> is odd, append the integers in <strong>decreasing</strong> order.</li>
+</ul>
+
+<p>Therefore, the string starts with the integers 1 through 9, followed by 19 through 10, then 20 through 29, then 39 through 30, and so on.</p>
+
+<p>Return the <code>k<sup>th</sup></code> digit (1-indexed) of this string.</p>
+
+<p><strong>Example 1:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>k = 4</span></p>
+
+<p><strong>Output:</strong> <span>4</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>The string begins as <code>"123<u>4</u>56789.."</code>. The 4<sup>th</sup> digit is <code>'4'</code>.</p>
+</div>
+
+<p><strong>Example 2:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>k = 15</span></p>
+
+<p><strong>Output:</strong> <span>7</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>The string begins as <code>"12345678919181<u>7</u>.."</code>. The 15<sup>th</sup> digit is <code>'7'</code>.</p>
+</div>
+
+<p><strong>Example 3:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>k = 11</span></p>
+
+<p><strong>Output:</strong> <span>9</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>The string begins as <code>"1234567891<u>9</u>.."</code>. The 11<sup>th</sup> digit is <code>'9'</code>.</p>
+</div>
+
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>1 &lt;= k &lt;= 10<sup>15</sup></code></li>
+</ul>

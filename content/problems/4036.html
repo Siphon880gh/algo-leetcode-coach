@@ -1,0 +1,58 @@
+<p>You are given an integer array <code>nums</code>.</p>
+
+<p>For each integer <code>x</code> in <code>nums</code>, start with a string consisting of exactly <code>x</code> lowercase <code>'a'</code> characters.</p>
+
+<p>You may perform the following operation any number of times (including zero):</p>
+
+<ul>
+	<li>Choose two <strong>adjacent equal</strong> letters and replace them with the next letter in the alphabet.</li>
+</ul>
+
+<p>For example, <code>"aa"</code> can be replaced with <code>"b"</code>, and <code>"bb"</code> can be replaced with <code>"c"</code>. The pair <code>"zz"</code> cannot be replaced.</p>
+
+<p>For each <code>x</code>, determine the <strong>lexicographically largest</strong> string that can be obtained.</p>
+
+<p>Return an array of strings where the <code>i<sup>th</sup></code> string is the answer for <code>nums[i]</code>.</p>
+
+<p>A string <code>a</code> is <strong>lexicographically larger</strong> than a string <code>b</code> if, at the first position where they differ, <code>a</code> contains a letter that appears later in the alphabet than the corresponding letter in <code>b</code>. If the first <code>min(a.length, b.length)</code> characters are equal, the longer string is lexicographically larger.</p>
+
+<p><strong>Example 1:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>nums = [2,5,7]</span></p>
+
+<p><strong>Output:</strong> <span>["b","ca","cba"]</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<ul>
+	<li><code>nums[0] = 2</code>: <code>"aa"</code> → <code>"b"</code>.</li>
+	<li><code>nums[1] = 5</code>: <code>"aaaaa"</code> → <code>"baaa"</code> → <code>"bba"</code> → <code>"ca"</code>.</li>
+	<li><code>nums[2] = 7</code>: <code>"aaaaaaa"</code> → <code>"baaaaa"</code> → <code>"bbaaa"</code> → <code>"bbba"</code> → <code>"cba"</code>.</li>
+	<li>Therefore, <code>ans = ["b", "ca", "cba"]</code>.</li>
+</ul>
+</div>
+
+<p><strong>Example 2:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>nums = [3,9,1]</span></p>
+
+<p><strong>Output:</strong> <span>["ba","da","a"]</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<ul>
+	<li><code>nums[0] = 3</code>: <code>"aaa"</code> → <code>"ba"</code>.</li>
+	<li><code>nums[1] = 9</code>: <code>"aaaaaaaaa"</code> → <code>"baaaaaaa"</code> → <code>"bbaaaaa"</code> → <code>"bbbaaa"</code> → <code>"bbbba"</code> → <code>"cbba"</code> → <code>"cca"</code> → <code>"da"</code>.</li>
+	<li><code>nums[2] = 1</code>: No transformation can be applied, so the result is <code>"a"</code>.</li>
+	<li>Therefore, <code>ans = ["ba", "da", "a"]</code>.</li>
+</ul>
+</div>
+
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>1 &lt;= nums.length &lt;= 10<sup>5</sup></code></li>
+	<li><code>1 &lt;= nums[i] &lt;= 10<sup>8</sup></code></li>
+</ul>

@@ -1,0 +1,161 @@
+<p>You are given an integer array <code>nums</code> and two integers <code>a</code> and <code>b</code>.</p>
+
+<p>For a <span>subarray</span>, let:</p>
+
+<ul>
+	<li><code>x</code> be the number of even elements.</li>
+	<li><code>y</code> be the number of odd elements.</li>
+</ul>
+
+<p>The ratio of even to odd elements in a subarray is defined as <code>x / y</code>, where ratios are compared by their exact rational values.</p>
+
+<p>A subarray is considered <strong>valid</strong> if:</p>
+
+<ul>
+	<li><code>y &gt; 0</code>, and</li>
+	<li><code>x / y &lt;= a / b</code>.</li>
+</ul>
+
+<p>Return the number of valid subarrays in <code>nums</code>.</p>
+
+<p><strong>Example 1:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>nums = [1,2,1,2], a = 3, b = 2</span></p>
+
+<p><strong>Output:</strong> <span>7</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>The following are the valid subarrays:</p>
+
+<table>
+	<tbody>
+		<tr>
+			<th>Subarray</th>
+			<th>Values</th>
+			<th>Even Count</th>
+			<th>Odd Count</th>
+			<th>Ratio</th>
+		</tr>
+		<tr>
+			<td><code>nums[0..0]</code></td>
+			<td><code>[1]</code></td>
+			<td>0</td>
+			<td>1</td>
+			<td><code>0 / 1</code></td>
+		</tr>
+		<tr>
+			<td><code>nums[0..1]</code></td>
+			<td><code>[1, 2]</code></td>
+			<td>1</td>
+			<td>1</td>
+			<td><code>1 / 1</code></td>
+		</tr>
+		<tr>
+			<td><code>nums[0..2]</code></td>
+			<td><code>[1, 2, 1]</code></td>
+			<td>1</td>
+			<td>2</td>
+			<td><code>1 / 2</code></td>
+		</tr>
+		<tr>
+			<td><code>nums[0..3]</code></td>
+			<td><code>[1, 2, 1, 2]</code></td>
+			<td>2</td>
+			<td>2</td>
+			<td><code>2 / 2</code></td>
+		</tr>
+		<tr>
+			<td><code>nums[1..2]</code></td>
+			<td><code>[2, 1]</code></td>
+			<td>1</td>
+			<td>1</td>
+			<td><code>1 / 1</code></td>
+		</tr>
+		<tr>
+			<td><code>nums[2..2]</code></td>
+			<td><code>[1]</code></td>
+			<td>0</td>
+			<td>1</td>
+			<td><code>0 / 1</code></td>
+		</tr>
+		<tr>
+			<td><code>nums[2..3]</code></td>
+			<td><code>[1, 2]</code></td>
+			<td>1</td>
+			<td>1</td>
+			<td><code>1 / 1</code></td>
+		</tr>
+	</tbody>
+</table>
+
+<p>Thus, the number of valid subarrays is 7.</p>
+</div>
+
+<p><strong>Example 2:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>nums = [2,2,1], a = 2, b = 1</span></p>
+
+<p><strong>Output:</strong> <span>3</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>The following are the valid subarrays:</p>
+
+<table>
+	<tbody>
+		<tr>
+			<th>Subarray</th>
+			<th>Values</th>
+			<th>Even Count</th>
+			<th>Odd Count</th>
+			<th>Ratio</th>
+		</tr>
+		<tr>
+			<td><code>nums[0..2]</code></td>
+			<td><code>[2, 2, 1]</code></td>
+			<td>2</td>
+			<td>1</td>
+			<td><code>2 / 1</code></td>
+		</tr>
+		<tr>
+			<td><code>nums[1..2]</code></td>
+			<td><code>[2, 1]</code></td>
+			<td>1</td>
+			<td>1</td>
+			<td><code>1 / 1</code></td>
+		</tr>
+		<tr>
+			<td><code>nums[2..2]</code></td>
+			<td><code>[1]</code></td>
+			<td>0</td>
+			<td>1</td>
+			<td><code>0 / 1</code></td>
+		</tr>
+	</tbody>
+</table>
+
+<p>Thus, the number of valid subarrays is 3.</p>
+</div>
+
+<p><strong>Example 3:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>nums = [2,2,2], a = 1, b = 1</span></p>
+
+<p><strong>Output:</strong> <span>0</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>Every subarray contains 0 odd numbers, so no subarray is valid.</p>
+</div>
+
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>1 &lt;= nums.length &lt;= 10<sup>5</sup></code></li>
+	<li><code>1 &lt;= nums[i] &lt;= 10<sup>9</sup></code></li>
+	<li><code>1 &lt;= a, b &lt;= 10<sup>9</sup></code></li>
+</ul>

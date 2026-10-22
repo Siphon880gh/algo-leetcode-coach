@@ -1,0 +1,46 @@
+<p>You are given a <span>binary string</span> <code>s</code>.</p>
+
+<p>A <span>prefix</span> of <code>s</code> is considered <strong>valid</strong> if its characters can be rearranged to form an <strong>alternating</strong> string.</p>
+
+<p>Return the number of valid prefixes of <code>s</code>.</p>
+
+<p>A string is considered <strong>alternating</strong> if no two adjacent characters are equal.</p>
+
+<p><strong>Example 1:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "00101"</span></p>
+
+<p><strong>Output:</strong> <span>3</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>The valid prefixes are:</p>
+
+<ul>
+	<li><code>"0"</code>: It is already an alternating string.</li>
+	<li><code>"001"</code>: It can be rearranged into <code>"010"</code>, which is an alternating string.</li>
+	<li><code>"00101"</code>: It can be rearranged into <code>"01010"</code>, which is an alternating string.</li>
+</ul>
+
+<p>Thus, the answer is 3.</p>
+</div>
+
+<p><strong>Example 2:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "101"</span></p>
+
+<p><strong>Output:</strong> <span>3</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>All prefixes of <code>s = "101"</code> are already alternating strings. Thus, the answer is 3.</p>
+</div>
+
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>1 &lt;= s.length &lt;= 100</code></li>
+	<li><code>s</code> consists only of <code>'0'</code> and <code>'1'</code>.</li>
+</ul>

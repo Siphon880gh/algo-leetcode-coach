@@ -1,0 +1,49 @@
+<p>You are given a string <code>s</code> consisting of lowercase English letters.</p>
+
+<p>You can perform the following operations any number of times (including zero) and in any order:</p>
+
+<ul>
+	<li><strong>Increment</strong>: Choose any index <code>i</code> and replace <code>s[i]</code> with the next lowercase English letter. The letter after <code>'z'</code> is <code>'a'</code>.</li>
+	<li><strong>Left rotate</strong>: Move the first character of the string to the end.</li>
+</ul>
+
+<p>Return the <strong>minimum</strong> number of operations required to make <code>s</code> a <span>palindrome</span>.</p>
+
+<p><strong>Example 1:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "abc"</span></p>
+
+<p><strong>Output:</strong> <span>2</span></p>
+
+<p><strong>Explanation:</strong></p>
+One optimal solution:
+
+<ul>
+	<li>Left rotate the string: <code>"abc" -&gt; "bca"</code>.</li>
+	<li>Increment <code>'a'</code> to <code>'b'</code>: <code>"bca" -&gt; "bcb"</code>.</li>
+	<li><code>"bcb"</code> is a palindrome. Thus, the answer is 2.</li>
+</ul>
+</div>
+
+<p><strong>Example 2:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "yb"</span></p>
+
+<p><strong>Output:</strong> <span>3</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<ul>
+	<li>Increment the first character three times: <code>"yb" -&gt; "zb" -&gt; "ab" -&gt; "bb"</code>.</li>
+	<li><code>"bb"</code> is a palindrome. Thus, the answer is 3.</li>
+</ul>
+</div>
+
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>2 &lt;= s.length &lt;= 2000</code></li>
+	<li><code>s</code> consists only of lowercase English letters.</li>
+</ul>
