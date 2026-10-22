@@ -1,0 +1,22 @@
+## Count
+
+1. Return `|count(L) − count(R)| + count(_)`.
+
+Examples → 3, 5, 7.
+
+Splitting the blanks evenly, or sending them all one fixed way, can cancel moves: example 2 sends them left for 5, while right gives only 3.
+
+Time: O(n)  
+Space: O(1)
+
+> [!ui-builder] Mini game
+> INPUT_TOPIC: Theory or problem
+> INPUT_SLUG: Folder slug (kebab-case)
+> PROMPT:
+> Use the harness skill at .agents/skills/harness to create a mini-game in this Algo Learning IDE app that teaches [INPUT_TOPIC]. Place it under content/games/[INPUT_SLUG]/. Follow meta.php + index.html. Use .agents/skills/game-development-sickn33 for web/2d craft if needed.
+
+> [!ui-builder] Step-by-step
+> INPUT_TOPIC: Theory or problem
+> INPUT_SLUG: Folder slug (kebab-case)
+> PROMPT:
+> Use the harness skill at .agents/skills/harness to create a step-by-step session for [INPUT_TOPIC] under content/coaching/[INPUT_SLUG]/. Include branching choices with clear labels, at least one wrong-path leaf with rewind_to, and a success leaf. Follow the tree.php contract so Step back and the Path visualizer work.
