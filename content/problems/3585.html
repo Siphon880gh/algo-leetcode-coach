@@ -1,0 +1,183 @@
+<p>You are given an integer <code>n</code> and an <strong>undirected, weighted</strong> tree rooted at node 0 with <code>n</code> nodes numbered from 0 to <code>n - 1</code>. This is represented by a 2D array <code>edges</code> of length <code>n - 1</code>, where <code>edges[i] = [u<sub>i</sub>, v<sub>i</sub>, w<sub>i</sub>]</code> indicates an edge from node <code>u<sub>i</sub></code> to <code>v<sub>i</sub></code> with weight <code>w<sub>i</sub></code>.</p>
+
+<p>The <strong>weighted median node</strong> is defined as the <strong>first</strong> node <code>x</code> on the path from <code>u<sub>i</sub></code> to <code>v<sub>i</sub></code> such that the sum of edge weights from <code>u<sub>i</sub></code> to <code>x</code> is <strong>greater than or equal to half</strong> of the total path weight.</p>
+
+<p>You are given a 2D integer array <code>queries</code>. For each <code>queries[j] = [u<sub>j</sub>, v<sub>j</sub>]</code>, determine the weighted median node along the path from <code>u<sub>j</sub></code> to <code>v<sub>j</sub></code>.</p>
+
+<p>Return an array <code>ans</code>, where <code>ans[j]</code> is the node index of the weighted median for <code>queries[j]</code>.</p>
+
+<p><strong>Example 1:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>n = 2, edges = [[0,1,7]], queries = [[1,0],[0,1]]</span></p>
+
+<p><strong>Output:</strong> <span>[0,1]</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p><img src="https://assets.leetcode.com/uploads/2025/05/26/screenshot-2025-05-26-at-193447.png" alt="" loading="lazy"></p>
+
+<table>
+	<thead>
+		<tr>
+			<th>Query</th>
+			<th>Path</th>
+			<th>Edge<br>
+			Weights</th>
+			<th>Total<br>
+			Path<br>
+			Weight</th>
+			<th>Half</th>
+			<th>Explanation</th>
+			<th>Answer</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td><code>[1, 0]</code></td>
+			<td><code>1 → 0</code></td>
+			<td><code>[7]</code></td>
+			<td>7</td>
+			<td>3.5</td>
+			<td>Sum from <code>1 → 0 = 7 &gt;= 3.5</code>, median is node 0.</td>
+			<td>0</td>
+		</tr>
+		<tr>
+			<td><code>[0, 1]</code></td>
+			<td><code>0 → 1</code></td>
+			<td><code>[7]</code></td>
+			<td>7</td>
+			<td>3.5</td>
+			<td>Sum from <code>0 → 1 = 7 &gt;= 3.5</code>, median is node 1.</td>
+			<td>1</td>
+		</tr>
+	</tbody>
+</table>
+</div>
+
+<p><strong>Example 2:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>n = 3, edges = [[0,1,2],[2,0,4]], queries = [[0,1],[2,0],[1,2]]</span></p>
+
+<p><strong>Output:</strong> <span>[1,0,2]</span></p>
+
+<p><strong>E</strong><strong>xplanation:</strong></p>
+
+<p><img src="https://assets.leetcode.com/uploads/2025/05/26/screenshot-2025-05-26-at-193610.png" alt="" loading="lazy"></p>
+
+<table>
+	<thead>
+		<tr>
+			<th>Query</th>
+			<th>Path</th>
+			<th>Edge<br>
+			Weights</th>
+			<th>Total<br>
+			Path<br>
+			Weight</th>
+			<th>Half</th>
+			<th>Explanation</th>
+			<th>Answer</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td><code>[0, 1]</code></td>
+			<td><code>0 → 1</code></td>
+			<td><code>[2]</code></td>
+			<td>2</td>
+			<td>1</td>
+			<td>Sum from <code>0 → 1 = 2 &gt;= 1</code>, median is node 1.</td>
+			<td>1</td>
+		</tr>
+		<tr>
+			<td><code>[2, 0]</code></td>
+			<td><code>2 → 0</code></td>
+			<td><code>[4]</code></td>
+			<td>4</td>
+			<td>2</td>
+			<td>Sum from <code>2 → 0 = 4 &gt;= 2</code>, median is node 0.</td>
+			<td>0</td>
+		</tr>
+		<tr>
+			<td><code>[1, 2]</code></td>
+			<td><code>1 → 0 → 2</code></td>
+			<td><code>[2, 4]</code></td>
+			<td>6</td>
+			<td>3</td>
+			<td>Sum from <code>1 → 0 = 2 &lt; 3</code>.<br>
+			Sum from <code>1 → 2 = 2 + 4 = 6 &gt;= 3</code>, median is node 2.</td>
+			<td>2</td>
+		</tr>
+	</tbody>
+</table>
+</div>
+
+<p><strong>Example 3:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>n = 5, edges = [[0,1,2],[0,2,5],[1,3,1],[2,4,3]], queries = [[3,4],[1,2]]</span></p>
+
+<p><strong>Output:</strong> <span>[2,2]</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p><img src="https://assets.leetcode.com/uploads/2025/05/26/screenshot-2025-05-26-at-193857.png" alt="" loading="lazy"></p>
+
+<table>
+	<thead>
+		<tr>
+			<th>Query</th>
+			<th>Path</th>
+			<th>Edge<br>
+			Weights</th>
+			<th>Total<br>
+			Path<br>
+			Weight</th>
+			<th>Half</th>
+			<th>Explanation</th>
+			<th>Answer</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td><code>[3, 4]</code></td>
+			<td><code>3 → 1 → 0 → 2 → 4</code></td>
+			<td><code>[1, 2, 5, 3]</code></td>
+			<td>11</td>
+			<td>5.5</td>
+			<td>Sum from <code>3 → 1 = 1 &lt; 5.5</code>.<br>
+			Sum from <code>3 → 0 = 1 + 2 = 3 &lt; 5.5</code>.<br>
+			Sum from <code>3 → 2 = 1 + 2 + 5 = 8 &gt;= 5.5</code>, median is node 2.</td>
+			<td>2</td>
+		</tr>
+		<tr>
+			<td><code>[1, 2]</code></td>
+			<td><code>1 → 0 → 2</code></td>
+			<td><code>[2, 5]</code></td>
+			<td>7</td>
+			<td>3.5</td>
+			<td>
+			<p>Sum from <code>1 → 0 = 2 &lt; 3.5</code>.<br>
+			Sum from <code>1 → 2 = 2 + 5 = 7 &gt;= 3.5</code>, median is node 2.</p>
+			</td>
+			<td>2</td>
+		</tr>
+	</tbody>
+</table>
+</div>
+
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>2 &lt;= n &lt;= 10<sup>5</sup></code></li>
+	<li><code>edges.length == n - 1</code></li>
+	<li><code>edges[i] == [u<sub>i</sub>, v<sub>i</sub>, w<sub>i</sub>]</code></li>
+	<li><code>0 &lt;= u<sub>i</sub>, v<sub>i</sub> &lt; n</code></li>
+	<li><code>1 &lt;= w<sub>i</sub> &lt;= 10<sup>9</sup></code></li>
+	<li><code>1 &lt;= queries.length &lt;= 10<sup>5</sup></code></li>
+	<li><code>queries[j] == [u<sub>j</sub>, v<sub>j</sub>]</code></li>
+	<li><code>0 &lt;= u<sub>j</sub>, v<sub>j</sub> &lt; n</code></li>
+	<li>The input is generated such that <code>edges</code> represents a valid tree.</li>
+</ul>

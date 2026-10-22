@@ -1,0 +1,134 @@
+<p>You are given a string <code>s</code> consisting of <code>'('</code> and <code>')'</code>, and an integer <code>k</code>.</p>
+
+<p>A <strong>string</strong> is <strong>k-balanced</strong> if it is <strong>exactly</strong> <code>k</code> <strong>consecutive</strong> <code>'('</code> followed by <code>k</code> <strong>consecutive</strong> <code>')'</code>, i.e., <code>'(' * k + ')' * k</code>.</p>
+
+<p>For example, if <code>k = 3</code>, k-balanced is <code>"((()))"</code>.</p>
+
+<p>You must <strong>repeatedly</strong> remove all <strong>non-overlapping k-balanced <span>substrings</span></strong> from <code>s</code>, and then join the remaining parts. Continue this process until no k-balanced <strong>substring</strong> exists.</p>
+
+<p>Return the final string after all possible removals.</p>
+
+<p><strong>Example 1:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "(())", k = 1</span></p>
+
+<p><strong>Output:</strong> <span>""</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>k-balanced substring is <code>"()"</code></p>
+
+<table>
+	<thead>
+		<tr>
+			<th>Step</th>
+			<th>Current <code>s</code></th>
+			<th><code>k-balanced</code></th>
+			<th>Result <code>s</code></th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>1</td>
+			<td><code>(())</code></td>
+			<td><code>(<s><strong>()</strong></s>)</code></td>
+			<td><code>()</code></td>
+		</tr>
+		<tr>
+			<td>2</td>
+			<td><code>()</code></td>
+			<td><s><strong><code>()</code></strong></s></td>
+			<td>Empty</td>
+		</tr>
+	</tbody>
+</table>
+
+<p>Thus, the final string is <code>""</code>.</p>
+</div>
+
+<p><strong>Example 2:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "(()(", k = 1</span></p>
+
+<p><strong>Output:</strong> <span>"(("</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>k-balanced substring is <code>"()"</code></p>
+
+<table>
+	<thead>
+		<tr>
+			<th>Step</th>
+			<th>Current <code>s</code></th>
+			<th><code>k-balanced</code></th>
+			<th>Result <code>s</code></th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>1</td>
+			<td><code>(()(</code></td>
+			<td><code>(<s><strong>()</strong></s>(</code></td>
+			<td><code>((</code></td>
+		</tr>
+		<tr>
+			<td>2</td>
+			<td><code>((</code></td>
+			<td>-</td>
+			<td><code>((</code></td>
+		</tr>
+	</tbody>
+</table>
+
+<p>Thus, the final string is <code>"(("</code>.</p>
+</div>
+
+<p><strong>Example 3:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "((()))()()()", k = 3</span></p>
+
+<p><strong>Output:</strong> <span>"()()()"</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>k-balanced substring is <code>"((()))"</code></p>
+
+<table>
+	<thead>
+		<tr>
+			<th>Step</th>
+			<th>Current <code>s</code></th>
+			<th><code>k-balanced</code></th>
+			<th>Result <code>s</code></th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>1</td>
+			<td><code>((()))()()()</code></td>
+			<td><code><s><strong>((()))</strong></s>()()()</code></td>
+			<td><code>()()()</code></td>
+		</tr>
+		<tr>
+			<td>2</td>
+			<td><code>()()()</code></td>
+			<td>-</td>
+			<td><code>()()()</code></td>
+		</tr>
+	</tbody>
+</table>
+
+<p>Thus, the final string is <code>"()()()"</code>.</p>
+</div>
+
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>2 &lt;= s.length &lt;= 10<sup>5</sup></code></li>
+	<li><code>s</code> consists only of <code>'('</code> and <code>')'</code>.</li>
+	<li><code>1 &lt;= k &lt;= s.length / 2</code></li>
+</ul>

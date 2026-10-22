@@ -1,0 +1,55 @@
+<p>You are given a string <code>s</code> and two distinct lowercase English letters <code>x</code> and <code>y</code>.</p>
+
+<p>Rearrange the characters of <code>s</code> to construct a new string <code>t</code> such that:</p>
+
+<ul>
+	<li><code>t</code> is a <span>permutation</span> of <code>s</code>.</li>
+	<li>Every occurrence of <code>y</code> appears before every occurrence of <code>x</code> in <code>t</code>.</li>
+</ul>
+
+<p>Return any valid string <code>t</code>.</p>
+
+<p><strong>Example 1:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "aabc", x = "a", y = "c"</span></p>
+
+<p><strong>Output:</strong> <span>"cbaa"</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>The string <code>"cbaa"</code> is a permutation of <code>"aabc"</code>, and every occurrence of <code>'c'</code> appears before every occurrence of <code>'a'</code>.</p>
+</div>
+
+<p><strong>Example 2:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "dcab", x = "d", y = "b"</span></p>
+
+<p><strong>Output:</strong> <span>"cabd"</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>The string <code>"cabd"</code> is a permutation of <code>"dcab"</code>, and every occurrence of <code>'b'</code> appears before every occurrence of <code>'d'</code>.</p>
+</div>
+
+<p><strong>Example 3:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "axe", x = "o", y = "x"</span></p>
+
+<p><strong>Output:</strong> <span>"axe"</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>The string <code>"axe"</code> is already valid. Since <code>'o'</code> does not occur in the string, the required condition is automatically satisfied.</p>
+</div>
+
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>1 &lt;= s.length &lt;= 100</code></li>
+	<li><code>s</code> consists of lowercase English letters.</li>
+	<li><code>x</code> and <code>y</code> are lowercase English letters.</li>
+	<li><code>x != y</code></li>
+</ul>

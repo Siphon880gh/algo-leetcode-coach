@@ -1,0 +1,182 @@
+<p>You are given a string <code>s</code> consisting of lowercase English letters and the special characters: <code>'*'</code>, <code>'#'</code>, and <code>'%'</code>.</p>
+
+<p>You are also given an integer <code>k</code>.</p>
+
+<p>Build a new string <code>result</code> by processing <code>s</code> according to the following rules from left to right:</p>
+
+<ul>
+	<li>If the letter is a <strong>lowercase</strong> English letter append it to <code>result</code>.</li>
+	<li>A <code>'*'</code> <strong>removes</strong> the last character from <code>result</code>, if it exists.</li>
+	<li>A <code>'#'</code> <strong>duplicates</strong> the current <code>result</code> and <strong>appends</strong> it to itself.</li>
+	<li>A <code>'%'</code> <strong>reverses</strong> the current <code>result</code>.</li>
+</ul>
+
+<p>Return the <code>k<sup>th</sup></code> character of the final string <code>result</code>. If <code>k</code> is out of the bounds of <code>result</code>, return <code>'.'</code>.</p>
+
+<p><strong>Example 1:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "a#b%*", k = 1</span></p>
+
+<p><strong>Output:</strong> <span>"a"</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<table>
+	<thead>
+		<tr>
+			<th><code>i</code></th>
+			<th><code>s[i]</code></th>
+			<th>Operation</th>
+			<th>Current <code>result</code></th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>0</td>
+			<td><code>'a'</code></td>
+			<td>Append <code>'a'</code></td>
+			<td><code>"a"</code></td>
+		</tr>
+		<tr>
+			<td>1</td>
+			<td><code>'#'</code></td>
+			<td>Duplicate <code>result</code></td>
+			<td><code>"aa"</code></td>
+		</tr>
+		<tr>
+			<td>2</td>
+			<td><code>'b'</code></td>
+			<td>Append <code>'b'</code></td>
+			<td><code>"aab"</code></td>
+		</tr>
+		<tr>
+			<td>3</td>
+			<td><code>'%'</code></td>
+			<td>Reverse <code>result</code></td>
+			<td><code>"baa"</code></td>
+		</tr>
+		<tr>
+			<td>4</td>
+			<td><code>'*'</code></td>
+			<td>Remove the last character</td>
+			<td><code>"ba"</code></td>
+		</tr>
+	</tbody>
+</table>
+
+<p>The final <code>result</code> is <code>"ba"</code>. The character at index <code>k = 1</code> is <code>'a'</code>.</p>
+</div>
+
+<p><strong>Example 2:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "cd%#*#", k = 3</span></p>
+
+<p><strong>Output:</strong> <span>"d"</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<table>
+	<thead>
+		<tr>
+			<th><code>i</code></th>
+			<th><code>s[i]</code></th>
+			<th>Operation</th>
+			<th>Current <code>result</code></th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>0</td>
+			<td><code>'c'</code></td>
+			<td>Append <code>'c'</code></td>
+			<td><code>"c"</code></td>
+		</tr>
+		<tr>
+			<td>1</td>
+			<td><code>'d'</code></td>
+			<td>Append <code>'d'</code></td>
+			<td><code>"cd"</code></td>
+		</tr>
+		<tr>
+			<td>2</td>
+			<td><code>'%'</code></td>
+			<td>Reverse <code>result</code></td>
+			<td><code>"dc"</code></td>
+		</tr>
+		<tr>
+			<td>3</td>
+			<td><code>'#'</code></td>
+			<td>Duplicate <code>result</code></td>
+			<td><code>"dcdc"</code></td>
+		</tr>
+		<tr>
+			<td>4</td>
+			<td><code>'*'</code></td>
+			<td>Remove the last character</td>
+			<td><code>"dcd"</code></td>
+		</tr>
+		<tr>
+			<td>5</td>
+			<td><code>'#'</code></td>
+			<td>Duplicate <code>result</code></td>
+			<td><code>"dcddcd"</code></td>
+		</tr>
+	</tbody>
+</table>
+
+<p>The final <code>result</code> is <code>"dcddcd"</code>. The character at index <code>k = 3</code> is <code>'d'</code>.</p>
+</div>
+
+<p><strong>Example 3:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "z*#", k = 0</span></p>
+
+<p><strong>Output:</strong> <span>"."</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<table>
+	<thead>
+		<tr>
+			<th><code>i</code></th>
+			<th><code>s[i]</code></th>
+			<th>Operation</th>
+			<th>Current <code>result</code></th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>0</td>
+			<td><code>'z'</code></td>
+			<td>Append <code>'z'</code></td>
+			<td><code>"z"</code></td>
+		</tr>
+		<tr>
+			<td>1</td>
+			<td><code>'*'</code></td>
+			<td>Remove the last character</td>
+			<td><code>""</code></td>
+		</tr>
+		<tr>
+			<td>2</td>
+			<td><code>'#'</code></td>
+			<td>Duplicate the string</td>
+			<td><code>""</code></td>
+		</tr>
+	</tbody>
+</table>
+
+<p>The final <code>result</code> is <code>""</code>. Since index <code>k = 0</code> is out of bounds, the output is <code>'.'</code>.</p>
+</div>
+
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>1 &lt;= s.length &lt;= 10<sup>5</sup></code></li>
+	<li><code>s</code> consists of only lowercase English letters and special characters <code>'*'</code>, <code>'#'</code>, and <code>'%'</code>.</li>
+	<li><code>0 &lt;= k &lt;= 10<sup>15</sup></code></li>
+	<li>The length of <code>result</code> after processing <code>s</code> will not exceed <code>10<sup>15</sup></code>.</li>
+</ul>

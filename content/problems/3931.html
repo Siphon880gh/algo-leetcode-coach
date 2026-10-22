@@ -1,0 +1,44 @@
+<p>You are given a string <code>s</code> consisting of digits.</p>
+
+<p>Return <code>true</code> if the <strong>absolute difference</strong> between every pair of <strong>adjacent</strong> digits is at most 2, otherwise return <code>false</code>.</p>
+
+<p>The absolute difference between <code>a</code> and <code>b</code> is defined as <code>abs(a - b)</code>.</p>
+
+<p><strong>Example 1:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "132"</span></p>
+
+<p><strong>Output:</strong> <span>true</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<ul>
+	<li>The absolute difference between digits at <code>s[0]</code> and <code>s[1]</code> is <code>abs(1 - 3) = 2</code>.</li>
+	<li>The absolute difference between digits at <code>s[1]</code> and <code>s[2]</code> is <code>abs(3 - 2) = 1</code>.</li>
+	<li>Since both differences are at most 2, the answer is true.</li>
+</ul>
+</div>
+
+<p><strong>Example 2:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "129"</span></p>
+
+<p><strong>Output:</strong> <span>false</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<ul>
+	<li>The absolute difference between digits at <code>s[0]</code> and <code>s[1]</code> is <code>abs(1 - 2) = 1</code>.</li>
+	<li>The absolute difference between digits at <code>s[1]</code> and <code>s[2]</code> is <code>abs(2 - 9) = 7</code>, which is greater than 2.</li>
+	<li>Therefore, the answer is false.</li>
+</ul>
+</div>
+
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>2 &lt;= s.length &lt;= 100</code></li>
+	<li><code>s</code> consists only of digits.</li>
+</ul>

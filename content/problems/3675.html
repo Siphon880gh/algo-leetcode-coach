@@ -1,0 +1,50 @@
+<p>You are given a string <code>s</code> consisting only of lowercase English letters.</p>
+
+<p>You can perform the following operation any number of times (including zero):</p>
+
+<ul>
+	<li>
+	<p>Choose any character <code>c</code> in the string and replace <strong>every</strong> occurrence of <code>c</code> with the <strong>next</strong> lowercase letter in the English alphabet.</p>
+	</li>
+</ul>
+
+<p>Return the <strong>minimum</strong> number of operations required to transform <code>s</code> into a string consisting of <strong>only</strong> <code>'a'</code> characters.</p>
+
+<p><strong>Note: </strong>Consider the alphabet as circular, thus <code>'a'</code> comes after <code>'z'</code>.</p>
+
+<p><strong>Example 1:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "yz"</span></p>
+
+<p><strong>Output:</strong> <span>2</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<ul>
+	<li>Change <code>'y'</code> to <code>'z'</code> to get <code>"zz"</code>.</li>
+	<li>Change <code>'z'</code> to <code>'a'</code> to get <code>"aa"</code>.</li>
+	<li>Thus, the answer is 2.</li>
+</ul>
+</div>
+
+<p><strong>Example 2:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "a"</span></p>
+
+<p><strong>Output:</strong> <span>0</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<ul>
+	<li>The string <code>"a"</code> only consists of <code>'a'</code> characters. Thus, the answer is 0.</li>
+</ul>
+</div>
+
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>1 &lt;= s.length &lt;= 5 * 10<sup>5</sup></code></li>
+	<li><code>s</code> consists only of lowercase English letters.</li>
+</ul>

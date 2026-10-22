@@ -1,0 +1,56 @@
+<p>You are given an <code>m x n</code> matrix <code>grid</code> consisting of characters and a string <code>pattern</code>.</p>
+
+<p>A <strong>horizontal substring</strong> is a contiguous sequence of characters read from left to right. If the end of a row is reached before the substring is complete, it wraps to the first column of the next row and continues as needed. You do <strong>not</strong> wrap from the bottom row back to the top.</p>
+
+<p>A <strong>vertical substring</strong> is a contiguous sequence of characters read from top to bottom. If the bottom of a column is reached before the substring is complete, it wraps to the first row of the next column and continues as needed. You do <strong>not</strong> wrap from the last column back to the first.</p>
+
+<p>Count the number of cells in the matrix that satisfy the following condition:</p>
+
+<ul>
+	<li>The cell must be part of <strong>at least</strong> one horizontal substring and <strong>at least</strong> one vertical substring, where <strong>both</strong> substrings are equal to the given <code>pattern</code>.</li>
+</ul>
+
+<p>Return the count of these cells.</p>
+
+<p><strong>Example 1:</strong></p>
+<img src="https://assets.leetcode.com/uploads/2025/03/03/gridtwosubstringsdrawio.png" alt="" loading="lazy">
+<div>
+<p><strong>Input:</strong> <span>grid = [["a","a","c","c"],["b","b","b","c"],["a","a","b","a"],["c","a","a","c"],["a","a","b","a"]], pattern = "abaca"</span></p>
+
+<p><strong>Output:</strong> <span>1</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>The pattern <code>"abaca"</code> appears once as a horizontal substring (colored blue) and once as a vertical substring (colored red), intersecting at one cell (colored purple).</p>
+</div>
+
+<p><strong>Example 2:</strong></p>
+<img src="https://assets.leetcode.com/uploads/2025/03/03/gridexample2fixeddrawio.png" alt="" loading="lazy">
+<div>
+<p><strong>Input:</strong> <span>grid = [["c","a","a","a"],["a","a","b","a"],["b","b","a","a"],["a","a","b","a"]], pattern = "aba"</span></p>
+
+<p><strong>Output:</strong> <span>4</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>The cells colored above are all part of at least one horizontal and one vertical substring matching the pattern <code>"aba"</code>.</p>
+</div>
+
+<p><strong>Example 3:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>grid = [["a"]], pattern = "a"</span></p>
+
+<p><strong>Output:</strong> 1</p>
+</div>
+
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>m == grid.length</code></li>
+	<li><code>n == grid[i].length</code></li>
+	<li><code>1 &lt;= m, n &lt;= 1000</code></li>
+	<li><code>1 &lt;= m * n &lt;= 10<sup>5</sup></code></li>
+	<li><code>1 &lt;= pattern.length &lt;= m * n</code></li>
+	<li><code>grid</code> and <code>pattern</code> consist of only lowercase English letters.</li>
+</ul>

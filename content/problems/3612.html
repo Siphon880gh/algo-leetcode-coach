@@ -1,0 +1,117 @@
+<p>You are given a string <code>s</code> consisting of lowercase English letters and the special characters: <code>*</code>, <code>#</code>, and <code>%</code>.</p>
+
+<p>Build a new string <code>result</code> by processing <code>s</code> according to the following rules from left to right:</p>
+
+<ul>
+	<li>If the letter is a <strong>lowercase</strong> English letter append it to <code>result</code>.</li>
+	<li>A <code>'*'</code> <strong>removes</strong> the last character from <code>result</code>, if it exists.</li>
+	<li>A <code>'#'</code> <strong>duplicates</strong> the current <code>result</code> and <strong>appends</strong> it to itself.</li>
+	<li>A <code>'%'</code> <strong>reverses</strong> the current <code>result</code>.</li>
+</ul>
+
+<p>Return the final string <code>result</code> after processing all characters in <code>s</code>.</p>
+
+<p><strong>Example 1:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "a#b%*"</span></p>
+
+<p><strong>Output:</strong> <span>"ba"</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<table>
+	<thead>
+		<tr>
+			<th><code>i</code></th>
+			<th><code>s[i]</code></th>
+			<th>Operation</th>
+			<th>Current <code>result</code></th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>0</td>
+			<td><code>'a'</code></td>
+			<td>Append <code>'a'</code></td>
+			<td><code>"a"</code></td>
+		</tr>
+		<tr>
+			<td>1</td>
+			<td><code>'#'</code></td>
+			<td>Duplicate <code>result</code></td>
+			<td><code>"aa"</code></td>
+		</tr>
+		<tr>
+			<td>2</td>
+			<td><code>'b'</code></td>
+			<td>Append <code>'b'</code></td>
+			<td><code>"aab"</code></td>
+		</tr>
+		<tr>
+			<td>3</td>
+			<td><code>'%'</code></td>
+			<td>Reverse <code>result</code></td>
+			<td><code>"baa"</code></td>
+		</tr>
+		<tr>
+			<td>4</td>
+			<td><code>'*'</code></td>
+			<td>Remove the last character</td>
+			<td><code>"ba"</code></td>
+		</tr>
+	</tbody>
+</table>
+
+<p>Thus, the final <code>result</code> is <code>"ba"</code>.</p>
+</div>
+
+<p><strong>Example 2:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "z*#"</span></p>
+
+<p><strong>Output:</strong> <span>""</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<table>
+	<thead>
+		<tr>
+			<th><code>i</code></th>
+			<th><code>s[i]</code></th>
+			<th>Operation</th>
+			<th>Current <code>result</code></th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>0</td>
+			<td><code>'z'</code></td>
+			<td>Append <code>'z'</code></td>
+			<td><code>"z"</code></td>
+		</tr>
+		<tr>
+			<td>1</td>
+			<td><code>'*'</code></td>
+			<td>Remove the last character</td>
+			<td><code>""</code></td>
+		</tr>
+		<tr>
+			<td>2</td>
+			<td><code>'#'</code></td>
+			<td>Duplicate the string</td>
+			<td><code>""</code></td>
+		</tr>
+	</tbody>
+</table>
+
+<p>Thus, the final <code>result</code> is <code>""</code>.</p>
+</div>
+
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>1 &lt;= s.length &lt;= 20</code></li>
+	<li><code>s</code> consists of only lowercase English letters and special characters <code>*</code>, <code>#</code>, and <code>%</code>.</li>
+</ul>

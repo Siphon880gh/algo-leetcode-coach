@@ -1,0 +1,87 @@
+<p>You are given an array of strings <code>words</code>.</p>
+
+<p>Define a <strong>transformation</strong> on a string <code>s</code> as follows:</p>
+
+<ul>
+	<li>Let <code>E</code> be the <span>subsequence</span> of characters at even indices of <code>s</code>.</li>
+	<li>Let <code>O</code> be the <strong>subsequence</strong> of characters at odd indices of <code>s</code>.</li>
+	<li><strong>Independently</strong> cyclically shift <code>E</code> and <code>O</code> by <strong>any</strong> number of positions to the right, possibly zero.</li>
+	<li>Reconstruct the string by placing the shifted <code>E</code> characters back into even indices and the shifted <code>O</code> characters back into odd indices.</li>
+</ul>
+
+<p>Two strings are <strong>equivalent</strong> if one can be transformed into the other by a <strong>single</strong> transformation.</p>
+
+<p>Partition <code>words</code> into the <strong>minimum</strong> number of groups such that:</p>
+
+<ul>
+	<li>Every string belongs to <strong>exactly</strong> one group.</li>
+	<li>Every pair of strings in the same group are <strong>equivalent</strong>.</li>
+</ul>
+
+<p>Return an integer denoting the <strong>minimum</strong> number of groups.</p>
+
+<p><strong>Example 1:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>words = ["ntgwz","zwntg"]</span></p>
+
+<p><strong>Output:</strong> <span>1</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<ul>
+	<li>For <code>"ntgwz"</code>, the even-index subsequence is <code>"ngz"</code> and the odd-index subsequence is <code>"tw"</code>.</li>
+	<li>Shift <code>"ngz"</code> right by <code>1</code> position to obtain <code>"zng"</code>, and shift <code>"tw"</code> right by <code>1</code> position to obtain <code>"wt"</code>.</li>
+	<li>After reconstructing the string, we obtain <code>"zwntg"</code>.</li>
+	<li>Therefore, both strings are equivalent and belong to the same group.</li>
+</ul>
+</div>
+
+<p><strong>Example 2:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>words = ["abc","cab","bac","acb","bca","cba"]</span></p>
+
+<p><strong>Output:</strong> 3</p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>The strings can be partitioned into the following groups:</p>
+
+<ul>
+	<li><code>["abc","cba"]</code></li>
+	<li><code>["cab","bac"]</code></li>
+	<li><code>["acb","bca"]</code></li>
+</ul>
+</div>
+
+<p><strong>Example 3:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>words = ["leet","abb","bab","deed","edde","code","bba"]</span></p>
+
+<p><strong>Output:</strong> 5</p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>The strings can be partitioned into the following groups:</p>
+
+<ul>
+	<li><code>["abb","bba"]</code></li>
+	<li><code>["deed","edde"]</code></li>
+	<li><code>["leet"]</code></li>
+	<li><code>["bab"]</code></li>
+	<li><code>["code"]</code></li>
+</ul>
+
+<p>All pairs of strings in each group are equivalent.</p>
+</div>
+
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>1 &lt;= words.length &lt;= 10<sup>5</sup></code></li>
+	<li><code>1 &lt;= words[i].length &lt;= 5 * 10<sup>5</sup></code></li>
+	<li>The sum of <code>words[i].length</code> does not exceed <code>5 * 10<sup>5</sup></code>.</li>
+	<li><code>words[i]</code> consist of lowercase English letters.</li>
+</ul>

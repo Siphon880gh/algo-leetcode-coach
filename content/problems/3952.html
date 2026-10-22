@@ -1,0 +1,69 @@
+<p>You are given an integer array <code>nums</code> of length <code>n</code> and a binary string <code>s</code> of length <code>n</code>, where <code>s[i] == '1'</code> means index <code>i</code> initially contains a <strong>token</strong> and <code>s[i] == '0'</code> means it does not.</p>
+
+<p>You may perform the following operation any number of times:</p>
+
+<ul>
+	<li>Choose a token currently located at index <code>i</code>, where <code>i &gt; 0</code>, such that this token has <strong>not</strong> been moved before.</li>
+	<li>Move this token from index <code>i</code> to index <code>i - 1</code>.</li>
+</ul>
+
+<p>An index is considered <strong>covered</strong> if it contains a token after all moves.</p>
+
+<p>Return an integer denoting the <strong>maximum total value</strong> of <code>nums</code> at the covered indices after optimally performing the operations.</p>
+
+<p><strong>Example 1:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>nums = [9,2,6,1], s = "0101"</span></p>
+
+<p><strong>Output:</strong> <span>15</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<ul>
+	<li>Initially, indices 1 and 3 contain tokens.</li>
+	<li>Move the token from index 3 to index 2.</li>
+	<li>Move the token from index 1 to index 0.</li>
+	<li>The covered indices are <code>[0, 2]</code>, so the total value is <code>nums[0] + nums[2] = 9 + 6 = 15</code>.</li>
+</ul>
+</div>
+
+<p><strong>Example 2:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>nums = [5,1,4], s = "001"</span></p>
+
+<p><strong>Output:</strong> <span>4</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<ul>
+	<li>Initially, only index 2 contains a token.</li>
+	<li>It is optimal to leave the token at index 2.</li>
+	<li>The covered index is <code>[2]</code>, so the total value is <code>nums[2] = 4</code>.</li>
+</ul>
+</div>
+
+<p><strong>Example 3:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>nums = [9,3,5], s = "011"</span></p>
+
+<p><strong>Output:</strong> <span>14</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<ul>
+	<li>Initially, indices 1 and 2 contain tokens.</li>
+	<li>Move the token from index 1 to index 0.</li>
+	<li>The covered indices are <code>[0, 2]</code>, so the total value is <code>nums[0] + nums[2] = 9 + 5 = 14</code>.</li>
+</ul>
+</div>
+
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>1 &lt;= n == nums.length == s.length &lt;= 10<sup>5</sup></code></li>
+	<li><code>1 &lt;= nums[i] &lt;= 10<sup>5</sup></code></li>
+	<li><code>s[i]</code> is either <code>'0'</code> or <code>'1'</code></li>
+</ul>

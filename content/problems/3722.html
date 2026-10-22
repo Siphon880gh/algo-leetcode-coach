@@ -1,0 +1,62 @@
+<p>You are given a string <code>s</code> of length <code>n</code> consisting of lowercase English letters.</p>
+
+<p>You must perform <strong>exactly</strong> one operation by choosing any integer <code>k</code> such that <code>1 &lt;= k &lt;= n</code> and either:</p>
+
+<ul>
+	<li>reverse the <strong>first</strong> <code>k</code> characters of <code>s</code>, or</li>
+	<li>reverse the <strong>last</strong> <code>k</code> characters of <code>s</code>.</li>
+</ul>
+
+<p>Return the <strong><span>lexicographically smallest</span></strong> string that can be obtained after <strong>exactly</strong> one such operation.</p>
+
+<p><strong>Example 1:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "dcab"</span></p>
+
+<p><strong>Output:</strong> <span>"acdb"</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<ul>
+	<li>Choose <code>k = 3</code>, reverse the first 3 characters.</li>
+	<li>Reverse <code>"dca"</code> to <code>"acd"</code>, resulting string <code>s = "acdb"</code>, which is the lexicographically smallest string achievable.</li>
+</ul>
+</div>
+
+<p><strong>Example 2:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "abba"</span></p>
+
+<p><strong>Output:</strong> <span>"aabb"</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<ul>
+	<li>Choose <code>k = 3</code>, reverse the last 3 characters.</li>
+	<li>Reverse <code>"bba"</code> to <code>"abb"</code>, so the resulting string is <code>"aabb"</code>, which is the lexicographically smallest string achievable.</li>
+</ul>
+</div>
+
+<p><strong>Example 3:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "zxy"</span></p>
+
+<p><strong>Output:</strong> <span>"xzy"</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<ul>
+	<li>Choose <code>k = 2</code>, reverse the first 2 characters.</li>
+	<li>Reverse <code>"zx"</code> to <code>"xz"</code>, so the resulting string is <code>"xzy"</code>, which is the lexicographically smallest string achievable.</li>
+</ul>
+</div>
+
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>1 &lt;= n == s.length &lt;= 1000</code></li>
+	<li><code>s</code> consists of lowercase English letters.</li>
+</ul>

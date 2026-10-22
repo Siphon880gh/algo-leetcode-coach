@@ -1,0 +1,48 @@
+<p>You are given a string <code>s</code> consisting of uppercase English letters.</p>
+
+<p>You are allowed to insert <strong>at most one</strong> uppercase English letter at <strong>any</strong> position (including the beginning or end) of the string.</p>
+
+<p>Return the <strong>maximum</strong> number of <code>"LCT"</code> <span>subsequences</span> that can be formed in the resulting string after <strong>at most one insertion</strong>.</p>
+
+<p><strong>Example 1:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "LMCT"</span></p>
+
+<p><strong>Output:</strong> <span>2</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>We can insert a <code>"L"</code> at the beginning of the string s to make <code>"LLMCT"</code>, which has 2 subsequences, at indices [0, 3, 4] and [1, 3, 4].</p>
+</div>
+
+<p><strong>Example 2:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "LCCT"</span></p>
+
+<p><strong>Output:</strong> <span>4</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>We can insert a <code>"L"</code> at the beginning of the string s to make <code>"LLCCT"</code>, which has 4 subsequences, at indices [0, 2, 4], [0, 3, 4], [1, 2, 4] and [1, 3, 4].</p>
+</div>
+
+<p><strong>Example 3:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "L"</span></p>
+
+<p><strong>Output:</strong> <span>0</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>Since it is not possible to obtain the subsequence <code>"LCT"</code> by inserting a single letter, the result is 0.</p>
+</div>
+
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>1 &lt;= s.length &lt;= 10<sup>5</sup></code></li>
+	<li><code>s</code> consists of uppercase English letters.</li>
+</ul>

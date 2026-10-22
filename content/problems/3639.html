@@ -1,0 +1,120 @@
+<p>You are given a string <code>s</code> of length <code>n</code> and an integer array <code>order</code>, where <code>order</code> is a <strong><span>permutation</span></strong> of the numbers in the range <code>[0, n - 1]</code>.</p>
+
+<p>Starting from time <code>t = 0</code>, replace the character at index <code>order[t]</code> in <code>s</code> with <code>'*'</code> at each time step.</p>
+
+<p>A <strong><span>substring</span></strong> is <strong>valid</strong> if it contains <strong>at least</strong> one <code>'*'</code>.</p>
+
+<p>A string is <strong>active</strong> if the total number of <strong>valid</strong> substrings is greater than or equal to <code>k</code>.</p>
+
+<p>Return the <strong>minimum</strong> time <code>t</code> at which the string <code>s</code> becomes <strong>active</strong>. If it is impossible, return -1.</p>
+
+<p><strong>Example 1:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "abc", order = [1,0,2], k = 2</span></p>
+
+<p><strong>Output:</strong> <span>0</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<table>
+	<thead>
+		<tr>
+			<th><code>t</code></th>
+			<th><code>order[t]</code></th>
+			<th>Modified <code>s</code></th>
+			<th>Valid Substrings</th>
+			<th>Count</th>
+			<th>Active<br>
+			(Count &gt;= k)</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>0</td>
+			<td>1</td>
+			<td><code>"a*c"</code></td>
+			<td><code>"*"</code>, <code>"a*"</code>, <code>"*c"</code>, <code>"a*c"</code></td>
+			<td>4</td>
+			<td>Yes</td>
+		</tr>
+	</tbody>
+</table>
+
+<p>The string <code>s</code> becomes active at <code>t = 0</code>. Thus, the answer is 0.</p>
+</div>
+
+<p><strong>Example 2:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "cat", order = [0,2,1], k = 6</span></p>
+
+<p><strong>Output:</strong> <span>2</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<table>
+	<thead>
+		<tr>
+			<th><code>t</code></th>
+			<th><code>order[t]</code></th>
+			<th>Modified <code>s</code></th>
+			<th>Valid Substrings</th>
+			<th>Count</th>
+			<th>Active<br>
+			(Count &gt;= k)</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>0</td>
+			<td>0</td>
+			<td><code>"*at"</code></td>
+			<td><code>"*"</code>, <code>"*a"</code>, <code>"*at"</code></td>
+			<td>3</td>
+			<td>No</td>
+		</tr>
+		<tr>
+			<td>1</td>
+			<td>2</td>
+			<td><code>"*a*"</code></td>
+			<td><code>"*"</code>, <code>"*a"</code>, <code>"<code>*a*"</code></code>, <code>"<code>a*"</code></code>, <code>"*"</code></td>
+			<td>5</td>
+			<td>No</td>
+		</tr>
+		<tr>
+			<td>2</td>
+			<td>1</td>
+			<td><code>"***"</code></td>
+			<td>All substrings (contain <code>'*'</code>)</td>
+			<td>6</td>
+			<td>Yes</td>
+		</tr>
+	</tbody>
+</table>
+
+<p>The string <code>s</code> becomes active at <code>t = 2</code>. Thus, the answer is 2.</p>
+</div>
+
+<p><strong>Example 3:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "xy", order = [0,1], k = 4</span></p>
+
+<p><strong>Output:</strong> <span>-1</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>Even after all replacements, it is impossible to obtain <code>k = 4</code> valid substrings. Thus, the answer is -1.</p>
+</div>
+
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>1 &lt;= n == s.length &lt;= 10<sup>5</sup></code></li>
+	<li><code>order.length == n</code></li>
+	<li><code>0 &lt;= order[i] &lt;= n - 1</code></li>
+	<li><code>s</code> consists of lowercase English letters.</li>
+	<li><code>order</code> is a permutation of integers from 0 to <code>n - 1</code>.</li>
+	<li><code>1 &lt;= k &lt;= 10<sup>9</sup></code></li>
+</ul>

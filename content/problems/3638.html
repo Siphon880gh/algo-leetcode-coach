@@ -1,0 +1,61 @@
+<p>You are given an integer array <code>weight</code> of length <code>n</code>, representing the weights of <code>n</code> parcels arranged in a straight line. A <strong>shipment</strong> is defined as a contiguous subarray of parcels. A shipment is considered <strong>balanced</strong> if the weight of the <strong>last parcel</strong> is <strong>strictly less</strong> than the <strong>maximum weight</strong> among all parcels in that shipment.</p>
+
+<p>Select a set of <strong>non-overlapping</strong>, contiguous, balanced shipments such that <strong>each parcel appears in at most one shipment</strong> (parcels may remain unshipped).</p>
+
+<p>Return the <strong>maximum possible number</strong> of balanced shipments that can be formed.</p>
+
+<p><strong>Example 1:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>weight = [2,5,1,4,3]</span></p>
+
+<p><strong>Output:</strong> <span>2</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>We can form the maximum of two balanced shipments as follows:</p>
+
+<ul>
+	<li>Shipment 1: <code>[2, 5, 1]</code>
+
+	<ul>
+		<li>Maximum parcel weight = 5</li>
+		<li>Last parcel weight = 1, which is strictly less than 5. Thus, it's balanced.</li>
+	</ul>
+	</li>
+	<li>Shipment 2: <code>[4, 3]</code>
+	<ul>
+		<li>Maximum parcel weight = 4</li>
+		<li>Last parcel weight = 3, which is strictly less than 4. Thus, it's balanced.</li>
+	</ul>
+	</li>
+</ul>
+
+<p>It is impossible to partition the parcels to achieve more than two balanced shipments, so the answer is 2.</p>
+</div>
+
+<p><strong>Example 2:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>weight = [4,4]</span></p>
+
+<p><strong>Output:</strong> <span>0</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>No balanced shipment can be formed in this case:</p>
+
+<ul>
+	<li>A shipment <code>[4, 4]</code> has maximum weight 4 and the last parcel's weight is also 4, which is not strictly less. Thus, it's not balanced.</li>
+	<li>Single-parcel shipments <code>[4]</code> have the last parcel weight equal to the maximum parcel weight, thus not balanced.</li>
+</ul>
+
+<p>As there is no way to form even one balanced shipment, the answer is 0.</p>
+</div>
+
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>2 &lt;= n &lt;= 10<sup>5</sup></code></li>
+	<li><code>1 &lt;= weight[i] &lt;= 10<sup>9</sup></code></li>
+</ul>

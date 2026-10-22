@@ -1,0 +1,50 @@
+<p>You are given a binary string <code>s</code>.</p>
+
+<p>A string is considered <strong>coherent</strong> if it does <strong>not</strong> contain <code>"011"</code> or <code>"110"</code> as <span>subsequences</span>.</p>
+
+<p>In one operation, you can <strong>flip</strong> any character in <code>s</code> (<code>'0'</code> to <code>'1'</code> or <code>'1'</code> to <code>'0'</code>).</p>
+
+<p>Return an integer denoting the <strong>minimum</strong> number of operations required to make <code>s</code> coherent.</p>
+
+<p><strong>Example 1:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "1010"</span></p>
+
+<p><strong>Output:</strong> <span>1</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>Flip <code>s[0]</code> to get <code>"0010"</code>, which contains no <code>"011"</code> or <code>"110"</code> subsequences.</p>
+</div>
+
+<p><strong>Example 2:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "0110"</span></p>
+
+<p><strong>Output:</strong> <span>1</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>Flip <code>s[1]</code> to get <code>"0010"</code>, removing all forbidden subsequences <code>"011"</code> and <code>"110"</code>.</p>
+</div>
+
+<p><strong>Example 3:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "1000"</span></p>
+
+<p><strong>Output:</strong> <span>0</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>The string already has no <code>"011"</code> or <code>"110"</code> subsequences, so no flips are needed.</p>
+</div>
+
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>1 &lt;= s.length &lt;= 10<sup>5</sup></code></li>
+	<li><code>s[i]</code> is either <code>'0'</code> or <code>'1'</code>.</li>
+</ul>

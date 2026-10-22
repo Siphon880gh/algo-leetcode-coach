@@ -1,0 +1,109 @@
+<p>You are given two strings, <code>word1</code> and <code>word2</code>, of equal length. You need to transform <code>word1</code> into <code>word2</code>.</p>
+
+<p>For this, divide <code>word1</code> into one or more <strong>contiguous <span>substrings</span></strong>. For each substring <code>substr</code> you can perform the following operations:</p>
+
+<ol>
+	<li>
+	<p><strong>Replace:</strong> Replace the character at any one index of <code>substr</code> with another lowercase English letter.</p>
+	</li>
+	<li>
+	<p><strong>Swap:</strong> Swap any two characters in <code>substr</code>.</p>
+	</li>
+	<li>
+	<p><strong>Reverse Substring:</strong> Reverse <code>substr</code>.</p>
+	</li>
+</ol>
+
+<p>Each of these counts as <strong>one</strong> operation and each character of each substring can be used in each type of operation at most once (i.e. no single index may be involved in more than one replace, one swap, or one reverse).</p>
+
+<p>Return the <strong>minimum number of operations</strong> required to transform <code>word1</code> into <code>word2</code>.</p>
+
+<p><strong>Example 1:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>word1 = "abcdf", word2 = "dacbe"</span></p>
+
+<p><strong>Output:</strong> <span>4</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>Divide <code>word1</code> into <code>"ab"</code>, <code>"c"</code>, and <code>"df"</code>. The operations are:</p>
+
+<ul>
+	<li>For the substring <code>"ab"</code>,
+
+	<ul>
+		<li>Perform operation of type 3 on <code>"ab" -&gt; "ba"</code>.</li>
+		<li>Perform operation of type 1 on <code>"ba" -&gt; "da"</code>.</li>
+	</ul>
+	</li>
+	<li>For the substring <code>"c"</code> do no operations.</li>
+	<li>For the substring <code>"df"</code>,
+	<ul>
+		<li>Perform operation of type 1 on <code>"df" -&gt; "bf"</code>.</li>
+		<li>Perform operation of type 1 on <code>"bf" -&gt; "be"</code>.</li>
+	</ul>
+	</li>
+</ul>
+</div>
+
+<p><strong>Example 2:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>word1 = "abceded", word2 = "baecfef"</span></p>
+
+<p><strong>Output:</strong> <span>4</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>Divide <code>word1</code> into <code>"ab"</code>, <code>"ce"</code>, and <code>"ded"</code>. The operations are:</p>
+
+<ul>
+	<li>For the substring <code>"ab"</code>,
+
+	<ul>
+		<li>Perform operation of type 2 on <code>"ab" -&gt; "ba"</code>.</li>
+	</ul>
+	</li>
+	<li>For the substring <code>"ce"</code>,
+	<ul>
+		<li>Perform operation of type 2 on <code>"ce" -&gt; "ec"</code>.</li>
+	</ul>
+	</li>
+	<li>For the substring <code>"ded"</code>,
+	<ul>
+		<li>Perform operation of type 1 on <code>"ded" -&gt; "fed"</code>.</li>
+		<li>Perform operation of type 1 on <code>"fed" -&gt; "fef"</code>.</li>
+	</ul>
+	</li>
+</ul>
+</div>
+
+<p><strong>Example 3:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>word1 = "abcdef", word2 = "fedabc"</span></p>
+
+<p><strong>Output:</strong> <span>2</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>Divide <code>word1</code> into <code>"abcdef"</code>. The operations are:</p>
+
+<ul>
+	<li>For the substring <code>"abcdef"</code>,
+
+	<ul>
+		<li>Perform operation of type 3 on <code>"abcdef" -&gt; "fedcba"</code>.</li>
+		<li>Perform operation of type 2 on <code>"fedcba" -&gt; "fedabc"</code>.</li>
+	</ul>
+	</li>
+</ul>
+</div>
+
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>1 &lt;= word1.length == word2.length &lt;= 100</code></li>
+	<li><code>word1</code> and <code>word2</code> consist only of lowercase English letters.</li>
+</ul>

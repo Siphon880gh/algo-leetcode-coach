@@ -1,0 +1,37 @@
+<p>You are given two valid times <code>startTime</code> and <code>endTime</code>, each represented as a string in the format <code>"HH:MM:SS"</code>.</p>
+
+<p>Return the number of seconds that have elapsed from <code>startTime</code> to <code>endTime</code>.</p>
+
+<p><strong>Example 1:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>startTime = "01:00:00", endTime = "01:00:25"</span></p>
+
+<p><strong>Output:</strong> <span>25</span></p>
+
+<p><strong>Explanation:</strong></p>
+<code>endTime</code> is 25 seconds ahead of <code>startTime</code>.</div>
+
+<p><strong>Example 2:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>startTime = "12:34:56", endTime = "13:00:00"</span></p>
+
+<p><strong>Output:</strong> <span>1504</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p><code>endTime</code> is 25 minutes and 4 seconds ahead of <code>startTime</code>, which equals 1504 seconds.</p>
+</div>
+
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>startTime.length == 8</code></li>
+	<li><code>endTime.length == 8</code></li>
+	<li><code>startTime</code> and <code>endTime</code> are valid times in the format <code>"HH:MM:SS"</code></li>
+	<li><code>00 &lt;= HH &lt;= 23</code></li>
+	<li><code>00 &lt;= MM &lt;= 59</code></li>
+	<li><code>00 &lt;= SS &lt;= 59</code></li>
+	<li><code>endTime</code> is not earlier than <code>startTime</code></li>
+</ul>

@@ -1,0 +1,34 @@
+<p>You are given a string <code>word</code>.</p>
+
+<p>Return the <strong>maximum</strong> number of non-intersecting <strong><span>substrings</span></strong> of word that are at <strong>least</strong> four characters long and start and end with the same letter.</p>
+
+<p><strong>Example 1:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>word = "abcdeafdef"</span></p>
+
+<p><strong>Output:</strong> <span>2</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>The two substrings are <code>"abcdea"</code> and <code>"fdef"</code>.</p>
+</div>
+
+<p><strong>Example 2:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>word = "bcdaaaab"</span></p>
+
+<p><strong>Output:</strong> <span>1</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>The only substring is <code>"aaaa"</code>. Note that we cannot <strong>also</strong> choose <code>"bcdaaaab"</code> since it intersects with the other substring.</p>
+</div>
+
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>1 &lt;= word.length &lt;= 2 * 10<sup>5</sup></code></li>
+	<li><code>word</code> consists only of lowercase English letters.</li>
+</ul>

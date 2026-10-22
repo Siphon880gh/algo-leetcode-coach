@@ -1,0 +1,66 @@
+<p>You are given a string <code>s</code> consisting of lowercase English words, each separated by a single space.</p>
+
+<p>Determine how many vowels appear in the <strong>first</strong> word. Then, reverse each following word that has the <strong>same vowel count</strong>. Leave all remaining words unchanged.</p>
+
+<p>Return the resulting string.</p>
+
+<p>Vowels are <code>'a'</code>, <code>'e'</code>, <code>'i'</code>, <code>'o'</code>, and <code>'u'</code>.</p>
+
+<p><strong>Example 1:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "cat and mice"</span></p>
+
+<p><strong>Output:</strong> <span>"cat dna mice"</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<ul>
+	<li>The first word <code>"cat"</code> has 1 vowel.</li>
+	<li><code>"and"</code> has 1 vowel, so it is reversed to form <code>"dna"</code>.</li>
+	<li><code>"mice"</code> has 2 vowels, so it remains unchanged.</li>
+	<li>Thus, the resulting string is <code>"cat dna mice"</code>.</li>
+</ul>
+</div>
+
+<p><strong>Example 2:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "book is nice"</span></p>
+
+<p><strong>Output:</strong> <span>"book is ecin"</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<ul>
+	<li>The first word <code>"book"</code> has 2 vowels.</li>
+	<li><code>"is"</code> has 1 vowel, so it remains unchanged.</li>
+	<li><code>"nice"</code> has 2 vowels, so it is reversed to form <code>"ecin"</code>.</li>
+	<li>Thus, the resulting string is <code>"book is ecin"</code>.</li>
+</ul>
+</div>
+
+<p><strong>Example 3:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "banana healthy"</span></p>
+
+<p><strong>Output:</strong> <span>"banana healthy"</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<ul>
+	<li>The first word <code>"banana"</code> has 3 vowels.</li>
+	<li><code>"healthy"</code> has 2 vowels, so it remains unchanged.</li>
+	<li>Thus, the resulting string is <code>"banana healthy"</code>.</li>
+</ul>
+</div>
+
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>1 &lt;= s.length &lt;= 10<sup>5</sup></code></li>
+	<li><code>s</code> consists of lowercase English letters and spaces.</li>
+	<li>Words in <code>s</code> are separated by a <strong>single</strong> space.</li>
+	<li><code>s</code> does <strong>not</strong> contain leading or trailing spaces.</li>
+</ul>

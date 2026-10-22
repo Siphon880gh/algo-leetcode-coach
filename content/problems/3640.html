@@ -1,0 +1,57 @@
+<p>You are given an integer array <code>nums</code> of length <code>n</code>.</p>
+
+<p>A <strong>trionic subarray</strong> is a contiguous subarray <code>nums[l...r]</code> (with <code>0 &lt;= l &lt; r &lt; n</code>) for which there exist indices <code>l &lt; p &lt; q &lt; r</code> such that:</p>
+
+<ul>
+	<li><code>nums[l...p]</code> is <strong>strictly</strong> increasing,</li>
+	<li><code>nums[p...q]</code> is <strong>strictly</strong> decreasing,</li>
+	<li><code>nums[q...r]</code> is <strong>strictly</strong> increasing.</li>
+</ul>
+
+<p>Return the <strong>maximum</strong> sum of any trionic subarray in <code>nums</code>.</p>
+
+<p><strong>Example 1:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>nums = [0,-2,-1,-3,0,2,-1]</span></p>
+
+<p><strong>Output:</strong> <span>-4</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>Pick <code>l = 1</code>, <code>p = 2</code>, <code>q = 3</code>, <code>r = 5</code>:</p>
+
+<ul>
+	<li><code>nums[l...p] = nums[1...2] = [-2, -1]</code> is strictly increasing (<code>-2 &lt; -1</code>).</li>
+	<li><code>nums[p...q] = nums[2...3] = [-1, -3]</code> is strictly decreasing (<code>-1 &gt; -3</code>)</li>
+	<li><code>nums[q...r] = nums[3...5] = [-3, 0, 2]</code> is strictly increasing (<code>-3 &lt; 0 &lt; 2</code>).</li>
+	<li>Sum = <code>(-2) + (-1) + (-3) + 0 + 2 = -4</code>.</li>
+</ul>
+</div>
+
+<p><strong>Example 2:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>nums = [1,4,2,7]</span></p>
+
+<p><strong>Output:</strong> <span>14</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>Pick <code>l = 0</code>, <code>p = 1</code>, <code>q = 2</code>, <code>r = 3</code>:</p>
+
+<ul>
+	<li><code>nums[l...p] = nums[0...1] = [1, 4]</code> is strictly increasing (<code>1 &lt; 4</code>).</li>
+	<li><code>nums[p...q] = nums[1...2] = [4, 2]</code> is strictly decreasing (<code>4 &gt; 2</code>).</li>
+	<li><code>nums[q...r] = nums[2...3] = [2, 7]</code> is strictly increasing (<code>2 &lt; 7</code>).</li>
+	<li>Sum = <code>1 + 4 + 2 + 7 = 14</code>.</li>
+</ul>
+</div>
+
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>4 &lt;= n = nums.length &lt;= 10<sup>5</sup></code></li>
+	<li><code>-10<sup>9</sup> &lt;= nums[i] &lt;= 10<sup>9</sup></code></li>
+	<li>It is guaranteed that at least one trionic subarray exists.</li>
+</ul>

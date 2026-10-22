@@ -1,0 +1,66 @@
+<p>You are given a string <code>s</code> consisting of lowercase English letters.</p>
+
+<p>A <span>substring</span> is <strong>almost-palindromic</strong> if it becomes a <span>palindrome</span> after removing <strong>exactly</strong> one character from it.</p>
+
+<p>Return an integer denoting the length of the <strong>longest</strong> <strong>almost-palindromic</strong> substring in <code>s</code>.</p>
+
+<p><strong>Example 1:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "abca"</span></p>
+
+<p><strong>Output:</strong> <span>4</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>Choose the substring <code>"<u><strong>abca</strong></u>"</code>.</p>
+
+<ul>
+	<li>Remove <code>"ab<u><strong>c</strong></u>a"</code>.</li>
+	<li>The string becomes <code>"aba"</code>, which is a palindrome.</li>
+	<li>Therefore, <code>"abca"</code> is almost-palindromic.</li>
+</ul>
+</div>
+
+<p><strong>Example 2:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "abba"</span></p>
+
+<p><strong>Output:</strong> <span>4</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>Choose the substring <code>"<u><strong>abba</strong></u>"</code>.</p>
+
+<ul>
+	<li>Remove <code>"a<u><strong>b</strong></u>ba"</code>.</li>
+	<li>The string becomes <code>"aba"</code>, which is a palindrome.</li>
+	<li>Therefore, <code>"abba"</code> is almost-palindromic.</li>
+</ul>
+</div>
+
+<p><strong>Example 3:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "zzabba"</span></p>
+
+<p><strong>Output:</strong> <span>5</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>Choose the substring <code>"z<u><strong>zabba</strong></u>"</code>.</p>
+
+<ul>
+	<li>Remove <code>"<u><strong>z</strong></u>abba"</code>.</li>
+	<li>The string becomes <code>"abba"</code>, which is a palindrome.</li>
+	<li>Therefore, <code>"zabba"</code> is almost-palindromic.</li>
+</ul>
+</div>
+
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>2 &lt;= s.length &lt;= 2500</code></li>
+	<li><code>s</code> consists of only lowercase English letters.</li>
+</ul>

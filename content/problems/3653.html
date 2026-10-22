@@ -1,0 +1,59 @@
+<p>You are given an integer array <code>nums</code> of length <code>n</code> and a 2D integer array <code>queries</code> of size <code>q</code>, where <code>queries[i] = [l<sub>i</sub>, r<sub>i</sub>, k<sub>i</sub>, v<sub>i</sub>]</code>.</p>
+
+<p>For each query, you must apply the following operations in order:</p>
+
+<ul>
+	<li>Set <code>idx = l<sub>i</sub></code>.</li>
+	<li>While <code>idx &lt;= r<sub>i</sub></code>:
+	<ul>
+		<li>Update: <code>nums[idx] = (nums[idx] * v<sub>i</sub>) % (10<sup>9</sup> + 7)</code></li>
+		<li>Set <code>idx += k<sub>i</sub></code>.</li>
+	</ul>
+	</li>
+</ul>
+
+<p>Return the <strong>bitwise XOR</strong> of all elements in <code>nums</code> after processing all queries.</p>
+
+<p><strong>Example 1:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>nums = [1,1,1], queries = [[0,2,1,4]]</span></p>
+
+<p><strong>Output:</strong> <span>4</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<ul>
+	<li>A single query <code>[0, 2, 1, 4]</code> multiplies every element from index 0 through index 2 by 4.</li>
+	<li>The array changes from <code>[1, 1, 1]</code> to <code>[4, 4, 4]</code>.</li>
+	<li>The XOR of all elements is <code>4 ^ 4 ^ 4 = 4</code>.</li>
+</ul>
+</div>
+
+<p><strong>Example 2:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>nums = [2,3,1,5,4], queries = [[1,4,2,3],[0,2,1,2]]</span></p>
+
+<p><strong>Output:</strong> <span>31</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<ul>
+	<li>The first query <code>[1, 4, 2, 3]</code> multiplies the elements at indices 1 and 3 by 3, transforming the array to <code>[2, 9, 1, 15, 4]</code>.</li>
+	<li>The second query <code>[0, 2, 1, 2]</code> multiplies the elements at indices 0, 1, and 2 by 2, resulting in <code>[4, 18, 2, 15, 4]</code>.</li>
+	<li>Finally, the XOR of all elements is <code>4 ^ 18 ^ 2 ^ 15 ^ 4 = 31</code>.<strong></strong></li>
+</ul>
+</div>
+
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>1 &lt;= n == nums.length &lt;= 10<sup>3</sup></code></li>
+	<li><code>1 &lt;= nums[i] &lt;= 10<sup>9</sup></code></li>
+	<li><code>1 &lt;= q == queries.length &lt;= 10<sup>3</sup></code></li>
+	<li><code>queries[i] = [l<sub>i</sub>, r<sub>i</sub>, k<sub>i</sub>, v<sub>i</sub>]</code></li>
+	<li><code>0 &lt;= l<sub>i</sub> &lt;= r<sub>i</sub> &lt; n</code></li>
+	<li><code>1 &lt;= k<sub>i</sub> &lt;= n</code></li>
+	<li><code>1 &lt;= v<sub>i</sub> &lt;= 10<sup>5</sup></code></li>
+</ul>

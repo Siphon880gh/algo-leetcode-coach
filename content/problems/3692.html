@@ -1,0 +1,131 @@
+<p>You are given a string <code>s</code> consisting of lowercase English letters.</p>
+
+<p>The <strong>frequency group</strong> for a value <code>k</code> is the set of characters that appear exactly <code>k</code> times in s.</p>
+
+<p>The <strong>majority frequency group</strong> is the frequency group that contains the largest number of <strong>distinct</strong> characters.</p>
+
+<p>Return a string containing all characters in the majority frequency group, in <strong>any</strong> order. If two or more frequency groups tie for that largest size, pick the group whose frequency <code>k</code> is <strong>larger</strong>.</p>
+
+<p><strong>Example 1:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "aaabbbccdddde"</span></p>
+
+<p><strong>Output:</strong> <span>"ab"</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<table>
+	<thead>
+		<tr>
+			<th>Frequency (k)</th>
+			<th>Distinct characters in group</th>
+			<th>Group size</th>
+			<th>Majority?</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>4</td>
+			<td>{d}</td>
+			<td>1</td>
+			<td>No</td>
+		</tr>
+		<tr>
+			<td>3</td>
+			<td>{a, b}</td>
+			<td>2</td>
+			<td><strong>Yes</strong></td>
+		</tr>
+		<tr>
+			<td>2</td>
+			<td>{c}</td>
+			<td>1</td>
+			<td>No</td>
+		</tr>
+		<tr>
+			<td>1</td>
+			<td>{e}</td>
+			<td>1</td>
+			<td>No</td>
+		</tr>
+	</tbody>
+</table>
+
+<p>Both characters <code>'a'</code> and <code>'b'</code> share the same frequency 3, they are in the majority frequency group. <code>"ba"</code> is also a valid answer.</p>
+</div>
+
+<p><strong>Example 2:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "abcd"</span></p>
+
+<p><strong>Output:</strong> <span>"abcd"</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<table>
+	<thead>
+		<tr>
+			<th>Frequency (k)</th>
+			<th>Distinct characters in group</th>
+			<th>Group size</th>
+			<th>Majority?</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>1</td>
+			<td>{a, b, c, d}</td>
+			<td>4</td>
+			<td><strong>Yes</strong></td>
+		</tr>
+	</tbody>
+</table>
+
+<p>All characters share the same frequency 1, they are all in the majority frequency group.</p>
+</div>
+
+<p><strong>Example 3:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "pfpfgi"</span></p>
+
+<p><strong>Output:</strong> <span>"fp"</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<table>
+	<thead>
+		<tr>
+			<th>Frequency (k)</th>
+			<th>Distinct characters in group</th>
+			<th>Group size</th>
+			<th>Majority?</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>2</td>
+			<td>{p, f}</td>
+			<td>2</td>
+			<td><strong>Yes</strong></td>
+		</tr>
+		<tr>
+			<td>1</td>
+			<td>{g, i}</td>
+			<td>2</td>
+			<td>No (tied size, lower frequency)</td>
+		</tr>
+	</tbody>
+</table>
+
+<p>Both characters <code>'p'</code> and <code>'f'</code> share the same frequency 2, they are in the majority frequency group. There is a tie in group size with frequency 1, but we pick the higher frequency: 2.</p>
+</div>
+
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>1 &lt;= s.length &lt;= 100</code></li>
+	<li><code>s</code> consists only of lowercase English letters.</li>
+</ul>

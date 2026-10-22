@@ -1,0 +1,42 @@
+<p>You are given a string <code>s</code> that consists of lowercase English letters.</p>
+
+<p>You can perform the following operation any number of times (possibly zero times):</p>
+
+<ul>
+	<li>Choose any letter that appears <strong>at least twice</strong> in the current string <code>s</code> and delete any <strong>one</strong> occurrence.</li>
+</ul>
+
+<p>Return the <strong><span>lexicographically smallest</span></strong> resulting string that can be formed this way.</p>
+
+<p><strong>Example 1:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "aaccb"</span></p>
+
+<p><strong>Output:</strong> <span>"aacb"</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>We can form the strings <code>"acb"</code>, <code>"aacb"</code>, <code>"accb"</code>, and <code>"aaccb"</code>. <code>"aacb"</code> is the lexicographically smallest one.</p>
+
+<p>For example, we can obtain <code>"aacb"</code> by choosing <code>'c'</code> and deleting its first occurrence.</p>
+</div>
+
+<p><strong>Example 2:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "z"</span></p>
+
+<p><strong>Output:</strong> <span>"z"</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>We cannot perform any operations. The only string we can form is <code>"z"</code>.</p>
+</div>
+
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>1 &lt;= s.length &lt;= 10<sup>5</sup></code></li>
+	<li><code>s</code> contains lowercase English letters only.</li>
+</ul>

@@ -1,0 +1,159 @@
+<p>You are given a <span>binary string</span> <code>s</code>.</p>
+
+<p>You are also given an array of strings <code>strs</code>, where each <code>strs[i]</code> has the <strong>same</strong> length as <code>s</code> and consists of characters <code>'0'</code>, <code>'1'</code>, and <code>'?'</code>. Each <code>'?'</code> can be replaced by either <code>'0'</code> or <code>'1'</code>.</p>
+
+<p>You may perform the following operation any number of times (including zero):</p>
+
+<ul>
+	<li>Choose any <span>subsequence</span> <code>sub</code> of <code>s</code>.</li>
+	<li>Sort <code>sub</code> in <strong>non-decreasing</strong> order.</li>
+	<li>Replace the chosen <strong>subsequence</strong> in <code>s</code> with the sorted <code>sub</code>, keeping all other characters unchanged.</li>
+</ul>
+
+<p>Return a boolean array <code>ans</code>, where <code>ans[i]</code> is <code>true</code> if it's possible to replace all <code>'?'</code> in <code>strs[i]</code> with <code>'0'</code> or <code>'1'</code> and transform <code>s</code> into the resulting string using the allowed operation above, otherwise return <code>false</code>.</p>
+
+<p><strong>Example 1:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "101", strs = ["1?1","0?1","0?0"]</span></p>
+
+<p><strong>Output:</strong> <span>[true,true,false]</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<table>
+	<tbody>
+		<tr>
+			<th><code>i</code></th>
+			<th><code>strs[i]</code></th>
+			<th>Replacement</th>
+			<th>Result <code>strs[i]</code></th>
+			<th>Operation(s)</th>
+			<th>Result</th>
+		</tr>
+		<tr>
+			<td>0</td>
+			<td><code>"1?1"</code></td>
+			<td><code>? → 0</code></td>
+			<td><code>"101"</code></td>
+			<td>Matches <code>s</code>.</td>
+			<td><code>true</code></td>
+		</tr>
+		<tr>
+			<td>1</td>
+			<td><code>"0?1"</code></td>
+			<td><code>? → 1</code></td>
+			<td><code>"011"</code></td>
+			<td>Select the subsequence at indices <code>[0..2]</code> of <code>s</code> → <code>"101"</code>.<br>
+			Sort <code>"101"</code> to get <code>"011" = strs[i]</code>.</td>
+			<td><code>true</code></td>
+		</tr>
+		<tr>
+			<td>2</td>
+			<td><code>"0?0"</code></td>
+			<td><code>? → 0</code> or <code>1</code></td>
+			<td><code>"000"</code> or <code>"010"</code></td>
+			<td>Not feasible.</td>
+			<td><code>false</code></td>
+		</tr>
+	</tbody>
+</table>
+
+<p>Thus, <code>ans = [true, true, false]</code>.</p>
+</div>
+
+<p><strong>Example 2:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "1100", strs = ["0011","11?1","1?1?"]</span></p>
+
+<p><strong>Output:</strong> <span>[true,false,true]</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<table>
+	<tbody>
+		<tr>
+			<th><code>i</code></th>
+			<th><code>strs[i]</code></th>
+			<th>Replacement</th>
+			<th>Result <code>strs[i]</code></th>
+			<th>Operation(s)</th>
+			<th>Result</th>
+		</tr>
+		<tr>
+			<td>0</td>
+			<td><code>"0011"</code></td>
+			<td>-</td>
+			<td><code>"0011"</code></td>
+			<td>Select the subsequence at indices <code>[0..3]</code> of <code>s</code> → <code>"1100"</code>.<br>
+			Sort <code>"1100"</code> to get <code>"0011" = strs[i]</code>.</td>
+			<td><code>true</code></td>
+		</tr>
+		<tr>
+			<td>1</td>
+			<td><code>"11?1"</code></td>
+			<td><code>? → 0</code></td>
+			<td><code>"1101"</code></td>
+			<td>Not feasible.</td>
+			<td><code>false</code></td>
+		</tr>
+		<tr>
+			<td>2</td>
+			<td><code>"1?1?"</code></td>
+			<td>First <code>? → 0</code><br>
+			Second <code>? → 0</code></td>
+			<td><code>"1010"</code></td>
+			<td>Select the subsequence at indices <code>[1, 2]</code> of <code>s</code> → <code>"10"</code>.<br>
+			Sort <code>"10"</code> to get <code>"01"</code>, so <code>s = "1<u>01</u>0"</code>.</td>
+			<td><code>true</code></td>
+		</tr>
+	</tbody>
+</table>
+
+<p>Thus, <code>ans = [true, false, true]</code>.</p>
+</div>
+
+<p><strong>Example 3:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "1010", strs = ["0011"]</span></p>
+
+<p><strong>Output:</strong> <span>[true]</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<table>
+	<tbody>
+		<tr>
+			<th><code>i</code></th>
+			<th><code>strs[i]</code></th>
+			<th>Replacement</th>
+			<th>Result <code>strs[i]</code></th>
+			<th>Operation(s)</th>
+			<th>Result</th>
+		</tr>
+		<tr>
+			<td>0</td>
+			<td><code>"0011"</code></td>
+			<td>-</td>
+			<td><code>"0011"</code></td>
+			<td>Select the subsequence at indices <code>[0, 2, 3]</code> of <code>s</code> → <code>"110"</code>.<br>
+			Sort <code>"110"</code> to get <code>"011"</code>, so <code>s = "0<u>0</u>11" = strs[i]</code>.</td>
+			<td><code>true</code></td>
+		</tr>
+	</tbody>
+</table>
+
+<p>Thus, <code>ans = [true]</code>.</p>
+</div>
+
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>1 &lt;= n == s.length &lt;= 2000</code></li>
+	<li><code>s[i]</code> is either <code>'0'</code> or <code>'1'</code>.</li>
+	<li><code>1 &lt;= strs.length &lt;= 2000</code></li>
+	<li><code>strs[i].length == n</code></li>
+	<li><code>strs[i]</code> is either <code>'0'</code>, <code>'1'</code>, or <code>'?'</code>.</li>
+</ul>

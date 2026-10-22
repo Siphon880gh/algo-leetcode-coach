@@ -1,0 +1,76 @@
+<p>You are given an integer array <code>nums</code>.</p>
+
+<p>Find the <strong>minimum </strong>length of a <span>subarray</span> that is <strong>not</strong> <strong>identical</strong> to any other <strong>subarray</strong> in <code>nums</code>.</p>
+
+<p>Return an integer denoting the <strong>minimum possible length</strong> of such a <strong>subarray</strong>.</p>
+
+<p>Two <strong>subarrays</strong> are considered identical if they have the same length and the same elements in corresponding positions.</p>
+
+<p><strong>Example 1:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>nums = [3,3,3]</span></p>
+
+<p><strong>Output:</strong> <span>3</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<ul>
+	<li>Subarrays of length 1: <code>[3]</code> → appears 3 times</li>
+	<li>Subarrays of length 2: <code>[3, 3]</code> → appears 2 times</li>
+	<li>Subarrays of length 3: <code>[3, 3, 3]</code> → appears once</li>
+</ul>
+
+<p>The subarray <code>[3, 3, 3]</code> is unique, so the smallest unique subarray length is 3.</p>
+</div>
+
+<p><strong>Example 2:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>nums = [2,1,2,3,3]</span></p>
+
+<p><strong>Output:</strong> <span>1</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>Subarrays of length 1:</p>
+
+<ul>
+	<li><code>[2]</code> → appears 2 times</li>
+	<li><code>[1]</code> → appears once</li>
+	<li><code>[3]</code> → appears 2 times</li>
+</ul>
+The subarray <code>[1]</code> is unique, so the smallest unique subarray length is 1.</div>
+
+<p><strong>Example 3:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>nums = [1,1,2,2,1]</span></p>
+
+<p><strong>Output:</strong> <span>2</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>Subarrays of length 1:</p>
+
+<ul>
+	<li><code>[1]</code> → appears 3 times</li>
+	<li><code>[2]</code> → appears 2 times</li>
+</ul>
+
+<p>Subarrays of length 2:</p>
+
+<ul>
+	<li><code>[1, 1]</code> → appears once</li>
+	<li><code>[1, 2]</code> → appears once</li>
+	<li><code>[2, 2]</code> → appears once</li>
+	<li><code>[2, 1]</code> → appears once</li>
+</ul>
+There is at least one subarray of length 2 that is unique, so the smallest unique subarray length is 2.</div>
+
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>1 &lt;= nums.length &lt;= 10<sup>5</sup></code></li>
+	<li><code>1 &lt;= nums[i] &lt;= 10<sup>5</sup></code></li>
+</ul>

@@ -1,0 +1,57 @@
+<p>You are given two binary strings <code>s</code> and <code>t</code>, each of length <code>n</code>.</p>
+
+<p>You may <strong>rearrange</strong> the characters of <code>t</code> in any order, but <code>s</code> <strong>must remain unchanged</strong>.</p>
+
+<p>Return a <strong>binary string</strong> of length <code>n</code> representing the <strong>maximum</strong> integer value obtainable by taking the bitwise <strong>XOR</strong> of <code>s</code> and rearranged <code>t</code>.</p>
+
+<p><strong>Example 1:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "101", t = "011"</span></p>
+
+<p><strong>Output:</strong> <span>"110"</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<ul>
+	<li>One optimal rearrangement of <code>t</code> is <code>"011"</code>.</li>
+	<li>The bitwise XOR of <code>s</code> and rearranged <code>t</code> is <code>"101" XOR "011" = "110"</code>, which is the maximum possible.</li>
+</ul>
+</div>
+
+<p><strong>Example 2:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "0110", t = "1110"</span></p>
+
+<p><strong>Output:</strong> <span>"1101"</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<ul>
+	<li>One optimal rearrangement of <code>t</code> is <code>"1011"</code>.</li>
+	<li>The bitwise XOR of <code>s</code> and rearranged <code>t</code> is <code>"0110" XOR "1011" = "1101"</code>, which is the maximum possible.</li>
+</ul>
+</div>
+
+<p><strong>Example 3:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "0101", t = "1001"</span></p>
+
+<p><strong>Output:</strong> <span>"1111"</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<ul>
+	<li>One optimal rearrangement of <code>t</code> is <code>"1010"</code>.</li>
+	<li>The bitwise XOR of <code>s</code> and rearranged <code>t</code> is <code>"0101" XOR "1010" = "1111"</code>, which is the maximum possible.</li>
+</ul>
+</div>
+
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>1 &lt;= n == s.length == t.length &lt;= 2 * 10<sup>5</sup></code></li>
+	<li><code>s[i]</code> and <code>t[i]</code> are either <code>'0'</code> or <code>'1'</code>.</li>
+</ul>

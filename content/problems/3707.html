@@ -1,0 +1,45 @@
+<p>You are given a string <code>s</code> consisting of lowercase English letters.</p>
+
+<p>The <strong>score</strong> of a string is the sum of the positions of its characters in the alphabet, where <code>'a' = 1</code>, <code>'b' = 2</code>, ..., <code>'z' = 26</code>.</p>
+
+<p>Determine whether there exists an index <code>i</code> such that the string can be split into two <strong>non-empty</strong> <strong><strong><span>substrings</span></strong></strong> <code>s[0..i]</code> and <code>s[(i + 1)..(n - 1)]</code> that have <strong>equal</strong> scores.</p>
+
+<p>Return <code>true</code> if such a split exists, otherwise return <code>false</code>.</p>
+
+<p><strong>Example 1:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "adcb"</span></p>
+
+<p><strong>Output:</strong> <span>true</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>Split at index <code>i = 1</code>:</p>
+
+<ul>
+	<li>Left substring = <code>s[0..1] = "ad"</code> with <code>score = 1 + 4 = 5</code></li>
+	<li>Right substring = <code>s[2..3] = "cb"</code> with <code>score = 3 + 2 = 5</code></li>
+</ul>
+
+<p>Both substrings have equal scores, so the output is <code>true</code>.</p>
+</div>
+
+<p><strong>Example 2:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "bace"</span></p>
+
+<p><strong>Output:</strong> <span>false</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p><strong></strong>No split produces equal scores, so the output is <code>false</code>.</p>
+</div>
+
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>2 &lt;= s.length &lt;= 100</code></li>
+	<li><code>s</code> consists of lowercase English letters.</li>
+</ul>

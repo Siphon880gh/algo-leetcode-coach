@@ -1,0 +1,48 @@
+<p>You are given a string <code>s</code> consisting only of the characters <code>'a'</code> and <code>'b'</code>.</p>
+
+<p>You are allowed to repeatedly remove <strong>any <span>substring</span></strong> where the number of <code>'a'</code> characters is equal to the number of <code>'b'</code> characters. After each removal, the remaining parts of the string are concatenated together without gaps.</p>
+
+<p>Return an integer denoting the <strong>minimum possible length</strong> of the string after performing any number of such operations.</p>
+
+<p><strong>Example 1:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = <code>"aabbab"</code></span></p>
+
+<p><strong>Output:</strong> <span>0</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>The substring <code>"aabbab"</code> has three <code>'a'</code> and three <code>'b'</code>. Since their counts are equal, we can remove the entire string directly. The minimum length is 0.</p>
+</div>
+
+<p><strong>Example 2:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = <code>"aaaa"</code></span></p>
+
+<p><strong>Output:</strong> <span>4</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>Every substring of <code>"aaaa"</code> contains only <code>'a'</code> characters. No substring can be removed as a result, so the minimum length remains 4.</p>
+</div>
+
+<p><strong>Example 3:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = <code>"aaabb"</code></span></p>
+
+<p><strong>Output:</strong> <span>1</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>First, remove the substring <code>"ab"</code>, leaving <code>"aab"</code>. Next, remove the new substring <code>"ab"</code>, leaving <code>"a"</code>. No further removals are possible, so the minimum length is 1.</p>
+</div>
+
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>1 &lt;= s.length &lt;= 10<sup>5</sup></code></li>
+	<li><code>s[i]</code> is either <code>'a'</code> or <code>'b'</code>.</li>
+</ul>

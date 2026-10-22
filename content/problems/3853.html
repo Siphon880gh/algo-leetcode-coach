@@ -1,0 +1,67 @@
+<p>You are given a string <code>s</code> consisting of lowercase English letters and an integer <code>k</code>.</p>
+
+<p>Two <strong>equal</strong> characters in the <strong>current</strong> string <code>s</code> are considered <strong>close</strong> if the distance between their indices is <strong>at most</strong> <code>k</code>.</p>
+
+<p>When two characters are <strong>close</strong>, the right one merges into the left. Merges happen <strong>one at a time</strong>, and after each merge, the string updates until no more merges are possible.</p>
+
+<p>Return the resulting string after performing all possible merges.</p>
+
+<p><strong>Note</strong>: If multiple merges are possible, always merge the pair with the <strong>smallest left</strong> index. If multiple pairs share the smallest left index, choose the pair with the <strong>smallest right</strong> index.</p>
+
+<p><strong>Example 1:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "abca", k = 3</span></p>
+
+<p><strong>Output:</strong> <span>"abc"</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<ul>
+	<li><strong></strong>Characters <code>'a'</code> at indices <code>i = 0</code> and <code>i = 3</code> are close as <code>3 - 0 = 3 &lt;= k</code>.</li>
+	<li>Merge them into the left <code>'a'</code> and <code>s = "abc"</code>.</li>
+	<li>No other equal characters are close, so no further merges occur.</li>
+</ul>
+</div>
+
+<p><strong>Example 2:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "aabca", k = 2</span></p>
+
+<p><strong>Output:</strong> <span>"abca"</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<ul>
+	<li>Characters <code>'a'</code> at indices <code>i = 0</code> and <code>i = 1</code> are close as <code>1 - 0 = 1 &lt;= k</code>.</li>
+	<li>Merge them into the left <code>'a'</code> and <code>s = "abca"</code>.</li>
+	<li>Now the remaining <code>'a'</code> characters at indices <code>i = 0</code> and <code>i = 3</code> are not close as <code>k &lt; 3</code>, so no further merges occur.</li>
+</ul>
+</div>
+
+<p><strong>Example 3:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "yybyzybz", k = 2</span></p>
+
+<p><strong>Output:</strong> <span>"ybzybz"</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<ul>
+	<li>Characters <code>'y'</code> at indices <code>i = 0</code> and <code>i = 1</code> are close as <code>1 - 0 = 1 &lt;= k</code>.</li>
+	<li>Merge them into the left <code>'y'</code> and <code>s = "ybyzybz"</code>.</li>
+	<li>Now the characters <code>'y'</code> at indices <code>i = 0</code> and <code>i = 2</code> are close as <code>2 - 0 = 2 &lt;= k</code>.</li>
+	<li>Merge them into the left <code>'y'</code> and <code>s = "ybzybz"</code>.</li>
+	<li>No other equal characters are close, so no further merges occur.</li>
+</ul>
+</div>
+
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>1 &lt;= s.length &lt;= 100</code></li>
+	<li><code>1 &lt;= k &lt;= s.length</code></li>
+	<li><code>s</code> consists of lowercase English letters.</li>
+</ul>

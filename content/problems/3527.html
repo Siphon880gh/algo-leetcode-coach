@@ -1,0 +1,44 @@
+<p>You are given a 2D string array <code>responses</code> where each <code>responses[i]</code> is an array of strings representing survey responses from the <code>i<sup>th</sup></code> day.</p>
+
+<p>Return the <strong>most common</strong> response across all days after removing <strong>duplicate</strong> responses within each <code>responses[i]</code>. If there is a tie, return the <em><span>lexicographically smallest</span></em> response.</p>
+
+<p><strong>Example 1:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>responses = [["good","ok","good","ok"],["ok","bad","good","ok","ok"],["good"],["bad"]]</span></p>
+
+<p><strong>Output:</strong> <span>"good"</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<ul>
+	<li>After removing duplicates within each list, <code>responses = [["good", "ok"], ["ok", "bad", "good"], ["good"], ["bad"]]</code>.</li>
+	<li><code>"good"</code> appears 3 times, <code>"ok"</code> appears 2 times, and <code>"bad"</code> appears 2 times.</li>
+	<li>Return <code>"good"</code> because it has the highest frequency.</li>
+</ul>
+</div>
+
+<p><strong>Example 2:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>responses = [["good","ok","good"],["ok","bad"],["bad","notsure"],["great","good"]]</span></p>
+
+<p><strong>Output:</strong> <span>"bad"</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<ul>
+	<li>After removing duplicates within each list we have <code>responses = [["good", "ok"], ["ok", "bad"], ["bad", "notsure"], ["great", "good"]]</code>.</li>
+	<li><code>"bad"</code>, <code>"good"</code>, and <code>"ok"</code> each occur 2 times.</li>
+	<li>The output is <code>"bad"</code> because it is the lexicographically smallest amongst the words with the highest frequency.</li>
+</ul>
+</div>
+
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>1 &lt;= responses.length &lt;= 1000</code></li>
+	<li><code>1 &lt;= responses[i].length &lt;= 1000</code></li>
+	<li><code>1 &lt;= responses[i][j].length &lt;= 10</code></li>
+	<li><code>responses[i][j]</code> consists of only lowercase English letters</li>
+</ul>

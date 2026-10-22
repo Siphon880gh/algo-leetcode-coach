@@ -1,0 +1,102 @@
+<p>You are given two categories of theme park attractions: <strong>land rides</strong> and <strong>water rides</strong>.</p>
+
+<ul>
+	<li><strong>Land rides</strong>
+
+	<ul>
+		<li><code>landStartTime[i]</code> – the earliest time the <code>i<sup>th</sup></code> land ride can be boarded.</li>
+		<li><code>landDuration[i]</code> – how long the <code>i<sup>th</sup></code> land ride lasts.</li>
+	</ul>
+	</li>
+	<li><strong>Water rides</strong>
+	<ul>
+		<li><code>waterStartTime[j]</code> – the earliest time the <code>j<sup>th</sup></code> water ride can be boarded.</li>
+		<li><code>waterDuration[j]</code> – how long the <code>j<sup>th</sup></code> water ride lasts.</li>
+	</ul>
+	</li>
+</ul>
+
+<p>A tourist must experience <strong>exactly one</strong> ride from <strong>each</strong> category, in <strong>either order</strong>.</p>
+
+<ul>
+	<li>A ride may be started at its opening time or <strong>any later moment</strong>.</li>
+	<li>If a ride is started at time <code>t</code>, it finishes at time <code>t + duration</code>.</li>
+	<li>Immediately after finishing one ride the tourist may board the other (if it is already open) or wait until it opens.</li>
+</ul>
+
+<p>Return the <strong>earliest possible time</strong> at which the tourist can finish both rides.</p>
+
+<p><strong>Example 1:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>landStartTime = [2,8], landDuration = [4,1], waterStartTime = [6], waterDuration = [3]</span></p>
+
+<p><strong>Output:</strong> <span>9</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<ul>
+	<li>Plan A (land ride 0 → water ride 0):
+	<ul>
+		<li>Start land ride 0 at time <code>landStartTime[0] = 2</code>. Finish at <code>2 + landDuration[0] = 6</code>.</li>
+		<li>Water ride 0 opens at time <code>waterStartTime[0] = 6</code>. Start immediately at <code>6</code>, finish at <code>6 + waterDuration[0] = 9</code>.</li>
+	</ul>
+	</li>
+	<li>Plan B (water ride 0 → land ride 1):
+	<ul>
+		<li>Start water ride 0 at time <code>waterStartTime[0] = 6</code>. Finish at <code>6 + waterDuration[0] = 9</code>.</li>
+		<li>Land ride 1 opens at <code>landStartTime[1] = 8</code>. Start at time <code>9</code>, finish at <code>9 + landDuration[1] = 10</code>.</li>
+	</ul>
+	</li>
+	<li>Plan C (land ride 1 → water ride 0):
+	<ul>
+		<li>Start land ride 1 at time <code>landStartTime[1] = 8</code>. Finish at <code>8 + landDuration[1] = 9</code>.</li>
+		<li>Water ride 0 opened at <code>waterStartTime[0] = 6</code>. Start at time <code>9</code>, finish at <code>9 + waterDuration[0] = 12</code>.</li>
+	</ul>
+	</li>
+	<li>Plan D (water ride 0 → land ride 0):
+	<ul>
+		<li>Start water ride 0 at time <code>waterStartTime[0] = 6</code>. Finish at <code>6 + waterDuration[0] = 9</code>.</li>
+		<li>Land ride 0 opened at <code>landStartTime[0] = 2</code>. Start at time <code>9</code>, finish at <code>9 + landDuration[0] = 13</code>.</li>
+	</ul>
+	</li>
+</ul>
+
+<p>Plan A gives the earliest finish time of 9.</p>
+</div>
+
+<p><strong>Example 2:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>landStartTime = [5], landDuration = [3], waterStartTime = [1], waterDuration = [10]</span></p>
+
+<p><strong>Output:</strong> <span>14</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<ul>
+	<li>Plan A (water ride 0 → land ride 0):
+	<ul>
+		<li>Start water ride 0 at time <code>waterStartTime[0] = 1</code>. Finish at <code>1 + waterDuration[0] = 11</code>.</li>
+		<li>Land ride 0 opened at <code>landStartTime[0] = 5</code>. Start immediately at <code>11</code> and finish at <code>11 + landDuration[0] = 14</code>.</li>
+	</ul>
+	</li>
+	<li>Plan B (land ride 0 → water ride 0):
+	<ul>
+		<li>Start land ride 0 at time <code>landStartTime[0] = 5</code>. Finish at <code>5 + landDuration[0] = 8</code>.</li>
+		<li>Water ride 0 opened at <code>waterStartTime[0] = 1</code>. Start immediately at <code>8</code> and finish at <code>8 + waterDuration[0] = 18</code>.</li>
+	</ul>
+	</li>
+</ul>
+
+<p>Plan A provides the earliest finish time of 14.<strong></strong></p>
+</div>
+
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>1 &lt;= n, m &lt;= 100</code></li>
+	<li><code>landStartTime.length == landDuration.length == n</code></li>
+	<li><code>waterStartTime.length == waterDuration.length == m</code></li>
+	<li><code>1 &lt;= landStartTime[i], landDuration[i], waterStartTime[j], waterDuration[j] &lt;= 1000</code></li>
+</ul>

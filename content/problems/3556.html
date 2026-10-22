@@ -1,0 +1,42 @@
+<p>Given a string <code>s</code>, find the sum of the <strong>3 largest unique <span>prime numbers</span></strong> that can be formed using any of its<strong> <span>substrings</span></strong>.</p>
+
+<p>Return the <strong>sum</strong> of the three largest unique prime numbers that can be formed. If fewer than three exist, return the sum of <strong>all</strong> available primes. If no prime numbers can be formed, return 0.</p>
+
+<p><strong>Note:</strong> Each prime number should be counted only <strong>once</strong>, even if it appears in <strong>multiple</strong> substrings. Additionally, when converting a substring to an integer, any leading zeros are ignored.</p>
+
+<p><strong>Example 1:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "12234"</span></p>
+
+<p><strong>Output:</strong> <span>1469</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<ul>
+	<li>The unique prime numbers formed from the substrings of <code>"12234"</code> are 2, 3, 23, 223, and 1223.</li>
+	<li>The 3 largest primes are 1223, 223, and 23. Their sum is 1469.</li>
+</ul>
+</div>
+
+<p><strong>Example 2:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "111"</span></p>
+
+<p><strong>Output:</strong> <span>11</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<ul>
+	<li>The unique prime number formed from the substrings of <code>"111"</code> is 11.</li>
+	<li>Since there is only one prime number, the sum is 11.</li>
+</ul>
+</div>
+
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>1 &lt;= s.length &lt;= 10</code></li>
+	<li><code>s</code> consists of only digits.</li>
+</ul>

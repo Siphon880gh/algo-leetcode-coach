@@ -1,0 +1,88 @@
+<p>You are given two strings, <code>source</code> and <code>target</code>.</p>
+
+<p>You are also given a 2D string array <code>rules</code>, where <code>rules[i] = [pattern<sub>i</sub>, replacement<sub>i</sub>]</code>, and an integer array <code>costs</code>, where <code>costs[i]</code> is the base cost of applying <code>rules[i]</code>. Both arrays have the same length. Additionally, <code>pattern<sub>i</sub></code> and <code>replacement<sub>i</sub></code> have the same length.</p>
+
+<p>You may apply <strong>any</strong> rule <strong>any</strong> number of times. Each rule application works as follows:</p>
+
+<ul>
+	<li>Choose an index <code>l</code> such that the range of positions from <code>l</code> to <code>l + pattern<sub>i</sub>.length - 1</code> exists in the current string and <strong>none</strong> of these positions has been used in a previous rule application.</li>
+	<li>For each index <code>j</code>, the character <code>pattern<sub>i</sub>[j]</code> must either be <strong>equal</strong> to the current character at position <code>l + j</code>, or be <code>'*'</code>.</li>
+	<li>Replace the characters in this range with <code>replacement<sub>i</sub></code>. The replacement is used <strong>exactly</strong> as given and does not contain wildcards.</li>
+	<li>The cost of this rule application is <code>costs[i]</code> <strong>plus</strong> the number of <code>'*'</code> characters in <code>pattern<sub>i</sub></code>.</li>
+	<li>Once a character position has been used in a rule application, it <strong>cannot</strong> be used in any <strong>later</strong> rule application.</li>
+</ul>
+
+<p>Since every <code>pattern<sub>i</sub></code> and <code>replacement<sub>i</sub></code> have the same length, character positions are preserved after every rule application.</p>
+
+<p>Return the <strong>minimum</strong> total cost required to transform <code>source</code> into <code>target</code>. If it is impossible, return -1.</p>
+
+<p><strong>Example 1:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>source = "hello", target = "world", rules = [["he","wo"],["llo","rld"]], costs = [3,4]</span></p>
+
+<p><strong>Output:</strong> <span>7</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<ul>
+	<li>Apply <code>rules[0]</code> to replace <code>"he"</code> with <code>"wo"</code> at cost 3, so the string becomes <code>"wollo"</code>.</li>
+	<li>Apply <code>rules[1]</code> to replace <code>"llo"</code> with <code>"rld"</code> at cost 4, so the string becomes <code>"world"</code>.</li>
+	<li>The total cost is <code>3 + 4 = 7</code>.</li>
+</ul>
+</div>
+
+<p><strong>Example 2:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>source = "cat", target = "dog", rules = [["c*t","dog"]], costs = [2]</span></p>
+
+<p><strong>Output:</strong> <span>3</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<ul>
+	<li>Apply <code>rules[0]</code> to replace <code>"cat"</code> with <code>"dog"</code>. The wildcard <code>'*'</code> matches <code>'a'</code>, adding 1 to the base cost 2.</li>
+	<li>The total cost is <code>2 + 1 = 3</code>.</li>
+</ul>
+</div>
+
+<p><strong>Example 3:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>source = "test", target = "next", rules = [["*e*t","next"]], costs = [4]</span></p>
+
+<p><strong>Output:</strong> <span>6</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<ul>
+	<li>Apply <code>rules[0]</code> to replace <code>"test"</code> with <code>"next"</code>. The first wildcard matches <code>'t'</code> and the second wildcard matches <code>'s'</code>, adding 2 to the base cost 4.</li>
+	<li>The total cost is <code>4 + 2 = 6</code>.</li>
+</ul>
+</div>
+
+<p><strong>Example 4:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>source = "ab", target = "bc", rules = [["a*","bd"]], costs = [9]</span></p>
+
+<p><strong>Output:</strong> <span>-1</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>No sequence of rule applications can transform <code>source</code> into <code>target</code>, so the answer is -1.</p>
+</div>
+
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>1 &lt;= source.length == target.length &lt;= 5000</code></li>
+	<li><code>source</code> and <code>target</code> consist of lowercase English letters.</li>
+	<li><code>1 &lt;= rules.length == costs.length &lt;= 200</code></li>
+	<li><code>rules[i] = [pattern<sub>i</sub>, replacement<sub>i</sub>]</code></li>
+	<li><code>1 &lt;= pattern<sub>i</sub>.length == replacement<sub>i</sub>.length &lt;= 20</code></li>
+	<li><code>pattern<sub>i</sub></code> contains at least one lowercase English letter and at most 5 <code>'*'</code> characters.</li>
+	<li><code>replacement<sub>i</sub></code> contains only lowercase English letters.</li>
+	<li><code>1 &lt;= costs[i] &lt;= 1000</code></li>
+</ul>

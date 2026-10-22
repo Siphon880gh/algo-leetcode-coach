@@ -1,0 +1,58 @@
+<p>You are given an integer array <code>nums</code> and an integer <code>k</code>.</p>
+
+<p>You are allowed to perform <strong>at most</strong> <code>k</code> swap operations on the array.</p>
+
+<p>In one swap operation, you may choose any two indices <code>i</code> and <code>j</code> and swap <code>nums[i]</code> and <code>nums[j]</code>.</p>
+
+<p>Return an integer denoting the <strong>maximum possible <span>subarray</span> sum</strong> after performing the swaps.</p>
+
+<p><strong>Example 1:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>nums = [1,-1,0,2], k = 1</span></p>
+
+<p><strong>Output:</strong> <span>3</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<ul>
+	<li>We can swap on indices 1 and 3, resulting in the array <code>[1, 2, 0, -1]</code>.</li>
+	<li>The subarray <code>[1, 2]</code> has a sum of 3, which is the maximum possible subarray sum after at most <code>k = 1</code> swap.</li>
+</ul>
+</div>
+
+<p><strong>Example 2:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>nums = [4,3,2,4], k = 2</span></p>
+
+<p><strong>Output:</strong> <span>13</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>The maximum possible subarray sum after at most <code>k = 2</code> swaps is the sum of the entire array, which is 13.</p>
+</div>
+
+<p><strong>Example 3:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>nums = [-1,-2], k = 0</span></p>
+
+<p><strong>Output:</strong> <span>-1</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<ul>
+	<li><code>k = 0</code> swaps are allowed.</li>
+	<li>The possible subarrays are <code>[-1]</code>, <code>[-2]</code>, and <code>[-1, -2]</code>, with sums -1, -2, and -3 respectively.</li>
+	<li>Among these sums, the maximum is -1.</li>
+</ul>
+</div>
+
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>1 &lt;= nums.length &lt;= 1500</code></li>
+	<li><code>-10<sup>5</sup> &lt;= nums[i] &lt;= 10<sup>5</sup></code></li>
+	<li><code>0 &lt;= k &lt;= nums.length</code></li>
+</ul>

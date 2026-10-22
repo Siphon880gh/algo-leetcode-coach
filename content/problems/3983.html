@@ -1,0 +1,42 @@
+<p>You are given two strings <code>s</code> and <code>t</code> consisting of lowercase English letters.</p>
+
+<p>You may choose <strong>at most</strong> one index in <code>s</code> and replace the character at that index with any lowercase English letter.</p>
+
+<p>Return <code>true</code> if it is possible to make <code>s</code> a <span>subsequence</span> of <code>t</code>; otherwise, return <code>false</code>.</p>
+
+<p><strong>Example 1:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "cat", t = "chat"</span></p>
+
+<p><strong>Output:</strong> <span>true</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<ul>
+	<li>Replace <code>s[1]</code> from <code>'a'</code> to <code>'h'</code>. The resulting string is <code>"cht"</code>.</li>
+	<li><code>"cht"</code> is a subsequence of <code>"chat"</code> because we can match <code>'c'</code>, <code>'h'</code>, and <code>'t'</code> in order.</li>
+</ul>
+</div>
+
+<p><strong>Example 2:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "plane", t = "apple"</span></p>
+
+<p><strong>Output:</strong> <span>false</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<ul>
+	<li>The characters <code>'p'</code>, <code>'l'</code>, and <code>'e'</code> can be matched in <code>t</code>, but the remaining characters cannot be matched while preserving the required order.</li>
+	<li>Even after replacing any one character in <code>s</code>, it is impossible to make <code>s</code> a subsequence of <code>t</code>.</li>
+</ul>
+</div>
+
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>1 &lt;= s.length, t.length &lt;= 10<sup>5</sup></code></li>
+	<li><code>s</code> and <code>t</code> consist only of lowercase English letters.</li>
+</ul>

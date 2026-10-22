@@ -1,0 +1,102 @@
+<p>You are given two integers <code>n</code> and <code>k</code>.</p>
+
+<p>For any positive integer <code>x</code>, define the following sequence:</p>
+
+<ul>
+	<li><code>p<sub>0</sub> = x</code></li>
+	<li><code>p<sub>i+1</sub> = popcount(p<sub>i</sub>)</code> for all <code>i &gt;= 0</code>, where <code>popcount(y)</code> is the number of set bits (1's) in the binary representation of <code>y</code>.</li>
+</ul>
+
+<p>This sequence will eventually reach the value 1.</p>
+
+<p>The <strong>popcount-depth</strong> of <code>x</code> is defined as the <strong>smallest</strong> integer <code>d &gt;= 0</code> such that <code>p<sub>d</sub> = 1</code>.</p>
+
+<p>For example, if <code>x = 7</code> (binary representation <code>"111"</code>). Then, the sequence is: <code>7 → 3 → 2 → 1</code>, so the popcount-depth of 7 is 3.</p>
+
+<p>Your task is to determine the number of integers in the range <code>[1, n]</code> whose popcount-depth is <strong>exactly</strong> equal to <code>k</code>.</p>
+
+<p>Return the number of such integers.</p>
+
+<p><strong>Example 1:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>n = 4, k = 1</span></p>
+
+<p><strong>Output:</strong> <span>2</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>The following integers in the range <code>[1, 4]</code> have popcount-depth exactly equal to 1:</p>
+
+<table>
+	<thead>
+		<tr>
+			<th>x</th>
+			<th>Binary</th>
+			<th>Sequence</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>2</td>
+			<td><code>"10"</code></td>
+			<td><code>2 → 1</code></td>
+		</tr>
+		<tr>
+			<td>4</td>
+			<td><code>"100"</code></td>
+			<td><code>4 → 1</code></td>
+		</tr>
+	</tbody>
+</table>
+
+<p>Thus, the answer is 2.</p>
+</div>
+
+<p><strong>Example 2:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>n = 7, k = 2</span></p>
+
+<p><strong>Output:</strong> <span>3</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>The following integers in the range <code>[1, 7]</code> have popcount-depth exactly equal to 2:</p>
+
+<table>
+	<thead>
+		<tr>
+			<th>x</th>
+			<th>Binary</th>
+			<th>Sequence</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>3</td>
+			<td><code>"11"</code></td>
+			<td><code>3 → 2 → 1</code></td>
+		</tr>
+		<tr>
+			<td>5</td>
+			<td><code>"101"</code></td>
+			<td><code>5 → 2 → 1</code></td>
+		</tr>
+		<tr>
+			<td>6</td>
+			<td><code>"110"</code></td>
+			<td><code>6 → 2 → 1</code></td>
+		</tr>
+	</tbody>
+</table>
+
+<p>Thus, the answer is 3.</p>
+</div>
+
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>1 &lt;= n &lt;= 10<sup>15</sup></code></li>
+	<li><code>0 &lt;= k &lt;= 5</code></li>
+</ul>

@@ -1,0 +1,66 @@
+<p>You are given a string <code>s</code> consisting of lowercase English letters.</p>
+
+<p>You can perform the following operation any number of times (including zero):</p>
+
+<ul>
+	<li>Remove <strong>any</strong> pair of <strong>adjacent</strong> characters in the string that are <strong>consecutive</strong> in the alphabet, in either order (e.g., <code>'a'</code> and <code>'b'</code>, or <code>'b'</code> and <code>'a'</code>).</li>
+	<li>Shift the remaining characters to the left to fill the gap.</li>
+</ul>
+
+<p>Return the <strong><span>lexicographically smallest</span></strong> string that can be obtained after performing the operations optimally.</p>
+
+<p><strong>Note:</strong> Consider the alphabet as circular, thus <code>'a'</code> and <code>'z'</code> are consecutive.</p>
+
+<p><strong>Example 1:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "abc"</span></p>
+
+<p><strong>Output:</strong> <span>"a"</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<ul>
+	<li>Remove <code>"bc"</code> from the string, leaving <code>"a"</code> as the remaining string.</li>
+	<li>No further operations are possible. Thus, the lexicographically smallest string after all possible removals is <code>"a"</code>.</li>
+</ul>
+</div>
+
+<p><strong>Example 2:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "bcda"</span></p>
+
+<p><strong>Output:</strong> <span>""</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<ul>
+	<li><strong></strong>Remove <code>"cd"</code> from the string, leaving <code>"ba"</code> as the remaining string.</li>
+	<li>Remove <code>"ba"</code> from the string, leaving <code>""</code> as the remaining string.</li>
+	<li>No further operations are possible. Thus, the lexicographically smallest string after all possible removals is <code>""</code>.</li>
+</ul>
+</div>
+
+<p><strong>Example 3:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "zdce"</span></p>
+
+<p><strong>Output:</strong> <span>"zdce"</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<ul>
+	<li>Remove <code>"dc"</code> from the string, leaving <code>"ze"</code> as the remaining string.</li>
+	<li>No further operations are possible on <code>"ze"</code>.</li>
+	<li>However, since <code>"zdce"</code> is lexicographically smaller than <code>"ze"</code>, the smallest string after all possible removals is <code>"zdce"</code>.</li>
+</ul>
+</div>
+
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>1 &lt;= s.length &lt;= 250</code></li>
+	<li><code>s</code> consists only of lowercase English letters.</li>
+</ul>

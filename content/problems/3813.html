@@ -1,0 +1,61 @@
+<p>You are given a string <code>s</code> consisting of lowercase English letters, spaces, and digits.</p>
+
+<p>Let <code>v</code> be the number of vowels in <code>s</code> and <code>c</code> be the number of consonants in <code>s</code>.</p>
+
+<p>A vowel is one of the letters <code>'a'</code>, <code>'e'</code>, <code>'i'</code>, <code>'o'</code>, or <code>'u'</code>, while any other letter in the English alphabet is considered a consonant.</p>
+
+<p>The <strong>score</strong> of the string <code>s</code> is defined as follows:</p>
+
+<ul>
+	<li>If <code>c &gt; 0</code>, the <code>score = floor(v / c)</code> where floor denotes <strong>rounding down</strong> to the nearest integer.</li>
+	<li>Otherwise, the <code>score = 0</code>.</li>
+</ul>
+
+<p>Return an integer denoting the score of the string.</p>
+
+<p><strong>Example 1:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "cooear"</span></p>
+
+<p><strong>Output:</strong> <span>2</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>The string <code>s = "cooear"</code> contains <code>v = 4</code> vowels <code>('o', 'o', 'e', 'a')</code> and <code>c = 2</code> consonants <code>('c', 'r')</code>.</p>
+
+<p>The score is <code>floor(v / c) = floor(4 / 2) = 2</code>.</p>
+</div>
+
+<p><strong>Example 2:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "axeyizou"</span></p>
+
+<p><strong>Output:</strong> <span>1</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>The string <code>s = "axeyizou"</code> contains <code>v = 5</code> vowels <code>('a', 'e', 'i', 'o', 'u')</code> and <code>c = 3</code> consonants <code>('x', 'y', 'z')</code>.</p>
+
+<p>The score is <code>floor(v / c) = floor(5 / 3) = 1</code>.</p>
+</div>
+
+<p><strong>Example 3:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "au 123"</span></p>
+
+<p><strong>Output:</strong> <span>0</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>The string <code>s = "au 123"</code> contains no consonants <code>(c = 0)</code>, so the score is 0.</p>
+</div>
+
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>1 &lt;= s.length &lt;= 100</code></li>
+	<li><code>s</code> consists of lowercase English letters, spaces and digits.</li>
+</ul>

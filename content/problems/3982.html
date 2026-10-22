@@ -1,0 +1,97 @@
+<p>You are given an integer array <code>nums</code>.</p>
+
+<p>The <strong>digit range</strong> of an integer is defined as the difference between its <strong>largest</strong> digit and <strong>smallest</strong> digit.</p>
+
+<p>For example, the digit range of 5724 is <code>7 - 2 = 5</code>.</p>
+
+<p>Return the sum of all integers in <code>nums</code> whose <strong>digit range</strong> is equal to the <strong>maximum digit range</strong> among all integers in the array.</p>
+
+<p><strong>Example 1:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>nums = [5724,111,350]</span></p>
+
+<p><strong>Output:</strong> <span>6074</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<table>
+	<tbody>
+		<tr>
+			<th><code>i</code></th>
+			<th><code>nums[i]</code></th>
+			<th>Largest</th>
+			<th>Smallest</th>
+			<th>Digit Range</th>
+		</tr>
+		<tr>
+			<td>0</td>
+			<td>5724</td>
+			<td>7</td>
+			<td>2</td>
+			<td>5</td>
+		</tr>
+		<tr>
+			<td>1</td>
+			<td>111</td>
+			<td>1</td>
+			<td>1</td>
+			<td>0</td>
+		</tr>
+		<tr>
+			<td>2</td>
+			<td>350</td>
+			<td>5</td>
+			<td>0</td>
+			<td>5</td>
+		</tr>
+	</tbody>
+</table>
+
+<p>The maximum digit range is 5. The integers with this digit range are 5724 and 350, so the answer is <code>5724 + 350 = 6074</code>.</p>
+</div>
+
+<p><strong>Example 2:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>nums = [90,900]</span></p>
+
+<p><strong>Output:</strong> <span>990</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<table>
+	<tbody>
+		<tr>
+			<th><code>i</code></th>
+			<th><code>nums[i]</code></th>
+			<th>Largest</th>
+			<th>Smallest</th>
+			<th>Digit Range</th>
+		</tr>
+		<tr>
+			<td>0</td>
+			<td>90</td>
+			<td>9</td>
+			<td>0</td>
+			<td>9</td>
+		</tr>
+		<tr>
+			<td>1</td>
+			<td>900</td>
+			<td>9</td>
+			<td>0</td>
+			<td>9</td>
+		</tr>
+	</tbody>
+</table>
+
+<p>The maximum digit range is 9. Both integers have this digit range, so the answer is <code>90 + 900 = 990</code>.</p>
+</div>
+
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>1 &lt;= nums.length &lt;= 100</code></li>
+	<li><code>10 &lt;= nums[i] &lt;= 10<sup>5</sup></code></li>
+</ul>

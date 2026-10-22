@@ -1,0 +1,44 @@
+<p>You are given a binary string <code>s</code> consisting only of characters <code>'0'</code> and <code>'1'</code>.</p>
+
+<p>A string is <strong>balanced</strong> if it contains an <strong>equal</strong> number of <code>'0'</code>s and <code>'1'</code>s.</p>
+
+<p>You can perform <strong>at most one</strong> swap between any two characters in <code>s</code>. Then, you select a <strong>balanced</strong> <span>substring</span> from <code>s</code>.</p>
+
+<p>Return an integer representing the <strong>maximum</strong> length of the <strong>balanced</strong> substring you can select.</p>
+
+<p><strong>Example 1:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "100001"</span></p>
+
+<p><strong>Output:</strong> <span>4</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<ul>
+	<li>Swap <code>"10<u><strong>0</strong></u>00<u><strong>1</strong></u>"</code>. The string becomes <code>"101000"</code>.</li>
+	<li>Select the substring <code>"<u><strong>1010</strong></u>00"</code>, which is balanced because it has two <code>'0'</code>s and two <code>'1'</code>s.</li>
+</ul>
+</div>
+
+<p><strong>Example 2:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "111"</span></p>
+
+<p><strong>Output:</strong> <span>0</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<ul>
+	<li>Choose not to perform any swaps.</li>
+	<li>Select the empty substring, which is balanced because it has zero <code>'0'</code>s and zero <code>'1'</code>s.</li>
+</ul>
+</div>
+
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>1 &lt;= s.length &lt;= 10<sup>5</sup></code></li>
+	<li><code>s</code> consists only of the characters <code>'0'</code> and <code>'1'</code>.</li>
+</ul>
