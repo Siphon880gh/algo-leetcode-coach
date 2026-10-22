@@ -6,3 +6,13 @@ vendor/
 /context/*
 !/context/clone.sh
 !/context/README.md
+
+# Secrets (PREMIUM_PASSWORD etc.); see .env.example
+.env
+
+# Full premium statements built from context/doocs-leetcode by build_premium.py
+/content/problems/premium/
+
+# Python bytecode
+__pycache__/
+*.pyc
