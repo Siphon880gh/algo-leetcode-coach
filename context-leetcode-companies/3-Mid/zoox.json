@@ -1,0 +1,15 @@
+{
+  "slug": "zoox",
+  "name": "Zoox",
+  "url": "https://leetcode.com/company/zoox/?favoriteSlug=zoox-all",
+  "favoriteSlug": "zoox-all",
+  "updatedAt": "2026-10-22T13:23:05Z",
+  "problems": [
+    121,
+    149,
+    227,
+    443,
+    994,
+    1419
+  ]
+}

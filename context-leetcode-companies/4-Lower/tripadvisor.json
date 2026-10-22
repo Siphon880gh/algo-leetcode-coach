@@ -1,0 +1,14 @@
+{
+  "slug": "tripadvisor",
+  "name": "Tripadvisor",
+  "url": "https://leetcode.com/company/tripadvisor/?favoriteSlug=tripadvisor-all",
+  "favoriteSlug": "tripadvisor-all",
+  "updatedAt": "2026-10-22T13:23:07Z",
+  "problems": [
+    20,
+    146,
+    155,
+    383,
+    1002
+  ]
+}

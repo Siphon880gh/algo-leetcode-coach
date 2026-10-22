@@ -1,6 +1,13 @@
 {
-  "updatedAt": "2026-09-08T10:15:41Z",
+  "updatedAt": "2026-10-22T13:23:46Z",
   "companies": [
+    {
+      "slug": "6sense",
+      "name": "6sense",
+      "count": 6,
+      "file": "4-Lower/6sense.json",
+      "level": "4-Lower"
+    },
     {
       "slug": "accenture",
       "name": "Accenture",
@@ -19,8 +26,8 @@
       "slug": "affirm",
       "name": "Affirm",
       "count": 10,
-      "file": "7-Cooldown/affirm.json",
-      "level": "7-Cooldown"
+      "file": "3-Mid/affirm.json",
+      "level": "3-Mid"
     },
     {
       "slug": "agoda",
@@ -40,8 +47,8 @@
       "slug": "akuna-capital",
       "name": "Akuna Capital",
       "count": 17,
-      "file": "7-Cooldown/akuna-capital.json",
-      "level": "7-Cooldown"
+      "file": "1-Highest/akuna-capital.json",
+      "level": "1-Highest"
     },
     {
       "slug": "alibaba",
@@ -72,10 +79,31 @@
       "level": "3-Mid"
     },
     {
+      "slug": "anthropic",
+      "name": "Anthropic",
+      "count": 4,
+      "file": "1-Highest/anthropic.json",
+      "level": "1-Highest"
+    },
+    {
       "slug": "apple",
       "name": "Apple",
       "count": 10,
       "file": "2-High/apple.json",
+      "level": "2-High"
+    },
+    {
+      "slug": "applied-intuition",
+      "name": "Applied Intuition",
+      "count": 10,
+      "file": "3-Mid/applied-intuition.json",
+      "level": "3-Mid"
+    },
+    {
+      "slug": "applovin",
+      "name": "AppLovin",
+      "count": 1,
+      "file": "2-High/applovin.json",
       "level": "2-High"
     },
     {
@@ -86,6 +114,13 @@
       "level": "5-Lowest"
     },
     {
+      "slug": "asana",
+      "name": "Asana",
+      "count": 5,
+      "file": "3-Mid/asana.json",
+      "level": "3-Mid"
+    },
+    {
       "slug": "atlassian",
       "name": "Atlassian",
       "count": 1,
@@ -93,11 +128,32 @@
       "level": "3-Mid"
     },
     {
+      "slug": "audible",
+      "name": "Audible",
+      "count": 6,
+      "file": "4-Lower/audible.json",
+      "level": "4-Lower"
+    },
+    {
+      "slug": "aurora",
+      "name": "Aurora",
+      "count": 10,
+      "file": "4-Lower/aurora.json",
+      "level": "4-Lower"
+    },
+    {
       "slug": "autodesk",
       "name": "Autodesk",
       "count": 33,
       "file": "5-Lowest/autodesk.json",
       "level": "5-Lowest"
+    },
+    {
+      "slug": "axon",
+      "name": "Axon",
+      "count": 8,
+      "file": "4-Lower/axon.json",
+      "level": "4-Lower"
     },
     {
       "slug": "barclays",
@@ -121,11 +177,25 @@
       "level": "3-Mid"
     },
     {
+      "slug": "bolt",
+      "name": "Bolt",
+      "count": 5,
+      "file": "4-Lower/bolt.json",
+      "level": "4-Lower"
+    },
+    {
       "slug": "bookingcom",
       "name": "Booking.com",
       "count": 17,
       "file": "5-Lowest/bookingcom.json",
       "level": "5-Lowest"
+    },
+    {
+      "slug": "box",
+      "name": "Box",
+      "count": 7,
+      "file": "4-Lower/box.json",
+      "level": "4-Lower"
     },
     {
       "slug": "bytedance",
@@ -149,6 +219,13 @@
       "level": "5-Lowest"
     },
     {
+      "slug": "chime",
+      "name": "Chime",
+      "count": 3,
+      "file": "3-Mid/chime.json",
+      "level": "3-Mid"
+    },
+    {
       "slug": "cisco",
       "name": "Cisco",
       "count": 1,
@@ -163,6 +240,13 @@
       "level": "1-Highest"
     },
     {
+      "slug": "cloudflare",
+      "name": "Cloudflare",
+      "count": 11,
+      "file": "5-Lowest/cloudflare.json",
+      "level": "5-Lowest"
+    },
+    {
       "slug": "cognizant",
       "name": "Cognizant",
       "count": 51,
@@ -173,8 +257,29 @@
       "slug": "cohesity",
       "name": "Cohesity",
       "count": 4,
-      "file": "7-Cooldown/cohesity.json",
-      "level": "7-Cooldown"
+      "file": "4-Lower/cohesity.json",
+      "level": "4-Lower"
+    },
+    {
+      "slug": "coinbase",
+      "name": "Coinbase",
+      "count": 11,
+      "file": "2-High/coinbase.json",
+      "level": "2-High"
+    },
+    {
+      "slug": "compass",
+      "name": "Compass",
+      "count": 7,
+      "file": "4-Lower/compass.json",
+      "level": "4-Lower"
+    },
+    {
+      "slug": "confluent",
+      "name": "Confluent",
+      "count": 9,
+      "file": "4-Lower/confluent.json",
+      "level": "4-Lower"
     },
     {
       "slug": "coupang",
@@ -182,6 +287,13 @@
       "count": 48,
       "file": "5-Lowest/coupang.json",
       "level": "5-Lowest"
+    },
+    {
+      "slug": "crowdstrike",
+      "name": "CrowdStrike",
+      "count": 12,
+      "file": "3-Mid/crowdstrike.json",
+      "level": "3-Mid"
     },
     {
       "slug": "databricks",
@@ -219,6 +331,20 @@
       "level": "5-Lowest"
     },
     {
+      "slug": "discord",
+      "name": "Discord",
+      "count": 1,
+      "file": "3-Mid/discord.json",
+      "level": "3-Mid"
+    },
+    {
+      "slug": "disney",
+      "name": "Disney",
+      "count": 9,
+      "file": "4-Lower/disney.json",
+      "level": "4-Lower"
+    },
+    {
       "slug": "docusign",
       "name": "Docusign",
       "count": 31,
@@ -233,11 +359,25 @@
       "level": "3-Mid"
     },
     {
+      "slug": "dropbox",
+      "name": "Dropbox",
+      "count": 22,
+      "file": "2-High/dropbox.json",
+      "level": "2-High"
+    },
+    {
       "slug": "drw",
       "name": "DRW",
       "count": 3,
-      "file": "7-Cooldown/drw.json",
-      "level": "7-Cooldown"
+      "file": "3-Mid/drw.json",
+      "level": "3-Mid"
+    },
+    {
+      "slug": "duolingo",
+      "name": "Duolingo",
+      "count": 5,
+      "file": "3-Mid/duolingo.json",
+      "level": "3-Mid"
     },
     {
       "slug": "ebay",
@@ -254,6 +394,13 @@
       "level": "5-Lowest"
     },
     {
+      "slug": "epic-systems",
+      "name": "Epic Systems",
+      "count": 16,
+      "file": "4-Lower/epic-systems.json",
+      "level": "4-Lower"
+    },
+    {
       "slug": "expedia",
       "name": "Expedia",
       "count": 2,
@@ -268,11 +415,32 @@
       "level": "2-High"
     },
     {
+      "slug": "faire",
+      "name": "Faire",
+      "count": 6,
+      "file": "1-Highest/faire.json",
+      "level": "1-Highest"
+    },
+    {
+      "slug": "flexport",
+      "name": "Flexport",
+      "count": 7,
+      "file": "3-Mid/flexport.json",
+      "level": "3-Mid"
+    },
+    {
       "slug": "flipkart",
       "name": "Flipkart",
       "count": 99,
       "file": "5-Lowest/flipkart.json",
       "level": "5-Lowest"
+    },
+    {
+      "slug": "github",
+      "name": "Github",
+      "count": 5,
+      "file": "4-Lower/github.json",
+      "level": "4-Lower"
     },
     {
       "slug": "goldman-sachs",
@@ -299,8 +467,22 @@
       "slug": "grammarly",
       "name": "Grammarly",
       "count": 30,
-      "file": "7-Cooldown/grammarly.json",
-      "level": "7-Cooldown"
+      "file": "2-High/grammarly.json",
+      "level": "2-High"
+    },
+    {
+      "slug": "guidewire",
+      "name": "Guidewire",
+      "count": 6,
+      "file": "4-Lower/guidewire.json",
+      "level": "4-Lower"
+    },
+    {
+      "slug": "gusto",
+      "name": "Gusto",
+      "count": 5,
+      "file": "4-Lower/gusto.json",
+      "level": "4-Lower"
     },
     {
       "slug": "hrt",
@@ -317,6 +499,13 @@
       "level": "5-Lowest"
     },
     {
+      "slug": "hubspot",
+      "name": "Hubspot",
+      "count": 10,
+      "file": "4-Lower/hubspot.json",
+      "level": "4-Lower"
+    },
+    {
       "slug": "ibm",
       "name": "IBM",
       "count": 3,
@@ -327,8 +516,8 @@
       "slug": "imc",
       "name": "IMC",
       "count": 6,
-      "file": "7-Cooldown/imc.json",
-      "level": "7-Cooldown"
+      "file": "2-High/imc.json",
+      "level": "2-High"
     },
     {
       "slug": "indeed",
@@ -343,6 +532,13 @@
       "count": 21,
       "file": "5-Lowest/infosys.json",
       "level": "5-Lowest"
+    },
+    {
+      "slug": "instacart",
+      "name": "Instacart",
+      "count": 9,
+      "file": "3-Mid/instacart.json",
+      "level": "3-Mid"
     },
     {
       "slug": "intel",
@@ -383,8 +579,15 @@
       "slug": "juspay",
       "name": "Juspay",
       "count": 20,
-      "file": "7-Cooldown/juspay.json",
-      "level": "7-Cooldown"
+      "file": "6-Unpriceable/juspay.json",
+      "level": "6-Unpriceable"
+    },
+    {
+      "slug": "lime",
+      "name": "Lime",
+      "count": 7,
+      "file": "4-Lower/lime.json",
+      "level": "4-Lower"
     },
     {
       "slug": "linkedin",
@@ -392,6 +595,13 @@
       "count": 8,
       "file": "3-Mid/linkedin.json",
       "level": "3-Mid"
+    },
+    {
+      "slug": "liveramp",
+      "name": "LiveRamp",
+      "count": 6,
+      "file": "4-Lower/liveramp.json",
+      "level": "4-Lower"
     },
     {
       "slug": "lyft",
@@ -425,8 +635,15 @@
       "slug": "millennium",
       "name": "Millennium",
       "count": 11,
-      "file": "7-Cooldown/millennium.json",
-      "level": "7-Cooldown"
+      "file": "3-Mid/millennium.json",
+      "level": "3-Mid"
+    },
+    {
+      "slug": "moloco",
+      "name": "Moloco",
+      "count": 12,
+      "file": "2-High/moloco.json",
+      "level": "2-High"
     },
     {
       "slug": "mongodb",
@@ -443,11 +660,32 @@
       "level": "5-Lowest"
     },
     {
+      "slug": "netapp",
+      "name": "NetApp",
+      "count": 12,
+      "file": "3-Mid/netapp.json",
+      "level": "3-Mid"
+    },
+    {
       "slug": "netflix",
       "name": "Netflix",
       "count": 2,
       "file": "1-Highest/netflix.json",
       "level": "1-Highest"
+    },
+    {
+      "slug": "nextdoor",
+      "name": "Nextdoor",
+      "count": 3,
+      "file": "4-Lower/nextdoor.json",
+      "level": "4-Lower"
+    },
+    {
+      "slug": "nuro",
+      "name": "Nuro",
+      "count": 13,
+      "file": "2-High/nuro.json",
+      "level": "2-High"
     },
     {
       "slug": "nutanix",
@@ -492,6 +730,13 @@
       "level": "4-Lower"
     },
     {
+      "slug": "oscar-health",
+      "name": "Oscar Health",
+      "count": 4,
+      "file": "3-Mid/oscar-health.json",
+      "level": "3-Mid"
+    },
+    {
       "slug": "palantir",
       "name": "Palantir",
       "count": 1,
@@ -504,6 +749,13 @@
       "count": 49,
       "file": "4-Lower/palo-alto-networks.json",
       "level": "4-Lower"
+    },
+    {
+      "slug": "patreon",
+      "name": "Patreon",
+      "count": 4,
+      "file": "2-High/patreon.json",
+      "level": "2-High"
     },
     {
       "slug": "paypal",
@@ -534,6 +786,20 @@
       "level": "2-High"
     },
     {
+      "slug": "plaid",
+      "name": "Plaid",
+      "count": 1,
+      "file": "1-Highest/plaid.json",
+      "level": "1-Highest"
+    },
+    {
+      "slug": "pure-storage",
+      "name": "Pure Storage",
+      "count": 8,
+      "file": "4-Lower/pure-storage.json",
+      "level": "4-Lower"
+    },
+    {
       "slug": "qualcomm",
       "name": "Qualcomm",
       "count": 52,
@@ -541,11 +807,32 @@
       "level": "5-Lowest"
     },
     {
+      "slug": "qualtrics",
+      "name": "Qualtrics",
+      "count": 5,
+      "file": "3-Mid/qualtrics.json",
+      "level": "3-Mid"
+    },
+    {
+      "slug": "quince",
+      "name": "Quince",
+      "count": 6,
+      "file": "3-Mid/quince.json",
+      "level": "3-Mid"
+    },
+    {
       "slug": "quora",
       "name": "Quora",
       "count": 19,
-      "file": "7-Cooldown/quora.json",
-      "level": "7-Cooldown"
+      "file": "2-High/quora.json",
+      "level": "2-High"
+    },
+    {
+      "slug": "ramp-2",
+      "name": "Ramp",
+      "count": 4,
+      "file": "1-Highest/ramp-2.json",
+      "level": "1-Highest"
     },
     {
       "slug": "reddit",
@@ -555,11 +842,39 @@
       "level": "1-Highest"
     },
     {
+      "slug": "remitly",
+      "name": "Remitly",
+      "count": 5,
+      "file": "3-Mid/remitly.json",
+      "level": "3-Mid"
+    },
+    {
+      "slug": "riot-games",
+      "name": "Riot Games",
+      "count": 5,
+      "file": "4-Lower/riot-games.json",
+      "level": "4-Lower"
+    },
+    {
+      "slug": "ripple",
+      "name": "Ripple",
+      "count": 6,
+      "file": "3-Mid/ripple.json",
+      "level": "3-Mid"
+    },
+    {
       "slug": "rippling",
       "name": "Rippling",
       "count": 28,
       "file": "2-High/rippling.json",
       "level": "2-High"
+    },
+    {
+      "slug": "rivian",
+      "name": "Rivian",
+      "count": 8,
+      "file": "3-Mid/rivian.json",
+      "level": "3-Mid"
     },
     {
       "slug": "robinhood",
@@ -576,18 +891,25 @@
       "level": "2-High"
     },
     {
+      "slug": "rokt",
+      "name": "Rokt",
+      "count": 5,
+      "file": "1-Highest/rokt.json",
+      "level": "1-Highest"
+    },
+    {
       "slug": "roku",
       "name": "Roku",
       "count": 19,
-      "file": "7-Cooldown/roku.json",
-      "level": "7-Cooldown"
+      "file": "1-Highest/roku.json",
+      "level": "1-Highest"
     },
     {
       "slug": "rubrik",
       "name": "Rubrik",
       "count": 34,
-      "file": "7-Cooldown/rubrik.json",
-      "level": "7-Cooldown"
+      "file": "3-Mid/rubrik.json",
+      "level": "3-Mid"
     },
     {
       "slug": "salesforce",
@@ -595,6 +917,13 @@
       "count": 3,
       "file": "4-Lower/salesforce.json",
       "level": "4-Lower"
+    },
+    {
+      "slug": "samsara",
+      "name": "Samsara",
+      "count": 3,
+      "file": "3-Mid/samsara.json",
+      "level": "3-Mid"
     },
     {
       "slug": "samsung",
@@ -609,6 +938,13 @@
       "count": 39,
       "file": "5-Lowest/sap.json",
       "level": "5-Lowest"
+    },
+    {
+      "slug": "scale-ai",
+      "name": "Scale AI",
+      "count": 1,
+      "file": "1-Highest/scale-ai.json",
+      "level": "1-Highest"
     },
     {
       "slug": "servicenow",
@@ -639,6 +975,27 @@
       "level": "1-Highest"
     },
     {
+      "slug": "sofi",
+      "name": "SoFi",
+      "count": 14,
+      "file": "4-Lower/sofi.json",
+      "level": "4-Lower"
+    },
+    {
+      "slug": "spacex",
+      "name": "SpaceX",
+      "count": 3,
+      "file": "3-Mid/spacex.json",
+      "level": "3-Mid"
+    },
+    {
+      "slug": "splunk",
+      "name": "Splunk",
+      "count": 8,
+      "file": "3-Mid/splunk.json",
+      "level": "3-Mid"
+    },
+    {
       "slug": "spotify",
       "name": "Spotify",
       "count": 14,
@@ -658,6 +1015,13 @@
       "count": 26,
       "file": "6-Unpriceable/squarepoint-capital.json",
       "level": "6-Unpriceable"
+    },
+    {
+      "slug": "squarespace",
+      "name": "Squarespace",
+      "count": 5,
+      "file": "4-Lower/squarespace.json",
+      "level": "4-Lower"
     },
     {
       "slug": "stripe",
@@ -688,11 +1052,25 @@
       "level": "5-Lowest"
     },
     {
+      "slug": "tencent",
+      "name": "Tencent",
+      "count": 3,
+      "file": "2-High/tencent.json",
+      "level": "2-High"
+    },
+    {
       "slug": "tesla",
       "name": "Tesla",
       "count": 5,
       "file": "4-Lower/tesla.json",
       "level": "4-Lower"
+    },
+    {
+      "slug": "the-trade-desk",
+      "name": "The Trade Desk",
+      "count": 5,
+      "file": "3-Mid/the-trade-desk.json",
+      "level": "3-Mid"
     },
     {
       "slug": "tiktok",
@@ -702,11 +1080,32 @@
       "level": "1-Highest"
     },
     {
+      "slug": "tinder",
+      "name": "Tinder",
+      "count": 3,
+      "file": "3-Mid/tinder.json",
+      "level": "3-Mid"
+    },
+    {
+      "slug": "tripadvisor",
+      "name": "Tripadvisor",
+      "count": 5,
+      "file": "4-Lower/tripadvisor.json",
+      "level": "4-Lower"
+    },
+    {
       "slug": "twilio",
       "name": "Twilio",
       "count": 11,
       "file": "5-Lowest/twilio.json",
       "level": "5-Lowest"
+    },
+    {
+      "slug": "twitch",
+      "name": "Twitch",
+      "count": 7,
+      "file": "3-Mid/twitch.json",
+      "level": "3-Mid"
     },
     {
       "slug": "twitter",
@@ -730,6 +1129,20 @@
       "level": "3-Mid"
     },
     {
+      "slug": "uipath",
+      "name": "UiPath",
+      "count": 13,
+      "file": "3-Mid/uipath.json",
+      "level": "3-Mid"
+    },
+    {
+      "slug": "upstart",
+      "name": "Upstart",
+      "count": 6,
+      "file": "3-Mid/upstart.json",
+      "level": "3-Mid"
+    },
+    {
       "slug": "verkada",
       "name": "Verkada",
       "count": 17,
@@ -744,11 +1157,25 @@
       "level": "5-Lowest"
     },
     {
+      "slug": "vmware",
+      "name": "VMware",
+      "count": 5,
+      "file": "4-Lower/vmware.json",
+      "level": "4-Lower"
+    },
+    {
       "slug": "walmart-labs",
       "name": "Walmart Labs",
       "count": 5,
       "file": "4-Lower/walmart-labs.json",
       "level": "4-Lower"
+    },
+    {
+      "slug": "wayfair",
+      "name": "Wayfair",
+      "count": 17,
+      "file": "3-Mid/wayfair.json",
+      "level": "3-Mid"
     },
     {
       "slug": "waymo",
@@ -763,6 +1190,27 @@
       "count": 19,
       "file": "5-Lowest/wells-fargo.json",
       "level": "5-Lowest"
+    },
+    {
+      "slug": "whatnot",
+      "name": "Whatnot",
+      "count": 11,
+      "file": "2-High/whatnot.json",
+      "level": "2-High"
+    },
+    {
+      "slug": "wish",
+      "name": "Wish",
+      "count": 5,
+      "file": "4-Lower/wish.json",
+      "level": "4-Lower"
+    },
+    {
+      "slug": "workday",
+      "name": "Workday",
+      "count": 5,
+      "file": "3-Mid/workday.json",
+      "level": "3-Mid"
     },
     {
       "slug": "yahoo",
@@ -804,6 +1252,20 @@
       "name": "Zomato",
       "count": 28,
       "file": "5-Lowest/zomato.json",
+      "level": "5-Lowest"
+    },
+    {
+      "slug": "zoox",
+      "name": "Zoox",
+      "count": 6,
+      "file": "3-Mid/zoox.json",
+      "level": "3-Mid"
+    },
+    {
+      "slug": "zscaler",
+      "name": "Zscaler",
+      "count": 16,
+      "file": "5-Lowest/zscaler.json",
       "level": "5-Lowest"
     }
   ]

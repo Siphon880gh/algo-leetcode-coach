@@ -1,0 +1,16 @@
+{
+  "slug": "box",
+  "name": "Box",
+  "url": "https://leetcode.com/company/box/?favoriteSlug=box-all",
+  "favoriteSlug": "box-all",
+  "updatedAt": "2026-10-22T13:23:06Z",
+  "problems": [
+    126,
+    127,
+    189,
+    191,
+    684,
+    692,
+    965
+  ]
+}

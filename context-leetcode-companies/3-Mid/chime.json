@@ -1,0 +1,12 @@
+{
+  "slug": "chime",
+  "name": "Chime",
+  "url": "https://leetcode.com/company/chime/?favoriteSlug=chime-all",
+  "favoriteSlug": "chime-all",
+  "updatedAt": "2026-10-22T13:23:06Z",
+  "problems": [
+    739,
+    1472,
+    2101
+  ]
+}

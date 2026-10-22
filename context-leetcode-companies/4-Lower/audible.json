@@ -1,0 +1,15 @@
+{
+  "slug": "audible",
+  "name": "Audible",
+  "url": "https://leetcode.com/company/audible/?favoriteSlug=audible-all",
+  "favoriteSlug": "audible-all",
+  "updatedAt": "2026-10-22T13:23:06Z",
+  "problems": [
+    202,
+    210,
+    767,
+    1200,
+    1228,
+    1747
+  ]
+}

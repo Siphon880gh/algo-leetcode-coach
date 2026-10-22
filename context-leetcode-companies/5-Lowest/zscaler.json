@@ -1,0 +1,25 @@
+{
+  "slug": "zscaler",
+  "name": "Zscaler",
+  "url": "https://leetcode.com/company/zscaler/?favoriteSlug=zscaler-all",
+  "favoriteSlug": "zscaler-all",
+  "updatedAt": "2026-10-22T13:10:40Z",
+  "problems": [
+    25,
+    33,
+    73,
+    127,
+    146,
+    217,
+    273,
+    465,
+    945,
+    1154,
+    2231,
+    2366,
+    2932,
+    2935,
+    2964,
+    3091
+  ]
+}

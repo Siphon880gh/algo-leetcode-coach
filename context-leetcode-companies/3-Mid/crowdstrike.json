@@ -1,0 +1,21 @@
+{
+  "slug": "crowdstrike",
+  "name": "CrowdStrike",
+  "url": "https://leetcode.com/company/crowdstrike/?favoriteSlug=crowdstrike-all",
+  "favoriteSlug": "crowdstrike-all",
+  "updatedAt": "2026-10-22T13:10:39Z",
+  "problems": [
+    20,
+    42,
+    49,
+    56,
+    133,
+    200,
+    207,
+    271,
+    443,
+    977,
+    981,
+    3815
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "slug": "github",
+  "name": "Github",
+  "url": "https://leetcode.com/company/github/?favoriteSlug=github-all",
+  "favoriteSlug": "github-all",
+  "updatedAt": "2026-10-22T13:23:07Z",
+  "problems": [
+    146,
+    263,
+    645,
+    1531,
+    2849
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "slug": "sofi",
+  "name": "SoFi",
+  "url": "https://leetcode.com/company/sofi/?favoriteSlug=sofi-all",
+  "favoriteSlug": "sofi-all",
+  "updatedAt": "2026-10-22T13:23:06Z",
+  "problems": [
+    23,
+    68,
+    76,
+    146,
+    200,
+    347,
+    380,
+    697,
+    735,
+    845,
+    1229,
+    1347,
+    2472,
+    2861
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "slug": "vmware",
+  "name": "VMware",
+  "url": "https://leetcode.com/company/vmware/?favoriteSlug=vmware-all",
+  "favoriteSlug": "vmware-all",
+  "updatedAt": "2026-10-22T13:10:40Z",
+  "problems": [
+    4,
+    981,
+    1328,
+    2217,
+    2263
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "slug": "gusto",
+  "name": "Gusto",
+  "url": "https://leetcode.com/company/gusto/?favoriteSlug=gusto-all",
+  "favoriteSlug": "gusto-all",
+  "updatedAt": "2026-10-22T13:23:07Z",
+  "problems": [
+    198,
+    273,
+    616,
+    981,
+    2591
+  ]
+}

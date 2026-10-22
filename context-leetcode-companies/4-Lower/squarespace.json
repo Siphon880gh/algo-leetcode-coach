@@ -1,0 +1,14 @@
+{
+  "slug": "squarespace",
+  "name": "Squarespace",
+  "url": "https://leetcode.com/company/squarespace/?favoriteSlug=squarespace-all",
+  "favoriteSlug": "squarespace-all",
+  "updatedAt": "2026-10-22T13:23:07Z",
+  "problems": [
+    21,
+    56,
+    88,
+    146,
+    1893
+  ]
+}

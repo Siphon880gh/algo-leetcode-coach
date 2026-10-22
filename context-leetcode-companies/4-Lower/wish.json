@@ -1,0 +1,14 @@
+{
+  "slug": "wish",
+  "name": "Wish",
+  "url": "https://leetcode.com/company/wish/?favoriteSlug=wish-all",
+  "favoriteSlug": "wish-all",
+  "updatedAt": "2026-10-22T13:23:07Z",
+  "problems": [
+    33,
+    781,
+    1193,
+    1205,
+    1606
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "slug": "tencent",
+  "name": "Tencent",
+  "url": "https://leetcode.com/company/tencent/?favoriteSlug=tencent-all",
+  "favoriteSlug": "tencent-all",
+  "updatedAt": "2026-10-22T13:23:05Z",
+  "problems": [
+    394,
+    546,
+    625
+  ]
+}

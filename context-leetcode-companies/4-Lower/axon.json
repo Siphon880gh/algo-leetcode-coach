@@ -1,0 +1,17 @@
+{
+  "slug": "axon",
+  "name": "Axon",
+  "url": "https://leetcode.com/company/axon/?favoriteSlug=axon-all",
+  "favoriteSlug": "axon-all",
+  "updatedAt": "2026-10-22T13:23:06Z",
+  "problems": [
+    72,
+    97,
+    125,
+    380,
+    636,
+    973,
+    981,
+    1396
+  ]
+}

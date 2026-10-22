@@ -1,0 +1,26 @@
+{
+  "slug": "wayfair",
+  "name": "Wayfair",
+  "url": "https://leetcode.com/company/wayfair/?favoriteSlug=wayfair-all",
+  "favoriteSlug": "wayfair-all",
+  "updatedAt": "2026-10-22T13:10:39Z",
+  "problems": [
+    125,
+    239,
+    415,
+    1014,
+    1189,
+    1194,
+    1204,
+    1212,
+    1244,
+    1405,
+    1481,
+    1604,
+    1895,
+    1957,
+    2139,
+    2380,
+    2950
+  ]
+}

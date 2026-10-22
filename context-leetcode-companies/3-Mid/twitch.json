@@ -1,0 +1,16 @@
+{
+  "slug": "twitch",
+  "name": "Twitch",
+  "url": "https://leetcode.com/company/twitch/?favoriteSlug=twitch-all",
+  "favoriteSlug": "twitch-all",
+  "updatedAt": "2026-10-22T13:10:39Z",
+  "problems": [
+    56,
+    146,
+    295,
+    345,
+    1230,
+    1435,
+    1500
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "slug": "anthropic",
+  "name": "Anthropic",
+  "url": "https://leetcode.com/company/anthropic/?favoriteSlug=anthropic-all",
+  "favoriteSlug": "anthropic-all",
+  "updatedAt": "2026-10-22T13:23:05Z",
+  "problems": [
+    609,
+    636,
+    1236,
+    1242
+  ]
+}

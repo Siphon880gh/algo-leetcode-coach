@@ -1,0 +1,15 @@
+{
+  "slug": "ripple",
+  "name": "Ripple",
+  "url": "https://leetcode.com/company/ripple/?favoriteSlug=ripple-all",
+  "favoriteSlug": "ripple-all",
+  "updatedAt": "2026-10-22T13:23:05Z",
+  "problems": [
+    56,
+    224,
+    443,
+    853,
+    875,
+    1047
+  ]
+}

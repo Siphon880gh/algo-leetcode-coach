@@ -1,0 +1,14 @@
+{
+  "slug": "workday",
+  "name": "Workday",
+  "url": "https://leetcode.com/company/workday/?favoriteSlug=workday-all",
+  "favoriteSlug": "workday-all",
+  "updatedAt": "2026-10-22T13:23:06Z",
+  "problems": [
+    11,
+    46,
+    49,
+    347,
+    1328
+  ]
+}

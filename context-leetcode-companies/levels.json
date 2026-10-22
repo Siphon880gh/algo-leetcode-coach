@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-08T10:15:41Z",
+  "updatedAt": "2026-10-22T13:23:46Z",
   "source": "Levels.fyi US Software Engineer median total compensation at the level labeled Senior (or the closest 5–8 year IC band). TCS uses Comparably (Levels.fyi had no US senior SWE median). Data retrieved 2026-09-08. https://www.levels.fyi",
   "levels": [
     {
@@ -69,12 +69,36 @@
       "sourceUrl": "https://www.levels.fyi/companies/databricks/salaries/software-engineer/locations/united-states"
     },
     {
+      "slug": "anthropic",
+      "name": "Anthropic",
+      "level": "1-Highest",
+      "seniorTcUsd": 621136,
+      "seniorTitle": "Senior Software Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/anthropic/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "ramp-2",
+      "name": "Ramp",
+      "level": "1-Highest",
+      "seniorTcUsd": 612769,
+      "seniorTitle": "Senior Software Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/ramp/salaries/software-engineer/locations/united-states"
+    },
+    {
       "slug": "snowflake",
       "name": "Snowflake",
       "level": "1-Highest",
       "seniorTcUsd": 563000,
       "seniorTitle": "IC3 Senior Software Engineer",
       "sourceUrl": "https://www.levels.fyi/companies/snowflake/salaries/software-engineer"
+    },
+    {
+      "slug": "faire",
+      "name": "Faire",
+      "level": "1-Highest",
+      "seniorTcUsd": 557292,
+      "seniorTitle": "E5 (7 years median)",
+      "sourceUrl": "https://www.levels.fyi/companies/faire/salaries/software-engineer/locations/united-states"
     },
     {
       "slug": "two-sigma",
@@ -109,6 +133,22 @@
       "sourceUrl": "https://www.levels.fyi/companies/de-shaw/salaries/software-engineer"
     },
     {
+      "slug": "plaid",
+      "name": "Plaid",
+      "level": "1-Highest",
+      "seniorTcUsd": 496594,
+      "seniorTitle": "E5 (7 years median)",
+      "sourceUrl": "https://www.levels.fyi/companies/plaid/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "akuna-capital",
+      "name": "Akuna Capital",
+      "level": "1-Highest",
+      "seniorTcUsd": 491400,
+      "seniorTitle": "Senior Software Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/akuna-capital/salaries/software-engineer/locations/united-states"
+    },
+    {
       "slug": "jane-street",
       "name": "Jane Street",
       "level": "1-Highest",
@@ -123,6 +163,14 @@
       "seniorTcUsd": 482778,
       "seniorTitle": "L4",
       "sourceUrl": "https://www.levels.fyi/companies/optiver/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "scale-ai",
+      "name": "Scale AI",
+      "level": "1-Highest",
+      "seniorTcUsd": 475978,
+      "seniorTitle": "L5 (7 years median)",
+      "sourceUrl": "https://www.levels.fyi/companies/scale-ai/salaries/software-engineer/locations/united-states"
     },
     {
       "slug": "airbnb",
@@ -147,6 +195,14 @@
       "seniorTcUsd": 457796,
       "seniorTitle": "L3",
       "sourceUrl": "https://www.levels.fyi/companies/stripe/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "rokt",
+      "name": "Rokt",
+      "level": "1-Highest",
+      "seniorTcUsd": 457500,
+      "seniorTitle": "L5C (6 years median)",
+      "sourceUrl": "https://www.levels.fyi/companies/rokt/salaries/software-engineer/locations/united-states"
     },
     {
       "slug": "ebay",
@@ -179,6 +235,14 @@
       "seniorTcUsd": 441618,
       "seniorTitle": "IC4 Senior SWE / MLE",
       "sourceUrl": "https://www.levels.fyi/companies/reddit/salaries/software-engineer"
+    },
+    {
+      "slug": "roku",
+      "name": "Roku",
+      "level": "1-Highest",
+      "seniorTcUsd": 438750,
+      "seniorTitle": "Senior Software Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/roku/salaries/software-engineer/locations/united-states"
     },
     {
       "slug": "robinhood",
@@ -221,6 +285,14 @@
       "sourceUrl": "https://www.levels.fyi/companies/waymo/salaries/software-engineer"
     },
     {
+      "slug": "grammarly",
+      "name": "Grammarly",
+      "level": "2-High",
+      "seniorTcUsd": 418413,
+      "seniorTitle": "L4 (8 years median)",
+      "sourceUrl": "https://www.levels.fyi/companies/grammarly/salaries/software-engineer/locations/united-states"
+    },
+    {
       "slug": "rippling",
       "name": "Rippling",
       "level": "2-High",
@@ -229,12 +301,44 @@
       "sourceUrl": "https://www.levels.fyi/companies/rippling/salaries/software-engineer?country=254"
     },
     {
+      "slug": "tencent",
+      "name": "Tencent",
+      "level": "2-High",
+      "seniorTcUsd": 415607,
+      "seniorTitle": "T11 (7 years median)",
+      "sourceUrl": "https://www.levels.fyi/companies/tencent/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "nuro",
+      "name": "Nuro",
+      "level": "2-High",
+      "seniorTcUsd": 403576,
+      "seniorTitle": "L5 (6 years median)",
+      "sourceUrl": "https://www.levels.fyi/companies/nuro/salaries/software-engineer/locations/united-states"
+    },
+    {
       "slug": "mongodb",
       "name": "MongoDB",
       "level": "2-High",
       "seniorTcUsd": 403000,
       "seniorTitle": "Senior Software Engineer",
       "sourceUrl": "https://www.levels.fyi/companies/mongodb/salaries/software-engineer?country=254"
+    },
+    {
+      "slug": "coinbase",
+      "name": "Coinbase",
+      "level": "2-High",
+      "seniorTcUsd": 398494,
+      "seniorTitle": "IC5 Senior Software Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/coinbase/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "patreon",
+      "name": "Patreon",
+      "level": "2-High",
+      "seniorTcUsd": 397250,
+      "seniorTitle": "L6 (7 years median)",
+      "sourceUrl": "https://www.levels.fyi/companies/patreon/salaries/software-engineer/locations/united-states"
     },
     {
       "slug": "datadog",
@@ -253,12 +357,60 @@
       "sourceUrl": "https://www.levels.fyi/companies/snap/salaries/software-engineer"
     },
     {
+      "slug": "imc",
+      "name": "IMC",
+      "level": "2-High",
+      "seniorTcUsd": 393750,
+      "seniorTitle": "L4 (5 years median)",
+      "sourceUrl": "https://www.levels.fyi/companies/imc/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "applovin",
+      "name": "AppLovin",
+      "level": "2-High",
+      "seniorTcUsd": 391500,
+      "seniorTitle": "Senior Software Engineer 1",
+      "sourceUrl": "https://www.levels.fyi/companies/applovin/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "whatnot",
+      "name": "Whatnot",
+      "level": "2-High",
+      "seniorTcUsd": 383688,
+      "seniorTitle": "L5 (8 years median)",
+      "sourceUrl": "https://www.levels.fyi/companies/whatnot/salaries/software-engineer/locations/united-states"
+    },
+    {
       "slug": "amazon",
       "name": "Amazon",
       "level": "2-High",
       "seniorTcUsd": 381034,
       "seniorTitle": "L6 Senior SDE",
       "sourceUrl": "https://www.levels.fyi/companies/amazon/salaries/software-engineer"
+    },
+    {
+      "slug": "moloco",
+      "name": "Moloco",
+      "level": "2-High",
+      "seniorTcUsd": 380150,
+      "seniorTitle": "Senior SWE",
+      "sourceUrl": "https://www.levels.fyi/companies/moloco/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "quora",
+      "name": "Quora",
+      "level": "2-High",
+      "seniorTcUsd": 379461,
+      "seniorTitle": "L6 (8 years median)",
+      "sourceUrl": "https://www.levels.fyi/companies/quora/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "dropbox",
+      "name": "Dropbox",
+      "level": "2-High",
+      "seniorTcUsd": 378739,
+      "seniorTitle": "IC3 (8 years median)",
+      "sourceUrl": "https://www.levels.fyi/companies/dropbox/salaries/software-engineer/locations/united-states"
     },
     {
       "slug": "roblox",
@@ -277,6 +429,22 @@
       "sourceUrl": "https://www.levels.fyi/companies/apple/salaries/software-engineer"
     },
     {
+      "slug": "crowdstrike",
+      "name": "CrowdStrike",
+      "level": "3-Mid",
+      "seniorTcUsd": 373171,
+      "seniorTitle": "Senior Engineer I",
+      "sourceUrl": "https://www.levels.fyi/companies/crowdstrike/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "discord",
+      "name": "Discord",
+      "level": "3-Mid",
+      "seniorTcUsd": 372130,
+      "seniorTitle": "L3 Senior Software Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/discord/salaries/software-engineer/locations/united-states"
+    },
+    {
       "slug": "uber",
       "name": "Uber",
       "level": "3-Mid",
@@ -285,12 +453,76 @@
       "sourceUrl": "https://www.levels.fyi/companies/uber/salaries/software-engineer"
     },
     {
+      "slug": "upstart",
+      "name": "Upstart",
+      "level": "3-Mid",
+      "seniorTcUsd": 367319,
+      "seniorTitle": "L5 Senior Software Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/upstart/salaries/software-engineer/locations/united-states"
+    },
+    {
       "slug": "doordash",
       "name": "DoorDash",
       "level": "3-Mid",
       "seniorTcUsd": 366786,
       "seniorTitle": "E5",
       "sourceUrl": "https://www.levels.fyi/companies/doordash/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "affirm",
+      "name": "Affirm",
+      "level": "3-Mid",
+      "seniorTcUsd": 360600,
+      "seniorTitle": "L6 Senior Software Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/affirm/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "asana",
+      "name": "Asana",
+      "level": "3-Mid",
+      "seniorTcUsd": 359508,
+      "seniorTitle": "L5 (7 years median)",
+      "sourceUrl": "https://www.levels.fyi/companies/asana/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "remitly",
+      "name": "Remitly",
+      "level": "3-Mid",
+      "seniorTcUsd": 359152,
+      "seniorTitle": "L3 Senior Software Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/remitly/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "instacart",
+      "name": "Instacart",
+      "level": "3-Mid",
+      "seniorTcUsd": 356626,
+      "seniorTitle": "L5 Senior Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/instacart/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "samsara",
+      "name": "Samsara",
+      "level": "3-Mid",
+      "seniorTcUsd": 356420,
+      "seniorTitle": "Senior Software Engineer I (P40)",
+      "sourceUrl": "https://www.levels.fyi/companies/samsara/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "wayfair",
+      "name": "Wayfair",
+      "level": "3-Mid",
+      "seniorTcUsd": 353790,
+      "seniorTitle": "L4 Senior Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/wayfair/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "uipath",
+      "name": "UiPath",
+      "level": "3-Mid",
+      "seniorTcUsd": 348514,
+      "seniorTitle": "L5 Senior Software Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/uipath/salaries/software-engineer/locations/united-states"
     },
     {
       "slug": "palantir",
@@ -309,12 +541,28 @@
       "sourceUrl": "https://www.levels.fyi/companies/verkada/salaries/software-engineer"
     },
     {
+      "slug": "zoox",
+      "name": "Zoox",
+      "level": "3-Mid",
+      "seniorTcUsd": 342377,
+      "seniorTitle": "L5 Senior",
+      "sourceUrl": "https://www.levels.fyi/companies/zoox/salaries/software-engineer/locations/united-states"
+    },
+    {
       "slug": "twitter",
       "name": "X",
       "level": "3-Mid",
       "seniorTcUsd": 340798,
       "seniorTitle": "Senior SWE",
       "sourceUrl": "https://www.levels.fyi/companies/x/salaries/software-engineer"
+    },
+    {
+      "slug": "netapp",
+      "name": "NetApp",
+      "level": "3-Mid",
+      "seniorTcUsd": 337500,
+      "seniorTitle": "MTS V Senior Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/netapp/salaries/software-engineer/locations/united-states"
     },
     {
       "slug": "atlassian",
@@ -325,6 +573,54 @@
       "sourceUrl": "https://www.levels.fyi/companies/atlassian/salaries/software-engineer/locations/united-states"
     },
     {
+      "slug": "spacex",
+      "name": "SpaceX",
+      "level": "3-Mid",
+      "seniorTcUsd": 334938,
+      "seniorTitle": "L3 Senior Software Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/spacex/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "rubrik",
+      "name": "Rubrik",
+      "level": "3-Mid",
+      "seniorTcUsd": 333590,
+      "seniorTitle": "L5 Software Engineer III (7 years median)",
+      "sourceUrl": "https://www.levels.fyi/companies/rubrik/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "chime",
+      "name": "Chime",
+      "level": "3-Mid",
+      "seniorTcUsd": 333577,
+      "seniorTitle": "L4 Senior Software Engineer I",
+      "sourceUrl": "https://www.levels.fyi/companies/chime/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "tinder",
+      "name": "Tinder",
+      "level": "3-Mid",
+      "seniorTcUsd": 333570,
+      "seniorTitle": "IC4 Senior Software Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/tinder/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "applied-intuition",
+      "name": "Applied Intuition",
+      "level": "3-Mid",
+      "seniorTcUsd": 328233,
+      "seniorTitle": "Senior Software Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/applied-intuition/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "flexport",
+      "name": "Flexport",
+      "level": "3-Mid",
+      "seniorTcUsd": 326393,
+      "seniorTitle": "Senior Software Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/flexport/salaries/software-engineer/locations/united-states"
+    },
+    {
       "slug": "docusign",
       "name": "Docusign",
       "level": "3-Mid",
@@ -333,12 +629,44 @@
       "sourceUrl": "https://www.levels.fyi/companies/docusign/salaries/software-engineer"
     },
     {
+      "slug": "quince",
+      "name": "Quince",
+      "level": "3-Mid",
+      "seniorTcUsd": 321750,
+      "seniorTitle": "Software Engineer 3 (7 years median)",
+      "sourceUrl": "https://www.levels.fyi/companies/quince/salaries/software-engineer/locations/united-states"
+    },
+    {
       "slug": "anduril",
       "name": "Anduril",
       "level": "3-Mid",
       "seniorTcUsd": 320700,
       "seniorTitle": "IC4 Senior Software Engineer",
       "sourceUrl": "https://www.levels.fyi/companies/anduril-industries/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "duolingo",
+      "name": "Duolingo",
+      "level": "3-Mid",
+      "seniorTcUsd": 319023,
+      "seniorTitle": "Senior Software Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/duolingo/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "oscar-health",
+      "name": "Oscar Health",
+      "level": "3-Mid",
+      "seniorTcUsd": 317613,
+      "seniorTitle": "E3 Senior Software Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/oscar-health/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "ripple",
+      "name": "Ripple",
+      "level": "3-Mid",
+      "seniorTcUsd": 316398,
+      "seniorTitle": "Senior Software Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/ripple/salaries/software-engineer/locations/united-states"
     },
     {
       "slug": "nutanix",
@@ -357,12 +685,60 @@
       "sourceUrl": "https://www.levels.fyi/companies/nvidia/salaries/software-engineer/locations/united-states"
     },
     {
+      "slug": "qualtrics",
+      "name": "Qualtrics",
+      "level": "3-Mid",
+      "seniorTcUsd": 313551,
+      "seniorTitle": "L5 Senior Software Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/qualtrics/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "drw",
+      "name": "DRW",
+      "level": "3-Mid",
+      "seniorTcUsd": 308909,
+      "seniorTitle": "L4 (5 years median)",
+      "sourceUrl": "https://www.levels.fyi/companies/drw/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "millennium",
+      "name": "Millennium",
+      "level": "3-Mid",
+      "seniorTcUsd": 308182,
+      "seniorTitle": "Senior Software Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/millennium/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "the-trade-desk",
+      "name": "The Trade Desk",
+      "level": "3-Mid",
+      "seniorTcUsd": 306889,
+      "seniorTitle": "Senior Software Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/the-trade-desk/salaries/software-engineer/locations/united-states"
+    },
+    {
       "slug": "adobe",
       "name": "Adobe",
       "level": "3-Mid",
       "seniorTcUsd": 306793,
       "seniorTitle": "P40",
       "sourceUrl": "https://www.levels.fyi/companies/adobe/salaries/software-engineer"
+    },
+    {
+      "slug": "twitch",
+      "name": "Twitch",
+      "level": "3-Mid",
+      "seniorTcUsd": 306173,
+      "seniorTitle": "L5 (6 years median)",
+      "sourceUrl": "https://www.levels.fyi/companies/twitch/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "rivian",
+      "name": "Rivian",
+      "level": "3-Mid",
+      "seniorTcUsd": 305606,
+      "seniorTitle": "RIV-5 Senior Software Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/rivian/salaries/software-engineer/locations/united-states"
     },
     {
       "slug": "linkedin",
@@ -373,12 +749,60 @@
       "sourceUrl": "https://www.levels.fyi/companies/linkedin/salaries/software-engineer"
     },
     {
+      "slug": "splunk",
+      "name": "Splunk",
+      "level": "3-Mid",
+      "seniorTcUsd": 300910,
+      "seniorTitle": "P4 Senior Software Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/splunk/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "workday",
+      "name": "Workday",
+      "level": "3-Mid",
+      "seniorTcUsd": 300739,
+      "seniorTitle": "P4 Senior SWE",
+      "sourceUrl": "https://www.levels.fyi/companies/workday/salaries/software-engineer/locations/united-states"
+    },
+    {
       "slug": "bloomberg",
       "name": "Bloomberg",
       "level": "3-Mid",
       "seniorTcUsd": 297833,
       "seniorTitle": "Senior Software Engineer",
       "sourceUrl": "https://www.levels.fyi/companies/bloomberg/salaries/software-engineer"
+    },
+    {
+      "slug": "nextdoor",
+      "name": "Nextdoor",
+      "level": "4-Lower",
+      "seniorTcUsd": 296543,
+      "seniorTitle": "L4 (7 years median)",
+      "sourceUrl": "https://www.levels.fyi/companies/nextdoor/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "aurora",
+      "name": "Aurora",
+      "level": "4-Lower",
+      "seniorTcUsd": 295434,
+      "seniorTitle": "P6 Senior Software Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/aurora/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "audible",
+      "name": "Audible",
+      "level": "4-Lower",
+      "seniorTcUsd": 294913,
+      "seniorTitle": "SDE II (6 years median)",
+      "sourceUrl": "https://www.levels.fyi/companies/audible/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "wish",
+      "name": "Wish",
+      "level": "4-Lower",
+      "seniorTcUsd": 293688,
+      "seniorTitle": "L5 Senior Software engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/wish/salaries/software-engineer/locations/united-states"
     },
     {
       "slug": "expedia",
@@ -389,6 +813,30 @@
       "sourceUrl": "https://www.levels.fyi/companies/expedia-group/salaries/software-engineer/locations/united-states"
     },
     {
+      "slug": "bolt",
+      "name": "Bolt",
+      "level": "4-Lower",
+      "seniorTcUsd": 285971,
+      "seniorTitle": "L5 Senior Software Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/bolt/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "sofi",
+      "name": "SoFi",
+      "level": "4-Lower",
+      "seniorTcUsd": 283734,
+      "seniorTitle": "Senior Software Engineer IC3",
+      "sourceUrl": "https://www.levels.fyi/companies/sofi/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "gusto",
+      "name": "Gusto",
+      "level": "4-Lower",
+      "seniorTcUsd": 281313,
+      "seniorTitle": "L3 (7 years median)",
+      "sourceUrl": "https://www.levels.fyi/companies/gusto/salaries/software-engineer/locations/united-states"
+    },
+    {
       "slug": "palo-alto-networks",
       "name": "Palo Alto Networks",
       "level": "4-Lower",
@@ -397,12 +845,36 @@
       "sourceUrl": "https://www.levels.fyi/companies/palo-alto-networks/salaries/software-engineer?country=254"
     },
     {
+      "slug": "github",
+      "name": "Github",
+      "level": "4-Lower",
+      "seniorTcUsd": 278571,
+      "seniorTitle": "E4 Senior Software Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/github/salaries/software-engineer/locations/united-states"
+    },
+    {
       "slug": "ibm",
       "name": "IBM",
       "level": "4-Lower",
       "seniorTcUsd": 278286,
       "seniorTitle": "Band 9 Senior Engineer",
       "sourceUrl": "https://www.levels.fyi/companies/ibm/salaries/software-engineer"
+    },
+    {
+      "slug": "axon",
+      "name": "Axon",
+      "level": "4-Lower",
+      "seniorTcUsd": 273371,
+      "seniorTitle": "L8 Senior SWE I",
+      "sourceUrl": "https://www.levels.fyi/companies/axon/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "box",
+      "name": "Box",
+      "level": "4-Lower",
+      "seniorTcUsd": 270430,
+      "seniorTitle": "L7 Senior Software Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/box/salaries/software-engineer/locations/united-states"
     },
     {
       "slug": "goldman-sachs",
@@ -419,6 +891,22 @@
       "seniorTcUsd": 257798,
       "seniorTitle": "Senior SWE",
       "sourceUrl": "https://www.levels.fyi/companies/walmart/salaries/software-engineer"
+    },
+    {
+      "slug": "epic-systems",
+      "name": "Epic Systems",
+      "level": "4-Lower",
+      "seniorTcUsd": 256106,
+      "seniorTitle": "Senior Software Systems Developer",
+      "sourceUrl": "https://www.levels.fyi/companies/epic/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "pure-storage",
+      "name": "Pure Storage",
+      "level": "4-Lower",
+      "seniorTcUsd": 255906,
+      "seniorTitle": "MTS3 (5 years median)",
+      "sourceUrl": "https://www.levels.fyi/companies/everpure/salaries/software-engineer/locations/united-states"
     },
     {
       "slug": "tesla",
@@ -445,12 +933,60 @@
       "sourceUrl": "https://www.levels.fyi/companies/intuit/salaries/software-engineer/locations/united-states"
     },
     {
+      "slug": "confluent",
+      "name": "Confluent",
+      "level": "4-Lower",
+      "seniorTcUsd": 251564,
+      "seniorTitle": "L3 Senior Software Engineer I",
+      "sourceUrl": "https://www.levels.fyi/companies/confluent/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "lime",
+      "name": "Lime",
+      "level": "4-Lower",
+      "seniorTcUsd": 250388,
+      "seniorTitle": "L5 (7 years median)",
+      "sourceUrl": "https://www.levels.fyi/companies/lime/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "riot-games",
+      "name": "Riot Games",
+      "level": "4-Lower",
+      "seniorTcUsd": 250231,
+      "seniorTitle": "P3 Senior Software Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/riot-games/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "squarespace",
+      "name": "Squarespace",
+      "level": "4-Lower",
+      "seniorTcUsd": 249825,
+      "seniorTitle": "L4 Senior Software Engineer 1",
+      "sourceUrl": "https://www.levels.fyi/companies/squarespace/salaries/software-engineer/locations/united-states"
+    },
+    {
       "slug": "okta",
       "name": "Okta",
       "level": "4-Lower",
       "seniorTcUsd": 248955,
       "seniorTitle": "Senior Software Engineer",
       "sourceUrl": "https://www.levels.fyi/companies/okta/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "tripadvisor",
+      "name": "Tripadvisor",
+      "level": "4-Lower",
+      "seniorTcUsd": 245987,
+      "seniorTitle": "SSE Senior Software Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/tripadvisor/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "compass",
+      "name": "Compass",
+      "level": "4-Lower",
+      "seniorTcUsd": 245081,
+      "seniorTitle": "IC3 Senior Software Engineer I",
+      "sourceUrl": "https://www.levels.fyi/companies/compass/salaries/software-engineer/locations/united-states"
     },
     {
       "slug": "microsoft",
@@ -469,12 +1005,28 @@
       "sourceUrl": "https://www.levels.fyi/companies/servicenow/salaries/software-engineer"
     },
     {
+      "slug": "vmware",
+      "name": "VMware",
+      "level": "4-Lower",
+      "seniorTcUsd": 237222,
+      "seniorTitle": "P4 Senior MTS",
+      "sourceUrl": "https://www.levels.fyi/companies/vmware/salaries/software-engineer/locations/united-states"
+    },
+    {
       "slug": "yandex",
       "name": "Yandex",
       "level": "4-Lower",
       "seniorTcUsd": 233750,
       "seniorTitle": "G17",
       "sourceUrl": "https://www.levels.fyi/companies/yandex/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "disney",
+      "name": "Disney",
+      "level": "4-Lower",
+      "seniorTcUsd": 232147,
+      "seniorTitle": "Senior Software Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/disney/salaries/software-engineer/locations/united-states"
     },
     {
       "slug": "paypal",
@@ -485,12 +1037,52 @@
       "sourceUrl": "https://www.levels.fyi/companies/paypal/salaries/software-engineer?country=254"
     },
     {
+      "slug": "cohesity",
+      "name": "Cohesity",
+      "level": "4-Lower",
+      "seniorTcUsd": 231389,
+      "seniorTitle": "MTS4 (6 years median)",
+      "sourceUrl": "https://www.levels.fyi/companies/cohesity/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "guidewire",
+      "name": "Guidewire",
+      "level": "4-Lower",
+      "seniorTcUsd": 229133,
+      "seniorTitle": "Senior Software Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/guidewire-software/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "liveramp",
+      "name": "LiveRamp",
+      "level": "4-Lower",
+      "seniorTcUsd": 226253,
+      "seniorTitle": "L4 Senior Software Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/liveramp/salaries/software-engineer/locations/united-states"
+    },
+    {
       "slug": "blackrock",
       "name": "BlackRock",
       "level": "4-Lower",
       "seniorTcUsd": 222392,
       "seniorTitle": "Vice President",
       "sourceUrl": "https://www.levels.fyi/companies/blackrock/salaries/software-engineer"
+    },
+    {
+      "slug": "6sense",
+      "name": "6sense",
+      "level": "4-Lower",
+      "seniorTcUsd": 218161,
+      "seniorTitle": "Senior Software Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/6sense/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "hubspot",
+      "name": "Hubspot",
+      "level": "4-Lower",
+      "seniorTcUsd": 217124,
+      "seniorTitle": "Senior Software Engineer I",
+      "sourceUrl": "https://www.levels.fyi/companies/hubspot/salaries/software-engineer/locations/united-states"
     },
     {
       "slug": "indeed",
@@ -525,12 +1117,28 @@
       "sourceUrl": "https://www.levels.fyi/companies/qualcomm/salaries/software-engineer?country=254"
     },
     {
+      "slug": "cloudflare",
+      "name": "Cloudflare",
+      "level": "5-Lowest",
+      "seniorTcUsd": 209133,
+      "seniorTitle": "L3 (6 years median)",
+      "sourceUrl": "https://www.levels.fyi/companies/cloudflare/salaries/software-engineer/locations/united-states"
+    },
+    {
       "slug": "zillow",
       "name": "Zillow",
       "level": "5-Lowest",
       "seniorTcUsd": 205715,
       "seniorTitle": "Senior Software Engineer",
       "sourceUrl": "https://www.comparably.com/companies/zillow/salaries/senior-software-engineer"
+    },
+    {
+      "slug": "zscaler",
+      "name": "Zscaler",
+      "level": "5-Lowest",
+      "seniorTcUsd": 198804,
+      "seniorTitle": "Senior Software Engineer I",
+      "sourceUrl": "https://www.levels.fyi/companies/zscaler/salaries/software-engineer/locations/united-states"
     },
     {
       "slug": "square",
@@ -845,22 +1453,10 @@
       "sourceUrl": "https://www.levels.fyi/companies/infosys/salaries/software-engineer/locations/united-states"
     },
     {
-      "slug": "affirm",
-      "name": "Affirm",
-      "level": "7-Cooldown",
-      "note": "Levels.fyi US page would not load; Comparably 404"
-    },
-    {
       "slug": "agoda",
       "name": "Agoda",
       "level": "6-Unpriceable",
       "note": "Levels.fyi Thailand THB only; no US senior USD"
-    },
-    {
-      "slug": "akuna-capital",
-      "name": "Akuna Capital",
-      "level": "7-Cooldown",
-      "note": "Levels.fyi US page would not load; no Comparably senior SWE page"
     },
     {
       "slug": "alibaba",
@@ -869,64 +1465,17 @@
       "note": "Levels.fyi China only; no US senior USD"
     },
     {
-      "slug": "cohesity",
-      "name": "Cohesity",
-      "level": "7-Cooldown",
-      "note": "Levels.fyi US page would not load; no Comparably senior SWE page"
-    },
-    {
-      "slug": "drw",
-      "name": "DRW",
-      "level": "7-Cooldown",
-      "note": "Levels.fyi US page would not load; no Comparably senior SWE page"
-    },
-    {
-      "slug": "grammarly",
-      "name": "Grammarly",
-      "level": "7-Cooldown",
-      "note": "Levels.fyi US page would not load; no Comparably senior SWE page"
-    },
-    {
-      "slug": "imc",
-      "name": "IMC",
-      "level": "7-Cooldown",
-      "note": "Levels.fyi US page would not load; no Comparably senior SWE page"
-    },
-    {
       "slug": "juspay",
       "name": "Juspay",
-      "level": "7-Cooldown",
-      "note": "Levels.fyi US page would not load; no Comparably salary page"
-    },
-    {
-      "slug": "millennium",
-      "name": "Millennium",
-      "level": "7-Cooldown",
-      "note": "Levels.fyi US page would not load; Comparably 403"
+      "level": "6-Unpriceable",
+      "note": "Levels.fyi US page loads but has no US salary data; no US senior USD",
+      "sourceUrl": "https://www.levels.fyi/companies/juspay/salaries/software-engineer/locations/united-states"
     },
     {
       "slug": "phonepe",
       "name": "PhonePe",
       "level": "6-Unpriceable",
       "note": "Levels.fyi India INR only; no US senior USD"
-    },
-    {
-      "slug": "quora",
-      "name": "Quora",
-      "level": "7-Cooldown",
-      "note": "Levels.fyi US page would not load; no Comparably senior SWE page"
-    },
-    {
-      "slug": "roku",
-      "name": "Roku",
-      "level": "7-Cooldown",
-      "note": "Levels.fyi US page would not load; no Comparably senior SWE page"
-    },
-    {
-      "slug": "rubrik",
-      "name": "Rubrik",
-      "level": "7-Cooldown",
-      "note": "Levels.fyi US page would not load; Comparably 404"
     },
     {
       "slug": "squarepoint-capital",

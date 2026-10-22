@@ -1,0 +1,12 @@
+{
+  "slug": "nextdoor",
+  "name": "Nextdoor",
+  "url": "https://leetcode.com/company/nextdoor/?favoriteSlug=nextdoor-all",
+  "favoriteSlug": "nextdoor-all",
+  "updatedAt": "2026-10-22T13:10:39Z",
+  "problems": [
+    56,
+    165,
+    432
+  ]
+}

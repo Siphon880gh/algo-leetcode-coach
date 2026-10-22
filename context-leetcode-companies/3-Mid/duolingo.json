@@ -1,0 +1,14 @@
+{
+  "slug": "duolingo",
+  "name": "Duolingo",
+  "url": "https://leetcode.com/company/duolingo/?favoriteSlug=duolingo-all",
+  "favoriteSlug": "duolingo-all",
+  "updatedAt": "2026-10-22T13:23:05Z",
+  "problems": [
+    329,
+    1733,
+    2090,
+    2227,
+    2365
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "slug": "whatnot",
+  "name": "Whatnot",
+  "url": "https://leetcode.com/company/whatnot/?favoriteSlug=whatnot-all",
+  "favoriteSlug": "whatnot-all",
+  "updatedAt": "2026-10-22T13:23:05Z",
+  "problems": [
+    49,
+    200,
+    221,
+    253,
+    278,
+    680,
+    935,
+    973,
+    977,
+    1047,
+    1152
+  ]
+}

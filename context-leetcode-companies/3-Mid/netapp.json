@@ -1,0 +1,21 @@
+{
+  "slug": "netapp",
+  "name": "NetApp",
+  "url": "https://leetcode.com/company/netapp/?favoriteSlug=netapp-all",
+  "favoriteSlug": "netapp-all",
+  "updatedAt": "2026-10-22T13:23:05Z",
+  "problems": [
+    1,
+    3,
+    34,
+    39,
+    54,
+    121,
+    146,
+    283,
+    423,
+    796,
+    1124,
+    1366
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "slug": "dropbox",
+  "name": "Dropbox",
+  "url": "https://leetcode.com/company/dropbox/?favoriteSlug=dropbox-all",
+  "favoriteSlug": "dropbox-all",
+  "updatedAt": "2026-10-22T13:10:39Z",
+  "problems": [
+    1,
+    4,
+    17,
+    56,
+    135,
+    140,
+    289,
+    290,
+    291,
+    362,
+    609,
+    843,
+    924,
+    928,
+    1001,
+    1178,
+    1236,
+    1242,
+    1250,
+    1845,
+    2043,
+    2296
+  ]
+}

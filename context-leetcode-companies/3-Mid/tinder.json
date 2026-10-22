@@ -1,0 +1,12 @@
+{
+  "slug": "tinder",
+  "name": "Tinder",
+  "url": "https://leetcode.com/company/tinder/?favoriteSlug=tinder-all",
+  "favoriteSlug": "tinder-all",
+  "updatedAt": "2026-10-22T13:23:06Z",
+  "problems": [
+    68,
+    295,
+    703
+  ]
+}

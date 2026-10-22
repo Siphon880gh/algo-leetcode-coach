@@ -1,0 +1,15 @@
+{
+  "slug": "upstart",
+  "name": "Upstart",
+  "url": "https://leetcode.com/company/upstart/?favoriteSlug=upstart-all",
+  "favoriteSlug": "upstart-all",
+  "updatedAt": "2026-10-22T13:23:05Z",
+  "problems": [
+    36,
+    49,
+    53,
+    71,
+    120,
+    304
+  ]
+}

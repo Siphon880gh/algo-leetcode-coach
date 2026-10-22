@@ -1,0 +1,13 @@
+{
+  "slug": "patreon",
+  "name": "Patreon",
+  "url": "https://leetcode.com/company/patreon/?favoriteSlug=patreon-all",
+  "favoriteSlug": "patreon-all",
+  "updatedAt": "2026-10-22T13:23:05Z",
+  "problems": [
+    56,
+    71,
+    243,
+    359
+  ]
+}

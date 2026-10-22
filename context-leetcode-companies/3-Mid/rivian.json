@@ -1,0 +1,17 @@
+{
+  "slug": "rivian",
+  "name": "Rivian",
+  "url": "https://leetcode.com/company/rivian/?favoriteSlug=rivian-all",
+  "favoriteSlug": "rivian-all",
+  "updatedAt": "2026-10-22T13:23:06Z",
+  "problems": [
+    23,
+    146,
+    200,
+    227,
+    443,
+    697,
+    807,
+    2625
+  ]
+}
