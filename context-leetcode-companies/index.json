@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-22T13:23:46Z",
+  "updatedAt": "2026-10-23T01:44:52Z",
   "companies": [
     {
       "slug": "6sense",
@@ -11,14 +11,14 @@
     {
       "slug": "accenture",
       "name": "Accenture",
-      "count": 1,
+      "count": 101,
       "file": "5-Lowest/accenture.json",
       "level": "5-Lowest"
     },
     {
       "slug": "adobe",
       "name": "Adobe",
-      "count": 4,
+      "count": 146,
       "file": "3-Mid/adobe.json",
       "level": "3-Mid"
     },
@@ -39,7 +39,7 @@
     {
       "slug": "airbnb",
       "name": "Airbnb",
-      "count": 3,
+      "count": 62,
       "file": "1-Highest/airbnb.json",
       "level": "1-Highest"
     },
@@ -60,7 +60,7 @@
     {
       "slug": "amazon",
       "name": "Amazon",
-      "count": 157,
+      "count": 2019,
       "file": "2-High/amazon.json",
       "level": "2-High"
     },
@@ -74,7 +74,7 @@
     {
       "slug": "anduril",
       "name": "Anduril",
-      "count": 5,
+      "count": 56,
       "file": "3-Mid/anduril.json",
       "level": "3-Mid"
     },
@@ -88,7 +88,7 @@
     {
       "slug": "apple",
       "name": "Apple",
-      "count": 10,
+      "count": 282,
       "file": "2-High/apple.json",
       "level": "2-High"
     },
@@ -123,7 +123,7 @@
     {
       "slug": "atlassian",
       "name": "Atlassian",
-      "count": 1,
+      "count": 58,
       "file": "3-Mid/atlassian.json",
       "level": "3-Mid"
     },
@@ -172,7 +172,7 @@
     {
       "slug": "bloomberg",
       "name": "Bloomberg",
-      "count": 40,
+      "count": 1235,
       "file": "3-Mid/bloomberg.json",
       "level": "3-Mid"
     },
@@ -198,9 +198,23 @@
       "level": "4-Lower"
     },
     {
+      "slug": "braze",
+      "name": "Braze",
+      "count": 1,
+      "file": "3-Mid/braze.json",
+      "level": "3-Mid"
+    },
+    {
+      "slug": "bridgewater-associates",
+      "name": "Bridgewater Associates",
+      "count": 2,
+      "file": "3-Mid/bridgewater-associates.json",
+      "level": "3-Mid"
+    },
+    {
       "slug": "bytedance",
       "name": "ByteDance",
-      "count": 1,
+      "count": 59,
       "file": "1-Highest/bytedance.json",
       "level": "1-Highest"
     },
@@ -214,7 +228,7 @@
     {
       "slug": "capital-one",
       "name": "Capital One",
-      "count": 6,
+      "count": 61,
       "file": "5-Lowest/capital-one.json",
       "level": "5-Lowest"
     },
@@ -228,14 +242,14 @@
     {
       "slug": "cisco",
       "name": "Cisco",
-      "count": 1,
+      "count": 78,
       "file": "5-Lowest/cisco.json",
       "level": "5-Lowest"
     },
     {
       "slug": "citadel",
       "name": "Citadel",
-      "count": 4,
+      "count": 74,
       "file": "1-Highest/citadel.json",
       "level": "1-Highest"
     },
@@ -298,7 +312,7 @@
     {
       "slug": "databricks",
       "name": "Databricks",
-      "count": 1,
+      "count": 25,
       "file": "1-Highest/databricks.json",
       "level": "1-Highest"
     },
@@ -312,7 +326,7 @@
     {
       "slug": "de-shaw",
       "name": "DE Shaw",
-      "count": 11,
+      "count": 106,
       "file": "1-Highest/de-shaw.json",
       "level": "1-Highest"
     },
@@ -354,7 +368,7 @@
     {
       "slug": "doordash",
       "name": "DoorDash",
-      "count": 3,
+      "count": 69,
       "file": "3-Mid/doordash.json",
       "level": "3-Mid"
     },
@@ -382,7 +396,7 @@
     {
       "slug": "ebay",
       "name": "eBay",
-      "count": 3,
+      "count": 66,
       "file": "1-Highest/ebay.json",
       "level": "1-Highest"
     },
@@ -403,14 +417,14 @@
     {
       "slug": "expedia",
       "name": "Expedia",
-      "count": 2,
+      "count": 68,
       "file": "4-Lower/expedia.json",
       "level": "4-Lower"
     },
     {
       "slug": "facebook",
       "name": "Meta",
-      "count": 42,
+      "count": 1398,
       "file": "2-High/facebook.json",
       "level": "2-High"
     },
@@ -436,6 +450,13 @@
       "level": "5-Lowest"
     },
     {
+      "slug": "freshworks",
+      "name": "FreshWorks",
+      "count": 10,
+      "file": "4-Lower/freshworks.json",
+      "level": "4-Lower"
+    },
+    {
       "slug": "github",
       "name": "Github",
       "count": 5,
@@ -445,14 +466,14 @@
     {
       "slug": "goldman-sachs",
       "name": "Goldman Sachs",
-      "count": 5,
+      "count": 246,
       "file": "4-Lower/goldman-sachs.json",
       "level": "4-Lower"
     },
     {
       "slug": "google",
       "name": "Google",
-      "count": 146,
+      "count": 2324,
       "file": "1-Highest/google.json",
       "level": "1-Highest"
     },
@@ -508,7 +529,7 @@
     {
       "slug": "ibm",
       "name": "IBM",
-      "count": 3,
+      "count": 166,
       "file": "4-Lower/ibm.json",
       "level": "4-Lower"
     },
@@ -529,7 +550,7 @@
     {
       "slug": "infosys",
       "name": "Infosys",
-      "count": 21,
+      "count": 254,
       "file": "5-Lowest/infosys.json",
       "level": "5-Lowest"
     },
@@ -550,21 +571,21 @@
     {
       "slug": "intuit",
       "name": "Intuit",
-      "count": 1,
+      "count": 55,
       "file": "4-Lower/intuit.json",
       "level": "4-Lower"
     },
     {
       "slug": "jane-street",
       "name": "Jane Street",
-      "count": 1,
+      "count": 14,
       "file": "1-Highest/jane-street.json",
       "level": "1-Highest"
     },
     {
       "slug": "jpmorgan",
       "name": "JPMorgan Chase",
-      "count": 3,
+      "count": 96,
       "file": "5-Lowest/jpmorgan.json",
       "level": "5-Lowest"
     },
@@ -592,7 +613,7 @@
     {
       "slug": "linkedin",
       "name": "LinkedIn",
-      "count": 8,
+      "count": 171,
       "file": "3-Mid/linkedin.json",
       "level": "3-Mid"
     },
@@ -627,7 +648,7 @@
     {
       "slug": "microsoft",
       "name": "Microsoft",
-      "count": 39,
+      "count": 1367,
       "file": "4-Lower/microsoft.json",
       "level": "4-Lower"
     },
@@ -669,7 +690,7 @@
     {
       "slug": "netflix",
       "name": "Netflix",
-      "count": 2,
+      "count": 27,
       "file": "1-Highest/netflix.json",
       "level": "1-Highest"
     },
@@ -697,7 +718,7 @@
     {
       "slug": "nvidia",
       "name": "Nvidia",
-      "count": 1,
+      "count": 129,
       "file": "3-Mid/nvidia.json",
       "level": "3-Mid"
     },
@@ -711,7 +732,7 @@
     {
       "slug": "openai",
       "name": "OpenAI",
-      "count": 2,
+      "count": 18,
       "file": "1-Highest/openai.json",
       "level": "1-Highest"
     },
@@ -725,7 +746,7 @@
     {
       "slug": "oracle",
       "name": "Oracle",
-      "count": 3,
+      "count": 281,
       "file": "4-Lower/oracle.json",
       "level": "4-Lower"
     },
@@ -739,7 +760,7 @@
     {
       "slug": "palantir",
       "name": "Palantir",
-      "count": 1,
+      "count": 28,
       "file": "3-Mid/palantir.json",
       "level": "3-Mid"
     },
@@ -781,7 +802,7 @@
     {
       "slug": "pinterest",
       "name": "Pinterest",
-      "count": 7,
+      "count": 41,
       "file": "2-High/pinterest.json",
       "level": "2-High"
     },
@@ -886,7 +907,7 @@
     {
       "slug": "roblox",
       "name": "Roblox",
-      "count": 4,
+      "count": 58,
       "file": "2-High/roblox.json",
       "level": "2-High"
     },
@@ -914,7 +935,7 @@
     {
       "slug": "salesforce",
       "name": "Salesforce",
-      "count": 3,
+      "count": 195,
       "file": "4-Lower/salesforce.json",
       "level": "4-Lower"
     },
@@ -961,16 +982,23 @@
       "level": "5-Lowest"
     },
     {
+      "slug": "sig",
+      "name": "SIG",
+      "count": 10,
+      "file": "4-Lower/sig.json",
+      "level": "4-Lower"
+    },
+    {
       "slug": "snapchat",
       "name": "Snap",
-      "count": 1,
+      "count": 83,
       "file": "2-High/snapchat.json",
       "level": "2-High"
     },
     {
       "slug": "snowflake",
       "name": "Snowflake",
-      "count": 1,
+      "count": 100,
       "file": "1-Highest/snowflake.json",
       "level": "1-Highest"
     },
@@ -979,6 +1007,13 @@
       "name": "SoFi",
       "count": 14,
       "file": "4-Lower/sofi.json",
+      "level": "4-Lower"
+    },
+    {
+      "slug": "sony",
+      "name": "Sony",
+      "count": 5,
+      "file": "4-Lower/sony.json",
       "level": "4-Lower"
     },
     {
@@ -1026,7 +1061,7 @@
     {
       "slug": "stripe",
       "name": "Stripe",
-      "count": 10,
+      "count": 12,
       "file": "1-Highest/stripe.json",
       "level": "1-Highest"
     },
@@ -1040,7 +1075,7 @@
     {
       "slug": "tcs",
       "name": "tcs",
-      "count": 2,
+      "count": 264,
       "file": "5-Lowest/tcs.json",
       "level": "5-Lowest"
     },
@@ -1061,7 +1096,7 @@
     {
       "slug": "tesla",
       "name": "Tesla",
-      "count": 5,
+      "count": 40,
       "file": "4-Lower/tesla.json",
       "level": "4-Lower"
     },
@@ -1075,7 +1110,7 @@
     {
       "slug": "tiktok",
       "name": "TikTok",
-      "count": 8,
+      "count": 316,
       "file": "1-Highest/tiktok.json",
       "level": "1-Highest"
     },
@@ -1085,6 +1120,13 @@
       "count": 3,
       "file": "3-Mid/tinder.json",
       "level": "3-Mid"
+    },
+    {
+      "slug": "toast",
+      "name": "Toast",
+      "count": 5,
+      "file": "4-Lower/toast.json",
+      "level": "4-Lower"
     },
     {
       "slug": "tripadvisor",
@@ -1124,7 +1166,7 @@
     {
       "slug": "uber",
       "name": "Uber",
-      "count": 1,
+      "count": 336,
       "file": "3-Mid/uber.json",
       "level": "3-Mid"
     },
@@ -1152,7 +1194,7 @@
     {
       "slug": "visa",
       "name": "Visa",
-      "count": 2,
+      "count": 150,
       "file": "5-Lowest/visa.json",
       "level": "5-Lowest"
     },
@@ -1166,7 +1208,7 @@
     {
       "slug": "walmart-labs",
       "name": "Walmart Labs",
-      "count": 5,
+      "count": 135,
       "file": "4-Lower/walmart-labs.json",
       "level": "4-Lower"
     },
@@ -1199,6 +1241,13 @@
       "level": "2-High"
     },
     {
+      "slug": "wise",
+      "name": "Wise",
+      "count": 6,
+      "file": "4-Lower/wise.json",
+      "level": "4-Lower"
+    },
+    {
       "slug": "wish",
       "name": "Wish",
       "count": 5,
@@ -1213,16 +1262,23 @@
       "level": "3-Mid"
     },
     {
+      "slug": "woven-by-toyota",
+      "name": "Woven by Toyota",
+      "count": 1,
+      "file": "3-Mid/woven-by-toyota.json",
+      "level": "3-Mid"
+    },
+    {
       "slug": "yahoo",
       "name": "Yahoo",
-      "count": 11,
+      "count": 30,
       "file": "4-Lower/yahoo.json",
       "level": "4-Lower"
     },
     {
       "slug": "yandex",
       "name": "Yandex",
-      "count": 1,
+      "count": 120,
       "file": "4-Lower/yandex.json",
       "level": "4-Lower"
     },

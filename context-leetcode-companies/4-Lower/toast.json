@@ -1,0 +1,14 @@
+{
+  "slug": "toast",
+  "name": "Toast",
+  "url": "https://leetcode.com/company/toast/?favoriteSlug=toast-all",
+  "favoriteSlug": "toast-all",
+  "updatedAt": "2026-10-23T01:44:36Z",
+  "problems": [
+    1,
+    20,
+    121,
+    122,
+    277
+  ]
+}

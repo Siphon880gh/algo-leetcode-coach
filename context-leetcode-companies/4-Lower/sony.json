@@ -1,0 +1,14 @@
+{
+  "slug": "sony",
+  "name": "Sony",
+  "url": "https://leetcode.com/company/sony/?favoriteSlug=sony-all",
+  "favoriteSlug": "sony-all",
+  "updatedAt": "2026-10-23T01:44:36Z",
+  "problems": [
+    1,
+    20,
+    528,
+    1512,
+    2005
+  ]
+}

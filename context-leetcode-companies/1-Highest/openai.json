@@ -1,11 +1,27 @@
 {
   "slug": "openai",
   "name": "OpenAI",
-  "url": "https://leetcode.com/company/openai/?favoriteSlug=openai-three-months",
-  "favoriteSlug": "openai-three-months",
-  "updatedAt": "2026-09-08T08:29:44Z",
+  "url": "https://leetcode.com/company/openai/?favoriteSlug=openai-all",
+  "favoriteSlug": "openai-all",
+  "updatedAt": "2026-10-23T01:44:34Z",
   "problems": [
+    42,
+    71,
+    146,
+    271,
+    341,
+    362,
+    609,
+    631,
+    735,
+    751,
+    981,
     994,
-    2502
+    1146,
+    1797,
+    2373,
+    2408,
+    2502,
+    3484
   ]
 }

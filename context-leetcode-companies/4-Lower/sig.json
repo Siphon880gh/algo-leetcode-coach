@@ -1,0 +1,19 @@
+{
+  "slug": "sig",
+  "name": "SIG",
+  "url": "https://leetcode.com/company/sig/?favoriteSlug=sig-all",
+  "favoriteSlug": "sig-all",
+  "updatedAt": "2026-10-23T01:44:36Z",
+  "problems": [
+    48,
+    68,
+    295,
+    1743,
+    1861,
+    2502,
+    2768,
+    2817,
+    3043,
+    3161
+  ]
+}

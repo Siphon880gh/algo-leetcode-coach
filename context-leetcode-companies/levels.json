@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-22T13:23:46Z",
+  "updatedAt": "2026-10-23T01:44:52Z",
   "source": "Levels.fyi US Software Engineer median total compensation at the level labeled Senior (or the closest 5–8 year IC band). TCS uses Comparably (Levels.fyi had no US senior SWE median). Data retrieved 2026-09-08. https://www.levels.fyi",
   "levels": [
     {
@@ -469,6 +469,14 @@
       "sourceUrl": "https://www.levels.fyi/companies/doordash/salaries/software-engineer/locations/united-states"
     },
     {
+      "slug": "woven-by-toyota",
+      "name": "Woven by Toyota",
+      "level": "3-Mid",
+      "seniorTcUsd": 363550,
+      "seniorTitle": "L5",
+      "sourceUrl": "https://www.levels.fyi/companies/woven-by-toyota/salaries/software-engineer/locations/united-states"
+    },
+    {
       "slug": "affirm",
       "name": "Affirm",
       "level": "3-Mid",
@@ -491,6 +499,14 @@
       "seniorTcUsd": 359152,
       "seniorTitle": "L3 Senior Software Engineer",
       "sourceUrl": "https://www.levels.fyi/companies/remitly/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "bridgewater-associates",
+      "name": "Bridgewater Associates",
+      "level": "3-Mid",
+      "seniorTcUsd": 357200,
+      "seniorTitle": "L5 (8 years median)",
+      "sourceUrl": "https://www.levels.fyi/companies/bridgewater-associates/salaries/software-engineer/locations/united-states"
     },
     {
       "slug": "instacart",
@@ -579,6 +595,14 @@
       "seniorTcUsd": 334938,
       "seniorTitle": "L3 Senior Software Engineer",
       "sourceUrl": "https://www.levels.fyi/companies/spacex/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "braze",
+      "name": "Braze",
+      "level": "3-Mid",
+      "seniorTcUsd": 334283,
+      "seniorTitle": "Senior Software Engineer 1",
+      "sourceUrl": "https://www.levels.fyi/companies/braze/salaries/software-engineer/locations/united-states"
     },
     {
       "slug": "rubrik",
@@ -821,6 +845,14 @@
       "sourceUrl": "https://www.levels.fyi/companies/bolt/salaries/software-engineer/locations/united-states"
     },
     {
+      "slug": "freshworks",
+      "name": "Freshworks",
+      "level": "4-Lower",
+      "seniorTcUsd": 285000,
+      "seniorTitle": "Staff Software Engineer (7 years median)",
+      "sourceUrl": "https://www.levels.fyi/companies/freshworks/salaries/software-engineer/locations/united-states"
+    },
+    {
       "slug": "sofi",
       "name": "SoFi",
       "level": "4-Lower",
@@ -989,6 +1021,14 @@
       "sourceUrl": "https://www.levels.fyi/companies/compass/salaries/software-engineer/locations/united-states"
     },
     {
+      "slug": "wise",
+      "name": "Wise",
+      "level": "4-Lower",
+      "seniorTcUsd": 245000,
+      "seniorTitle": "L3",
+      "sourceUrl": "https://www.levels.fyi/companies/wise/salaries/software-engineer/locations/united-states"
+    },
+    {
       "slug": "microsoft",
       "name": "Microsoft",
       "level": "4-Lower",
@@ -997,12 +1037,28 @@
       "sourceUrl": "https://www.levels.fyi/companies/microsoft/salaries/software-engineer"
     },
     {
+      "slug": "toast",
+      "name": "Toast",
+      "level": "4-Lower",
+      "seniorTcUsd": 241145,
+      "seniorTitle": "SE3",
+      "sourceUrl": "https://www.levels.fyi/companies/toast-inc/salaries/software-engineer/locations/united-states"
+    },
+    {
       "slug": "servicenow",
       "name": "ServiceNow",
       "level": "4-Lower",
       "seniorTcUsd": 239528,
       "seniorTitle": "IC3 Senior Engineer",
       "sourceUrl": "https://www.levels.fyi/companies/servicenow/salaries/software-engineer"
+    },
+    {
+      "slug": "sig",
+      "name": "SIG",
+      "level": "4-Lower",
+      "seniorTcUsd": 237250,
+      "seniorTitle": "Senior Software Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/susquehanna-international-group/salaries/software-engineer/locations/united-states"
     },
     {
       "slug": "vmware",
@@ -1059,6 +1115,14 @@
       "seniorTcUsd": 226253,
       "seniorTitle": "L4 Senior Software Engineer",
       "sourceUrl": "https://www.levels.fyi/companies/liveramp/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "sony",
+      "name": "Sony",
+      "level": "4-Lower",
+      "seniorTcUsd": 225538,
+      "seniorTitle": "L6",
+      "sourceUrl": "https://www.levels.fyi/companies/sony/salaries/software-engineer/locations/united-states"
     },
     {
       "slug": "blackrock",
