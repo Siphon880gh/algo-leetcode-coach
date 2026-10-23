@@ -1,0 +1,16 @@
+<?php
+declare(strict_types=1);
+
+return [
+    'title' => 'Count Special Subsequences: equal ratios with gaps',
+    'leetcode' => 3404,
+    'difficulty' => 'Med',
+    'summary' => 'nums[p]·nums[r] = nums[q]·nums[s] ⇔ nums[p]/nums[q] = nums[s]/nums[r]. For each r, add ratios nums[p]/nums[q] with q = r − 2 into a map, then look up nums[s]/nums[r] for s ≥ r + 2 (gaps of at least 2 everywhere).',
+    'category' => 'LeetCode',
+    'subcategory' => 'Math',
+    'topic' => 'LeetCode · Math',
+    'tags' => ['math', 'mini-game', 'leetcode'],
+    'entry' => 'index.html',
+    'related_guide' => 'count-special-subsequences',
+    'related_session' => 'count-special-subsequences',
+];

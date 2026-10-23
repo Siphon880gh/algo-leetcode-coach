@@ -1,0 +1,16 @@
+<?php
+declare(strict_types=1);
+
+return [
+    'title' => 'Decrypt String: look ahead for #',
+    'leetcode' => 1309,
+    'difficulty' => 'Easy',
+    'summary' => 'At index i, if s[i+2] is "#", read two digits (10–26 → j–z); else read one digit (1–9 → a–i).',
+    'category' => 'LeetCode',
+    'subcategory' => 'Strings',
+    'topic' => 'LeetCode · Strings',
+    'tags' => ['strings', 'mini-game', 'leetcode'],
+    'entry' => 'index.html',
+    'related_guide' => 'decrypt-string-from-alphabet-to-integer-mapping',
+    'related_session' => 'decrypt-string-from-alphabet-to-integer-mapping',
+];
