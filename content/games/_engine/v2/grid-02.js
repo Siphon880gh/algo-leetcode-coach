@@ -164,7 +164,6 @@
 
   D('shortest-path-to-get-food', {
     t: 'Shortest Path to Get Food',
-    exSkip: [3], // the guide's 4th example lists 5, but the shortest path in that grid is 6 (same as example 3)
     r: 'Multi-step BFS from "*" through open cells "O" (and food "#"); "X" blocks. The first level at which a "#" is reached is the answer; none → −1.',
     g: R => { const m = R.int(2, 4), n = R.int(2, 5), g = Array.from({ length: m }, () => Array.from({ length: n }, () => R.pick(['O', 'O', 'X', '#']))); g[R.int(0, m - 1)][R.int(0, n - 1)] = '*'; return { grid: g }; },
     s(I, T) { const g = I.grid, m = g.length, n = g[0].length; let s; g.forEach((r, i) => r.forEach((v, j) => { if (v === '*') s = [i, j]; })); const seen = new Set([s.join()]); let q = [s], d = 0; while (q.length) { bfsAsk(T, d, q.length, 'Cells'); const nq = []; for (const [r, c] of q) { if (g[r][c] === '#') return d; for (const [dr, dc] of N4) { const a = r + dr, b = c + dc; if (a < 0 || b < 0 || a >= m || b >= n || g[a][b] === 'X' || seen.has(a + ',' + b)) continue; seen.add(a + ',' + b); nq.push([a, b]); } } q = nq; d++; } return -1; }
