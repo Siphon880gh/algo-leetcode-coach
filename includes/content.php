@@ -1109,6 +1109,78 @@ function render_content_filter_tag_group(string $group, string $label, string $i
     <?php
 }
 
+
+function content_source_options(): array
+{
+    return [
+        ['id' => 'leetcode', 'label' => 'LeetCode'],
+        ['id' => 'non-leetcode', 'label' => 'Non-LeetCode'],
+    ];
+}
+
+/**
+ * True when the browse set has at least one LeetCode item or one Non-LeetCode item
+ * (so the Source filter is useful).
+ */
+function content_browse_has_source_filter(array $items): bool
+{
+    $hasLc = false;
+    $hasNon = false;
+    foreach ($items as $item) {
+        if (content_leetcode_number($item['meta'] ?? []) !== null) {
+            $hasLc = true;
+        } else {
+            $hasNon = true;
+        }
+        if ($hasLc && $hasNon) {
+            return true;
+        }
+    }
+    // Show whenever there is any content of either kind (single-kind pages still filterable).
+    return $hasLc || $hasNon;
+}
+
+function render_content_filter_source(): void
+{
+    ?>
+    <div class="filter-tags filter-source" data-filter-source>
+        <button
+            type="button"
+            class="filter-tags__btn"
+            data-filter-source-btn
+            aria-expanded="false"
+            aria-haspopup="true"
+            aria-controls="resource-filter-source"
+        >
+            <span class="filter-tags__caret" aria-hidden="true">◂</span>
+            <span class="filter-tags__icon" aria-hidden="true">📚</span>
+            Source
+        </button>
+        <div
+            id="resource-filter-source"
+            class="filter-tags__panel"
+            data-filter-source-panel
+            hidden
+            role="dialog"
+            aria-label="Source"
+        >
+            <ul class="pop__list">
+                <?php foreach (content_source_options() as $opt): ?>
+                    <li>
+                        <button
+                            type="button"
+                            class="pop__opt"
+                            data-filter-source-opt="<?= e($opt['id']) ?>"
+                            aria-pressed="false"
+                        ><?= e($opt['label']) ?></button>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    </div>
+    <?php
+}
+
 function render_content_filter_difficulty(): void
 {
     ?>
@@ -1379,6 +1451,7 @@ function content_list_href(string $script, array $params): string
 function render_content_crumb(array $meta, string $script, array $baseQuery): void
 {
     $tax = content_taxonomy($meta);
+    $isLeetcode = content_leetcode_number($meta) !== null;
     $catHref = content_list_href($script, array_merge($baseQuery, [
         'cat' => $tax['category'],
         'sub' => '',
@@ -1387,8 +1460,18 @@ function render_content_crumb(array $meta, string $script, array $baseQuery): vo
         'cat' => $tax['category'],
         'sub' => $tax['subcategory'],
     ]));
+    // Non-LeetCode tiles/detail pages show Extras / before category (render-time only).
+    $extrasHref = content_list_href($script, array_merge($baseQuery, [
+        'cat' => '',
+        'sub' => '',
+        'source' => 'non-leetcode',
+    ]));
     ?>
     <nav class="crumb" aria-label="Category">
+        <?php if (!$isLeetcode): ?>
+            <a class="crumb__link" href="<?= e($extrasHref) ?>">Extras</a>
+            <span class="crumb__sep" aria-hidden="true">/</span>
+        <?php endif; ?>
         <a class="crumb__link" href="<?= e($catHref) ?>"><?= e($tax['category']) ?></a>
         <span class="crumb__sep" aria-hidden="true">/</span>
         <a class="crumb__link" href="<?= e($subHref) ?>"><?= e($tax['subcategory']) ?></a>
@@ -1421,7 +1504,8 @@ function render_content_browse(array $items, array $opts): void
     $tagSection = user_tag_section($script);
     $companyGroups = content_browse_has_leetcode($items) ? content_leetcode_companies_grouped() : [];
     $hasDifficulty = content_browse_has_leetcode($items);
-    $hasFlyouts = $userTags || $companyGroups !== [] || $hasDifficulty;
+    $hasSource = content_browse_has_source_filter($items);
+    $hasFlyouts = $userTags || $companyGroups !== [] || $hasDifficulty || $hasSource;
     /** @var callable $itemHref */
     $itemHref = $opts['item_href'];
 
@@ -1584,6 +1668,9 @@ function render_content_browse(array $items, array $opts): void
                             <?php render_content_filter_tag_group('first-pass', 'First-Pass Tag', '①'); ?>
                             <?php render_content_filter_tag_group('second-pass', 'Second-Pass Tag', '②'); ?>
                         <?php endif; ?>
+                        <?php if ($hasSource): ?>
+                            <?php render_content_filter_source(); ?>
+                        <?php endif; ?>
                         <?php if ($hasDifficulty): ?>
                             <?php render_content_filter_difficulty(); ?>
                         <?php endif; ?>
@@ -1660,7 +1747,7 @@ function render_content_browse(array $items, array $opts): void
                         $difficulty = content_leetcode_difficulty_for_meta($meta);
                         $difficultyClass = $difficulty !== null ? content_leetcode_difficulty_class($difficulty) : '';
                         ?>
-                        <li class="content-tile" data-browse-q="<?= e(content_browse_query_haystack($item)) ?>"<?php if ($lc !== null): ?> data-leetcode="<?= (int) $lc ?>"<?php endif; ?><?php if ($difficultyClass !== ''): ?> data-difficulty="<?= e($difficultyClass) ?>"<?php endif; ?><?php if ($companySlugs !== []): ?> data-companies="<?= e(implode(' ', $companySlugs)) ?>"<?php endif; ?><?php if ($userTags): ?> data-user-tag-resource="<?= e(user_tag_resource_key($script, (string) $item['slug'])) ?>"<?php endif; ?>>
+                        <li class="content-tile" data-browse-q="<?= e(content_browse_query_haystack($item)) ?>" data-source="<?= $lc !== null ? 'leetcode' : 'non-leetcode' ?>"<?php if ($lc !== null): ?> data-leetcode="<?= (int) $lc ?>"<?php endif; ?><?php if ($difficultyClass !== ''): ?> data-difficulty="<?= e($difficultyClass) ?>"<?php endif; ?><?php if ($companySlugs !== []): ?> data-companies="<?= e(implode(' ', $companySlugs)) ?>"<?php endif; ?><?php if ($userTags): ?> data-user-tag-resource="<?= e(user_tag_resource_key($script, (string) $item['slug'])) ?>"<?php endif; ?>>
                             <?php render_content_crumb($meta, $script, $baseQuery); ?>
                             <div class="content-tile__body">
                                 <a class="content-tile__goto" href="<?= e($href) ?>">

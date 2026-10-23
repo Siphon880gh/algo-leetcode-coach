@@ -940,7 +940,7 @@
   function syncMenuLayer() {
     document.querySelectorAll('.browse, .clist').forEach(function (root) {
       var open = false;
-      var nodes = root.querySelectorAll('[data-pop-panel], [data-filter-tags-panel], [data-filter-companies-panel], [data-filter-difficulty-panel], [data-filter-company-level-panel], [data-user-tag-picker]');
+      var nodes = root.querySelectorAll('[data-pop-panel], [data-filter-tags-panel], [data-filter-companies-panel], [data-filter-difficulty-panel], [data-filter-source-panel], [data-filter-company-level-panel], [data-user-tag-picker]');
       var i;
       for (i = 0; i < nodes.length; i++) {
         if (nodes[i].hidden) continue;
@@ -1195,6 +1195,7 @@
         wrap.addEventListener('mouseenter', function () {
           closeFilterCompaniesFlyout(root, true);
           closeFilterDifficultyFlyout(root, true);
+          closeFilterSourceFlyout(root, true);
           closeFilterTagsFlyout(root, true, wrap);
           setTagFlyoutOpen(wrap, true);
         });
@@ -1206,6 +1207,7 @@
           e.stopPropagation();
           closeFilterCompaniesFlyout(root, true);
           closeFilterDifficultyFlyout(root, true);
+          closeFilterSourceFlyout(root, true);
           closeFilterTagsFlyout(root, true, wrap);
           if (panel.hidden) {
             wrap.classList.add('is-pinned');
@@ -1327,6 +1329,55 @@
   }
 
   var DIFFICULTY_FILTER_IDS = ['easy', 'med', 'hard'];
+  var SOURCE_FILTER_IDS = ['leetcode', 'non-leetcode'];
+
+  function sourceFilterStorageKey() {
+    return 'algos-source-filter-v1:' + browsePersistKey().slice(BROWSE_PERSIST_PREFIX.length);
+  }
+
+  function readSourceFilter() {
+    try {
+      var fromUrl = new URLSearchParams(window.location.search).get('source');
+      if (fromUrl && SOURCE_FILTER_IDS.indexOf(fromUrl) >= 0) {
+        return [fromUrl];
+      }
+      var raw = JSON.parse(localStorage.getItem(sourceFilterStorageKey()) || 'null');
+      if (!Array.isArray(raw)) return [];
+      return raw.filter(function (id) {
+        return SOURCE_FILTER_IDS.indexOf(id) >= 0;
+      });
+    } catch (err) {
+      return [];
+    }
+  }
+
+  function writeSourceFilter(ids) {
+    try {
+      var key = sourceFilterStorageKey();
+      if (!ids.length) localStorage.removeItem(key);
+      else localStorage.setItem(key, JSON.stringify(ids));
+    } catch (err) {}
+  }
+
+  function tileMatchesSource(tile, selected) {
+    if (!selected.length) return true;
+    var have = tile.getAttribute('data-source') || 'non-leetcode';
+    return selected.indexOf(have) >= 0;
+  }
+
+  function paintSourceFilterOptions(root, selected) {
+    var selectedSet = {};
+    selected.forEach(function (id) {
+      selectedSet[id] = true;
+    });
+    root.querySelectorAll('[data-filter-source-opt]').forEach(function (btn) {
+      var id = btn.getAttribute('data-filter-source-opt');
+      var on = !!selectedSet[id];
+      btn.classList.toggle('is-current', on);
+      btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+  }
+
 
   function difficultyFilterStorageKey() {
     return 'algos-difficulty-filter-v1:' + browsePersistKey().slice(BROWSE_PERSIST_PREFIX.length);
@@ -1413,12 +1464,14 @@
     var selectedTags = root._filterTagIds || [];
     var selectedCompanies = root._companyFilterSlugs || [];
     var selectedDifficulty = root._difficultyFilterIds || [];
+    var selectedSource = root._sourceFilterIds || [];
     var q = browseSearchQuery(root);
     var tiles = root.querySelectorAll('.content-tile');
     var headingCount = root.querySelector('.browse__heading .resource-n');
     var filterBtn = root.querySelector('[aria-controls="resource-filter"]');
     var companiesBtn = root.querySelector('[data-filter-companies-btn]');
     var difficultyBtn = root.querySelector('[data-filter-difficulty-btn]');
+    var sourceBtn = root.querySelector('[data-filter-source-btn]');
     var clearBtn = root.querySelector('[data-filter-clear]');
     var emptyEl = root.querySelector('[data-user-tag-empty]');
     var browseEmpty = root.querySelector('[data-browse-empty]');
@@ -1441,8 +1494,9 @@
       }
       var companyOk = tileMatchesCompanies(tile, selectedCompanies);
       var difficultyOk = tileMatchesDifficulty(tile, selectedDifficulty);
+      var sourceOk = tileMatchesSource(tile, selectedSource);
       var searchOk = browseTileMatches(tile, q);
-      var visible = tagOk && companyOk && difficultyOk && searchOk;
+      var visible = tagOk && companyOk && difficultyOk && sourceOk && searchOk;
       tile.hidden = !visible;
       tile.classList.toggle('is-browse-miss', !visible);
       if (visible) {
@@ -1456,16 +1510,18 @@
     if (currentTopicN) currentTopicN.textContent = '(' + shown + ')';
     if (browseEmpty) browseEmpty.hidden = !(q !== '' && !anyShown);
     if (emptyEl) {
-      var filterMiss = q === '' && (selectedTags.length > 0 || selectedCompanies.length > 0 || selectedDifficulty.length > 0) && !anyShown;
+      var filterMiss = q === '' && (selectedTags.length > 0 || selectedCompanies.length > 0 || selectedDifficulty.length > 0 || selectedSource.length > 0) && !anyShown;
       emptyEl.hidden = !filterMiss;
       if (filterMiss) {
-        var kinds = (selectedTags.length ? 1 : 0) + (selectedCompanies.length ? 1 : 0) + (selectedDifficulty.length ? 1 : 0);
+        var kinds = (selectedTags.length ? 1 : 0) + (selectedCompanies.length ? 1 : 0) + (selectedDifficulty.length ? 1 : 0) + (selectedSource.length ? 1 : 0);
         if (kinds > 1) {
           emptyEl.textContent = 'No resources match those filters.';
         } else if (selectedCompanies.length) {
           emptyEl.textContent = 'No resources for those companies.';
         } else if (selectedDifficulty.length) {
           emptyEl.textContent = 'No resources at that difficulty.';
+        } else if (selectedSource.length) {
+          emptyEl.textContent = 'No resources for that source.';
         } else {
           emptyEl.textContent = 'No resources with that tag.';
         }
@@ -1476,11 +1532,13 @@
     var tagOn = selectedTags.length > 0;
     var companyOn = selectedCompanies.length > 0;
     var difficultyOn = selectedDifficulty.length > 0;
+    var sourceOn = selectedSource.length > 0;
     if (filterBtn) {
-      filterBtn.classList.toggle('has-filter', topicOn || tagOn || companyOn || difficultyOn);
+      filterBtn.classList.toggle('has-filter', topicOn || tagOn || companyOn || difficultyOn || sourceOn);
       filterBtn.classList.toggle('has-tag-filter', tagOn);
       filterBtn.classList.toggle('has-company-filter', companyOn);
       filterBtn.classList.toggle('has-difficulty-filter', difficultyOn);
+      filterBtn.classList.toggle('has-source-filter', sourceOn);
     }
     root.querySelectorAll('[data-filter-tags]').forEach(function (wrap) {
       var btn = wrap.querySelector('[data-filter-tags-btn]');
@@ -1499,9 +1557,11 @@
     });
     if (companiesBtn) companiesBtn.classList.toggle('has-company-filter', companyOn);
     if (difficultyBtn) difficultyBtn.classList.toggle('has-difficulty-filter', difficultyOn);
-    if (clearBtn) clearBtn.hidden = !(topicOn || tagOn || companyOn || difficultyOn);
+    if (sourceBtn) sourceBtn.classList.toggle('has-source-filter', sourceOn);
+    if (clearBtn) clearBtn.hidden = !(topicOn || tagOn || companyOn || difficultyOn || sourceOn);
     paintCompanyFilterOptions(root, selectedCompanies);
     paintDifficultyFilterOptions(root, selectedDifficulty);
+    paintSourceFilterOptions(root, selectedSource);
   }
 
   function bindFilterClear(root) {
@@ -1518,6 +1578,7 @@
       var tasks = [];
       if (typeof root._clearCompanyFilter === 'function') tasks.push(root._clearCompanyFilter());
       if (typeof root._clearDifficultyFilter === 'function') tasks.push(root._clearDifficultyFilter());
+      if (typeof root._clearSourceFilter === 'function') tasks.push(root._clearSourceFilter());
       if (typeof root._clearTagFilters === 'function') tasks.push(root._clearTagFilters());
       Promise.all(tasks).then(function () {
         if (topicOn && href) {
@@ -1705,6 +1766,17 @@
     syncMenuLayer();
   }
 
+
+  function closeFilterSourceFlyout(root, unpin) {
+    var wrap = root.querySelector('[data-filter-source]');
+    var btn = root.querySelector('[data-filter-source-btn]');
+    var panel = root.querySelector('[data-filter-source-panel]');
+    if (unpin && wrap) wrap.classList.remove('is-pinned');
+    if (panel) panel.hidden = true;
+    if (btn) btn.setAttribute('aria-expanded', 'false');
+    syncMenuLayer();
+  }
+
   function closeFilterDifficultyFlyout(root, unpin) {
     var wrap = root.querySelector('[data-filter-difficulty]');
     var btn = root.querySelector('[data-filter-difficulty-btn]');
@@ -1721,6 +1793,7 @@
     closeFilterTagsFlyout(root, true);
     closeFilterCompaniesFlyout(root, true);
     closeFilterDifficultyFlyout(root, true);
+    closeFilterSourceFlyout(root, true);
   }
 
   function initCompanyFilter() {
@@ -1811,6 +1884,7 @@
     wrap.addEventListener('mouseenter', function () {
       closeFilterTagsFlyout(root, true);
       closeFilterDifficultyFlyout(root, true);
+      closeFilterSourceFlyout(root, true);
       setCompaniesOpen(true);
     });
     holdFlyout(wrap, function () {
@@ -1821,6 +1895,7 @@
       e.stopPropagation();
       closeFilterTagsFlyout(root, true);
       closeFilterDifficultyFlyout(root, true);
+      closeFilterSourceFlyout(root, true);
       if (companiesPanel.hidden) {
         wrap.classList.add('is-pinned');
         setCompaniesOpen(true);
@@ -1985,6 +2060,7 @@
     wrap.addEventListener('mouseenter', function () {
       closeFilterTagsFlyout(root, true);
       closeFilterCompaniesFlyout(root, true);
+      closeFilterSourceFlyout(root, true);
       setDifficultyOpen(true);
     });
     holdFlyout(wrap, function () {
@@ -1995,6 +2071,7 @@
       e.stopPropagation();
       closeFilterTagsFlyout(root, true);
       closeFilterCompaniesFlyout(root, true);
+      closeFilterSourceFlyout(root, true);
       if (difficultyPanel.hidden) {
         wrap.classList.add('is-pinned');
         setDifficultyOpen(true);
@@ -2037,6 +2114,105 @@
   }
 
   initDifficultyFilter();
+
+  function initSourceFilter() {
+    var wrap = document.querySelector('[data-filter-source]');
+    var root = wrap && wrap.closest('.browse');
+    if (!wrap || !root) return;
+
+    var sourceBtn = wrap.querySelector('[data-filter-source-btn]');
+    var sourcePanel = wrap.querySelector('[data-filter-source-panel]');
+    if (!sourceBtn || !sourcePanel) return;
+
+    root._sourceFilterIds = readSourceFilter();
+
+    function setSelected(ids) {
+      var seen = {};
+      var next = [];
+      ids.forEach(function (id) {
+        if (SOURCE_FILTER_IDS.indexOf(id) < 0 || seen[id]) return;
+        seen[id] = true;
+        next.push(id);
+      });
+      root._sourceFilterIds = next;
+      writeSourceFilter(next);
+      if (next.length) wrap.classList.add('is-pinned');
+      if (typeof root._applyResourceFilter === 'function') root._applyResourceFilter();
+      applyBrowseTileFilters(root);
+    }
+
+    function setSourceOpen(open) {
+      if (!open && !wrap.classList.contains('is-pinned')) {
+        closeFilterSourceFlyout(root, false);
+        return;
+      }
+      if (!open) {
+        closeFilterSourceFlyout(root, true);
+        return;
+      }
+      sourcePanel.hidden = false;
+      sourceBtn.setAttribute('aria-expanded', 'true');
+      syncMenuLayer();
+    }
+
+    wrap.addEventListener('mouseenter', function () {
+      closeFilterTagsFlyout(root, true);
+      closeFilterCompaniesFlyout(root, true);
+      closeFilterDifficultyFlyout(root, true);
+      setSourceOpen(true);
+    });
+    holdFlyout(wrap, function () {
+      if (!wrap.classList.contains('is-pinned')) setSourceOpen(false);
+    });
+    sourceBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      closeFilterTagsFlyout(root, true);
+      closeFilterCompaniesFlyout(root, true);
+      closeFilterDifficultyFlyout(root, true);
+      if (sourcePanel.hidden) {
+        wrap.classList.add('is-pinned');
+        setSourceOpen(true);
+      } else if (wrap.classList.contains('is-pinned')) {
+        setSourceOpen(false);
+      } else {
+        wrap.classList.add('is-pinned');
+        setSourceOpen(true);
+      }
+    });
+    sourcePanel.addEventListener('click', function (e) {
+      e.stopPropagation();
+    });
+
+    wrap.querySelectorAll('[data-filter-source-opt]').forEach(function (btn) {
+      btn.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var id = btn.getAttribute('data-filter-source-opt');
+        if (!id) return;
+        var current = (root._sourceFilterIds || []).slice();
+        var idx = current.indexOf(id);
+        if (idx >= 0) current.splice(idx, 1);
+        else current.push(id);
+        setSelected(current);
+      });
+    });
+
+    root._clearSourceFilter = function () {
+      setSelected([]);
+      return Promise.resolve();
+    };
+    if (typeof root._applyResourceFilter !== 'function') {
+      root._applyResourceFilter = function () {
+        applyBrowseTileFilters(root);
+      };
+    }
+    bindFilterClear(root);
+    applyBrowseTileFilters(root);
+  }
+
+  initSourceFilter();
+
 
   function syncBrowseIndicator(root) {
     var btn = root.querySelector('[aria-controls="resource-browse"]');

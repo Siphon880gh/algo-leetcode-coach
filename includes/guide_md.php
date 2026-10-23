@@ -108,12 +108,64 @@ function guide_md_render_inline(string $text): string
     return $escaped;
 }
 
+
+/**
+ * Parse a GFM pipe table starting at $i. Returns [html, nextIndex] or null.
+ *
+ * @param list<string> $lines
+ * @return array{0: string, 1: int}|null
+ */
+function guide_md_try_table(array $lines, int $i): ?array
+{
+    if (!isset($lines[$i]) || !preg_match('/^\|.+\|\s*$/', $lines[$i])) {
+        return null;
+    }
+    if (!isset($lines[$i + 1]) || !preg_match('/^\|[-:\s|]+\|\s*$/', $lines[$i + 1])) {
+        return null;
+    }
+
+    $parseRow = static function (string $line): array {
+        $line = trim($line);
+        $line = trim($line, '|');
+        $cells = [];
+        foreach (explode('|', $line) as $cell) {
+            $cells[] = trim($cell);
+        }
+        return $cells;
+    };
+
+    $header = $parseRow($lines[$i]);
+    $j = $i + 2;
+    $rows = [];
+    while (isset($lines[$j]) && preg_match('/^\|.+\|\s*$/', $lines[$j])) {
+        $rows[] = $parseRow($lines[$j]);
+        $j++;
+    }
+
+    $html = '<table class="guide-table"><thead><tr>';
+    foreach ($header as $cell) {
+        $html .= '<th>' . guide_md_render_inline($cell) . '</th>';
+    }
+    $html .= '</tr></thead><tbody>';
+    foreach ($rows as $row) {
+        $html .= '<tr>';
+        foreach ($row as $cell) {
+            $html .= '<td>' . guide_md_render_inline($cell) . '</td>';
+        }
+        $html .= '</tr>';
+    }
+    $html .= '</tbody></table>';
+
+    return [$html, $j];
+}
+
 function guide_md_render_basic(string $markdown): string
 {
     $lines = preg_split('/\R/', $markdown) ?: [];
     $out = [];
     $para = [];
     $list = [];
+    $listOrdered = false;
     $inCode = false;
     $code = [];
 
@@ -128,7 +180,7 @@ function guide_md_render_basic(string $markdown): string
         $para = [];
     };
 
-    $flushList = static function () use (&$out, &$list): void {
+    $flushList = static function () use (&$out, &$list, &$listOrdered): void {
         if ($list === []) {
             return;
         }
@@ -136,11 +188,15 @@ function guide_md_render_basic(string $markdown): string
         foreach ($list as $item) {
             $items .= '<li>' . guide_md_render_inline($item) . '</li>';
         }
-        $out[] = '<ul>' . $items . '</ul>';
+        $tag = $listOrdered ? 'ol' : 'ul';
+        $out[] = '<' . $tag . '>' . $items . '</' . $tag . '>';
         $list = [];
+        $listOrdered = false;
     };
 
-    foreach ($lines as $line) {
+    $lineCount = count($lines);
+    for ($i = 0; $i < $lineCount; $i++) {
+        $line = $lines[$i];
         if (preg_match('/^```/', $line)) {
             if ($inCode) {
                 $out[] = '<pre><code>' . e(implode("\n", $code)) . '</code></pre>';
@@ -176,8 +232,32 @@ function guide_md_render_basic(string $markdown): string
             continue;
         }
 
+        $table = guide_md_try_table($lines, $i);
+        if ($table !== null) {
+            $flushPara();
+            $flushList();
+            $out[] = $table[0];
+            $i = $table[1] - 1; // for-loop will ++
+            continue;
+        }
+
         if (preg_match('/^[-*]\s+(.+)$/', $line, $m)) {
             $flushPara();
+            if ($list !== [] && $listOrdered) {
+                $flushList();
+            }
+            $listOrdered = false;
+            $list[] = $m[1];
+            continue;
+        }
+
+        // Numbered lists (1. 2. 3.) — without this, lines join into one <p>.
+        if (preg_match('/^\d+\.\s+(.+)$/', $line, $m)) {
+            $flushPara();
+            if ($list !== [] && !$listOrdered) {
+                $flushList();
+            }
+            $listOrdered = true;
             $list[] = $m[1];
             continue;
         }

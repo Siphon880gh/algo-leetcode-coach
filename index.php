@@ -36,6 +36,14 @@ layout_start([
             The idea is not to replace LeetCode. It adds a language-free concept-application phase.
             Coding a solution is a lot harder if you do not have the concept yet.
         </p>
+        <p>
+            Many LeetCode problems need classic data structures and algorithms — arrays, trees,
+            graphs, dynamic programming, and the rest of a typical DSA course. Others do not map
+            cleanly onto those textbook chapters. They lean on common problem-solving patterns
+            (two pointers, sliding window, prefix sums, monotonic stacks, and similar) that a
+            cookie-cutter DSA syllabus often never names. This app covers both: the official
+            structures and algorithms, and those interview patterns.
+        </p>
     </aside>
     <div class="cta-row">
         <a class="btn btn--primary" href="<?= e(guide_list_url('algo')) ?>">Algo Guides</a>
