@@ -21,6 +21,18 @@ Use `.agents/skills/harness` (section 3) and `.agents/skills/harness/reference.m
 3. Resolve sources for `next.repo` + `next.id` using **Problem IDs** below. Read the writeup and at least one solution.
    - **Problem statement first.** For a numbered LeetCode problem `N`, run `python3 .agents/skills/fetch-leetcode-problems/scripts/fetch.py N` then `python3 .agents/skills/fetch-leetcode-problems/scripts/build.py N` (pass `N` so a problem without a page yet is built too). Confirm `content/problems/{N}.html` exists (the app renders it as the collapsible **Problem** header above the session) or that `N` is in `content/problems/premium.json`. Never log in to LeetCode. If the fetch fails (network), stop the tick without writing the session and report it.
 4. Derive a kebab-case `slug` from the problem title (`0001.Two Sum` → `two-sum`).
+## Skip if LeetCode number already authored (`leetcode_exists`)
+
+After deriving the LeetCode number `N` from `next.id` (when it is a numbered LC problem), check whether **any** existing Step-by-step / coaching session already sets `'leetcode' => N` (any `content/coaching/*/meta.php`). If yes, do **not** create another page from this secondary source. Append to `skipped` with `"reason": "leetcode_exists"` and advance `next`.
+
+This blocks duplicate writeups from `leetcode-master`, `walkccc-leetcode`, `neetcode-leetcode`, `labuladong-algorithm`, and similar repos when a proper numbered page already exists.
+
+Non-numbered sources (hello-algo, Offer/面试题 without a standard LC id, theory summaries) are unaffected — omit `'leetcode'` as usual.
+
+Also apply this check **before** creating files (in addition to slug_exists):
+
+5b. If `next` maps to LeetCode `N` and any existing page already has `'leetcode' => N`, skip with `leetcode_exists` and advance `next`.
+
 5. If `content/coaching/{slug}/` already exists, do **not** overwrite. Append to `skipped` with `"reason": "slug_exists"` and advance `next`.
 6. Otherwise create:
    - `content/coaching/{slug}/meta.php` — `title`, `summary`, `category`, `subcategory`, `topic` (`{category} · {subcategory}`), `tags`, and `leetcode` plus `difficulty` (`Easy` \| `Med` \| `Hard`) when **LeetCode number** applies
@@ -115,12 +127,13 @@ python3 -c "import json,sys; n=sys.argv[1]; print(json.load(open('context-leetco
 
 Use that value. If it prints empty, take Easy/Med/Hard from the context writeup only if it states official LeetCode difficulty. Do not invent.
 
-Omit `leetcode` and `difficulty` when the source is not a numbered LeetCode problem (hello-algo chapters, labuladong essays, 剑指 Offer, LCR, …).
+Before writing a numbered page, if any existing artifact already has that `N`, skip `leetcode_exists` (see above). Omit `leetcode` and `difficulty` when the source is not a numbered LeetCode problem (hello-algo chapters, labuladong essays, 剑指 Offer, LCR, …).
 
 Never put the number or Easy / Med / Hard in `title`. The app shows `LeetCode N` plus difficulty on its own row.
 
 ## Do not
 
+- Create a second numbered LeetCode page when `leetcode` => N` already exists on another session (`leetcode_exists`)
 - Overwrite existing `content/coaching/{slug}/`
 - Commit unless the user asks
 - Add PHP routes or UI

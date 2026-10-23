@@ -1,3 +1,12 @@
+# RETIRED — do not run standalone
+
+Guide ↔ session linking is owned by [`../graph-guides-and-links.md`](../graph-guides-and-links.md). Mini games link to guides/sessions via [`../loop-mini-games.md`](../loop-mini-games.md).
+
+The tracker [`../loop-guide-step-links.track.json`](../loop-guide-step-links.track.json) remains as the **graph pairing ledger** only.
+
+---
+
+
 # Loop: Algo Guide ↔ Step-by-step links
 
 One tick = one slug. Read this file and [`loop-guide-step-links.track.json`](loop-guide-step-links.track.json) on every tick.

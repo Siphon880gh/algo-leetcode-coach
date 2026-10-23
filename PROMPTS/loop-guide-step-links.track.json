@@ -3,12 +3,212 @@
   "kind": "guide-step-links",
   "prompt": "PROMPTS/loop-guide-step-links.md",
   "cursor": {
-    "last_slug": "minimum-operations-to-form-subset-sum-ii"
+    "last_slug": "zuma-game"
   },
   "next": null,
   "completed": [
     {
       "slug": "two-sum",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "02-07",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "labu-01-1",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "labu-01-2",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "labu-topic-0082589b24d1",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "labu-topic-0ec03f406f23",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "labu-topic-1ddddded2965",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "labu-topic-232208e5d426",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "labu-topic-27bfa27656ac",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "labu-topic-3778c88a54d4",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "labu-topic-39e3747607fa",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "labu-topic-3a9ac6668b13",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "labu-topic-40d78dc49f3d",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "labu-topic-4f83fdf62752",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "labu-topic-5c4cadf47ae4",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "labu-topic-60ad1366a7a4",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "labu-topic-767ecfc84dfe",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "labu-topic-801055041d9b",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "labu-topic-92b6a2489d29",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "labu-topic-9d65885b98aa",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "labu-topic-9d96f0755bfa",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "labu-topic-9f5ff4d1cb1f",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "labu-topic-a438281d8510",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "labu-topic-a4d6a0f7318d",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "labu-topic-a543d2b522f8",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "labu-topic-a8fa010ca5e4",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "labu-topic-a90e5e950d84",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "labu-topic-aafb2d54c833",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "labu-topic-befe86d15943",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "labu-topic-d9a74b581459",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "labu-topic-e17e99e920a0",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "labu-topic-e87083f47872",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "labu-topic-f179955e49f7",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "labu-topic-f70c65c45e6c",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "labu-topic-fa5dd0ad591d",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "labu-topic-fb032618ee4a",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "labu-topic-fddf43a17a62",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "o-n-n",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "offer05",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "offer58-ii",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "vector",
       "guide": true,
       "session": true
     }
@@ -24253,7 +24453,391 @@
       "guide": true,
       "session": true,
       "reason": "already_linked"
+    },
+    {
+      "slug": "array",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "exercises",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "linked-list",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "list",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "random-access-memory-and-cache",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "summary",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "backtracking-algorithm",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "n-queens-problem",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "permutations-problem",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "subset-sum-problem",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "iteration-and-recursion",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "algorithm-efficiency-evaluation",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "space-complexity",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "time-complexity",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "basic-data-types",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "character-encoding",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "classification-of-data-structures",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "number-encoding",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "divide-and-conquer-search-strategy",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "building-a-binary-tree-problem",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "divide-and-conquer-algorithms",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "hanota-problem",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "characteristics-of-dynamic-programming-problems",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "dynamic-programming-problem-solving-approach",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "edit-distance-problem",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "introduction-to-dynamic-programming",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "0-1-knapsack-problem",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "unbounded-knapsack-problem",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "graph",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "basic-operations-on-graphs",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "graph-traversal",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "fractional-knapsack-problem",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "greedy-algorithm",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "max-capacity-problem",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximum-product-cutting-problem",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "hash-algorithm",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "hash-collision",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "hash-table",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "heap-construction-operation",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "heap",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "top-k-problem",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "binary-search-boundaries",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "binary-search-insertion-point",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "hash-optimization-strategy",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "searching-algorithms-revisited",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "bubble-sort",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "bucket-sort",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "counting-sort",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "heap-sort",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "insertion-sort",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "merge-sort",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "quick-sort",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "radix-sort",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "selection-sort",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "sorting-algorithm",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "deque",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "queue",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "stack",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "array-representation-of-binary-trees",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "avl-tree",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "binary-search-tree",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "binary-tree",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "binary-tree-traversal",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "labu-contribution-guide",
+      "guide": true,
+      "session": false,
+      "reason": "no_pair"
     }
   ],
-  "exhausted": false
+  "exhausted": true
 }
