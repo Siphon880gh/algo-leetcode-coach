@@ -3752,6 +3752,26 @@ button.import-ai-panel__service {
   color: var(--ink-muted);
 }
 
+.clist-summary__link {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 0.12em;
+}
+
+.clist-summary__link:hover,
+.clist-summary__link:focus-visible {
+  color: var(--ink);
+}
+
+.clist-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
 .clist__stats {
   display: flex;
   flex-wrap: wrap;

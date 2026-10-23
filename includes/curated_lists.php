@@ -30,6 +30,43 @@ function curated_lists_data(): array
 }
 
 /**
+ * Summary with the original source linked inside the sentence (new tab).
+ *
+ * @param array{id?: string, summary?: string, sourceUrl?: string} $list
+ */
+function curated_list_summary_html(array $list): string
+{
+    $summary = (string) ($list['summary'] ?? '');
+    $html = e($summary);
+    $url = trim((string) ($list['sourceUrl'] ?? ''));
+    if ($url === '') {
+        return $html;
+    }
+
+    $id = (string) ($list['id'] ?? '');
+    $phrase = '';
+    if ($id === 'blind-75') {
+        $phrase = 'Blind post';
+    } elseif ($id === 'neetcode-150') {
+        $phrase = "NeetCode's roadmap order";
+    }
+    if ($phrase === '') {
+        return $html;
+    }
+
+    $needle = e($phrase);
+    if ($needle === '' || strpos($html, $needle) === false) {
+        return $html;
+    }
+
+    $link = '<a class="clist-summary__link" href="' . e($url) . '" target="_blank" rel="noopener noreferrer">'
+        . $needle
+        . '<span class="clist-sr"> (opens in a new tab)</span></a>';
+
+    return str_replace($needle, $link, $html);
+}
+
+/**
  * @return array{id: string, name: string, summary: string, source: string, sourceUrl: string, problems: list<array{n: int, slug: string, title: string, difficulty: string, pattern: string}>}|null
  */
 function curated_list_find(string $id): ?array

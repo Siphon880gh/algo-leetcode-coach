@@ -78,7 +78,7 @@ $allHref = content_list_href('lists/index.php', ['list' => $listId]);
 </nav>
 
 <div class="clist" data-clist data-clist-total="<?= (int) $total ?>">
-    <p class="clist__summary"><?= e((string) $list['summary']) ?></p>
+    <p class="clist__summary"><?= curated_list_summary_html($list) ?></p>
     <div class="clist__stats">
         <span class="clist-stat"><strong><?= (int) $withContent ?>/<?= (int) $total ?></strong> have content in this app</span>
         <span class="clist-stat" data-clist-progress hidden></span>
