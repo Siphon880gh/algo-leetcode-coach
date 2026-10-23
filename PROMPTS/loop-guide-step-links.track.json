@@ -3,7 +3,7 @@
   "kind": "guide-step-links",
   "prompt": "PROMPTS/loop-guide-step-links.md",
   "cursor": {
-    "last_slug": "check-if-digits-are-equal-in-string-after-operations-i"
+    "last_slug": "minimum-operations-to-form-subset-sum-ii"
   },
   "next": null,
   "completed": [
@@ -20770,6 +20770,3486 @@
     },
     {
       "slug": "check-if-digits-are-equal-in-string-after-operations-i",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximum-sum-with-at-most-k-elements",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "check-if-digits-are-equal-in-string-after-operations-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximize-the-distance-between-points-on-a-square",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "find-products-with-valid-serial-numbers",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximum-coin-collection",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "transform-array-by-parity",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "find-the-number-of-copy-arrays",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "find-minimum-cost-to-remove-array-elements",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "permutations-iv",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "find-the-largest-almost-missing-integer",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "longest-palindromic-subsequence-after-at-most-k-operations",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "sum-of-k-subarrays-with-length-at-least-m",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "lexicographically-smallest-generated-string",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "dna-pattern-recognition",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximize-profit-from-task-assignment",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "fruits-into-baskets-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "choose-k-elements-with-maximum-sum",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "fruits-into-baskets-iii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximize-subarrays-after-removing-one-conflicting-pair",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "apply-substitutions",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "analyze-organization-hierarchy",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "unique-3-digit-even-numbers",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "design-spreadsheet",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "longest-common-prefix-of-k-strings-after-removal",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "longest-special-path-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximum-unique-subarray-sum-after-deletion",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "closest-equal-element-queries",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "zero-array-transformation-iv",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "count-beautiful-numbers",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "phone-number-prefix",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximum-containers-on-a-ship",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "properties-graph",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "find-the-minimum-amount-of-time-to-brew-potions",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-operations-to-make-array-elements-zero",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximize-score-after-pair-deletions",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "analyze-subscription-conversion",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "reverse-degree-of-a-string",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximize-active-section-with-trade-i",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-cost-to-divide-array-into-subarrays",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximize-active-section-with-trade-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-cost-to-reach-every-position",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "longest-palindrome-after-substring-concatenation-i",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "longest-palindrome-after-substring-concatenation-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-operations-to-make-elements-within-k-subarrays-equal",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "find-time-required-to-eliminate-bacterial-strains",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-pair-removal-to-sort-array-i",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "implement-router",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximum-product-of-subsequences-with-an-alternating-sum-equal-to-k",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-pair-removal-to-sort-array-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "make-a-positive-array",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-operations-to-make-array-sum-divisible-by-k",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "number-of-unique-xor-triplets-i",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "number-of-unique-xor-triplets-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "shortest-path-in-a-weighted-tree",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "find-closest-person",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "smallest-palindromic-rearrangement-i",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "smallest-palindromic-rearrangement-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "count-numbers-with-non-decreasing-digits",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-threshold-for-inversion-pairs-count",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "find-product-recommendation-pairs",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "calculate-score-after-performing-instructions",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "make-array-non-decreasing",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "find-x-value-of-array-i",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "find-x-value-of-array-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "range-xor-queries-with-subarray-reversals",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "find-the-most-common-response",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "unit-conversion-i",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "count-cells-in-overlapping-horizontal-and-vertical-substrings",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximum-profit-from-valid-topological-order-in-dag",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "count-covered-buildings",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "path-existence-queries-in-a-graph-i",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "concatenated-divisibility",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "path-existence-queries-in-a-graph-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "unit-conversion-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximum-product-of-two-digits",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "fill-a-special-grid",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "merge-operations-for-minimum-travel-time",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "find-sum-of-array-product-of-magical-sequences",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-time-to-visit-all-houses",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "find-most-frequent-vowel-and-consonant",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-operations-to-convert-all-elements-to-zero",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximum-weighted-k-edge-path",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "subtree-inversion-sum",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-deletions-for-at-most-k-distinct-characters",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "equal-sum-grid-partition-i",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximum-sum-of-edge-values-in-a-graph",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "equal-sum-grid-partition-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "multiply-two-polynomials",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "smallest-index-with-digit-sum-equal-to-index",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-swaps-to-sort-by-digit-sum",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "grid-teleportation-traversal",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-weighted-subgraph-with-the-required-paths-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "find-category-recommendation-pairs",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "smallest-subarray-to-sort-in-every-sliding-window",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "sum-of-largest-prime-substrings",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "find-maximum-number-of-non-intersecting-substrings",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "number-of-ways-to-assign-edge-weights-i",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "number-of-ways-to-assign-edge-weights-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "find-minimum-log-transportation-cost",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "resulting-string-after-adjacent-removals",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximum-profit-from-trading-stocks-with-discounts",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "lexicographically-smallest-string-after-adjacent-removals",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "seasonal-sales-analysis",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "sequential-grid-path-cover",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "partition-array-into-two-equal-product-subsets",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-absolute-difference-in-sliding-submatrix",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-moves-to-clean-the-classroom",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximize-count-of-distinct-primes-after-split",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "find-books-with-no-available-copies",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "find-the-shortest-superstring-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximize-ysum-by-picking-a-triplet-of-distinct-xvalues",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "best-time-to-buy-and-sell-stock-v",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximize-subarray-gcd-score",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximum-good-subtree-score",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "transform-array-to-all-equal-elements",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "count-the-number-of-computer-unlocking-permutations",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "count-partitions-with-max-min-difference-at-most-k",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-steps-to-convert-string-with-operations",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "find-consistently-improving-employees",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "count-odd-letters-from-number",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "generate-tag-for-video-caption",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "count-special-triplets",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximum-product-of-first-and-last-elements-of-a-subsequence",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "find-weighted-median-node-in-tree",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "find-covid-recovery-patients",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-adjacent-swaps-to-alternate-parity",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "find-maximum-area-of-a-triangle",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "count-prime-gap-balanced-subarrays",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "kth-smallest-path-xor-sum",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "check-if-any-element-has-prime-frequency",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "inverse-coin-change",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-increments-to-equalize-leaf-paths",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-time-to-transport-all-individuals",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "once-twice",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-cost-path-with-alternating-directions-i",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "partition-string",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "longest-common-prefix-between-adjacent-strings-after-removals",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "partition-array-to-minimize-xor",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximize-spanning-tree-stability-with-upgrades",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "find-drivers-with-improved-fuel-efficiency",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "hexadecimal-and-hexatrigesimal-conversion",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-cost-path-with-alternating-directions-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-time-to-reach-destination-in-directed-graph",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-stability-factor-of-array",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "coupon-code-validator",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "power-grid-maintenance",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-time-for-k-connected-components",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-moves-to-reach-target-in-grid",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-number-of-primes-to-sum-to-target",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "find-overbooked-employees",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "process-string-with-special-operations-i",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimize-maximum-component-cost",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "process-string-with-special-operations-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "longest-palindromic-path-in-graph",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "number-of-student-replacements",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "find-students-with-study-spiral-pattern",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "split-array-by-prime-indices",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "count-islands-with-total-value-divisible-by-k",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "network-recovery-pathways",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "number-of-integers-with-popcount-depth-equal-to-k-i",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "check-divisibility-by-digit-sum-and-product",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "count-number-of-trapezoids-i",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "number-of-integers-with-popcount-depth-equal-to-k-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "count-number-of-trapezoids-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "find-stores-with-inventory-imbalance",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximum-median-sum-of-subsequences-of-size-3",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximum-number-of-subsequences-after-one-inserting",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-jumps-to-reach-end-via-prime-teleportation",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "partition-array-for-maximum-xor-and-and",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "sort-threats-by-severity-and-exploitability",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "subarrays-with-xor-at-least-k",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "earliest-finish-time-for-land-and-water-rides-i",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-removals-to-balance-array",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "earliest-finish-time-for-land-and-water-rides-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "threshold-majority-queries",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "trionic-array-i",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximum-balanced-shipments",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-time-to-activate-string",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "trionic-array-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "longest-semi-repeating-subarray",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "find-books-with-polarized-opinions",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "flip-square-submatrix-vertically",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximum-k-to-sort-a-permutation",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximum-total-from-optimal-activation-order",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "next-special-palindrome-number",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximum-weight-in-two-bags",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-sensors-to-cover-grid",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "number-of-perfect-pairs",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-cost-path-with-edge-reversals",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-cost-path-with-teleportations",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "best-time-to-buy-and-sell-stock-using-strategy",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "xor-after-range-multiplication-queries-i",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-sum-after-divisible-sum-deletions",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "xor-after-range-multiplication-queries-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "determine-if-a-simple-graph-exists",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "find-loyal-customers",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "gcd-of-odd-and-even-sums",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "partition-array-into-k-distinct-groups",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "jump-game-ix",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximum-walls-destroyed-by-robots",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "filter-characters-by-frequency",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "find-the-least-frequent-digit",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "two-letter-card-game",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "twisted-mirror-path-count",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-operations-to-equalize-binary-string",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "sort-array-by-absolute-value",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "restore-finishing-order",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "balanced-k-factor-decomposition",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximum-product-of-two-integers-with-no-common-bits",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "sum-of-beautiful-subsequences",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "sum-of-weighted-modes-in-subarrays",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "find-zombie-sessions",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-operations-to-equalize-array",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-operations-to-transform-string",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "count-bowl-subarrays",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "count-binary-palindromic-numbers",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "smallest-absent-positive-greater-than-average",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-discards-to-balance-inventory",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "generate-schedule",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximum-xor-of-subsequences",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-index-sum-of-common-elements",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "earliest-time-to-finish-one-task",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximize-sum-of-at-most-k-distinct-elements",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "subsequence-sum-after-capping-elements",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "number-of-stable-subsequences",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "library-late-fee-calculator",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "bitwise-or-of-even-numbers-in-an-array",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximum-total-subarray-value-i",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "split-and-merge-array-transformation",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximum-total-subarray-value-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "majority-frequency-characters",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "climbing-stairs-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "distinct-points-reachable-after-substring-removal",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximize-alternating-sum-using-swaps",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximum-distance-between-unequal-words-in-array-i",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "compute-decimal-representation",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "split-array-with-minimum-difference",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "number-of-zigzag-arrays-i",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "number-of-zigzag-arrays-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "compute-alternating-sum",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "longest-subsequence-with-non-zero-bitwise-xor",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "remove-k-balanced-substrings",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "count-no-zero-pairs-that-sum-to-n",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "find-golden-hour-customers",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximum-distance-between-unequal-words-in-array-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "equal-score-substrings",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "longest-fibonacci-subarray",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "design-exam-scores-tracker",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximum-partition-factor",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximum-transactions-without-negative-balance",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "sum-of-elements-with-frequency-divisible-by-k",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "longest-balanced-substring-i",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "longest-balanced-substring-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "sum-of-perfect-square-ancestors",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "find-churn-risk-customers",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-operations-to-make-the-array-beautiful",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "smallest-missing-multiple-of-k",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "longest-balanced-subarray-i",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "lexicographically-smallest-permutation-greater-than-target",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "longest-balanced-subarray-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "lexicographically-smallest-string-after-reverse",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximize-sum-of-squares-of-digits",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-operations-to-transform-array",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "count-ways-to-choose-coprime-integers-from-rows",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "remove-zeros-in-decimal-representation",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximum-alternating-sum-of-squares",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "stable-subarrays-with-equal-boundary-and-interior-sum",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "count-distinct-subarrays-divisible-by-k-in-sorted-array",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximum-calories-burnt-from-jumps",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "find-missing-elements",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximum-product-of-three-elements-after-one-replacement",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-time-to-complete-all-deliveries",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "lexicographically-smallest-palindromic-permutation-greater-than-target",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "lexicographically-smallest-string-after-reverse-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-moves-to-equal-array-elements-iii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "count-subarrays-with-majority-element-i",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "longest-non-decreasing-subarray-after-replacing-at-most-one-element",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "count-subarrays-with-majority-element-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-distance-between-three-equal-elements-i",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-distance-between-three-equal-elements-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximum-path-score-in-a-grid",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximize-cyclic-partition-score",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "find-kth-character-in-expanded-string",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximize-expression-of-three-elements",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-string-length-after-balanced-removals",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "count-distinct-integers-after-removing-zeros",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "count-stable-subarrays",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "evaluate-valid-expressions",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-number-of-flips-to-reverse-binary-string",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "total-waviness-of-numbers-in-range-i",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "lexicographically-smallest-negated-permutation-that-sums-to-target",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "total-waviness-of-numbers-in-range-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "concatenate-non-zero-digits-and-multiply-by-sum-i",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "find-maximum-balanced-xor-subarray-length",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "concatenate-non-zero-digits-and-multiply-by-sum-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "number-of-effective-subsequences",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "convert-number-words-to-digits",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "count-elements-with-at-least-k-greater-values",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximum-substrings-with-distinct-start",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-absolute-distance-between-mirror-pairs",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-operations-to-equalize-subarrays",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximum-total-sum-with-threshold-constraints",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "most-common-course-pairs",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "complete-prime-number",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-operations-to-make-binary-palindrome",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximize-points-after-choosing-k-tasks",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-inversion-count-in-subarrays-of-fixed-length",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "sort-integers-by-binary-reflection",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "largest-prime-from-consecutive-prime-sum",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "total-score-of-dungeon-runs",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximum-subgraph-score-in-a-tree",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximum-number-of-equal-length-runs",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "absolute-difference-between-maximum-and-minimum-k-elements",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "reverse-words-with-same-vowel-count",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-moves-to-balance-circular-array",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-deletions-to-make-alternating-substring",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-distance-excluding-one-maximum-weighted-edge",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-number-of-operations-to-have-distinct-elements",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximum-sum-of-three-numbers-divisible-by-three",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximum-score-after-binary-swaps",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "last-remaining-integer-after-alternating-deletion-operations",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "mirror-distance-of-an-integer",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-deletion-cost-to-make-all-characters-equal",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-swaps-to-avoid-forbidden-values",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "total-sum-of-interaction-cost-in-tree-groups",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "find-diameter-endpoints-of-a-tree",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximum-score-of-a-split",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-cost-to-acquire-required-items",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "smallest-all-ones-multiple",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "number-of-balanced-integers-in-a-range",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "sum-of-increasing-product-blocks",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "find-users-with-high-token-usage",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "reverse-string-prefix",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-subarray-length-with-distinct-sum-at-least-k",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "find-maximum-value-in-a-constrained-sequence",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "count-routes-to-climb-a-rectangular-grid",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "largest-even-number",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "word-squares-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-cost-to-make-two-binary-strings-equal",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-cost-to-merge-sorted-lists",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "number-of-ways-to-paint-sheets",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "count-residue-prefixes",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "number-of-centered-subarrays",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "count-caesar-cipher-pairs",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximum-bitwise-and-after-increment-operations",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-cost-to-repair-edges-to-traverse-a-graph",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "find-emotionally-consistent-users",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "best-reachable-tower",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-operations-to-reach-target-array",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "number-of-alternating-xor-partitions",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-edge-toggles-on-a-tree",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "vowel-consonant-score",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximum-capacity-within-budget",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "design-auction-system",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "lexicographically-smallest-string-after-deleting-duplicate-characters",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "good-indices-in-a-digit-string",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-prefix-removal-to-make-array-strictly-increasing",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "rotate-non-negative-elements",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "pythagorean-distance-nodes-in-a-tree",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "find-nth-smallest-integer-with-k-one-bits",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "design-order-management-system",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "reverse-letters-then-special-characters-in-a-string",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-k-to-reduce-array-within-limit",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "longest-strictly-increasing-subsequence-with-non-zero-bitwise-and",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-partition-score",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "count-monobit-integers",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "final-element-after-subarray-deletions",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "design-ride-sharing-system",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "longest-alternating-subarray-after-removing-at-most-one-element",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "median-of-a-binary-search-tree-level",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "find-users-with-persistent-behavior-patterns",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "count-dominant-indices",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "merge-adjacent-equal-elements",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "count-subarrays-with-cost-less-than-or-equal-to-k",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximum-score-using-exactly-k-pairs",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "delayed-count-of-equal-elements",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "weighted-word-mapping",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "number-of-prefix-connected-groups",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "house-robber-v",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "palindromic-path-queries-in-a-tree",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "toggle-light-bulbs",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "first-element-with-unique-frequency",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "longest-almost-palindromic-substring",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximum-subarray-xor-with-bounded-range",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "total-distance-to-type-a-string-using-one-finger",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "find-the-score-difference-in-a-game",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "check-digitorial-permutation",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximum-bitwise-xor-after-rearrangement",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "count-sequences-to-k",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximum-requests-without-violating-the-limit",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "smallest-pair-with-different-frequencies",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "merge-close-characters",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-operations-to-make-array-parity-alternating",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "sum-of-k-digit-numbers-in-a-range",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "trim-trailing-vowels",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-cost-to-split-into-ones",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-bitwise-or-from-grid",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "count-subarrays-with-k-distinct-integers",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "unique-email-groups",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-capacity-box",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "find-the-smallest-balanced-index",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-operations-to-sort-a-string",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-cost-to-partition-a-binary-string",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "reverse-k-subarrays",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "first-unique-even-element",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "sum-of-gcd-of-formed-pairs",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-cost-to-equalize-arrays-using-swaps",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "count-fancy-numbers-in-a-range",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "count-commas-in-range",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "count-commas-in-range-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "longest-arithmetic-sequence-after-changing-at-most-one-element",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximum-points-activated-with-one-addition",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "valid-subarrays-with-exactly-one-peak",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "construct-uniform-parity-array-i",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "construct-uniform-parity-array-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-removals-to-achieve-target-xor",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "count-good-subarrays",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximum-distinct-path-sum-in-a-binary-tree",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-absolute-difference-between-two-values",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "direction-assignments-with-exactly-k-visible-people",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-xor-path-in-a-grid",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "count-non-decreasing-arrays-with-given-digit-sums",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "first-matching-character-from-both-ends",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "design-event-manager",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "sum-of-sortable-integers",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "incremental-even-weighted-cycle-queries",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-operations-to-make-all-grid-elements-equal",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "mirror-frequency-distance",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "integers-with-multiple-sum-of-two-cubes",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-increase-to-maximize-special-indices",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-operations-to-achieve-at-least-k-peaks",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximum-team-size-with-overlapping-intervals",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "traffic-signal-color",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "count-digit-appearances",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-operations-to-transform-array-into-alternating-prime",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximum-value-of-concatenated-binary-segments",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "find-the-degree-of-each-vertex",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "angles-of-a-triangle",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "longest-balanced-substring-after-one-swap",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "good-subsequence-queries",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "zigzag-level-sum-of-binary-tree",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "smallest-stable-index-i",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "smallest-stable-index-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "multi-source-flood-fill",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "count-good-integers-on-a-grid-path",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "count-smaller-elements-with-opposite-parity",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "valid-digit-number",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "compare-sums-of-bitonic-parts",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "count-connected-subgraphs-with-even-node-sum",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "k-th-smallest-remaining-even-integer-in-subarray-queries",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "valid-elements-in-an-array",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "sort-vowels-by-frequency",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-operations-to-make-array-non-decreasing",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximum-sum-of-alternating-subsequence-with-distance-at-least-k",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "number-of-zigzag-arrays-iii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "count-indices-with-opposite-parity",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "sum-of-primes-between-number-and-its-reverse",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-cost-to-move-between-indices",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximize-fixed-points-after-deletions",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "score-validator",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-flips-to-make-binary-string-coherent",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-generations-to-target-point",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-threshold-path-with-limited-heavy-edges",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "concatenate-array-with-reverse",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "count-valid-word-occurrences",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimize-array-sum-using-divisible-replacements",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-cost-to-buy-apples-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-partition-score-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "power-update-after-k-th-largest-insertion-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "check-adjacent-digit-differences",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "count-k-th-roots-in-a-range",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "largest-local-values-in-a-matrix-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "smallest-unique-subarray",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "power-update-after-k-th-largest-insertion-i",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-swaps-to-move-zeros-to-end",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-operations-to-make-array-modulo-alternating-i",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximum-path-intersection-sum-in-a-grid",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "count-non-adjacent-subsets-in-a-rooted-tree",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "limit-occurrences-in-sorted-array",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "password-strength",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-operations-to-sort-a-permutation",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "number-of-pairs-after-increment",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-operations-to-make-array-modulo-alternating-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "digit-frequency-score",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximum-number-of-items-from-sale-i",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximum-number-of-items-from-sale-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "lexicographically-maximum-mex-array",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "subtree-inversion-sum-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "exactly-one-consecutive-set-bits-pair",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-energy-to-maintain-brightness",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximum-total-value-of-covered-indices",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximum-score-with-co-prime-element",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "sum-of-compatible-numbers-in-range-i",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "valid-binary-strings-with-cost-limit",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximum-sum-of-m-non-overlapping-subarrays-i",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximum-sum-of-m-non-overlapping-subarrays-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-cost-to-split-into-ones-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "check-good-integer",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "frequency-balance-subarray",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximize-sum-of-device-ratings",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximum-subarray-sum-after-at-most-k-swaps",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "create-grid-with-exactly-one-path",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-lights-to-illuminate-a-road",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "finish-time-of-tasks-i",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "count-good-integers-in-a-range",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "finish-time-of-tasks-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximum-manhattan-distance-after-all-moves",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "valid-subarrays-with-matching-sum-digits-i",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "shortest-path-with-at-most-k-consecutive-identical-characters",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximum-total-value",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "valid-subarrays-with-matching-sum-digits-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "distinct-gate-paths-to-lca",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximum-total-sum-of-k-selected-elements",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "filter-occupied-intervals",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximum-subarray-sum-after-multiplier",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-time-to-reach-target-with-limited-power",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "unique-middle-element",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximum-valid-pair-sum",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-operations-to-transform-binary-string",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "count-distinct-ways-to-form-target-from-two-strings",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "sum-of-integers-with-maximum-digit-range",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "subsequence-after-one-replacement",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "divisible-game",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "palindromic-subarray-sum",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "number-of-elapsed-seconds-between-two-times",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-total-cost-to-process-all-elements",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "create-grid-with-exactly-k-paths-i",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximum-consistent-columns-in-a-grid",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "create-grid-with-exactly-k-paths-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "sort-array-using-prefix-reversals",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "rearrange-string-to-avoid-character-pair",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximum-value-of-an-alternating-sequence",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-adjacent-swaps-to-partition-array",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-cost-to-convert-string-iii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "even-number-of-knight-moves",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "count-dominant-nodes-in-a-binary-tree",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "transform-binary-string-using-subsequence-sort",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-number-of-string-groups-through-transformations",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "largest-integer-with-given-digit-sum",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "aggregate-two-time-series",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "count-valid-sequences",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-cost-path-with-alternating-directions-iii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-moves-to-balance-circular-array-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-operations-to-make-array-equal-iii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "count-valid-prefixes",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "widest-possible-fence",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-initial-strength-to-defeat-all-monsters",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-possible-maximum-waiting-time",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximize-pair-strength-using-gcd",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "count-subarrays-with-even-odd-ratio-i",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "count-of-unfinished-tasks-after-each-shift",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "count-subarrays-with-even-odd-ratio-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-total-price-after-applying-discounts",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "weighted-sum-of-a-tree",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximum-area-of-two-non-overlapping-square-submatrices",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "peaks-in-array-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "total-sum-of-interaction-cost-in-tree-groups-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "merge-close-characters-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "elevator-requests-i",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-operations-to-make-a-rotated-palindrome-i",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "k-th-digit-in-infinite-string",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "elevator-requests-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "nearest-available-drone",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimize-the-maximum-waiting-time-at-synchronized-traffic-lights",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximum-gap-between-stations",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "elevator-requests-iii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-operations-to-make-a-rotated-palindrome-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "elevator-requests-iv",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "check-ascii-palindromic",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "find-all-numbers-disappeared-in-an-array-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "longest-subarray-with-at-most-k-distinct-prime-factors",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "valid-k-unique-subarrays-i",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-bishop-moves-to-reach-target",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximum-valid-split-positions-i",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "lexicographically-largest-string-after-pair-transformations",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "maximum-valid-split-positions-ii",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "count-integers-appearing-in-a-single-block",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "sum-of-decoded-numbers",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-operations-to-form-subset-sum-i",
+      "guide": true,
+      "session": true,
+      "reason": "already_linked"
+    },
+    {
+      "slug": "minimum-operations-to-form-subset-sum-ii",
       "guide": true,
       "session": true,
       "reason": "already_linked"

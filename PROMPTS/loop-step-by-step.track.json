@@ -13,12 +13,9 @@
   ],
   "cursor": {
     "repo": "doocs-leetcode",
-    "last_id": "solution/3400-3499/3461.Check If Digits Are Equal in String After Operations I"
+    "last_id": "solution/4000-4099/4041.Minimum Operations to Form Subset Sum II"
   },
-  "next": {
-    "repo": "doocs-leetcode",
-    "id": "solution/3400-3499/3462.Maximum Sum With at Most K Elements"
-  },
+  "next": null,
   "completed": [
     {
       "repo": "doocs-leetcode",
@@ -20779,6 +20776,3486 @@
       "id": "solution/3400-3499/3461.Check If Digits Are Equal in String After Operations I",
       "slug": "check-if-digits-are-equal-in-string-after-operations-i",
       "title": "Check If Digits Are Equal in String After Operations I"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3400-3499/3462.Maximum Sum With at Most K Elements",
+      "slug": "maximum-sum-with-at-most-k-elements",
+      "title": "Maximum Sum With at Most K Elements"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3400-3499/3463.Check If Digits Are Equal in String After Operations II",
+      "slug": "check-if-digits-are-equal-in-string-after-operations-ii",
+      "title": "Check If Digits Are Equal in String After Operations II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3400-3499/3464.Maximize the Distance Between Points on a Square",
+      "slug": "maximize-the-distance-between-points-on-a-square",
+      "title": "Maximize the Distance Between Points on a Square"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3400-3499/3465.Find Products with Valid Serial Numbers",
+      "slug": "find-products-with-valid-serial-numbers",
+      "title": "Find Products with Valid Serial Numbers"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3400-3499/3466.Maximum Coin Collection",
+      "slug": "maximum-coin-collection",
+      "title": "Maximum Coin Collection"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3400-3499/3467.Transform Array by Parity",
+      "slug": "transform-array-by-parity",
+      "title": "Transform Array by Parity"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3400-3499/3468.Find the Number of Copy Arrays",
+      "slug": "find-the-number-of-copy-arrays",
+      "title": "Find the Number of Copy Arrays"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3400-3499/3469.Find Minimum Cost to Remove Array Elements",
+      "slug": "find-minimum-cost-to-remove-array-elements",
+      "title": "Find Minimum Cost to Remove Array Elements"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3400-3499/3470.Permutations IV",
+      "slug": "permutations-iv",
+      "title": "Permutations IV"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3400-3499/3471.Find the Largest Almost Missing Integer",
+      "slug": "find-the-largest-almost-missing-integer",
+      "title": "Find the Largest Almost Missing Integer"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3400-3499/3472.Longest Palindromic Subsequence After at Most K Operations",
+      "slug": "longest-palindromic-subsequence-after-at-most-k-operations",
+      "title": "Longest Palindromic Subsequence After at Most K Operations"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3400-3499/3473.Sum of K Subarrays With Length at Least M",
+      "slug": "sum-of-k-subarrays-with-length-at-least-m",
+      "title": "Sum of K Subarrays With Length at Least M"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3400-3499/3474.Lexicographically Smallest Generated String",
+      "slug": "lexicographically-smallest-generated-string",
+      "title": "Lexicographically Smallest Generated String"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3400-3499/3475.DNA Pattern Recognition",
+      "slug": "dna-pattern-recognition",
+      "title": "DNA Pattern Recognition"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3400-3499/3476.Maximize Profit from Task Assignment",
+      "slug": "maximize-profit-from-task-assignment",
+      "title": "Maximize Profit from Task Assignment"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3400-3499/3477.Fruits Into Baskets II",
+      "slug": "fruits-into-baskets-ii",
+      "title": "Fruits Into Baskets II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3400-3499/3478.Choose K Elements With Maximum Sum",
+      "slug": "choose-k-elements-with-maximum-sum",
+      "title": "Choose K Elements With Maximum Sum"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3400-3499/3479.Fruits Into Baskets III",
+      "slug": "fruits-into-baskets-iii",
+      "title": "Fruits Into Baskets III"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3400-3499/3480.Maximize Subarrays After Removing One Conflicting Pair",
+      "slug": "maximize-subarrays-after-removing-one-conflicting-pair",
+      "title": "Maximize Subarrays After Removing One Conflicting Pair"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3400-3499/3481.Apply Substitutions",
+      "slug": "apply-substitutions",
+      "title": "Apply Substitutions"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3400-3499/3482.Analyze Organization Hierarchy",
+      "slug": "analyze-organization-hierarchy",
+      "title": "Analyze Organization Hierarchy"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3400-3499/3483.Unique 3-Digit Even Numbers",
+      "slug": "unique-3-digit-even-numbers",
+      "title": "Unique 3-Digit Even Numbers"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3400-3499/3484.Design Spreadsheet",
+      "slug": "design-spreadsheet",
+      "title": "Design Spreadsheet"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3400-3499/3485.Longest Common Prefix of K Strings After Removal",
+      "slug": "longest-common-prefix-of-k-strings-after-removal",
+      "title": "Longest Common Prefix of K Strings After Removal"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3400-3499/3486.Longest Special Path II",
+      "slug": "longest-special-path-ii",
+      "title": "Longest Special Path II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3400-3499/3487.Maximum Unique Subarray Sum After Deletion",
+      "slug": "maximum-unique-subarray-sum-after-deletion",
+      "title": "Maximum Unique Subarray Sum After Deletion"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3400-3499/3488.Closest Equal Element Queries",
+      "slug": "closest-equal-element-queries",
+      "title": "Closest Equal Element Queries"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3400-3499/3489.Zero Array Transformation IV",
+      "slug": "zero-array-transformation-iv",
+      "title": "Zero Array Transformation IV"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3400-3499/3490.Count Beautiful Numbers",
+      "slug": "count-beautiful-numbers",
+      "title": "Count Beautiful Numbers"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3400-3499/3491.Phone Number Prefix",
+      "slug": "phone-number-prefix",
+      "title": "Phone Number Prefix"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3400-3499/3492.Maximum Containers on a Ship",
+      "slug": "maximum-containers-on-a-ship",
+      "title": "Maximum Containers on a Ship"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3400-3499/3493.Properties Graph",
+      "slug": "properties-graph",
+      "title": "Properties Graph"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3400-3499/3494.Find the Minimum Amount of Time to Brew Potions",
+      "slug": "find-the-minimum-amount-of-time-to-brew-potions",
+      "title": "Find the Minimum Amount of Time to Brew Potions"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3400-3499/3495.Minimum Operations to Make Array Elements Zero",
+      "slug": "minimum-operations-to-make-array-elements-zero",
+      "title": "Minimum Operations to Make Array Elements Zero"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3400-3499/3496.Maximize Score After Pair Deletions",
+      "slug": "maximize-score-after-pair-deletions",
+      "title": "Maximize Score After Pair Deletions"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3400-3499/3497.Analyze Subscription Conversion",
+      "slug": "analyze-subscription-conversion",
+      "title": "Analyze Subscription Conversion"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3400-3499/3498.Reverse Degree of a String",
+      "slug": "reverse-degree-of-a-string",
+      "title": "Reverse Degree of a String"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3400-3499/3499.Maximize Active Section with Trade I",
+      "slug": "maximize-active-section-with-trade-i",
+      "title": "Maximize Active Section with Trade I"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3500.Minimum Cost to Divide Array Into Subarrays",
+      "slug": "minimum-cost-to-divide-array-into-subarrays",
+      "title": "Minimum Cost to Divide Array Into Subarrays"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3501.Maximize Active Section with Trade II",
+      "slug": "maximize-active-section-with-trade-ii",
+      "title": "Maximize Active Section with Trade II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3502.Minimum Cost to Reach Every Position",
+      "slug": "minimum-cost-to-reach-every-position",
+      "title": "Minimum Cost to Reach Every Position"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3503.Longest Palindrome After Substring Concatenation I",
+      "slug": "longest-palindrome-after-substring-concatenation-i",
+      "title": "Longest Palindrome After Substring Concatenation I"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3504.Longest Palindrome After Substring Concatenation II",
+      "slug": "longest-palindrome-after-substring-concatenation-ii",
+      "title": "Longest Palindrome After Substring Concatenation II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3505.Minimum Operations to Make Elements Within K Subarrays Equal",
+      "slug": "minimum-operations-to-make-elements-within-k-subarrays-equal",
+      "title": "Minimum Operations to Make Elements Within K Subarrays Equal"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3506.Find Time Required to Eliminate Bacterial Strains",
+      "slug": "find-time-required-to-eliminate-bacterial-strains",
+      "title": "Find Time Required to Eliminate Bacterial Strains"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3507.Minimum Pair Removal to Sort Array I",
+      "slug": "minimum-pair-removal-to-sort-array-i",
+      "title": "Minimum Pair Removal to Sort Array I"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3508.Implement Router",
+      "slug": "implement-router",
+      "title": "Implement Router"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3509.Maximum Product of Subsequences With an Alternating Sum Equal to K",
+      "slug": "maximum-product-of-subsequences-with-an-alternating-sum-equal-to-k",
+      "title": "Maximum Product of Subsequences With an Alternating Sum Equal to K"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3510.Minimum Pair Removal to Sort Array II",
+      "slug": "minimum-pair-removal-to-sort-array-ii",
+      "title": "Minimum Pair Removal to Sort Array II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3511.Make a Positive Array",
+      "slug": "make-a-positive-array",
+      "title": "Make a Positive Array"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3512.Minimum Operations to Make Array Sum Divisible by K",
+      "slug": "minimum-operations-to-make-array-sum-divisible-by-k",
+      "title": "Minimum Operations to Make Array Sum Divisible by K"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3513.Number of Unique XOR Triplets I",
+      "slug": "number-of-unique-xor-triplets-i",
+      "title": "Number of Unique XOR Triplets I"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3514.Number of Unique XOR Triplets II",
+      "slug": "number-of-unique-xor-triplets-ii",
+      "title": "Number of Unique XOR Triplets II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3515.Shortest Path in a Weighted Tree",
+      "slug": "shortest-path-in-a-weighted-tree",
+      "title": "Shortest Path in a Weighted Tree"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3516.Find Closest Person",
+      "slug": "find-closest-person",
+      "title": "Find Closest Person"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3517.Smallest Palindromic Rearrangement I",
+      "slug": "smallest-palindromic-rearrangement-i",
+      "title": "Smallest Palindromic Rearrangement I"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3518.Smallest Palindromic Rearrangement II",
+      "slug": "smallest-palindromic-rearrangement-ii",
+      "title": "Smallest Palindromic Rearrangement II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3519.Count Numbers with Non-Decreasing Digits",
+      "slug": "count-numbers-with-non-decreasing-digits",
+      "title": "Count Numbers with Non-Decreasing Digits"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3520.Minimum Threshold for Inversion Pairs Count",
+      "slug": "minimum-threshold-for-inversion-pairs-count",
+      "title": "Minimum Threshold for Inversion Pairs Count"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3521.Find Product Recommendation Pairs",
+      "slug": "find-product-recommendation-pairs",
+      "title": "Find Product Recommendation Pairs"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3522.Calculate Score After Performing Instructions",
+      "slug": "calculate-score-after-performing-instructions",
+      "title": "Calculate Score After Performing Instructions"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3523.Make Array Non-decreasing",
+      "slug": "make-array-non-decreasing",
+      "title": "Make Array Non-decreasing"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3524.Find X Value of Array I",
+      "slug": "find-x-value-of-array-i",
+      "title": "Find X Value of Array I"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3525.Find X Value of Array II",
+      "slug": "find-x-value-of-array-ii",
+      "title": "Find X Value of Array II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3526.Range XOR Queries with Subarray Reversals",
+      "slug": "range-xor-queries-with-subarray-reversals",
+      "title": "Range XOR Queries with Subarray Reversals"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3527.Find the Most Common Response",
+      "slug": "find-the-most-common-response",
+      "title": "Find the Most Common Response"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3528.Unit Conversion I",
+      "slug": "unit-conversion-i",
+      "title": "Unit Conversion I"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3529.Count Cells in Overlapping Horizontal and Vertical Substrings",
+      "slug": "count-cells-in-overlapping-horizontal-and-vertical-substrings",
+      "title": "Count Cells in Overlapping Horizontal and Vertical Substrings"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3530.Maximum Profit from Valid Topological Order in DAG",
+      "slug": "maximum-profit-from-valid-topological-order-in-dag",
+      "title": "Maximum Profit from Valid Topological Order in DAG"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3531.Count Covered Buildings",
+      "slug": "count-covered-buildings",
+      "title": "Count Covered Buildings"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3532.Path Existence Queries in a Graph I",
+      "slug": "path-existence-queries-in-a-graph-i",
+      "title": "Path Existence Queries in a Graph I"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3533.Concatenated Divisibility",
+      "slug": "concatenated-divisibility",
+      "title": "Concatenated Divisibility"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3534.Path Existence Queries in a Graph II",
+      "slug": "path-existence-queries-in-a-graph-ii",
+      "title": "Path Existence Queries in a Graph II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3535.Unit Conversion II",
+      "slug": "unit-conversion-ii",
+      "title": "Unit Conversion II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3536.Maximum Product of Two Digits",
+      "slug": "maximum-product-of-two-digits",
+      "title": "Maximum Product of Two Digits"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3537.Fill a Special Grid",
+      "slug": "fill-a-special-grid",
+      "title": "Fill a Special Grid"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3538.Merge Operations for Minimum Travel Time",
+      "slug": "merge-operations-for-minimum-travel-time",
+      "title": "Merge Operations for Minimum Travel Time"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3539.Find Sum of Array Product of Magical Sequences",
+      "slug": "find-sum-of-array-product-of-magical-sequences",
+      "title": "Find Sum of Array Product of Magical Sequences"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3540.Minimum Time to Visit All Houses",
+      "slug": "minimum-time-to-visit-all-houses",
+      "title": "Minimum Time to Visit All Houses"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3541.Find Most Frequent Vowel and Consonant",
+      "slug": "find-most-frequent-vowel-and-consonant",
+      "title": "Find Most Frequent Vowel and Consonant"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3542.Minimum Operations to Convert All Elements to Zero",
+      "slug": "minimum-operations-to-convert-all-elements-to-zero",
+      "title": "Minimum Operations to Convert All Elements to Zero"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3543.Maximum Weighted K-Edge Path",
+      "slug": "maximum-weighted-k-edge-path",
+      "title": "Maximum Weighted K-Edge Path"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3544.Subtree Inversion Sum",
+      "slug": "subtree-inversion-sum",
+      "title": "Subtree Inversion Sum"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3545.Minimum Deletions for At Most K Distinct Characters",
+      "slug": "minimum-deletions-for-at-most-k-distinct-characters",
+      "title": "Minimum Deletions for At Most K Distinct Characters"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3546.Equal Sum Grid Partition I",
+      "slug": "equal-sum-grid-partition-i",
+      "title": "Equal Sum Grid Partition I"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3547.Maximum Sum of Edge Values in a Graph",
+      "slug": "maximum-sum-of-edge-values-in-a-graph",
+      "title": "Maximum Sum of Edge Values in a Graph"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3548.Equal Sum Grid Partition II",
+      "slug": "equal-sum-grid-partition-ii",
+      "title": "Equal Sum Grid Partition II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3549.Multiply Two Polynomials",
+      "slug": "multiply-two-polynomials",
+      "title": "Multiply Two Polynomials"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3550.Smallest Index With Digit Sum Equal to Index",
+      "slug": "smallest-index-with-digit-sum-equal-to-index",
+      "title": "Smallest Index With Digit Sum Equal to Index"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3551.Minimum Swaps to Sort by Digit Sum",
+      "slug": "minimum-swaps-to-sort-by-digit-sum",
+      "title": "Minimum Swaps to Sort by Digit Sum"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3552.Grid Teleportation Traversal",
+      "slug": "grid-teleportation-traversal",
+      "title": "Grid Teleportation Traversal"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3553.Minimum Weighted Subgraph With the Required Paths II",
+      "slug": "minimum-weighted-subgraph-with-the-required-paths-ii",
+      "title": "Minimum Weighted Subgraph With the Required Paths II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3554.Find Category Recommendation Pairs",
+      "slug": "find-category-recommendation-pairs",
+      "title": "Find Category Recommendation Pairs"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3555.Smallest Subarray to Sort in Every Sliding Window",
+      "slug": "smallest-subarray-to-sort-in-every-sliding-window",
+      "title": "Smallest Subarray to Sort in Every Sliding Window"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3556.Sum of Largest Prime Substrings",
+      "slug": "sum-of-largest-prime-substrings",
+      "title": "Sum of Largest Prime Substrings"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3557.Find Maximum Number of Non Intersecting Substrings",
+      "slug": "find-maximum-number-of-non-intersecting-substrings",
+      "title": "Find Maximum Number of Non Intersecting Substrings"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3558.Number of Ways to Assign Edge Weights I",
+      "slug": "number-of-ways-to-assign-edge-weights-i",
+      "title": "Number of Ways to Assign Edge Weights I"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3559.Number of Ways to Assign Edge Weights II",
+      "slug": "number-of-ways-to-assign-edge-weights-ii",
+      "title": "Number of Ways to Assign Edge Weights II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3560.Find Minimum Log Transportation Cost",
+      "slug": "find-minimum-log-transportation-cost",
+      "title": "Find Minimum Log Transportation Cost"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3561.Resulting String After Adjacent Removals",
+      "slug": "resulting-string-after-adjacent-removals",
+      "title": "Resulting String After Adjacent Removals"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3562.Maximum Profit from Trading Stocks with Discounts",
+      "slug": "maximum-profit-from-trading-stocks-with-discounts",
+      "title": "Maximum Profit from Trading Stocks with Discounts"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3563.Lexicographically Smallest String After Adjacent Removals",
+      "slug": "lexicographically-smallest-string-after-adjacent-removals",
+      "title": "Lexicographically Smallest String After Adjacent Removals"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3564.Seasonal Sales Analysis",
+      "slug": "seasonal-sales-analysis",
+      "title": "Seasonal Sales Analysis"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3565.Sequential Grid Path Cover",
+      "slug": "sequential-grid-path-cover",
+      "title": "Sequential Grid Path Cover"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3566.Partition Array into Two Equal Product Subsets",
+      "slug": "partition-array-into-two-equal-product-subsets",
+      "title": "Partition Array into Two Equal Product Subsets"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3567.Minimum Absolute Difference in Sliding Submatrix",
+      "slug": "minimum-absolute-difference-in-sliding-submatrix",
+      "title": "Minimum Absolute Difference in Sliding Submatrix"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3568.Minimum Moves to Clean the Classroom",
+      "slug": "minimum-moves-to-clean-the-classroom",
+      "title": "Minimum Moves to Clean the Classroom"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3569.Maximize Count of Distinct Primes After Split",
+      "slug": "maximize-count-of-distinct-primes-after-split",
+      "title": "Maximize Count of Distinct Primes After Split"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3570.Find Books with No Available Copies",
+      "slug": "find-books-with-no-available-copies",
+      "title": "Find Books with No Available Copies"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3571.Find the Shortest Superstring II",
+      "slug": "find-the-shortest-superstring-ii",
+      "title": "Find the Shortest Superstring II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3572.Maximize Y‑Sum by Picking a Triplet of Distinct X‑Values",
+      "slug": "maximize-ysum-by-picking-a-triplet-of-distinct-xvalues",
+      "title": "Maximize Y‑Sum by Picking a Triplet of Distinct X‑Values"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3573.Best Time to Buy and Sell Stock V",
+      "slug": "best-time-to-buy-and-sell-stock-v",
+      "title": "Best Time to Buy and Sell Stock V"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3574.Maximize Subarray GCD Score",
+      "slug": "maximize-subarray-gcd-score",
+      "title": "Maximize Subarray GCD Score"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3575.Maximum Good Subtree Score",
+      "slug": "maximum-good-subtree-score",
+      "title": "Maximum Good Subtree Score"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3576.Transform Array to All Equal Elements",
+      "slug": "transform-array-to-all-equal-elements",
+      "title": "Transform Array to All Equal Elements"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3577.Count the Number of Computer Unlocking Permutations",
+      "slug": "count-the-number-of-computer-unlocking-permutations",
+      "title": "Count the Number of Computer Unlocking Permutations"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3578.Count Partitions With Max-Min Difference at Most K",
+      "slug": "count-partitions-with-max-min-difference-at-most-k",
+      "title": "Count Partitions With Max-Min Difference at Most K"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3579.Minimum Steps to Convert String with Operations",
+      "slug": "minimum-steps-to-convert-string-with-operations",
+      "title": "Minimum Steps to Convert String with Operations"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3580.Find Consistently Improving Employees",
+      "slug": "find-consistently-improving-employees",
+      "title": "Find Consistently Improving Employees"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3581.Count Odd Letters from Number",
+      "slug": "count-odd-letters-from-number",
+      "title": "Count Odd Letters from Number"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3582.Generate Tag for Video Caption",
+      "slug": "generate-tag-for-video-caption",
+      "title": "Generate Tag for Video Caption"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3583.Count Special Triplets",
+      "slug": "count-special-triplets",
+      "title": "Count Special Triplets"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3584.Maximum Product of First and Last Elements of a Subsequence",
+      "slug": "maximum-product-of-first-and-last-elements-of-a-subsequence",
+      "title": "Maximum Product of First and Last Elements of a Subsequence"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3585.Find Weighted Median Node in Tree",
+      "slug": "find-weighted-median-node-in-tree",
+      "title": "Find Weighted Median Node in Tree"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3586.Find COVID Recovery Patients",
+      "slug": "find-covid-recovery-patients",
+      "title": "Find COVID Recovery Patients"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3587.Minimum Adjacent Swaps to Alternate Parity",
+      "slug": "minimum-adjacent-swaps-to-alternate-parity",
+      "title": "Minimum Adjacent Swaps to Alternate Parity"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3588.Find Maximum Area of a Triangle",
+      "slug": "find-maximum-area-of-a-triangle",
+      "title": "Find Maximum Area of a Triangle"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3589.Count Prime-Gap Balanced Subarrays",
+      "slug": "count-prime-gap-balanced-subarrays",
+      "title": "Count Prime-Gap Balanced Subarrays"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3590.Kth Smallest Path XOR Sum",
+      "slug": "kth-smallest-path-xor-sum",
+      "title": "Kth Smallest Path XOR Sum"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3591.Check if Any Element Has Prime Frequency",
+      "slug": "check-if-any-element-has-prime-frequency",
+      "title": "Check if Any Element Has Prime Frequency"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3592.Inverse Coin Change",
+      "slug": "inverse-coin-change",
+      "title": "Inverse Coin Change"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3593.Minimum Increments to Equalize Leaf Paths",
+      "slug": "minimum-increments-to-equalize-leaf-paths",
+      "title": "Minimum Increments to Equalize Leaf Paths"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3594.Minimum Time to Transport All Individuals",
+      "slug": "minimum-time-to-transport-all-individuals",
+      "title": "Minimum Time to Transport All Individuals"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3595.Once Twice",
+      "slug": "once-twice",
+      "title": "Once Twice"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3596.Minimum Cost Path with Alternating Directions I",
+      "slug": "minimum-cost-path-with-alternating-directions-i",
+      "title": "Minimum Cost Path with Alternating Directions I"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3597.Partition String",
+      "slug": "partition-string",
+      "title": "Partition String"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3598.Longest Common Prefix Between Adjacent Strings After Removals",
+      "slug": "longest-common-prefix-between-adjacent-strings-after-removals",
+      "title": "Longest Common Prefix Between Adjacent Strings After Removals"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3500-3599/3599.Partition Array to Minimize XOR",
+      "slug": "partition-array-to-minimize-xor",
+      "title": "Partition Array to Minimize XOR"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3600.Maximize Spanning Tree Stability with Upgrades",
+      "slug": "maximize-spanning-tree-stability-with-upgrades",
+      "title": "Maximize Spanning Tree Stability with Upgrades"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3601.Find Drivers with Improved Fuel Efficiency",
+      "slug": "find-drivers-with-improved-fuel-efficiency",
+      "title": "Find Drivers with Improved Fuel Efficiency"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3602.Hexadecimal and Hexatrigesimal Conversion",
+      "slug": "hexadecimal-and-hexatrigesimal-conversion",
+      "title": "Hexadecimal and Hexatrigesimal Conversion"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3603.Minimum Cost Path with Alternating Directions II",
+      "slug": "minimum-cost-path-with-alternating-directions-ii",
+      "title": "Minimum Cost Path with Alternating Directions II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3604.Minimum Time to Reach Destination in Directed Graph",
+      "slug": "minimum-time-to-reach-destination-in-directed-graph",
+      "title": "Minimum Time to Reach Destination in Directed Graph"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3605.Minimum Stability Factor of Array",
+      "slug": "minimum-stability-factor-of-array",
+      "title": "Minimum Stability Factor of Array"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3606.Coupon Code Validator",
+      "slug": "coupon-code-validator",
+      "title": "Coupon Code Validator"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3607.Power Grid Maintenance",
+      "slug": "power-grid-maintenance",
+      "title": "Power Grid Maintenance"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3608.Minimum Time for K Connected Components",
+      "slug": "minimum-time-for-k-connected-components",
+      "title": "Minimum Time for K Connected Components"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3609.Minimum Moves to Reach Target in Grid",
+      "slug": "minimum-moves-to-reach-target-in-grid",
+      "title": "Minimum Moves to Reach Target in Grid"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3610.Minimum Number of Primes to Sum to Target",
+      "slug": "minimum-number-of-primes-to-sum-to-target",
+      "title": "Minimum Number of Primes to Sum to Target"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3611.Find Overbooked Employees",
+      "slug": "find-overbooked-employees",
+      "title": "Find Overbooked Employees"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3612.Process String with Special Operations I",
+      "slug": "process-string-with-special-operations-i",
+      "title": "Process String with Special Operations I"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3613.Minimize Maximum Component Cost",
+      "slug": "minimize-maximum-component-cost",
+      "title": "Minimize Maximum Component Cost"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3614.Process String with Special Operations II",
+      "slug": "process-string-with-special-operations-ii",
+      "title": "Process String with Special Operations II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3615.Longest Palindromic Path in Graph",
+      "slug": "longest-palindromic-path-in-graph",
+      "title": "Longest Palindromic Path in Graph"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3616.Number of Student Replacements",
+      "slug": "number-of-student-replacements",
+      "title": "Number of Student Replacements"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3617.Find Students with Study Spiral Pattern",
+      "slug": "find-students-with-study-spiral-pattern",
+      "title": "Find Students with Study Spiral Pattern"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3618.Split Array by Prime Indices",
+      "slug": "split-array-by-prime-indices",
+      "title": "Split Array by Prime Indices"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3619.Count Islands With Total Value Divisible by K",
+      "slug": "count-islands-with-total-value-divisible-by-k",
+      "title": "Count Islands With Total Value Divisible by K"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3620.Network Recovery Pathways",
+      "slug": "network-recovery-pathways",
+      "title": "Network Recovery Pathways"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3621.Number of Integers With Popcount-Depth Equal to K I",
+      "slug": "number-of-integers-with-popcount-depth-equal-to-k-i",
+      "title": "Number of Integers With Popcount-Depth Equal to K I"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3622.Check Divisibility by Digit Sum and Product",
+      "slug": "check-divisibility-by-digit-sum-and-product",
+      "title": "Check Divisibility by Digit Sum and Product"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3623.Count Number of Trapezoids I",
+      "slug": "count-number-of-trapezoids-i",
+      "title": "Count Number of Trapezoids I"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3624.Number of Integers With Popcount-Depth Equal to K II",
+      "slug": "number-of-integers-with-popcount-depth-equal-to-k-ii",
+      "title": "Number of Integers With Popcount-Depth Equal to K II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3625.Count Number of Trapezoids II",
+      "slug": "count-number-of-trapezoids-ii",
+      "title": "Count Number of Trapezoids II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3626.Find Stores with Inventory Imbalance",
+      "slug": "find-stores-with-inventory-imbalance",
+      "title": "Find Stores with Inventory Imbalance"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3627.Maximum Median Sum of Subsequences of Size 3",
+      "slug": "maximum-median-sum-of-subsequences-of-size-3",
+      "title": "Maximum Median Sum of Subsequences of Size 3"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3628.Maximum Number of Subsequences After One Inserting",
+      "slug": "maximum-number-of-subsequences-after-one-inserting",
+      "title": "Maximum Number of Subsequences After One Inserting"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3629.Minimum Jumps to Reach End via Prime Teleportation",
+      "slug": "minimum-jumps-to-reach-end-via-prime-teleportation",
+      "title": "Minimum Jumps to Reach End via Prime Teleportation"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3630.Partition Array for Maximum XOR and AND",
+      "slug": "partition-array-for-maximum-xor-and-and",
+      "title": "Partition Array for Maximum XOR and AND"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3631.Sort Threats by Severity and Exploitability",
+      "slug": "sort-threats-by-severity-and-exploitability",
+      "title": "Sort Threats by Severity and Exploitability"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3632.Subarrays with XOR at Least K",
+      "slug": "subarrays-with-xor-at-least-k",
+      "title": "Subarrays with XOR at Least K"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3633.Earliest Finish Time for Land and Water Rides I",
+      "slug": "earliest-finish-time-for-land-and-water-rides-i",
+      "title": "Earliest Finish Time for Land and Water Rides I"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3634.Minimum Removals to Balance Array",
+      "slug": "minimum-removals-to-balance-array",
+      "title": "Minimum Removals to Balance Array"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3635.Earliest Finish Time for Land and Water Rides II",
+      "slug": "earliest-finish-time-for-land-and-water-rides-ii",
+      "title": "Earliest Finish Time for Land and Water Rides II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3636.Threshold Majority Queries",
+      "slug": "threshold-majority-queries",
+      "title": "Threshold Majority Queries"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3637.Trionic Array I",
+      "slug": "trionic-array-i",
+      "title": "Trionic Array I"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3638.Maximum Balanced Shipments",
+      "slug": "maximum-balanced-shipments",
+      "title": "Maximum Balanced Shipments"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3639.Minimum Time to Activate String",
+      "slug": "minimum-time-to-activate-string",
+      "title": "Minimum Time to Activate String"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3640.Trionic Array II",
+      "slug": "trionic-array-ii",
+      "title": "Trionic Array II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3641.Longest Semi-Repeating Subarray",
+      "slug": "longest-semi-repeating-subarray",
+      "title": "Longest Semi-Repeating Subarray"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3642.Find Books with Polarized Opinions",
+      "slug": "find-books-with-polarized-opinions",
+      "title": "Find Books with Polarized Opinions"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3643.Flip Square Submatrix Vertically",
+      "slug": "flip-square-submatrix-vertically",
+      "title": "Flip Square Submatrix Vertically"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3644.Maximum K to Sort a Permutation",
+      "slug": "maximum-k-to-sort-a-permutation",
+      "title": "Maximum K to Sort a Permutation"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3645.Maximum Total from Optimal Activation Order",
+      "slug": "maximum-total-from-optimal-activation-order",
+      "title": "Maximum Total from Optimal Activation Order"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3646.Next Special Palindrome Number",
+      "slug": "next-special-palindrome-number",
+      "title": "Next Special Palindrome Number"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3647.Maximum Weight in Two Bags",
+      "slug": "maximum-weight-in-two-bags",
+      "title": "Maximum Weight in Two Bags"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3648.Minimum Sensors to Cover Grid",
+      "slug": "minimum-sensors-to-cover-grid",
+      "title": "Minimum Sensors to Cover Grid"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3649.Number of Perfect Pairs",
+      "slug": "number-of-perfect-pairs",
+      "title": "Number of Perfect Pairs"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3650.Minimum Cost Path with Edge Reversals",
+      "slug": "minimum-cost-path-with-edge-reversals",
+      "title": "Minimum Cost Path with Edge Reversals"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3651.Minimum Cost Path with Teleportations",
+      "slug": "minimum-cost-path-with-teleportations",
+      "title": "Minimum Cost Path with Teleportations"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3652.Best Time to Buy and Sell Stock using Strategy",
+      "slug": "best-time-to-buy-and-sell-stock-using-strategy",
+      "title": "Best Time to Buy and Sell Stock using Strategy"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3653.XOR After Range Multiplication Queries I",
+      "slug": "xor-after-range-multiplication-queries-i",
+      "title": "XOR After Range Multiplication Queries I"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3654.Minimum Sum After Divisible Sum Deletions",
+      "slug": "minimum-sum-after-divisible-sum-deletions",
+      "title": "Minimum Sum After Divisible Sum Deletions"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3655.XOR After Range Multiplication Queries II",
+      "slug": "xor-after-range-multiplication-queries-ii",
+      "title": "XOR After Range Multiplication Queries II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3656.Determine if a Simple Graph Exists",
+      "slug": "determine-if-a-simple-graph-exists",
+      "title": "Determine if a Simple Graph Exists"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3657.Find Loyal Customers",
+      "slug": "find-loyal-customers",
+      "title": "Find Loyal Customers"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3658.GCD of Odd and Even Sums",
+      "slug": "gcd-of-odd-and-even-sums",
+      "title": "GCD of Odd and Even Sums"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3659.Partition Array Into K-Distinct Groups",
+      "slug": "partition-array-into-k-distinct-groups",
+      "title": "Partition Array Into K-Distinct Groups"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3660.Jump Game IX",
+      "slug": "jump-game-ix",
+      "title": "Jump Game IX"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3661.Maximum Walls Destroyed by Robots",
+      "slug": "maximum-walls-destroyed-by-robots",
+      "title": "Maximum Walls Destroyed by Robots"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3662.Filter Characters by Frequency",
+      "slug": "filter-characters-by-frequency",
+      "title": "Filter Characters by Frequency"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3663.Find The Least Frequent Digit",
+      "slug": "find-the-least-frequent-digit",
+      "title": "Find The Least Frequent Digit"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3664.Two-Letter Card Game",
+      "slug": "two-letter-card-game",
+      "title": "Two-Letter Card Game"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3665.Twisted Mirror Path Count",
+      "slug": "twisted-mirror-path-count",
+      "title": "Twisted Mirror Path Count"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3666.Minimum Operations to Equalize Binary String",
+      "slug": "minimum-operations-to-equalize-binary-string",
+      "title": "Minimum Operations to Equalize Binary String"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3667.Sort Array By Absolute Value",
+      "slug": "sort-array-by-absolute-value",
+      "title": "Sort Array By Absolute Value"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3668.Restore Finishing Order",
+      "slug": "restore-finishing-order",
+      "title": "Restore Finishing Order"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3669.Balanced K-Factor Decomposition",
+      "slug": "balanced-k-factor-decomposition",
+      "title": "Balanced K-Factor Decomposition"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3670.Maximum Product of Two Integers With No Common Bits",
+      "slug": "maximum-product-of-two-integers-with-no-common-bits",
+      "title": "Maximum Product of Two Integers With No Common Bits"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3671.Sum of Beautiful Subsequences",
+      "slug": "sum-of-beautiful-subsequences",
+      "title": "Sum of Beautiful Subsequences"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3672.Sum of Weighted Modes in Subarrays",
+      "slug": "sum-of-weighted-modes-in-subarrays",
+      "title": "Sum of Weighted Modes in Subarrays"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3673.Find Zombie Sessions",
+      "slug": "find-zombie-sessions",
+      "title": "Find Zombie Sessions"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3674.Minimum Operations to Equalize Array",
+      "slug": "minimum-operations-to-equalize-array",
+      "title": "Minimum Operations to Equalize Array"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3675.Minimum Operations to Transform String",
+      "slug": "minimum-operations-to-transform-string",
+      "title": "Minimum Operations to Transform String"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3676.Count Bowl Subarrays",
+      "slug": "count-bowl-subarrays",
+      "title": "Count Bowl Subarrays"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3677.Count Binary Palindromic Numbers",
+      "slug": "count-binary-palindromic-numbers",
+      "title": "Count Binary Palindromic Numbers"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3678.Smallest Absent Positive Greater Than Average",
+      "slug": "smallest-absent-positive-greater-than-average",
+      "title": "Smallest Absent Positive Greater Than Average"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3679.Minimum Discards to Balance Inventory",
+      "slug": "minimum-discards-to-balance-inventory",
+      "title": "Minimum Discards to Balance Inventory"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3680.Generate Schedule",
+      "slug": "generate-schedule",
+      "title": "Generate Schedule"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3681.Maximum XOR of Subsequences",
+      "slug": "maximum-xor-of-subsequences",
+      "title": "Maximum XOR of Subsequences"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3682.Minimum Index Sum of Common Elements",
+      "slug": "minimum-index-sum-of-common-elements",
+      "title": "Minimum Index Sum of Common Elements"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3683.Earliest Time to Finish One Task",
+      "slug": "earliest-time-to-finish-one-task",
+      "title": "Earliest Time to Finish One Task"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3684.Maximize Sum of At Most K Distinct Elements",
+      "slug": "maximize-sum-of-at-most-k-distinct-elements",
+      "title": "Maximize Sum of At Most K Distinct Elements"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3685.Subsequence Sum After Capping Elements",
+      "slug": "subsequence-sum-after-capping-elements",
+      "title": "Subsequence Sum After Capping Elements"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3686.Number of Stable Subsequences",
+      "slug": "number-of-stable-subsequences",
+      "title": "Number of Stable Subsequences"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3687.Library Late Fee Calculator",
+      "slug": "library-late-fee-calculator",
+      "title": "Library Late Fee Calculator"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3688.Bitwise OR of Even Numbers in an Array",
+      "slug": "bitwise-or-of-even-numbers-in-an-array",
+      "title": "Bitwise OR of Even Numbers in an Array"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3689.Maximum Total Subarray Value I",
+      "slug": "maximum-total-subarray-value-i",
+      "title": "Maximum Total Subarray Value I"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3690.Split and Merge Array Transformation",
+      "slug": "split-and-merge-array-transformation",
+      "title": "Split and Merge Array Transformation"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3691.Maximum Total Subarray Value II",
+      "slug": "maximum-total-subarray-value-ii",
+      "title": "Maximum Total Subarray Value II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3692.Majority Frequency Characters",
+      "slug": "majority-frequency-characters",
+      "title": "Majority Frequency Characters"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3693.Climbing Stairs II",
+      "slug": "climbing-stairs-ii",
+      "title": "Climbing Stairs II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3694.Distinct Points Reachable After Substring Removal",
+      "slug": "distinct-points-reachable-after-substring-removal",
+      "title": "Distinct Points Reachable After Substring Removal"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3695.Maximize Alternating Sum Using Swaps",
+      "slug": "maximize-alternating-sum-using-swaps",
+      "title": "Maximize Alternating Sum Using Swaps"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3696.Maximum Distance Between Unequal Words in Array I",
+      "slug": "maximum-distance-between-unequal-words-in-array-i",
+      "title": "Maximum Distance Between Unequal Words in Array I"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3697.Compute Decimal Representation",
+      "slug": "compute-decimal-representation",
+      "title": "Compute Decimal Representation"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3698.Split Array With Minimum Difference",
+      "slug": "split-array-with-minimum-difference",
+      "title": "Split Array With Minimum Difference"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3600-3699/3699.Number of ZigZag Arrays I",
+      "slug": "number-of-zigzag-arrays-i",
+      "title": "Number of ZigZag Arrays I"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3700.Number of ZigZag Arrays II",
+      "slug": "number-of-zigzag-arrays-ii",
+      "title": "Number of ZigZag Arrays II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3701.Compute Alternating Sum",
+      "slug": "compute-alternating-sum",
+      "title": "Compute Alternating Sum"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3702.Longest Subsequence With Non-Zero Bitwise XOR",
+      "slug": "longest-subsequence-with-non-zero-bitwise-xor",
+      "title": "Longest Subsequence With Non-Zero Bitwise XOR"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3703.Remove K-Balanced Substrings",
+      "slug": "remove-k-balanced-substrings",
+      "title": "Remove K-Balanced Substrings"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3704.Count No-Zero Pairs That Sum to N",
+      "slug": "count-no-zero-pairs-that-sum-to-n",
+      "title": "Count No-Zero Pairs That Sum to N"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3705.Find Golden Hour Customers",
+      "slug": "find-golden-hour-customers",
+      "title": "Find Golden Hour Customers"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3706.Maximum Distance Between Unequal Words in Array II",
+      "slug": "maximum-distance-between-unequal-words-in-array-ii",
+      "title": "Maximum Distance Between Unequal Words in Array II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3707.Equal Score Substrings",
+      "slug": "equal-score-substrings",
+      "title": "Equal Score Substrings"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3708.Longest Fibonacci Subarray",
+      "slug": "longest-fibonacci-subarray",
+      "title": "Longest Fibonacci Subarray"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3709.Design Exam Scores Tracker",
+      "slug": "design-exam-scores-tracker",
+      "title": "Design Exam Scores Tracker"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3710.Maximum Partition Factor",
+      "slug": "maximum-partition-factor",
+      "title": "Maximum Partition Factor"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3711.Maximum Transactions Without Negative Balance",
+      "slug": "maximum-transactions-without-negative-balance",
+      "title": "Maximum Transactions Without Negative Balance"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3712.Sum of Elements With Frequency Divisible by K",
+      "slug": "sum-of-elements-with-frequency-divisible-by-k",
+      "title": "Sum of Elements With Frequency Divisible by K"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3713.Longest Balanced Substring I",
+      "slug": "longest-balanced-substring-i",
+      "title": "Longest Balanced Substring I"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3714.Longest Balanced Substring II",
+      "slug": "longest-balanced-substring-ii",
+      "title": "Longest Balanced Substring II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3715.Sum of Perfect Square Ancestors",
+      "slug": "sum-of-perfect-square-ancestors",
+      "title": "Sum of Perfect Square Ancestors"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3716.Find Churn Risk Customers",
+      "slug": "find-churn-risk-customers",
+      "title": "Find Churn Risk Customers"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3717.Minimum Operations to Make the Array Beautiful",
+      "slug": "minimum-operations-to-make-the-array-beautiful",
+      "title": "Minimum Operations to Make the Array Beautiful"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3718.Smallest Missing Multiple of K",
+      "slug": "smallest-missing-multiple-of-k",
+      "title": "Smallest Missing Multiple of K"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3719.Longest Balanced Subarray I",
+      "slug": "longest-balanced-subarray-i",
+      "title": "Longest Balanced Subarray I"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3720.Lexicographically Smallest Permutation Greater Than Target",
+      "slug": "lexicographically-smallest-permutation-greater-than-target",
+      "title": "Lexicographically Smallest Permutation Greater Than Target"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3721.Longest Balanced Subarray II",
+      "slug": "longest-balanced-subarray-ii",
+      "title": "Longest Balanced Subarray II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3722.Lexicographically Smallest String After Reverse",
+      "slug": "lexicographically-smallest-string-after-reverse",
+      "title": "Lexicographically Smallest String After Reverse"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3723.Maximize Sum of Squares of Digits",
+      "slug": "maximize-sum-of-squares-of-digits",
+      "title": "Maximize Sum of Squares of Digits"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3724.Minimum Operations to Transform Array",
+      "slug": "minimum-operations-to-transform-array",
+      "title": "Minimum Operations to Transform Array"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3725.Count Ways to Choose Coprime Integers from Rows",
+      "slug": "count-ways-to-choose-coprime-integers-from-rows",
+      "title": "Count Ways to Choose Coprime Integers from Rows"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3726.Remove Zeros in Decimal Representation",
+      "slug": "remove-zeros-in-decimal-representation",
+      "title": "Remove Zeros in Decimal Representation"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3727.Maximum Alternating Sum of Squares",
+      "slug": "maximum-alternating-sum-of-squares",
+      "title": "Maximum Alternating Sum of Squares"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3728.Stable Subarrays With Equal Boundary and Interior Sum",
+      "slug": "stable-subarrays-with-equal-boundary-and-interior-sum",
+      "title": "Stable Subarrays With Equal Boundary and Interior Sum"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3729.Count Distinct Subarrays Divisible by K in Sorted Array",
+      "slug": "count-distinct-subarrays-divisible-by-k-in-sorted-array",
+      "title": "Count Distinct Subarrays Divisible by K in Sorted Array"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3730.Maximum Calories Burnt from Jumps",
+      "slug": "maximum-calories-burnt-from-jumps",
+      "title": "Maximum Calories Burnt from Jumps"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3731.Find Missing Elements",
+      "slug": "find-missing-elements",
+      "title": "Find Missing Elements"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3732.Maximum Product of Three Elements After One Replacement",
+      "slug": "maximum-product-of-three-elements-after-one-replacement",
+      "title": "Maximum Product of Three Elements After One Replacement"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3733.Minimum Time to Complete All Deliveries",
+      "slug": "minimum-time-to-complete-all-deliveries",
+      "title": "Minimum Time to Complete All Deliveries"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3734.Lexicographically Smallest Palindromic Permutation Greater Than Target",
+      "slug": "lexicographically-smallest-palindromic-permutation-greater-than-target",
+      "title": "Lexicographically Smallest Palindromic Permutation Greater Than Target"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3735.Lexicographically Smallest String After Reverse II",
+      "slug": "lexicographically-smallest-string-after-reverse-ii",
+      "title": "Lexicographically Smallest String After Reverse II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3736.Minimum Moves to Equal Array Elements III",
+      "slug": "minimum-moves-to-equal-array-elements-iii",
+      "title": "Minimum Moves to Equal Array Elements III"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3737.Count Subarrays With Majority Element I",
+      "slug": "count-subarrays-with-majority-element-i",
+      "title": "Count Subarrays With Majority Element I"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3738.Longest Non-Decreasing Subarray After Replacing at Most One Element",
+      "slug": "longest-non-decreasing-subarray-after-replacing-at-most-one-element",
+      "title": "Longest Non-Decreasing Subarray After Replacing at Most One Element"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3739.Count Subarrays With Majority Element II",
+      "slug": "count-subarrays-with-majority-element-ii",
+      "title": "Count Subarrays With Majority Element II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3740.Minimum Distance Between Three Equal Elements I",
+      "slug": "minimum-distance-between-three-equal-elements-i",
+      "title": "Minimum Distance Between Three Equal Elements I"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3741.Minimum Distance Between Three Equal Elements II",
+      "slug": "minimum-distance-between-three-equal-elements-ii",
+      "title": "Minimum Distance Between Three Equal Elements II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3742.Maximum Path Score in a Grid",
+      "slug": "maximum-path-score-in-a-grid",
+      "title": "Maximum Path Score in a Grid"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3743.Maximize Cyclic Partition Score",
+      "slug": "maximize-cyclic-partition-score",
+      "title": "Maximize Cyclic Partition Score"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3744.Find Kth Character in Expanded String",
+      "slug": "find-kth-character-in-expanded-string",
+      "title": "Find Kth Character in Expanded String"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3745.Maximize Expression of Three Elements",
+      "slug": "maximize-expression-of-three-elements",
+      "title": "Maximize Expression of Three Elements"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3746.Minimum String Length After Balanced Removals",
+      "slug": "minimum-string-length-after-balanced-removals",
+      "title": "Minimum String Length After Balanced Removals"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3747.Count Distinct Integers After Removing Zeros",
+      "slug": "count-distinct-integers-after-removing-zeros",
+      "title": "Count Distinct Integers After Removing Zeros"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3748.Count Stable Subarrays",
+      "slug": "count-stable-subarrays",
+      "title": "Count Stable Subarrays"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3749.Evaluate Valid Expressions",
+      "slug": "evaluate-valid-expressions",
+      "title": "Evaluate Valid Expressions"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3750.Minimum Number of Flips to Reverse Binary String",
+      "slug": "minimum-number-of-flips-to-reverse-binary-string",
+      "title": "Minimum Number of Flips to Reverse Binary String"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3751.Total Waviness of Numbers in Range I",
+      "slug": "total-waviness-of-numbers-in-range-i",
+      "title": "Total Waviness of Numbers in Range I"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3752.Lexicographically Smallest Negated Permutation that Sums to Target",
+      "slug": "lexicographically-smallest-negated-permutation-that-sums-to-target",
+      "title": "Lexicographically Smallest Negated Permutation that Sums to Target"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3753.Total Waviness of Numbers in Range II",
+      "slug": "total-waviness-of-numbers-in-range-ii",
+      "title": "Total Waviness of Numbers in Range II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3754.Concatenate Non-Zero Digits and Multiply by Sum I",
+      "slug": "concatenate-non-zero-digits-and-multiply-by-sum-i",
+      "title": "Concatenate Non-Zero Digits and Multiply by Sum I"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3755.Find Maximum Balanced XOR Subarray Length",
+      "slug": "find-maximum-balanced-xor-subarray-length",
+      "title": "Find Maximum Balanced XOR Subarray Length"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3756.Concatenate Non-Zero Digits and Multiply by Sum II",
+      "slug": "concatenate-non-zero-digits-and-multiply-by-sum-ii",
+      "title": "Concatenate Non-Zero Digits and Multiply by Sum II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3757.Number of Effective Subsequences",
+      "slug": "number-of-effective-subsequences",
+      "title": "Number of Effective Subsequences"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3758.Convert Number Words to Digits",
+      "slug": "convert-number-words-to-digits",
+      "title": "Convert Number Words to Digits"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3759.Count Elements With at Least K Greater Values",
+      "slug": "count-elements-with-at-least-k-greater-values",
+      "title": "Count Elements With at Least K Greater Values"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3760.Maximum Substrings With Distinct Start",
+      "slug": "maximum-substrings-with-distinct-start",
+      "title": "Maximum Substrings With Distinct Start"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3761.Minimum Absolute Distance Between Mirror Pairs",
+      "slug": "minimum-absolute-distance-between-mirror-pairs",
+      "title": "Minimum Absolute Distance Between Mirror Pairs"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3762.Minimum Operations to Equalize Subarrays",
+      "slug": "minimum-operations-to-equalize-subarrays",
+      "title": "Minimum Operations to Equalize Subarrays"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3763.Maximum Total Sum with Threshold Constraints",
+      "slug": "maximum-total-sum-with-threshold-constraints",
+      "title": "Maximum Total Sum with Threshold Constraints"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3764.Most Common Course Pairs",
+      "slug": "most-common-course-pairs",
+      "title": "Most Common Course Pairs"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3765.Complete Prime Number",
+      "slug": "complete-prime-number",
+      "title": "Complete Prime Number"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3766.Minimum Operations to Make Binary Palindrome",
+      "slug": "minimum-operations-to-make-binary-palindrome",
+      "title": "Minimum Operations to Make Binary Palindrome"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3767.Maximize Points After Choosing K Tasks",
+      "slug": "maximize-points-after-choosing-k-tasks",
+      "title": "Maximize Points After Choosing K Tasks"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3768.Minimum Inversion Count in Subarrays of Fixed Length",
+      "slug": "minimum-inversion-count-in-subarrays-of-fixed-length",
+      "title": "Minimum Inversion Count in Subarrays of Fixed Length"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3769.Sort Integers by Binary Reflection",
+      "slug": "sort-integers-by-binary-reflection",
+      "title": "Sort Integers by Binary Reflection"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3770.Largest Prime from Consecutive Prime Sum",
+      "slug": "largest-prime-from-consecutive-prime-sum",
+      "title": "Largest Prime from Consecutive Prime Sum"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3771.Total Score of Dungeon Runs",
+      "slug": "total-score-of-dungeon-runs",
+      "title": "Total Score of Dungeon Runs"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3772.Maximum Subgraph Score in a Tree",
+      "slug": "maximum-subgraph-score-in-a-tree",
+      "title": "Maximum Subgraph Score in a Tree"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3773.Maximum Number of Equal Length Runs",
+      "slug": "maximum-number-of-equal-length-runs",
+      "title": "Maximum Number of Equal Length Runs"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3774.Absolute Difference Between Maximum and Minimum K Elements",
+      "slug": "absolute-difference-between-maximum-and-minimum-k-elements",
+      "title": "Absolute Difference Between Maximum and Minimum K Elements"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3775.Reverse Words With Same Vowel Count",
+      "slug": "reverse-words-with-same-vowel-count",
+      "title": "Reverse Words With Same Vowel Count"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3776.Minimum Moves to Balance Circular Array",
+      "slug": "minimum-moves-to-balance-circular-array",
+      "title": "Minimum Moves to Balance Circular Array"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3777.Minimum Deletions to Make Alternating Substring",
+      "slug": "minimum-deletions-to-make-alternating-substring",
+      "title": "Minimum Deletions to Make Alternating Substring"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3778.Minimum Distance Excluding One Maximum Weighted Edge",
+      "slug": "minimum-distance-excluding-one-maximum-weighted-edge",
+      "title": "Minimum Distance Excluding One Maximum Weighted Edge"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3779.Minimum Number of Operations to Have Distinct Elements",
+      "slug": "minimum-number-of-operations-to-have-distinct-elements",
+      "title": "Minimum Number of Operations to Have Distinct Elements"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3780.Maximum Sum of Three Numbers Divisible by Three",
+      "slug": "maximum-sum-of-three-numbers-divisible-by-three",
+      "title": "Maximum Sum of Three Numbers Divisible by Three"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3781.Maximum Score After Binary Swaps",
+      "slug": "maximum-score-after-binary-swaps",
+      "title": "Maximum Score After Binary Swaps"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3782.Last Remaining Integer After Alternating Deletion Operations",
+      "slug": "last-remaining-integer-after-alternating-deletion-operations",
+      "title": "Last Remaining Integer After Alternating Deletion Operations"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3783.Mirror Distance of an Integer",
+      "slug": "mirror-distance-of-an-integer",
+      "title": "Mirror Distance of an Integer"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3784.Minimum Deletion Cost to Make All Characters Equal",
+      "slug": "minimum-deletion-cost-to-make-all-characters-equal",
+      "title": "Minimum Deletion Cost to Make All Characters Equal"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3785.Minimum Swaps to Avoid Forbidden Values",
+      "slug": "minimum-swaps-to-avoid-forbidden-values",
+      "title": "Minimum Swaps to Avoid Forbidden Values"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3786.Total Sum of Interaction Cost in Tree Groups",
+      "slug": "total-sum-of-interaction-cost-in-tree-groups",
+      "title": "Total Sum of Interaction Cost in Tree Groups"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3787.Find Diameter Endpoints of a Tree",
+      "slug": "find-diameter-endpoints-of-a-tree",
+      "title": "Find Diameter Endpoints of a Tree"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3788.Maximum Score of a Split",
+      "slug": "maximum-score-of-a-split",
+      "title": "Maximum Score of a Split"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3789.Minimum Cost to Acquire Required Items",
+      "slug": "minimum-cost-to-acquire-required-items",
+      "title": "Minimum Cost to Acquire Required Items"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3790.Smallest All-Ones Multiple",
+      "slug": "smallest-all-ones-multiple",
+      "title": "Smallest All-Ones Multiple"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3791.Number of Balanced Integers in a Range",
+      "slug": "number-of-balanced-integers-in-a-range",
+      "title": "Number of Balanced Integers in a Range"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3792.Sum of Increasing Product Blocks",
+      "slug": "sum-of-increasing-product-blocks",
+      "title": "Sum of Increasing Product Blocks"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3793.Find Users with High Token Usage",
+      "slug": "find-users-with-high-token-usage",
+      "title": "Find Users with High Token Usage"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3794.Reverse String Prefix",
+      "slug": "reverse-string-prefix",
+      "title": "Reverse String Prefix"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3795.Minimum Subarray Length With Distinct Sum At Least K",
+      "slug": "minimum-subarray-length-with-distinct-sum-at-least-k",
+      "title": "Minimum Subarray Length With Distinct Sum At Least K"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3796.Find Maximum Value in a Constrained Sequence",
+      "slug": "find-maximum-value-in-a-constrained-sequence",
+      "title": "Find Maximum Value in a Constrained Sequence"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3797.Count Routes to Climb a Rectangular Grid",
+      "slug": "count-routes-to-climb-a-rectangular-grid",
+      "title": "Count Routes to Climb a Rectangular Grid"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3798.Largest Even Number",
+      "slug": "largest-even-number",
+      "title": "Largest Even Number"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3700-3799/3799.Word Squares II",
+      "slug": "word-squares-ii",
+      "title": "Word Squares II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3800.Minimum Cost to Make Two Binary Strings Equal",
+      "slug": "minimum-cost-to-make-two-binary-strings-equal",
+      "title": "Minimum Cost to Make Two Binary Strings Equal"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3801.Minimum Cost to Merge Sorted Lists",
+      "slug": "minimum-cost-to-merge-sorted-lists",
+      "title": "Minimum Cost to Merge Sorted Lists"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3802.Number of Ways to Paint Sheets",
+      "slug": "number-of-ways-to-paint-sheets",
+      "title": "Number of Ways to Paint Sheets"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3803.Count Residue Prefixes",
+      "slug": "count-residue-prefixes",
+      "title": "Count Residue Prefixes"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3804.Number of Centered Subarrays",
+      "slug": "number-of-centered-subarrays",
+      "title": "Number of Centered Subarrays"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3805.Count Caesar Cipher Pairs",
+      "slug": "count-caesar-cipher-pairs",
+      "title": "Count Caesar Cipher Pairs"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3806.Maximum Bitwise AND After Increment Operations",
+      "slug": "maximum-bitwise-and-after-increment-operations",
+      "title": "Maximum Bitwise AND After Increment Operations"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3807.Minimum Cost to Repair Edges to Traverse a Graph",
+      "slug": "minimum-cost-to-repair-edges-to-traverse-a-graph",
+      "title": "Minimum Cost to Repair Edges to Traverse a Graph"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3808.Find Emotionally Consistent Users",
+      "slug": "find-emotionally-consistent-users",
+      "title": "Find Emotionally Consistent Users"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3809.Best Reachable Tower",
+      "slug": "best-reachable-tower",
+      "title": "Best Reachable Tower"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3810.Minimum Operations to Reach Target Array",
+      "slug": "minimum-operations-to-reach-target-array",
+      "title": "Minimum Operations to Reach Target Array"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3811.Number of Alternating XOR Partitions",
+      "slug": "number-of-alternating-xor-partitions",
+      "title": "Number of Alternating XOR Partitions"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3812.Minimum Edge Toggles on a Tree",
+      "slug": "minimum-edge-toggles-on-a-tree",
+      "title": "Minimum Edge Toggles on a Tree"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3813.Vowel-Consonant Score",
+      "slug": "vowel-consonant-score",
+      "title": "Vowel-Consonant Score"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3814.Maximum Capacity Within Budget",
+      "slug": "maximum-capacity-within-budget",
+      "title": "Maximum Capacity Within Budget"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3815.Design Auction System",
+      "slug": "design-auction-system",
+      "title": "Design Auction System"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3816.Lexicographically Smallest String After Deleting Duplicate Characters",
+      "slug": "lexicographically-smallest-string-after-deleting-duplicate-characters",
+      "title": "Lexicographically Smallest String After Deleting Duplicate Characters"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3817.Good Indices in a Digit String",
+      "slug": "good-indices-in-a-digit-string",
+      "title": "Good Indices in a Digit String"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3818.Minimum Prefix Removal to Make Array Strictly Increasing",
+      "slug": "minimum-prefix-removal-to-make-array-strictly-increasing",
+      "title": "Minimum Prefix Removal to Make Array Strictly Increasing"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3819.Rotate Non Negative Elements",
+      "slug": "rotate-non-negative-elements",
+      "title": "Rotate Non Negative Elements"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3820.Pythagorean Distance Nodes in a Tree",
+      "slug": "pythagorean-distance-nodes-in-a-tree",
+      "title": "Pythagorean Distance Nodes in a Tree"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3821.Find Nth Smallest Integer With K One Bits",
+      "slug": "find-nth-smallest-integer-with-k-one-bits",
+      "title": "Find Nth Smallest Integer With K One Bits"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3822.Design Order Management System",
+      "slug": "design-order-management-system",
+      "title": "Design Order Management System"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3823.Reverse Letters Then Special Characters in a String",
+      "slug": "reverse-letters-then-special-characters-in-a-string",
+      "title": "Reverse Letters Then Special Characters in a String"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3824.Minimum K to Reduce Array Within Limit",
+      "slug": "minimum-k-to-reduce-array-within-limit",
+      "title": "Minimum K to Reduce Array Within Limit"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3825.Longest Strictly Increasing Subsequence With Non-Zero Bitwise AND",
+      "slug": "longest-strictly-increasing-subsequence-with-non-zero-bitwise-and",
+      "title": "Longest Strictly Increasing Subsequence With Non-Zero Bitwise AND"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3826.Minimum Partition Score",
+      "slug": "minimum-partition-score",
+      "title": "Minimum Partition Score"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3827.Count Monobit Integers",
+      "slug": "count-monobit-integers",
+      "title": "Count Monobit Integers"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3828.Final Element After Subarray Deletions",
+      "slug": "final-element-after-subarray-deletions",
+      "title": "Final Element After Subarray Deletions"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3829.Design Ride Sharing System",
+      "slug": "design-ride-sharing-system",
+      "title": "Design Ride Sharing System"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3830.Longest Alternating Subarray After Removing At Most One Element",
+      "slug": "longest-alternating-subarray-after-removing-at-most-one-element",
+      "title": "Longest Alternating Subarray After Removing At Most One Element"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3831.Median of a Binary Search Tree Level",
+      "slug": "median-of-a-binary-search-tree-level",
+      "title": "Median of a Binary Search Tree Level"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3832.Find Users with Persistent Behavior Patterns",
+      "slug": "find-users-with-persistent-behavior-patterns",
+      "title": "Find Users with Persistent Behavior Patterns"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3833.Count Dominant Indices",
+      "slug": "count-dominant-indices",
+      "title": "Count Dominant Indices"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3834.Merge Adjacent Equal Elements",
+      "slug": "merge-adjacent-equal-elements",
+      "title": "Merge Adjacent Equal Elements"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3835.Count Subarrays With Cost Less Than or Equal to K",
+      "slug": "count-subarrays-with-cost-less-than-or-equal-to-k",
+      "title": "Count Subarrays With Cost Less Than or Equal to K"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3836.Maximum Score Using Exactly K Pairs",
+      "slug": "maximum-score-using-exactly-k-pairs",
+      "title": "Maximum Score Using Exactly K Pairs"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3837.Delayed Count of Equal Elements",
+      "slug": "delayed-count-of-equal-elements",
+      "title": "Delayed Count of Equal Elements"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3838.Weighted Word Mapping",
+      "slug": "weighted-word-mapping",
+      "title": "Weighted Word Mapping"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3839.Number of Prefix Connected Groups",
+      "slug": "number-of-prefix-connected-groups",
+      "title": "Number of Prefix Connected Groups"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3840.House Robber V",
+      "slug": "house-robber-v",
+      "title": "House Robber V"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3841.Palindromic Path Queries in a Tree",
+      "slug": "palindromic-path-queries-in-a-tree",
+      "title": "Palindromic Path Queries in a Tree"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3842.Toggle Light Bulbs",
+      "slug": "toggle-light-bulbs",
+      "title": "Toggle Light Bulbs"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3843.First Element with Unique Frequency",
+      "slug": "first-element-with-unique-frequency",
+      "title": "First Element with Unique Frequency"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3844.Longest Almost-Palindromic Substring",
+      "slug": "longest-almost-palindromic-substring",
+      "title": "Longest Almost-Palindromic Substring"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3845.Maximum Subarray XOR with Bounded Range",
+      "slug": "maximum-subarray-xor-with-bounded-range",
+      "title": "Maximum Subarray XOR with Bounded Range"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3846.Total Distance to Type a String Using One Finger",
+      "slug": "total-distance-to-type-a-string-using-one-finger",
+      "title": "Total Distance to Type a String Using One Finger"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3847.Find the Score Difference in a Game",
+      "slug": "find-the-score-difference-in-a-game",
+      "title": "Find the Score Difference in a Game"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3848.Check Digitorial Permutation",
+      "slug": "check-digitorial-permutation",
+      "title": "Check Digitorial Permutation"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3849.Maximum Bitwise XOR After Rearrangement",
+      "slug": "maximum-bitwise-xor-after-rearrangement",
+      "title": "Maximum Bitwise XOR After Rearrangement"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3850.Count Sequences to K",
+      "slug": "count-sequences-to-k",
+      "title": "Count Sequences to K"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3851.Maximum Requests Without Violating the Limit",
+      "slug": "maximum-requests-without-violating-the-limit",
+      "title": "Maximum Requests Without Violating the Limit"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3852.Smallest Pair With Different Frequencies",
+      "slug": "smallest-pair-with-different-frequencies",
+      "title": "Smallest Pair With Different Frequencies"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3853.Merge Close Characters",
+      "slug": "merge-close-characters",
+      "title": "Merge Close Characters"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3854.Minimum Operations to Make Array Parity Alternating",
+      "slug": "minimum-operations-to-make-array-parity-alternating",
+      "title": "Minimum Operations to Make Array Parity Alternating"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3855.Sum of K-Digit Numbers in a Range",
+      "slug": "sum-of-k-digit-numbers-in-a-range",
+      "title": "Sum of K-Digit Numbers in a Range"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3856.Trim Trailing Vowels",
+      "slug": "trim-trailing-vowels",
+      "title": "Trim Trailing Vowels"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3857.Minimum Cost to Split into Ones",
+      "slug": "minimum-cost-to-split-into-ones",
+      "title": "Minimum Cost to Split into Ones"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3858.Minimum Bitwise OR From Grid",
+      "slug": "minimum-bitwise-or-from-grid",
+      "title": "Minimum Bitwise OR From Grid"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3859.Count Subarrays With K Distinct Integers",
+      "slug": "count-subarrays-with-k-distinct-integers",
+      "title": "Count Subarrays With K Distinct Integers"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3860.Unique Email Groups",
+      "slug": "unique-email-groups",
+      "title": "Unique Email Groups"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3861.Minimum Capacity Box",
+      "slug": "minimum-capacity-box",
+      "title": "Minimum Capacity Box"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3862.Find the Smallest Balanced Index",
+      "slug": "find-the-smallest-balanced-index",
+      "title": "Find the Smallest Balanced Index"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3863.Minimum Operations to Sort a String",
+      "slug": "minimum-operations-to-sort-a-string",
+      "title": "Minimum Operations to Sort a String"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3864.Minimum Cost to Partition a Binary String",
+      "slug": "minimum-cost-to-partition-a-binary-string",
+      "title": "Minimum Cost to Partition a Binary String"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3865.Reverse K Subarrays",
+      "slug": "reverse-k-subarrays",
+      "title": "Reverse K Subarrays"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3866.First Unique Even Element",
+      "slug": "first-unique-even-element",
+      "title": "First Unique Even Element"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3867.Sum of GCD of Formed Pairs",
+      "slug": "sum-of-gcd-of-formed-pairs",
+      "title": "Sum of GCD of Formed Pairs"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3868.Minimum Cost to Equalize Arrays Using Swaps",
+      "slug": "minimum-cost-to-equalize-arrays-using-swaps",
+      "title": "Minimum Cost to Equalize Arrays Using Swaps"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3869.Count Fancy Numbers in a Range",
+      "slug": "count-fancy-numbers-in-a-range",
+      "title": "Count Fancy Numbers in a Range"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3870.Count Commas in Range",
+      "slug": "count-commas-in-range",
+      "title": "Count Commas in Range"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3871.Count Commas in Range II",
+      "slug": "count-commas-in-range-ii",
+      "title": "Count Commas in Range II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3872.Longest Arithmetic Sequence After Changing At Most One Element",
+      "slug": "longest-arithmetic-sequence-after-changing-at-most-one-element",
+      "title": "Longest Arithmetic Sequence After Changing At Most One Element"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3873.Maximum Points Activated with One Addition",
+      "slug": "maximum-points-activated-with-one-addition",
+      "title": "Maximum Points Activated with One Addition"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3874.Valid Subarrays With Exactly One Peak",
+      "slug": "valid-subarrays-with-exactly-one-peak",
+      "title": "Valid Subarrays With Exactly One Peak"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3875.Construct Uniform Parity Array I",
+      "slug": "construct-uniform-parity-array-i",
+      "title": "Construct Uniform Parity Array I"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3876.Construct Uniform Parity Array II",
+      "slug": "construct-uniform-parity-array-ii",
+      "title": "Construct Uniform Parity Array II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3877.Minimum Removals to Achieve Target XOR",
+      "slug": "minimum-removals-to-achieve-target-xor",
+      "title": "Minimum Removals to Achieve Target XOR"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3878.Count Good Subarrays",
+      "slug": "count-good-subarrays",
+      "title": "Count Good Subarrays"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3879.Maximum Distinct Path Sum in a Binary Tree",
+      "slug": "maximum-distinct-path-sum-in-a-binary-tree",
+      "title": "Maximum Distinct Path Sum in a Binary Tree"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3880.Minimum Absolute Difference Between Two Values",
+      "slug": "minimum-absolute-difference-between-two-values",
+      "title": "Minimum Absolute Difference Between Two Values"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3881.Direction Assignments with Exactly K Visible People",
+      "slug": "direction-assignments-with-exactly-k-visible-people",
+      "title": "Direction Assignments with Exactly K Visible People"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3882.Minimum XOR Path in a Grid",
+      "slug": "minimum-xor-path-in-a-grid",
+      "title": "Minimum XOR Path in a Grid"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3883.Count Non Decreasing Arrays With Given Digit Sums",
+      "slug": "count-non-decreasing-arrays-with-given-digit-sums",
+      "title": "Count Non Decreasing Arrays With Given Digit Sums"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3884.First Matching Character From Both Ends",
+      "slug": "first-matching-character-from-both-ends",
+      "title": "First Matching Character From Both Ends"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3885.Design Event Manager",
+      "slug": "design-event-manager",
+      "title": "Design Event Manager"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3886.Sum of Sortable Integers",
+      "slug": "sum-of-sortable-integers",
+      "title": "Sum of Sortable Integers"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3887.Incremental Even-Weighted Cycle Queries",
+      "slug": "incremental-even-weighted-cycle-queries",
+      "title": "Incremental Even-Weighted Cycle Queries"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3888.Minimum Operations to Make All Grid Elements Equal",
+      "slug": "minimum-operations-to-make-all-grid-elements-equal",
+      "title": "Minimum Operations to Make All Grid Elements Equal"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3889.Mirror Frequency Distance",
+      "slug": "mirror-frequency-distance",
+      "title": "Mirror Frequency Distance"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3890.Integers With Multiple Sum of Two Cubes",
+      "slug": "integers-with-multiple-sum-of-two-cubes",
+      "title": "Integers With Multiple Sum of Two Cubes"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3891.Minimum Increase to Maximize Special Indices",
+      "slug": "minimum-increase-to-maximize-special-indices",
+      "title": "Minimum Increase to Maximize Special Indices"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3892.Minimum Operations to Achieve At Least K Peaks",
+      "slug": "minimum-operations-to-achieve-at-least-k-peaks",
+      "title": "Minimum Operations to Achieve At Least K Peaks"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3893.Maximum Team Size with Overlapping Intervals",
+      "slug": "maximum-team-size-with-overlapping-intervals",
+      "title": "Maximum Team Size with Overlapping Intervals"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3894.Traffic Signal Color",
+      "slug": "traffic-signal-color",
+      "title": "Traffic Signal Color"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3895.Count Digit Appearances",
+      "slug": "count-digit-appearances",
+      "title": "Count Digit Appearances"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3896.Minimum Operations to Transform Array into Alternating Prime",
+      "slug": "minimum-operations-to-transform-array-into-alternating-prime",
+      "title": "Minimum Operations to Transform Array into Alternating Prime"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3897.Maximum Value of Concatenated Binary Segments",
+      "slug": "maximum-value-of-concatenated-binary-segments",
+      "title": "Maximum Value of Concatenated Binary Segments"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3898.Find the Degree of Each Vertex",
+      "slug": "find-the-degree-of-each-vertex",
+      "title": "Find the Degree of Each Vertex"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3800-3899/3899.Angles of a Triangle",
+      "slug": "angles-of-a-triangle",
+      "title": "Angles of a Triangle"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3900.Longest Balanced Substring After One Swap",
+      "slug": "longest-balanced-substring-after-one-swap",
+      "title": "Longest Balanced Substring After One Swap"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3901.Good Subsequence Queries",
+      "slug": "good-subsequence-queries",
+      "title": "Good Subsequence Queries"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3902.Zigzag Level Sum of Binary Tree",
+      "slug": "zigzag-level-sum-of-binary-tree",
+      "title": "Zigzag Level Sum of Binary Tree"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3903.Smallest Stable Index I",
+      "slug": "smallest-stable-index-i",
+      "title": "Smallest Stable Index I"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3904.Smallest Stable Index II",
+      "slug": "smallest-stable-index-ii",
+      "title": "Smallest Stable Index II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3905.Multi Source Flood Fill",
+      "slug": "multi-source-flood-fill",
+      "title": "Multi Source Flood Fill"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3906.Count Good Integers on a Grid Path",
+      "slug": "count-good-integers-on-a-grid-path",
+      "title": "Count Good Integers on a Grid Path"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3907.Count Smaller Elements With Opposite Parity",
+      "slug": "count-smaller-elements-with-opposite-parity",
+      "title": "Count Smaller Elements With Opposite Parity"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3908.Valid Digit Number",
+      "slug": "valid-digit-number",
+      "title": "Valid Digit Number"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3909.Compare Sums of Bitonic Parts",
+      "slug": "compare-sums-of-bitonic-parts",
+      "title": "Compare Sums of Bitonic Parts"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3910.Count Connected Subgraphs with Even Node Sum",
+      "slug": "count-connected-subgraphs-with-even-node-sum",
+      "title": "Count Connected Subgraphs with Even Node Sum"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3911.K-th Smallest Remaining Even Integer in Subarray Queries",
+      "slug": "k-th-smallest-remaining-even-integer-in-subarray-queries",
+      "title": "K-th Smallest Remaining Even Integer in Subarray Queries"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3912.Valid Elements in an Array",
+      "slug": "valid-elements-in-an-array",
+      "title": "Valid Elements in an Array"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3913.Sort Vowels by Frequency",
+      "slug": "sort-vowels-by-frequency",
+      "title": "Sort Vowels by Frequency"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3914.Minimum Operations to Make Array Non Decreasing",
+      "slug": "minimum-operations-to-make-array-non-decreasing",
+      "title": "Minimum Operations to Make Array Non Decreasing"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3915.Maximum Sum of Alternating Subsequence With Distance at Least K",
+      "slug": "maximum-sum-of-alternating-subsequence-with-distance-at-least-k",
+      "title": "Maximum Sum of Alternating Subsequence With Distance at Least K"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3916.Number of ZigZag Arrays III",
+      "slug": "number-of-zigzag-arrays-iii",
+      "title": "Number of ZigZag Arrays III"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3917.Count Indices With Opposite Parity",
+      "slug": "count-indices-with-opposite-parity",
+      "title": "Count Indices With Opposite Parity"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3918.Sum of Primes Between Number and Its Reverse",
+      "slug": "sum-of-primes-between-number-and-its-reverse",
+      "title": "Sum of Primes Between Number and Its Reverse"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3919.Minimum Cost to Move Between Indices",
+      "slug": "minimum-cost-to-move-between-indices",
+      "title": "Minimum Cost to Move Between Indices"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3920.Maximize Fixed Points After Deletions",
+      "slug": "maximize-fixed-points-after-deletions",
+      "title": "Maximize Fixed Points After Deletions"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3921.Score Validator",
+      "slug": "score-validator",
+      "title": "Score Validator"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3922.Minimum Flips to Make Binary String Coherent",
+      "slug": "minimum-flips-to-make-binary-string-coherent",
+      "title": "Minimum Flips to Make Binary String Coherent"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3923.Minimum Generations to Target Point",
+      "slug": "minimum-generations-to-target-point",
+      "title": "Minimum Generations to Target Point"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3924.Minimum Threshold Path With Limited Heavy Edges",
+      "slug": "minimum-threshold-path-with-limited-heavy-edges",
+      "title": "Minimum Threshold Path With Limited Heavy Edges"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3925.Concatenate Array With Reverse",
+      "slug": "concatenate-array-with-reverse",
+      "title": "Concatenate Array With Reverse"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3926.Count Valid Word Occurrences",
+      "slug": "count-valid-word-occurrences",
+      "title": "Count Valid Word Occurrences"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3927.Minimize Array Sum Using Divisible Replacements",
+      "slug": "minimize-array-sum-using-divisible-replacements",
+      "title": "Minimize Array Sum Using Divisible Replacements"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3928.Minimum Cost to Buy Apples II",
+      "slug": "minimum-cost-to-buy-apples-ii",
+      "title": "Minimum Cost to Buy Apples II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3929.Minimum Partition Score II",
+      "slug": "minimum-partition-score-ii",
+      "title": "Minimum Partition Score II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3930.Power Update After K-th Largest Insertion II",
+      "slug": "power-update-after-k-th-largest-insertion-ii",
+      "title": "Power Update After K-th Largest Insertion II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3931.Check Adjacent Digit Differences",
+      "slug": "check-adjacent-digit-differences",
+      "title": "Check Adjacent Digit Differences"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3932.Count K-th Roots in a Range",
+      "slug": "count-k-th-roots-in-a-range",
+      "title": "Count K-th Roots in a Range"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3933.Largest Local Values in a Matrix II",
+      "slug": "largest-local-values-in-a-matrix-ii",
+      "title": "Largest Local Values in a Matrix II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3934.Smallest Unique Subarray",
+      "slug": "smallest-unique-subarray",
+      "title": "Smallest Unique Subarray"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3935.Power Update After K-th Largest Insertion I",
+      "slug": "power-update-after-k-th-largest-insertion-i",
+      "title": "Power Update After K-th Largest Insertion I"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3936.Minimum Swaps to Move Zeros to End",
+      "slug": "minimum-swaps-to-move-zeros-to-end",
+      "title": "Minimum Swaps to Move Zeros to End"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3937.Minimum Operations to Make Array Modulo Alternating I",
+      "slug": "minimum-operations-to-make-array-modulo-alternating-i",
+      "title": "Minimum Operations to Make Array Modulo Alternating I"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3938.Maximum Path Intersection Sum in a Grid",
+      "slug": "maximum-path-intersection-sum-in-a-grid",
+      "title": "Maximum Path Intersection Sum in a Grid"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3939.Count Non Adjacent Subsets in a Rooted Tree",
+      "slug": "count-non-adjacent-subsets-in-a-rooted-tree",
+      "title": "Count Non Adjacent Subsets in a Rooted Tree"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3940.Limit Occurrences in Sorted Array",
+      "slug": "limit-occurrences-in-sorted-array",
+      "title": "Limit Occurrences in Sorted Array"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3941.Password Strength",
+      "slug": "password-strength",
+      "title": "Password Strength"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3942.Minimum Operations to Sort a Permutation",
+      "slug": "minimum-operations-to-sort-a-permutation",
+      "title": "Minimum Operations to Sort a Permutation"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3943.Number of Pairs After Increment",
+      "slug": "number-of-pairs-after-increment",
+      "title": "Number of Pairs After Increment"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3944.Minimum Operations to Make Array Modulo Alternating II",
+      "slug": "minimum-operations-to-make-array-modulo-alternating-ii",
+      "title": "Minimum Operations to Make Array Modulo Alternating II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3945.Digit Frequency Score",
+      "slug": "digit-frequency-score",
+      "title": "Digit Frequency Score"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3946.Maximum Number of Items From Sale I",
+      "slug": "maximum-number-of-items-from-sale-i",
+      "title": "Maximum Number of Items From Sale I"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3947.Maximum Number of Items From Sale II",
+      "slug": "maximum-number-of-items-from-sale-ii",
+      "title": "Maximum Number of Items From Sale II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3948.Lexicographically Maximum MEX Array",
+      "slug": "lexicographically-maximum-mex-array",
+      "title": "Lexicographically Maximum MEX Array"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3949.Subtree Inversion Sum II",
+      "slug": "subtree-inversion-sum-ii",
+      "title": "Subtree Inversion Sum II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3950.Exactly One Consecutive Set Bits Pair",
+      "slug": "exactly-one-consecutive-set-bits-pair",
+      "title": "Exactly One Consecutive Set Bits Pair"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3951.Minimum Energy to Maintain Brightness",
+      "slug": "minimum-energy-to-maintain-brightness",
+      "title": "Minimum Energy to Maintain Brightness"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3952.Maximum Total Value of Covered Indices",
+      "slug": "maximum-total-value-of-covered-indices",
+      "title": "Maximum Total Value of Covered Indices"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3953.Maximum Score with Co-Prime Element",
+      "slug": "maximum-score-with-co-prime-element",
+      "title": "Maximum Score with Co-Prime Element"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3954.Sum of Compatible Numbers in Range I",
+      "slug": "sum-of-compatible-numbers-in-range-i",
+      "title": "Sum of Compatible Numbers in Range I"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3955.Valid Binary Strings With Cost Limit",
+      "slug": "valid-binary-strings-with-cost-limit",
+      "title": "Valid Binary Strings With Cost Limit"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3956.Maximum Sum of M Non-Overlapping Subarrays I",
+      "slug": "maximum-sum-of-m-non-overlapping-subarrays-i",
+      "title": "Maximum Sum of M Non-Overlapping Subarrays I"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3957.Maximum Sum of M Non-Overlapping Subarrays II",
+      "slug": "maximum-sum-of-m-non-overlapping-subarrays-ii",
+      "title": "Maximum Sum of M Non-Overlapping Subarrays II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3958.Minimum Cost to Split into Ones II",
+      "slug": "minimum-cost-to-split-into-ones-ii",
+      "title": "Minimum Cost to Split into Ones II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3959.Check Good Integer",
+      "slug": "check-good-integer",
+      "title": "Check Good Integer"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3960.Frequency Balance Subarray",
+      "slug": "frequency-balance-subarray",
+      "title": "Frequency Balance Subarray"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3961.Maximize Sum of Device Ratings",
+      "slug": "maximize-sum-of-device-ratings",
+      "title": "Maximize Sum of Device Ratings"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3962.Maximum Subarray Sum After at Most K Swaps",
+      "slug": "maximum-subarray-sum-after-at-most-k-swaps",
+      "title": "Maximum Subarray Sum After at Most K Swaps"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3963.Create Grid With Exactly One Path",
+      "slug": "create-grid-with-exactly-one-path",
+      "title": "Create Grid With Exactly One Path"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3964.Minimum Lights to Illuminate a Road",
+      "slug": "minimum-lights-to-illuminate-a-road",
+      "title": "Minimum Lights to Illuminate a Road"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3965.Finish Time of Tasks I",
+      "slug": "finish-time-of-tasks-i",
+      "title": "Finish Time of Tasks I"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3966.Count Good Integers in a Range",
+      "slug": "count-good-integers-in-a-range",
+      "title": "Count Good Integers in a Range"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3967.Finish Time of Tasks II",
+      "slug": "finish-time-of-tasks-ii",
+      "title": "Finish Time of Tasks II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3968.Maximum Manhattan Distance After All Moves",
+      "slug": "maximum-manhattan-distance-after-all-moves",
+      "title": "Maximum Manhattan Distance After All Moves"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3969.Valid Subarrays With Matching Sum Digits I",
+      "slug": "valid-subarrays-with-matching-sum-digits-i",
+      "title": "Valid Subarrays With Matching Sum Digits I"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3970.Shortest Path With At Most K Consecutive Identical Characters",
+      "slug": "shortest-path-with-at-most-k-consecutive-identical-characters",
+      "title": "Shortest Path With At Most K Consecutive Identical Characters"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3971.Maximum Total Value",
+      "slug": "maximum-total-value",
+      "title": "Maximum Total Value"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3972.Valid Subarrays With Matching Sum Digits II",
+      "slug": "valid-subarrays-with-matching-sum-digits-ii",
+      "title": "Valid Subarrays With Matching Sum Digits II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3973.Distinct Gate Paths to LCA",
+      "slug": "distinct-gate-paths-to-lca",
+      "title": "Distinct Gate Paths to LCA"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3974.Maximum Total Sum of K Selected Elements",
+      "slug": "maximum-total-sum-of-k-selected-elements",
+      "title": "Maximum Total Sum of K Selected Elements"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3975.Filter Occupied Intervals",
+      "slug": "filter-occupied-intervals",
+      "title": "Filter Occupied Intervals"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3976.Maximum Subarray Sum After Multiplier",
+      "slug": "maximum-subarray-sum-after-multiplier",
+      "title": "Maximum Subarray Sum After Multiplier"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3977.Minimum Time to Reach Target With Limited Power",
+      "slug": "minimum-time-to-reach-target-with-limited-power",
+      "title": "Minimum Time to Reach Target With Limited Power"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3978.Unique Middle Element",
+      "slug": "unique-middle-element",
+      "title": "Unique Middle Element"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3979.Maximum Valid Pair Sum",
+      "slug": "maximum-valid-pair-sum",
+      "title": "Maximum Valid Pair Sum"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3980.Minimum Operations to Transform Binary String",
+      "slug": "minimum-operations-to-transform-binary-string",
+      "title": "Minimum Operations to Transform Binary String"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3981.Count Distinct Ways to Form Target from Two Strings",
+      "slug": "count-distinct-ways-to-form-target-from-two-strings",
+      "title": "Count Distinct Ways to Form Target from Two Strings"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3982.Sum of Integers with Maximum Digit Range",
+      "slug": "sum-of-integers-with-maximum-digit-range",
+      "title": "Sum of Integers with Maximum Digit Range"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3983.Subsequence After One Replacement",
+      "slug": "subsequence-after-one-replacement",
+      "title": "Subsequence After One Replacement"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3984.Divisible Game",
+      "slug": "divisible-game",
+      "title": "Divisible Game"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3985.Palindromic Subarray Sum",
+      "slug": "palindromic-subarray-sum",
+      "title": "Palindromic Subarray Sum"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3986.Number of Elapsed Seconds Between Two Times",
+      "slug": "number-of-elapsed-seconds-between-two-times",
+      "title": "Number of Elapsed Seconds Between Two Times"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3987.Minimum Total Cost to Process All Elements",
+      "slug": "minimum-total-cost-to-process-all-elements",
+      "title": "Minimum Total Cost to Process All Elements"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3988.Create Grid With Exactly K Paths I",
+      "slug": "create-grid-with-exactly-k-paths-i",
+      "title": "Create Grid With Exactly K Paths I"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3989.Maximum Consistent Columns in a Grid",
+      "slug": "maximum-consistent-columns-in-a-grid",
+      "title": "Maximum Consistent Columns in a Grid"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3990.Create Grid With Exactly K Paths II",
+      "slug": "create-grid-with-exactly-k-paths-ii",
+      "title": "Create Grid With Exactly K Paths II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3991.Sort Array Using Prefix Reversals",
+      "slug": "sort-array-using-prefix-reversals",
+      "title": "Sort Array Using Prefix Reversals"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3992.Rearrange String to Avoid Character Pair",
+      "slug": "rearrange-string-to-avoid-character-pair",
+      "title": "Rearrange String to Avoid Character Pair"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3993.Maximum Value of an Alternating Sequence",
+      "slug": "maximum-value-of-an-alternating-sequence",
+      "title": "Maximum Value of an Alternating Sequence"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3994.Minimum Adjacent Swaps to Partition Array",
+      "slug": "minimum-adjacent-swaps-to-partition-array",
+      "title": "Minimum Adjacent Swaps to Partition Array"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3995.Minimum Cost to Convert String III",
+      "slug": "minimum-cost-to-convert-string-iii",
+      "title": "Minimum Cost to Convert String III"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3996.Even Number of Knight Moves",
+      "slug": "even-number-of-knight-moves",
+      "title": "Even Number of Knight Moves"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3997.Count Dominant Nodes in a Binary Tree",
+      "slug": "count-dominant-nodes-in-a-binary-tree",
+      "title": "Count Dominant Nodes in a Binary Tree"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3998.Transform Binary String Using Subsequence Sort",
+      "slug": "transform-binary-string-using-subsequence-sort",
+      "title": "Transform Binary String Using Subsequence Sort"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/3900-3999/3999.Minimum Number of String Groups Through Transformations",
+      "slug": "minimum-number-of-string-groups-through-transformations",
+      "title": "Minimum Number of String Groups Through Transformations"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4000.Largest Integer With Given Digit Sum",
+      "slug": "largest-integer-with-given-digit-sum",
+      "title": "Largest Integer With Given Digit Sum"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4001.Aggregate Two Time Series",
+      "slug": "aggregate-two-time-series",
+      "title": "Aggregate Two Time Series"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4002.Count Valid Sequences",
+      "slug": "count-valid-sequences",
+      "title": "Count Valid Sequences"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4003.Minimum Cost Path with Alternating Directions III",
+      "slug": "minimum-cost-path-with-alternating-directions-iii",
+      "title": "Minimum Cost Path with Alternating Directions III"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4004.Minimum Moves to Balance Circular Array II",
+      "slug": "minimum-moves-to-balance-circular-array-ii",
+      "title": "Minimum Moves to Balance Circular Array II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4005.Minimum Operations to Make Array Equal III",
+      "slug": "minimum-operations-to-make-array-equal-iii",
+      "title": "Minimum Operations to Make Array Equal III"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4006.Count Valid Prefixes",
+      "slug": "count-valid-prefixes",
+      "title": "Count Valid Prefixes"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4007.Widest Possible Fence",
+      "slug": "widest-possible-fence",
+      "title": "Widest Possible Fence"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4008.Minimum Initial Strength to Defeat All Monsters",
+      "slug": "minimum-initial-strength-to-defeat-all-monsters",
+      "title": "Minimum Initial Strength to Defeat All Monsters"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4009.Minimum Possible Maximum Waiting Time",
+      "slug": "minimum-possible-maximum-waiting-time",
+      "title": "Minimum Possible Maximum Waiting Time"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4010.Maximize Pair Strength Using GCD",
+      "slug": "maximize-pair-strength-using-gcd",
+      "title": "Maximize Pair Strength Using GCD"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4011.Count Subarrays With Even Odd Ratio I",
+      "slug": "count-subarrays-with-even-odd-ratio-i",
+      "title": "Count Subarrays With Even Odd Ratio I"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4012.Count of Unfinished Tasks After Each Shift",
+      "slug": "count-of-unfinished-tasks-after-each-shift",
+      "title": "Count of Unfinished Tasks After Each Shift"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4013.Count Subarrays With Even Odd Ratio II",
+      "slug": "count-subarrays-with-even-odd-ratio-ii",
+      "title": "Count Subarrays With Even Odd Ratio II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4014.Minimum Total Price After Applying Discounts",
+      "slug": "minimum-total-price-after-applying-discounts",
+      "title": "Minimum Total Price After Applying Discounts"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4015.Weighted Sum of a Tree",
+      "slug": "weighted-sum-of-a-tree",
+      "title": "Weighted Sum of a Tree"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4016.Maximum Area of Two Non-Overlapping Square Submatrices",
+      "slug": "maximum-area-of-two-non-overlapping-square-submatrices",
+      "title": "Maximum Area of Two Non-Overlapping Square Submatrices"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4017.Peaks in Array II",
+      "slug": "peaks-in-array-ii",
+      "title": "Peaks in Array II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4018.Total Sum of Interaction Cost in Tree Groups II",
+      "slug": "total-sum-of-interaction-cost-in-tree-groups-ii",
+      "title": "Total Sum of Interaction Cost in Tree Groups II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4019.Merge Close Characters II",
+      "slug": "merge-close-characters-ii",
+      "title": "Merge Close Characters II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4020.Elevator Requests I",
+      "slug": "elevator-requests-i",
+      "title": "Elevator Requests I"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4021.Minimum Operations to Make a Rotated Palindrome I",
+      "slug": "minimum-operations-to-make-a-rotated-palindrome-i",
+      "title": "Minimum Operations to Make a Rotated Palindrome I"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4022.K-th Digit in Infinite String",
+      "slug": "k-th-digit-in-infinite-string",
+      "title": "K-th Digit in Infinite String"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4023.Elevator Requests II",
+      "slug": "elevator-requests-ii",
+      "title": "Elevator Requests II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4024.Nearest Available Drone",
+      "slug": "nearest-available-drone",
+      "title": "Nearest Available Drone"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4025.Minimize the Maximum Waiting Time at Synchronized Traffic Lights",
+      "slug": "minimize-the-maximum-waiting-time-at-synchronized-traffic-lights",
+      "title": "Minimize the Maximum Waiting Time at Synchronized Traffic Lights"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4026.Maximum Gap Between Stations",
+      "slug": "maximum-gap-between-stations",
+      "title": "Maximum Gap Between Stations"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4027.Elevator Requests III",
+      "slug": "elevator-requests-iii",
+      "title": "Elevator Requests III"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4028.Minimum Operations to Make a Rotated Palindrome II",
+      "slug": "minimum-operations-to-make-a-rotated-palindrome-ii",
+      "title": "Minimum Operations to Make a Rotated Palindrome II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4029.Elevator Requests IV",
+      "slug": "elevator-requests-iv",
+      "title": "Elevator Requests IV"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4030.Check ASCII Palindromic",
+      "slug": "check-ascii-palindromic",
+      "title": "Check ASCII Palindromic"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4031.Find All Numbers Disappeared in an Array II",
+      "slug": "find-all-numbers-disappeared-in-an-array-ii",
+      "title": "Find All Numbers Disappeared in an Array II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4032.Longest Subarray With at Most K Distinct Prime Factors",
+      "slug": "longest-subarray-with-at-most-k-distinct-prime-factors",
+      "title": "Longest Subarray With at Most K Distinct Prime Factors"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4033.Valid K-Unique Subarrays I",
+      "slug": "valid-k-unique-subarrays-i",
+      "title": "Valid K-Unique Subarrays I"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4034.Minimum Bishop Moves to Reach Target",
+      "slug": "minimum-bishop-moves-to-reach-target",
+      "title": "Minimum Bishop Moves to Reach Target"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4035.Maximum Valid Split Positions I",
+      "slug": "maximum-valid-split-positions-i",
+      "title": "Maximum Valid Split Positions I"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4036.Lexicographically Largest String After Pair Transformations",
+      "slug": "lexicographically-largest-string-after-pair-transformations",
+      "title": "Lexicographically Largest String After Pair Transformations"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4037.Maximum Valid Split Positions II",
+      "slug": "maximum-valid-split-positions-ii",
+      "title": "Maximum Valid Split Positions II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4038.Count Integers Appearing in a Single Block",
+      "slug": "count-integers-appearing-in-a-single-block",
+      "title": "Count Integers Appearing in a Single Block"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4039.Sum of Decoded Numbers",
+      "slug": "sum-of-decoded-numbers",
+      "title": "Sum of Decoded Numbers"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4040.Minimum Operations to Form Subset Sum I",
+      "slug": "minimum-operations-to-form-subset-sum-i",
+      "title": "Minimum Operations to Form Subset Sum I"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4041.Minimum Operations to Form Subset Sum II",
+      "slug": "minimum-operations-to-form-subset-sum-ii",
+      "title": "Minimum Operations to Form Subset Sum II"
     }
   ],
   "skipped": [

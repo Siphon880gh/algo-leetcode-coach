@@ -6,7 +6,7 @@
 
 Examples → 2, 4, 0. Checked against trying every set of pairs on 200 random arrays.
 
-If k pairs exist, the k smallest values can play the small role against the k largest, so restricting to halves loses nothing. 2 · a[i] can reach 2 · 10^9, so use 64-bit.
+If k pairs exist, the k smallest values can play the small role against the k largest, so restricting to halves loses nothing. 2 · a[i] can reach 2 · 10^9, which still fits in a signed 32-bit integer (limit 2,147,483,647).
 
 Time: O(n log n)  
 Space: O(1) besides sorting

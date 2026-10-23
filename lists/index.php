@@ -143,6 +143,9 @@ $allHref = content_list_href('lists/index.php', ['list' => $listId]);
                                 <?php if ($diff !== ''): ?>
                                     <span class="leetcode-diff leetcode-diff--<?= e(content_leetcode_difficulty_class($diff)) ?>"><?= e($diff) ?></span>
                                 <?php endif; ?>
+                                <?php if ($n > 0 && trim((string) $p['title']) !== ''): ?>
+                                    <?= content_youtube_link_html($n, (string) $p['title']) ?>
+                                <?php endif; ?>
                             </span>
                         </span>
                         <span class="clist-item__links">
