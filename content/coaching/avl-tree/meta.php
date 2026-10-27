@@ -9,4 +9,5 @@ return [
     'tags' => ['AVL', 'balanced-BST', 'step-by-step'],
     'related_guide' => 'avl-tree',
     'topic' => 'Data Structures · Trees',
+    'related_game' => 'avl-tree-game',
 ];

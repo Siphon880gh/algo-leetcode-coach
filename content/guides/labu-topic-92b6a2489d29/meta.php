@@ -10,4 +10,5 @@ return [
     'tags' => ['heap', 'priority-queue'],
     'related_session' => 'labu-topic-92b6a2489d29',
     'topic' => 'Data Structures · Heap',
+    'related_game' => 'labu-topic-92b6a2489d29-game',
 ];

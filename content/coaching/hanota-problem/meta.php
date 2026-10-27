@@ -9,4 +9,5 @@ return [
     'tags' => ['hanoi', 'recursion', 'step-by-step'],
     'related_guide' => 'hanota-problem',
     'topic' => 'Algorithms · Recursion',
+    'related_game' => 'hanota-problem-game',
 ];

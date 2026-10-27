@@ -9,4 +9,5 @@ return [
     'tags' => ['binary-tree', 'step-by-step'],
     'related_guide' => 'binary-tree',
     'topic' => 'Data Structures · Trees',
+    'related_game' => 'binary-tree-game',
 ];

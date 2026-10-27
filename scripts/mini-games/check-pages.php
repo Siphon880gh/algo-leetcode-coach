@@ -2,7 +2,8 @@
 // Fetch every game's play page from a running local server and check it:
 // HTTP 200, no PHP error output, the problem panel is present, and the panel shows
 // either the statement (with its images and the Algo Guide link) or, for locked
-// premium problems, the fallback without leaking the statement body.
+// premium problems, the fallback without leaking the statement body. Extras games (no LeetCode
+// number) have no problem panel; they must link their Algo Guide and Step-by-step in the page head.
 //
 // usage: php -S 127.0.0.1:8765          (from the repo root, in another terminal)
 //        php scripts/mini-games/check-pages.php [base-url]   (default http://127.0.0.1:8765)
@@ -25,7 +26,13 @@ foreach (glob('content/games/*-game/meta.php') as $f) {
     $code = (int) (explode(' ', $http_response_header[0] ?? '')[1] ?? 0);
     if ($code !== 200) $err[] = "HTTP $code";
     if (preg_match($phpError, $html)) $err[] = 'PHP error output';
-    if (!preg_match('#<details class="problem-statement[^"]*game-problem" id="problem" open>(.*?)</details>#s', $html, $mm)) {
+    if (!$n) {
+        $g = (string) ($m['related_guide'] ?? '');
+        if ($g === '' || strpos($html, 'guides/view.php?id=' . rawurlencode($g) . '"') === false) $err[] = 'no guide link';
+        $sess = (string) ($m['related_session'] ?? '');
+        if ($sess !== '' && strpos($html, 'coaching/session.php?id=' . rawurlencode($sess) . '"') === false) $err[] = 'no session link';
+        if (strpos($html, 'id="problem"') !== false) $err[] = 'unexpected problem panel';
+    } elseif (!preg_match('#<details class="problem-statement[^"]*game-problem" id="problem" open>(.*?)</details>#s', $html, $mm)) {
         $err[] = 'no problem panel';
     } else {
         $panel = $mm[1];

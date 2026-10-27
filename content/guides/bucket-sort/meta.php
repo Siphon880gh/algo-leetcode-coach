@@ -10,4 +10,5 @@ return [
     'tags' => ['bucket-sort'],
     'related_session' => 'bucket-sort',
     'topic' => 'Algorithms · Sorting',
+    'related_game' => 'bucket-sort-game',
 ];

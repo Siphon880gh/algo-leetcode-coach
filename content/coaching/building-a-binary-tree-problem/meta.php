@@ -9,4 +9,5 @@ return [
     'tags' => ['divide-conquer', 'binary-tree', 'step-by-step'],
     'related_guide' => 'building-a-binary-tree-problem',
     'topic' => 'Algorithms · Trees',
+    'related_game' => 'building-a-binary-tree-problem-game',
 ];

@@ -10,4 +10,5 @@ return [
     'tags' => ['deque', 'sliding-window'],
     'related_session' => 'deque',
     'topic' => 'Data Structures · Queue',
+    'related_game' => 'deque-game',
 ];

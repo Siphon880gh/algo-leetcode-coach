@@ -9,4 +9,5 @@ return [
     'tags' => ['greedy', 'foundations', 'step-by-step'],
     'related_guide' => 'labu-topic-aafb2d54c833',
     'topic' => 'Algorithms · Greedy',
+    'related_game' => 'labu-topic-aafb2d54c833-game',
 ];

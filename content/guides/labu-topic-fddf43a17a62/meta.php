@@ -10,4 +10,5 @@ return [
     'tags' => ['stack', 'queue', 'patterns'],
     'related_session' => 'labu-topic-fddf43a17a62',
     'topic' => 'Algorithms · Stack',
+    'related_game' => 'labu-topic-fddf43a17a62-game',
 ];

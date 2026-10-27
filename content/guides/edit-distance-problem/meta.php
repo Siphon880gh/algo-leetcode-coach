@@ -10,4 +10,5 @@ return [
     'tags' => ['edit-distance', 'DP'],
     'related_session' => 'edit-distance-problem',
     'topic' => 'Algorithms · Dynamic Programming',
+    'related_game' => 'edit-distance-problem-game',
 ];

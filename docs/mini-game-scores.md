@@ -2,12 +2,12 @@
 
 Every guide in `content/guides/` scored against the **loosened criteria** in [mini-game-criteria.md](mini-game-criteria.md#loosened-criteria-use-these). Score order: I/F/V/L/T/M, 0–2 each. A guide qualifies at 8/12 or more.
 
-- Guides scored: **4042**
-- Qualify: **3534** (153 already had a game from the strict pass, 3381 new)
-- Do not qualify: **508**
-- Games built so far for qualifying guides: **3534 / 3534**
+- Guides scored: **4199** (4095 LeetCode problems, the `add-mini-game` page, and 103 Extras with no LeetCode number from hello-algo, labuladong and leetcode-master)
+- Qualify: **3669** (153 already had a game from the strict pass, 3516 new)
+- Do not qualify: **530**
+- Games built so far for qualifying guides: **3669 / 3669**
 
-Qualifying guides by pattern module: dp 512, math 290, greedy 272, tree 240, strings 223, binary-search 194, graph 182, two-pointers 153, design 142, hash 141, grid 130, prefix-sum 124, sliding-window 122, bits 105, backtracking 92, array 84, union-find 80, heap 76, sim 73, stack 62, linked-list 56, range-tree 50, sorting 41, trie 39, mono-stack 36, intervals 15.
+Qualifying guides by pattern module: dp 533, math 294, greedy 281, tree 251, strings 228, binary-search 197, graph 187, two-pointers 155, hash 153, design 143, grid 132, prefix-sum 130, sliding-window 126, bits 108, backtracking 99, array 92, heap 81, union-find 80, sim 74, stack 65, linked-list 59, range-tree 51, sorting 49, trie 40, mono-stack 38, intervals 17, recursion 4, queue 2.
 
 "Pattern" is the engine module family the game is grouped under. "Built" means `content/games/{game}/` exists.
 
@@ -4054,4 +4054,161 @@ Qualifying guides by pattern module: dp 512, math 290, greedy 272, tree 240, str
 | 4039 | `sum-of-decoded-numbers` | Med | 1/2/1/2/1/1 | 8 | yes | `sum-of-decoded-numbers-game` | math | yes |  |
 | 4040 | `minimum-operations-to-form-subset-sum-i` | Med | 2/2/2/1/2/2 | 11 | yes | `minimum-operations-to-form-subset-sum-i-game` | dp | yes |  |
 | 4041 | `minimum-operations-to-form-subset-sum-ii` | Hard | 2/2/1/1/2/2 | 10 | yes | `minimum-operations-to-form-subset-sum-ii-game` | dp | yes |  |
+| 4042 | `valid-k-unique-subarrays-ii` | Hard | 2/2/1/1/2/2 | 10 | yes | `valid-k-unique-subarrays-ii-game` | hash | yes |  |
+| 4043 | `count-rotations-with-exactly-k-equal-adjacent-pairs` | Easy | 1/2/1/2/1/1 | 8 | yes | `count-rotations-with-exactly-k-equal-adjacent-pairs-game` | strings | yes |  |
+| 4044 | `count-good-cyclic-rotations` | Med | 2/2/2/2/1/1 | 10 | yes | `count-good-cyclic-rotations-game` | sliding-window | yes |  |
+| 4045 | `count-robot-groups` | Med | 2/2/2/1/2/2 | 11 | yes | `count-robot-groups-game` | stack | yes |  |
+| 4046 | `minimum-cost-path-with-at-most-k-turns` | Hard | 2/2/2/1/2/2 | 11 | yes | `minimum-cost-path-with-at-most-k-turns-game` | graph | yes |  |
+| 4047 | `minimum-operations-to-make-xor-of-all-elements-zero` | Hard | 2/2/1/1/2/2 | 10 | yes | `minimum-operations-to-make-xor-of-all-elements-zero-game` | bits | yes |  |
+| 4048 | `count-values-with-equally-spaced-occurrences-i` | Easy | 1/2/2/2/1/1 | 9 | yes | `count-values-with-equally-spaced-occurrences-i-game` | hash | yes |  |
+| 4049 | `count-values-with-equally-spaced-occurrences-ii` | Med | 1/2/2/2/1/1 | 9 | yes | `count-values-with-equally-spaced-occurrences-ii-game` | hash | yes |  |
+| 4050 | `minimum-days-to-score-exactly-n-points` | Med | 2/2/1/2/2/1 | 10 | yes | `minimum-days-to-score-exactly-n-points-game` | dp | yes |  |
+| 4051 | `count-subarrays-with-distant-sums` | Hard | 2/2/2/1/2/2 | 11 | yes | `count-subarrays-with-distant-sums-game` | prefix-sum | yes |  |
+| 4052 | `cyclically-shift-rows-and-columns` | Easy | 1/2/1/2/1/1 | 8 | yes | `cyclically-shift-rows-and-columns-game` | grid | yes |  |
+| 4053 | `minimum-operations-to-make-every-element-palindromic` | Med | 2/2/1/2/1/1 | 9 | yes | `minimum-operations-to-make-every-element-palindromic-game` | math | yes |  |
+| 4054 | `count-shadow-pairs-i` | Med | 2/2/2/2/2/1 | 11 | yes | `count-shadow-pairs-i-game` | mono-stack | yes |  |
+| 4055 | `count-shadow-pairs-ii` | Hard | 2/2/1/1/2/2 | 10 | yes | `count-shadow-pairs-ii-game` | range-tree | yes |  |
+| 4056 | `number-of-intersecting-interval-pairs-i` | Easy | 1/2/2/2/1/1 | 9 | yes | `number-of-intersecting-interval-pairs-i-game` | intervals | yes |  |
+| 4057 | `number-of-intersecting-interval-pairs-ii` | Med | 2/2/2/2/2/1 | 11 | yes | `number-of-intersecting-interval-pairs-ii-game` | intervals | yes |  |
+| 4058 | `maximum-pulse-value-after-one-subarray-rotation` | Med | 2/2/1/1/2/2 | 10 | yes | `maximum-pulse-value-after-one-subarray-rotation-game` | prefix-sum | yes |  |
+| 4059 | `lexicographically-largest-power-array` | Hard | 2/2/2/1/2/2 | 11 | yes | `lexicographically-largest-power-array-game` | greedy | yes |  |
+| 4060 | `count-evenly-good-integers` | Hard | 2/2/1/1/2/1 | 9 | yes | `count-evenly-good-integers-game` | dp | yes |  |
+| 4061 | `minimum-queen-moves-to-reach-target` | Easy | 0/2/1/2/1/0 | 6 | no | – | – | – | Pure one-line formula (0 if already there, 1 if source and target share a row, column or diagonal, else 2): no sequence of steps to play. |
+| 4062 | `transform-array-using-pair-operations` | Med | 0/2/1/2/1/0 | 6 | no | – | – | – | Pure one-line formula (every operation keeps the total, so the answer is sum(source) = sum(target)): no sequence of steps to play. |
+| 4063 | `longest-subarray-divisible-by-k-with-at-most-one-negation-i` | Med | 2/2/2/2/1/1 | 10 | yes | `longest-subarray-divisible-by-k-with-at-most-one-negation-i-game` | prefix-sum | yes |  |
+| 4064 | `longest-subarray-divisible-by-k-with-at-most-one-negation-ii` | Hard | 2/2/1/1/2/2 | 10 | yes | `longest-subarray-divisible-by-k-with-at-most-one-negation-ii-game` | prefix-sum | yes |  |
+| 4065 | `rearrange-array-by-removing-distinct-values` | Easy | 1/2/2/2/1/1 | 9 | yes | `rearrange-array-by-removing-distinct-values-game` | hash | yes |  |
+| 4066 | `maximum-equal-adjacent-pairs-after-at-most-one-replacement` | Med | 2/2/2/2/1/1 | 10 | yes | `maximum-equal-adjacent-pairs-after-at-most-one-replacement-game` | hash | yes |  |
+| 4067 | `longest-subarray-with-restricted-pair-sums` | Med | 2/2/2/2/2/1 | 11 | yes | `longest-subarray-with-restricted-pair-sums-game` | sliding-window | yes |  |
+| 4068 | `maximize-meeting-earnings-with-idle-gaps` | Hard | 2/2/2/1/2/2 | 11 | yes | `maximize-meeting-earnings-with-idle-gaps-game` | dp | yes |  |
+| 4069 | `best-time-to-buy-and-sell-stock-with-cooldown-ii` | Med | 2/2/2/1/2/2 | 11 | yes | `best-time-to-buy-and-sell-stock-with-cooldown-ii-game` | dp | yes |  |
+| 4070 | `minimum-rotations-to-dial-a-number-i` | Easy | 1/2/1/2/1/1 | 8 | yes | `minimum-rotations-to-dial-a-number-i-game` | sim | yes |  |
+| 4071 | `minimum-rotations-to-dial-a-number-ii` | Med | 2/2/1/2/1/1 | 9 | yes | `minimum-rotations-to-dial-a-number-ii-game` | prefix-sum | yes |  |
+| 4072 | `maximum-alternating-subarray-sum-with-one-deletion` | Med | 2/2/2/1/2/2 | 11 | yes | `maximum-alternating-subarray-sum-with-one-deletion-game` | dp | yes |  |
+| 4073 | `count-good-strings` | Hard | 1/2/1/2/1/1 | 8 | yes | `count-good-strings-game` | math | yes |  |
+| 4074 | `maximum-product-pair-with-target-sum` | Easy | 1/2/2/2/2/1 | 10 | yes | `maximum-product-pair-with-target-sum-game` | hash | yes |  |
+| 4075 | `longest-resilient-subarray-i` | Med | 1/2/2/2/1/1 | 9 | yes | `longest-resilient-subarray-i-game` | array | yes |  |
+| 4076 | `longest-resilient-subarray-ii` | Med | 2/2/2/2/1/1 | 10 | yes | `longest-resilient-subarray-ii-game` | array | yes |  |
+| 4077 | `minimize-inversions-in-a-prefix-tree` | Hard | 2/2/1/1/2/2 | 10 | yes | `minimize-inversions-in-a-prefix-tree-game` | trie | yes |  |
+| 4078 | `three-fibonacci-sum` | Easy | 0/2/1/2/1/0 | 6 | no | – | – | – | Pure one-line formula (three consecutive terms sum to 2 · F(i + 2), so check that n is even and n / 2 is a Fibonacci number): no sequence of steps to play. |
+| 4079 | `prime-subset-selection-i` | Med | 2/2/1/2/1/1 | 9 | yes | `prime-subset-selection-i-game` | greedy | yes |  |
+| 4080 | `design-bus-seat-booking-system` | Med | 1/2/2/2/1/1 | 9 | yes | `design-bus-seat-booking-system-game` | design | yes |  |
+| 4081 | `prime-subset-selection-ii` | Hard | 2/2/1/1/2/2 | 10 | yes | `prime-subset-selection-ii-game` | dp | yes |  |
+| 4082 | `minimum-operations-to-stabilize-a-binary-tree` | Hard | 2/2/1/1/2/2 | 10 | yes | `minimum-operations-to-stabilize-a-binary-tree-game` | tree | yes |  |
+| 4083 | `minimum-deletions-to-make-array-sharp` | Easy | 1/2/2/2/1/1 | 9 | yes | `minimum-deletions-to-make-array-sharp-game` | greedy | yes |  |
+| 4084 | `last-visited-cell-in-a-directional-grid` | Med | 1/2/2/2/1/1 | 9 | yes | `last-visited-cell-in-a-directional-grid-game` | grid | yes |  |
+| 4085 | `find-root-of-a-colored-tree` | Med | 2/2/2/2/1/1 | 10 | yes | `find-root-of-a-colored-tree-game` | graph | yes |  |
+| 4086 | `minimum-interval-selection-to-cover-target-intervals` | Hard | 2/2/2/1/2/2 | 11 | yes | `minimum-interval-selection-to-cover-target-intervals-game` | greedy | yes |  |
+| 4087 | `maximum-subarray-sum-of-fixed-length-after-at-most-k-swaps` | Med | 2/2/2/2/1/1 | 10 | yes | `maximum-subarray-sum-of-fixed-length-after-at-most-k-swaps-game` | greedy | yes |  |
+| 4088 | `difference-between-peaks-and-valleys` | Easy | 1/2/2/2/1/1 | 9 | yes | `difference-between-peaks-and-valleys-game` | array | yes |  |
+| 4089 | `count-subarrays-with-loose-bounds` | Med | 2/2/2/2/2/1 | 11 | yes | `count-subarrays-with-loose-bounds-game` | sliding-window | yes |  |
+| 4090 | `count-magical-substring-pairs-i` | Med | 1/2/2/2/1/1 | 9 | yes | `count-magical-substring-pairs-i-game` | strings | yes |  |
+| 4091 | `count-magical-substring-pairs-ii` | Hard | 2/2/1/1/2/2 | 10 | yes | `count-magical-substring-pairs-ii-game` | sliding-window | yes |  |
+| 4092 | `binary-digit-score` | Easy | 1/2/1/2/1/1 | 8 | yes | `binary-digit-score-game` | bits | yes |  |
+| 4093 | `maximize-sum-after-at-most-k-digit-rearrangements` | Med | 2/2/2/2/1/1 | 10 | yes | `maximize-sum-after-at-most-k-digit-rearrangements-game` | greedy | yes |  |
+| 4094 | `count-frequency-staircase-subarrays-i` | Med | 1/2/2/2/1/1 | 9 | yes | `count-frequency-staircase-subarrays-i-game` | hash | yes |  |
+| 4095 | `count-frequency-staircase-subarrays-ii` | Hard | 2/2/1/1/2/2 | 10 | yes | `count-frequency-staircase-subarrays-ii-game` | prefix-sum | yes |  |
+| – | `0-1-knapsack-problem` | – | 2/2/2/2/1/1 | 10 | yes | `0-1-knapsack-problem-game` | dp | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `02-07` | – | 1/2/2/2/1/1 | 9 | yes | `02-07-game` | linked-list | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `algorithm-efficiency-evaluation` | – | 0/1/1/1/1/0 | 4 | no | – | – | – | Theory only: concepts and cost reasoning with no single board to step through (score 4/12). |
+| – | `array` | – | 1/2/2/2/1/1 | 9 | yes | `array-game` | array | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `array-representation-of-binary-trees` | – | 2/2/2/2/1/1 | 10 | yes | `array-representation-of-binary-trees-game` | tree | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `avl-tree` | – | 2/2/2/2/1/1 | 10 | yes | `avl-tree-game` | tree | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `backtracking-algorithm` | – | 2/2/2/2/1/1 | 10 | yes | `backtracking-algorithm-game` | backtracking | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `basic-data-types` | – | 0/1/1/1/1/0 | 4 | no | – | – | – | Theory only: concepts and cost reasoning with no single board to step through (score 4/12). |
+| – | `basic-operations-on-graphs` | – | 2/2/2/2/1/1 | 10 | yes | `basic-operations-on-graphs-game` | graph | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `binary-search-boundaries` | – | 2/2/2/2/1/1 | 10 | yes | `binary-search-boundaries-game` | binary-search | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `binary-search-insertion-point` | – | 2/2/2/2/1/1 | 10 | yes | `binary-search-insertion-point-game` | binary-search | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `binary-search-tree` | – | 2/2/2/2/1/1 | 10 | yes | `binary-search-tree-game` | tree | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `binary-tree` | – | 2/2/2/2/1/1 | 10 | yes | `binary-tree-game` | tree | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `binary-tree-traversal` | – | 2/2/2/2/1/1 | 10 | yes | `binary-tree-traversal-game` | tree | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `bubble-sort` | – | 2/2/2/2/1/1 | 10 | yes | `bubble-sort-game` | sorting | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `bucket-sort` | – | 2/2/2/2/1/1 | 10 | yes | `bucket-sort-game` | sorting | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `building-a-binary-tree-problem` | – | 2/2/2/2/1/1 | 10 | yes | `building-a-binary-tree-problem-game` | tree | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `character-encoding` | – | 1/2/2/2/1/1 | 9 | yes | `character-encoding-game` | strings | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `characteristics-of-dynamic-programming-problems` | – | 0/1/1/1/1/0 | 4 | no | – | – | – | Theory only: concepts and cost reasoning with no single board to step through (score 4/12). |
+| – | `classification-of-data-structures` | – | 0/1/1/1/1/0 | 4 | no | – | – | – | Theory only: concepts and cost reasoning with no single board to step through (score 4/12). |
+| – | `counting-sort` | – | 2/2/2/2/1/1 | 10 | yes | `counting-sort-game` | sorting | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `deque` | – | 1/2/2/2/1/1 | 9 | yes | `deque-game` | queue | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `divide-and-conquer-algorithms` | – | 1/2/2/2/1/1 | 9 | yes | `divide-and-conquer-algorithms-game` | recursion | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `divide-and-conquer-search-strategy` | – | 2/2/2/2/1/1 | 10 | yes | `divide-and-conquer-search-strategy-game` | binary-search | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `dynamic-programming-problem-solving-approach` | – | 2/2/2/2/1/1 | 10 | yes | `dynamic-programming-problem-solving-approach-game` | dp | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `edit-distance-problem` | – | 2/2/2/2/1/1 | 10 | yes | `edit-distance-problem-game` | dp | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `exercises` | – | 1/2/2/2/1/1 | 9 | yes | `exercises-game` | array | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `fractional-knapsack-problem` | – | 2/2/2/2/1/1 | 10 | yes | `fractional-knapsack-problem-game` | greedy | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `graph` | – | 2/2/2/2/1/1 | 10 | yes | `graph-game` | graph | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `graph-traversal` | – | 2/2/2/2/1/1 | 10 | yes | `graph-traversal-game` | graph | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `greedy-algorithm` | – | 2/2/2/2/1/1 | 10 | yes | `greedy-algorithm-game` | greedy | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `hanota-problem` | – | 1/2/2/2/1/1 | 9 | yes | `hanota-problem-game` | recursion | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `hash-algorithm` | – | 1/2/2/2/1/1 | 9 | yes | `hash-algorithm-game` | hash | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `hash-collision` | – | 1/2/2/2/1/1 | 9 | yes | `hash-collision-game` | hash | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `hash-optimization-strategy` | – | 1/2/2/2/1/1 | 9 | yes | `hash-optimization-strategy-game` | hash | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `hash-table` | – | 1/2/2/2/1/1 | 9 | yes | `hash-table-game` | hash | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `heap` | – | 2/2/2/2/1/1 | 10 | yes | `heap-game` | heap | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `heap-construction-operation` | – | 2/2/2/2/1/1 | 10 | yes | `heap-construction-operation-game` | heap | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `heap-sort` | – | 2/2/2/2/1/1 | 10 | yes | `heap-sort-game` | heap | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `insertion-sort` | – | 2/2/2/2/1/1 | 10 | yes | `insertion-sort-game` | sorting | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `introduction-to-dynamic-programming` | – | 2/2/2/2/1/1 | 10 | yes | `introduction-to-dynamic-programming-game` | dp | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `iteration-and-recursion` | – | 1/2/2/2/1/1 | 9 | yes | `iteration-and-recursion-game` | recursion | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `labu-01-1` | – | 2/2/2/2/1/1 | 10 | yes | `labu-01-1-game` | dp | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `labu-01-2` | – | 2/2/2/2/1/1 | 10 | yes | `labu-01-2-game` | dp | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `labu-topic-0082589b24d1` | – | 2/2/2/2/1/1 | 10 | yes | `labu-topic-0082589b24d1-game` | dp | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `labu-topic-0ec03f406f23` | – | 2/2/2/2/1/1 | 10 | yes | `labu-topic-0ec03f406f23-game` | dp | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `labu-topic-1ddddded2965` | – | 1/2/2/2/1/1 | 9 | yes | `labu-topic-1ddddded2965-game` | linked-list | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `labu-topic-232208e5d426` | – | 2/2/2/2/1/1 | 10 | yes | `labu-topic-232208e5d426-game` | dp | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `labu-topic-27bfa27656ac` | – | 0/1/1/1/1/1 | 5 | no | – | – | – | Pattern catalog: a map of many problem types with no single board to step through (score 5/12). |
+| – | `labu-topic-3778c88a54d4` | – | 0/1/1/1/1/0 | 4 | no | – | – | – | Brainteaser: the answer is an observation, not a sequence of steps (score 4/12). |
+| – | `labu-topic-39e3747607fa` | – | 0/1/1/1/1/1 | 5 | no | – | – | – | Pattern catalog: a map of many problem types with no single board to step through (score 5/12). |
+| – | `labu-topic-3a9ac6668b13` | – | 0/1/1/1/1/1 | 5 | no | – | – | – | Pattern catalog: a map of many problem types with no single board to step through (score 5/12). |
+| – | `labu-topic-40d78dc49f3d` | – | 1/2/2/2/1/1 | 9 | yes | `labu-topic-40d78dc49f3d-game` | stack | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `labu-topic-4f83fdf62752` | – | 2/2/2/2/1/1 | 10 | yes | `labu-topic-4f83fdf62752-game` | tree | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `labu-topic-5c4cadf47ae4` | – | 1/2/2/2/1/1 | 9 | yes | `labu-topic-5c4cadf47ae4-game` | array | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `labu-topic-60ad1366a7a4` | – | 0/1/1/1/1/1 | 5 | no | – | – | – | Pattern catalog: a map of many problem types with no single board to step through (score 5/12). |
+| – | `labu-topic-767ecfc84dfe` | – | 2/2/2/2/1/1 | 10 | yes | `labu-topic-767ecfc84dfe-game` | backtracking | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `labu-topic-801055041d9b` | – | 2/2/2/2/1/1 | 10 | yes | `labu-topic-801055041d9b-game` | dp | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `labu-topic-92b6a2489d29` | – | 2/2/2/2/1/1 | 10 | yes | `labu-topic-92b6a2489d29-game` | heap | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `labu-topic-9d65885b98aa` | – | 2/2/2/2/1/1 | 10 | yes | `labu-topic-9d65885b98aa-game` | dp | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `labu-topic-9d96f0755bfa` | – | 1/2/2/2/1/1 | 9 | yes | `labu-topic-9d96f0755bfa-game` | recursion | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `labu-topic-9f5ff4d1cb1f` | – | 2/2/2/2/1/1 | 10 | yes | `labu-topic-9f5ff4d1cb1f-game` | two-pointers | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `labu-topic-a438281d8510` | – | 2/2/2/2/1/1 | 10 | yes | `labu-topic-a438281d8510-game` | tree | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `labu-topic-a4d6a0f7318d` | – | 2/2/2/2/1/1 | 10 | yes | `labu-topic-a4d6a0f7318d-game` | dp | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `labu-topic-a543d2b522f8` | – | 2/2/2/2/1/1 | 10 | yes | `labu-topic-a543d2b522f8-game` | tree | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `labu-topic-a8fa010ca5e4` | – | 2/2/2/2/1/1 | 10 | yes | `labu-topic-a8fa010ca5e4-game` | backtracking | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `labu-topic-a90e5e950d84` | – | 2/2/2/2/1/1 | 10 | yes | `labu-topic-a90e5e950d84-game` | dp | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `labu-topic-aafb2d54c833` | – | 2/2/2/2/1/1 | 10 | yes | `labu-topic-aafb2d54c833-game` | greedy | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `labu-topic-befe86d15943` | – | 0/1/1/1/1/1 | 5 | no | – | – | – | Pattern catalog: a map of many problem types with no single board to step through (score 5/12). |
+| – | `labu-topic-d9a74b581459` | – | 0/1/1/1/1/1 | 5 | no | – | – | – | Pattern catalog: a map of many problem types with no single board to step through (score 5/12). |
+| – | `labu-topic-e17e99e920a0` | – | 1/2/2/2/1/1 | 9 | yes | `labu-topic-e17e99e920a0-game` | hash | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `labu-topic-e87083f47872` | – | 0/1/1/1/1/1 | 5 | no | – | – | – | Pattern catalog: a map of many problem types with no single board to step through (score 5/12). |
+| – | `labu-topic-f179955e49f7` | – | 0/1/1/1/1/1 | 5 | no | – | – | – | Pattern catalog: a map of many problem types with no single board to step through (score 5/12). |
+| – | `labu-topic-f70c65c45e6c` | – | 2/2/2/2/1/1 | 10 | yes | `labu-topic-f70c65c45e6c-game` | backtracking | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `labu-topic-fa5dd0ad591d` | – | 2/2/2/2/1/1 | 10 | yes | `labu-topic-fa5dd0ad591d-game` | tree | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `labu-topic-fb032618ee4a` | – | 2/2/2/2/1/1 | 10 | yes | `labu-topic-fb032618ee4a-game` | dp | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `labu-topic-fddf43a17a62` | – | 2/2/2/2/1/1 | 10 | yes | `labu-topic-fddf43a17a62-game` | mono-stack | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `linked-list` | – | 1/2/2/2/1/1 | 9 | yes | `linked-list-game` | linked-list | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `list` | – | 1/2/2/2/1/1 | 9 | yes | `list-game` | array | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `max-capacity-problem` | – | 2/2/2/2/1/1 | 10 | yes | `max-capacity-problem-game` | two-pointers | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `maximum-product-cutting-problem` | – | 1/2/2/2/1/1 | 9 | yes | `maximum-product-cutting-problem-game` | math | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `merge-sort` | – | 2/2/2/2/1/1 | 10 | yes | `merge-sort-game` | sorting | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `n-queens-problem` | – | 2/2/2/2/1/1 | 10 | yes | `n-queens-problem-game` | backtracking | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `number-encoding` | – | 1/2/2/2/1/1 | 9 | yes | `number-encoding-game` | bits | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `o-n-n` | – | 0/1/1/1/1/0 | 4 | no | – | – | – | Theory only: concepts and cost reasoning with no single board to step through (score 4/12). |
+| – | `offer05` | – | 1/2/2/2/1/1 | 9 | yes | `offer05-game` | strings | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `offer58-ii` | – | 1/2/2/2/1/1 | 9 | yes | `offer58-ii-game` | strings | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `permutations-problem` | – | 2/2/2/2/1/1 | 10 | yes | `permutations-problem-game` | backtracking | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `queue` | – | 1/2/2/2/1/1 | 9 | yes | `queue-game` | queue | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `quick-sort` | – | 2/2/2/2/1/1 | 10 | yes | `quick-sort-game` | sorting | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `radix-sort` | – | 2/2/2/2/1/1 | 10 | yes | `radix-sort-game` | sorting | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `random-access-memory-and-cache` | – | 0/1/1/1/1/0 | 4 | no | – | – | – | Theory only: concepts and cost reasoning with no single board to step through (score 4/12). |
+| – | `searching-algorithms-revisited` | – | 0/1/1/1/1/0 | 4 | no | – | – | – | Theory only: concepts and cost reasoning with no single board to step through (score 4/12). |
+| – | `selection-sort` | – | 2/2/2/2/1/1 | 10 | yes | `selection-sort-game` | sorting | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `sorting-algorithm` | – | 0/1/1/1/1/0 | 4 | no | – | – | – | Theory only: concepts and cost reasoning with no single board to step through (score 4/12). |
+| – | `space-complexity` | – | 0/1/1/1/1/0 | 4 | no | – | – | – | Theory only: concepts and cost reasoning with no single board to step through (score 4/12). |
+| – | `stack` | – | 1/2/2/2/1/1 | 9 | yes | `stack-game` | stack | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `subset-sum-problem` | – | 2/2/2/2/1/1 | 10 | yes | `subset-sum-problem-game` | backtracking | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `summary` | – | 0/1/1/1/1/0 | 4 | no | – | – | – | Theory only: concepts and cost reasoning with no single board to step through (score 4/12). |
+| – | `time-complexity` | – | 1/2/2/2/1/1 | 9 | yes | `time-complexity-game` | math | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `top-k-problem` | – | 2/2/2/2/1/1 | 10 | yes | `top-k-problem-game` | heap | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `unbounded-knapsack-problem` | – | 2/2/2/2/1/1 | 10 | yes | `unbounded-knapsack-problem-game` | dp | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
+| – | `vector` | – | 1/2/2/2/1/1 | 9 | yes | `vector-game` | array | yes | Extra (no LeetCode number): game steps through the guide's tiny example. |
 | – | `add-mini-game` | – | – | – | no | – | – | – | Not an algo guide (no LeetCode problem). |

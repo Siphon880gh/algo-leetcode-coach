@@ -10,4 +10,5 @@ return [
     'tags' => ['dynamic-array', 'amortized', 'vector'],
     'related_session' => 'list',
     'topic' => 'Data Structures · Arrays',
+    'related_game' => 'list-game',
 ];

@@ -10,4 +10,5 @@ return [
     'tags' => ['binary-tree', 'array', 'heap'],
     'related_session' => 'array-representation-of-binary-trees',
     'topic' => 'Data Structures · Trees',
+    'related_game' => 'array-representation-of-binary-trees-game',
 ];

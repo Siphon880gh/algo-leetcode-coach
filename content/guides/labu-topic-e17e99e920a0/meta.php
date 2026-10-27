@@ -10,4 +10,5 @@ return [
     'tags' => ['hash-table'],
     'related_session' => 'labu-topic-e17e99e920a0',
     'topic' => 'Data Structures · Hash Map',
+    'related_game' => 'labu-topic-e17e99e920a0-game',
 ];

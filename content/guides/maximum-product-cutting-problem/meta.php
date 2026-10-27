@@ -10,4 +10,5 @@ return [
     'tags' => ['integer-break', 'math'],
     'related_session' => 'maximum-product-cutting-problem',
     'topic' => 'Algorithms · Greedy',
+    'related_game' => 'maximum-product-cutting-problem-game',
 ];

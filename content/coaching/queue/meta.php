@@ -9,4 +9,5 @@ return [
     'tags' => ['queue', 'BFS', 'step-by-step'],
     'related_guide' => 'queue',
     'topic' => 'Data Structures · Queue',
+    'related_game' => 'queue-game',
 ];

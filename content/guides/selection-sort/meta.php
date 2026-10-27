@@ -10,4 +10,5 @@ return [
     'tags' => ['selection-sort'],
     'related_session' => 'selection-sort',
     'topic' => 'Algorithms · Sorting',
+    'related_game' => 'selection-sort-game',
 ];

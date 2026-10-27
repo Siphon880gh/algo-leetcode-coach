@@ -10,4 +10,5 @@ return [
     'tags' => ['binary-tree'],
     'related_session' => 'binary-tree',
     'topic' => 'Data Structures · Trees',
+    'related_game' => 'binary-tree-game',
 ];

@@ -9,4 +9,5 @@ return [
     'tags' => ['subset-sum', 'step-by-step'],
     'related_guide' => 'subset-sum-problem',
     'topic' => 'Algorithms · Backtracking',
+    'related_game' => 'subset-sum-problem-game',
 ];

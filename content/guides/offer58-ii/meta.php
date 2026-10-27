@@ -10,4 +10,5 @@ return [
     'tags' => ['offer', 'rotate'],
     'related_session' => 'offer58-ii',
     'topic' => 'Algorithms · Strings',
+    'related_game' => 'offer58-ii-game',
 ];

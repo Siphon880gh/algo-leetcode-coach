@@ -10,4 +10,5 @@ return [
     'tags' => ['quick-sort'],
     'related_session' => 'quick-sort',
     'topic' => 'Algorithms · Sorting',
+    'related_game' => 'quick-sort-game',
 ];

@@ -9,4 +9,5 @@ return [
     'tags' => ['stack', 'queue', 'step-by-step'],
     'related_guide' => 'labu-topic-40d78dc49f3d',
     'topic' => 'Data Structures · Stack',
+    'related_game' => 'labu-topic-40d78dc49f3d-game',
 ];

@@ -9,4 +9,5 @@ return [
     'tags' => ['backtracking', 'dedup', 'step-by-step'],
     'related_guide' => 'labu-topic-f70c65c45e6c',
     'topic' => 'Algorithms · Backtracking',
+    'related_game' => 'labu-topic-f70c65c45e6c-game',
 ];

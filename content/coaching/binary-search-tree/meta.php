@@ -9,4 +9,5 @@ return [
     'tags' => ['BST', 'binary-search-tree', 'step-by-step'],
     'related_guide' => 'binary-search-tree',
     'topic' => 'Data Structures · Trees',
+    'related_game' => 'binary-search-tree-game',
 ];

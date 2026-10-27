@@ -9,4 +9,5 @@ return [
     'tags' => ['recursion', 'backtracking', 'step-by-step'],
     'related_guide' => 'labu-topic-a8fa010ca5e4',
     'topic' => 'Algorithms · Recursion',
+    'related_game' => 'labu-topic-a8fa010ca5e4-game',
 ];

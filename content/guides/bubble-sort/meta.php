@@ -10,4 +10,5 @@ return [
     'tags' => ['bubble-sort'],
     'related_session' => 'bubble-sort',
     'topic' => 'Algorithms · Sorting',
+    'related_game' => 'bubble-sort-game',
 ];

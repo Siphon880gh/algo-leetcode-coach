@@ -9,4 +9,5 @@ return [
     'tags' => ['two-pointers', 'step-by-step'],
     'related_guide' => 'labu-topic-9f5ff4d1cb1f',
     'topic' => 'Algorithms · Two Pointers',
+    'related_game' => 'labu-topic-9f5ff4d1cb1f-game',
 ];

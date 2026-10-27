@@ -10,4 +10,5 @@ return [
     'tags' => ['stack', 'queue'],
     'related_session' => 'labu-topic-40d78dc49f3d',
     'topic' => 'Data Structures · Stack',
+    'related_game' => 'labu-topic-40d78dc49f3d-game',
 ];

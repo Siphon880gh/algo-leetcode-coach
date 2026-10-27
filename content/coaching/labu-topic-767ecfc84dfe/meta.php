@@ -9,4 +9,5 @@ return [
     'tags' => ['backtracking', 'theory', 'step-by-step'],
     'related_guide' => 'labu-topic-767ecfc84dfe',
     'topic' => 'Algorithms · Backtracking',
+    'related_game' => 'labu-topic-767ecfc84dfe-game',
 ];

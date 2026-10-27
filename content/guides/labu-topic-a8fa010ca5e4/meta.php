@@ -10,4 +10,5 @@ return [
     'tags' => ['recursion', 'backtracking'],
     'related_session' => 'labu-topic-a8fa010ca5e4',
     'topic' => 'Algorithms · Recursion',
+    'related_game' => 'labu-topic-a8fa010ca5e4-game',
 ];

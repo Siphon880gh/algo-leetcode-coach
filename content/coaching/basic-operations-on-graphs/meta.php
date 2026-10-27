@@ -9,4 +9,5 @@ return [
     'tags' => ['graph', 'operations', 'step-by-step'],
     'related_guide' => 'basic-operations-on-graphs',
     'topic' => 'Data Structures · Graphs',
+    'related_game' => 'basic-operations-on-graphs-game',
 ];

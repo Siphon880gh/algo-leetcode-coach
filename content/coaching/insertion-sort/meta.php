@@ -9,4 +9,5 @@ return [
     'tags' => ['insertion-sort', 'step-by-step'],
     'related_guide' => 'insertion-sort',
     'topic' => 'Algorithms · Sorting',
+    'related_game' => 'insertion-sort-game',
 ];

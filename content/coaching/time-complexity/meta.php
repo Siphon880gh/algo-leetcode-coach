@@ -9,4 +9,5 @@ return [
     'tags' => ['Big-O', 'time', 'step-by-step'],
     'related_guide' => 'time-complexity',
     'topic' => 'Algorithms · Complexity',
+    'related_game' => 'time-complexity-game',
 ];

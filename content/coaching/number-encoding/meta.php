@@ -9,4 +9,5 @@ return [
     'tags' => ['encoding', 'step-by-step'],
     'related_guide' => 'number-encoding',
     'topic' => 'Data Structures · Fundamentals',
+    'related_game' => 'number-encoding-game',
 ];

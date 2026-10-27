@@ -10,4 +10,5 @@ return [
     'tags' => ['insertion-sort'],
     'related_session' => 'insertion-sort',
     'topic' => 'Algorithms · Sorting',
+    'related_game' => 'insertion-sort-game',
 ];

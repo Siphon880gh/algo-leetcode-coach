@@ -9,4 +9,5 @@ return [
     'tags' => ['vector', 'step-by-step'],
     'related_guide' => 'vector',
     'topic' => 'Data Structures · Arrays',
+    'related_game' => 'vector-game',
 ];

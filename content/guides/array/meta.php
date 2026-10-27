@@ -10,4 +10,5 @@ return [
     'tags' => ['array', 'contiguous', 'random-access'],
     'related_session' => 'array',
     'topic' => 'Data Structures · Arrays',
+    'related_game' => 'array-game',
 ];

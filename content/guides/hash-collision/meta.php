@@ -10,4 +10,5 @@ return [
     'tags' => ['hash-collision', 'chaining', 'open-addressing'],
     'related_session' => 'hash-collision',
     'topic' => 'Data Structures · Hash Map',
+    'related_game' => 'hash-collision-game',
 ];

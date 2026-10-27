@@ -9,4 +9,5 @@ return [
     'tags' => ['hashing', 'tradeoff', 'step-by-step'],
     'related_guide' => 'hash-optimization-strategy',
     'topic' => 'Algorithms · Hashing',
+    'related_game' => 'hash-optimization-strategy-game',
 ];

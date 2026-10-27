@@ -10,4 +10,5 @@ return [
     'tags' => ['counting-sort'],
     'related_session' => 'counting-sort',
     'topic' => 'Algorithms · Sorting',
+    'related_game' => 'counting-sort-game',
 ];

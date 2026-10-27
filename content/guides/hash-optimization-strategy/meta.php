@@ -10,4 +10,5 @@ return [
     'tags' => ['hashing', 'space-time-tradeoff'],
     'related_session' => 'hash-optimization-strategy',
     'topic' => 'Algorithms · Hashing',
+    'related_game' => 'hash-optimization-strategy-game',
 ];

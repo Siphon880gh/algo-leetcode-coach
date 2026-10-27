@@ -10,4 +10,5 @@ return [
     'tags' => ['exercises', 'array', 'linked-list'],
     'related_session' => 'exercises',
     'topic' => 'Data Structures · Fundamentals',
+    'related_game' => 'exercises-game',
 ];

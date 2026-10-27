@@ -9,4 +9,5 @@ return [
     'tags' => ['strings', 'DP', 'step-by-step'],
     'related_guide' => 'labu-topic-801055041d9b',
     'topic' => 'Algorithms · Dynamic Programming',
+    'related_game' => 'labu-topic-801055041d9b-game',
 ];

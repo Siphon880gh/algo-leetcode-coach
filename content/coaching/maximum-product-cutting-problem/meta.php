@@ -9,4 +9,5 @@ return [
     'tags' => ['integer-break', 'math', 'step-by-step'],
     'related_guide' => 'maximum-product-cutting-problem',
     'topic' => 'Algorithms · Greedy',
+    'related_game' => 'maximum-product-cutting-problem-game',
 ];

@@ -9,4 +9,5 @@ return [
     'tags' => ['knapsack', '0-1', 'DP', 'step-by-step'],
     'related_guide' => '0-1-knapsack-problem',
     'topic' => 'Algorithms · Dynamic Programming',
+    'related_game' => '0-1-knapsack-problem-game',
 ];

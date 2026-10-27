@@ -9,4 +9,5 @@ return [
     'tags' => ['merge-sort', 'step-by-step'],
     'related_guide' => 'merge-sort',
     'topic' => 'Algorithms · Sorting',
+    'related_game' => 'merge-sort-game',
 ];

@@ -9,4 +9,5 @@ return [
     'tags' => ['two-pointers', 'step-by-step'],
     'related_guide' => 'max-capacity-problem',
     'topic' => 'Algorithms · Two Pointers',
+    'related_game' => 'max-capacity-problem-game',
 ];

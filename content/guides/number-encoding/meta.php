@@ -10,4 +10,5 @@ return [
     'tags' => ['two’s-complement', 'floating-point'],
     'related_session' => 'number-encoding',
     'topic' => 'Data Structures · Fundamentals',
+    'related_game' => 'number-encoding-game',
 ];

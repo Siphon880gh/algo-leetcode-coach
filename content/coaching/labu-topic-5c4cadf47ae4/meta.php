@@ -9,4 +9,5 @@ return [
     'tags' => ['array', 'step-by-step'],
     'related_guide' => 'labu-topic-5c4cadf47ae4',
     'topic' => 'Data Structures · Arrays',
+    'related_game' => 'labu-topic-5c4cadf47ae4-game',
 ];

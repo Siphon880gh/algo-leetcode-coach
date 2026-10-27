@@ -10,4 +10,5 @@ return [
     'tags' => ['two-pointers'],
     'related_session' => 'max-capacity-problem',
     'topic' => 'Algorithms · Two Pointers',
+    'related_game' => 'max-capacity-problem-game',
 ];

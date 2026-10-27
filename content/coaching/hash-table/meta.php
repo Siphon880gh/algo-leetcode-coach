@@ -9,4 +9,5 @@ return [
     'tags' => ['hash-table', 'step-by-step'],
     'related_guide' => 'hash-table',
     'topic' => 'Data Structures · Hash Map',
+    'related_game' => 'hash-table-game',
 ];

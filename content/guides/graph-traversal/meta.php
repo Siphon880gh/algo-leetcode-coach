@@ -10,4 +10,5 @@ return [
     'tags' => ['BFS', 'DFS'],
     'related_session' => 'graph-traversal',
     'topic' => 'Algorithms · Graphs',
+    'related_game' => 'graph-traversal-game',
 ];

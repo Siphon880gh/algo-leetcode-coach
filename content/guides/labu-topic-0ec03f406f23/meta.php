@@ -10,4 +10,5 @@ return [
     'tags' => ['stocks', 'DP'],
     'related_session' => 'labu-topic-0ec03f406f23',
     'topic' => 'Algorithms · Dynamic Programming',
+    'related_game' => 'labu-topic-0ec03f406f23-game',
 ];

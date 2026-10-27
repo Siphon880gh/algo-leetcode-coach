@@ -22,12 +22,14 @@ for (const f of fs.readdirSync(path.join(eng, 'v2')).sort()) {
   for (const k of Object.keys(ctx.LCGame.problems)) if (!before.has(k)) fileOf[k] = f;
 }
 // LeetCode number of a definition = 'leetcode' in its game folder's meta.php (falls back to the guide's).
+// Extras (guides with no LeetCode number) return 0 when their game folder exists; their examples come
+// from the definition itself: exs: [{ in: {...}, out: ... }] taken from the guide's worked example.
 function lcOf(slug) {
   for (const p of ['content/games/' + slug + '-game/meta.php', 'content/guides/' + slug + '/meta.php']) {
     const f = path.join(ROOT, p);
     if (fs.existsSync(f)) { const m = fs.readFileSync(f, 'utf8').match(/'leetcode'\s*=>\s*'?(\d+)/); if (m) return +m[1]; }
   }
-  return null;
+  return fs.existsSync(path.join(ROOT, 'content/games/' + slug + '-game/meta.php')) ? 0 : null;
 }
 const LC = ctx.LCGame;
 // cmp modes: 'float' (1e-5 tolerance), 'set' (order of the outer list ignored),
@@ -49,7 +51,7 @@ for (const [slug, def] of Object.entries(LC.problems)) {
   count++; let err = null, minS = 1e9, maxS = 0;
   const spec = def.spec, n = lcOf(slug);
   if (!def.title || !def.rule) err = 'missing title/rule';
-  if (!n) err = 'no LeetCode number (missing game folder and guide?)';
+  if (n === null) err = 'no LeetCode number (missing game folder and guide?)';
   for (let seed = 1; seed <= SEEDS && !err; seed++) for (let r = 0; r < (def.rounds || 3) && !err; r++) {
     let t; try { t = LC.build(def, seed * 7919 + r, r); } catch (e) { err = 'seed ' + seed + ' r' + r + ': ' + e.stack.split('\n').slice(0, 3).join(' | '); break; }
     if (!t.steps.length) { err = 'no steps (seed ' + seed + ' r' + r + ')'; break; }
@@ -65,7 +67,7 @@ for (const [slug, def] of Object.entries(LC.problems)) {
   }
   let exInfo = '';
   if (!err && spec.ex !== false) {
-    const exs = examples(n);
+    const exs = n ? examples(n) : (spec.exs || []).map(e => ({ input: e.in, output: e.out, rawIn: JSON.stringify(e.in), rawOut: JSON.stringify(e.out) }));
     if (!exs.length) { exNone++; exInfo = ' (no examples)'; }
     let passed = 0;
     for (const ex of exs) {

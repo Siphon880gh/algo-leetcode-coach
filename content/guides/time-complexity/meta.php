@@ -10,4 +10,5 @@ return [
     'tags' => ['Big-O', 'time'],
     'related_session' => 'time-complexity',
     'topic' => 'Algorithms · Complexity',
+    'related_game' => 'time-complexity-game',
 ];

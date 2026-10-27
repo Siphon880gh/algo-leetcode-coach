@@ -10,4 +10,5 @@ return [
     'tags' => ['DP', 'intro'],
     'related_session' => 'introduction-to-dynamic-programming',
     'topic' => 'Algorithms · Dynamic Programming',
+    'related_game' => 'introduction-to-dynamic-programming-game',
 ];

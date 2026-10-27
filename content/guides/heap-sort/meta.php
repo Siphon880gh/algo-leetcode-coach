@@ -10,4 +10,5 @@ return [
     'tags' => ['heap-sort', 'sorting'],
     'related_session' => 'heap-sort',
     'topic' => 'Algorithms · Sorting',
+    'related_game' => 'heap-sort-game',
 ];

@@ -10,4 +10,5 @@ return [
     'tags' => ['knapsack', 'greedy'],
     'related_session' => 'fractional-knapsack-problem',
     'topic' => 'Algorithms · Greedy',
+    'related_game' => 'fractional-knapsack-problem-game',
 ];

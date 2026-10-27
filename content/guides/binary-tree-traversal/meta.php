@@ -10,4 +10,5 @@ return [
     'tags' => ['traversal', 'BFS', 'DFS'],
     'related_session' => 'binary-tree-traversal',
     'topic' => 'Data Structures · Trees',
+    'related_game' => 'binary-tree-traversal-game',
 ];

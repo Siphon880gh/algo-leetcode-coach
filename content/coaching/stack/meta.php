@@ -9,4 +9,5 @@ return [
     'tags' => ['stack', 'brackets', 'step-by-step'],
     'related_guide' => 'stack',
     'topic' => 'Data Structures · Stack',
+    'related_game' => 'stack-game',
 ];

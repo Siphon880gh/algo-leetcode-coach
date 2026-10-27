@@ -10,4 +10,5 @@ return [
     'tags' => ['graph', 'adjacency'],
     'related_session' => 'graph',
     'topic' => 'Data Structures · Graphs',
+    'related_game' => 'graph-game',
 ];

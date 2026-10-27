@@ -10,4 +10,5 @@ return [
     'tags' => ['vector', 'dynamic-array'],
     'related_session' => 'vector',
     'topic' => 'Data Structures · Arrays',
+    'related_game' => 'vector-game',
 ];

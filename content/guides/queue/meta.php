@@ -10,4 +10,5 @@ return [
     'tags' => ['queue', 'FIFO', 'BFS'],
     'related_session' => 'queue',
     'topic' => 'Data Structures · Queue',
+    'related_game' => 'queue-game',
 ];

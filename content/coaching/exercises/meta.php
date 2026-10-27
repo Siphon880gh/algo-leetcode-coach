@@ -9,4 +9,5 @@ return [
     'tags' => ['exercises', 'array', 'linked-list', 'step-by-step'],
     'related_guide' => 'exercises',
     'topic' => 'Data Structures · Fundamentals',
+    'related_game' => 'exercises-game',
 ];

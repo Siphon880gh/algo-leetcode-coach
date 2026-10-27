@@ -10,4 +10,5 @@ return [
     'tags' => ['top-k', 'heap'],
     'related_session' => 'top-k-problem',
     'topic' => 'Algorithms · Heap',
+    'related_game' => 'top-k-problem-game',
 ];

@@ -10,4 +10,5 @@ return [
     'tags' => ['backtracking', 'dedup'],
     'related_session' => 'labu-topic-f70c65c45e6c',
     'topic' => 'Algorithms · Backtracking',
+    'related_game' => 'labu-topic-f70c65c45e6c-game',
 ];

@@ -9,4 +9,5 @@ return [
     'tags' => ['divide-conquer', 'binary-search', 'step-by-step'],
     'related_guide' => 'divide-and-conquer-search-strategy',
     'topic' => 'Algorithms · Binary Search',
+    'related_game' => 'divide-and-conquer-search-strategy-game',
 ];

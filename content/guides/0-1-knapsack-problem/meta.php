@@ -10,4 +10,5 @@ return [
     'tags' => ['knapsack', '0-1', 'DP'],
     'related_session' => '0-1-knapsack-problem',
     'topic' => 'Algorithms · Dynamic Programming',
+    'related_game' => '0-1-knapsack-problem-game',
 ];

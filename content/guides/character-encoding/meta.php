@@ -10,4 +10,5 @@ return [
     'tags' => ['encoding', 'UTF-8', 'Unicode'],
     'related_session' => 'character-encoding',
     'topic' => 'Data Structures · Fundamentals',
+    'related_game' => 'character-encoding-game',
 ];

@@ -4,8 +4,8 @@
   "prompt": "PROMPTS/loop-mini-games.md",
   "output_dir": "content/games",
   "scores_doc": "docs/mini-game-scores.md",
-  "last_scored_lc": 4041,
-  "note": "Progress is tracked by LeetCode number in docs/mini-game-scores.md (all guides through #4041 are scored, and every qualifier has a game). Resume at #4042.",
+  "last_scored_lc": 4095,
+  "note": "All sources are done. Every guide in content/guides/ is scored in docs/mini-game-scores.md (4199 rows: LeetCode #1 to #4095, the add-mini-game page, and 103 Extras with no LeetCode number), and every qualifier has a game (3669 / 3669). The hello-algo, labuladong-algorithm and leetcode-master pages map to those 103 Extras (84 built, 19 skipped as theory-only, pattern catalogs or a brainteaser); neetcode-leetcode and walkccc-leetcode only hold LeetCode problems, which are already scored by number. Writeups that never became a guide have nothing to score. To resume when new guides land: score LeetCode guides by number from #4096, and score any new Extra guide by slug; then set exhausted back to false.",
   "repos": [
     "doocs-leetcode",
     "hello-algo",
@@ -15,14 +15,11 @@
     "walkccc-leetcode"
   ],
   "cursor": {
-    "repo": "doocs-leetcode",
-    "last_id": "solution/4000-4099/4041.Minimum Operations to Form Subset Sum II"
+    "repo": "walkccc-leetcode",
+    "last_id": "solutions/999. Available Captures for Rook"
   },
-  "next": {
-    "repo": "doocs-leetcode",
-    "id": "solution/4000-4099/4042.Valid K-Unique Subarrays II"
-  },
+  "next": null,
   "completed": [],
   "skipped": [],
-  "exhausted": false
+  "exhausted": true
 }

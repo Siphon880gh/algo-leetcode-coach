@@ -10,4 +10,5 @@ return [
     'tags' => ['greedy', 'foundations'],
     'related_session' => 'labu-topic-aafb2d54c833',
     'topic' => 'Algorithms · Greedy',
+    'related_game' => 'labu-topic-aafb2d54c833-game',
 ];

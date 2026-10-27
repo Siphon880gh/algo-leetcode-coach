@@ -10,4 +10,5 @@ return [
     'tags' => ['two-pointers'],
     'related_session' => 'labu-topic-9f5ff4d1cb1f',
     'topic' => 'Algorithms · Two Pointers',
+    'related_game' => 'labu-topic-9f5ff4d1cb1f-game',
 ];

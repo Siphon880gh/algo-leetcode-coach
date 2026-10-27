@@ -9,4 +9,5 @@ return [
     'tags' => ['binary-search', 'bounds', 'step-by-step'],
     'related_guide' => 'binary-search-boundaries',
     'topic' => 'Algorithms · Binary Search',
+    'related_game' => 'binary-search-boundaries-game',
 ];

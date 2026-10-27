@@ -9,4 +9,5 @@ return [
     'tags' => ['binary-tree', 'array', 'heap', 'step-by-step'],
     'related_guide' => 'array-representation-of-binary-trees',
     'topic' => 'Data Structures · Trees',
+    'related_game' => 'array-representation-of-binary-trees-game',
 ];

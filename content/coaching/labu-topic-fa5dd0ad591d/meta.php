@@ -9,4 +9,5 @@ return [
     'tags' => ['traversal', 'iterative', 'step-by-step'],
     'related_guide' => 'labu-topic-fa5dd0ad591d',
     'topic' => 'Data Structures · Trees',
+    'related_game' => 'labu-topic-fa5dd0ad591d-game',
 ];

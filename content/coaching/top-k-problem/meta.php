@@ -9,4 +9,5 @@ return [
     'tags' => ['top-k', 'heap', 'step-by-step'],
     'related_guide' => 'top-k-problem',
     'topic' => 'Algorithms · Heap',
+    'related_game' => 'top-k-problem-game',
 ];

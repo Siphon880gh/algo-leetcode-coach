@@ -10,4 +10,5 @@ return [
     'tags' => ['heap', 'priority-queue'],
     'related_session' => 'heap',
     'topic' => 'Data Structures · Heap',
+    'related_game' => 'heap-game',
 ];

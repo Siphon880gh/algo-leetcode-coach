@@ -9,4 +9,5 @@ return [
     'tags' => ['dynamic-array', 'amortized', 'step-by-step'],
     'related_guide' => 'list',
     'topic' => 'Data Structures · Arrays',
+    'related_game' => 'list-game',
 ];

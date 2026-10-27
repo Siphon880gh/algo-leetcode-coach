@@ -9,4 +9,5 @@ return [
     'tags' => ['heap-sort', 'sorting', 'step-by-step'],
     'related_guide' => 'heap-sort',
     'topic' => 'Algorithms · Sorting',
+    'related_game' => 'heap-sort-game',
 ];

@@ -10,4 +10,5 @@ return [
     'tags' => ['backtracking'],
     'related_session' => 'backtracking-algorithm',
     'topic' => 'Algorithms · Backtracking',
+    'related_game' => 'backtracking-algorithm-game',
 ];

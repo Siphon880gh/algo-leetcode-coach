@@ -9,4 +9,5 @@ return [
     'tags' => ['heapify', 'build-heap', 'step-by-step'],
     'related_guide' => 'heap-construction-operation',
     'topic' => 'Data Structures · Heap',
+    'related_game' => 'heap-construction-operation-game',
 ];

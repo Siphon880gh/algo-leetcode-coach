@@ -9,4 +9,5 @@ return [
     'tags' => ['hash-table', 'step-by-step'],
     'related_guide' => 'labu-topic-e17e99e920a0',
     'topic' => 'Data Structures · Hash Map',
+    'related_game' => 'labu-topic-e17e99e920a0-game',
 ];

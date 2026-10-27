@@ -10,4 +10,5 @@ return [
     'tags' => ['heapify', 'build-heap'],
     'related_session' => 'heap-construction-operation',
     'topic' => 'Data Structures · Heap',
+    'related_game' => 'heap-construction-operation-game',
 ];

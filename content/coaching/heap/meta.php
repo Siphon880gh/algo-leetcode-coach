@@ -9,4 +9,5 @@ return [
     'tags' => ['heap', 'priority-queue', 'step-by-step'],
     'related_guide' => 'heap',
     'topic' => 'Data Structures · Heap',
+    'related_game' => 'heap-game',
 ];

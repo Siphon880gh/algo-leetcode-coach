@@ -10,4 +10,5 @@ return [
     'tags' => ['binary-search', 'insertion'],
     'related_session' => 'binary-search-insertion-point',
     'topic' => 'Algorithms · Binary Search',
+    'related_game' => 'binary-search-insertion-point-game',
 ];

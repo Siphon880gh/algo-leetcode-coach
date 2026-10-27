@@ -9,4 +9,5 @@ return [
     'tags' => ['permutations', 'step-by-step'],
     'related_guide' => 'permutations-problem',
     'topic' => 'Algorithms · Backtracking',
+    'related_game' => 'permutations-problem-game',
 ];

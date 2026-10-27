@@ -10,4 +10,5 @@ return [
     'tags' => ['DP', 'summary'],
     'related_session' => 'labu-topic-fb032618ee4a',
     'topic' => 'Algorithms · Dynamic Programming',
+    'related_game' => 'labu-topic-fb032618ee4a-game',
 ];

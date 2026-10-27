@@ -10,4 +10,5 @@ return [
     'tags' => ['linked-list', 'pointers'],
     'related_session' => 'linked-list',
     'topic' => 'Data Structures · Linked List',
+    'related_game' => 'linked-list-game',
 ];

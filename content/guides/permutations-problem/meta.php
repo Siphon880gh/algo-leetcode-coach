@@ -10,4 +10,5 @@ return [
     'tags' => ['permutations'],
     'related_session' => 'permutations-problem',
     'topic' => 'Algorithms · Backtracking',
+    'related_game' => 'permutations-problem-game',
 ];

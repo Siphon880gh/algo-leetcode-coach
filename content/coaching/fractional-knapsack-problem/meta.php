@@ -9,4 +9,5 @@ return [
     'tags' => ['knapsack', 'greedy', 'step-by-step'],
     'related_guide' => 'fractional-knapsack-problem',
     'topic' => 'Algorithms · Greedy',
+    'related_game' => 'fractional-knapsack-problem-game',
 ];

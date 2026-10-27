@@ -9,4 +9,5 @@ return [
     'tags' => ['bucket-sort', 'step-by-step'],
     'related_guide' => 'bucket-sort',
     'topic' => 'Algorithms · Sorting',
+    'related_game' => 'bucket-sort-game',
 ];

@@ -10,4 +10,5 @@ return [
     'tags' => ['hanoi', 'recursion'],
     'related_session' => 'hanota-problem',
     'topic' => 'Algorithms · Recursion',
+    'related_game' => 'hanota-problem-game',
 ];

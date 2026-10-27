@@ -10,4 +10,5 @@ return [
     'tags' => ['stack', 'LIFO'],
     'related_session' => 'stack',
     'topic' => 'Data Structures · Stack',
+    'related_game' => 'stack-game',
 ];

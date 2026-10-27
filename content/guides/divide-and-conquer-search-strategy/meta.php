@@ -10,4 +10,5 @@ return [
     'tags' => ['divide-conquer', 'binary-search'],
     'related_session' => 'divide-and-conquer-search-strategy',
     'topic' => 'Algorithms · Binary Search',
+    'related_game' => 'divide-and-conquer-search-strategy-game',
 ];

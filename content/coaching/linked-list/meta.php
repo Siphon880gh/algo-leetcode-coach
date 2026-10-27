@@ -9,4 +9,5 @@ return [
     'tags' => ['linked-list', 'step-by-step'],
     'related_guide' => 'linked-list',
     'topic' => 'Data Structures · Linked List',
+    'related_game' => 'linked-list-game',
 ];

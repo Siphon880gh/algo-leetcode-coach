@@ -10,4 +10,5 @@ return [
     'tags' => ['divide-conquer', 'binary-tree'],
     'related_session' => 'building-a-binary-tree-problem',
     'topic' => 'Algorithms · Trees',
+    'related_game' => 'building-a-binary-tree-problem-game',
 ];

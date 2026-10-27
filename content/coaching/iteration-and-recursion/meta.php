@@ -9,4 +9,5 @@ return [
     'tags' => ['iteration', 'recursion', 'step-by-step'],
     'related_guide' => 'iteration-and-recursion',
     'topic' => 'Algorithms · Recursion',
+    'related_game' => 'iteration-and-recursion-game',
 ];

@@ -10,4 +10,5 @@ return [
     'tags' => ['binary-search', 'bounds'],
     'related_session' => 'binary-search-boundaries',
     'topic' => 'Algorithms · Binary Search',
+    'related_game' => 'binary-search-boundaries-game',
 ];

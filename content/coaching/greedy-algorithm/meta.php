@@ -9,4 +9,5 @@ return [
     'tags' => ['greedy', 'step-by-step'],
     'related_guide' => 'greedy-algorithm',
     'topic' => 'Algorithms · Greedy',
+    'related_game' => 'greedy-algorithm-game',
 ];

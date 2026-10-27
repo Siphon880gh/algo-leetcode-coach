@@ -9,4 +9,5 @@ return [
     'tags' => ['DP', 'playbook', 'step-by-step'],
     'related_guide' => 'dynamic-programming-problem-solving-approach',
     'topic' => 'Algorithms · Dynamic Programming',
+    'related_game' => 'dynamic-programming-problem-solving-approach-game',
 ];

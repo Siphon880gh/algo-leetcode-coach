@@ -10,4 +10,5 @@ return [
     'tags' => ['divide-conquer'],
     'related_session' => 'divide-and-conquer-algorithms',
     'topic' => 'Algorithms · Divide and Conquer',
+    'related_game' => 'divide-and-conquer-algorithms-game',
 ];

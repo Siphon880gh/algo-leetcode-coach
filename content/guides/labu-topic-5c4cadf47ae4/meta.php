@@ -10,4 +10,5 @@ return [
     'tags' => ['array'],
     'related_session' => 'labu-topic-5c4cadf47ae4',
     'topic' => 'Data Structures · Arrays',
+    'related_game' => 'labu-topic-5c4cadf47ae4-game',
 ];
