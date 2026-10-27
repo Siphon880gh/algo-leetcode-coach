@@ -5,7 +5,7 @@ return [
     'title' => 'Most Beautiful Item for Each Query',
     'leetcode' => 2070,
     'difficulty' => 'Med',
-    'summary' => 'Sort items by price and keep a running max beauty. For each query, binary search the last price ≤ query and read the running max.',
+    'summary' => 'Sort items by price and keep a running max beauty. For each query, binary search the last price at most query and read the running max.',
     'category' => 'LeetCode',
     'subcategory' => 'Binary Search',
     'topic' => 'LeetCode · Binary Search',

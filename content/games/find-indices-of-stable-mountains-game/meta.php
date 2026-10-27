@@ -5,7 +5,7 @@ return [
     'title' => 'Find Indices of Stable Mountains',
     'leetcode' => 3285,
     'difficulty' => 'Easy',
-    'summary' => 'Mountain i (i ≥ 1) is stable if height[i − 1] > threshold.',
+    'summary' => 'Mountain i (i at least 1) is stable if height[i − 1] > threshold.',
     'category' => 'LeetCode',
     'subcategory' => 'Arrays',
     'topic' => 'LeetCode · Arrays',

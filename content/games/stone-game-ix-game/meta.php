@@ -5,7 +5,7 @@ return [
     'title' => 'Stone Game IX: count residues mod 3',
     'leetcode' => 2029,
     'difficulty' => 'Med',
-    'summary' => 'Count c0, c1, c2 of values mod 3. If c0 is even, Alice wins iff c1 ≥ 1 and c2 ≥ 1. If c0 is odd, Alice wins iff |c1 − c2| > 2.',
+    'summary' => 'Count c0, c1, c2 of values mod 3. If c0 is even, Alice wins exactly when c1 at least 1 and c2 at least 1. If c0 is odd, Alice wins exactly when |c1 − c2| > 2.',
     'category' => 'LeetCode',
     'subcategory' => 'Greedy',
     'topic' => 'LeetCode · Greedy',

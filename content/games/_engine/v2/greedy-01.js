@@ -9,14 +9,14 @@
     t: 'Integer to Roman: take the biggest symbol that fits',
     r: 'Walk the values 1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1; append each symbol as many times as it fits and subtract.',
     g: R => ({ num: R.int(1, 3999) }),
-    s(I, T) { const v = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1], s = ['M', 'CM', 'D', 'CD', 'C', 'XC', 'L', 'XL', 'X', 'IX', 'V', 'IV', 'I']; let n = I.num, out = ''; v.forEach((x, i) => { const c = Math.floor(n / x); if (c || (i % 4 === 0 && n >= 1)) { T.at({ left: n, roman: out || '—' }); T.n(`How many "${s[i]}" (${x}) now?`, c, `⌊${n} / ${x}⌋.`); } out += s[i].repeat(c); n -= c * x; }); return out; }
+    s(I, T) { const v = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1], s = ['M', 'CM', 'D', 'CD', 'C', 'XC', 'L', 'XL', 'X', 'IX', 'V', 'IV', 'I']; let n = I.num, out = ''; v.forEach((x, i) => { const c = Math.floor(n / x); if (c || (i % 4 === 0 && n >= 1)) { T.at({ left: n, roman: out || '—' }); T.n(`How many "${s[i]}" (${x}) now?`, c, `${n} divided by ${x}, rounded down.`); } out += s[i].repeat(c); n -= c * x; }); return out; }
   });
 
   D('text-justification', {
     t: 'Text Justification: pack greedily, spread the spaces',
     r: 'Pack as many words as fit (with single spaces). Spread the extra spaces over the gaps, giving the left gaps one more when it does not divide evenly. The last line, and one-word lines, are left-justified and padded.',
     g: R => ({ words: Array.from({ length: R.int(2, 6) }, () => R.str(R.int(1, 5), 'abcde')), maxWidth: R.int(6, 12) }),
-    s(I, T) { const w = I.words, W = I.maxWidth, out = []; let i = 0; while (i < w.length) { let j = i, len = w[i].length; while (j + 1 < w.length && len + 1 + w[j + 1].length <= W) { j++; len += 1 + w[j].length; } T.at({ words: A(w, { win: [i, j] }), width: W }); T.n(`How many words fit on line ${out.length + 1}?`, j - i + 1, 'Add words while length + spaces ≤ maxWidth.'); const line = w.slice(i, j + 1), gaps = j - i; if (j === w.length - 1 || !gaps) out.push(line.join(' ').padEnd(W)); else { const sp = W - line.reduce((a, x) => a + x.length, 0), q = Math.floor(sp / gaps), r = sp % gaps; T.n('Spaces in the first gap?', q + (r ? 1 : 0), `${sp} spaces over ${gaps} gaps; the left ones get the extra.`); out.push(line.map((x, k) => k < gaps ? x + ' '.repeat(q + (k < r ? 1 : 0)) : x).join('')); } i = j + 1; } return out; }
+    s(I, T) { const w = I.words, W = I.maxWidth, out = []; let i = 0; while (i < w.length) { let j = i, len = w[i].length; while (j + 1 < w.length && len + 1 + w[j + 1].length <= W) { j++; len += 1 + w[j].length; } T.at({ words: A(w, { win: [i, j] }), width: W }); T.n(`How many words fit on line ${out.length + 1}?`, j - i + 1, 'Add words while length + spaces at most maxWidth.'); const line = w.slice(i, j + 1), gaps = j - i; if (j === w.length - 1 || !gaps) out.push(line.join(' ').padEnd(W)); else { const sp = W - line.reduce((a, x) => a + x.length, 0), q = Math.floor(sp / gaps), r = sp % gaps; T.n('Spaces in the first gap?', q + (r ? 1 : 0), `${sp} spaces over ${gaps} gaps; the left ones get the extra.`); out.push(line.map((x, k) => k < gaps ? x + ' '.repeat(q + (k < r ? 1 : 0)) : x).join('')); } i = j + 1; } return out; }
   });
 
   D('candy', {
@@ -30,15 +30,15 @@
     t: 'Largest Number: order by a + b vs b + a',
     r: 'Sort the numbers as strings so that x comes before y when x + y > y + x. Join; if the result starts with 0, it is "0".',
     g: R => ({ nums: R.ints(R.int(2, 5), 0, 99) }),
-    s(I, T) { const s = I.nums.map(String).sort((a, b) => (b + a).localeCompare(a + b)); for (let i = 1; i < s.length && i < 5; i++) { T.at({ order: A(s, { hl: [i - 1, i] }) }); T.c(`Which goes first: ${s[i - 1]} or ${s[i]}?`, [...new Set([s[i - 1], s[i]])], s[i - 1], `${s[i - 1]}${s[i]} ≥ ${s[i]}${s[i - 1]}.`); } const r = s.join(''); return r[0] === '0' ? '0' : r; }
+    s(I, T) { const s = I.nums.map(String).sort((a, b) => (b + a).localeCompare(a + b)); for (let i = 1; i < s.length && i < 5; i++) { T.at({ order: A(s, { hl: [i - 1, i] }) }); T.c(`Which goes first: ${s[i - 1]} or ${s[i]}?`, [...new Set([s[i - 1], s[i]])], s[i - 1], `${s[i - 1]}${s[i]} at least ${s[i]}${s[i - 1]}.`); } const r = s.join(''); return r[0] === '0' ? '0' : r; }
   });
 
   D('wiggle-sort', {
     t: 'Wiggle Sort: fix each neighbor pair as you go',
-    r: 'Walk i = 1 … n−1. At odd i we need nums[i] ≥ nums[i−1], at even i nums[i] ≤ nums[i−1]; swap when violated. Swapping never breaks the previous pair.',
+    r: 'Walk i = 1 … n−1. At odd i we need nums[i] at least nums[i−1], at even i nums[i] at most nums[i−1]; swap when violated. Swapping never breaks the previous pair.',
     g: R => ({ nums: R.ints(R.int(2, 7), 0, 9) }),
     cmp: (out, exp, I) => sameMultiset(out, I.nums) && out.every((v, i) => !i || (i % 2 ? v >= out[i - 1] : v <= out[i - 1])),
-    s(I, T) { const a = I.nums.slice(); for (let i = 1; i < a.length; i++) { const bad = i % 2 ? a[i] < a[i - 1] : a[i] > a[i - 1]; T.at({ nums: A(a, { hl: [i - 1, i] }) }); T.yn(`Swap positions ${i - 1} and ${i}?`, bad, i % 2 ? 'Odd index must be ≥ its left neighbor.' : 'Even index must be ≤ its left neighbor.'); if (bad) [a[i], a[i - 1]] = [a[i - 1], a[i]]; } return a; }
+    s(I, T) { const a = I.nums.slice(); for (let i = 1; i < a.length; i++) { const bad = i % 2 ? a[i] < a[i - 1] : a[i] > a[i - 1]; T.at({ nums: A(a, { hl: [i - 1, i] }) }); T.yn(`Swap positions ${i - 1} and ${i}?`, bad, i % 2 ? 'Odd index must be at least its left neighbor.' : 'Even index must be at most its left neighbor.'); if (bad) [a[i], a[i - 1]] = [a[i - 1], a[i]]; } return a; }
   });
 
   D('wiggle-sort-ii', {
@@ -51,9 +51,9 @@
 
   D('patching-array', {
     t: 'Patching Array: extend the reachable range',
-    r: 'miss = smallest sum not yet reachable (start 1). If the next number ≤ miss, use it: miss += num. Otherwise patch with miss itself: miss doubles. Stop once miss > n.',
+    r: 'miss = smallest sum not yet reachable (start 1). If the next number at most miss, use it: miss += num. Otherwise patch with miss itself: miss doubles. Stop once miss > n.',
     g: R => ({ nums: sorted(R.ints(R.int(1, 4), 1, 12)), n: R.int(1, 40) }),
-    s(I, T) { let miss = 1, i = 0, p = 0; while (miss <= I.n) { const use = i < I.nums.length && I.nums[i] <= miss; T.at({ nums: A(I.nums, { hl: i < I.nums.length ? [i] : [] }), miss, patches: p }); T.yn(`Can the next number cover miss = ${miss}?`, use, use ? `${I.nums[i]} ≤ ${miss}.` : `Patch with ${miss}.`); if (use) miss += I.nums[i++]; else { miss *= 2; p++; } } return p; }
+    s(I, T) { let miss = 1, i = 0, p = 0; while (miss <= I.n) { const use = i < I.nums.length && I.nums[i] <= miss; T.at({ nums: A(I.nums, { hl: i < I.nums.length ? [i] : [] }), miss, patches: p }); T.yn(`Can the next number cover miss = ${miss}?`, use, use ? `${I.nums[i]} at most ${miss}.` : `Patch with ${miss}.`); if (use) miss += I.nums[i++]; else { miss *= 2; p++; } } return p; }
   });
 
   D('increasing-triplet-subsequence', {
@@ -67,7 +67,7 @@
     t: 'Integer Replacement: aim for trailing zeros',
     r: 'Even: halve. Odd: go to whichever neighbor is divisible by 4 (n + 1 if n mod 4 = 3), except n = 3, where n − 1 is better.',
     g: R => ({ n: R.int(1, 200) }),
-    s(I, T) { let n = I.n, c = 0; while (n !== 1) { const nx = n % 2 === 0 ? n / 2 : n === 3 || n % 4 === 1 ? n - 1 : n + 1; if (n % 2) { T.at({ n, steps: c }); T.c(`${n} is odd. Which move?`, ['n − 1', 'n + 1'], nx === n - 1 ? 'n − 1' : 'n + 1', n === 3 ? '3 → 2 → 1 is shortest.' : 'Pick the neighbor divisible by 4.'); } n = nx; c++; } return c; }
+    s(I, T) { let n = I.n, c = 0; while (n !== 1) { const nx = n % 2 === 0 ? n / 2 : n === 3 || n % 4 === 1 ? n - 1 : n + 1; if (n % 2) { T.at({ n, steps: c }); T.c(`${n} is odd. Which move?`, ['n − 1', 'n + 1'], nx === n - 1 ? 'n − 1' : 'n + 1', n === 3 ? '3, then 2, then 1 is shortest.' : 'Pick the neighbor divisible by 4.'); } n = nx; c++; } return c; }
   });
 
   D('queue-reconstruction-by-height', {
@@ -79,7 +79,7 @@
 
   D('longest-palindrome', {
     t: 'Longest Palindrome: use pairs, plus one middle',
-    r: 'Every letter contributes 2·⌊count/2⌋. If any count is odd, one letter can sit in the middle: +1.',
+    r: 'Every letter contributes 2 times (half of count, rounded down). If any count is odd, one letter can sit in the middle: +1.',
     g: R => ({ s: R.str(R.int(1, 9), 'aabbcC') }),
     s(I, T) { const res = (() => { const c = {}; for (const x of I.s) c[x] = (c[x] || 0) + 1; const pairs = Object.values(c).reduce((a, v) => a + Math.floor(v / 2), 0), odd = Object.values(c).some(v => v % 2); T.at({ counts: K(c) }); T.n('How many pairs?', pairs, 'Each count halved, rounded down, then added up.'); T.yn('Can a letter sit in the middle?', odd, 'Some count is odd.'); return 2 * pairs + (odd ? 1 : 0); })(); T.n('Longest palindrome length?', res, 'Two per pair, plus 1 for a middle letter.'); return res; }
   });
@@ -100,14 +100,14 @@
 
   D('squirrel-simulation', {
     t: 'Squirrel Simulation: pick the best first nut',
-    r: 'Every nut costs 2·dist(nut, tree) as round trips. Only the first nut differs: the squirrel walks squirrel → nut instead of tree → nut. Choose the nut with the biggest saving dist(nut, tree) − dist(nut, squirrel).',
+    r: 'Every nut costs 2 times dist(nut, tree) as round trips. Only the first nut differs: the squirrel walks from the squirrel to the nut instead of from the tree to the nut. Choose the nut with the biggest saving dist(nut, tree) − dist(nut, squirrel).',
     g: R => ({ height: 5, width: 5, tree: [R.int(0, 4), R.int(0, 4)], squirrel: [R.int(0, 4), R.int(0, 4)], nuts: Array.from({ length: R.int(1, 3) }, () => [R.int(0, 4), R.int(0, 4)]) }),
     s(I, T) { const d = (a, b) => Math.abs(a[0] - b[0]) + Math.abs(a[1] - b[1]); let tot = 0, best = -Infinity; I.nuts.forEach(n => { tot += 2 * d(n, I.tree); const sv = d(n, I.tree) - d(n, I.squirrel); T.at({ tree: `(${I.tree})`, squirrel: `(${I.squirrel})`, nut: `(${n})` }); T.n(`Saving if (${n}) is collected first?`, sv, 'dist(nut, tree) − dist(nut, squirrel).'); best = Math.max(best, sv); }); return tot - best; }
   });
 
   D('distribute-candies', {
-    t: 'Distribute Candies: distinct types, capped at n/2',
-    r: 'Alice eats n/2 candies; the most types she can get is min(number of distinct types, n/2).',
+    t: 'Distribute Candies: distinct types, capped at n divided by 2',
+    r: 'Alice eats n divided by 2 candies; the most types she can get is min(number of distinct types, n divided by 2).',
     g: R => ({ candyType: R.ints(2 * R.int(1, 4), 1, 5) }),
     s(I, T) { const res = (() => { const d = new Set(I.candyType).size; T.at({ candies: A(I.candyType) }); T.n('Distinct types?', d, 'Use a set.'); T.n('Candies she may eat?', I.candyType.length / 2, 'Half of all candies.'); return Math.min(d, I.candyType.length / 2); })(); T.n('Most types she can eat?', res, 'The smaller of the two.'); return res; }
   });
@@ -121,7 +121,7 @@
 
   D('minimum-factorization', {
     t: 'Minimum Factorization: divide by 9 down to 2',
-    r: 'num < 10 is its own answer. Otherwise divide out 9, 8, …, 2 greedily (bigger digits mean fewer digits), then write the digits in increasing order. Leftover > 1 or overflow → 0.',
+    r: 'num < 10 is its own answer. Otherwise divide out 9, 8, …, 2 greedily (bigger digits mean fewer digits), then write the digits in increasing order. Leftover > 1 or overflow: 0.',
     g: R => ({ num: R.pick([R.int(1, 200), 48, 15, 2 ** R.int(1, 10), 11 * R.int(1, 5)]) }),
     s(I, T) { const res = (() => { let n = I.num; if (n < 10) { T.at({ num: n }); T.yn('Is num a single digit?', true, 'It is its own answer.'); T.n('Digits in the answer?', 1, 'Just num.'); return n; } const d = []; for (let k = 9; k >= 2; k--) { let c = 0; while (n % k === 0) { n /= k; d.push(k); c++; } if (c) { T.at({ num: I.num, left: n }); T.n(`How many ${k}s?`, c, `Divide out ${k} while possible.`); } } T.at({ num: I.num, left: n }); T.yn('Is a factor above 9 left over?', n > 1, 'Then no answer exists.'); if (n > 1) return 0; const r = +d.reverse().join(''); return r > 2 ** 31 - 1 ? 0 : r; })(); T.n('Smallest number? (0 if none)', res, 'Digits in increasing order.'); return res; }
   });
@@ -156,16 +156,16 @@
 
   D('max-chunks-to-make-sorted', {
     t: 'Max Chunks to Make Sorted: prefix max equals index',
-    r: 'For a permutation of 0…n−1, a chunk can end at i exactly when max(arr[0..i]) = i.',
+    r: 'For a permutation of 0…n−1, a chunk can end at i exactly when max(arr[0 to i]) = i.',
     g: R => ({ arr: R.shuffle([...Array(R.int(1, 7)).keys()]) }),
     s(I, T) { let mx = -1, c = 0; I.arr.forEach((x, i) => { mx = Math.max(mx, x); T.at({ arr: A(I.arr, { hl: [i] }), prefixMax: mx }); T.yn(`Can a chunk end at index ${i}?`, mx === i, 'Prefix max equals the index.'); if (mx === i) c++; }); return c; }
   });
 
   D('rabbits-in-forest', {
     t: 'Rabbits in Forest: groups of answer + 1',
-    r: 'Rabbits answering x come in color groups of x + 1. With c such answers you need ⌈c / (x + 1)⌉ groups: add that times (x + 1).',
+    r: 'Rabbits answering x come in color groups of x + 1. With c such answers you need c divided by (x + 1) (rounded up) groups: add that times (x + 1).',
     g: R => ({ answers: R.ints(R.int(1, 7), 0, 3) }),
-    s(I, T) { const c = {}; I.answers.forEach(x => c[x] = (c[x] || 0) + 1); let t = 0; for (const [x, k] of Object.entries(c)) { const v = Math.ceil(k / (+x + 1)) * (+x + 1); T.at({ counts: K(c) }); T.n(`Rabbits implied by ${k} answer(s) of ${x}?`, v, `⌈${k} / ${+x + 1}⌉ groups of ${+x + 1}.`); t += v; } return t; }
+    s(I, T) { const c = {}; I.answers.forEach(x => c[x] = (c[x] || 0) + 1); let t = 0; for (const [x, k] of Object.entries(c)) { const v = Math.ceil(k / (+x + 1)) * (+x + 1); T.at({ counts: K(c) }); T.n(`Rabbits implied by ${k} answers of ${x}?`, v, `${k} divided by ${+x + 1} (rounded up) groups of ${+x + 1}.`); t += v; } return t; }
   });
 
   D('guess-the-word', {
@@ -179,7 +179,7 @@
     t: 'Hand of Straights: start groups at the smallest card',
     r: 'Count cards. Repeatedly take the smallest remaining card x; the group x, x+1, …, x+groupSize−1 must all be available. Decrease their counts.',
     g: R => { const k = R.int(1, 3), h = []; for (let i = 0; i < R.int(1, 3); i++) { const s = R.int(1, 6); for (let j = 0; j < k; j++) h.push(s + j); } if (R.chance(0.3)) h.push(R.int(1, 9)); return { hand: R.shuffle(h), groupSize: k }; },
-    s(I, T) { if (I.hand.length % I.groupSize) return false; const c = {}; I.hand.forEach(x => c[x] = (c[x] || 0) + 1); for (const x of Object.keys(c).map(Number).sort((a, b) => a - b)) { const k = c[x]; if (!k) continue; for (let j = 0; j < I.groupSize; j++) { const ok = (c[x + j] || 0) >= k; T.at({ counts: K(c), start: x }); T.yn(`Are there at least ${k} card(s) of ${x + j}?`, ok, `${k} group(s) start at ${x}.`); if (!ok) return false; c[x + j] -= k; } } return true; }
+    s(I, T) { if (I.hand.length % I.groupSize) return false; const c = {}; I.hand.forEach(x => c[x] = (c[x] || 0) + 1); for (const x of Object.keys(c).map(Number).sort((a, b) => a - b)) { const k = c[x]; if (!k) continue; for (let j = 0; j < I.groupSize; j++) { const ok = (c[x + j] || 0) >= k; T.at({ counts: K(c), start: x }); T.yn(`Are there at least ${k} cards of ${x + j}?`, ok, `${k} groups start at ${x}.`); if (!ok) return false; c[x + j] -= k; } } return true; }
   });
 
   D('lemonade-change', {
@@ -244,6 +244,6 @@
     t: 'Broken Calculator: work backwards from the target',
     r: 'Reverse the operations: while target > start, halve it if even, otherwise add 1. Then add start − target for the remaining decrements.',
     g: R => ({ startValue: R.int(1, 20), target: R.int(1, 60) }),
-    s(I, T) { let t = I.target, c = 0; while (t > I.startValue) { const nx = t % 2 ? t + 1 : t / 2; T.at({ start: I.startValue, target: t, ops: c }); T.n('Target after the reverse step?', nx, t % 2 ? 'Odd: add 1 (undo a −1).' : 'Even: halve (undo ×2).'); t = nx; c++; } return c + I.startValue - t; }
+    s(I, T) { let t = I.target, c = 0; while (t > I.startValue) { const nx = t % 2 ? t + 1 : t / 2; T.at({ start: I.startValue, target: t, ops: c }); T.n('Target after the reverse step?', nx, t % 2 ? 'Odd: add 1 (undo a −1).' : 'Even: halve (undo times 2).'); t = nx; c++; } return c + I.startValue - t; }
   });
 })();

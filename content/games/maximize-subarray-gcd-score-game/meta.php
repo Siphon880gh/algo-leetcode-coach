@@ -5,7 +5,7 @@ return [
     'title' => 'Maximize Subarray GCD Score',
     'leetcode' => 3574,
     'difficulty' => 'Hard',
-    'summary' => 'Doubling helps a subarray\'s gcd only if every element with the fewest factors of 2 gets doubled. So for each subarray: score = length × gcd × (2 if that count ≤ k, else 1).',
+    'summary' => 'Doubling helps a subarray\'s gcd only if every element with the fewest factors of 2 gets doubled. So for each subarray: score = length times gcd times (2 if that count at most k, else 1).',
     'category' => 'LeetCode',
     'subcategory' => 'Math',
     'topic' => 'LeetCode · Math',

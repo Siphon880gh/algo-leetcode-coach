@@ -5,7 +5,7 @@ return [
     'title' => 'Valid Palindrome III: deletions = n − longest palindromic subsequence',
     'leetcode' => 1216,
     'difficulty' => 'Hard',
-    'summary' => 'lps[i][j] = longest palindromic subsequence of s[i..j]. The fewest deletions is n − lps of the whole string; compare with k.',
+    'summary' => 'lps[i][j] = longest palindromic subsequence of s[i to j]. The fewest deletions is n − lps of the whole string; compare with k.',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

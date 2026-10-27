@@ -5,7 +5,7 @@ return [
     'title' => 'Minimum Coins to Add: patch the gap at reach',
     'leetcode' => 2952,
     'difficulty' => 'Med',
-    'summary' => 'Sort coins. While you can make all of [0, reach): use the next coin if it is ≤ reach, otherwise add a coin of value reach (doubling the range).',
+    'summary' => 'Sort coins. While you can make all of [0, reach): use the next coin if it is at most reach, otherwise add a coin of value reach (doubling the range).',
     'category' => 'LeetCode',
     'subcategory' => 'Greedy',
     'topic' => 'LeetCode · Greedy',

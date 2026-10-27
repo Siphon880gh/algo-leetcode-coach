@@ -33,10 +33,10 @@
 
   D('array-representation-of-binary-trees', {
     t: 'Array Representation of Binary Trees',
-    r: 'A complete tree stored level by level in an array: the node at index i has its left child at 2i + 1, its right child at 2i + 2, and its parent at (i − 1) / 2 rounded down. Indexes past the end mean no child.',
+    r: 'A complete tree stored level by level in an array: the node at index i has its left child at 2i + 1, its right child at 2i + 2, and its parent at (i − 1) divided by 2 rounded down. Indexes past the end mean no child.',
     exs: [{ in: { tree: [1, 2, 3, 4, 5] }, out: [-1, 0, 0, 1, 1] }],
     g: R => ({ tree: R.distinct(R.int(5, 10), 1, 30) }),
-    s(I, T) { const a = I.tree, n = a.length, root = Tr.from(a); const i = 1, j = (n - 2) >> 1, k = n - 1; T.v(A(a, { hl: i, label: 'array' }), TR(root, { hit: Tr.find(root, a[i]) })); T.n(`Index of the left child of index ${i} (value ${a[i]})?`, 2 * i + 1 < n ? 2 * i + 1 : -1, `2 × ${i} + 1 = ${2 * i + 1}${2 * i + 1 < n ? '' : ', past the end, so answer −1'}.`); T.v(A(a, { hl: j, label: 'array' }), TR(root, { hit: Tr.find(root, a[j]) })); T.n(`Value of the right child of index ${j}? (−1 if none)`, 2 * j + 2 < n ? a[2 * j + 2] : -1, `Index 2 × ${j} + 2 = ${2 * j + 2}.`); T.v(A(a, { hl: k, label: 'array' }), TR(root, { hit: Tr.find(root, a[k]) })); T.n(`Index of the parent of index ${k}?`, (k - 1) >> 1, `(${k} − 1) / 2 rounded down.`); T.n(`Value of that parent?`, a[(k - 1) >> 1], 'Read the array at the parent index.'); return a.map((_, x) => x ? (x - 1) >> 1 : -1); }
+    s(I, T) { const a = I.tree, n = a.length, root = Tr.from(a); const i = 1, j = (n - 2) >> 1, k = n - 1; T.v(A(a, { hl: i, label: 'array' }), TR(root, { hit: Tr.find(root, a[i]) })); T.n(`Index of the left child of index ${i} (value ${a[i]})?`, 2 * i + 1 < n ? 2 * i + 1 : -1, `2 times ${i} + 1 = ${2 * i + 1}${2 * i + 1 < n ? '' : ', past the end, so answer −1'}.`); T.v(A(a, { hl: j, label: 'array' }), TR(root, { hit: Tr.find(root, a[j]) })); T.n(`Value of the right child of index ${j}? (−1 if none)`, 2 * j + 2 < n ? a[2 * j + 2] : -1, `Index 2 times ${j} + 2 = ${2 * j + 2}.`); T.v(A(a, { hl: k, label: 'array' }), TR(root, { hit: Tr.find(root, a[k]) })); T.n(`Index of the parent of index ${k}?`, (k - 1) >> 1, `(${k} − 1) divided by 2 rounded down.`); T.n(`Value of that parent?`, a[(k - 1) >> 1], 'Read the array at the parent index.'); return a.map((_, x) => x ? (x - 1) >> 1 : -1); }
   });
 
   // AVL insert that reports which rotation it made.

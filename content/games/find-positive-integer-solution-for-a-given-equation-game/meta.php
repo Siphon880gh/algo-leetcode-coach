@@ -5,7 +5,7 @@ return [
     'title' => 'Find Positive Integer Solution for a Given Equation',
     'leetcode' => 1237,
     'difficulty' => 'Med',
-    'summary' => 'f increases in both x and y. Start at x = 1, y = z (top-left of a monotone grid): f < z → x++; f > z → y−−; equal → record and move both.',
+    'summary' => 'f increases in both x and y. Start at x = 1, y = z (top-left of a monotone grid): f < z: x++; f > z: y−−; equal: record and move both.',
     'category' => 'LeetCode',
     'subcategory' => 'Two Pointers',
     'topic' => 'LeetCode · Two Pointers',

@@ -5,7 +5,7 @@ return [
     'title' => 'Count Tested Devices After Test Operations',
     'leetcode' => 2960,
     'difficulty' => 'Easy',
-    'summary' => 'Each tested device lowers all later batteries by 1, so device i is tested iff battery[i] − (devices tested so far) > 0.',
+    'summary' => 'Each tested device lowers all later batteries by 1, so device i is tested exactly when battery[i] − (devices tested so far) > 0.',
     'category' => 'LeetCode',
     'subcategory' => 'Simulation',
     'topic' => 'LeetCode · Simulation',

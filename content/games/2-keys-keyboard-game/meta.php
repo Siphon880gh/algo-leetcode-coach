@@ -5,7 +5,7 @@ return [
     'title' => '2 Keys Keyboard: build i from a divisor',
     'leetcode' => 650,
     'difficulty' => 'Med',
-    'summary' => 'To reach i copies, reach some divisor d, Copy All once, then paste i/d − 1 times: dp[i] = min over d | i of dp[d] + i/d.',
+    'summary' => 'To reach i copies, reach some divisor d, Copy All once, then paste i divided by d − 1 times: dp[i] = min over d | i of dp[d] + i divided by d.',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

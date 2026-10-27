@@ -5,7 +5,7 @@ return [
     'title' => 'Number of Corner Rectangles: count column pairs per row pair',
     'leetcode' => 750,
     'difficulty' => 'Med',
-    'summary' => 'For each pair of rows, count columns where both are 1 (c of them). Any two such columns make a rectangle: c·(c−1)/2.',
+    'summary' => 'For each pair of rows, count columns where both are 1 (c of them). Any two such columns make a rectangle: c times (c−1) divided by 2.',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

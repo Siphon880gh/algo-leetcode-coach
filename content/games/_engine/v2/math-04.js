@@ -17,31 +17,31 @@
     s(I, T) { const c = {}; let t = 0; I.nums.forEach((x, j) => { T.at({ nums: A(I.nums, { hl: [j] }), seen: K(c), pairs: t }); T.n(`New good pairs ending at index ${j}?`, c[x] || 0, `Earlier copies of ${x}.`); t += c[x] || 0; c[x] = (c[x] || 0) + 1; }); return t; }
   });
 
-  D('number-of-substrings-with-only-1s', { t: 'Substrings With Only 1s: count each run of ones', r: 'Split into runs. A run of L ones contains L times (L + 1), halved, all-ones substrings; sum them mod 10^9 + 7.', g: R => ({ s: R.str(R.int(3, 9), '011') }), s: (I, T) => runsOf(I.s, T, r => r[0] === '1') });
-  D('count-number-of-homogenous-substrings', { t: 'Count Homogenous Substrings: L·(L+1)/2 per run', r: 'Split into runs of the same letter. A run of length L contains L·(L + 1)/2 homogenous substrings; sum them mod 10^9 + 7.', g: R => ({ s: R.str(R.int(3, 9), 'aab') }), s: (I, T) => runsOf(I.s, T, () => true) });
+  D('number-of-substrings-with-only-1s', { t: 'Substrings With Only 1s: count each run of ones', r: 'Split into runs. A run of L ones contains L times (L + 1), halved, all-ones substrings; sum them mod 10 to the power 9 + 7.', g: R => ({ s: R.str(R.int(3, 9), '011') }), s: (I, T) => runsOf(I.s, T, r => r[0] === '1') });
+  D('count-number-of-homogenous-substrings', { t: 'Count Homogenous Substrings: L times (L+1) divided by 2 per run', r: 'Split into runs of the same letter. A run of length L contains L times (L + 1) divided by 2 homogenous substrings; sum them mod 10 to the power 9 + 7.', g: R => ({ s: R.str(R.int(3, 9), 'aab') }), s: (I, T) => runsOf(I.s, T, () => true) });
 
   D('water-bottles', {
     t: 'Water Bottles: drink, then exchange the empties',
-    r: 'Drink all full bottles, then trade ⌊empty / numExchange⌋ empties for full ones, keeping the remainder. Repeat until you cannot trade.',
+    r: 'Drink all full bottles, then trade empty divided by numExchange (rounded down) empties for full ones, keeping the remainder. Repeat until you cannot trade.',
     g: R => ({ numBottles: R.int(1, 30), numExchange: R.int(2, 5) }),
-    s(I, T) { let full = I.numBottles, empty = 0, drunk = 0; while (full) { drunk += full; empty += full; full = Math.floor(empty / I.numExchange); empty %= I.numExchange; T.at({ drunk, empty, exchange: I.numExchange }); T.n('New full bottles from the exchange?', full, '⌊empties / numExchange⌋.'); } return drunk; }
+    s(I, T) { let full = I.numBottles, empty = 0, drunk = 0; while (full) { drunk += full; empty += full; full = Math.floor(empty / I.numExchange); empty %= I.numExchange; T.at({ drunk, empty, exchange: I.numExchange }); T.n('New full bottles from the exchange?', full, 'empties divided by numExchange, rounded down.'); } return drunk; }
   });
 
   D('count-odd-numbers-in-an-interval-range', {
     t: 'Count Odd Numbers in a Range: odds up to x',
-    r: 'There are ⌊(x + 1)/2⌋ odd numbers in [0, x]. Answer = odds(high) − odds(low − 1) = ⌊(high + 1)/2⌋ − ⌊low/2⌋.',
+    r: 'There are half of (x + 1) (rounded down) odd numbers in [0, x]. Answer = odds(high) − odds(low − 1) = (half of (high + 1), rounded down) − (half of low, rounded down).',
     g: R => { const l = R.int(0, 30); return { low: l, high: l + R.int(0, 20) }; },
     s(I, T) { const res = (() => { const a = Math.floor((I.high + 1) / 2), b = Math.floor(I.low / 2); T.at({ low: I.low, high: I.high }); T.n(`Odd numbers in [0, ${I.high}]?`, a, 'high plus 1, halved and rounded down.'); T.n(`Odd numbers in [0, ${I.low - 1}]?`, b, 'low halved, rounded down.'); return a - b; })(); T.n(`Odd numbers from ${I.low} to ${I.high}?`, res, 'Subtract the two counts.'); return res; }
   });
 
   D('guess-the-majority-in-a-hidden-array', {
     t: 'Guess the Majority in a Hidden Array: compare everyone to index 0',
-    r: 'query(a,b,c,d) is 4 (all equal), 2 (3–1) or 0 (2–2). Fix three indices and swap one in or out: equal answers mean the swapped elements match. Classify every index as same-as-0 or not, then return an index of the bigger group (−1 on a tie).',
+    r: 'query(a,b,c,d) is 4 (all equal), 2 (3 to 1) or 0 (2 to 2). Fix three indices and swap one in or out: equal answers mean the swapped elements match. Classify every index as same-as-0 or not, then return an index of the bigger group (−1 on a tie).',
     g: R => ({ nums: R.ints(R.int(5, 8), 0, 1) }),
     cmp: (out, exp, I) => { const ones = I.nums.filter(x => x).length, z = I.nums.length - ones; return ones === z ? out === -1 : out >= 0 && I.nums[out] === (ones > z ? 1 : 0); },
     s(I, T) {
       const a = I.nums, n = a.length, q = (...ix) => { const s = ix.reduce((t, i) => t + a[i], 0); return s === 0 || s === 4 ? 4 : s === 1 || s === 3 ? 2 : 0; };
-      const same = [true]; const base = q(0, 1, 2, 3); T.at({ hidden: A(a.map(() => '?')) }); T.n('query(0, 1, 2, 3)?', base, '4 = all equal, 2 = three–one, 0 = two–two.');
+      const same = [true]; const base = q(0, 1, 2, 3); T.at({ hidden: A(a.map(() => '?')) }); T.n('query(0, 1, 2, 3)?', base, '4 = all equal, 2 = three-one, 0 = two-two.');
       for (let i = 4; i < n; i++) same[i] = q(1, 2, 3, i) === base; // swap 0 for i
       const q1234 = q(1, 2, 3, 4); for (let k = 1; k <= 3; k++) { const others = [1, 2, 3].filter(x => x !== k); same[k] = q(0, ...others, 4) === q1234; }
       for (let i = 1; i < Math.min(n, 6); i++) { T.at({ hidden: A(a.map((v, j) => j === 0 || j === i ? v : '?')) }); T.yn(`Is nums[${i}] equal to nums[0]?`, same[i], 'Swapping one index in or out kept the query the same exactly when they match.'); }
@@ -51,14 +51,14 @@
 
   D('most-visited-sector-in-a-circular-track', {
     t: 'Most Visited Sector: only start and end matter',
-    r: 'Full laps add equally to every sector. The extra visits are from rounds[0] to rounds[last]: [start..end] if start ≤ end, else [1..end] plus [start..n].',
+    r: 'Full laps add equally to every sector. The extra visits are from rounds[0] to rounds[last]: [start to end] if start at most end, else [1 to end] plus [start to n].',
     g: R => { const n = R.int(2, 6), r = [R.int(1, n)]; for (let i = 0; i < R.int(1, 4); i++) { let x; do x = R.int(1, n); while (x === r[r.length - 1]); r.push(x); } return { n, rounds: r }; },
     s(I, T) { const res = (() => { const s = I.rounds[0], e = I.rounds[I.rounds.length - 1]; T.at({ n: I.n, start: s, end: e }); T.yn('Does the extra stretch wrap past sector n?', s > e, 'Start after end means it wraps.'); const out = []; if (s <= e) for (let i = s; i <= e; i++) out.push(i); else { for (let i = 1; i <= e; i++) out.push(i); for (let i = s; i <= I.n; i++) out.push(i); } return out; })(); T.n('How many sectors are most visited?', res.length, 'Every sector from the start to the end of the final lap.'); T.n('Smallest of them?', res[0], 'Return them in increasing order.'); return res; }
   });
 
   D('number-of-ways-to-reorder-array-to-get-same-bst', {
     t: 'Reorder Array for the Same BST: interleave the subtrees',
-    r: 'The root stays first. Left items (smaller) and right items (larger) keep their own relative order but can interleave: ways = C(L + R, L) · ways(left) · ways(right). Subtract 1 for the original order.',
+    r: 'The root stays first. Left items (smaller) and right items (larger) keep their own relative order but can interleave: ways = C(L + R, L) times ways(left) times ways(right). Subtract 1 for the original order.',
     g: R => ({ nums: R.shuffle(Array.from({ length: R.int(2, 6) }, (_, i) => i + 1)) }),
     s(I, T) { const res = (() => { const f = a => { if (a.length <= 2) return 1n; const L = a.filter(x => x < a[0]), Rr = a.filter(x => x > a[0]), c = binom(L.length + Rr.length, L.length); T.at({ subtree: A(a, { hl: [0] }), left: A(L), right: A(Rr) }); T.n(`Interleavings of ${L.length} left and ${Rr.length} right items?`, Number(c), `C(${L.length + Rr.length}, ${L.length}).`); return c * f(L) % M * f(Rr) % M; }; return Number((f(I.nums) - 1n + M) % M); })(); T.n('Other orderings that give the same BST (mod 1e9+7)?', res, 'Multiply all interleavings, then subtract the original order.'); return res; }
   });
@@ -72,14 +72,14 @@
 
   D('coordinate-with-maximum-network-quality', {
     t: 'Coordinate With Maximum Network Quality: try every grid point',
-    r: 'Coordinates are small, so try every integer point in the towers\' bounding box. Quality = Σ ⌊q / (1 + d)⌋ over towers within radius. Keep the best, smallest coordinate on ties.',
+    r: 'Coordinates are small, so try every integer point in the towers\' bounding box. Quality = the sum of q divided by (1 + d), rounded down over towers within radius. Keep the best, smallest coordinate on ties.',
     g: R => ({ towers: Array.from({ length: R.int(1, 3) }, () => [R.int(0, 4), R.int(0, 4), R.int(1, 12)]), radius: R.int(1, 3) }),
-    s(I, T) { const tw = I.towers; let best = [-1, 0, 0]; const xs = tw.map(t => t[0]), ys = tw.map(t => t[1]); for (let x = Math.min(...xs); x <= Math.max(...xs); x++) for (let y = Math.min(...ys); y <= Math.max(...ys); y++) { let q = 0; for (const [a, b, c] of tw) { const d = Math.hypot(a - x, b - y); if (d <= I.radius) q += Math.floor(c / (1 + d)); } if (q > best[0]) best = [q, x, y]; } for (const [a, b] of tw.slice(0, 3)) { let q = 0; for (const [p, r, c] of tw) { const d = Math.hypot(p - a, r - b); if (d <= I.radius) q += Math.floor(c / (1 + d)); } T.at({ towers: A(tw.map(t => `(${t[0]},${t[1]}) q${t[2]}`)), radius: I.radius }); T.n(`Quality at (${a},${b})?`, q, 'Σ ⌊q / (1 + d)⌋ for towers within the radius.'); } T.n('Best quality anywhere?', best[0], 'Scan every grid point.'); return [best[1], best[2]]; }
+    s(I, T) { const tw = I.towers; let best = [-1, 0, 0]; const xs = tw.map(t => t[0]), ys = tw.map(t => t[1]); for (let x = Math.min(...xs); x <= Math.max(...xs); x++) for (let y = Math.min(...ys); y <= Math.max(...ys); y++) { let q = 0; for (const [a, b, c] of tw) { const d = Math.hypot(a - x, b - y); if (d <= I.radius) q += Math.floor(c / (1 + d)); } if (q > best[0]) best = [q, x, y]; } for (const [a, b] of tw.slice(0, 3)) { let q = 0; for (const [p, r, c] of tw) { const d = Math.hypot(p - a, r - b); if (d <= I.radius) q += Math.floor(c / (1 + d)); } T.at({ towers: A(tw.map(t => `(${t[0]},${t[1]}) q${t[2]}`)), radius: I.radius }); T.n(`Quality at (${a},${b})?`, q, 'the sum of q divided by (1 + d), rounded down for towers within the radius.'); } T.n('Best quality anywhere?', best[0], 'Scan every grid point.'); return [best[1], best[2]]; }
   });
 
   D('kth-smallest-instructions', {
     t: 'k-th Smallest Instructions: count strings that start with H',
-    r: 'With h H\'s and v V\'s left, C(h − 1 + v, v) strings start with H. If k ≤ that, write H; otherwise write V and subtract that count from k.',
+    r: 'With h H\'s and v V\'s left, C(h − 1 + v, v) strings start with H. If k at most that, write H; otherwise write V and subtract that count from k.',
     g: R => { const r = R.int(1, 3), c = R.int(1, 3); let t = 1; for (let i = 1; i <= r; i++) t = t * (r + c - i + 1) / i; return { destination: [r, c], k: R.int(1, Math.round(t)) }; },
     s(I, T) { let v = I.destination[0], h = I.destination[1], k = I.k, out = ''; const C = (n, r) => { let x = 1; for (let i = 1; i <= r; i++) x = x * (n - i + 1) / i; return Math.round(x); }; while (h && v) { const c = C(h - 1 + v, v); T.at({ H: h, V: v, k, built: out || '—' }); T.n('Strings starting with H from here?', c, `C(${h - 1 + v}, ${v}).`); if (k <= c) { out += 'H'; h--; } else { out += 'V'; v--; k -= c; } } return out + 'H'.repeat(h) + 'V'.repeat(v); }
   });
@@ -93,16 +93,16 @@
 
   D('tuple-with-same-product', {
     t: 'Tuple With Same Product: count equal-product pairs',
-    r: 'Count every pair product. Two different pairs with the same product make 8 ordered tuples, so add 8 · C(c, 2) for each product seen c times.',
+    r: 'Count every pair product. Two different pairs with the same product make 8 ordered tuples, so add 8 times C(c, 2) for each product seen c times.',
     g: R => ({ nums: R.distinct(R.int(3, 6), 1, 12) }),
     s(I, T) { const res = (() => { const c = {}; const a = I.nums; for (let i = 0; i < a.length; i++) for (let j = i + 1; j < a.length; j++) c[a[i] * a[j]] = (c[a[i] * a[j]] || 0) + 1; T.at({ nums: A(a) }); T.n('Pairs in total?', a.length * (a.length - 1) / 2, 'Every pair gives one product.'); let t = 0; for (const [p, v] of Object.entries(c)) if (v > 1) { T.at({ products: K(Object.entries(c).filter(x => x[1] > 1)) }); T.n(`Tuples from product ${p} (${v} pairs)?`, 8 * v * (v - 1) / 2, '8 times the number of ways to choose 2 of those pairs.'); t += 8 * v * (v - 1) / 2; } T.at({ nums: A(a) }); T.n('Pairs with a repeated product?', Object.values(c).filter(v => v > 1).reduce((s, v) => s + v, 0), 'Count every pair whose product appears more than once.'); return t; })(); T.n('Total tuples?', res, 'Add the tuples from every repeated product.'); return res; }
   });
 
   D('count-ways-to-make-array-with-product', {
     t: 'Ways to Make an Array With a Product: stars and bars per prime',
-    r: 'Factor k. Each prime power p^e is spread over n slots in C(n + e − 1, e) ways, independently. Multiply over the primes (mod 10^9 + 7).',
+    r: 'Factor k. Each prime power p to the power e is spread over n slots in C(n + e − 1, e) ways, independently. Multiply over the primes (mod 10 to the power 9 + 7).',
     g: R => ({ queries: Array.from({ length: R.int(1, 3) }, () => [R.int(1, 6), R.int(1, 60)]) }),
-    s(I, T) { return I.queries.map(([n, k]) => { let r = 1n, x = k; for (let p = 2; p * p <= x || x > 1; p++) { if (p * p > x) p = x; let e = 0; while (x % p === 0) { x /= p; e++; } if (!e) continue; const w = binom(n + e - 1, e); T.at({ n, k, prime: `${p}^${e}` }); T.n(`Ways to spread ${p}^${e} over ${n} slots?`, Number(w), `C(${n + e - 1}, ${e}).`); r = r * w % M; } return Number(r); }); }
+    s(I, T) { return I.queries.map(([n, k]) => { let r = 1n, x = k; for (let p = 2; p * p <= x || x > 1; p++) { if (p * p > x) p = x; let e = 0; while (x % p === 0) { x /= p; e++; } if (!e) continue; const w = binom(n + e - 1, e); T.at({ n, k, prime: `${p} to the power ${e}` }); T.n(`Ways to spread ${p} to the power ${e} over ${n} slots?`, Number(w), `C(${n + e - 1}, ${e}).`); r = r * w % M; } return Number(r); }); }
   });
 
   D('maximum-number-of-balls-in-a-box', {
@@ -130,12 +130,12 @@
     t: 'Reinitialize a Permutation: follow index 1',
     r: 'The operation moves the value at i to 2i mod (n − 1) (with n − 1 fixed). The permutation returns when index 1 returns, so count steps until it does.',
     g: R => ({ n: 2 * R.int(1, 8) }),
-    s(I, T) { if (I.n === 2) return 1; let p = 1, c = 0; do { p = 2 * p % (I.n - 1); c++; T.at({ n: I.n, step: c }); T.n('Where is the value 1 now?', p, '2·i mod (n − 1).'); } while (p !== 1); return c; }
+    s(I, T) { if (I.n === 2) return 1; let p = 1, c = 0; do { p = 2 * p % (I.n - 1); c++; T.at({ n: I.n, step: c }); T.n('Where is the value 1 now?', p, '2 times i mod (n − 1).'); } while (p !== 1); return c; }
   });
 
   D('maximize-number-of-nice-divisors', {
     t: 'Maximize Nice Divisors: split into threes',
-    r: 'Nice divisors = product of the prime exponents, so split primeFactors into parts with the largest product: as many 3s as possible, using 2·2 instead of 3·1.',
+    r: 'Nice divisors = product of the prime exponents, so split primeFactors into parts with the largest product: as many 3s as possible, using 2 times 2 instead of 3 times 1.',
     g: R => ({ primeFactors: R.int(1, 30) }),
     s(I, T) { const res = (() => { const n = I.primeFactors; if (n <= 3) { T.at({ primeFactors: n }); T.yn('Is primeFactors 3 or fewer?', true, 'Then one prime repeated n times is best.'); T.n('How many different primes?', 1, 'Keep every factor on one prime.'); return n; } const r = n % 3, threes = r === 1 ? (n - 4) / 3 : Math.floor(n / 3); T.at({ primeFactors: n }); T.n('Remainder when divided by 3?', r, 'It decides whether to use 2s.'); T.n('How many parts of size 3?', threes, r === 1 ? 'Remainder 1: use two 2s instead of a 3 and a 1.' : r === 2 ? 'Remainder 2: one extra 2.' : 'All threes.'); return Number(pw(3, threes) * BigInt(r === 1 ? 4 : r === 2 ? 2 : 1) % M); })(); T.n('Most nice divisors (mod 1e9+7)?', res, 'Multiply the part sizes.'); return res; }
   });
@@ -149,7 +149,7 @@
 
   D('count-nice-pairs-in-an-array', {
     t: 'Count Nice Pairs: group by x − rev(x)',
-    r: 'nums[i] + rev(nums[j]) = nums[j] + rev(nums[i]) ⇔ nums[i] − rev(nums[i]) = nums[j] − rev(nums[j]). Count equal keys left to right.',
+    r: 'nums[i] + rev(nums[j]) = nums[j] + rev(nums[i]) exactly when nums[i] − rev(nums[i]) = nums[j] − rev(nums[j]). Count equal keys left to right.',
     g: R => ({ nums: R.ints(R.int(2, 6), 0, 99) }),
     s(I, T) { const c = {}; let t = 0; I.nums.forEach((x, i) => { const k = x - rev(x); T.at({ nums: A(I.nums, { hl: [i] }), keys: K(c) }); T.n(`Key ${x} − rev(${x})?`, k, `rev(${x}) = ${rev(x)}.`); t = (t + (c[k] || 0)) % MOD; c[k] = (c[k] || 0) + 1; }); return t; }
   });
@@ -177,14 +177,14 @@
 
   D('queries-on-number-of-points-inside-a-circle', {
     t: 'Points Inside a Circle: squared distance test',
-    r: 'For each query circle, count the points with (x − cx)² + (y − cy)² ≤ r² (boundary counts).',
+    r: 'For each query circle, count the points with (x − cx)² + (y − cy)² at most r² (boundary counts).',
     g: R => ({ points: Array.from({ length: R.int(2, 5) }, () => [R.int(0, 5), R.int(0, 5)]), queries: Array.from({ length: R.int(1, 3) }, () => [R.int(0, 5), R.int(0, 5), R.int(1, 3)]) }),
     s(I, T) { return I.queries.map(([x, y, r]) => { const c = I.points.filter(([a, b]) => (a - x) ** 2 + (b - y) ** 2 <= r * r).length; T.at({ points: A(I.points.map(p => `(${p})`)), circle: `center (${x},${y}), r ${r}` }); T.n('Points inside or on this circle?', c, 'Compare squared distance with r².'); return c; }); }
   });
 
   D('minimum-number-of-operations-to-make-string-sorted', {
     t: 'Operations to Make a String Sorted: rank among permutations',
-    r: 'Each operation steps to the previous permutation, so the answer is the rank of s among the distinct permutations of its letters: Σ over i of (letters smaller than s[i] after i) · (arrangements of the rest).',
+    r: 'Each operation steps to the previous permutation, so the answer is the rank of s among the distinct permutations of its letters: the sum over i of (letters smaller than s[i] after i) times (arrangements of the rest).',
     g: R => ({ s: R.str(R.int(2, 5), 'abc') }),
     s(I, T) { const s = I.s, n = s.length, cnt = Array(26).fill(0); let tot = 0n; for (let i = n - 1; i >= 0; i--) { cnt[s.charCodeAt(i) - 97]++; let smaller = 0; for (let c = 0; c < s.charCodeAt(i) - 97; c++) smaller += cnt[c]; let ways = fact(n - i - 1); for (const v of cnt) ways = ways * pw(fact(v), M - 2n) % M; const contrib = BigInt(smaller) * ways % M; T.at({ s: A([...s], { hl: [i] }) }); T.n(`Letters after index ${i} smaller than "${s[i]}"?`, smaller, 'Each could start a smaller permutation here.'); tot = (tot + contrib) % M; } return Number(tot); }
   });
@@ -205,28 +205,28 @@
 
   D('check-if-word-equals-summation-of-two-words', {
     t: 'Word Equals Summation of Two Words: letters as digits',
-    r: 'Map a→0 … j→9, read each word as a number, and check first + second = target.',
+    r: 'Map a to 0 … j to 9, read each word as a number, and check first + second = target.',
     g: R => { const f = R.str(R.int(1, 3), 'abcdefghij'), s = R.str(R.int(1, 3), 'abcdefghij'); const v = w => +[...w].map(c => c.charCodeAt(0) - 97).join(''); const t = R.chance(0.6) ? [...String(v(f) + v(s))].map(d => String.fromCharCode(97 + +d)).join('') : R.str(R.int(1, 3), 'abcdefghij'); return { firstWord: f, secondWord: s, targetWord: t }; },
     s(I, T) { const v = w => +[...w].map(c => c.charCodeAt(0) - 97).join(''); T.at({ first: I.firstWord, second: I.secondWord, target: I.targetWord }); T.n('Value of firstWord?', v(I.firstWord), 'Letters as digits.'); T.n('Value of secondWord?', v(I.secondWord), 'Letters as digits.'); T.n('Value of targetWord?', v(I.targetWord), 'Letters as digits.'); return v(I.firstWord) + v(I.secondWord) === v(I.targetWord); }
   });
 
   D('the-number-of-full-rounds-you-have-played', {
     t: 'Number of Full Rounds Played: round inward to 15 minutes',
-    r: 'Convert to minutes; if logout < login, add 1440. Round login up and logout down to multiples of 15; full rounds = max(0, (out − in) / 15).',
+    r: 'Convert to minutes; if logout < login, add 1440. Round login up and logout down to multiples of 15; full rounds = max(0, (out − in) divided by 15).',
     g: R => { const t = () => `${String(R.int(0, 23)).padStart(2, '0')}:${String(R.int(0, 59)).padStart(2, '0')}`; let a = t(), b = t(); while (a === b) b = t(); return { loginTime: a, logoutTime: b }; },
     s(I, T) { const res = (() => { const m = s => +s.slice(0, 2) * 60 + +s.slice(3); let a = m(I.loginTime), b = m(I.logoutTime); if (b < a) b += 1440; const s = Math.ceil(a / 15) * 15, e = Math.floor(b / 15) * 15; T.at({ login: I.loginTime, logout: I.logoutTime }); T.n('First full round starts at minute?', s, 'Round login up to 15.'); T.n('Last full round ends at minute (after midnight adds 1440)?', e, 'Round logout down to 15.'); return Math.max(0, (e - s) / 15); })(); T.n('Full rounds played?', res, 'Gap divided by 15, or 0.'); return res; }
   });
 
   D('count-good-numbers', {
     t: 'Count Good Numbers: 5 choices at even positions, 4 at odd',
-    r: 'Even indices (⌈n/2⌉ of them) take 0, 2, 4, 6, 8; odd indices (⌊n/2⌋) take 2, 3, 5, 7. Answer 5^⌈n/2⌉ · 4^⌊n/2⌋ with fast power.',
+    r: 'Even indices ((half of n, rounded up) of them) take 0, 2, 4, 6, 8; odd indices ((half of n, rounded down)) take 2, 3, 5, 7. Answer 5 to the power (half of n, rounded up) times 4 to the power half of n, rounded down with fast power.',
     g: R => ({ n: R.int(1, 30) }),
     s(I, T) { const res = (() => { const e = Math.ceil(I.n / 2), o = Math.floor(I.n / 2); T.at({ n: I.n }); T.n('How many even positions?', e, 'Half of n, rounded up.'); T.n('How many odd positions?', o, 'Half of n, rounded down.'); return Number(pw(5, e) * pw(4, o) % M); })(); T.n('Good digit strings (mod 1e9+7)?', res, '5 choices at each even position, 4 at each odd one.'); return res; }
   });
 
   D('count-square-sum-triples', {
     t: 'Count Square Sum Triples: check every (a, b)',
-    r: 'For each a, b ≤ n, c = √(a² + b²) must be an integer ≤ n. Ordered pairs count separately.',
+    r: 'For each a, b at most n, c = √(a² + b²) must be an integer at most n. Ordered pairs count separately.',
     g: R => ({ n: R.int(1, 20) }),
     s(I, T) { let t = 0; for (let c = 1; c <= I.n; c++) { let k = 0; for (let a = 1; a < c; a++) { const b = Math.round(Math.sqrt(c * c - a * a)); if (b >= 1 && a * a + b * b === c * c) k++; } if (k) { T.at({ n: I.n, c }); T.n(`Ordered (a, b) with a² + b² = ${c}²?`, k, 'Try every a below c.'); } t += k; } return t; }
   });
@@ -255,8 +255,8 @@
 
   D('number-of-pairs-of-interchangeable-rectangles', {
     t: 'Interchangeable Rectangles: group by reduced ratio',
-    r: 'Reduce each width/height by their gcd and use it as a key. Each rectangle pairs with every earlier one of the same key.',
+    r: 'Reduce each width or height by their gcd and use it as a key. Each rectangle pairs with every earlier one of the same key.',
     g: R => ({ rectangles: Array.from({ length: R.int(2, 6) }, () => { const k = R.int(1, 4); return R.pick([[1, 2], [2, 3], [1, 1], [3, 4]]).map(x => x * k); }) }),
-    s(I, T) { const c = {}; let t = 0; I.rectangles.forEach(([w, h], i) => { const g = gcd(w, h), k = `${w / g}/${h / g}`; T.at({ rectangles: A(I.rectangles.map(r => `${r[0]}×${r[1]}`), { hl: [i] }), ratios: K(c) }); T.n(`Earlier rectangles with ratio ${k}?`, c[k] || 0, 'Each forms a pair.'); t += c[k] || 0; c[k] = (c[k] || 0) + 1; }); return t; }
+    s(I, T) { const c = {}; let t = 0; I.rectangles.forEach(([w, h], i) => { const g = gcd(w, h), k = `${w / g}/${h / g}`; T.at({ rectangles: A(I.rectangles.map(r => `${r[0]} by ${r[1]}`), { hl: [i] }), ratios: K(c) }); T.n(`Earlier rectangles with ratio ${k}?`, c[k] || 0, 'Each forms a pair.'); t += c[k] || 0; c[k] = (c[k] || 0) + 1; }); return t; }
   });
 })();

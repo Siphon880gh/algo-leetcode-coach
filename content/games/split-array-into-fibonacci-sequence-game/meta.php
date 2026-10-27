@@ -5,7 +5,7 @@ return [
     'title' => 'Split Array into Fibonacci Sequence',
     'leetcode' => 842,
     'difficulty' => 'Med',
-    'summary' => 'Backtrack: choose the next piece (no leading zeros, < 2^31); once two pieces exist, the next must equal the sum of the previous two. Accept when the string is consumed with ≥ 3 pieces.',
+    'summary' => 'Backtrack: choose the next piece (no leading zeros, < 2 to the power 31); once two pieces exist, the next must equal the sum of the previous two. Accept when the string is consumed with at least 3 pieces.',
     'category' => 'LeetCode',
     'subcategory' => 'Backtracking',
     'topic' => 'LeetCode · Backtracking',

@@ -5,7 +5,7 @@ return [
     'title' => 'Kth Smallest Subarray Sum',
     'leetcode' => 1918,
     'difficulty' => 'Med',
-    'summary' => 'Binary search s: count subarrays with sum ≤ s using a sliding window (all values positive). The first s with count ≥ k.',
+    'summary' => 'Binary search s: count subarrays with sum at most s using a sliding window (all values positive). The first s with count at least k.',
     'category' => 'LeetCode',
     'subcategory' => 'Binary Search',
     'topic' => 'LeetCode · Binary Search',

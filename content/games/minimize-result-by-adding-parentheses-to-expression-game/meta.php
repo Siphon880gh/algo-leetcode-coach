@@ -5,7 +5,7 @@ return [
     'title' => 'Minimize Result With Parentheses',
     'leetcode' => 2232,
     'difficulty' => 'Med',
-    'summary' => 'Try every left split of num1 and right split of num2: value = (left prefix or 1) × (inner sum) × (right suffix or 1). Keep the smallest.',
+    'summary' => 'Try every left split of num1 and right split of num2: value = (left prefix or 1) times (inner sum) times (right suffix or 1). Keep the smallest.',
     'category' => 'LeetCode',
     'subcategory' => 'Strings',
     'topic' => 'LeetCode · Strings',

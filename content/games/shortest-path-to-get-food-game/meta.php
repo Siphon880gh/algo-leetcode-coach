@@ -5,7 +5,7 @@ return [
     'title' => 'Shortest Path to Get Food',
     'leetcode' => 1730,
     'difficulty' => 'Med',
-    'summary' => 'Multi-step BFS from "*" through open cells "O" (and food "#"); "X" blocks. The first level at which a "#" is reached is the answer; none → −1.',
+    'summary' => 'Multi-step BFS from "*" through open cells "O" (and food "#"); "X" blocks. The first level at which a "#" is reached is the answer; none: −1.',
     'category' => 'LeetCode',
     'subcategory' => 'Graphs',
     'topic' => 'LeetCode · Graphs',

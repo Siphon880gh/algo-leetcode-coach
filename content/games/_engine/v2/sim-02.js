@@ -15,7 +15,7 @@
     t: 'Watering Plants',
     r: 'Walk right one step per plant. If the can holds less than the next plant needs, walk back to the river (i steps) and return (i steps), refilling.',
     g: R => { const p = R.ints(R.int(1, 6), 1, 5); return { plants: p, capacity: R.int(Math.max(...p), 8) }; },
-    s(I, T) { let w = I.capacity, st = 0; I.plants.forEach((p, i) => { if (w < p) { st += 2 * i; w = I.capacity; } st++; w -= p; if (i < 6) { T.at({ plants: A(I.plants, { i }), water: w }); T.n('Steps so far?', st, 'Round trip to the river costs 2·i.'); } }); return st; }
+    s(I, T) { let w = I.capacity, st = 0; I.plants.forEach((p, i) => { if (w < p) { st += 2 * i; w = I.capacity; } st++; w -= p; if (i < 6) { T.at({ plants: A(I.plants, { i }), water: w }); T.n('Steps so far?', st, 'Round trip to the river costs 2 times i.'); } }); return st; }
   });
 
   D('execution-of-all-suffix-instructions-staying-in-a-grid', {
@@ -43,7 +43,7 @@
     t: 'Count Artifacts That Can Be Extracted',
     r: 'Mark dug cells in a set; an artifact is extractable if every cell of its rectangle is dug.',
     g: R => { const n = R.int(1, 4), used = new Set(), arts = []; for (let t = 0; t < 4; t++) { const r1 = R.int(0, n - 1), c1 = R.int(0, n - 1), r2 = R.int(r1, Math.min(n - 1, r1 + 1)), c2 = R.int(c1, Math.min(n - 1, c1 + 1)), cells = []; for (let r = r1; r <= r2; r++) for (let c = c1; c <= c2; c++) cells.push(r + ',' + c); if (cells.some(x => used.has(x))) continue; cells.forEach(x => used.add(x)); arts.push([r1, c1, r2, c2]); } const dig = [...new Set(Array.from({ length: R.int(1, n * n) }, () => R.int(0, n - 1) + ',' + R.int(0, n - 1)))].map(x => x.split(',').map(Number)); return { n, artifacts: arts, dig }; },
-    s(I, T) { const S = new Set(I.dig.map(d => d.join(','))); let c = 0; I.artifacts.forEach(([r1, c1, r2, c2]) => { let ok = true; for (let r = r1; r <= r2; r++) for (let x = c1; x <= c2; x++) if (!S.has(r + ',' + x)) ok = false; if (ok) c++; T.at({ artifact: `(${r1},${c1})–(${r2},${c2})` }); T.yn('Fully dug?', ok, 'Every cell must be uncovered.'); }); return c; }
+    s(I, T) { const S = new Set(I.dig.map(d => d.join(','))); let c = 0; I.artifacts.forEach(([r1, c1, r2, c2]) => { let ok = true; for (let r = r1; r <= r2; r++) for (let x = c1; x <= c2; x++) if (!S.has(r + ',' + x)) ok = false; if (ok) c++; T.at({ artifact: `(${r1}, ${c1}) to (${r2}, ${c2})` }); T.yn('Fully dug?', ok, 'Every cell must be uncovered.'); }); return c; }
   });
 
   D('calculate-digit-sum-of-a-string', {
@@ -98,9 +98,9 @@
 
   D('find-the-losers-of-the-circular-game', {
     t: 'Find the Losers of the Circular Game',
-    r: 'Pass the ball i·k steps on turn i; stop when someone receives it a second time. Everyone who never received it loses.',
+    r: 'Pass the ball i times k steps on turn i; stop when someone receives it a second time. Everyone who never received it loses.',
     g: R => ({ n: R.int(1, 8), k: R.int(1, 8) }),
-    s(I, T) { const got = new Set([0]); let cur = 0; for (let i = 1; ; i++) { cur = (cur + i * I.k) % I.n; T.at({ turn: i, holders: A([...got].map(x => x + 1)) }); T.n('Friend who receives the ball?', cur + 1, `Move ${i}·k steps.`); if (got.has(cur)) break; got.add(cur); } return Array.from({ length: I.n }, (_, i) => i + 1).filter(x => !got.has(x - 1)); }
+    s(I, T) { const got = new Set([0]); let cur = 0; for (let i = 1; ; i++) { cur = (cur + i * I.k) % I.n; T.at({ turn: i, holders: A([...got].map(x => x + 1)) }); T.n('Friend who receives the ball?', cur + 1, `Move ${i} times k steps.`); if (got.has(cur)) break; got.add(cur); } return Array.from({ length: I.n }, (_, i) => i + 1).filter(x => !got.has(x - 1)); }
   });
 
   D('semi-ordered-permutation', {
@@ -114,7 +114,7 @@
     t: 'Relocate Marbles',
     r: 'Keep the set of occupied positions; each move removes moveFrom[i] and adds moveTo[i]. Return the sorted set.',
     g: R => { const nums = R.ints(R.int(1, 5), 1, 9), occ = new Set(nums), mf = [], mt = []; for (let i = 0; i < R.int(1, 4); i++) { const f = R.pick([...occ]), t = R.int(1, 9); occ.delete(f); occ.add(t); mf.push(f); mt.push(t); } return { nums, moveFrom: mf, moveTo: mt }; },
-    s(I, T) { const S = new Set(I.nums); I.moveFrom.forEach((f, i) => { S.delete(f); S.add(I.moveTo[i]); T.at({ move: `${f} → ${I.moveTo[i]}` }); T.n('Occupied positions now?', S.size, 'All marbles at f move together.'); }); return [...S].sort((a, b) => a - b); }
+    s(I, T) { const S = new Set(I.nums); I.moveFrom.forEach((f, i) => { S.delete(f); S.add(I.moveTo[i]); T.at({ move: `${f} to ${I.moveTo[i]}` }); T.n('Occupied positions now?', S.size, 'All marbles at f move together.'); }); return [...S].sort((a, b) => a - b); }
   });
 
   D('faulty-keyboard', {
@@ -133,7 +133,7 @@
 
   D('count-tested-devices-after-test-operations', {
     t: 'Count Tested Devices After Test Operations',
-    r: 'Each tested device lowers all later batteries by 1, so device i is tested iff battery[i] − (devices tested so far) > 0.',
+    r: 'Each tested device lowers all later batteries by 1, so device i is tested exactly when battery[i] − (devices tested so far) > 0.',
     g: R => ({ batteryPercentages: R.ints(R.int(1, 7), 0, 4) }),
     s(I, T) { let c = 0; I.batteryPercentages.forEach((b, i) => { const ok = b - c > 0; if (ok) c++; if (i < 6) { T.at({ battery: A(I.batteryPercentages, { i }) }); T.yn('Is this device tested?', ok, `Effective battery ${b} − ${ok ? c - 1 : c}.`); } }); return c; }
   });
@@ -154,9 +154,9 @@
 
   D('find-the-number-of-distinct-colors-among-the-balls', {
     t: 'Find the Number of Distinct Colors Among the Balls',
-    r: 'Map ball → color and color → count. Recoloring decrements the old color (dropping it at 0) and increments the new one; the answer is the number of colors with positive count.',
+    r: 'Map ball to color and color to count. Recoloring decrements the old color (dropping it at 0) and increments the new one; the answer is the number of colors with positive count.',
     g: R => ({ limit: 4, queries: Array.from({ length: R.int(1, 6) }, () => [R.int(0, 4), R.int(1, 4)]) }),
-    s(I, T) { const ball = new Map(), cnt = new Map(); return I.queries.map(([x, y], i) => { if (ball.has(x)) { const o = ball.get(x); cnt.set(o, cnt.get(o) - 1); if (!cnt.get(o)) cnt.delete(o); } ball.set(x, y); cnt.set(y, (cnt.get(y) || 0) + 1); if (i < 6) { T.at({ query: `ball ${x} → color ${y}`, colors: K(Object.fromEntries(cnt)) }); T.n('Distinct colors now?', cnt.size, 'Colors with a positive count.'); } return cnt.size; }); }
+    s(I, T) { const ball = new Map(), cnt = new Map(); return I.queries.map(([x, y], i) => { if (ball.has(x)) { const o = ball.get(x); cnt.set(o, cnt.get(o) - 1); if (!cnt.get(o)) cnt.delete(o); } ball.set(x, y); cnt.set(y, (cnt.get(y) || 0) + 1); if (i < 6) { T.at({ query: `ball ${x} gets color ${y}`, colors: K(Object.fromEntries(cnt)) }); T.n('Distinct colors now?', cnt.size, 'Colors with a positive count.'); } return cnt.size; }); }
   });
 
   D('minimum-number-of-chairs-in-a-waiting-room', {
@@ -182,16 +182,16 @@
 
   D('snake-in-matrix', {
     t: 'Snake in Matrix',
-    r: 'Track (row, col): UP/DOWN change the row, LEFT/RIGHT the column. The final cell is row · n + col.',
+    r: 'Track (row, col): UP or DOWN change the row, LEFT or RIGHT the column. The final cell is row times n + col.',
     g: R => { const n = R.int(2, 4); let r = 0, c = 0; const cmd = []; for (let i = 0; i < R.int(1, 6); i++) { const ok = []; if (r > 0) ok.push('UP'); if (r < n - 1) ok.push('DOWN'); if (c > 0) ok.push('LEFT'); if (c < n - 1) ok.push('RIGHT'); const m = R.pick(ok); cmd.push(m); if (m === 'UP') r--; else if (m === 'DOWN') r++; else if (m === 'LEFT') c--; else c++; } return { n, commands: cmd }; },
-    s(I, T) { let r = 0, c = 0; I.commands.forEach((m, i) => { if (m === 'UP') r--; else if (m === 'DOWN') r++; else if (m === 'LEFT') c--; else c++; if (i < 6) { T.at({ commands: A(I.commands, { i }) }); T.n('Cell number now?', r * I.n + c, 'row · n + col.'); } }); return r * I.n + c; }
+    s(I, T) { let r = 0, c = 0; I.commands.forEach((m, i) => { if (m === 'UP') r--; else if (m === 'DOWN') r++; else if (m === 'LEFT') c--; else c++; if (i < 6) { T.at({ commands: A(I.commands, { i }) }); T.n('Cell number now?', r * I.n + c, 'row times n + col.'); } }); return r * I.n + c; }
   });
 
   D('hash-divided-string', {
     t: 'Hash Divided String',
     r: 'Split s into chunks of k; for each, sum the letters\' alphabet indices (a = 0), take mod 26, and append that letter.',
     g: R => { const k = R.int(1, 3); return { s: R.str(k * R.int(1, 4), 'abcmxz'), k }; },
-    s(I, T) { let out = ''; for (let i = 0; i < I.s.length; i += I.k) { const v = [...I.s.slice(i, i + I.k)].reduce((a, c) => a + c.charCodeAt(0) - 97, 0) % 26; out += String.fromCharCode(97 + v); if (i / I.k < 4) { T.at({ chunk: I.s.slice(i, i + I.k) }); T.n('Hashed value (0–25)?', v, 'Sum of indices mod 26.'); } } return out; }
+    s(I, T) { let out = ''; for (let i = 0; i < I.s.length; i += I.k) { const v = [...I.s.slice(i, i + I.k)].reduce((a, c) => a + c.charCodeAt(0) - 97, 0) % 26; out += String.fromCharCode(97 + v); if (i / I.k < 4) { T.at({ chunk: I.s.slice(i, i + I.k) }); T.n('Hashed value (0 to 25)?', v, 'Sum of indices mod 26.'); } } return out; }
   });
 
   D('find-the-sequence-of-strings-appeared-on-the-screen', {
@@ -210,7 +210,7 @@
 
   D('fruits-into-baskets-ii', {
     t: 'Fruits Into Baskets II',
-    r: 'Place each fruit type in the leftmost unused basket with capacity ≥ its quantity; count fruits that fit nowhere.',
+    r: 'Place each fruit type in the leftmost unused basket with capacity at least its quantity; count fruits that fit nowhere.',
     g: R => { const n = R.int(1, 5); return { fruits: R.ints(n, 1, 8), baskets: R.ints(n, 1, 8) }; },
     s(I, T) { const used = I.baskets.map(() => false); let c = 0; I.fruits.forEach((f, i) => { const j = I.baskets.findIndex((b, k) => !used[k] && b >= f); if (j < 0) c++; else used[j] = true; if (i < 5) { T.at({ fruit: f, baskets: A(I.baskets, { i: j >= 0 ? j : undefined }) }); T.n('Basket index used (−1 if none)?', j, 'Leftmost free one that fits.'); } }); return c; }
   });

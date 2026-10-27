@@ -5,7 +5,7 @@ return [
     'title' => 'Operations to Make a String Sorted: rank among permutations',
     'leetcode' => 1830,
     'difficulty' => 'Hard',
-    'summary' => 'Each operation steps to the previous permutation, so the answer is the rank of s among the distinct permutations of its letters: Σ over i of (letters smaller than s[i] after i) · (arrangements of the rest).',
+    'summary' => 'Each operation steps to the previous permutation, so the answer is the rank of s among the distinct permutations of its letters: the sum over i of (letters smaller than s[i] after i) times (arrangements of the rest).',
     'category' => 'LeetCode',
     'subcategory' => 'Math',
     'topic' => 'LeetCode · Math',

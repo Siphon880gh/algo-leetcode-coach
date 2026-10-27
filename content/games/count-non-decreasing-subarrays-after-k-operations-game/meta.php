@@ -5,7 +5,7 @@ return [
     'title' => 'Count Non-Decreasing Subarrays After K Operations',
     'leetcode' => 3420,
     'difficulty' => 'Hard',
-    'summary' => 'Cost of a subarray = Σ (running max − nums[i]). Cost is monotone in window size, so two pointers work; a monotonic stack (or segment tree) maintains the cost as the window shrinks/grows.',
+    'summary' => 'Cost of a subarray = the sum of (running max − nums[i]). Cost is monotone in window size, so two pointers work; a monotonic stack (or segment tree) maintains the cost as the window shrinks or grows.',
     'category' => 'LeetCode',
     'subcategory' => 'Segment Tree',
     'topic' => 'LeetCode · Segment Tree',

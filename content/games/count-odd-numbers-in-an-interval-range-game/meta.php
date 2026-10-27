@@ -5,7 +5,7 @@ return [
     'title' => 'Count Odd Numbers in a Range: odds up to x',
     'leetcode' => 1523,
     'difficulty' => 'Easy',
-    'summary' => 'There are ⌊(x + 1)/2⌋ odd numbers in [0, x]. Answer = odds(high) − odds(low − 1) = ⌊(high + 1)/2⌋ − ⌊low/2⌋.',
+    'summary' => 'There are half of (x + 1) (rounded down) odd numbers in [0, x]. Answer = odds(high) − odds(low − 1) = (half of (high + 1), rounded down) − (half of low, rounded down).',
     'category' => 'LeetCode',
     'subcategory' => 'Math',
     'topic' => 'LeetCode · Math',

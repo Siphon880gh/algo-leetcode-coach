@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Subarrays Matching a Pattern II: Z / KMP',
+    'title' => 'Subarrays Matching a Pattern II: Z divided by KMP',
     'leetcode' => 3036,
     'difficulty' => 'Hard',
     'summary' => 'Build the neighbor sign sequence, then count pattern occurrences in linear time with Z on pattern + separator + signs.',

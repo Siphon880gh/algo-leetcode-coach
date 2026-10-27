@@ -5,7 +5,7 @@ return [
     'title' => 'Hexspeak: hex digits must all be letters, 0 or 1',
     'leetcode' => 1271,
     'difficulty' => 'Easy',
-    'summary' => 'Convert to uppercase hex, map 0 → O and 1 → I. If any digit 2–9 remains, return "ERROR".',
+    'summary' => 'Convert to uppercase hex, map 0 to O and 1 to I. If any digit 2 to 9 remains, return "ERROR".',
     'category' => 'LeetCode',
     'subcategory' => 'Math',
     'topic' => 'LeetCode · Math',

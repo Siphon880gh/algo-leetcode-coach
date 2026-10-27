@@ -5,7 +5,7 @@ return [
     'title' => 'Generalized Abbreviation',
     'leetcode' => 320,
     'difficulty' => 'Med',
-    'summary' => 'Each letter is kept or abbreviated (2^n masks). Backtrack carrying the current run of abbreviated letters; flush the count before a kept letter and at the end.',
+    'summary' => 'Each letter is kept or abbreviated (2 to the power n masks). Backtrack carrying the current run of abbreviated letters; flush the count before a kept letter and at the end.',
     'category' => 'LeetCode',
     'subcategory' => 'Backtracking',
     'topic' => 'LeetCode · Backtracking',

@@ -5,7 +5,7 @@ return [
     'title' => 'Original Typed String I',
     'leetcode' => 3330,
     'difficulty' => 'Easy',
-    'summary' => 'At most one key was held too long. The original is word itself, or any run shortened: 1 + Σ (run length − 1).',
+    'summary' => 'At most one key was held too long. The original is word itself, or any run shortened: 1 + the sum of (run length − 1).',
     'category' => 'LeetCode',
     'subcategory' => 'Strings',
     'topic' => 'LeetCode · Strings',

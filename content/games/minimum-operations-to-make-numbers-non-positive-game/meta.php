@@ -5,7 +5,7 @@ return [
     'title' => 'Make Numbers Non-Positive',
     'leetcode' => 2702,
     'difficulty' => 'Hard',
-    'summary' => 'Binary search the operation count t: every element loses t·y; element v still needs ⌈(v − t·y) / (x − y)⌉ targeted operations. t works if that total ≤ t.',
+    'summary' => 'Binary search the operation count t: every element loses t times y; element v still needs (v − t times y) divided by (x − y) (rounded up) targeted operations. t works if that total at most t.',
     'category' => 'LeetCode',
     'subcategory' => 'Binary Search',
     'topic' => 'LeetCode · Binary Search',

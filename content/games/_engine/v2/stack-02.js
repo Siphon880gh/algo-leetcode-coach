@@ -8,7 +8,7 @@
     t: 'Remove All Adjacent Duplicates in String II',
     r: 'Stack of [char, run count]. Push or increment; when a run reaches k, pop it. Rebuild the string from the stack.',
     g: R => ({ s: R.str(R.int(1, 12), 'abbd'), k: R.int(2, 3) }),
-    s(I, T) { const st = []; [...I.s].forEach((c, i) => { if (st.length && st[st.length - 1][0] === c) st[st.length - 1][1]++; else st.push([c, 1]); const top = st[st.length - 1][1]; if (top === I.k) st.pop(); if (i < 7) { T.at({ s: A([...I.s], { i }), stack: S(st.map(x => x[0] + '×' + x[1])) }); T.n('Run count of this letter before removal?', top, `Remove at ${I.k}.`); } }); return st.map(([c, n]) => c.repeat(n)).join(''); }
+    s(I, T) { const st = []; [...I.s].forEach((c, i) => { if (st.length && st[st.length - 1][0] === c) st[st.length - 1][1]++; else st.push([c, 1]); const top = st[st.length - 1][1]; if (top === I.k) st.pop(); if (i < 7) { T.at({ s: A([...I.s], { i }), stack: S(st.map(x => x[0] + ', ' + x[1] + ' times')) }); T.n('Run count of this letter before removal?', top, `Remove at ${I.k}.`); } }); return st.map(([c, n]) => c.repeat(n)).join(''); }
   });
 
   D('build-an-array-with-stack-operations', {
@@ -48,7 +48,7 @@
 
   D('maximum-score-from-removing-substrings', {
     t: 'Maximum Score From Removing Substrings',
-    r: 'Greedy: remove the more valuable pair ("ab" if x ≥ y, else "ba") everywhere with a stack first, then remove the other pair from what remains.',
+    r: 'Greedy: remove the more valuable pair ("ab" if x at least y, else "ba") everywhere with a stack first, then remove the other pair from what remains.',
     g: R => ({ s: R.str(R.int(1, 12), 'abbac'), x: R.int(1, 6), y: R.int(1, 6) }),
     s(I, T) { const res = (() => { const [p1, v1, p2, v2] = I.x >= I.y ? ['ab', I.x, 'ba', I.y] : ['ba', I.y, 'ab', I.x]; const pass = (s, p, v) => { const st = []; let sc = 0; for (const c of s) { if (st.length && st[st.length - 1] === p[0] && c === p[1]) { st.pop(); sc += v; } else st.push(c); } return [st.join(''), sc]; }; const [r1, s1] = pass(I.s, p1, v1); T.at({ s: I.s, first: p1 }); T.n(`Points from removing "${p1}" first?`, s1, 'Higher-value pair first.'); const [r2, s2] = pass(r1, p2, v2); T.at({ left: r1 }); T.n(`Points from "${p2}" afterwards?`, s2, 'Clean up what remains.'); return s1 + s2; })(); T.n('Maximum score?', res, 'Both passes together.'); return res; }
   });
@@ -62,7 +62,7 @@
 
   D('minimum-number-of-swaps-to-make-the-string-balanced', {
     t: 'Minimum Number of Swaps to Make the String Balanced',
-    r: 'Cancel matched pairs with a counter; let m be the unmatched "]" count. Each swap fixes two of them, so the answer is ⌈m / 2⌉.',
+    r: 'Cancel matched pairs with a counter; let m be the unmatched "]" count. Each swap fixes two of them, so the answer is half of m, rounded up.',
     g: R => { const n = R.int(1, 4); return { s: R.shuffle([...'['.repeat(n) + ']'.repeat(n)]).join('') }; },
     s(I, T) { let open = 0, bad = 0; [...I.s].forEach((c, i) => { if (c === '[') open++; else if (open) open--; else bad++; if (i < 7) { T.at({ s: A([...I.s], { i }) }); T.n('Unmatched "]" so far?', bad, 'No "[" available to pair.'); } }); return Math.ceil(bad / 2); }
   });
@@ -111,9 +111,9 @@
 
   D('using-a-robot-to-print-the-lexicographically-smallest-string', {
     t: 'Using a Robot to Print the Lexicographically Smallest String',
-    r: 'Precompute suffix minima of s. Push each character onto t (a stack); then pop to the output while the top of t is ≤ the smallest character still remaining in s.',
+    r: 'Precompute suffix minima of s. Push each character onto t (a stack); then pop to the output while the top of t is at most the smallest character still remaining in s.',
     g: R => ({ s: R.str(R.int(1, 7), 'abcz') }),
-    s(I, T) { const s = I.s, n = s.length, mn = Array(n + 1).fill('{'); for (let i = n - 1; i >= 0; i--) mn[i] = s[i] < mn[i + 1] ? s[i] : mn[i + 1]; const st = []; let out = ''; [...s].forEach((c, i) => { st.push(c); while (st.length && st[st.length - 1] <= mn[i + 1]) out += st.pop(); if (i < 6) { T.at({ s: A([...s], { i }), t: S(st.slice()) }); T.n('Characters written so far?', out.length, 'Pop while the top ≤ remaining minimum.'); } }); return out; }
+    s(I, T) { const s = I.s, n = s.length, mn = Array(n + 1).fill('{'); for (let i = n - 1; i >= 0; i--) mn[i] = s[i] < mn[i + 1] ? s[i] : mn[i + 1]; const st = []; let out = ''; [...s].forEach((c, i) => { st.push(c); while (st.length && st[st.length - 1] <= mn[i + 1]) out += st.pop(); if (i < 6) { T.at({ s: A([...s], { i }), t: S(st.slice()) }); T.n('Characters written so far?', out.length, 'Pop while the top at most remaining minimum.'); } }); return out; }
   });
 
   D('time-taken-to-cross-the-door', {

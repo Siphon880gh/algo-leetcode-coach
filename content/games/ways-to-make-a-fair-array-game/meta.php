@@ -5,7 +5,7 @@ return [
     'title' => 'Ways to Make a Fair Array',
     'leetcode' => 1664,
     'difficulty' => 'Med',
-    'summary' => 'Removing index i flips the parity of everything after it. With prefix even/odd sums: newEven = evenBefore + oddAfter, newOdd = oddBefore + evenAfter. Count i where they match.',
+    'summary' => 'Removing index i flips the parity of everything after it. With prefix even or odd sums: newEven = evenBefore + oddAfter, newOdd = oddBefore + evenAfter. Count i where they match.',
     'category' => 'LeetCode',
     'subcategory' => 'Prefix Sum',
     'topic' => 'LeetCode · Prefix Sum',

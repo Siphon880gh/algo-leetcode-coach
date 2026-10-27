@@ -5,7 +5,7 @@ return [
     'title' => 'Find Right Interval: search sorted starts',
     'leetcode' => 436,
     'difficulty' => 'Med',
-    'summary' => 'Sort starts with their indices. For each interval, binary search the first start ≥ its end.',
+    'summary' => 'Sort starts with their indices. For each interval, binary search the first start at least its end.',
     'category' => 'LeetCode',
     'subcategory' => 'Binary Search',
     'topic' => 'LeetCode · Binary Search',

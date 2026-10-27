@@ -5,7 +5,7 @@ return [
     'title' => 'Minimum Time to Finish All Jobs II: sort both sides',
     'leetcode' => 2323,
     'difficulty' => 'Med',
-    'summary' => 'Sort jobs and workers; pair the i-th smallest job with the i-th smallest worker. The answer is the max of ⌈job / worker⌉.',
+    'summary' => 'Sort jobs and workers; pair the i-th smallest job with the i-th smallest worker. The answer is the max of job divided by worker, rounded up.',
     'category' => 'LeetCode',
     'subcategory' => 'Greedy',
     'topic' => 'LeetCode · Greedy',

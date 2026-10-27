@@ -5,7 +5,7 @@ return [
     'title' => 'Add Digits: digital root',
     'leetcode' => 258,
     'difficulty' => 'Easy',
-    'summary' => 'Repeatedly sum the digits until one digit remains. Shortcut: 0 → 0, otherwise 1 + (num − 1) mod 9.',
+    'summary' => 'Repeatedly sum the digits until one digit remains. Shortcut: 0 becomes 0, otherwise 1 + (num − 1) mod 9.',
     'category' => 'LeetCode',
     'subcategory' => 'Math',
     'topic' => 'LeetCode · Math',

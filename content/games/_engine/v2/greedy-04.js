@@ -16,21 +16,21 @@
 
   D('add-minimum-number-of-rungs', {
     t: 'Add Minimum Number of Rungs: fill each gap',
-    r: 'For each gap g between consecutive heights (starting from the floor at 0), add ⌊(g − 1) / dist⌋ rungs.',
+    r: 'For each gap g between consecutive heights (starting from the floor at 0), add (g − 1) divided by dist (rounded down) rungs.',
     g: R => ({ rungs: sorted(R.distinct(R.int(1, 5), 1, 20)), dist: R.int(1, 4) }),
-    s(I, T) { let prev = 0, t = 0; I.rungs.forEach((h, i) => { const add = Math.floor((h - prev - 1) / I.dist); T.at({ rungs: A(I.rungs, { hl: [i] }), from: prev, dist: I.dist }); T.n(`Rungs to add below ${h}?`, add, `⌊(${h - prev} − 1) / ${I.dist}⌋.`); t += add; prev = h; }); return t; }
+    s(I, T) { let prev = 0, t = 0; I.rungs.forEach((h, i) => { const add = Math.floor((h - prev - 1) / I.dist); T.at({ rungs: A(I.rungs, { hl: [i] }), from: prev, dist: I.dist }); T.n(`Rungs to add below ${h}?`, add, `(${h - prev} − 1) divided by ${I.dist}, rounded down.`); t += add; prev = h; }); return t; }
   });
 
   D('largest-number-after-mutating-substring', {
     t: 'Largest Number After Mutating Substring: start at the first gain',
-    r: 'Start mutating at the first digit where change[d] > d; continue while change[d] ≥ d; stop at the first digit that would get smaller.',
+    r: 'Start mutating at the first digit where change[d] > d; continue while change[d] at least d; stop at the first digit that would get smaller.',
     g: R => ({ num: R.str(R.int(1, 6), '0123456789'), change: R.ints(10, 0, 9) }),
     s(I, T) { const s = [...I.num], c = I.change; let i = 0; while (i < s.length && c[+s[i]] <= +s[i]) i++; T.at({ num: A(s), change: A(c) }); T.n('Start index of the mutation (length if none)?', i, 'First digit with change[d] > d.'); while (i < s.length && c[+s[i]] >= +s[i]) { s[i] = String(c[+s[i]]); i++; } T.n('How many digits are changed?', s.filter((x, k) => x !== I.num[k]).length, 'Stop when change[d] is smaller than d.'); T.yn('Did the number change at all?', s.join('') !== I.num, 'Only if some digit could grow.'); return s.join(''); }
   });
 
   D('maximum-number-of-weeks-for-which-you-can-work', {
     t: 'Maximum Weeks You Can Work: the biggest project vs the rest',
-    r: 'Let m be the largest project and rest the sum of the others. If m > rest + 1, you can do 2·rest + 1 weeks; otherwise all milestones.',
+    r: 'Let m be the largest project and rest the sum of the others. If m > rest + 1, you can do 2 times rest + 1 weeks; otherwise all milestones.',
     g: R => ({ milestones: R.ints(R.int(1, 4), 1, 9) }),
     s(I, T) { const res = (() => { const m = Math.max(...I.milestones), s = I.milestones.reduce((a, b) => a + b, 0), rest = s - m; T.at({ milestones: A(I.milestones) }); T.n('Sum of all but the largest?', rest, `${s} − ${m}.`); T.yn('Is the largest project more than the rest plus 1?', m > rest + 1, 'Then it cannot be finished.'); return m > rest + 1 ? 2 * rest + 1 : s; })(); T.n('Most weeks?', res, 'Everything, or twice the rest plus 1.'); return res; }
   });
@@ -52,9 +52,9 @@
 
   D('minimum-non-zero-product-of-the-array-elements', {
     t: 'Minimum Non-Zero Product: pair into 1 and max − 1',
-    r: 'Swapping bits can turn each pair (x, max − 1 − x) into (1, max − 1). With max = 2^p − 1 the answer is max · (max − 1)^(2^(p−1) − 1) mod 1e9+7.',
+    r: 'Swapping bits can turn each pair (x, max − 1 − x) into (1, max − 1). With max = 2 to the power p − 1 the answer is max times (max − 1) to the power (2 to the power (p−1) − 1) mod 1e9+7.',
     g: R => ({ p: R.int(1, 12) }),
-    s(I, T) { const res = (() => { const mx = (1n << BigInt(I.p)) - 1n; T.at({ p: I.p }); T.n('Largest value, 2^p − 1?', Number(mx), 'All p bits set.'); T.n('How many pairs become (1, max − 1)?', 2 ** (I.p - 1) - 1, '2^(p−1) − 1 pairs.'); return Number(mx % M * pw(mx - 1n, (1n << BigInt(I.p - 1)) - 1n) % M); })(); T.n('Minimum product, mod 1000000007?', res, 'max times (max − 1) to the power of the pair count.'); return res; }
+    s(I, T) { const res = (() => { const mx = (1n << BigInt(I.p)) - 1n; T.at({ p: I.p }); T.n('Largest value, 2 to the power p − 1?', Number(mx), 'All p bits set.'); T.n('How many pairs become (1, max − 1)?', 2 ** (I.p - 1) - 1, '2 to the power (p−1) − 1 pairs.'); return Number(mx % M * pw(mx - 1n, (1n << BigInt(I.p - 1)) - 1n) % M); })(); T.n('Minimum product, mod 1000000007?', res, 'max times (max − 1) to the power of the pair count.'); return res; }
   });
 
   D('minimum-time-to-type-word-using-special-typewriter', {
@@ -95,7 +95,7 @@
 
   D('stone-game-ix', {
     t: 'Stone Game IX: count residues mod 3',
-    r: 'Count c0, c1, c2 of values mod 3. If c0 is even, Alice wins iff c1 ≥ 1 and c2 ≥ 1. If c0 is odd, Alice wins iff |c1 − c2| > 2.',
+    r: 'Count c0, c1, c2 of values mod 3. If c0 is even, Alice wins exactly when c1 at least 1 and c2 at least 1. If c0 is odd, Alice wins exactly when |c1 − c2| > 2.',
     g: R => ({ stones: R.ints(R.int(1, 8), 1, 9) }),
     s(I, T) { const res = (() => { const c = [0, 0, 0]; I.stones.forEach(x => c[x % 3]++); T.at({ stones: A(I.stones), residues: A(I.stones.map(x => x % 3)) }); T.n('How many stones are divisible by 3?', c[0], 'Each one flips who must move into danger.'); T.n('Stones with remainder 1?', c[1], 'Compare with the stones with remainder 2.'); return c[0] % 2 === 0 ? c[1] >= 1 && c[2] >= 1 : Math.abs(c[1] - c[2]) > 2; })(); T.yn('Does Alice win?', res, 'Depends on the parity of the zeros and the two other counts.'); return res; }
   });
@@ -109,7 +109,7 @@
 
   D('remove-colored-pieces-if-both-neighbors-are-the-same-color', {
     t: 'Remove Colored Pieces: count each player\'s moves',
-    r: 'Moves never affect the other player, so count interior As in runs of AAA (Alice) and interior Bs (Bob). Alice wins iff her count is larger.',
+    r: 'Moves never affect the other player, so count interior As in runs of AAA (Alice) and interior Bs (Bob). Alice wins exactly when her count is larger.',
     g: R => ({ colors: R.str(R.int(1, 10), 'AB') }),
     s(I, T) { const res = (() => { let a = 0, b = 0; const c = I.colors; for (let i = 1; i + 1 < c.length; i++) if (c[i - 1] === c[i] && c[i] === c[i + 1]) c[i] === 'A' ? a++ : b++; T.at({ colors: A([...c]) }); T.n('Moves available to Alice?', a, 'A with A on both sides.'); T.n('Moves available to Bob?', b, 'B with B on both sides.'); return a > b; })(); T.yn('Does Alice win?', res, 'She needs strictly more moves than Bob.'); return res; }
   });
@@ -130,7 +130,7 @@
 
   D('removing-minimum-and-maximum-from-array', {
     t: 'Removing Minimum and Maximum: three ways to cut',
-    r: 'With min/max positions i ≤ j: delete both from the front (j + 1), both from the back (n − i), or i from the front and j from the back (i + 1 + n − j).',
+    r: 'With min or max positions i at most j: delete both from the front (j + 1), both from the back (n − i), or i from the front and j from the back (i + 1 + n − j).',
     g: R => ({ nums: R.distinct(R.int(1, 8), -10, 10) }),
     s(I, T) { const a = I.nums, n = a.length; let x = a.indexOf(Math.min(...a)), y = a.indexOf(Math.max(...a)); const i = Math.min(x, y), j = Math.max(x, y); T.at({ nums: A(a, { hl: [x, y] }) }); T.n('Deletions if both are taken from the front?', j + 1, 'Up to the farther one.'); T.n('Deletions if both are taken from the back?', n - i, 'Back to the nearer one.'); T.n('Deletions taking one from each end?', i + 1 + n - j, 'Front to the nearer one, back to the farther one.'); return Math.min(j + 1, n - i, i + 1 + n - j); }
   });
@@ -201,21 +201,21 @@
 
   D('append-k-integers-with-minimal-sum', {
     t: 'Append k Integers With Minimal Sum: skip the taken ones',
-    r: 'Start with 1 … k. For each distinct value x in nums (sorted) with x ≤ the current limit, the limit grows by 1 (the next number replaces x).',
+    r: 'Start with 1 … k. For each distinct value x in nums (sorted) with x at most the current limit, the limit grows by 1 (the next number replaces x).',
     g: R => ({ nums: R.ints(R.int(1, 5), 1, 12), k: R.int(1, 6) }),
     s(I, T) { const res = (() => { let lim = I.k, s = I.k * (I.k + 1) / 2; T.at({ nums: A(sorted([...new Set(I.nums)])), k: I.k }); T.n('Sum of 1 to k, before skipping anything?', s, 'k times (k + 1), halved.'); for (const x of [...new Set(I.nums)].sort((a, b) => a - b)) { if (x > lim) break; lim++; s += lim - x; T.at({ nums: A(sorted([...new Set(I.nums)])), limit: lim }); T.n(`Sum after skipping ${x}?`, s, `Swap ${x} for ${lim}.`); } return s; })(); T.n('Minimal sum?', res, 'The sum after every skip.'); return res; }
   });
 
   D('maximize-the-topmost-element-after-k-moves', {
     t: 'Maximize the Topmost Element After k Moves',
-    r: 'Either remove k − 1 elements and put back the best of them (max of nums[0 … k−2]), or remove k and expose nums[k]. Special cases: one element with odd k → −1.',
+    r: 'Either remove k − 1 elements and put back the best of them (max of nums[0 … k−2]), or remove k and expose nums[k]. Special cases: one element with odd k gives −1.',
     g: R => ({ nums: R.ints(R.int(1, 6), 0, 9), k: R.int(0, 7) }),
     s(I, T) { const res = (() => { const a = I.nums, n = a.length, k = I.k; T.at({ nums: A(a), k }); T.yn('Is the pile only one element long?', n === 1, 'Then the pile alternates between empty and full.'); if (k === 0) return a[0]; if (n === 1) return k % 2 ? -1 : a[0]; let best = -1; for (let i = 0; i < Math.min(k - 1, n); i++) best = Math.max(best, a[i]); T.at({ nums: A(a, { win: [0, Math.min(k - 1, n) - 1] }), k }); T.n('Best value you can put back (−1 if none)?', best, 'Max among the first k − 1.'); if (k < n) best = Math.max(best, a[k]); return best; })(); T.n('Largest possible top (−1 if empty)?', res, 'The best removed value, or the one now on top.'); return res; }
   });
 
   D('minimum-health-to-beat-game', {
     t: 'Minimum Health to Beat Game: armor the biggest hit',
-    r: 'Use the armor on the largest damage: health = Σ damage − min(max, armor) + 1.',
+    r: 'Use the armor on the largest damage: health = the sum of damage − min(max, armor) + 1.',
     g: R => ({ damage: R.ints(R.int(1, 5), 0, 9), armor: R.int(0, 9) }),
     s(I, T) { const res = (() => { const s = I.damage.reduce((a, b) => a + b, 0), m = Math.max(...I.damage); T.at({ damage: A(I.damage), armor: I.armor }); T.n('Total damage?', s, 'Add every level.'); T.n('Damage blocked by the armor?', Math.min(m, I.armor), 'Use it on the largest hit.'); return s - Math.min(m, I.armor) + 1; })(); T.n('Minimum starting health?', res, 'Total damage minus what is blocked, plus 1.'); return res; }
   });
@@ -229,9 +229,9 @@
 
   D('minimum-rounds-to-complete-all-tasks', {
     t: 'Minimum Rounds to Complete All Tasks: groups of three',
-    r: 'For each difficulty count c: c = 1 is impossible; otherwise ⌈c / 3⌉ rounds.',
+    r: 'For each difficulty count c: c = 1 is impossible; otherwise c divided by 3 (rounded up) rounds.',
     g: R => ({ tasks: R.ints(R.int(1, 10), 1, 4) }),
-    s(I, T) { let r = 0; for (const [v, c] of cnt(I.tasks)) { T.at({ tasks: A(I.tasks), difficulty: v, count: c }); T.n(`Rounds for difficulty ${v} (−1 if impossible)?`, c === 1 ? -1 : Math.ceil(c / 3), '⌈c / 3⌉, but 1 task cannot be done.'); if (c === 1) return -1; r += Math.ceil(c / 3); } return r; }
+    s(I, T) { let r = 0; for (const [v, c] of cnt(I.tasks)) { T.at({ tasks: A(I.tasks), difficulty: v, count: c }); T.n(`Rounds for difficulty ${v} (−1 if impossible)?`, c === 1 ? -1 : Math.ceil(c / 3), 'c divided by 3, rounded up, but 1 task cannot be done.'); if (c === 1) return -1; r += Math.ceil(c / 3); } return r; }
   });
 
   D('remove-digit-from-number-to-maximize-result', {

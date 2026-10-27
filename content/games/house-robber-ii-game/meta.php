@@ -5,7 +5,7 @@ return [
     'title' => 'House Robber II: break the circle twice',
     'leetcode' => 213,
     'difficulty' => 'Med',
-    'summary' => 'The first and last houses touch, so never take both. Run House Robber on houses 0..n−2 and on houses 1..n−1, then take the better result.',
+    'summary' => 'The first and last houses touch, so never take both. Run House Robber on houses 0 to n−2 and on houses 1 to n−1, then take the better result.',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

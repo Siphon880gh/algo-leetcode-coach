@@ -5,7 +5,7 @@ return [
     'title' => 'Median of Two Sorted Arrays: partition search',
     'leetcode' => 4,
     'difficulty' => 'Hard',
-    'summary' => 'Binary search a cut i in the shorter array (j = half − i in the other) until left maxes ≤ right mins. The median comes from the values around the cut.',
+    'summary' => 'Binary search a cut i in the shorter array (j = half − i in the other) until left maxes at most right mins. The median comes from the values around the cut.',
     'category' => 'LeetCode',
     'subcategory' => 'Binary Search',
     'topic' => 'LeetCode · Binary Search',

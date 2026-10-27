@@ -5,7 +5,7 @@ return [
     'title' => 'Apples Into the Basket: lightest first',
     'leetcode' => 1196,
     'difficulty' => 'Easy',
-    'summary' => 'Sort by weight and add apples while the total stays ≤ 5000.',
+    'summary' => 'Sort by weight and add apples while the total stays at most 5000.',
     'category' => 'LeetCode',
     'subcategory' => 'Greedy',
     'topic' => 'LeetCode · Greedy',

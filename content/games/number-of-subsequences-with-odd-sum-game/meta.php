@@ -5,7 +5,7 @@ return [
     'title' => 'Number of Subsequences With Odd Sum: even and odd counts',
     'leetcode' => 3247,
     'difficulty' => 'Med',
-    'summary' => 'odd / even = subsequences with odd / even sum so far. An odd x: odd\' = odd + even + 1, even\' = even + odd. An even x: odd\' = 2·odd, even\' = 2·even + 1.',
+    'summary' => 'odd and even = subsequences with odd or even sum so far. An odd x: odd\' = odd + even + 1, even\' = even + odd. An even x: odd\' = 2 times odd, even\' = 2 times even + 1.',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

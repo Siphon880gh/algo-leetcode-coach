@@ -5,7 +5,7 @@ return [
     'title' => 'Check if the Rectangle Corner Is Reachable',
     'leetcode' => 3235,
     'difficulty' => 'Hard',
-    'summary' => 'Fail if a circle covers either corner. Otherwise union circles that overlap inside the rectangle; the path is blocked iff some group touches the left/top edges and also the right/bottom edges.',
+    'summary' => 'Fail if a circle covers either corner. Otherwise union circles that overlap inside the rectangle; the path is blocked exactly when some group touches the left or top edges and also the right or bottom edges.',
     'category' => 'LeetCode',
     'subcategory' => 'Union Find',
     'topic' => 'LeetCode · Union Find',

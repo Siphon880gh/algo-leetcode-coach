@@ -5,7 +5,7 @@ return [
     'title' => 'Count the Number of Ideal Arrays: divisor chains',
     'leetcode' => 2338,
     'difficulty' => 'Hard',
-    'summary' => 'dp[len][v] = ideal arrays of length len ending in v = Σ dp[len−1][d] over divisors d of v. (The fast version counts strictly increasing chains and spreads them with combinations.)',
+    'summary' => 'dp[len][v] = ideal arrays of length len ending in v = the sum of dp[len−1][d] over divisors d of v. (The fast version counts strictly increasing chains and spreads them with combinations.)',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

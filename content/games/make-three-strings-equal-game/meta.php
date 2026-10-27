@@ -5,7 +5,7 @@ return [
     'title' => 'Make Three Strings Equal',
     'leetcode' => 2937,
     'difficulty' => 'Easy',
-    'summary' => 'Only deletions from the right, so all three must keep their common prefix. If it is empty → −1; else delete everything beyond it.',
+    'summary' => 'Only deletions from the right, so all three must keep their common prefix. If it is empty: −1; else delete everything beyond it.',
     'category' => 'LeetCode',
     'subcategory' => 'Strings',
     'topic' => 'LeetCode · Strings',

@@ -5,7 +5,7 @@ return [
     'title' => 'Rabbits in Forest: groups of answer + 1',
     'leetcode' => 781,
     'difficulty' => 'Med',
-    'summary' => 'Rabbits answering x come in color groups of x + 1. With c such answers you need ⌈c / (x + 1)⌉ groups: add that times (x + 1).',
+    'summary' => 'Rabbits answering x come in color groups of x + 1. With c such answers you need c divided by (x + 1) (rounded up) groups: add that times (x + 1).',
     'category' => 'LeetCode',
     'subcategory' => 'Greedy',
     'topic' => 'LeetCode · Greedy',

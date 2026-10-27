@@ -5,7 +5,7 @@ return [
     'title' => 'N Unique Integers Summing to Zero: pairs ±i',
     'leetcode' => 1304,
     'difficulty' => 'Easy',
-    'summary' => 'Add pairs i and −i for i = 1 … ⌊n/2⌋, and a 0 when n is odd.',
+    'summary' => 'Add pairs i and −i for i = 1 … half of n, rounded down, and a 0 when n is odd.',
     'category' => 'LeetCode',
     'subcategory' => 'Math',
     'topic' => 'LeetCode · Math',

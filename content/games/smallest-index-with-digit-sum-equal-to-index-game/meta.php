@@ -5,7 +5,7 @@ return [
     'title' => 'Smallest Index With Digit Sum Equal to Index',
     'leetcode' => 3550,
     'difficulty' => 'Easy',
-    'summary' => 'Scan left to right, computing each number\'s digit sum with % 10 and / 10. Return the first index i whose digit sum equals i, or −1.',
+    'summary' => 'Scan left to right, computing each number\'s digit sum with % 10 and integer division by 10. Return the first index i whose digit sum equals i, or −1.',
     'category' => 'LeetCode',
     'subcategory' => 'Math',
     'topic' => 'LeetCode · Math',

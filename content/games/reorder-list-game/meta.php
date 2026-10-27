@@ -5,7 +5,7 @@ return [
     'title' => 'Reorder List',
     'leetcode' => 143,
     'difficulty' => 'Med',
-    'summary' => 'Find the middle with slow/fast pointers, reverse the second half, then weave the two halves together.',
+    'summary' => 'Find the middle with slow or fast pointers, reverse the second half, then weave the two halves together.',
     'category' => 'LeetCode',
     'subcategory' => 'Linked List',
     'topic' => 'LeetCode · Linked List',

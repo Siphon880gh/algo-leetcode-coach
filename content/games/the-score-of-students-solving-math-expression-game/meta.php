@@ -5,7 +5,7 @@ return [
     'title' => 'Score of Students: right answer, or right digits in the wrong order',
     'leetcode' => 2019,
     'difficulty' => 'Hard',
-    'summary' => 'Correct value (× before +) earns 5. Any value from evaluating the operators in some other order (interval DP of possible results, capped at 1000) earns 2. Anything else 0.',
+    'summary' => 'Correct value ( times before +) earns 5. Any value from evaluating the operators in some other order (interval DP of possible results, capped at 1000) earns 2. Anything else 0.',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

@@ -5,7 +5,7 @@ return [
     'title' => 'Kth Smallest in a Multiplication Table',
     'leetcode' => 668,
     'difficulty' => 'Hard',
-    'summary' => 'Binary search x: count = Σ_i min(⌊x / i⌋, n). The first x with count ≥ k is the answer.',
+    'summary' => 'Binary search x: count = the sum over i of min((x divided by i, rounded down), n). The first x with count at least k is the answer.',
     'category' => 'LeetCode',
     'subcategory' => 'Binary Search',
     'topic' => 'LeetCode · Binary Search',

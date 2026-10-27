@@ -5,7 +5,7 @@ return [
     'title' => 'Sum of Consecutive Subarrays: extend while the step stays ±1',
     'leetcode' => 3284,
     'difficulty' => 'Med',
-    'summary' => 'From each start, extend while every step is +1 (or every step is −1) and add each subarray sum. Runs make it O(n): a subarray of length ≥ 2 belongs to exactly one maximal run.',
+    'summary' => 'From each start, extend while every step is +1 (or every step is −1) and add each subarray sum. Runs make it O(n): a subarray of length at least 2 belongs to exactly one maximal run.',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

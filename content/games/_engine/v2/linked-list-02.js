@@ -15,7 +15,7 @@
     t: 'Add Two Polynomials Represented as Linked Lists',
     r: 'Merge like sorted lists by power (descending): equal powers add coefficients (drop the term if it becomes 0); otherwise take the higher power.',
     g: R => { const mk = () => R.distinct(R.int(0, 3), 0, 4).sort((a, b) => b - a).map(p => [R.pick([-3, -1, 1, 2, 4]), p]); return { poly1: mk(), poly2: mk() }; },
-    s(I, T) { const a = I.poly1, b = I.poly2, out = []; let i = 0, j = 0; while (i < a.length || j < b.length) { let term; if (j >= b.length || (i < a.length && a[i][1] > b[j][1])) term = a[i++]; else if (i >= a.length || b[j][1] > a[i][1]) term = b[j++]; else { term = [a[i][0] + b[j][0], a[i][1]]; i++; j++; } T.at({ power: term[1] }); T.n(`Coefficient for x^${term[1]}?`, term[0], 'Add matching powers.'); if (term[0]) out.push(term); } return out; }
+    s(I, T) { const a = I.poly1, b = I.poly2, out = []; let i = 0, j = 0; while (i < a.length || j < b.length) { let term; if (j >= b.length || (i < a.length && a[i][1] > b[j][1])) term = a[i++]; else if (i >= a.length || b[j][1] > a[i][1]) term = b[j++]; else { term = [a[i][0] + b[j][0], a[i][1]]; i++; j++; } T.at({ power: term[1] }); T.n(`Coefficient for x to the power ${term[1]}?`, term[0], 'Add matching powers.'); if (term[0]) out.push(term); } return out; }
   });
 
   D('merge-in-between-linked-lists', {
@@ -48,7 +48,7 @@
 
   D('find-the-minimum-and-maximum-number-of-nodes-between-critical-points', {
     t: 'Find the Minimum and Maximum Number of Nodes Between Critical Points',
-    r: 'Record indices of local maxima/minima. The min distance is the smallest gap between consecutive critical points; the max is last − first. Fewer than two → [−1, −1].',
+    r: 'Record indices of local maxima or minima. The min distance is the smallest gap between consecutive critical points; the max is last − first. Fewer than two: [−1, −1].',
     g: R => ({ head: R.ints(R.int(2, 9), 1, 5) }),
     s(I, T) { const a = I.head, cp = []; for (let i = 1; i + 1 < a.length; i++) { const c = (a[i] > a[i - 1] && a[i] > a[i + 1]) || (a[i] < a[i - 1] && a[i] < a[i + 1]); if (c) cp.push(i); if (i < 6) { T.at({ list: A(a, { i }) }); T.yn('Critical point?', c, 'Strict local max or min.'); } } if (cp.length < 2) return [-1, -1]; let mn = Infinity; for (let i = 1; i < cp.length; i++) mn = Math.min(mn, cp[i] - cp[i - 1]); return [mn, cp[cp.length - 1] - cp[0]]; }
   });
@@ -62,7 +62,7 @@
 
   D('delete-the-middle-node-of-a-linked-list', {
     t: 'Delete the Middle Node of a Linked List',
-    r: 'Slow/fast pointers with fast starting two ahead: when fast reaches the end, slow is just before the middle (index ⌊n/2⌋); unlink slow.next.',
+    r: 'Slow or fast pointers with fast starting two ahead: when fast reaches the end, slow is just before the middle (index (half of n, rounded down)); unlink slow.next.',
     g: R => ({ head: R.ints(R.int(1, 8), 1, 9) }),
     s(I, T) { const res = (() => { const m = Math.floor(I.head.length / 2); T.at({ list: LL(Ls.from(I.head)) }); T.n('Length of the list?', I.head.length, 'Or use slow and fast pointers.'); T.n('Index of the middle node?', m, 'n divided by 2, rounded down.'); return I.head.filter((_, i) => i !== m); })(); T.n('Length after deleting?', res.length, 'One fewer node.'); return res; }
   });
@@ -90,7 +90,7 @@
 
   D('spiral-matrix-iv', {
     t: 'Spiral Matrix IV',
-    r: 'Fill an m × n matrix of −1 in spiral order (right, down, left, up, turning at walls or filled cells) with the list values until the list ends.',
+    r: 'Fill an m times n matrix of −1 in spiral order (right, down, left, up, turning at walls or filled cells) with the list values until the list ends.',
     g: R => { const m = R.int(1, 4), n = R.int(1, 4); return { m, n, head: R.ints(R.int(1, m * n), 0, 9) }; },
     s(I, T) { const g = Array.from({ length: I.m }, () => Array(I.n).fill(-1)), dr = [[0, 1], [1, 0], [0, -1], [-1, 0]]; let r = 0, c = 0, d = 0; I.head.forEach((v, k) => { g[r][c] = v; if (k < 5) { T.at({ matrix: G(g.map(x => x.slice()), { hl: [[r, c]] }) }); T.n(`Row where ${v} is placed?`, r, 'Spiral order.'); } const nr = r + dr[d][0], nc = c + dr[d][1]; if (nr < 0 || nc < 0 || nr >= I.m || nc >= I.n || g[nr][nc] !== -1) d = (d + 1) % 4; r += dr[d][0]; c += dr[d][1]; }); return g; }
   });
@@ -104,7 +104,7 @@
 
   D('split-a-circular-linked-list', {
     t: 'Split a Circular Linked List',
-    r: 'Slow/fast pointers find the middle: the first half gets ⌈n/2⌉ nodes. Cut after it and close both halves into circles.',
+    r: 'Slow or fast pointers find the middle: the first half gets half of n (rounded up) nodes. Cut after it and close both halves into circles.',
     g: R => ({ nums: R.ints(R.int(2, 8), 1, 9) }),
     s(I, T) { const res = (() => { const h = Math.ceil(I.nums.length / 2); T.at({ circle: A(I.nums) }); T.n('Size of the first half?', h, 'n divided by 2, rounded up.'); return [I.nums.slice(0, h), I.nums.slice(h)]; })(); T.n('Size of the second half?', res[1].length, 'The rest of the nodes.'); T.n('First value of the second half? (−1 if empty)', res[1].length ? res[1][0] : -1, 'Right after the first half.'); return res; }
   });
@@ -118,7 +118,7 @@
 
   D('double-a-number-represented-as-a-linked-list', {
     t: 'Double a Number Represented as a Linked List',
-    r: 'Each digit doubles, and it receives a carry of 1 iff the next digit is ≥ 5. Prepend a 1 if the first digit is ≥ 5.',
+    r: 'Each digit doubles, and it receives a carry of 1 exactly when the next digit is at least 5. Prepend a 1 if the first digit is at least 5.',
     g: R => ({ head: [R.int(1, 9), ...R.ints(R.int(0, 4), 0, 9)] }),
     s(I, T) { const a = I.head, out = a.map((d, i) => (2 * d + (a[i + 1] >= 5 ? 1 : 0)) % 10); out.slice(0, 5).forEach((v, i) => { T.at({ digits: A(a, { i }) }); T.n('New digit here?', v, '(2d + carry from the next digit) mod 10.'); }); return a[0] >= 5 ? [1, ...out] : out; }
   });

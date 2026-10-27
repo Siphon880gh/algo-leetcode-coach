@@ -8,7 +8,7 @@
 
   D('number-of-ways-to-separate-numbers', {
     t: 'Number of Ways to Separate Numbers: the last number decides',
-    r: 'dp[i][j] = ways where the last number is num[i..j]. It may not start with 0. It extends any split whose previous number num[k..i−1] is ≤ num[i..j] (compare length, then digits).',
+    r: 'dp[i][j] = ways where the last number is num[i to j]. It may not start with 0. It extends any split whose previous number num[k to i−1] is at most num[i to j] (compare length, then digits).',
     g: R => ({ num: R.str(R.int(3, 5), '0123') }),
     s(I, T) {
       const s = I.num, n = s.length, le = (a, b) => a.length < b.length || (a.length === b.length && a <= b), dp = mk(n, n, 0);
@@ -27,26 +27,26 @@
 
   D('minimum-number-of-work-sessions-to-finish-the-tasks', {
     t: 'Minimum Work Sessions: bitmask of finished tasks',
-    r: 'dp[mask] = (sessions, time used in the last session), smallest first. Adding a task fits in the current session if time + task ≤ sessionTime; otherwise it opens a new one.',
+    r: 'dp[mask] = (sessions, time used in the last session), smallest first. Adding a task fits in the current session if time + task at most sessionTime; otherwise it opens a new one.',
     g: R => ({ tasks: R.ints(R.int(3, 5), 1, 5), sessionTime: R.int(5, 8) }),
     s(I, T) {
       const t = I.tasks, n = t.length, S = I.sessionTime, dp = Array(1 << n).fill(null); dp[0] = [1, 0];
       for (let m = 0; m < 1 << n; m++) if (dp[m]) for (let i = 0; i < n; i++) if (!(m >> i & 1)) { const [s, u] = dp[m], c = u + t[i] <= S ? [s, u + t[i]] : [s + 1, t[i]], nm = m | 1 << i; if (!dp[nm] || c[0] < dp[nm][0] || (c[0] === dp[nm][0] && c[1] < dp[nm][1])) dp[nm] = c; }
-      const tot = t.reduce((a, b) => a + b, 0); T.at({ tasks: A(t), session: S }); T.n('Total hours of work?', tot, 'Sum of the tasks.'); T.n('Lower bound on sessions?', Math.ceil(tot / S), `ceil(${tot} / ${S}).`); T.n('Fewest sessions?', dp[(1 << n) - 1][0], 'Bitmask DP over finished tasks.');
+      const tot = t.reduce((a, b) => a + b, 0); T.at({ tasks: A(t), session: S }); T.n('Total hours of work?', tot, 'Sum of the tasks.'); T.n('Lower bound on sessions?', Math.ceil(tot / S), `ceil(${tot} divided by ${S}).`); T.n('Fewest sessions?', dp[(1 << n) - 1][0], 'Bitmask DP over finished tasks.');
       return dp[(1 << n) - 1][0];
     }
   });
 
   D('number-of-unique-good-subsequences', {
     t: 'Number of Unique Good Subsequences: count by last digit',
-    r: 'end0 / end1 = distinct good subsequences (starting with 1) ending in 0 / 1. A "1": end1 = end0 + end1 + 1. A "0": end0 = end0 + end1. Add 1 at the end if any 0 exists ("0" itself).',
+    r: 'end0 and end1 = distinct good subsequences (starting with 1) ending in 0 or 1. A "1": end1 = end0 + end1 + 1. A "0": end0 = end0 + end1. Add 1 at the end if any 0 exists ("0" itself).',
     g: R => ({ binary: R.str(R.int(4, 6), '01') }),
     s(I, T) { let e0 = 0, e1 = 0, z = 0; [...I.binary].forEach((c, i) => { if (c === '1') e1 = (e0 + e1 + 1) % MOD; else { e0 = (e0 + e1) % MOD; z = 1; } T.at({ binary: A([...I.binary], { hl: [i] }) }); T.n(`After index ${i}: ${c === '1' ? 'end1' : 'end0'}?`, c === '1' ? e1 : e0, c === '1' ? 'Append 1 to everything, plus "1" alone.' : 'Append 0 to everything starting with 1.'); }); return (e0 + e1 + z) % MOD; }
   });
 
   D('the-number-of-good-subsets', {
     t: 'The Number of Good Subsets: square-free values as prime masks',
-    r: 'Only square-free values 2..30 can be used; each is a mask of primes. dp over prime masks counts subsets with disjoint masks (multiplied by the value\'s count). Finally multiply by 2^(count of 1s).',
+    r: 'Only square-free values 2 to 30 can be used; each is a mask of primes. dp over prime masks counts subsets with disjoint masks (multiplied by the value\'s count). Finally multiply by 2 to the power (count of 1s).',
     g: R => ({ nums: R.ints(R.int(4, 6), 1, 10) }),
     s(I, T) {
       const P = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29], mask = x => { let m = 0; for (let i = 0; i < 10; i++) if (x % P[i] === 0) { if (x % (P[i] * P[i]) === 0) return -1; m |= 1 << i; } return m; };
@@ -60,7 +60,7 @@
     t: 'First Day in All the Rooms: bounce back, then come again',
     r: 'dp[i] = first day you reach room i. Reaching i+1 means visiting i twice: dp[i+1] = dp[i] + 1 (bounce to nextVisit[i]) + (dp[i] − dp[nextVisit[i]]) (walk back to i) + 1.',
     g: R => ({ nextVisit: Array.from({ length: R.int(3, 5) }, (_, i) => R.int(0, i)) }),
-    s(I, T) { const nv = I.nextVisit, dp = [0]; for (let i = 0; i < nv.length - 1; i++) { const v = ((2 * dp[i] - dp[nv[i]] + 2) % MOD + MOD) % MOD; T.at({ nextVisit: A(nv, { hl: [i] }), dp: A(dp.concat('?')) }); T.n(`First day in room ${i + 1}?`, v, `2·${dp[i]} − dp[${nv[i]}] + 2.`); dp.push(v); } return dp[nv.length - 1]; }
+    s(I, T) { const nv = I.nextVisit, dp = [0]; for (let i = 0; i < nv.length - 1; i++) { const v = ((2 * dp[i] - dp[nv[i]] + 2) % MOD + MOD) % MOD; T.at({ nextVisit: A(nv, { hl: [i] }), dp: A(dp.concat('?')) }); T.n(`First day in room ${i + 1}?`, v, `2 times ${dp[i]} − dp[${nv[i]}] + 2.`); dp.push(v); } return dp[nv.length - 1]; }
   });
 
   D('maximum-earnings-from-taxi', {
@@ -72,7 +72,7 @@
 
   D('the-score-of-students-solving-math-expression', {
     t: 'Score of Students: right answer, or right digits in the wrong order',
-    r: 'Correct value (× before +) earns 5. Any value from evaluating the operators in some other order (interval DP of possible results, capped at 1000) earns 2. Anything else 0.',
+    r: 'Correct value ( times before +) earns 5. Any value from evaluating the operators in some other order (interval DP of possible results, capped at 1000) earns 2. Anything else 0.',
     g: R => { const d = () => R.int(1, 4), s = `${d()}${R.pick(['+', '*'])}${d()}${R.pick(['+', '*'])}${d()}`, right = s.split('+').reduce((t, p) => t + p.split('*').reduce((q, x) => q * +x, 1), 0), alt = s.match(/\d/g).map(Number); return { s, answers: R.shuffle([right, alt[0] + alt[1] + alt[2], alt[0] * alt[1] * alt[2], (alt[0] + alt[1]) * alt[2], right + R.int(1, 5)]) }; },
     s(I, T) {
       const s = I.s, nums = s.split(/[+*]/).map(Number), ops = s.replace(/\d/g, '').split(''), n = nums.length, P = mk(n, n, null);
@@ -87,7 +87,7 @@
 
   D('partition-array-into-two-arrays-to-minimize-sum-difference', {
     t: 'Partition Into Two Arrays: pick n numbers closest to half',
-    r: 'Choose exactly n numbers for one side; the difference is |total − 2·chosen|. Meet in the middle: for each count c from the left half, pair with n − c from the right half (sorted, binary search).',
+    r: 'Choose exactly n numbers for one side; the difference is |total − 2 times chosen|. Meet in the middle: for each count c from the left half, pair with n − c from the right half (sorted, binary search).',
     g: R => ({ nums: R.ints(2 * R.int(1, 3), -6, 9) }),
     s(I, T) {
       const a = I.nums, n = a.length / 2, tot = a.reduce((x, y) => x + y, 0); let best = Infinity;
@@ -105,7 +105,7 @@
 
   D('minimum-cost-to-separate-sentence-into-rows', {
     t: 'Minimum Cost to Separate Sentence: the last row is free',
-    r: 'dp[i] = least cost to lay out words i.. . If they all fit in one row, dp[i] = 0. Otherwise try every first row i..j that fits: (k − row length)² + dp[j + 1].',
+    r: 'dp[i] = least cost to lay out words i.. . If they all fit in one row, dp[i] = 0. Otherwise try every first row i to j that fits: (k − row length)² + dp[j + 1].',
     g: R => ({ sentence: Array.from({ length: R.int(3, 5) }, () => R.str(R.int(1, 4), 'abc')).join(' '), k: R.int(5, 8) }),
     s(I, T) { const w = I.sentence.split(' '), n = w.length, dp = Array(n + 1).fill(0); for (let i = n - 1; i >= 0; i--) { let len = -1, best = Infinity; for (let j = i; j < n; j++) { len += w[j].length + 1; if (len > I.k) break; best = Math.min(best, j === n - 1 ? 0 : (I.k - len) ** 2 + dp[j + 1]); } dp[i] = best; T.at({ words: A(w, { win: [i, n - 1] }), k: I.k }); T.n(`dp[${i}]?`, best, 'Free if the rest fits on one row; else the best first row plus the rest.'); } return dp[0]; }
   });
@@ -138,7 +138,7 @@
 
   D('count-fertile-pyramids-in-a-land', {
     t: 'Count Fertile Pyramids: height from the three cells below',
-    r: 'h[r][c] = tallest pyramid with apex (r, c) = 1 + min(h of the three cells below) for fertile cells. Pyramids there: h − 1 (height ≥ 2). Do the same upside-down for inverse pyramids.',
+    r: 'h[r][c] = tallest pyramid with apex (r, c) = 1 + min(h of the three cells below) for fertile cells. Pyramids there: h − 1 (height at least 2). Do the same upside-down for inverse pyramids.',
     g: R => ({ grid: R.grid(3, R.int(3, 5), 0, 1).map(r => r.map(x => R.chance(0.7) ? 1 : x)) }),
     s(I, T) {
       const g = I.grid, m = g.length, n = g[0].length, run = (rows, nm) => { const h = mk(m, n, 0); let tot = 0; for (const r of rows) for (let c = 0; c < n; c++) { if (!g[r][c]) continue; const nr = nm === 'pyramid' ? r + 1 : r - 1; h[r][c] = nr < 0 || nr >= m || c === 0 || c === n - 1 ? 1 : 1 + Math.min(h[nr][c - 1], h[nr][c], h[nr][c + 1]); tot += h[r][c] - 1; } T.at({ grid: G(g), kind: nm }); T.n(`Total ${nm}s?`, tot, 'Add height minus 1 over every apex.'); return tot; };
@@ -149,7 +149,7 @@
 
   D('find-good-days-to-rob-the-bank', {
     t: 'Find Good Days to Rob the Bank: non-increasing before, non-decreasing after',
-    r: 'before[i] = days of non-increasing guards ending at i; after[i] = non-decreasing days starting at i. Day i is good if both ≥ time.',
+    r: 'before[i] = days of non-increasing guards ending at i; after[i] = non-decreasing days starting at i. Day i is good if both at least time.',
     g: R => ({ security: R.ints(R.int(6, 8), 0, 4), time: R.int(1, 2) }),
     s(I, T) { const s = I.security, n = s.length, b = Array(n).fill(0), a = Array(n).fill(0); for (let i = 1; i < n; i++) if (s[i] <= s[i - 1]) b[i] = b[i - 1] + 1; for (let i = n - 2; i >= 0; i--) if (s[i] <= s[i + 1]) a[i] = a[i + 1] + 1; const out = []; for (let i = I.time; i < n - I.time; i++) { T.at({ security: A(s, { hl: [i] }), before: A(b), after: A(a), time: I.time }); T.yn(`Is day ${i} good?`, b[i] >= I.time && a[i] >= I.time, `before ${b[i]}, after ${a[i]} vs time ${I.time}.`); if (b[i] >= I.time && a[i] >= I.time) out.push(i); } return out; }
   });
@@ -165,7 +165,7 @@
     t: 'Solving Questions With Brainpower: solve and skip ahead, or move on',
     r: 'dp[i] = best from question i on = max(dp[i+1], points[i] + dp[i + brainpower[i] + 1]).',
     g: R => ({ questions: Array.from({ length: R.int(4, 6) }, () => [R.int(1, 9), R.int(1, 3)]) }),
-    s(I, T) { const q = I.questions, n = q.length, dp = Array(n + 1).fill(0), g = i => i >= n ? 0 : dp[i]; for (let i = n - 1; i >= 0; i--) { dp[i] = Math.max(g(i + 1), q[i][0] + g(i + q[i][1] + 1)); T.at({ questions: A(q.map(x => `${x[0]}pt/skip ${x[1]}`), { hl: [i] }), dp: A(dp.map((v, j) => j > i ? v : j === i ? '?' : '')) }); T.n(`dp[${i}]?`, dp[i], `max(skip ${g(i + 1)}, solve ${q[i][0]} + ${g(i + q[i][1] + 1)}).`); } return dp[0]; }
+    s(I, T) { const q = I.questions, n = q.length, dp = Array(n + 1).fill(0), g = i => i >= n ? 0 : dp[i]; for (let i = n - 1; i >= 0; i--) { dp[i] = Math.max(g(i + 1), q[i][0] + g(i + q[i][1] + 1)); T.at({ questions: A(q.map(x => `${x[0]}pt or skip ${x[1]}`), { hl: [i] }), dp: A(dp.map((v, j) => j > i ? v : j === i ? '?' : '')) }); T.n(`dp[${i}]?`, dp[i], `max(skip ${g(i + 1)}, solve ${q[i][0]} + ${g(i + q[i][1] + 1)}).`); } return dp[0]; }
   });
 
   D('choose-numbers-from-two-arrays-in-range', {
@@ -190,14 +190,14 @@
 
   D('minimum-difference-in-sums-after-removal-of-elements', {
     t: 'Minimum Difference After Removal: smallest n on the left, largest n on the right',
-    r: 'For each split k (n ≤ k ≤ 2n): left[k] = sum of the n smallest in nums[0..k) (max-heap), right[k] = sum of the n largest in nums[k..) (min-heap). Answer = min left[k] − right[k].',
+    r: 'For each split k (k from n to 2n): left[k] = sum of the n smallest in nums[0 to k) (max-heap), right[k] = sum of the n largest in nums[k..) (min-heap). Answer = min left[k] − right[k].',
     g: R => ({ nums: R.ints(3 * R.int(1, 2), 1, 9) }),
     s(I, T) { const a = I.nums, n = a.length / 3; let best = Infinity; for (let k = n; k <= 2 * n; k++) { const L = a.slice(0, k).sort((x, y) => x - y).slice(0, n).reduce((s, x) => s + x, 0), Rt = a.slice(k).sort((x, y) => y - x).slice(0, n).reduce((s, x) => s + x, 0); T.at({ nums: A(a, { win: [0, k - 1] }), split: k }); T.n(`Split at ${k}: left − right?`, L - Rt, `Smallest ${n} on the left (${L}) minus largest ${n} on the right (${Rt}).`); best = Math.min(best, L - Rt); } return best; }
   });
 
   D('minimum-time-to-remove-all-cars-containing-illegal-goods', {
     t: 'Minimum Time to Remove Illegal Cars: left part, then the rest from the right',
-    r: 'left[i] = best cost to clean cars 0..i = min(left[i−1] + (s[i] == "1" ? 2 : 0), i + 1). Total = min over i of left[i] + (n − 1 − i), and also n − 0 from the right alone.',
+    r: 'left[i] = best cost to clean cars 0 to i = min(left[i−1] + (s[i] == "1" ? 2 : 0), i + 1). Total = min over i of left[i] + (n − 1 − i), and also n − 0 from the right alone.',
     g: R => ({ s: R.str(R.int(5, 7), '001') }),
     s(I, T) { const s = I.s, n = s.length; let L = 0, best = n; for (let i = 0; i < n; i++) { L = Math.min(L + (s[i] === '1' ? 2 : 0), i + 1); T.at({ s: A([...s], { hl: [i] }), best }); T.n(`left[${i}]?`, L, s[i] === '1' ? 'Remove it from the middle (2) or pop everything up to here (i + 1).' : 'A clean car costs nothing in the middle.'); best = Math.min(best, L + n - 1 - i); } return best; }
   });
@@ -232,23 +232,23 @@
     g: R => ({ tires: Array.from({ length: R.int(1, 2) }, () => [R.int(1, 3), R.int(2, 3)]), changeTime: R.int(2, 6), numLaps: R.int(3, 5) }),
     s(I, T) {
       const N = I.numLaps, best = Array(N + 1).fill(Infinity); for (const [f, r] of I.tires) { let lap = f, tot = 0; for (let k = 1; k <= N; k++) { tot += lap; if (lap > I.changeTime + f) break; best[k] = Math.min(best[k], tot); lap *= r; } }
-      for (let k = 1; k <= Math.min(N, 3); k++) { T.at({ tires: A(I.tires.map(t => `f${t[0]} r${t[1]}`)), change: I.changeTime }); T.n(`Fastest ${k} lap(s) on one tire (inf if never worth it)?`, best[k], 'Sum f·r^(x−1) for the laps.'); }
+      for (let k = 1; k <= Math.min(N, 3); k++) { T.at({ tires: A(I.tires.map(t => `f${t[0]} r${t[1]}`)), change: I.changeTime }); T.n(`Fastest ${k} laps on one tire (inf if never worth it)?`, best[k], 'Sum f times r to the power (x−1) for the laps.'); }
       const dp = [0]; for (let i = 1; i <= N; i++) { let v = Infinity; for (let k = 1; k <= i; k++) if (best[k] < Infinity) v = Math.min(v, dp[i - k] + I.changeTime + best[k]); dp.push(v); } T.n('Total minimum time?', dp[N] - I.changeTime, 'Best split into stints, minus the change before the first stint.'); return dp[N] - I.changeTime;
     }
   });
 
   D('number-of-ways-to-build-house-of-cards', {
     t: 'Number of Ways to Build House of Cards: distinct row sizes',
-    r: 'A row with k triangles uses 3k − 1 cards, and each row must have fewer triangles than the one below. So count ways to write n as a sum of distinct values 3k − 1 (0/1 knapsack over k).',
+    r: 'A row with k triangles uses 3k − 1 cards, and each row must have fewer triangles than the one below. So count ways to write n as a sum of distinct values 3k − 1 (0-1 knapsack over k).',
     g: R => ({ n: R.int(5, 30) }),
-    s(I, T) { const dp = Array(I.n + 1).fill(0); dp[0] = 1; for (let k = 1; 3 * k - 1 <= I.n; k++) { const c = 3 * k - 1; for (let s = I.n; s >= c; s--) dp[s] += dp[s - c]; T.at({ 'row cost': c, n: I.n }); T.n(`Using rows of up to ${k} triangles: ways to use exactly ${I.n} cards?`, dp[I.n], `Add row size ${c} (0/1 knapsack).`); } return dp[I.n]; }
+    s(I, T) { const dp = Array(I.n + 1).fill(0); dp[0] = 1; for (let k = 1; 3 * k - 1 <= I.n; k++) { const c = 3 * k - 1; for (let s = I.n; s >= c; s--) dp[s] += dp[s - c]; T.at({ 'row cost': c, n: I.n }); T.n(`Using rows of up to ${k} triangles: ways to use exactly ${I.n} cards?`, dp[I.n], `Add row size ${c} (0-1 knapsack).`); } return dp[I.n]; }
   });
 
   D('minimum-white-tiles-after-covering-with-carpets', {
     t: 'Minimum White Tiles After Carpets: cover here or not',
     r: 'dp[c][i] = fewest white tiles visible among the first i tiles using c carpets = min(dp[c][i−1] + white(i−1), dp[c−1][i − carpetLen]).',
     g: R => ({ floor: R.str(R.int(5, 8), '011'), numCarpets: R.int(1, 2), carpetLen: R.int(1, 3) }),
-    s(I, T) { const f = I.floor, n = f.length, L = I.carpetLen; let prev = Array(n + 1).fill(0); for (let i = 1; i <= n; i++) prev[i] = prev[i - 1] + (f[i - 1] === '1' ? 1 : 0); T.at({ floor: A([...f]) }); T.n('White tiles with no carpets?', prev[n], 'Count the 1s.'); for (let c = 1; c <= I.numCarpets; c++) { const cur = [0]; for (let i = 1; i <= n; i++) cur.push(Math.min(cur[i - 1] + (f[i - 1] === '1' ? 1 : 0), prev[Math.max(0, i - L)])); prev = cur; T.at({ floor: A([...f]), carpets: c, length: L }); T.n(`Fewest white tiles with ${c} carpet(s)?`, prev[n], 'Leave the tile, or end a carpet here.'); } return prev[n]; }
+    s(I, T) { const f = I.floor, n = f.length, L = I.carpetLen; let prev = Array(n + 1).fill(0); for (let i = 1; i <= n; i++) prev[i] = prev[i - 1] + (f[i - 1] === '1' ? 1 : 0); T.at({ floor: A([...f]) }); T.n('White tiles with no carpets?', prev[n], 'Count the 1s.'); for (let c = 1; c <= I.numCarpets; c++) { const cur = [0]; for (let i = 1; i <= n; i++) cur.push(Math.min(cur[i - 1] + (f[i - 1] === '1' ? 1 : 0), prev[Math.max(0, i - L)])); prev = cur; T.at({ floor: A([...f]), carpets: c, length: L }); T.n(`Fewest white tiles with ${c} carpets?`, prev[n], 'Leave the tile, or end a carpet here.'); } return prev[n]; }
   });
 
   D('maximum-value-of-k-coins-from-piles', {
@@ -267,14 +267,14 @@
 
   D('total-appeal-of-a-string', {
     t: 'Total Appeal of a String: count each letter\'s first occurrence',
-    r: 'Credit a letter to a substring only at its first occurrence there. s[i] is first in substrings starting after the previous same letter: (i − last[c]) · (n − i).',
+    r: 'Credit a letter to a substring only at its first occurrence there. s[i] is first in substrings starting after the previous same letter: (i − last[c]) times (n − i).',
     g: R => ({ s: R.str(R.int(4, 6), 'abc') }),
-    s(I, T) { const s = I.s, n = s.length, last = {}; let tot = 0; for (let i = 0; i < n; i++) { const p = last[s[i]] ?? -1, c = (i - p) * (n - i); T.at({ s: A([...s], { hl: [i] }), total: tot }); T.n(`Contribution of s[${i}] = "${s[i]}"?`, c, `(${i} − ${p}) · (${n} − ${i}).`); tot += c; last[s[i]] = i; } return tot; }
+    s(I, T) { const s = I.s, n = s.length, last = {}; let tot = 0; for (let i = 0; i < n; i++) { const p = last[s[i]] ?? -1, c = (i - p) * (n - i); T.at({ s: A([...s], { hl: [i] }), total: tot }); T.n(`Contribution of s[${i}] = "${s[i]}"?`, c, `(${i} − ${p}) times (${n} − ${i}).`); tot += c; last[s[i]] = i; } return tot; }
   });
 
   D('make-array-non-decreasing-or-non-increasing', {
     t: 'Make Array Non-Decreasing or Non-Increasing: DP over target values',
-    r: 'An optimal array uses only original values. dp[v] = least cost with the current element set to v (sorted values); for non-decreasing, dp[v] = |a[i] − v| + min dp[u] over u ≤ v (a running prefix min). Do it again reversed for non-increasing; take the smaller.',
+    r: 'An optimal array uses only original values. dp[v] = least cost with the current element set to v (sorted values); for non-decreasing, dp[v] = |a[i] − v| + min dp[u] over u at most v (a running prefix min). Do it again reversed for non-increasing; take the smaller.',
     g: R => ({ nums: R.ints(R.int(4, 5), 0, 6) }),
     s(I, T) {
       const vals = [...new Set(I.nums)].sort((a, b) => a - b), run = (arr, nm) => { let dp = vals.map(() => 0); for (const x of arr) { let m = Infinity; dp = vals.map((v, k) => { m = Math.min(m, dp[k]); return m + Math.abs(x - v); }); } const r = Math.min(...dp); T.at({ nums: A(arr), values: A(vals), mode: nm }); T.n(`Least cost to make it ${nm}?`, r, 'Running prefix minimum over target values.'); return r; };
@@ -284,15 +284,15 @@
   });
 
   D('count-number-of-texts', {
-    t: 'Count Number of Texts: the last letter used 1–3 (or 4) presses',
-    r: 'dp[i] = messages for the first i presses. The last letter used k equal presses (k ≤ 3, or ≤ 4 for keys 7 and 9): dp[i] = Σ dp[i − k].',
+    t: 'Count Number of Texts: the last letter used 1 to 3 (or 4) presses',
+    r: 'dp[i] = messages for the first i presses. The last letter used k equal presses (k at most 3, or at most 4 for keys 7 and 9): dp[i] = the sum of dp[i − k].',
     g: R => ({ pressedKeys: R.str(R.int(4, 7), '2279') }),
     s(I, T) { const s = I.pressedKeys, dp = [1]; for (let i = 1; i <= s.length; i++) { const mx = s[i - 1] === '7' || s[i - 1] === '9' ? 4 : 3; let v = 0; for (let k = 1; k <= mx && i - k >= 0; k++) { if (s[i - k] !== s[i - 1]) break; v = (v + dp[i - k]) % MOD; } T.at({ keys: A([...s], { hl: [i - 1] }), dp: A(dp.concat('?')) }); T.n(`dp[${i}]?`, v, `Sum dp[i − k] over runs of up to ${mx} equal presses.`); dp.push(v); } return dp[s.length]; }
   });
 
   D('check-if-there-is-a-valid-parentheses-string-path', {
     t: 'Valid Parentheses String Path: sets of open counts',
-    r: 'For each cell keep every possible open-minus-close balance along a right/down path (never negative). The last cell must allow balance 0. Odd path length fails immediately.',
+    r: 'For each cell keep every possible open-minus-close balance along a right or down path (never negative). The last cell must allow balance 0. Odd path length fails immediately.',
     g: R => ({ grid: Array.from({ length: R.int(2, 3) }, (_, __, w = 0) => Array.from({ length: 3 }, () => R.pick(['(', ')']))).map((r, i) => i === 0 ? ['(', ...r.slice(1)] : r) }),
     s(I, T) {
       const g = I.grid, m = g.length, n = g[0].length; T.at({ grid: G(g) }); T.yn(`Is the path length (${m + n - 1}) even?`, (m + n - 1) % 2 === 0, 'Valid strings have even length.'); if ((m + n - 1) % 2) return false;

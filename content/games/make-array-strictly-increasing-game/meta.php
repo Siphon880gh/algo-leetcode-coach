@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Make Array Strictly Increasing: last value → fewest operations',
+    'title' => 'Make Array Strictly Increasing: map last value to fewest operations',
     'leetcode' => 1187,
     'difficulty' => 'Hard',
     'summary' => 'State: map from the last value to the fewest operations. For each arr1[i]: keep it if it exceeds the last value; or replace it with the smallest arr2 value above the last value (+1 op).',

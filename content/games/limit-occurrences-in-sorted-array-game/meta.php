@@ -5,7 +5,7 @@ return [
     'title' => 'Limit Occurrences in Sorted Array',
     'leetcode' => 3940,
     'difficulty' => 'Easy',
-    'summary' => 'The array is sorted, so copies of a value are adjacent. Keep a write pointer; copy nums[i] only if fewer than k elements back the written value differs (write < k or nums[write − k] ≠ nums[i]).',
+    'summary' => 'The array is sorted, so copies of a value are adjacent. Keep a write pointer; copy nums[i] only if fewer than k elements back the written value differs (write < k or nums[write − k] not equal to nums[i]).',
     'category' => 'LeetCode',
     'subcategory' => 'Two Pointers',
     'topic' => 'LeetCode · Two Pointers',

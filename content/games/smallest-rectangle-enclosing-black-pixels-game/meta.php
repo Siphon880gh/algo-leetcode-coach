@@ -5,7 +5,7 @@ return [
     'title' => 'Smallest Rectangle Enclosing Black Pixels',
     'leetcode' => 302,
     'difficulty' => 'Hard',
-    'summary' => 'Project black pixels onto rows and columns; because they are connected, binary search the first/last column and row containing a 1 on each side of (x, y).',
+    'summary' => 'Project black pixels onto rows and columns; because they are connected, binary search the first or last column and row containing a 1 on each side of (x, y).',
     'category' => 'LeetCode',
     'subcategory' => 'Binary Search',
     'topic' => 'LeetCode · Binary Search',

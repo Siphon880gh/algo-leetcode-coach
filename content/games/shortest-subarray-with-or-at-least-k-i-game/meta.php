@@ -5,7 +5,7 @@ return [
     'title' => 'Shortest Subarray With OR at Least K I',
     'leetcode' => 3095,
     'difficulty' => 'Easy',
-    'summary' => 'Brute force is fine here: for each start, extend right OR-ing values; stop at the first end where OR ≥ k and record the length. (The II version slides a window with per-bit counts.)',
+    'summary' => 'Brute force is fine here: for each start, extend right OR-ing values; stop at the first end where the OR is at least k and record the length. (The II version slides a window with per-bit counts.)',
     'category' => 'LeetCode',
     'subcategory' => 'Bit Manipulation',
     'topic' => 'LeetCode · Bit Manipulation',

@@ -5,7 +5,7 @@ return [
     'title' => 'Smallest Divisor Given a Threshold',
     'leetcode' => 1283,
     'difficulty' => 'Med',
-    'summary' => 'Σ ⌈nums[i] / d⌉ decreases as d grows. Binary search the first d with sum ≤ threshold.',
+    'summary' => 'the sum of nums[i] divided by d, rounded up decreases as d grows. Binary search the first d with sum at most threshold.',
     'category' => 'LeetCode',
     'subcategory' => 'Binary Search',
     'topic' => 'LeetCode · Binary Search',

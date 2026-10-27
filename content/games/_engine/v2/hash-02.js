@@ -5,9 +5,9 @@
   const cnt = a => { const m = new Map(); for (const x of a) m.set(x, (m.get(x) || 0) + 1); return m; };
   const obj = m => Object.fromEntries([...m].map(([k, v]) => [String(k), v]));
   const goodPairs = {
-    r: 'Count nums2 values. For each nums1 value x, if x is divisible by k, enumerate the divisors d of x / k and add count[d] (pairs need nums1[i] % (nums2[j]·k) == 0).',
+    r: 'Count nums2 values. For each nums1 value x, if x is divisible by k, enumerate the divisors d of x divided by k and add count[d] (pairs need nums1[i] % (nums2[j] times k) == 0).',
     g: R => { const k = R.int(1, 3); return { nums1: R.ints(R.int(1, 5), 1, 12), nums2: R.ints(R.int(1, 5), 1, 6), k }; },
-    s(I, T) { const c = cnt(I.nums2); let t = 0; I.nums1.forEach((x, i) => { let add = 0; if (x % I.k === 0) { const y = x / I.k; for (let d = 1; d <= y; d++) if (y % d === 0) add += c.get(d) || 0; } t += add; if (i < 5) { T.at({ nums1: A(I.nums1, { i }), nums2Counts: K(obj(c)), k: I.k }); T.n(`Good pairs with nums1 = ${x}?`, add, `Divisors of ${x} / k that appear in nums2.`); } }); return t; }
+    s(I, T) { const c = cnt(I.nums2); let t = 0; I.nums1.forEach((x, i) => { let add = 0; if (x % I.k === 0) { const y = x / I.k; for (let d = 1; d <= y; d++) if (y % d === 0) add += c.get(d) || 0; } t += add; if (i < 5) { T.at({ nums1: A(I.nums1, { i }), nums2Counts: K(obj(c)), k: I.k }); T.n(`Good pairs with nums1 = ${x}?`, add, `Divisors of ${x} divided by k that appear in nums2.`); } }); return t; }
   };
   const day = {
     r: 'Count hours mod 24. Each hour h pairs with earlier hours whose remainder is (24 − h mod 24) mod 24.',
@@ -22,7 +22,7 @@
 
   D('check-if-an-array-is-consecutive', {
     t: 'Check if an Array Is Consecutive',
-    r: 'Consecutive iff all values are distinct (hash set size n) and max − min = n − 1.',
+    r: 'Consecutive exactly when all values are distinct (hash set size n) and max − min = n − 1.',
     g: R => { const s = R.int(0, 5), n = R.int(1, 6), a = Array.from({ length: n }, (_, i) => s + i); if (R.chance(0.4)) a[R.int(0, n - 1)] = R.int(0, 10); return { nums: R.shuffle(a) }; },
     s(I, T) { const res = (() => { const S = new Set(I.nums), mn = Math.min(...I.nums), mx = Math.max(...I.nums); T.at({ nums: A(I.nums) }); T.n('Distinct values?', S.size, 'Must equal n.'); T.n('Largest value minus smallest value?', mx - mn, 'Must equal n − 1.'); return S.size === I.nums.length && mx - mn === I.nums.length - 1; })(); T.yn('Is the array consecutive?', res, 'Both checks must pass.'); return res; }
   });
@@ -36,14 +36,14 @@
 
   D('maximum-number-of-pairs-in-array', {
     t: 'Maximum Number of Pairs in Array',
-    r: 'Count values: each value contributes ⌊c/2⌋ pairs and c mod 2 leftovers.',
+    r: 'Count values: each value contributes half of c (rounded down) pairs and c mod 2 leftovers.',
     g: R => ({ nums: R.ints(R.int(1, 9), 0, 4) }),
-    s(I, T) { const c = cnt(I.nums); let p = 0; for (const [v, k] of c) { p += k >> 1; T.at({ counts: K(obj(c)), v }); T.n('Pairs so far?', p, `⌊${k}/2⌋ from ${v}.`); } return [p, I.nums.length - 2 * p]; }
+    s(I, T) { const c = cnt(I.nums); let p = 0; for (const [v, k] of c) { p += k >> 1; T.at({ counts: K(obj(c)), v }); T.n('Pairs so far?', p, `half of ${k}, rounded down from ${v}.`); } return [p, I.nums.length - 2 * p]; }
   });
 
   D('best-poker-hand', {
     t: 'Best Poker Hand',
-    r: 'All suits equal → "Flush". Otherwise take the max rank count: ≥ 3 → "Three of a Kind", 2 → "Pair", else "High Card".',
+    r: 'All suits equal: "Flush". Otherwise take the max rank count: at least 3 gives "Three of a Kind", 2 gives "Pair", else "High Card".',
     g: R => ({ ranks: R.ints(5, 1, 6), suits: R.chance(0.3) ? Array(5).fill('a') : Array.from({ length: 5 }, () => R.pick(['a', 'b', 'c', 'd'])) }),
     s(I, T) { const res = (() => { const fl = new Set(I.suits).size === 1; T.at({ suits: A(I.suits) }); T.n('Distinct suits?', new Set(I.suits).size, 'A flush needs exactly one.'); T.yn('Flush?', fl, 'All five suits equal.'); if (fl) return 'Flush'; const m = Math.max(...cnt(I.ranks).values()); T.at({ ranks: A(I.ranks) }); T.n('Most cards sharing a rank?', m, 'Max count.'); return m >= 3 ? 'Three of a Kind' : m === 2 ? 'Pair' : 'High Card'; })(); T.c('Best hand?', ['Flush', 'Three of a Kind', 'Pair', 'High Card'], res, 'Check from the best hand down.'); return res; }
   });
@@ -71,16 +71,16 @@
 
   D('destroy-sequential-targets', {
     t: 'Destroy Sequential Targets',
-    r: 'Seeding nums[i] destroys every target with the same remainder mod space (and ≥ it). Count remainders; among values in the largest class, return the minimum.',
+    r: 'Seeding nums[i] destroys every target with the same remainder mod space (and at least it). Count remainders; among values in the largest class, return the minimum.',
     g: R => ({ nums: R.ints(R.int(1, 8), 1, 12), space: R.int(1, 4) }),
     s(I, T) { const res = (() => { const c = cnt(I.nums.map(x => x % I.space)), mx = Math.max(...c.values()); T.at({ remainderCounts: K(obj(c)), space: I.space }); T.n('How many remainder classes are there?', c.size, 'Group by value mod space.'); T.n('Largest remainder class size?', mx, 'Targets destroyed.'); return Math.min(...I.nums.filter(x => c.get(x % I.space) === mx)); })(); T.n('Smallest seed that destroys the most?', res, 'The smallest value in a largest class.'); return res; }
   });
 
   D('number-of-unequal-triplets-in-array', {
     t: 'Number of Unequal Triplets in Array',
-    r: 'Group by value. Walking the groups with counts left (before) and right (after), a group of size c contributes left · c · right.',
+    r: 'Group by value. Walking the groups with counts left (before) and right (after), a group of size c contributes left times c times right.',
     g: R => ({ nums: R.ints(R.int(3, 8), 1, 4) }),
-    s(I, T) { const c = cnt(I.nums); let left = 0, t = 0; const n = I.nums.length; for (const [v, k] of [...c].sort((a, b) => a[0] - b[0])) { const right = n - left - k, add = left * k * right; t += add; T.at({ counts: K(obj(c)), v }); T.n(`Triplets with ${v} in the middle group?`, add, 'left · c · right.'); left += k; } return t; }
+    s(I, T) { const c = cnt(I.nums); let left = 0, t = 0; const n = I.nums.length; for (const [v, k] of [...c].sort((a, b) => a[0] - b[0])) { const right = n - left - k, add = left * k * right; t += add; T.at({ counts: K(obj(c)), v }); T.n(`Triplets with ${v} in the middle group?`, add, 'left times c times right.'); left += k; } return t; }
   });
 
   D('form-smallest-number-from-two-digit-arrays', {
@@ -107,7 +107,7 @@
 
   D('sum-of-matrix-after-queries', {
     t: 'Sum of Matrix After Queries',
-    r: 'Process queries in reverse: the last write to a row or column wins. A row query on an unseen row adds val × (columns not yet fixed); symmetric for columns.',
+    r: 'Process queries in reverse: the last write to a row or column wins. A row query on an unseen row adds val times (columns not yet fixed); symmetric for columns.',
     g: R => { const n = R.int(1, 4); return { n, queries: Array.from({ length: R.int(1, 5) }, () => [R.int(0, 1), R.int(0, n - 1), R.int(0, 6)]) }; },
     s(I, T) { const rs = new Set(), cs = new Set(); let t = 0; for (let q = I.queries.length - 1; q >= 0; q--) { const [ty, i, v] = I.queries[q], mine = ty ? cs : rs, other = ty ? rs : cs; let add = 0; if (!mine.has(i)) { add = v * (I.n - other.size); mine.add(i); } t += add; T.at({ query: `${ty ? 'col' : 'row'} ${i} = ${v}`, fixedRows: A([...rs]), fixedCols: A([...cs]) }); T.n('Added by this query (processed in reverse)?', add, 'Only cells not overwritten later.'); } return t; }
   });
@@ -121,30 +121,30 @@
 
   D('number-of-black-blocks', {
     t: 'Number of Black Blocks',
-    r: 'Each black cell touches up to four 2×2 blocks (top-left corners (r−1..r, c−1..c)). Count blacks per block in a hash map; blocks never touched have 0.',
+    r: 'Each black cell touches up to four 2 by 2 blocks (top-left corners (r−1 to r, c−1 to c)). Count blacks per block in a hash map; blocks never touched have 0.',
     g: R => { const m = R.int(2, 4), n = R.int(2, 4), S = new Set(); for (let i = 0; i < R.int(0, 4); i++) S.add(R.int(0, m - 1) + ',' + R.int(0, n - 1)); return { m, n, coordinates: [...S].map(s => s.split(',').map(Number)) }; },
     s(I, T) { const c = new Map(); T.at({ m: I.m, n: I.n }); T.n('Total 2 by 2 blocks?', (I.m - 1) * (I.n - 1), '(m − 1) times (n − 1).'); I.coordinates.forEach(([r, col], k) => { for (const a of [r - 1, r]) for (const b of [col - 1, col]) if (a >= 0 && b >= 0 && a < I.m - 1 && b < I.n - 1) c.set(a + ',' + b, (c.get(a + ',' + b) || 0) + 1); if (k < 4) { T.at({ cell: `${r},${col}`, blocks: K(obj(c)) }); T.n('Blocks touched so far?', c.size, 'Top-left corners within bounds.'); } }); const out = [0, 0, 0, 0, 0]; for (const v of c.values()) out[v]++; out[0] = (I.m - 1) * (I.n - 1) - c.size; T.at({ blocks: K(obj(c)) }); T.n('Blocks with no black cell?', out[0], 'All blocks minus the ones touched.'); return out; }
   });
 
   D('minimum-index-of-a-valid-split', {
     t: 'Minimum Index of a Valid Split',
-    r: 'Find the dominant value x and its total count. Sweep the split i, keeping the left count of x: valid if 2·left > i + 1 and 2·(total − left) > n − i − 1.',
+    r: 'Find the dominant value x and its total count. Sweep the split i, keeping the left count of x: valid if 2 times left > i + 1 and 2 times (total − left) > n − i − 1.',
     g: R => { const n = R.int(1, 8), x = R.int(1, 3), a = Array.from({ length: n }, () => R.chance(0.65) ? x : R.int(1, 5)); const c = a.filter(v => v === x).length; if (2 * c <= n) a.fill(x, 0, Math.floor(n / 2) + 1); return { nums: R.shuffle(a) }; },
     s(I, T) { const res = (() => { const n = I.nums.length, c = cnt(I.nums); let x = null; for (const [v, k] of c) if (2 * k > n) x = v; T.at({ counts: K(obj(c)) }); T.n('Dominant element?', x, 'Its count is more than half of n.'); const tot = c.get(x); T.n('Total copies of it?', tot, 'Split this count between the two sides.'); let left = 0; for (let i = 0; i < n - 1; i++) { if (I.nums[i] === x) left++; if (2 * left > i + 1 && 2 * (tot - left) > n - i - 1) return i; } return -1; })(); T.n('Smallest valid split index (−1 if none)?', res, 'Both sides must keep it dominant.'); return res; }
   });
 
   D('check-if-array-is-good', {
     t: 'Check if Array is Good',
-    r: 'With n = max, the array must have length n + 1, contain 1..n−1 exactly once, and n exactly twice. Compare counts.',
+    r: 'With n = max, the array must have length n + 1, contain 1 to n−1 exactly once, and n exactly twice. Compare counts.',
     g: R => { const n = R.int(1, 5), a = [...Array(n).keys()].map(x => x + 1); a.push(n); if (R.chance(0.4)) a[R.int(0, a.length - 1)] = R.int(1, n + 1); return { nums: R.shuffle(a) }; },
     s(I, T) { const res = (() => { const n = Math.max(...I.nums), c = cnt(I.nums); T.at({ nums: A(I.nums) }); T.n('Required length (max + 1)?', n + 1, 'base[n] has n + 1 elements.'); T.yn('Does the length match?', I.nums.length === n + 1, 'Otherwise it is not good.'); if (I.nums.length !== n + 1) return false; for (let v = 1; v < n; v++) if (c.get(v) !== 1) return false; return c.get(n) === 2; })(); T.yn('Is the array good?', res, '1 to n − 1 once each, and n twice.'); return res; }
   });
 
   D('minimum-seconds-to-equalize-a-circular-array', {
     t: 'Minimum Seconds to Equalize a Circular Array',
-    r: 'Each value spreads one step per second in both directions. For each value, the largest circular gap d between consecutive occurrences needs ⌊d / 2⌋ seconds; take the minimum over values.',
+    r: 'Each value spreads one step per second in both directions. For each value, the largest circular gap d between consecutive occurrences needs half of d (rounded down) seconds; take the minimum over values.',
     g: R => ({ nums: R.ints(R.int(1, 8), 1, 3) }),
-    s(I, T) { const n = I.nums.length, pos = new Map(); I.nums.forEach((v, i) => (pos.get(v) || pos.set(v, []).get(v)).push(i)); let best = Infinity; for (const [v, p] of pos) { let g = p[0] + n - p[p.length - 1]; for (let i = 1; i < p.length; i++) g = Math.max(g, p[i] - p[i - 1]); const s = Math.floor(g / 2); best = Math.min(best, s); T.at({ nums: A(I.nums), value: v, positions: A(p) }); T.n(`Seconds if everything becomes ${v}?`, s, '⌊largest gap / 2⌋.'); } return best; }
+    s(I, T) { const n = I.nums.length, pos = new Map(); I.nums.forEach((v, i) => (pos.get(v) || pos.set(v, []).get(v)).push(i)); let best = Infinity; for (const [v, p] of pos) { let g = p[0] + n - p[p.length - 1]; for (let i = 1; i < p.length; i++) g = Math.max(g, p[i] - p[i - 1]); const s = Math.floor(g / 2); best = Math.min(best, s); T.at({ nums: A(I.nums), value: v, positions: A(p) }); T.n(`Seconds if everything becomes ${v}?`, s, 'half of largest gap, rounded down.'); } return best; }
   });
 
   D('max-pair-sum-in-an-array', {
@@ -205,7 +205,7 @@
 
   D('find-the-maximum-number-of-elements-in-subset', {
     t: 'Find the Maximum Number of Elements in Subset',
-    r: 'Pattern x, x², x⁴, …, x^k, …, x², x. For x = 1 take the largest odd count of ones. For x > 1, while count[x] ≥ 2 add 2 and square x; finish with +1 if the top exists, else −1.',
+    r: 'Pattern x, x², x⁴, …, x to the power k, …, x², x. For x = 1 take the largest odd count of ones. For x > 1, while count[x] at least 2 add 2 and square x; finish with +1 if the top exists, else −1.',
     g: R => ({ nums: Array.from({ length: R.int(1, 8) }, () => R.pick([1, 2, 4, 16, 3, 9, 5])) }),
     s(I, T) { const res = (() => { const c = cnt(I.nums); const ones = c.get(1) || 0; let best = ones % 2 ? ones : Math.max(ones - 1, 0); T.at({ counts: K(obj(c)) }); T.n('How many 1s?', ones, 'Every square of 1 is 1.'); T.n('Best length using only 1s?', best, 'Largest odd count.'); for (const x0 of c.keys()) { if (x0 === 1) continue; let x = x0, len = 0; while ((c.get(x) || 0) >= 2) { len += 2; x = x * x; } len += c.get(x) ? 1 : -1; best = Math.max(best, len); } return best; })(); T.n('Largest subset?', res, 'Climb x, x², x⁴ while pairs exist.'); return res; }
   });
@@ -248,9 +248,9 @@
 
   D('identify-the-largest-outlier-in-an-array', {
     t: 'Identify the Largest Outlier in an Array',
-    r: 'If x is the outlier, the rest sums to 2·s where s is the special-sum element: (total − x) must be even and (total − x)/2 must exist at another index (check counts). Take the largest valid x.',
+    r: 'If x is the outlier, the rest sums to 2 times s where s is the special-sum element: (total − x) must be even and (total − x) divided by 2 must exist at another index (check counts). Take the largest valid x.',
     g: R => { const sp = R.ints(R.int(1, 4), -3, 5), s = sp.reduce((a, b) => a + b, 0); return { nums: R.shuffle([...sp, s, R.int(-5, 12)]) }; },
-    s(I, T) { const c = cnt(I.nums), tot = I.nums.reduce((a, b) => a + b, 0); let best = -Infinity; for (const x of [...new Set(I.nums)].sort((a, b) => b - a)) { const r = tot - x, s = r / 2; const ok = r % 2 === 0 && c.has(s) && (s !== x || c.get(x) >= 2); if (ok) best = Math.max(best, x); T.at({ nums: A(I.nums), candidate: x }); T.yn(`Can ${x} be the outlier?`, ok, '(total − x)/2 must be another element.'); if (ok) break; } return best; }
+    s(I, T) { const c = cnt(I.nums), tot = I.nums.reduce((a, b) => a + b, 0); let best = -Infinity; for (const x of [...new Set(I.nums)].sort((a, b) => b - a)) { const r = tot - x, s = r / 2; const ok = r % 2 === 0 && c.has(s) && (s !== x || c.get(x) >= 2); if (ok) best = Math.max(best, x); T.at({ nums: A(I.nums), candidate: x }); T.yn(`Can ${x} be the outlier?`, ok, '(total − x) divided by 2 must be another element.'); if (ok) break; } return best; }
   });
 
   D('minimum-operations-to-make-array-values-equal-to-k', {
@@ -262,14 +262,14 @@
 
   D('minimum-number-of-operations-to-make-elements-in-array-distinct', {
     t: 'Minimum Number of Operations to Make Elements in Array Distinct',
-    r: 'Scan from the right with a set; the first repeat found at index j means everything up to j must be removed: ⌊j / 3⌋ + 1 operations (0 if none).',
+    r: 'Scan from the right with a set; the first repeat found at index j means everything up to j must be removed: (j divided by 3, rounded down) + 1 operations (0 if none).',
     g: R => ({ nums: R.ints(R.int(1, 10), 1, 6) }),
     s(I, T) { const S = new Set(); for (let j = I.nums.length - 1; j >= 0; j--) { const hit = S.has(I.nums[j]); if (I.nums.length - j <= 7) { T.at({ nums: A(I.nums, { i: j }), suffix: A([...S]) }); T.yn(`Is ${I.nums[j]} already in the suffix?`, hit, 'First repeat from the right.'); } if (hit) return Math.floor(j / 3) + 1; S.add(I.nums[j]); } return 0; }
   });
 
   D('minimum-unlocked-indices-to-sort-nums', {
     t: 'Minimum Unlocked Indices to Sort Nums',
-    r: 'Values are 1..3 and only neighbors differing by 1 can swap, so a 3 before a 1 is hopeless (−1). Otherwise every index in [first 2, last 1) and [first 3, last 2) must be unlocked; count the locked ones there.',
+    r: 'Values are 1 to 3 and only neighbors differing by 1 can swap, so a 3 before a 1 is hopeless (−1). Otherwise every index in [first 2, last 1) and [first 3, last 2) must be unlocked; count the locked ones there.',
     g: R => { const n = R.int(2, 7); return { nums: R.ints(n, 1, 3), locked: R.ints(n, 0, 1) }; },
     s(I, T) { const res = (() => { T.at({ nums: A(I.nums), locked: A(I.locked) }); T.n('How many indices are locked?', I.locked.filter(Boolean).length, 'Only these can block a swap.'); const a = I.nums, n = a.length, f = v => a.indexOf(v), l = v => a.lastIndexOf(v); for (let i = 0; i < n; i++) if (a[i] === 3 && a.slice(i).includes(1)) { T.at({ nums: A(a, { i }) }); T.yn('Is there a 3 before a 1?', true, 'They can never cross.'); return -1; } T.at({ nums: A(a) }); T.yn('Is there a 3 before a 1?', false, 'Sorting is possible.'); const need = new Set(); if (f(2) >= 0 && l(1) >= 0) for (let i = f(2); i < l(1); i++) need.add(i); if (f(3) >= 0 && l(2) >= 0) for (let i = f(3); i < l(2); i++) need.add(i); const c = [...need].filter(i => I.locked[i]).length; T.at({ nums: A(a), locked: A(I.locked) }); T.n('Locked indices that must be unlocked?', c, 'Inside the crossing ranges.'); return c; })(); T.n('Answer (−1 if impossible)?', res, 'Unlock only what is needed.'); return res; }
   });

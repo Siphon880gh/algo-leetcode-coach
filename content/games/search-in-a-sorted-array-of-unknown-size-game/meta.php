@@ -5,7 +5,7 @@ return [
     'title' => 'Search Sorted Array of Unknown Size',
     'leetcode' => 702,
     'difficulty' => 'Med',
-    'summary' => 'Double hi until secret[hi] ≥ target (out of range reads as +∞), then binary search [hi/2, hi].',
+    'summary' => 'Double hi until secret[hi] at least target (out of range reads as +∞), then binary search [hi divided by 2, hi].',
     'category' => 'LeetCode',
     'subcategory' => 'Binary Search',
     'topic' => 'LeetCode · Binary Search',

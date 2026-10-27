@@ -5,7 +5,7 @@ return [
     'title' => 'Minimum Operations to Satisfy Conditions: one value per column',
     'leetcode' => 3122,
     'difficulty' => 'Med',
-    'summary' => 'Each column becomes a single value and neighbors differ. cost[c][v] = m − (count of v in column c). dp over columns: dp[c][v] = cost + min dp[c−1][u] for u ≠ v.',
+    'summary' => 'Each column becomes a single value and neighbors differ. cost[c][v] = m − (count of v in column c). dp over columns: dp[c][v] = cost + min dp[c−1][u] for u not equal to v.',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

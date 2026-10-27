@@ -5,7 +5,7 @@ return [
     'title' => 'Number of Islands: count, then sink',
     'leetcode' => 200,
     'difficulty' => 'Med',
-    'summary' => 'Scan the grid. Each land cell you have not visited starts a new island: count it, then flood (DFS/BFS) every 4-connected land cell so it is never counted again.',
+    'summary' => 'Scan the grid. Each land cell you have not visited starts a new island: count it, then flood (DFS or BFS) every 4-connected land cell so it is never counted again.',
     'category' => 'LeetCode',
     'subcategory' => 'Graphs',
     'topic' => 'LeetCode · Graphs',

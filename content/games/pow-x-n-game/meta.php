@@ -5,7 +5,7 @@ return [
     'title' => 'Pow(x, n)',
     'leetcode' => 50,
     'difficulty' => 'Med',
-    'summary' => 'Fast exponentiation: walk the bits of |n|; square the base each step and multiply it into the result when the bit is 1. For negative n, return 1 / result.',
+    'summary' => 'Fast exponentiation: walk the bits of |n|; square the base each step and multiply it into the result when the bit is 1. For negative n, return 1 divided by result.',
     'category' => 'LeetCode',
     'subcategory' => 'Bit Manipulation',
     'topic' => 'LeetCode · Bit Manipulation',

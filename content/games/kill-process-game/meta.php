@@ -5,7 +5,7 @@ return [
     'title' => 'Kill Process: BFS over the children map',
     'leetcode' => 582,
     'difficulty' => 'Med',
-    'summary' => 'Build parent → children lists, then BFS from the killed process; everything reached dies.',
+    'summary' => 'Build parent-to-children lists, then BFS from the killed process; everything reached dies.',
     'category' => 'LeetCode',
     'subcategory' => 'Trees',
     'topic' => 'LeetCode · Trees',

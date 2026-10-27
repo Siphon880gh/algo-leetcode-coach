@@ -5,7 +5,7 @@ return [
     'title' => 'Make Array Empty: groups of three',
     'leetcode' => 2870,
     'difficulty' => 'Med',
-    'summary' => 'For each value count c: c = 1 is impossible; otherwise ⌈c / 3⌉ operations.',
+    'summary' => 'For each value count c: c = 1 is impossible; otherwise c divided by 3 (rounded up) operations.',
     'category' => 'LeetCode',
     'subcategory' => 'Greedy',
     'topic' => 'LeetCode · Greedy',

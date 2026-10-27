@@ -5,7 +5,7 @@ return [
     'title' => 'Find Pattern in Infinite Stream II',
     'leetcode' => 3037,
     'difficulty' => 'Hard',
-    'summary' => 'Read the stream one bit at a time, keeping the last m bits (a window / rolling hash, or KMP state). The first time the window equals the pattern, return its start index.',
+    'summary' => 'Read the stream one bit at a time, keeping the last m bits (a window with a rolling hash, or KMP state). The first time the window equals the pattern, return its start index.',
     'category' => 'LeetCode',
     'subcategory' => 'Sliding Window',
     'topic' => 'LeetCode · Sliding Window',

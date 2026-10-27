@@ -5,7 +5,7 @@ return [
     'title' => 'Expression Tree From Infix: two stacks',
     'leetcode' => 1597,
     'difficulty' => 'Hard',
-    'summary' => 'Shunting-yard: push operands as leaves; on an operator, first combine while the stack top has precedence ≥ it; "(" waits for ")"; combine = pop op and two nodes into a new node.',
+    'summary' => 'Shunting-yard: push operands as leaves; on an operator, first combine while the stack top has precedence at least it; "(" waits for ")"; combine = pop op and two nodes into a new node.',
     'category' => 'LeetCode',
     'subcategory' => 'Trees',
     'topic' => 'LeetCode · Trees',

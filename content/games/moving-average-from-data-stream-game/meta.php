@@ -5,7 +5,7 @@ return [
     'title' => 'Moving Average From Data Stream',
     'leetcode' => 346,
     'difficulty' => 'Easy',
-    'summary' => 'Keep a queue of the last size values and their running sum: add the new value, drop the oldest when over size, return sum / count.',
+    'summary' => 'Keep a queue of the last size values and their running sum: add the new value, drop the oldest when over size, return sum divided by count.',
     'category' => 'LeetCode',
     'subcategory' => 'Design',
     'topic' => 'LeetCode · Design',

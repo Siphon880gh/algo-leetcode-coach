@@ -5,7 +5,7 @@ return [
     'title' => 'Sum of All Subset XOR Totals',
     'leetcode' => 1863,
     'difficulty' => 'Easy',
-    'summary' => 'Each bit present in any element is set in exactly half of the 2^n subset XORs, so the answer is (OR of all) · 2^(n−1). (Or backtrack over include/exclude.)',
+    'summary' => 'Each bit present in any element is set in exactly half of the 2 to the power n subset XORs, so the answer is (OR of all) times 2 to the power (n−1). (Or backtrack over include or exclude.)',
     'category' => 'LeetCode',
     'subcategory' => 'Backtracking',
     'topic' => 'LeetCode · Backtracking',

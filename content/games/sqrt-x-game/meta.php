@@ -5,7 +5,7 @@ return [
     'title' => 'Sqrt(x): binary search on the answer',
     'leetcode' => 69,
     'difficulty' => 'Easy',
-    'summary' => 'Search k in [0, x]. If k·k ≤ x, k is a candidate and the answer is k or bigger; otherwise it is smaller. The last k that fit wins.',
+    'summary' => 'Search k in [0, x]. If k times k is at most x, k is a candidate and the answer is k or bigger; otherwise it is smaller. The last k that fit wins.',
     'category' => 'LeetCode',
     'subcategory' => 'Binary Search',
     'topic' => 'LeetCode · Binary Search',

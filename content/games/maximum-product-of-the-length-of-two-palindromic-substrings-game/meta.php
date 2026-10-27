@@ -5,7 +5,7 @@ return [
     'title' => 'Maximum Product of the Length of Two Palindromic Substrings',
     'leetcode' => 1960,
     'difficulty' => 'Hard',
-    'summary' => 'Manacher gives the longest odd palindrome at each center; build best[i] = longest odd palindrome ending at or before i (prefix max) and the same from the right, then maximize left[i] × right[i + 1].',
+    'summary' => 'Manacher gives the longest odd palindrome at each center; build best[i] = longest odd palindrome ending at or before i (prefix max) and the same from the right, then maximize left[i] times right[i + 1].',
     'category' => 'LeetCode',
     'subcategory' => 'Prefix Sum',
     'topic' => 'LeetCode · Prefix Sum',

@@ -5,7 +5,7 @@ return [
     'title' => 'Count Nice Pairs: group by x − rev(x)',
     'leetcode' => 1814,
     'difficulty' => 'Med',
-    'summary' => 'nums[i] + rev(nums[j]) = nums[j] + rev(nums[i]) ⇔ nums[i] − rev(nums[i]) = nums[j] − rev(nums[j]). Count equal keys left to right.',
+    'summary' => 'nums[i] + rev(nums[j]) = nums[j] + rev(nums[i]) exactly when nums[i] − rev(nums[i]) = nums[j] − rev(nums[j]). Count equal keys left to right.',
     'category' => 'LeetCode',
     'subcategory' => 'Math',
     'topic' => 'LeetCode · Math',

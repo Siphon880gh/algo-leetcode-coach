@@ -5,7 +5,7 @@ return [
     'title' => 'Magnetic Force Between Balls: maximize the minimum gap',
     'leetcode' => 1552,
     'difficulty' => 'Med',
-    'summary' => 'Sort positions. Binary search gap g: greedily place balls from the left whenever the gap ≥ g; g works if you place ≥ m balls.',
+    'summary' => 'Sort positions. Binary search gap g: greedily place balls from the left whenever the gap at least g; g works if you place at least m balls.',
     'category' => 'LeetCode',
     'subcategory' => 'Binary Search',
     'topic' => 'LeetCode · Binary Search',

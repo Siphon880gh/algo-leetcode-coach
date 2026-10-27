@@ -5,7 +5,7 @@ return [
     'title' => 'Houses at a Certain Distance I',
     'leetcode' => 3015,
     'difficulty' => 'Med',
-    'summary' => 'For every ordered pair, distance = min(|i − j|, path through the extra street x–y in either direction). Count pairs per distance.',
+    'summary' => 'For every ordered pair, distance = min(|i − j|, path through the extra street x to y in either direction). Count pairs per distance.',
     'category' => 'LeetCode',
     'subcategory' => 'Graphs',
     'topic' => 'LeetCode · Graphs',

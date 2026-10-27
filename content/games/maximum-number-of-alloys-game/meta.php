@@ -5,7 +5,7 @@ return [
     'title' => 'Maximum Number of Alloys',
     'leetcode' => 2861,
     'difficulty' => 'Med',
-    'summary' => 'For each machine, binary search the alloy count a: buying Σ max(0, a·comp[j] − stock[j])·cost[j] must fit the budget. Take the best machine.',
+    'summary' => 'For each machine, binary search the alloy count a: buying the sum of max(0, a times comp[j] − stock[j]) times cost[j] must fit the budget. Take the best machine.',
     'category' => 'LeetCode',
     'subcategory' => 'Binary Search',
     'topic' => 'LeetCode · Binary Search',

@@ -5,7 +5,7 @@ return [
     'title' => 'Maximum Subarray With Equal Products',
     'leetcode' => 3411,
     'difficulty' => 'Easy',
-    'summary' => 'A subarray is product-equivalent when prod = lcm × gcd. Extend each start rightwards maintaining prod, gcd and lcm (stop when prod clearly exceeds the bound) and keep the longest.',
+    'summary' => 'A subarray is product-equivalent when prod = lcm times gcd. Extend each start rightwards maintaining prod, gcd and lcm (stop when prod clearly exceeds the bound) and keep the longest.',
     'category' => 'LeetCode',
     'subcategory' => 'Sliding Window',
     'topic' => 'LeetCode · Sliding Window',

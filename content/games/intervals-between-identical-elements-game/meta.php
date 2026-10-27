@@ -5,7 +5,7 @@ return [
     'title' => 'Intervals Between Identical Elements',
     'leetcode' => 2121,
     'difficulty' => 'Med',
-    'summary' => 'Group indices by value. In each sorted group with prefix sums, the k-th index p contributes p·k − (sum before) + (sum after) − p·(m − 1 − k).',
+    'summary' => 'Group indices by value. In each sorted group with prefix sums, the k-th index p contributes p times k − (sum before) + (sum after) − p times (m − 1 − k).',
     'category' => 'LeetCode',
     'subcategory' => 'Prefix Sum',
     'topic' => 'LeetCode · Prefix Sum',

@@ -5,7 +5,7 @@ return [
     'title' => 'Design a Number Container System',
     'leetcode' => 2349,
     'difficulty' => 'Med',
-    'summary' => 'Map index → number and number → sorted set of indices (or a heap with lazy deletion). change moves the index between sets; find returns the smallest index for the number or −1.',
+    'summary' => 'Map index to number and number to sorted set of indices (or a heap with lazy deletion). change moves the index between sets; find returns the smallest index for the number or −1.',
     'category' => 'LeetCode',
     'subcategory' => 'Design',
     'topic' => 'LeetCode · Design',

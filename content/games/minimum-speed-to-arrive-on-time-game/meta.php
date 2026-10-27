@@ -5,7 +5,7 @@ return [
     'title' => 'Minimum Speed to Arrive on Time',
     'leetcode' => 1870,
     'difficulty' => 'Med',
-    'summary' => 'Each ride but the last waits until the next integer hour. Binary search speed s: time = Σ⌈d/s⌉ (all but last) + last/s; s works if time ≤ hour.',
+    'summary' => 'Each ride but the last waits until the next integer hour. Binary search speed s: time = the sum of d divided by s, rounded up (all but last) + last divided by s; s works if time at most hour.',
     'category' => 'LeetCode',
     'subcategory' => 'Binary Search',
     'topic' => 'LeetCode · Binary Search',

@@ -5,7 +5,7 @@ return [
     'title' => 'Revert Word to Initial State I',
     'leetcode' => 3029,
     'difficulty' => 'Med',
-    'summary' => 'After t seconds the first t·k characters are gone and we may append anything. The word can be restored iff word[t·k..] is a prefix of word (or everything was removed).',
+    'summary' => 'After t seconds the first t times k characters are gone and we may append anything. The word can be restored exactly when word[t times k..] is a prefix of word (or everything was removed).',
     'category' => 'LeetCode',
     'subcategory' => 'Strings',
     'topic' => 'LeetCode · Strings',

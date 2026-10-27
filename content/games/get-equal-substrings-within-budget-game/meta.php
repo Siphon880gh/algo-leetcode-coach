@@ -5,7 +5,7 @@ return [
     'title' => 'Get Equal Substrings Within Budget',
     'leetcode' => 1208,
     'difficulty' => 'Med',
-    'summary' => 'cost[i] = |s[i] − t[i]|. Find the longest window with total cost ≤ maxCost: extend right, shrink left while over budget.',
+    'summary' => 'cost[i] = |s[i] − t[i]|. Find the longest window with total cost at most maxCost: extend right, shrink left while over budget.',
     'category' => 'LeetCode',
     'subcategory' => 'Sliding Window',
     'topic' => 'LeetCode · Sliding Window',

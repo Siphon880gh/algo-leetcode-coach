@@ -5,7 +5,7 @@ return [
     'title' => 'Meeting Rooms II: reuse the room that frees up first',
     'leetcode' => 253,
     'difficulty' => 'Med',
-    'summary' => 'Sort by start. Keep a min-heap of end times (one per room). If the earliest end ≤ the new start, that room is free: reuse it. Otherwise open a new room.',
+    'summary' => 'Sort by start. Keep a min-heap of end times (one per room). If the earliest end at most the new start, that room is free: reuse it. Otherwise open a new room.',
     'category' => 'LeetCode',
     'subcategory' => 'Intervals',
     'topic' => 'LeetCode · Intervals',

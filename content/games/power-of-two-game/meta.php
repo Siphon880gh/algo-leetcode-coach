@@ -5,7 +5,7 @@ return [
     'title' => 'Power of Two',
     'leetcode' => 231,
     'difficulty' => 'Easy',
-    'summary' => 'n is a power of two iff n > 0 and n & (n − 1) == 0 (exactly one set bit).',
+    'summary' => 'n is a power of two exactly when n > 0 and n & (n − 1) == 0 (exactly one set bit).',
     'category' => 'LeetCode',
     'subcategory' => 'Bit Manipulation',
     'topic' => 'LeetCode · Bit Manipulation',

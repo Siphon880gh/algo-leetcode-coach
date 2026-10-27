@@ -5,7 +5,7 @@ return [
     'title' => 'Find the Punishment Number of an Integer',
     'leetcode' => 2698,
     'difficulty' => 'Med',
-    'summary' => 'For each i ≤ n, backtrack over ways to cut the decimal string of i² into pieces; if some partition sums to i, add i².',
+    'summary' => 'For each i at most n, backtrack over ways to cut the decimal string of i² into pieces; if some partition sums to i, add i².',
     'category' => 'LeetCode',
     'subcategory' => 'Backtracking',
     'topic' => 'LeetCode · Backtracking',

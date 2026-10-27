@@ -5,7 +5,7 @@ return [
     'title' => 'Count Ways to Group Overlapping Ranges',
     'leetcode' => 2580,
     'difficulty' => 'Med',
-    'summary' => 'Sort and merge overlapping ranges into connected components; each component goes to either group: 2^components mod 1e9+7.',
+    'summary' => 'Sort and merge overlapping ranges into connected components; each component goes to either group: 2 to the power components mod 1e9+7.',
     'category' => 'LeetCode',
     'subcategory' => 'Sorting',
     'topic' => 'LeetCode · Sorting',

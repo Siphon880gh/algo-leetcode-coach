@@ -5,7 +5,7 @@ return [
     'title' => 'Sorted List to BST: middle node as root',
     'leetcode' => 109,
     'difficulty' => 'Med',
-    'summary' => 'Collect the list values (or use slow/fast pointers); the middle element is the root, and each half becomes a subtree.',
+    'summary' => 'Collect the list values (or use slow or fast pointers); the middle element is the root, and each half becomes a subtree.',
     'category' => 'LeetCode',
     'subcategory' => 'Trees',
     'topic' => 'LeetCode · Trees',

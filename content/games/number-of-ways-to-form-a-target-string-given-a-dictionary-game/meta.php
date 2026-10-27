@@ -5,7 +5,7 @@ return [
     'title' => 'Number of Ways to Form a Target: letter counts per column',
     'leetcode' => 1639,
     'difficulty' => 'Hard',
-    'summary' => 'cnt[k][c] = words with letter c at column k. dp[i][k] = ways to form target[0..i) using columns before k = dp[i][k−1] + dp[i−1][k−1]·cnt[k−1][target[i−1]].',
+    'summary' => 'cnt[k][c] = words with letter c at column k. dp[i][k] = ways to form target[0 to i) using columns before k = dp[i][k−1] + dp[i−1][k−1] times cnt[k−1][target[i−1]].',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

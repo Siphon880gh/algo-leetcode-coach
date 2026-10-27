@@ -5,7 +5,7 @@ return [
     'title' => 'Maximum Deletions on a String: delete a repeated prefix',
     'leetcode' => 2430,
     'difficulty' => 'Hard',
-    'summary' => 'dp[i] = most operations on suffix s[i..]. If s[i..i+j) equals s[i+j..i+2j), you can delete it: 1 + dp[i+j]. Otherwise delete everything: 1. (An LCP table makes the comparison O(1).)',
+    'summary' => 'dp[i] = most operations on suffix s[i..]. If s[i to i+j) equals s[i+j to i+2j), you can delete it: 1 + dp[i+j]. Otherwise delete everything: 1. (An LCP table makes the comparison O(1).)',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

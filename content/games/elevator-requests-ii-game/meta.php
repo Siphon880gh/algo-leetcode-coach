@@ -5,7 +5,7 @@ return [
     'title' => 'Elevator Requests II',
     'leetcode' => 4023,
     'difficulty' => 'Hard',
-    'summary' => 'The served floors always form a contiguous range around the start in sorted order, so use interval DP: dp[l][r][side] = least penalty once requests l..r are served and the elevator stands at the left or right end. Each move costs its distance times the number of requests still waiting.',
+    'summary' => 'The served floors always form a contiguous range around the start in sorted order, so use interval DP: dp[l][r][side] = least penalty once requests l to r are served and the elevator stands at the left or right end. Each move costs its distance times the number of requests still waiting.',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

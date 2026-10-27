@@ -5,7 +5,7 @@ return [
     'title' => 'Number of Dice Rolls With Target Sum: add one die at a time',
     'leetcode' => 1155,
     'difficulty' => 'Med',
-    'summary' => 'ways[d][s] = Σ ways[d−1][s − face] over faces 1..k.',
+    'summary' => 'ways[d][s] = the sum of ways[d−1][s − face] over faces 1 to k.',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

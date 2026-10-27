@@ -5,7 +5,7 @@ return [
     'title' => 'Add Two Numbers',
     'leetcode' => 2,
     'difficulty' => 'Med',
-    'summary' => 'Walk both lists together (least significant digit first), adding digits plus the carry; write sum % 10 and carry ⌊sum / 10⌋. Append a final carry node if needed.',
+    'summary' => 'Walk both lists together (least significant digit first), adding digits plus the carry; write sum % 10 and carry sum divided by 10, rounded down. Append a final carry node if needed.',
     'category' => 'LeetCode',
     'subcategory' => 'Linked List',
     'topic' => 'LeetCode · Linked List',

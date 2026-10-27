@@ -5,7 +5,7 @@ return [
     'title' => 'Minimum Time to Transport All Individuals',
     'leetcode' => 3594,
     'difficulty' => 'Hard',
-    'summary' => 'Dijkstra over states (who is still at camp, current stage). A trip sends a group of up to k (time = slowest × mul[stage]) and, if anyone is left, one person rows back. Each crossing advances the stage by floor(duration) mod m.',
+    'summary' => 'Dijkstra over states (who is still at camp, current stage). A trip sends a group of up to k (time = slowest times mul[stage]) and, if anyone is left, one person rows back. Each crossing advances the stage by floor(duration) mod m.',
     'category' => 'LeetCode',
     'subcategory' => 'Graphs',
     'topic' => 'LeetCode · Graphs',

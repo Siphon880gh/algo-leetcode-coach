@@ -25,7 +25,7 @@
 
   D('divide-and-conquer-algorithms', {
     t: 'Divide and Conquer: Merge Sort Shape',
-    r: 'Divide the array into halves (the left half gets the first floor(n / 2) items) until pieces have size 1, conquer each half recursively, then combine with a merge. The pieces are independent, so no work is repeated.',
+    r: 'Divide the array into halves (the left half gets the first floor(n divided by 2) items) until pieces have size 1, conquer each half recursively, then combine with a merge. The pieces are independent, so no work is repeated.',
     exs: [{ in: { nums: [3, 1, 4, 2] }, out: [1, 2, 3, 4] }],
     g: R => ({ nums: R.distinct(R.int(4, 8), 1, 20) }),
     s(I, T) { const a = I.nums, n = a.length, m = n >> 1, depth = k => k < 2 ? 0 : 1 + Math.max(depth(k >> 1), depth(k - (k >> 1))); T.at({ nums: A(a, { win: [0, m - 1] }) }); T.n('How many base cases (pieces of size 1) does the recursion reach?', n, 'Every element ends up alone.'); T.n('How many merge (combine) calls run in total?', n - 1, 'Each merge joins two pieces into one: n pieces need n − 1 merges.'); T.n('How many levels of splitting?', depth(n), 'Halve until size 1.'); const L = a.slice(0, m).sort((x, y) => x - y), Rr = a.slice(m).sort((x, y) => x - y); T.v(A(L, { label: 'left half, sorted' }), A(Rr, { label: 'right half, sorted' })); T.n('First value of the final merge?', Math.min(L[0], Rr[0]), 'The smaller of the two fronts.'); return a.slice().sort((x, y) => x - y); }

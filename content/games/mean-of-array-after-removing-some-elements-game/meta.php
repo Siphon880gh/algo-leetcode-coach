@@ -5,7 +5,7 @@ return [
     'title' => 'Mean of Array After Removing Some Elements',
     'leetcode' => 1619,
     'difficulty' => 'Easy',
-    'summary' => 'Sort, drop n/20 elements from each end, and average the rest.',
+    'summary' => 'Sort, drop n divided by 20 elements from each end, and average the rest.',
     'category' => 'LeetCode',
     'subcategory' => 'Sorting',
     'topic' => 'LeetCode · Sorting',

@@ -5,7 +5,7 @@ return [
     'title' => 'My Calendar I',
     'leetcode' => 729,
     'difficulty' => 'Med',
-    'summary' => 'Keep booked intervals (sorted). A new [s, e) conflicts with [a, b) iff s < b and a < e. Book only if it conflicts with none.',
+    'summary' => 'Keep booked intervals (sorted). A new [s, e) conflicts with [a, b) exactly when s < b and a < e. Book only if it conflicts with none.',
     'category' => 'LeetCode',
     'subcategory' => 'Design',
     'topic' => 'LeetCode · Design',

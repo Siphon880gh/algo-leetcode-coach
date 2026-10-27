@@ -5,7 +5,7 @@ return [
     'title' => 'Sparse Matrix Multiplication',
     'leetcode' => 311,
     'difficulty' => 'Med',
-    'summary' => 'For each non-zero mat1[i][k], add mat1[i][k] · mat2[k][j] into res[i][j] for every non-zero mat2[k][j] — zeros are skipped entirely.',
+    'summary' => 'For each non-zero mat1[i][k], add mat1[i][k] times mat2[k][j] into res[i][j] for every non-zero mat2[k][j] — zeros are skipped entirely.',
     'category' => 'LeetCode',
     'subcategory' => 'Graphs',
     'topic' => 'LeetCode · Graphs',

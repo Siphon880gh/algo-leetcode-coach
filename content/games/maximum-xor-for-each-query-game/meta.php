@@ -5,7 +5,7 @@ return [
     'title' => 'Maximum XOR for Each Query',
     'leetcode' => 1829,
     'difficulty' => 'Med',
-    'summary' => 'Let X be the XOR of the current array. The best k is X XOR (2^maximumBit − 1). Answer, then remove the last element from X.',
+    'summary' => 'Let X be the XOR of the current array. The best k is X XOR (2 to the power maximumBit − 1). Answer, then remove the last element from X.',
     'category' => 'LeetCode',
     'subcategory' => 'Prefix Sum',
     'topic' => 'LeetCode · Prefix Sum',

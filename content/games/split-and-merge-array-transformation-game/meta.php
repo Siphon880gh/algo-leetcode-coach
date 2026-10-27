@@ -5,7 +5,7 @@ return [
     'title' => 'Split and Merge Array Transformation',
     'leetcode' => 3690,
     'difficulty' => 'Med',
-    'summary' => 'With n ≤ 6 the whole state space is small: BFS from nums1, where each move cuts a subarray L..R and reinserts it at any gap. The first time nums2 is dequeued gives the answer.',
+    'summary' => 'With n at most 6 the whole state space is small: BFS from nums1, where each move cuts a subarray L to R and reinserts it at any gap. The first time nums2 is dequeued gives the answer.',
     'category' => 'LeetCode',
     'subcategory' => 'Graphs',
     'topic' => 'LeetCode · Graphs',

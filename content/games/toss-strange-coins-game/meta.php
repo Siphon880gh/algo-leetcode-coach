@@ -5,7 +5,7 @@ return [
     'title' => 'Toss Strange Coins: probability of j heads so far',
     'leetcode' => 1230,
     'difficulty' => 'Med',
-    'summary' => 'dp[j] = probability of exactly j heads so far. Each coin p: new[j] = dp[j]·(1 − p) + dp[j − 1]·p.',
+    'summary' => 'dp[j] = probability of exactly j heads so far. Each coin p: new[j] = dp[j] times (1 − p) + dp[j − 1] times p.',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

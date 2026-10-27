@@ -14,16 +14,16 @@
 
   D('snapshot-array', {
     t: 'Snapshot Array',
-    r: 'Each index keeps a list of (snap id, value) changes. set records at the current snap id; snap returns the id and increments it; get(i, s) binary searches the last change with id ≤ s (0 if none).',
+    r: 'Each index keeps a list of (snap id, value) changes. set records at the current snap id; snap returns the id and increments it; get(i, s) binary searches the last change with id at most s (0 if none).',
     g: R => { const n = R.int(1, 4); return seq(R, 'SnapshotArray', [n], R.int(3, 9), (R, st) => { st.s = st.s || 0; const c = R.pick(['set', 'set', 'snap', 'get']); if (c === 'set') return [c, [R.int(0, n - 1), R.int(1, 9)]]; if (c === 'snap') { st.s++; return [c, []]; } return st.s ? [c, [R.int(0, n - 1), R.int(0, st.s - 1)]] : ['snap', (st.s++, [])]; }); },
     s(I, T) { return play(I, T, n => { const h = Array.from({ length: n }, () => [[0, 0]]); let id = 0; return { h, get id() { return id; }, set(i, v) { const a = h[i]; if (a[a.length - 1][0] === id) a[a.length - 1][1] = v; else a.push([id, v]); }, snap() { return id++; }, get(i, s) { let r = 0; for (const [x, v] of h[i]) if (x <= s) r = v; return r; } }; }, { view: o => ({ snapId: o.id, history: A(o.h.map(a => a.map(([s, v]) => `${s}:${v}`).join(' '))) }), why: op => op === 'snap' ? 'Returns the current id, then increments.' : 'Last value set at or before that snapshot.' }); }
   });
 
   D('online-majority-element-in-subarray', {
     t: 'Online Majority Element In Subarray',
-    r: 'Positions of each value are stored sorted. For a query, try candidates (random picks, or a segment tree of Boyer–Moore votes) and count occurrences in [l, r] by binary search; return one with count ≥ threshold, else −1.',
+    r: 'Positions of each value are stored sorted. For a query, try candidates (random picks, or a segment tree of Boyer-Moore votes) and count occurrences in [l, r] by binary search; return one with count at least threshold, else −1.',
     g: R => { const arr = R.ints(R.int(1, 8), 1, 3); return seq(R, 'MajorityChecker', [arr], R.int(1, 5), R => { const l = R.int(0, arr.length - 1), r = R.int(l, arr.length - 1), len = r - l + 1; return ['query', [l, r, R.int(Math.floor(len / 2) + 1, len)]]; }); },
-    s(I, T) { const a = I.args[0][0]; return play(I, T, () => ({ query(l, r, t) { const c = {}; for (let i = l; i <= r; i++) c[a[i]] = (c[a[i]] || 0) + 1; for (const k in c) if (c[k] >= t) return +k; return -1; } }), { view: () => ({ arr: A(a) }), why: (op, [l, r, t]) => `A value appearing ≥ ${t} times in [${l}, ${r}], else −1.` }); }
+    s(I, T) { const a = I.args[0][0]; return play(I, T, () => ({ query(l, r, t) { const c = {}; for (let i = l; i <= r; i++) c[a[i]] = (c[a[i]] || 0) + 1; for (const k in c) if (c[k] >= t) return +k; return -1; } }), { view: () => ({ arr: A(a) }), why: (op, [l, r, t]) => `A value appearing at least ${t} times in [${l}, ${r}], else −1.` }); }
   });
 
   D('design-file-system', {
@@ -70,24 +70,24 @@
 
   D('tweet-counts-per-frequency', {
     t: 'Tweet Counts Per Frequency',
-    r: 'Store each tweet\'s times. For a query, the chunk size is 60, 3600 or 86400; there are ⌊(end − start) / size⌋ + 1 chunks, and each time t in [start, end] adds to chunk ⌊(t − start) / size⌋.',
+    r: 'Store each tweet\'s times. For a query, the chunk size is 60, 3600 or 86400; there are ((end − start) divided by size, rounded down) + 1 chunks, and each time t in [start, end] adds to chunk (t − start) divided by size, rounded down.',
     g: R => seq(R, 'TweetCounts', [], R.int(3, 8), R => R.chance(0.6) ? ['recordTweet', [R.pick(['t1', 't2']), R.int(0, 240)]] : (() => { const a = R.int(0, 200); return ['getTweetCountsPerFrequency', [R.pick(['minute', 'minute', 'hour']), R.pick(['t1', 't2']), a, a + R.int(0, 200)]]; })()),
-    s(I, T) { return play(I, T, () => { const m = {}; return { m, recordTweet(n, t) { (m[n] = m[n] || []).push(t); }, getTweetCountsPerFrequency(f, n, a, b) { const sz = { minute: 60, hour: 3600, day: 86400 }[f], out = Array(Math.floor((b - a) / sz) + 1).fill(0); for (const t of m[n] || []) if (t >= a && t <= b) out[Math.floor((t - a) / sz)]++; return out; } }; }, { view: o => ({ tweets: K(Object.fromEntries(Object.entries(o.m).map(([k, v]) => [k, v.join(',')]))) }), why: (op, [f, n, a, b]) => `⌊(${b} − ${a}) / chunk⌋ + 1 chunks.` }); }
+    s(I, T) { return play(I, T, () => { const m = {}; return { m, recordTweet(n, t) { (m[n] = m[n] || []).push(t); }, getTweetCountsPerFrequency(f, n, a, b) { const sz = { minute: 60, hour: 3600, day: 86400 }[f], out = Array(Math.floor((b - a) / sz) + 1).fill(0); for (const t of m[n] || []) if (t >= a && t <= b) out[Math.floor((t - a) / sz)]++; return out; } }; }, { view: o => ({ tweets: K(Object.fromEntries(Object.entries(o.m).map(([k, v]) => [k, v.join(',')]))) }), why: (op, [f, n, a, b]) => `((${b} − ${a}) divided by chunk, rounded down) + 1 chunks.` }); }
   });
 
   D('product-of-the-last-k-numbers', {
     t: 'Product of the Last K Numbers',
-    r: 'Keep prefix products since the last zero. getProduct(k) = P[n] / P[n − k] if the last k numbers contain no zero (k < length of the list), else 0. Adding 0 resets the list.',
+    r: 'Keep prefix products since the last zero. getProduct(k) = P[n] divided by P[n − k] if the last k numbers contain no zero (k < length of the list), else 0. Adding 0 resets the list.',
     g: R => seq(R, 'ProductOfNumbers', [], R.int(3, 10), (R, st) => { st.n = st.n || 0; if (!st.n || R.chance(0.6)) { st.n++; return ['add', [R.pick([0, 1, 2, 3, 4, 5])]]; } return ['getProduct', [R.int(1, st.n)]]; }),
     s(I, T) { return play(I, T, () => { let P = [1]; return { get P() { return P; }, add(x) { if (!x) P = [1]; else P.push(P[P.length - 1] * x); }, getProduct(k) { return k >= P.length ? 0 : P[P.length - 1] / P[P.length - 1 - k]; } }; }, { view: o => ({ prefix: A(o.P.slice()) }), why: (op, [k]) => `0 if a zero is within the last ${k}; else a ratio of prefix products.` }); }
   });
 
   D('apply-discount-every-n-orders', {
     t: 'Apply Discount Every n Orders',
-    r: 'Map product → price and count customers. Each bill is Σ price × amount; every n-th customer pays bill × (100 − discount) / 100.',
+    r: 'Map product to price and count customers. Each bill is the sum of price times amount; every n-th customer pays bill times (100 − discount) divided by 100.',
     g: R => { const n = R.int(1, 3), d = R.pick([10, 20, 50]), ids = [1, 2, 3], pr = R.ints(3, 1, 9).map(x => x * 10); return seq(R, 'Cashier', [n, d, ids, pr], R.int(1, 6), R => { const p = R.distinct(R.int(1, 3), 1, 3); return ['getBill', [p, R.ints(p.length, 1, 4)]]; }); },
     cmp: floatOps,
-    s(I, T) { return play(I, T, (n, d, ids, pr) => { const m = new Map(ids.map((x, i) => [x, pr[i]])); let c = 0; return { get c() { return c; }, getBill(p, a) { const b = p.reduce((s, x, i) => s + m.get(x) * a[i], 0); return ++c % n === 0 ? b * (100 - d) / 100 : b; } }; }, { view: o => ({ customer: o.c + 1, everyNth: I.args[0][0], discount: I.args[0][1] + '%' }), why: () => 'Σ price·amount, discounted on every n-th customer.' }); }
+    s(I, T) { return play(I, T, (n, d, ids, pr) => { const m = new Map(ids.map((x, i) => [x, pr[i]])); let c = 0; return { get c() { return c; }, getBill(p, a) { const b = p.reduce((s, x, i) => s + m.get(x) * a[i], 0); return ++c % n === 0 ? b * (100 - d) / 100 : b; } }; }, { view: o => ({ customer: o.c + 1, everyNth: I.args[0][0], discount: I.args[0][1] + '%' }), why: () => 'the sum of price times amount, discounted on every n-th customer.' }); }
   });
 
   D('design-a-stack-with-increment-operation', {
@@ -99,7 +99,7 @@
 
   D('design-underground-system', {
     t: 'Design Underground System',
-    r: 'checkIn stores (station, time) per rider; checkOut adds the trip duration to a (start, end) route total and count. getAverageTime = total / count.',
+    r: 'checkIn stores (station, time) per rider; checkOut adds the trip duration to a (start, end) route total and count. getAverageTime = total divided by count.',
     g: R => { const st = ['A', 'B', 'C']; return seq(R, 'UndergroundSystem', [], R.int(4, 12), (R, s) => { s.in = s.in || {}; s.t = (s.t || 0) + R.int(1, 5); s.r = s.r || []; const riders = Object.keys(s.in); if (riders.length && R.chance(0.5)) { const id = R.pick(riders), from = s.in[id]; delete s.in[id]; const to = R.pick(st.filter(x => x !== from)); s.r.push([from, to]); return ['checkOut', [+id, to, s.t]]; } if (s.r.length && R.chance(0.3)) return ['getAverageTime', R.pick(s.r).slice()]; const free = [1, 2, 3, 4, 5, 6, 7, 8, 9].filter(x => !s.in[x]); if (!free.length) return null; const id = R.pick(free); s.in[id] = R.pick(st); return ['checkIn', [id, s.in[id], s.t]]; }); },
     cmp: floatOps,
     s(I, T) { const res = (() => { return play(I, T, () => { const ins = {}, r = {}; return { r, checkIn(id, s, t) { ins[id] = [s, t]; }, checkOut(id, s, t) { const [a, t0] = ins[id], k = a + ' to ' + s; r[k] = r[k] || [0, 0]; r[k][0] += t - t0; r[k][1]++; }, getAverageTime(a, b) { const x = r[a + ' to ' + b]; return x[0] / x[1]; } }; }, { view: o => ({ routes: K(Object.fromEntries(Object.entries(o.r).map(([k, [s, c]]) => [k, `${s} over ${c} trips`]))) }), why: () => 'Total duration divided by the number of trips on that route.' }); })(); T.n('checkOut calls?', I.ops.filter(o => o === 'checkOut').length, 'Each finishes one trip.'); T.n('Distinct routes travelled?', Object.keys((() => { const ins = {}, r = {}; I.ops.forEach((o, i) => { const g = I.args[i]; if (o === 'checkIn') ins[g[0]] = g[1]; if (o === 'checkOut') r[ins[g[0]] + ' to ' + g[1]] = 1; }); return r; })()).length, 'One per start and end station pair.'); return res; }
@@ -114,7 +114,7 @@
 
   D('design-browser-history', {
     t: 'Design Browser History',
-    r: 'An array of pages and a cursor. visit truncates everything after the cursor and appends. back/forward move the cursor by up to steps (clamped) and return that page.',
+    r: 'An array of pages and a cursor. visit truncates everything after the cursor and appends. back or forward move the cursor by up to steps (clamped) and return that page.',
     g: R => seq(R, 'BrowserHistory', ['home.com'], R.int(3, 9), R => R.chance(0.45) ? ['visit', [R.pick(['a', 'b', 'c', 'd']) + '.com']] : [R.pick(['back', 'forward']), [R.int(1, 3)]]),
     s(I, T) { return play(I, T, h => { const p = [h]; let i = 0; return { p, get i() { return i; }, visit(u) { p.length = i + 1; p.push(u); i++; }, back(k) { i = Math.max(0, i - k); return p[i]; }, forward(k) { i = Math.min(p.length - 1, i + k); return p[i]; } }; }, { view: o => ({ history: A(o.p.slice(), { i: o.i }) }), strOpts: o => o.p, why: op => `Move the cursor ${op}, clamped to the ends.` }); }
   });
@@ -128,14 +128,14 @@
 
   D('kth-ancestor-of-a-tree-node', {
     t: 'Kth Ancestor of a Tree Node',
-    r: 'Binary lifting: up[j][v] is the 2^j-th ancestor. Answer getKthAncestor(v, k) by jumping along the set bits of k; −1 once we pass the root.',
+    r: 'Binary lifting: up[j][v] is the 2 to the power j-th ancestor. Answer getKthAncestor(v, k) by jumping along the set bits of k; −1 once we pass the root.',
     g: R => { const n = R.int(1, 10); return seq(R, 'TreeAncestor', [n, parentArr(R, n)], R.int(1, 5), R => ['getKthAncestor', [R.int(0, n - 1), R.int(1, 5)]]); },
     s(I, T) { const [n, p] = I.args[0]; return play(I, T, () => ({ getKthAncestor(v, k) { while (k-- && v >= 0) v = p[v]; return v; } }), { view: () => ({ tree: GR(n, p.map((x, i) => [x, i]).filter(e => e[0] >= 0), { dir: true }) }), why: (op, [v, k]) => `Climb ${k} parents from ${v} (−1 past the root).` }); }
   });
 
   D('design-a-file-sharing-system', {
     t: 'Design a File Sharing System',
-    r: 'Give joining users the smallest free id (a min-heap of released ids, else the next counter). Map chunk → owners. request returns the sorted owners of a chunk; if any, the requester also gets it.',
+    r: 'Give joining users the smallest free id (a min-heap of released ids, else the next counter). Map chunk to owners. request returns the sorted owners of a chunk; if any, the requester also gets it.',
     g: R => { const m = R.int(2, 5); return seq(R, 'FileSharing', [m], R.int(3, 9), (R, st) => { st.u = st.u || []; st.free = st.free || []; st.next = st.next || 1; const c = st.u.length ? R.pick(['join', 'leave', 'request', 'request']) : 'join'; if (c === 'join') { let id; if (st.free.length) { st.free.sort((a, b) => a - b); id = st.free.shift(); } else id = st.next++; st.u.push(id); return ['join', [R.distinct(R.int(0, 2), 1, m)]]; } if (c === 'leave') { const u = R.pick(st.u); st.u = st.u.filter(x => x !== u); st.free.push(u); return ['leave', [u]]; } return ['request', [R.pick(st.u), R.int(1, m)]]; }); },
     s(I, T) { return play(I, T, m => { const own = new Map(); let next = 1; const free = []; return { own, join(ch) { let id; if (free.length) { free.sort((a, b) => a - b); id = free.shift(); } else id = next++; own.set(id, new Set(ch)); return id; }, leave(u) { own.delete(u); free.push(u); }, request(u, c) { const r = [...own].filter(([, s]) => s.has(c)).map(x => x[0]).sort((a, b) => a - b); if (r.length && own.has(u)) own.get(u).add(c); return r; } }; }, { view: o => ({ users: K(Object.fromEntries([...o.own].map(([u, s]) => [u, [...s].sort((a, b) => a - b).join(',') || '∅']))) }), why: op => op === 'join' ? 'Smallest unused id.' : 'Owners of the chunk, sorted.' }); }
   });
@@ -144,12 +144,12 @@
     t: 'Dot Product of Two Sparse Vectors',
     r: 'Store only the non-zero (index, value) pairs. The dot product walks both pair lists with two pointers, multiplying when indices match.',
     g: R => { const n = R.int(1, 8), sp = () => Array.from({ length: n }, () => R.chance(0.5) ? 0 : R.int(1, 5)); return { nums1: sp(), nums2: sp() }; },
-    s(I, T) { const p = I.nums1.map((v, i) => [i, v]).filter(x => x[1]), q = I.nums2.map((v, i) => [i, v]).filter(x => x[1]); T.at({ nums1: A(I.nums1), nums2: A(I.nums2) }); T.n('How many non-zero pairs does nums1 store?', p.length, 'Only non-zeros are kept.'); let s = 0, i = 0, j = 0, asks = 0; while (i < p.length && j < q.length) { if (p[i][0] === q[j][0]) { s += p[i][1] * q[j][1]; if (asks++ < 5) { T.at({ index: p[i][0], a: p[i][1], b: q[j][1] }); T.n('Running dot product?', s, 'Add a·b at a shared index.'); } i++; j++; } else if (p[i][0] < q[j][0]) i++; else j++; } return s; }
+    s(I, T) { const p = I.nums1.map((v, i) => [i, v]).filter(x => x[1]), q = I.nums2.map((v, i) => [i, v]).filter(x => x[1]); T.at({ nums1: A(I.nums1), nums2: A(I.nums2) }); T.n('How many non-zero pairs does nums1 store?', p.length, 'Only non-zeros are kept.'); let s = 0, i = 0, j = 0, asks = 0; while (i < p.length && j < q.length) { if (p[i][0] === q[j][0]) { s += p[i][1] * q[j][1]; if (asks++ < 5) { T.at({ index: p[i][0], a: p[i][1], b: q[j][1] }); T.n('Running dot product?', s, 'Add a times b at a shared index.'); } i++; j++; } else if (p[i][0] < q[j][0]) i++; else j++; } return s; }
   });
 
   D('binary-search-tree-iterator-ii', {
     t: 'Binary Search Tree Iterator II',
-    r: 'Record values from an in-order traversal as you go, with a pointer into that list. next moves right (expanding the traversal when needed); prev moves left. hasNext/hasPrev compare the pointer with the bounds.',
+    r: 'Record values from an in-order traversal as you go, with a pointer into that list. next moves right (expanding the traversal when needed); prev moves left. hasNext or hasPrev compare the pointer with the bounds.',
     g: R => { const t = bstArr(R), n = t.filter(v => v !== null).length; return seq(R, 'BSTIterator', [t], R.int(2, 10), (R, st) => { st.i = st.i === undefined ? -1 : st.i; const can = []; if (st.i + 1 < n) can.push('next', 'next'); if (st.i > 0) can.push('prev'); can.push('hasNext', 'hasPrev'); const c = R.pick(can); if (c === 'next') st.i++; if (c === 'prev') st.i--; return [c, [null]]; }); },
     s(I, T) { const root = Tr.from(I.args[0][0]), ino = []; const go = x => { if (!x) return; go(x.left); ino.push(x.val); go(x.right); }; go(root); return play(I, T, () => { let i = -1; return { get i() { return i; }, next() { return ino[++i]; }, prev() { return ino[--i]; }, hasNext() { return i + 1 < ino.length; }, hasPrev() { return i > 0; } }; }, { view: o => ({ inorder: A(ino, o.i >= 0 ? { i: o.i } : {}) }), why: op => ({ next: 'Next value in sorted order.', prev: 'Previous value in sorted order.' }[op] || 'Compare the pointer with the ends.') }); }
   });
@@ -170,9 +170,9 @@
 
   D('fancy-sequence', {
     t: 'Fancy Sequence',
-    r: 'Keep a global affine transform x → a·x + b (mod 1e9+7). append stores (val − b)·a⁻¹ so the transform maps it back; addAll updates b; multAll updates a and b; getIndex applies the transform (−1 if out of range).',
+    r: 'Keep a global affine transform x to a times x + b (mod 1e9+7). append stores (val − b) times a⁻¹ so the transform maps it back; addAll updates b; multAll updates a and b; getIndex applies the transform (−1 if out of range).',
     g: R => seq(R, 'Fancy', [], R.int(3, 10), (R, st) => { st.n = st.n || 0; const c = st.n ? R.pick(['append', 'addAll', 'multAll', 'getIndex']) : 'append'; if (c === 'append') { st.n++; return [c, [R.int(1, 9)]]; } if (c === 'getIndex') return [c, [R.int(0, st.n)]]; return [c, [R.int(1, 5)]]; }),
-    s(I, T) { const M = 1000000007; return play(I, T, () => { const a = []; return { a, append(v) { a.push(v); }, addAll(x) { for (let i = 0; i < a.length; i++) a[i] = (a[i] + x) % M; }, multAll(x) { for (let i = 0; i < a.length; i++) a[i] = (a[i] * x) % M; }, getIndex(i) { return i < a.length ? a[i] : -1; } }; }, { view: o => ({ seq: A(o.a.slice()) }), why: () => 'The value after every later add/mult (or −1).' }); }
+    s(I, T) { const M = 1000000007; return play(I, T, () => { const a = []; return { a, append(v) { a.push(v); }, addAll(x) { for (let i = 0; i < a.length; i++) a[i] = (a[i] + x) % M; }, multAll(x) { for (let i = 0; i < a.length; i++) a[i] = (a[i] * x) % M; }, getIndex(i) { return i < a.length ? a[i] : -1; } }; }, { view: o => ({ seq: A(o.a.slice()) }), why: () => 'The value after every later add or mult (or −1).' }); }
   });
 
   D('design-an-expression-tree-with-evaluate-function', {
@@ -191,14 +191,14 @@
 
   D('design-front-middle-back-queue', {
     t: 'Design Front Middle Back Queue',
-    r: 'Two balanced deques make every op O(1); viewed as one list, pushMiddle inserts at ⌊n/2⌋, popMiddle removes at ⌊(n − 1)/2⌋. Pops on an empty queue return −1.',
+    r: 'Two balanced deques make every op O(1); viewed as one list, pushMiddle inserts at half of n, rounded down, popMiddle removes at half of (n − 1), rounded down. Pops on an empty queue return −1.',
     g: R => seq(R, 'FrontMiddleBackQueue', [], R.int(4, 10), R => R.pick([['pushFront', [R.int(1, 9)]], ['pushMiddle', [R.int(1, 9)]], ['pushBack', [R.int(1, 9)]], ['popFront', []], ['popMiddle', []], ['popBack', []]])),
-    s(I, T) { return play(I, T, () => { const q = []; return { q, pushFront(x) { q.unshift(x); }, pushMiddle(x) { q.splice(q.length >> 1, 0, x); }, pushBack(x) { q.push(x); }, popFront() { return q.length ? q.shift() : -1; }, popMiddle() { return q.length ? q.splice((q.length - 1) >> 1, 1)[0] : -1; }, popBack() { return q.length ? q.pop() : -1; } }; }, { view: o => ({ queue: A(o.q.slice()) }), why: op => op === 'popMiddle' ? 'Remove index ⌊(n − 1)/2⌋ (the front-middle).' : 'Value at that end, or −1.' }); }
+    s(I, T) { return play(I, T, () => { const q = []; return { q, pushFront(x) { q.unshift(x); }, pushMiddle(x) { q.splice(q.length >> 1, 0, x); }, pushBack(x) { q.push(x); }, popFront() { return q.length ? q.shift() : -1; }, popMiddle() { return q.length ? q.splice((q.length - 1) >> 1, 1)[0] : -1; }, popBack() { return q.length ? q.pop() : -1; } }; }, { view: o => ({ queue: A(o.q.slice()) }), why: op => op === 'popMiddle' ? 'Remove index half of (n − 1), rounded down (the front-middle).' : 'Value at that end, or −1.' }); }
   });
 
   D('checking-existence-of-edge-length-limited-paths-ii', {
     t: 'Checking Existence of Edge Length Limited Paths II',
-    r: 'A path exists using only edges < limit iff p and q are joined in the minimum spanning forest restricted to those edges. (Offline: union edges below the limit; online: persistent union-find or MST + binary lifting of max edge.)',
+    r: 'A path exists using only edges < limit exactly when p and q are joined in the minimum spanning forest restricted to those edges. (Offline: union edges below the limit; online: persistent union-find or MST + binary lifting of max edge.)',
     g: R => { const n = R.int(2, 6), e = R.edges(n, R.int(1, n + 2), { w: [1, 9] }); return seq(R, 'DistanceLimitedPathsExist', [n, e], R.int(1, 5), R => { const p = R.int(0, n - 1); let q = R.int(0, n - 1); if (q === p) q = (p + 1) % n; return ['query', [p, q, R.int(1, 10)]]; }); },
     s(I, T) { const [n, E] = I.args[0]; return play(I, T, () => ({ query(p, q, lim) { const par = [...Array(n).keys()], f = x => par[x] === x ? x : (par[x] = f(par[x])); for (const [a, b, w] of E) if (w < lim) par[f(a)] = f(b); return f(p) === f(q); } }), { view: () => ({ graph: GR(n, E.map(([a, b]) => [a, b]), { label: E.map(e => e[2]) }) }), why: (op, [p, q, l]) => `Connected using only edges lighter than ${l}?` }); }
   });
@@ -212,21 +212,21 @@
 
   D('design-authentication-manager', {
     t: 'Design Authentication Manager',
-    r: 'Map token → expiry (time + ttl). renew works only if the token exists and expiry > now. A token is unexpired at time t iff expiry > t.',
+    r: 'Map token to expiry (time + ttl). renew works only if the token exists and expiry > now. A token is unexpired at time t exactly when expiry > t.',
     g: R => { let t = 0; return seq(R, 'AuthenticationManager', [R.int(2, 6)], R.int(3, 9), R => { t += R.int(1, 3); const c = R.pick(['generate', 'generate', 'renew', 'countUnexpiredTokens']); return c === 'countUnexpiredTokens' ? [c, [t]] : [c, [R.pick(['a', 'b', 'c']), t]]; }); },
     s(I, T) { return play(I, T, ttl => { const m = new Map(); return { m, generate(id, t) { m.set(id, t + ttl); }, renew(id, t) { if (m.has(id) && m.get(id) > t) m.set(id, t + ttl); }, countUnexpiredTokens(t) { let c = 0; for (const e of m.values()) if (e > t) c++; return c; } }; }, { view: o => ({ expiry: K(Object.fromEntries(o.m)) }), why: (op, [t]) => `Tokens with expiry > ${t}.` }); }
   });
 
   D('implement-trie-ii-prefix-tree', {
     t: 'Implement Trie II (Prefix Tree)',
-    r: 'Each trie node stores how many words pass through it and how many end there. insert/erase add/subtract 1 along the path; the two count queries read the final node\'s counters.',
+    r: 'Each trie node stores how many words pass through it and how many end there. insert or erase add or subtract 1 along the path; the two count queries read the final node\'s counters.',
     g: R => seq(R, 'Trie', [], R.int(3, 9), (R, st) => { st.w = st.w || []; const c = st.w.length ? R.pick(['insert', 'countWordsEqualTo', 'countWordsStartingWith', 'erase']) : 'insert'; if (c === 'insert') { const w = R.str(R.int(1, 3), 'ab'); st.w.push(w); return [c, [w]]; } if (c === 'erase') { const w = R.pick(st.w); st.w.splice(st.w.indexOf(w), 1); return [c, [w]]; } return [c, [R.str(R.int(1, 2), 'ab')]]; }),
     s(I, T) { return play(I, T, () => { const w = []; return { w, insert(x) { w.push(x); }, erase(x) { w.splice(w.indexOf(x), 1); }, countWordsEqualTo(x) { return w.filter(y => y === x).length; }, countWordsStartingWith(p) { return w.filter(y => y.startsWith(p)).length; } }; }, { view: o => ({ words: A(o.w.slice().sort()) }), why: op => op === 'countWordsEqualTo' ? 'End-count at the word\'s node.' : 'Pass-through count at the prefix node.' }); }
   });
 
   D('finding-mk-average', {
     t: 'Finding MK Average',
-    r: 'Keep the last m elements in three sorted buckets: the k smallest, the middle, the k largest, plus the middle sum. With fewer than m elements the answer is −1; otherwise ⌊middle sum / (m − 2k)⌋.',
+    r: 'Keep the last m elements in three sorted buckets: the k smallest, the middle, the k largest, plus the middle sum. With fewer than m elements the answer is −1; otherwise middle sum divided by (m − 2k), rounded down.',
     g: R => { const k = R.int(1, 2), m = 2 * k + R.int(1, 3); return seq(R, 'MKAverage', [m, k], R.int(3, 12), R => R.chance(0.6) ? ['addElement', [R.int(1, 20)]] : ['calculateMKAverage', []]); },
     s(I, T) { return play(I, T, (m, k) => { const a = []; return { a, addElement(x) { a.push(x); }, calculateMKAverage() { if (a.length < m) return -1; const w = a.slice(-m).sort((x, y) => x - y).slice(k, m - k); return Math.floor(w.reduce((s, x) => s + x, 0) / w.length); } }; }, { view: o => ({ window: A(o.a.slice(-I.args[0][0])), m: I.args[0][0], k: I.args[0][1] }), why: () => 'Drop k smallest and k largest of the last m, floor the mean (−1 if too few).' }); }
   });
@@ -247,7 +247,7 @@
 
   D('design-movie-rental-system', {
     t: 'Design Movie Rental System',
-    r: 'Per movie, an ordered set of unrented (price, shop); globally, an ordered set of rented (price, shop, movie). search returns the cheapest 5 shops; report the cheapest 5 rented entries; rent/drop move entries between sets.',
+    r: 'Per movie, an ordered set of unrented (price, shop); globally, an ordered set of rented (price, shop, movie). search returns the cheapest 5 shops; report the cheapest 5 rented entries; rent or drop move entries between sets.',
     g: R => { const n = R.int(1, 4), E = []; for (let s = 0; s < n; s++) for (let m = 1; m <= 3; m++) if (R.chance(0.6)) E.push([s, m, R.int(1, 6)]); if (!E.length) E.push([0, 1, 3]); return seq(R, 'MovieRentingSystem', [n, E], R.int(2, 8), (R, st) => { st.r = st.r || []; const un = E.filter(([s, m]) => !st.r.some(x => x[0] === s && x[1] === m)); const c = R.pick(['search', 'rent', 'drop', 'report']); if (c === 'rent' && un.length) { const [s, m] = R.pick(un); st.r.push([s, m]); return [c, [s, m]]; } if (c === 'drop' && st.r.length) { const x = R.pick(st.r); st.r = st.r.filter(y => y !== x); return [c, x.slice()]; } if (c === 'report') return [c, []]; return ['search', [R.int(1, 3)]]; }); },
     s(I, T) { return play(I, T, (n, E) => { const rented = new Set(), price = new Map(E.map(([s, m, p]) => [s + ',' + m, p])); return { rented, search(m) { return E.filter(([s, mm]) => mm === m && !rented.has(s + ',' + m)).sort((x, y) => x[2] - y[2] || x[0] - y[0]).slice(0, 5).map(x => x[0]); }, rent(s, m) { rented.add(s + ',' + m); }, drop(s, m) { rented.delete(s + ',' + m); }, report() { return [...rented].map(k => k.split(',').map(Number)).sort((x, y) => price.get(x.join()) - price.get(y.join()) || x[0] - y[0] || x[1] - y[1]).slice(0, 5); } }; }, { view: o => ({ copies: A(I.args[0][1].map(([s, m, p]) => `s${s} m${m} $${p}${o.rented.has(s + ',' + m) ? ' (out)' : ''}`)) }), why: op => op === 'search' ? 'Unrented copies: cheapest first, then lower shop; at most 5.' : 'Rented copies by price, shop, movie; at most 5.' }); }
   });

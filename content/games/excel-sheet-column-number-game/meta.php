@@ -5,7 +5,7 @@ return [
     'title' => 'Excel Column Number: read base 26',
     'leetcode' => 171,
     'difficulty' => 'Easy',
-    'summary' => 'result = result × 26 + (letter − A + 1) for each letter, left to right.',
+    'summary' => 'result = result times 26 + (letter − A + 1) for each letter, left to right.',
     'category' => 'LeetCode',
     'subcategory' => 'Math',
     'topic' => 'LeetCode · Math',

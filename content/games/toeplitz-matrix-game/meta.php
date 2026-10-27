@@ -5,7 +5,7 @@ return [
     'title' => 'Toeplitz Matrix',
     'leetcode' => 766,
     'difficulty' => 'Easy',
-    'summary' => 'Every cell (except in the first row/column) must equal its up-left neighbor.',
+    'summary' => 'Every cell (except in the first row or column) must equal its up-left neighbor.',
     'category' => 'LeetCode',
     'subcategory' => 'Graphs',
     'topic' => 'LeetCode · Graphs',

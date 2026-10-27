@@ -5,7 +5,7 @@ return [
     'title' => 'Online Election',
     'leetcode' => 911,
     'difficulty' => 'Med',
-    'summary' => 'Precompute the leader after every vote (ties go to the most recent voter\'s candidate). q(t) binary searches the last vote time ≤ t and returns that leader.',
+    'summary' => 'Precompute the leader after every vote (ties go to the most recent voter\'s candidate). q(t) binary searches the last vote time at most t and returns that leader.',
     'category' => 'LeetCode',
     'subcategory' => 'Design',
     'topic' => 'LeetCode · Design',

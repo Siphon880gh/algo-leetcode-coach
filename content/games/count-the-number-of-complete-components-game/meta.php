@@ -5,7 +5,7 @@ return [
     'title' => 'Count the Number of Complete Components',
     'leetcode' => 2685,
     'difficulty' => 'Med',
-    'summary' => 'Union edges, then count vertices and edges per component. A component with s vertices is complete iff it has s·(s−1)/2 edges.',
+    'summary' => 'Union edges, then count vertices and edges per component. A component with s vertices is complete exactly when it has s times (s−1) divided by 2 edges.',
     'category' => 'LeetCode',
     'subcategory' => 'Union Find',
     'topic' => 'LeetCode · Union Find',

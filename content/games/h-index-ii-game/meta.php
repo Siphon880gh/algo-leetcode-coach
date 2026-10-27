@@ -2,10 +2,10 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'H-Index II: first index with citations ≥ n − i',
+    'title' => 'H-Index II: first index with citations at least n − i',
     'leetcode' => 275,
     'difficulty' => 'Med',
-    'summary' => 'Binary search the first i with citations[i] ≥ n − i; the h-index is n − i.',
+    'summary' => 'Binary search the first i with citations[i] at least n − i; the h-index is n − i.',
     'category' => 'LeetCode',
     'subcategory' => 'Binary Search',
     'topic' => 'LeetCode · Binary Search',

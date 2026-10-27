@@ -5,7 +5,7 @@ return [
     'title' => 'Substring with Concatenation of All Words',
     'leetcode' => 30,
     'difficulty' => 'Hard',
-    'summary' => 'All words have length w. For each offset 0..w−1, slide a window over word-sized chunks keeping chunk counts; shrink when a word is over-used, and record the start when the window holds exactly all words.',
+    'summary' => 'All words have length w. For each offset 0 to w−1, slide a window over word-sized chunks keeping chunk counts; shrink when a word is over-used, and record the start when the window holds exactly all words.',
     'category' => 'LeetCode',
     'subcategory' => 'Sliding Window',
     'topic' => 'LeetCode · Sliding Window',

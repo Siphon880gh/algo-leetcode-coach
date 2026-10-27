@@ -5,7 +5,7 @@ return [
     'title' => 'Super Ugly Number: one pointer per prime',
     'leetcode' => 313,
     'difficulty' => 'Med',
-    'summary' => 'Like Ugly Number II with a pointer per prime: next = min over primes of prime·ugly[ptr]; advance every pointer that ties.',
+    'summary' => 'Like Ugly Number II with a pointer per prime: next = min over primes of prime times ugly[ptr]; advance every pointer that ties.',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

@@ -21,7 +21,7 @@
       for (var i = 1; i < a.length; i++) {
         var last = merged[merged.length - 1], ov = a[i][0] <= last[1], c = {}; c[i] = 'hit';
         t.act(V(ivals(a, c, 'sorted input', { lo: 0, hi: 18 }), ivals(merged, (function () { var o = {}; o[merged.length - 1] = 'warn'; return o; })(), 'merged', { lo: 0, hi: 18 })), f(a[i]) + ' vs last merged ' + f(last) + '.', acts, ov ? 'ext' : 'new',
-          ov ? a[i][0] + ' ≤ ' + last[1] + ': they overlap (touching counts).' : a[i][0] + ' > ' + last[1] + ': there is a gap.', ov ? 'End = max(' + last[1] + ', ' + a[i][1] + ') = ' + Math.max(last[1], a[i][1]) + '.' : 'New block.');
+          ov ? a[i][0] + ' is at most ' + last[1] + ': they overlap (touching counts).' : a[i][0] + ' > ' + last[1] + ': there is a gap.', ov ? 'End = max(' + last[1] + ', ' + a[i][1] + ') = ' + Math.max(last[1], a[i][1]) + '.' : 'New block.');
         if (ov) last[1] = Math.max(last[1], a[i][1]); else merged.push(a[i].slice());
       }
       t.done(V(ivals(merged, {}, 'merged', { lo: 0, hi: 18 })), 'Merged: ' + merged.map(f).join(' ') + '. O(n log n).');
@@ -45,7 +45,7 @@
         var view = V(ivals(a, c, 'intervals', { lo: 0, hi: hi }), ivals([cur], { 0: 'warn' }, placed ? 'new (placed)' : 'new interval (growing)', { lo: 0, hi: hi }), ivals(out, {}, 'result', { lo: 0, hi: hi }));
         var key = placed || iv[0] > cur[1] ? 'after' : iv[1] < cur[0] ? 'before' : 'merge';
         if (placed) { t.act(view, f(iv) + ' after placing the new interval.', acts, 'after', 'Everything after the placed interval is copied as is.', 'Copied.'); out.push(iv.slice()); continue; }
-        t.act(view, f(iv) + ' vs new ' + f(cur) + '.', acts, key, { before: iv[1] + ' ≥ ' + cur[0] + ', so it does not end before the new interval.', merge: key === 'before' ? 'It ends at ' + iv[1] + ' < ' + cur[0] + '; no overlap.' : 'It starts at ' + iv[0] + ' > ' + cur[1] + '; no overlap.', after: iv[0] + ' ≤ ' + cur[1] + ', so it does not start after the new interval.' },
+        t.act(view, f(iv) + ' vs new ' + f(cur) + '.', acts, key, { before: iv[1] + ' is at least ' + cur[0] + ', so it does not end before the new interval.', merge: key === 'before' ? 'It ends at ' + iv[1] + ' < ' + cur[0] + '; no overlap.' : 'It starts at ' + iv[0] + ' > ' + cur[1] + '; no overlap.', after: iv[0] + ' is at most ' + cur[1] + ', so it does not start after the new interval.' },
           key === 'before' ? 'Copy.' : key === 'merge' ? 'New becomes ' + f([Math.min(cur[0], iv[0]), Math.max(cur[1], iv[1])]) + '.' : 'Place ' + f(cur) + ', then copy.');
         if (key === 'before') out.push(iv.slice());
         else if (key === 'merge') cur = [Math.min(cur[0], iv[0]), Math.max(cur[1], iv[1])];
@@ -64,11 +64,11 @@
       var a = bySort(randIntervals(rng, 5 + round, 20, 4));
       var t = new LC.Trace();
       t.setup = 'meetings sorted by start = ' + a.map(f).join(' ');
-      var acts = [['ok', 'No clash, keep going'], ['clash', 'Clash → false']], res = true;
+      var acts = [['ok', 'No clash, keep going'], ['clash', 'Clash: false']], res = true;
       for (var i = 1; i < a.length; i++) {
         var c = {}; c[i - 1] = 'warn'; c[i] = 'hit';
         var clash = a[i][0] < a[i - 1][1];
-        t.act(V(ivals(a, c, 'meetings', { lo: 0, hi: 24 })), f(a[i - 1]) + ' then ' + f(a[i]) + '.', acts, clash ? 'clash' : 'ok', clash ? a[i][0] + ' < ' + a[i - 1][1] + ': it starts before the previous one ends.' : a[i][0] + ' ≥ ' + a[i - 1][1] + ': back to back is fine.', clash ? 'Cannot attend both.' : 'Fine.');
+        t.act(V(ivals(a, c, 'meetings', { lo: 0, hi: 24 })), f(a[i - 1]) + ' then ' + f(a[i]) + '.', acts, clash ? 'clash' : 'ok', clash ? a[i][0] + ' < ' + a[i - 1][1] + ': it starts before the previous one ends.' : a[i][0] + ' is at least ' + a[i - 1][1] + ': back to back is fine.', clash ? 'Cannot attend both.' : 'Fine.');
         if (clash) { res = false; break; }
       }
       t.done(V(ivals(a, {}, 'meetings', { lo: 0, hi: 24 })), res ? 'True: no overlaps.' : 'False.');
@@ -78,7 +78,7 @@
 
   LC.register('meeting-rooms-ii', {
     title: 'Meeting Rooms II: reuse the room that frees up first',
-    rule: 'Sort by start. Keep a min-heap of end times (one per room). If the earliest end ≤ the new start, that room is free: reuse it. Otherwise open a new room.',
+    rule: 'Sort by start. Keep a min-heap of end times (one per room). If the earliest end at most the new start, that room is free: reuse it. Otherwise open a new room.',
     make: function (rng, round) {
       var a = bySort(randIntervals(rng, 6 + round, 20, 7));
       var t = new LC.Trace();
@@ -90,7 +90,7 @@
         var view = V(ivals(a, c, 'meetings', { lo: 0, hi: 27 }), P.arr(heap, { label: 'room end times (min-heap, smallest first)', cls: { 0: 'warn' } }), P.vars([['rooms', rooms]]));
         var free = heap.length && heap[0] <= a[i][0];
         t.act(view, f(a[i]) + ' starts at ' + a[i][0] + '. Earliest end: ' + (heap.length ? heap[0] : 'none') + '.', acts, free ? 'reuse' : 'open',
-          free ? 'A room frees up at ' + heap[0] + ' ≤ ' + a[i][0] + '; reuse it.' : heap.length ? 'Even the earliest room is busy until ' + heap[0] + ' > ' + a[i][0] + '.' : 'There are no rooms yet.',
+          free ? 'A room frees up at ' + heap[0] + ' is at most ' + a[i][0] + '; reuse it.' : heap.length ? 'Even the earliest room is busy until ' + heap[0] + ' > ' + a[i][0] + '.' : 'There are no rooms yet.',
           free ? 'Reused.' : 'Rooms = ' + (rooms + 1) + '.');
         if (free) heap[0] = a[i][1]; else { heap.push(a[i][1]); rooms++; }
       }
@@ -112,7 +112,7 @@
         var c = LC.clone(cls); c[i] = 'hit';
         var keep = a[i][0] >= end;
         t.act(V(ivals(a, c, 'by end time', { lo: 0, hi: 21, mark: end === -Infinity ? null : end }), P.vars([['last kept end', end], ['removed', removed]])), f(a[i]) + '.', acts, keep ? 'keep' : 'rm',
-          keep ? 'It starts at ' + a[i][0] + ' ≥ last kept end ' + LC.fmt(end) + ', so it fits.' : 'It starts at ' + a[i][0] + ' < ' + end + ' and overlaps the kept interval. The kept one ends sooner, so remove this one.',
+          keep ? 'It starts at ' + a[i][0] + ' at least last kept end ' + LC.fmt(end) + ', so it fits.' : 'It starts at ' + a[i][0] + ' < ' + end + ' and overlaps the kept interval. The kept one ends sooner, so remove this one.',
           keep ? 'Kept; last end = ' + a[i][1] + '.' : 'Removed.');
         if (keep) { end = a[i][1]; cls[i] = 'ok'; } else { removed++; cls[i] = 'dim'; }
       }
@@ -134,7 +134,7 @@
         var c = LC.clone(cls); c[i] = 'hit';
         var popped = arrow !== null && a[i][0] <= arrow;
         t.act(V(ivals(a, c, 'balloons', { lo: 0, hi: 21, mark: arrow }), P.vars([['arrow at', arrow === null ? 'none' : arrow], ['arrows', arrows]])), 'Balloon ' + f(a[i]) + '.', acts, popped ? 'pop' : 'new',
-          popped ? 'It starts at ' + a[i][0] + ' ≤ arrow ' + arrow + ' and ends after it, so the arrow passes through it.' : arrow === null ? 'No arrow has been shot yet.' : 'It starts at ' + a[i][0] + ' > ' + arrow + '; the arrow misses it.',
+          popped ? 'It starts at ' + a[i][0] + ' at most arrow ' + arrow + ' and ends after it, so the arrow passes through it.' : arrow === null ? 'No arrow has been shot yet.' : 'It starts at ' + a[i][0] + ' > ' + arrow + '; the arrow misses it.',
           popped ? 'Popped for free.' : 'Arrow at ' + a[i][1] + '.');
         if (popped) cls[i] = 'dim'; else { arrow = a[i][1]; arrows++; cls[i] = 'ok'; }
       }

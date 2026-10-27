@@ -5,7 +5,7 @@ return [
     'title' => 'Is Subsequence',
     'leetcode' => 392,
     'difficulty' => 'Easy',
-    'summary' => 'Pointer i into s, scan t: whenever t[j] equals s[i], advance i. s is a subsequence iff i reaches the end of s.',
+    'summary' => 'Pointer i into s, scan t: whenever t[j] equals s[i], advance i. s is a subsequence exactly when i reaches the end of s.',
     'category' => 'LeetCode',
     'subcategory' => 'Two Pointers',
     'topic' => 'LeetCode · Two Pointers',

@@ -5,7 +5,7 @@ return [
     'title' => 'Substring XOR Queries',
     'leetcode' => 2564,
     'difficulty' => 'Med',
-    'summary' => 'We need the substring whose value equals first ^ second. Values fit in 30 bits, so precompute, for every start and length ≤ 30, the value → shortest (then leftmost) [l, r] in a map.',
+    'summary' => 'We need the substring whose value equals first ^ second. Values fit in 30 bits, so precompute, for every start and length at most 30, map each value to its shortest (then leftmost) [l, r].',
     'category' => 'LeetCode',
     'subcategory' => 'Bit Manipulation',
     'topic' => 'LeetCode · Bit Manipulation',

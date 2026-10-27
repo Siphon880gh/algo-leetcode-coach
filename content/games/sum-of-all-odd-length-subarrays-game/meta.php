@@ -5,7 +5,7 @@ return [
     'title' => 'Sum of All Odd Length Subarrays',
     'leetcode' => 1588,
     'difficulty' => 'Easy',
-    'summary' => 'arr[i] appears in (i + 1)(n − i) subarrays, and ⌈that / 2⌉ of them have odd length. Sum arr[i] × that count.',
+    'summary' => 'arr[i] appears in (i + 1)(n − i) subarrays, and half of that, rounded up of them have odd length. Sum arr[i] times that count.',
     'category' => 'LeetCode',
     'subcategory' => 'Prefix Sum',
     'topic' => 'LeetCode · Prefix Sum',

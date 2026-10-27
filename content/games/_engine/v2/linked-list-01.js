@@ -7,7 +7,7 @@
 
   D('add-two-numbers', {
     t: 'Add Two Numbers',
-    r: 'Walk both lists together (least significant digit first), adding digits plus the carry; write sum % 10 and carry ⌊sum / 10⌋. Append a final carry node if needed.',
+    r: 'Walk both lists together (least significant digit first), adding digits plus the carry; write sum % 10 and carry sum divided by 10, rounded down. Append a final carry node if needed.',
     g: R => ({ l1: [...R.ints(R.int(1, 4), 0, 9).slice(0, -1), R.int(1, 9)], l2: [...R.ints(R.int(1, 4), 0, 9).slice(0, -1), R.int(1, 9)] }),
     s(I, T) { let a = Ls.from(I.l1), b = Ls.from(I.l2), c = 0; const out = []; while (a || b || c) { const s = (a ? a.val : 0) + (b ? b.val : 0) + c; out.push(s % 10); if (out.length <= 5) { T.at({ l1: LL(Ls.from(I.l1), { a }), l2: LL(Ls.from(I.l2), { b }), carry: c }); T.n('Digit written?', s % 10, 'sum % 10.'); } c = Math.floor(s / 10); a = a && a.next; b = b && b.next; } return out; }
   });
@@ -42,7 +42,7 @@
 
   D('partition-list', {
     t: 'Partition List',
-    r: 'Build two lists — nodes < x and nodes ≥ x — preserving order, then link the first list\'s tail to the second\'s head.',
+    r: 'Build two lists — nodes < x and nodes at least x — preserving order, then link the first list\'s tail to the second\'s head.',
     g: R => ({ head: R.ints(R.int(0, 7), 0, 9), x: R.int(0, 9) }),
     s(I, T) { const lo = [], hi = []; I.head.forEach((v, i) => { (v < I.x ? lo : hi).push(v); if (i < 6) { T.at({ list: A(I.head, { i }), less: A(lo.slice()), rest: A(hi.slice()) }); T.c(`Where does ${v} go?`, ['less', 'rest'], v < I.x ? 'less' : 'rest', `Compare with x = ${I.x}.`); } }); return [...lo, ...hi]; }
   });
@@ -51,12 +51,12 @@
     t: 'Copy List with Random Pointer',
     r: 'Map each original node to a new node (hash map or interleaving). Then set copy.next = map[orig.next] and copy.random = map[orig.random].',
     g: R => { const n = R.int(0, 5); return { head: Array.from({ length: n }, () => [R.int(1, 20), R.chance(0.3) ? null : R.int(0, n - 1)]) }; },
-    s(I, T) { const nodes = I.head.map(([v]) => ({ val: v, next: null, random: null })); nodes.forEach((n, i) => { n.next = nodes[i + 1] || null; n.random = I.head[i][1] === null ? null : nodes[I.head[i][1]]; }); const map = new Map(); nodes.forEach(n => map.set(n, { val: n.val, next: null, random: null })); nodes.forEach((n, i) => { const c = map.get(n); c.next = n.next ? map.get(n.next) : null; c.random = n.random ? map.get(n.random) : null; if (i < 5) { T.at({ list: A(I.head.map(x => `${x[0]}→${x[1] === null ? '∅' : x[1]}`), { i }) }); T.c('Copy\'s random points to the copy of node…', [...new Set(['null', ...I.head.map((_, j) => String(j))])], I.head[i][1] === null ? 'null' : String(I.head[i][1]), 'Look it up in the map.'); } }); const copies = nodes.map(n => map.get(n)); return copies.map(c => [c.val, c.random ? copies.indexOf(c.random) : null]); }
+    s(I, T) { const nodes = I.head.map(([v]) => ({ val: v, next: null, random: null })); nodes.forEach((n, i) => { n.next = nodes[i + 1] || null; n.random = I.head[i][1] === null ? null : nodes[I.head[i][1]]; }); const map = new Map(); nodes.forEach(n => map.set(n, { val: n.val, next: null, random: null })); nodes.forEach((n, i) => { const c = map.get(n); c.next = n.next ? map.get(n.next) : null; c.random = n.random ? map.get(n.random) : null; if (i < 5) { T.at({ list: A(I.head.map(x => `${x[0]} to ${x[1] === null ? '∅' : x[1]}`), { i }) }); T.c('Copy\'s random points to the copy of node…', [...new Set(['null', ...I.head.map((_, j) => String(j))])], I.head[i][1] === null ? 'null' : String(I.head[i][1]), 'Look it up in the map.'); } }); const copies = nodes.map(n => map.get(n)); return copies.map(c => [c.val, c.random ? copies.indexOf(c.random) : null]); }
   });
 
   D('reorder-list', {
     t: 'Reorder List',
-    r: 'Find the middle with slow/fast pointers, reverse the second half, then weave the two halves together.',
+    r: 'Find the middle with slow or fast pointers, reverse the second half, then weave the two halves together.',
     g: R => ({ head: R.ints(R.int(1, 7), 1, 9) }),
     s(I, T) { const res = (() => { const n = I.head.length, first = I.head.slice(0, Math.ceil(n / 2)), second = I.head.slice(Math.ceil(n / 2)).reverse(); T.at({ list: LL(Ls.from(I.head)) }); T.n('Length of the first half?', first.length, 'Find the middle with slow and fast pointers.'); T.n('Length of the reversed second half?', second.length, 'Nodes after the middle.'); const out = []; first.forEach((v, i) => { out.push(v); if (i < second.length) out.push(second[i]); }); return out; })(); T.n('Second value of the result? (−1 if none)', res.length > 1 ? res[1] : -1, 'The last node moves up.'); return res; }
   });
@@ -70,7 +70,7 @@
 
   D('sort-list', {
     t: 'Sort List',
-    r: 'Merge sort: split at the middle with slow/fast pointers, sort both halves recursively, and merge them.',
+    r: 'Merge sort: split at the middle with slow or fast pointers, sort both halves recursively, and merge them.',
     g: R => ({ head: R.ints(R.int(0, 7), -5, 9) }),
     s(I, T) { let k = 0; const ms = a => { if (a.length < 2) return a; const m = a.length >> 1, l = ms(a.slice(0, m)), r = ms(a.slice(m)), out = []; let i = 0, j = 0; while (i < l.length || j < r.length) out.push(j >= r.length || (i < l.length && l[i] <= r[j]) ? l[i++] : r[j++]); if (k++ < 4) { T.at({ left: A(l), right: A(r) }); T.n('First value of the merged list?', out[0], 'Smaller of the two heads.'); } return out; }; return ms(I.head); }
   });
@@ -119,15 +119,15 @@
 
   D('insert-into-a-sorted-circular-linked-list', {
     t: 'Insert into a Sorted Circular Linked List',
-    r: 'Walk the circle looking for prev ≤ x ≤ next, or the wrap point (prev > next) where x is a new max or min. If a full loop finds neither (all equal), insert anywhere.',
+    r: 'Walk the circle looking for x from prev to next, or the wrap point (prev > next) where x is a new max or min. If a full loop finds neither (all equal), insert anywhere.',
     g: R => { const s = R.sorted(R.int(0, 5), 1, 6), k = R.int(0, Math.max(0, s.length - 1)); return { head: [...s.slice(k), ...s.slice(0, k)], insertVal: R.int(0, 7) }; },
     cmp: (o, e, I) => { const h = I.head; if (!Array.isArray(o) || o.length !== h.length + 1) return false; if (!h.length) return o[0] === I.insertVal; if (o[0] !== h[0] && !(o[0] === I.insertVal && o.slice(1).join() === h.join())) return false; let ok = false; for (let i = 0; i < o.length; i++) if (o[i] === I.insertVal && [...o.slice(0, i), ...o.slice(i + 1)].join() === h.join()) ok = true; if (!ok) return false; let drops = 0; for (let i = 0; i < o.length; i++) if (o[i] > o[(i + 1) % o.length]) drops++; return drops <= 1; },
-    s(I, T) { const h = I.head, n = h.length, x = I.insertVal; if (!n) { T.at({ head: A([]) }); T.yn('Is the list empty?', true, 'Make a one-node circle.'); return [x]; } for (let i = 0; i < n; i++) { const p = h[i], q = h[(i + 1) % n], fits = (p <= x && x <= q) || (p > q && (x >= p || x <= q)); if (i < 5) { T.at({ circle: A(h, { i, j: (i + 1) % n }) }); T.yn(`Insert between ${p} and ${q}?`, fits, 'In order, or at the wrap for a new max/min.'); } if (fits) return [...h.slice(0, i + 1), x, ...h.slice(i + 1)]; } return [...h, x]; }
+    s(I, T) { const h = I.head, n = h.length, x = I.insertVal; if (!n) { T.at({ head: A([]) }); T.yn('Is the list empty?', true, 'Make a one-node circle.'); return [x]; } for (let i = 0; i < n; i++) { const p = h[i], q = h[(i + 1) % n], fits = (p <= x && x <= q) || (p > q && (x >= p || x <= q)); if (i < 5) { T.at({ circle: A(h, { i, j: (i + 1) % n }) }); T.yn(`Insert between ${p} and ${q}?`, fits, 'In order, or at the wrap for a new max or min.'); } if (fits) return [...h.slice(0, i + 1), x, ...h.slice(i + 1)]; } return [...h, x]; }
   });
 
   D('split-linked-list-in-parts', {
     t: 'Split Linked List in Parts',
-    r: 'With length n, every part gets ⌊n/k⌋ nodes and the first n mod k parts get one extra. Cut the list accordingly.',
+    r: 'With length n, every part gets n divided by k (rounded down) nodes and the first n mod k parts get one extra. Cut the list accordingly.',
     g: R => ({ head: Array.from({ length: R.int(0, 9) }, (_, i) => i + 1), k: R.int(1, 5) }),
     s(I, T) { const res = (() => { const n = I.head.length, q = Math.floor(n / I.k), r = n % I.k; T.at({ n, k: I.k }); T.n('Base size of each part?', q, 'n divided by k, rounded down.'); T.n('Parts with one extra node?', r, 'The remainder of n divided by k.'); const out = []; let p = 0; for (let i = 0; i < I.k; i++) { const s = q + (i < r ? 1 : 0); out.push(I.head.slice(p, p + s)); p += s; } return out; })(); T.n('Empty parts?', res.filter(p => !p.length).length, 'When k is bigger than n.'); return res; }
   });
@@ -156,7 +156,7 @@
 
   D('convert-binary-number-in-a-linked-list-to-integer', {
     t: 'Convert Binary Number in a Linked List to Integer',
-    r: 'Walk the list: value = value × 2 + bit.',
+    r: 'Walk the list: value = value times 2 + bit.',
     g: R => ({ head: [R.int(0, 1), ...R.ints(R.int(0, 5), 0, 1)] }),
     s(I, T) { let v = 0; I.head.forEach((b, i) => { v = v * 2 + b; if (i < 7) { T.at({ list: A(I.head, { i }) }); T.n('Value so far?', v, 'Shift left, add the bit.'); } }); return v; }
   });

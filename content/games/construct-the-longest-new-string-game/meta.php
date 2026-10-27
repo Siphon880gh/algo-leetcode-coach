@@ -5,7 +5,7 @@ return [
     'title' => 'Construct the Longest New String: alternate AA and BB',
     'leetcode' => 2745,
     'difficulty' => 'Med',
-    'summary' => 'Alternate AA and BB: 2·min(x, y) of them, plus one more if x ≠ y. All AB strings fit too. Length = 2 · (that count + z).',
+    'summary' => 'Alternate AA and BB: 2 times min(x, y) of them, plus one more if x not equal to y. All AB strings fit too. Length = 2 times (that count + z).',
     'category' => 'LeetCode',
     'subcategory' => 'Greedy',
     'topic' => 'LeetCode · Greedy',

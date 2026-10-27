@@ -5,7 +5,7 @@ return [
     'title' => 'Choose Non-Adjacent Edges: matching DP on a tree',
     'leetcode' => 2378,
     'difficulty' => 'Med',
-    'summary' => 'For each node: free(u) = Σ best(children) (no edge to a child used); best(u) = max(free(u), free(u) − best(c) + free(c) + w(c)) over children c.',
+    'summary' => 'For each node: free(u) = the sum of best(children) (no edge to a child used); best(u) = max(free(u), free(u) − best(c) + free(c) + w(c)) over children c.',
     'category' => 'LeetCode',
     'subcategory' => 'Trees',
     'topic' => 'LeetCode · Trees',

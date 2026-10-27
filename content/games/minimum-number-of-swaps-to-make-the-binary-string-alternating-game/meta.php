@@ -5,7 +5,7 @@ return [
     'title' => 'Swaps to Make Binary String Alternating: count mismatches',
     'leetcode' => 1864,
     'difficulty' => 'Med',
-    'summary' => 'Counts of 0s and 1s may differ by at most 1. For each feasible pattern (starting with 0 or 1), mismatched positions / 2 is the swap count; take the smaller.',
+    'summary' => 'Counts of 0s and 1s may differ by at most 1. For each feasible pattern (starting with 0 or 1), mismatched positions divided by 2 is the swap count; take the smaller.',
     'category' => 'LeetCode',
     'subcategory' => 'Greedy',
     'topic' => 'LeetCode · Greedy',

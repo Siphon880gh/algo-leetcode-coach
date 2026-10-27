@@ -5,7 +5,7 @@ return [
     'title' => 'Lexicographically Smallest String After Applying Operations',
     'leetcode' => 1625,
     'difficulty' => 'Med',
-    'summary' => 'There are few reachable strings (≤ 10 add-states × n rotations). BFS/DFS over states using both operations — add a to every odd index (mod 10) and rotate right by b — and keep the smallest.',
+    'summary' => 'There are few reachable strings (at most 10 add-states times n rotations). BFS or DFS over states using both operations — add a to every odd index (mod 10) and rotate right by b — and keep the smallest.',
     'category' => 'LeetCode',
     'subcategory' => 'Graphs',
     'topic' => 'LeetCode · Graphs',

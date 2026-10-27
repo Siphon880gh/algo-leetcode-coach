@@ -23,7 +23,7 @@
         if (cyc && e.length) { var back = rng.pick(e); if (!e.some(function (x) { return x[0] === back[1] && x[1] === back[0]; })) e.push([back[1], back[0]]); }
         var nodes = circle(n);
         var t = new LC.Trace();
-        t.setup = 'numCourses = ' + n + '   arrows: a → b means take a before b   prerequisites = ' + JSON.stringify(e.map(function (x) { return [x[1], x[0]]; }));
+        t.setup = 'numCourses = ' + n + ' arrows: a, so b means take a before b prerequisites = ' + JSON.stringify(e.map(function (x) { return [x[1], x[0]]; }));
         var indeg = {}, done = {}, out = [];
         for (var i = 0; i < n; i++) indeg[i] = 0;
         e.forEach(function (x) { indeg[x[1]]++; });
@@ -38,14 +38,14 @@
           var wave = []; for (i = 0; i < n; i++) if (!done[i] && indeg[i] === 0) wave.push(i);
           if (!wave.length) break;
           var aset = {}; wave.forEach(function (x) { aset['n:' + x] = 1; });
-          var wm = {}; for (i = 0; i < n; i++) if (!aset['n:' + i]) wm['n:' + i] = done[i] ? 'Already taken.' : 'Course ' + i + ' still has ' + indeg[i] + ' unmet prerequisite(s).';
+          var wm = {}; for (i = 0; i < n; i++) if (!aset['n:' + i]) wm['n:' + i] = done[i] ? 'Already taken.' : 'Course ' + i + ' still has ' + indeg[i] + ' unmet prerequisites.';
           t.pick(view(), 'Click every course you can take now (in-degree 0).', wave.map(function (x) { return 'n:' + x; }), { all: true, wrongMap: wm, note: 'Take them and remove their outgoing arrows.' });
           wave.forEach(function (x) { done[x] = 1; out.push(x); e.forEach(function (y) { if (y[0] === x) indeg[y[1]]--; }); });
         }
         var left = n - out.length;
         t.act(view(), 'No course has in-degree 0 any more.', [['ok', wantOrder ? 'Return the order' : 'Return true'], ['cyc', wantOrder ? 'Return [] (cycle)' : 'Return false (cycle)']], left ? 'cyc' : 'ok',
-          left ? left + ' course(s) are stuck waiting on each other: a cycle.' : 'Every course was taken.', left ? 'Cycle detected.' : 'All courses scheduled.');
-        t.done(view(), left ? 'Impossible: a cycle blocks ' + left + ' course(s).' : (wantOrder ? 'Order ' + LC.fmt(out) + '.' : 'True: all courses can be finished.') + ' O(V + E).');
+          left ? left + ' courses are stuck waiting on each other: a cycle.' : 'Every course was taken.', left ? 'Cycle detected.' : 'All courses scheduled.');
+        t.done(view(), left ? 'Impossible: a cycle blocks ' + left + ' courses.' : (wantOrder ? 'Order ' + LC.fmt(out) + '.' : 'True: all courses can be finished.') + ' O(V + E).');
         return t;
       }
     });

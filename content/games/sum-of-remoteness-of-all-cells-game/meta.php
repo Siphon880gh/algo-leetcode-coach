@@ -5,7 +5,7 @@ return [
     'title' => 'Sum of Remoteness of All Cells',
     'leetcode' => 2852,
     'difficulty' => 'Med',
-    'summary' => 'Union adjacent open cells. A component with c cells and value sum s contributes c · (total − s): each of its cells is remote from everything outside it.',
+    'summary' => 'Union adjacent open cells. A component with c cells and value sum s contributes c times (total − s): each of its cells is remote from everything outside it.',
     'category' => 'LeetCode',
     'subcategory' => 'Union Find',
     'topic' => 'LeetCode · Union Find',

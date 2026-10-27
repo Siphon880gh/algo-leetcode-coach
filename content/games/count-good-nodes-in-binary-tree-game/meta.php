@@ -5,7 +5,7 @@ return [
     'title' => 'Count Good Nodes: carry the path maximum',
     'leetcode' => 1448,
     'difficulty' => 'Med',
-    'summary' => 'A node is good if its value is ≥ the maximum seen on the path from the root.',
+    'summary' => 'A node is good if its value is at least the maximum seen on the path from the root.',
     'category' => 'LeetCode',
     'subcategory' => 'Trees',
     'topic' => 'LeetCode · Trees',

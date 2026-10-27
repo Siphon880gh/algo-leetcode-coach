@@ -5,7 +5,7 @@ return [
     'title' => 'Find the Minimum and Maximum Number of Nodes Between Critical Points',
     'leetcode' => 2058,
     'difficulty' => 'Med',
-    'summary' => 'Record indices of local maxima/minima. The min distance is the smallest gap between consecutive critical points; the max is last − first. Fewer than two → [−1, −1].',
+    'summary' => 'Record indices of local maxima or minima. The min distance is the smallest gap between consecutive critical points; the max is last − first. Fewer than two: [−1, −1].',
     'category' => 'LeetCode',
     'subcategory' => 'Linked List',
     'topic' => 'LeetCode · Linked List',

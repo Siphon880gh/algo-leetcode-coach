@@ -108,7 +108,7 @@
 
   D('binary-tree-longest-consecutive-sequence-ii', {
     t: 'Longest Consecutive Path II: increasing + decreasing arms',
-    r: 'Each node returns (inc, dec): the longest path going down where values increase / decrease by 1. Through a node: inc + dec − 1.',
+    r: 'Each node returns (inc, dec): the longest path going down where values increase or decrease by 1. Through a node: inc + dec − 1.',
     g: R => ({ root: R.tree(R.int(1, 8), 1, 4) }),
     s(I, T) { const root = Tr.from(I.root); let best = 0; const go = n => { if (!n) return [0, 0]; let inc = 1, dec = 1; for (const c of [n.left, n.right]) { if (!c) continue; const [a, b] = go(c); if (c.val === n.val + 1) inc = Math.max(inc, a + 1); if (c.val === n.val - 1) dec = Math.max(dec, b + 1); } best = Math.max(best, inc + dec - 1); T.at({ tree: TR(root, { hit: n }), best }); T.n(`Longest consecutive path through ${n.val}?`, inc + dec - 1, 'inc arm + dec arm − 1.'); return [inc, dec]; }; go(root); return best; }
   });
@@ -143,7 +143,7 @@
 
   D('kill-process', {
     t: 'Kill Process: BFS over the children map',
-    r: 'Build parent → children lists, then BFS from the killed process; everything reached dies.',
+    r: 'Build parent-to-children lists, then BFS from the killed process; everything reached dies.',
     g: R => { const n = R.int(1, 7), pid = R.distinct(n, 1, 20), ppid = pid.map((_, i) => i ? pid[R.int(0, i - 1)] : 0); const o = R.shuffle(pid.map((_, i) => i)); return { pid: o.map(i => pid[i]), ppid: o.map(i => ppid[i]), kill: R.pick(pid) }; },
     cmp: 'set',
     s(I, T) { const ch = new Map(); I.ppid.forEach((p, i) => { if (!ch.has(p)) ch.set(p, []); ch.get(p).push(I.pid[i]); }); const out = [], q = [I.kill]; while (q.length) { const x = q.shift(); out.push(x); const c = ch.get(x) || []; T.at({ children: ch, killed: A(out) }); T.n(`How many direct children does ${x} have?`, c.length, 'They are killed next.'); q.push(...c); } return out; }
@@ -186,9 +186,9 @@
 
   D('average-of-levels-in-binary-tree', {
     t: 'Average of Levels: BFS sums',
-    r: 'BFS level by level; average = level sum / level size.',
+    r: 'BFS level by level; average = level sum divided by level size.',
     g: R => ({ root: R.tree(R.int(1, 8)) }),
-    s(I, T) { const root = Tr.from(I.root), out = []; let lv = [root]; while (lv.length) { const s = lv.reduce((a, n) => a + n.val, 0); T.at({ tree: TR(root, { hit: lv }) }); T.n(`Sum of level ${out.length}?`, s, `${lv.length} node(s).`); out.push(s / lv.length); lv = lv.flatMap(n => [n.left, n.right].filter(Boolean)); } return out; }
+    s(I, T) { const root = Tr.from(I.root), out = []; let lv = [root]; while (lv.length) { const s = lv.reduce((a, n) => a + n.val, 0); T.at({ tree: TR(root, { hit: lv }) }); T.n(`Sum of level ${out.length}?`, s, `${lv.length} nodes.`); out.push(s / lv.length); lv = lv.flatMap(n => [n.left, n.right].filter(Boolean)); } return out; }
   });
 
   D('find-duplicate-subtrees', {
@@ -215,7 +215,7 @@
 
   D('print-binary-tree', {
     t: 'Print Binary Tree: halve the offset each row',
-    r: 'With height h (edges), the grid is (h+1) × (2^(h+1) − 1). The root sits in the middle column; a child at row r+1 sits at column c ∓ 2^(h−r−1).',
+    r: 'With height h (edges), the grid is (h+1) times (2 to the power (h+1) − 1). The root sits in the middle column; a child at row r+1 sits at column c ∓ 2 to the power (h−r−1).',
     g: R => ({ root: R.tree(R.int(1, 6), 1, 9, 3) }),
     s(I, T) { const root = Tr.from(I.root), h = Tr.depth(root) - 1, w = 2 ** (h + 1) - 1, g = Array.from({ length: h + 1 }, () => Array(w).fill('')); const go = (n, r, c) => { if (!n) return; g[r][c] = String(n.val); T.at({ tree: TR(root, { hit: n }) }); T.n(`Column of ${n.val}?`, c, r ? 'Parent column ∓ offset.' : 'Middle column.'); go(n.left, r + 1, c - 2 ** (h - r - 1)); go(n.right, r + 1, c + 2 ** (h - r - 1)); }; go(root, 0, (w - 1) / 2); return g; }
   });
@@ -229,7 +229,7 @@
 
   D('equal-tree-partition', {
     t: 'Equal Tree Partition: look for a subtree with half the total',
-    r: 'Collect the sums of all subtrees except the whole tree. Cutting an edge works if the total is even and some subtree sums to total / 2.',
+    r: 'Collect the sums of all subtrees except the whole tree. Cutting an edge works if the total is even and some subtree sums to total divided by 2.',
     g: R => ({ root: R.tree(R.int(1, 7), -2, 6) }),
     s(I, T) { const res = (() => { const root = Tr.from(I.root), sums = []; const all = n => { if (!n) return 0; const s = n.val + all(n.left) + all(n.right); sums.push(s); return s; }; const tot = all(root); sums.pop(); T.at({ tree: TR(root), sums: A(sums) }); T.n('Total sum?', tot, 'Sum of all nodes.'); T.yn('Is the total even?', tot % 2 === 0, 'Otherwise it cannot split evenly.'); return tot % 2 === 0 && sums.includes(tot / 2); })(); T.yn('Can the tree be split into equal halves?', res, 'Some subtree must sum to half.'); return res; }
   });
@@ -264,9 +264,9 @@
 
   D('split-bst', {
     t: 'Split BST: recurse down one side',
-    r: 'If root ≤ target, root belongs to the small tree: split root.right, attach its small part as root.right. Otherwise symmetric on the left.',
+    r: 'If root at most target, root belongs to the small tree: split root.right, attach its small part as root.right. Otherwise symmetric on the left.',
     g: R => { const a = R.bst(R.int(1, 7), 1, 15); return { root: a, target: R.int(0, 16) }; },
-    s(I, T) { const root = Tr.from(I.root); const go = n => { if (!n) return [null, null]; const le = n.val <= I.target; T.at({ tree: TR(root, { hit: n }), target: I.target }); T.yn(`Does ${n.val} go to the small tree?`, le, '≤ target.'); if (le) { const [a, b] = go(n.right); n.right = a; return [n, b]; } const [a, b] = go(n.left); n.left = b; return [a, n]; }; const [a, b] = go(root); return [Tr.arr(a), Tr.arr(b)]; }
+    s(I, T) { const root = Tr.from(I.root); const go = n => { if (!n) return [null, null]; const le = n.val <= I.target; T.at({ tree: TR(root, { hit: n }), target: I.target }); T.yn(`Does ${n.val} go to the small tree?`, le, ' at most target.'); if (le) { const [a, b] = go(n.right); n.right = a; return [n, b]; } const [a, b] = go(n.left); n.left = b; return [a, n]; }; const [a, b] = go(root); return [Tr.arr(a), Tr.arr(b)]; }
   });
 
   D('minimum-distance-between-bst-nodes', {

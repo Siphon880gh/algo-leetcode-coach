@@ -5,7 +5,7 @@ return [
     'title' => 'Find the Pivot Integer',
     'leetcode' => 2485,
     'difficulty' => 'Easy',
-    'summary' => 'sum(1..x) = sum(x..n) ⇔ x² = n(n + 1)/2. Return x if that is a perfect square, else −1.',
+    'summary' => 'sum(1 to x) = sum(x to n) exactly when x² = n(n + 1) divided by 2. Return x if that is a perfect square, else −1.',
     'category' => 'LeetCode',
     'subcategory' => 'Prefix Sum',
     'topic' => 'LeetCode · Prefix Sum',

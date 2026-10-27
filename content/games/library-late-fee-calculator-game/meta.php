@@ -5,7 +5,7 @@ return [
     'title' => 'Library Late Fee Calculator',
     'leetcode' => 3687,
     'difficulty' => 'Easy',
-    'summary' => 'Go book by book: 1 day costs 1, 2–5 days cost 2 per day, more than 5 days cost 3 per day. Add up the penalties.',
+    'summary' => 'Go book by book: 1 day costs 1, 2 to 5 days cost 2 per day, more than 5 days cost 3 per day. Add up the penalties.',
     'category' => 'LeetCode',
     'subcategory' => 'Simulation',
     'topic' => 'LeetCode · Simulation',

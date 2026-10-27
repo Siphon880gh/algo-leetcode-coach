@@ -5,7 +5,7 @@ return [
     'title' => 'Right Triangles: row and column counts',
     'leetcode' => 3128,
     'difficulty' => 'Med',
-    'summary' => 'Count 1s per row and per column. A 1 at (r, c) is the right-angle corner of (row[r] − 1)·(col[c] − 1) triangles.',
+    'summary' => 'Count 1s per row and per column. A 1 at (r, c) is the right-angle corner of (row[r] − 1) times (col[c] − 1) triangles.',
     'category' => 'LeetCode',
     'subcategory' => 'Math',
     'topic' => 'LeetCode · Math',

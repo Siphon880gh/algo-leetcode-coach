@@ -5,7 +5,7 @@ return [
     'title' => 'Number of Same-End Substrings',
     'leetcode' => 2955,
     'difficulty' => 'Med',
-    'summary' => 'Prefix counts per letter. In s[l..r], a letter with c occurrences forms c(c + 1)/2 same-end substrings; sum over letters.',
+    'summary' => 'Prefix counts per letter. In s[l to r], a letter with c occurrences forms c(c + 1) divided by 2 same-end substrings; sum over letters.',
     'category' => 'LeetCode',
     'subcategory' => 'Prefix Sum',
     'topic' => 'LeetCode · Prefix Sum',

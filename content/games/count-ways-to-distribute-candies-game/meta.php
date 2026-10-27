@@ -5,7 +5,7 @@ return [
     'title' => 'Count Ways to Distribute Candies: Stirling numbers',
     'leetcode' => 1692,
     'difficulty' => 'Hard',
-    'summary' => 'dp[i][j] = ways to put i candies in j non-empty unlabeled bags = dp[i−1][j−1] (new bag) + j · dp[i−1][j] (join one of j bags).',
+    'summary' => 'dp[i][j] = ways to put i candies in j non-empty unlabeled bags = dp[i−1][j−1] (new bag) + j times dp[i−1][j] (join one of j bags).',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

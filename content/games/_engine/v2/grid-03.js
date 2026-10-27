@@ -16,14 +16,14 @@
 
   D('stamping-the-grid', {
     t: 'Stamping the Grid',
-    r: '2D prefix sums of occupied cells tell, for each top-left, whether an h×w stamp fits on empty cells. Mark those positions in a 2D difference array, prefix-sum it to get coverage, and check every empty cell is covered.',
+    r: '2D prefix sums of occupied cells tell, for each top-left, whether an h by w stamp fits on empty cells. Mark those positions in a 2D difference array, prefix-sum it to get coverage, and check every empty cell is covered.',
     g: R => ({ grid: mat(R, R.int(1, 4), R.int(1, 4), 0, 1).map(r => r.map(x => x && R.chance(0.5) ? 1 : 0)), stampHeight: R.int(1, 3), stampWidth: R.int(1, 3) }),
     s(I, T) { const res = (() => { const g = I.grid, m = g.length, n = g[0].length, h = I.stampHeight, w = I.stampWidth, P = Array.from({ length: m + 1 }, () => Array(n + 1).fill(0)); for (let i = 0; i < m; i++) for (let j = 0; j < n; j++) P[i + 1][j + 1] = g[i][j] + P[i][j + 1] + P[i + 1][j] - P[i][j]; const Df = Array.from({ length: m + 1 }, () => Array(n + 1).fill(0)); let fits = 0; for (let i = 0; i + h <= m; i++) for (let j = 0; j + w <= n; j++) if (P[i + h][j + w] - P[i][j + w] - P[i + h][j] + P[i][j] === 0) { fits++; Df[i][j]++; Df[i + h][j]--; Df[i][j + w]--; Df[i + h][j + w]++; } T.at({ grid: G(g), stamp: `${h} by ${w}` }); T.n('Empty cells?', g.flat().filter(x => !x).length, 'Each must be covered.'); T.n('Positions where a stamp fits?', fits, 'Occupied count in the window must be 0.'); const C = Array.from({ length: m + 1 }, () => Array(n + 1).fill(0)); for (let i = 0; i < m; i++) for (let j = 0; j < n; j++) { C[i + 1][j + 1] = Df[i][j] + C[i][j + 1] + C[i + 1][j] - C[i][j]; if (!g[i][j] && !C[i + 1][j + 1]) { T.at({ grid: G(g, { hl: [[i, j]] }) }); T.yn('Is this empty cell covered by some stamp?', false, 'Coverage from the difference array.'); return false; } } return true; })(); T.yn('Can every empty cell be covered?', res, 'Check coverage cell by cell.'); return res; }
   });
 
   D('check-if-every-row-and-column-contains-all-numbers', {
     t: 'Check if Every Row and Column Contains All Numbers',
-    r: 'For each row and each column, put values in a set; valid iff every set has size n (values are already in 1..n).',
+    r: 'For each row and each column, put values in a set; valid exactly when every set has size n (values are already in 1 to n).',
     g: R => { const n = R.int(1, 4), p = R.shuffle([...Array(n).keys()].map(x => x + 1)), g = Array.from({ length: n }, (_, i) => p.map((_, j) => p[(i + j) % n])); if (R.chance(0.4)) g[R.int(0, n - 1)][R.int(0, n - 1)] = R.int(1, n); return { matrix: g }; },
     s(I, T) { const g = I.matrix, n = g.length; for (let i = 0; i < n; i++) { const r = new Set(g[i]).size, c = new Set(g.map(x => x[i])).size; T.at({ matrix: G(g), index: i }); T.yn(`Are row ${i} and column ${i} both complete?`, r === n && c === n, 'Set sizes must be n.'); if (r !== n || c !== n) return false; } return true; }
   });
@@ -58,21 +58,21 @@
 
   D('largest-local-values-in-a-matrix', {
     t: 'Largest Local Values in a Matrix',
-    r: 'The output is (n − 2) × (n − 2); entry (i, j) is the max of the 3×3 window whose top-left is (i, j).',
+    r: 'The output is (n − 2) times (n − 2); entry (i, j) is the max of the 3 by 3 window whose top-left is (i, j).',
     g: R => { const n = R.int(3, 5); return { grid: mat(R, n, n, 1, 9) }; },
-    s(I, T) { const g = I.grid, n = g.length; let asks = 0; return Array.from({ length: n - 2 }, (_, i) => Array.from({ length: n - 2 }, (_, j) => { let m = 0; for (let a = i; a < i + 3; a++) for (let b = j; b < j + 3; b++) m = Math.max(m, g[a][b]); if (asks++ < 5) { T.at({ grid: G(g, { hl: [[i, j], [i + 2, j + 2]] }) }); T.n('Max of this 3×3 window?', m, 'Scan the window.'); } return m; })); }
+    s(I, T) { const g = I.grid, n = g.length; let asks = 0; return Array.from({ length: n - 2 }, (_, i) => Array.from({ length: n - 2 }, (_, j) => { let m = 0; for (let a = i; a < i + 3; a++) for (let b = j; b < j + 3; b++) m = Math.max(m, g[a][b]); if (asks++ < 5) { T.at({ grid: G(g, { hl: [[i, j], [i + 2, j + 2]] }) }); T.n('Max of this 3 by 3 window?', m, 'Scan the window.'); } return m; })); }
   });
 
   D('maximum-sum-of-an-hourglass', {
     t: 'Maximum Sum of an Hourglass',
-    r: 'For each 3×3 window, the hourglass is the top row, the center and the bottom row (7 cells). Take the maximum sum.',
+    r: 'For each 3 by 3 window, the hourglass is the top row, the center and the bottom row (7 cells). Take the maximum sum.',
     g: R => ({ grid: mat(R, R.int(3, 4), R.int(3, 5), 0, 9) }),
     s(I, T) { const g = I.grid; let best = 0, asks = 0; for (let i = 0; i + 2 < g.length; i++) for (let j = 0; j + 2 < g[0].length; j++) { const s = g[i][j] + g[i][j + 1] + g[i][j + 2] + g[i + 1][j + 1] + g[i + 2][j] + g[i + 2][j + 1] + g[i + 2][j + 2]; best = Math.max(best, s); if (asks++ < 6) { T.at({ grid: G(g, { hl: [[i, j], [i + 1, j + 1], [i + 2, j + 2]] }) }); T.n('Hourglass sum here?', s, 'Top row + center + bottom row.'); } } return best; }
   });
 
   D('difference-between-ones-and-zeros-in-row-and-column', {
     t: 'Difference Between Ones and Zeros in Row and Column',
-    r: 'Precompute ones per row and column. diff[i][j] = 2·onesRow[i] + 2·onesCol[j] − m − n (since zeros = size − ones).',
+    r: 'Precompute ones per row and column. diff[i][j] = 2 times onesRow[i] + 2 times onesCol[j] − m − n (since zeros = size − ones).',
     g: R => ({ grid: mat(R, R.int(1, 4), R.int(1, 4), 0, 1) }),
     s(I, T) { const g = I.grid, m = g.length, n = g[0].length, r = g.map(x => x.reduce((a, b) => a + b, 0)), c = g[0].map((_, j) => g.reduce((a, x) => a + x[j], 0)); T.at({ grid: G(g), onesRow: A(r), onesCol: A(c) }); T.n('Ones in row 0?', r[0], 'Add the row.'); T.n('Ones in column 0?', c[0], 'Add the column.'); T.n('Value of diff at row 0, column 0?', 2 * r[0] + 2 * c[0] - m - n, 'Twice the row ones plus twice the column ones, minus m and n.'); return g.map((_, i) => g[0].map((_, j) => 2 * r[i] + 2 * c[j] - m - n)); }
   });
@@ -95,7 +95,7 @@
     t: 'Check Knight Tour Configuration',
     r: 'Record the position of each step number. The tour must start at (0, 0) and every consecutive pair of positions must differ by a knight move (|dr|, |dc|) ∈ {(1, 2), (2, 1)}.',
     g: R => { const n = R.int(3, 5), g = Array.from({ length: n }, () => Array(n).fill(-1)); const order = []; const go = (r, c, k) => { g[r][c] = k; order.push([r, c]); if (k === n * n - 1) return true; const mv = R.shuffle([[1, 2], [2, 1], [-1, 2], [-2, 1], [1, -2], [2, -1], [-1, -2], [-2, -1]]); for (const [a, b] of mv) { const x = r + a, y = c + b; if (x >= 0 && y >= 0 && x < n && y < n && g[x][y] < 0 && go(x, y, k + 1)) return true; } g[r][c] = -1; order.pop(); return false; }; let ok = n === 5 && go(0, 0, 0); if (!ok) { const v = R.shuffle([...Array(n * n).keys()]); return { grid: Array.from({ length: n }, (_, i) => v.slice(i * n, i * n + n)) }; } if (R.chance(0.3)) { const a = R.int(1, n * n - 1), b = R.int(1, n * n - 1); const [p, q] = [order[a], order[b]]; [g[p[0]][p[1]], g[q[0]][q[1]]] = [g[q[0]][q[1]], g[p[0]][p[1]]]; } return { grid: g }; },
-    s(I, T) { const n = I.grid.length, pos = []; I.grid.forEach((r, i) => r.forEach((v, j) => pos[v] = [i, j])); T.at({ grid: G(I.grid) }); T.yn('Does the tour start at (0, 0)?', I.grid[0][0] === 0, 'Step 0 must be the top-left.'); if (I.grid[0][0] !== 0) return false; for (let k = 1; k < n * n; k++) { const dr = Math.abs(pos[k][0] - pos[k - 1][0]), dc = Math.abs(pos[k][1] - pos[k - 1][1]), ok = dr * dc === 2; if (!ok || k < 4) { T.at({ grid: G(I.grid, { hl: [pos[k - 1], pos[k]] }) }); T.yn(`Is step ${k - 1} → ${k} a knight move?`, ok, '(1, 2) or (2, 1).'); } if (!ok) return false; } return true; }
+    s(I, T) { const n = I.grid.length, pos = []; I.grid.forEach((r, i) => r.forEach((v, j) => pos[v] = [i, j])); T.at({ grid: G(I.grid) }); T.yn('Does the tour start at (0, 0)?', I.grid[0][0] === 0, 'Step 0 must be the top-left.'); if (I.grid[0][0] !== 0) return false; for (let k = 1; k < n * n; k++) { const dr = Math.abs(pos[k][0] - pos[k - 1][0]), dc = Math.abs(pos[k][1] - pos[k - 1][1]), ok = dr * dc === 2; if (!ok || k < 4) { T.at({ grid: G(I.grid, { hl: [pos[k - 1], pos[k]] }) }); T.yn(`Is step ${k - 1} to ${k} a knight move?`, ok, '(1, 2) or (2, 1).'); } if (!ok) return false; } return true; }
   });
 
   D('prime-in-diagonal', {
@@ -135,7 +135,7 @@
 
   D('find-a-good-subset-of-the-matrix', {
     t: 'Find a Good Subset of the Matrix',
-    r: 'If some row is all zeros, it alone is good. Otherwise a good subset exists iff two rows have disjoint ones (bitwise AND = 0); with n ≤ 5 there are only 32 row masks to compare.',
+    r: 'If some row is all zeros, it alone is good. Otherwise a good subset exists exactly when two rows have disjoint ones (bitwise AND = 0); with n at most 5 there are only 32 row masks to compare.',
     g: R => ({ grid: mat(R, R.int(1, 5), R.int(1, 4), 0, 1) }),
     cmp: (o, e, I) => { if (!e.length) return Array.isArray(o) && !o.length; if (!Array.isArray(o) || !o.length || o.some((x, i) => i && x <= o[i - 1])) return false; const h = Math.floor(o.length / 2); return I.grid[0].every((_, j) => o.reduce((s, r) => s + I.grid[r][j], 0) <= h); },
     s(I, T) { const res = (() => { const mk = I.grid.map(r => r.reduce((a, b, j) => a | (b << j), 0)), first = {}; for (const [i, x] of mk.entries()) { T.at({ grid: G(I.grid, { hl: [[i, 0]] }), mask: x }); T.n(`Bitmask of row ${i}?`, x, 'Bit j is set when column j holds a 1.'); if (x === 0) { T.yn('Is this row all zeros?', true, 'A single zero row is good.'); return [i]; } for (const y in first) if ((x & +y) === 0) { T.yn('Is there an earlier row with disjoint ones?', true, 'AND of masks is 0.'); return [first[y], i]; } if (first[x] === undefined) first[x] = i; } return []; })(); T.n('Rows in the chosen subset (0 if none)?', res.length, 'One zero row, or two disjoint rows.'); return res; }
@@ -143,7 +143,7 @@
 
   D('construct-product-matrix', {
     t: 'Construct Product Matrix',
-    r: 'Flatten the grid. p[i] = (product of everything before i) × (product of everything after i) mod 12345, using prefix and suffix products — no division (12345 is not prime).',
+    r: 'Flatten the grid. p[i] = (product of everything before i) times (product of everything after i) mod 12345, using prefix and suffix products — no division (12345 is not prime).',
     g: R => ({ grid: mat(R, R.int(1, 3), R.int(1, 3), 1, 20) }),
     s(I, T) { const f = I.grid.flat(), N = f.length, M = 12345, pre = Array(N).fill(1), out = Array(N); for (let i = 1; i < N; i++) pre[i] = pre[i - 1] * (f[i - 1] % M) % M; let suf = 1; for (let i = N - 1; i >= 0; i--) { out[i] = pre[i] * suf % M; suf = suf * (f[i] % M) % M; } T.at({ flat: A(f), prefix: A(pre) }); T.n('Prefix product before the last element (mod 12345)?', pre[N - 1], 'Running product.'); T.n('Answer for the first cell?', out[0], 'Product of all others mod 12345.'); T.n('Answer for the last cell?', out[N - 1], 'The prefix product before it.'); const n = I.grid[0].length; return I.grid.map((_, i) => out.slice(i * n, i * n + n)); }
   });
@@ -157,23 +157,23 @@
 
   D('matrix-similarity-after-cyclic-shifts', {
     t: 'Matrix Similarity After Cyclic Shifts',
-    r: 'A row returns to itself after shifting k (left or right) iff row[j] == row[(j + k) mod n] for all j. Check every row.',
+    r: 'A row returns to itself after shifting k (left or right) exactly when row[j] == row[(j + k) mod n] for all j. Check every row.',
     g: R => { const n = R.int(1, 4), per = R.int(1, n); return { mat: Array.from({ length: R.int(1, 3) }, () => { const b = R.ints(per, 1, 3); return R.chance(0.8) ? Array.from({ length: n }, (_, j) => b[j % per]) : R.ints(n, 1, 3); }), k: R.int(1, 8) }; },
     s(I, T) { const n = I.mat[0].length; for (const [i, r] of I.mat.entries()) { const ok = r.every((x, j) => x === r[(j + I.k) % n]); T.at({ row: A(r), k: I.k }); T.yn(`Is row ${i} unchanged by a shift of ${I.k}?`, ok, 'Compare j with (j + k) mod n.'); if (!ok) return false; } return true; }
   });
 
   D('find-missing-and-repeated-values', {
     t: 'Find Missing and Repeated Values',
-    r: 'Count every value 1..n² in the grid: the one seen twice is repeated, the one never seen is missing (or use sum and sum-of-squares formulas).',
+    r: 'Count every value 1 to n² in the grid: the one seen twice is repeated, the one never seen is missing (or use sum and sum-of-squares formulas).',
     g: R => { const n = R.int(2, 3), v = R.shuffle([...Array(n * n).keys()].map(x => x + 1)), miss = R.int(0, n * n - 1); let rep = R.int(0, n * n - 1); if (rep === miss) rep = (rep + 1) % (n * n); v[miss] = v[rep]; return { grid: Array.from({ length: n }, (_, i) => v.slice(i * n, i * n + n)) }; },
     s(I, T) { const n = I.grid.length, c = Array(n * n + 1).fill(0); I.grid.flat().forEach(x => c[x]++); const a = c.indexOf(2), b = c.indexOf(0, 1); T.at({ grid: G(I.grid) }); T.n('Sum of all values in the grid?', I.grid.flat().reduce((a, b) => a + b, 0), 'Compare with 1 + 2 + … + n².'); T.n('Repeated value?', a, 'Counted twice.'); T.n('Missing value?', b, 'Never seen.'); return [a, b]; }
   });
 
   D('find-the-grid-of-region-average', {
     t: 'Find the Grid of Region Average',
-    r: 'Check each 3×3 window: it is a region if all adjacent pairs inside differ by ≤ threshold. Each cell\'s answer is ⌊mean of ⌊region averages⌋ of regions containing it⌋, or its own value if none.',
+    r: 'Check each 3 by 3 window: it is a region if all adjacent pairs inside differ by at most threshold. Each cell\'s answer is mean of region averages rounded down of regions containing it rounded down, or its own value if none.',
     g: R => ({ image: mat(R, R.int(3, 4), R.int(3, 4), 1, 9), threshold: R.int(1, 6) }),
-    s(I, T) { const g = I.image, m = g.length, n = g[0].length, sum = g.map(r => r.map(() => 0)), cnt = g.map(r => r.map(() => 0)); let asks = 0; for (let i = 0; i + 3 <= m; i++) for (let j = 0; j + 3 <= n; j++) { let ok = true; for (let a = i; a < i + 3; a++) for (let b = j; b < j + 3; b++) { if (a + 1 < i + 3 && Math.abs(g[a][b] - g[a + 1][b]) > I.threshold) ok = false; if (b + 1 < j + 3 && Math.abs(g[a][b] - g[a][b + 1]) > I.threshold) ok = false; } if (asks++ < 6) { T.at({ image: G(g, { hl: [[i, j], [i + 2, j + 2]] }), threshold: I.threshold }); T.yn('Is this window a region?', ok, 'All neighbor differences ≤ threshold.'); } if (!ok) continue; let s = 0; for (let a = i; a < i + 3; a++) for (let b = j; b < j + 3; b++) s += g[a][b]; const avg = Math.floor(s / 9); for (let a = i; a < i + 3; a++) for (let b = j; b < j + 3; b++) { sum[a][b] += avg; cnt[a][b]++; } } return g.map((r, i) => r.map((v, j) => cnt[i][j] ? Math.floor(sum[i][j] / cnt[i][j]) : v)); }
+    s(I, T) { const g = I.image, m = g.length, n = g[0].length, sum = g.map(r => r.map(() => 0)), cnt = g.map(r => r.map(() => 0)); let asks = 0; for (let i = 0; i + 3 <= m; i++) for (let j = 0; j + 3 <= n; j++) { let ok = true; for (let a = i; a < i + 3; a++) for (let b = j; b < j + 3; b++) { if (a + 1 < i + 3 && Math.abs(g[a][b] - g[a + 1][b]) > I.threshold) ok = false; if (b + 1 < j + 3 && Math.abs(g[a][b] - g[a][b + 1]) > I.threshold) ok = false; } if (asks++ < 6) { T.at({ image: G(g, { hl: [[i, j], [i + 2, j + 2]] }), threshold: I.threshold }); T.yn('Is this window a region?', ok, 'All neighbor differences at most threshold.'); } if (!ok) continue; let s = 0; for (let a = i; a < i + 3; a++) for (let b = j; b < j + 3; b++) s += g[a][b]; const avg = Math.floor(s / 9); for (let a = i; a < i + 3; a++) for (let b = j; b < j + 3; b++) { sum[a][b] += avg; cnt[a][b]++; } } return g.map((r, i) => r.map((v, j) => cnt[i][j] ? Math.floor(sum[i][j] / cnt[i][j]) : v)); }
   });
 
   D('modify-the-matrix', {
@@ -192,14 +192,14 @@
 
   D('count-submatrices-with-top-left-element-and-sum-less-than-k', {
     t: 'Count Submatrices with Top-Left Element and Sum Less Than k',
-    r: 'Submatrices containing (0, 0) are exactly 2D prefixes. Build the prefix sum P[i][j] and count cells with P ≤ k.',
+    r: 'Submatrices containing (0, 0) are exactly 2D prefixes. Build the prefix sum P[i][j] and count cells with P at most k.',
     g: R => ({ grid: mat(R, R.int(1, 4), R.int(1, 4), 0, 6), k: R.int(1, 30) }),
-    s(I, T) { const g = I.grid, m = g.length, n = g[0].length, P = g.map(r => r.slice()); let c = 0, asks = 0; for (let i = 0; i < m; i++) for (let j = 0; j < n; j++) { P[i][j] += (i ? P[i - 1][j] : 0) + (j ? P[i][j - 1] : 0) - (i && j ? P[i - 1][j - 1] : 0); if (P[i][j] <= I.k) c++; if (asks++ < 6) { T.at({ grid: G(g, { hl: [[i, j]] }), k: I.k }); T.n('Prefix sum up to here?', P[i][j], 'Inclusion–exclusion.'); } } return c; }
+    s(I, T) { const g = I.grid, m = g.length, n = g[0].length, P = g.map(r => r.slice()); let c = 0, asks = 0; for (let i = 0; i < m; i++) for (let j = 0; j < n; j++) { P[i][j] += (i ? P[i - 1][j] : 0) + (j ? P[i][j - 1] : 0) - (i && j ? P[i - 1][j - 1] : 0); if (P[i][j] <= I.k) c++; if (asks++ < 6) { T.at({ grid: G(g, { hl: [[i, j]] }), k: I.k }); T.n('Prefix sum up to here?', P[i][j], 'Inclusion to exclusion.'); } } return c; }
   });
 
   D('minimum-operations-to-write-the-letter-y-on-a-grid', {
     t: 'Minimum Operations to Write the Letter Y on a Grid',
-    r: 'Count values (0, 1, 2) on the Y cells (both upper diagonals to the center, then straight down) and off the Y. Try every pair (a, b), a ≠ b: cost = Y cells not a + others not b.',
+    r: 'Count values (0, 1, 2) on the Y cells (both upper diagonals to the center, then straight down) and off the Y. Try every pair (a, b), a not equal to b: cost = Y cells not a + others not b.',
     g: R => { const n = 2 * R.int(1, 3) + 1; return { grid: mat(R, n, n, 0, 2) }; },
     s(I, T) { const res = (() => { const g = I.grid, n = g.length, c = n >> 1, y = [0, 0, 0], o = [0, 0, 0]; g.forEach((r, i) => r.forEach((v, j) => { const inY = (i <= c && (i === j || i + j === n - 1)) || (i >= c && j === c); (inY ? y : o)[v]++; })); T.at({ grid: G(g), yCounts: A(y), otherCounts: A(o) }); T.n('Cells in the Y?', y[0] + y[1] + y[2], 'Two half-diagonals plus the stem.'); T.n('Cells outside the Y?', o[0] + o[1] + o[2], 'Everything else.'); let best = Infinity; for (let a = 0; a < 3; a++) for (let b = 0; b < 3; b++) if (a !== b) best = Math.min(best, (y[0] + y[1] + y[2] - y[a]) + (o[0] + o[1] + o[2] - o[b])); return best; })(); T.n('Fewest operations?', res, 'Try every pair of different values.'); return res; }
   });
@@ -213,14 +213,14 @@
 
   D('make-a-square-with-the-same-color', {
     t: 'Make a Square with the Same Color',
-    r: 'Check the four 2×2 squares of the 3×3 grid; if any has at least 3 cells of one color, changing at most one cell makes it uniform.',
+    r: 'Check the four 2 by 2 squares of the 3 by 3 grid; if any has at least 3 cells of one color, changing at most one cell makes it uniform.',
     g: R => ({ grid: Array.from({ length: 3 }, () => Array.from({ length: 3 }, () => R.pick(['B', 'W']))) }),
     s(I, T) { const res = (() => { const g = I.grid; for (let i = 0; i < 2; i++) for (let j = 0; j < 2; j++) { const b = [g[i][j], g[i][j + 1], g[i + 1][j], g[i + 1][j + 1]].filter(x => x === 'B').length, ok = b !== 2; T.at({ grid: G(g, { hl: [[i, j], [i + 1, j + 1]] }) }); T.yn('At least 3 of one color here?', ok, 'The B count is not 2.'); if (ok) return true; } return false; })(); T.yn('Can at most one change make a same-color square?', res, 'Some 2 by 2 square works.'); return res; }
   });
 
   D('maximum-hamming-distances', {
     t: 'Maximum Hamming Distances',
-    r: 'max Hamming(x, y) = m − min Hamming(~x, y). Multi-source BFS over all 2^m masks starting from the numbers present gives each mask\'s distance to the nearest number; answer = m − dist[~x].',
+    r: 'max Hamming(x, y) = m − min Hamming(~x, y). Multi-source BFS over all 2 to the power m masks starting from the numbers present gives each mask\'s distance to the nearest number; answer = m − dist[~x].',
     g: R => { const m = R.int(1, 5); return { nums: R.ints(R.int(2, 6), 0, (1 << m) - 1), m }; },
     s(I, T) { const M = 1 << I.m, d = Array(M).fill(-1); let q = []; for (const x of I.nums) if (d[x] < 0) { d[x] = 0; q.push(x); } while (q.length) { const nq = []; for (const x of q) for (let b = 0; b < I.m; b++) { const y = x ^ (1 << b); if (d[y] < 0) { d[y] = d[x] + 1; nq.push(y); } } q = nq; } return I.nums.map((x, i) => { const v = I.m - d[(M - 1) ^ x]; if (i < 5) { T.at({ x, complement: (M - 1) ^ x, m: I.m }); T.n(`Max Hamming distance for ${x}?`, v, 'm − distance from the complement to the nearest number.'); } return v; }); }
   });
@@ -234,7 +234,7 @@
 
   D('find-the-minimum-area-to-cover-all-ones-i', {
     t: 'Find the Minimum Area to Cover All Ones I',
-    r: 'Track the min and max row and column containing a 1; the area is (maxR − minR + 1) × (maxC − minC + 1).',
+    r: 'Track the min and max row and column containing a 1; the area is (maxR − minR + 1) times (maxC − minC + 1).',
     g: R => { const g = mat(R, R.int(1, 4), R.int(1, 4), 0, 1); if (!g.flat().some(x => x)) g[0][0] = 1; return { grid: g }; },
     s(I, T) { const res = (() => { const r = [], c = []; I.grid.forEach((row, i) => row.forEach((v, j) => { if (v) { r.push(i); c.push(j); } })); T.at({ grid: G(I.grid) }); T.n('Height of the bounding box?', Math.max(...r) - Math.min(...r) + 1, 'Last row with a 1, minus the first, plus 1.'); T.n('Width of the bounding box?', Math.max(...c) - Math.min(...c) + 1, 'Last column with a 1, minus the first, plus 1.'); return (Math.max(...r) - Math.min(...r) + 1) * (Math.max(...c) - Math.min(...c) + 1); })(); T.n('Minimum area?', res, 'Height times width.'); return res; }
   });
@@ -269,7 +269,7 @@
 
   D('sort-matrix-by-diagonals', {
     t: 'Sort Matrix by Diagonals',
-    r: 'Diagonals in the bottom-left triangle (i − j ≥ 0, including the main one) are sorted in non-increasing order; diagonals in the top-right (i − j < 0) in non-decreasing order.',
+    r: 'Diagonals in the bottom-left triangle (i − j at least 0, including the main one) are sorted in non-increasing order; diagonals in the top-right (i − j < 0) in non-decreasing order.',
     g: R => { const n = R.int(1, 4); return { grid: mat(R, n, n, 1, 9) }; },
     s(I, T) { const g = I.grid.map(r => r.slice()), n = g.length; for (let d = -(n - 1); d <= n - 1; d++) { const cells = []; for (let i = 0; i < n; i++) { const j = i - d; if (j >= 0 && j < n) cells.push([i, j]); } const v = cells.map(([i, j]) => g[i][j]).sort((a, b) => d >= 0 ? b - a : a - b); cells.forEach(([i, j], k) => g[i][j] = v[k]); if (Math.abs(d) <= 1) { T.at({ grid: G(I.grid), diagonal: d }); T.n(`First value of diagonal i − j = ${d} after sorting?`, v[0], d >= 0 ? 'Bottom-left side: descending.' : 'Top-right side: ascending.'); } } return g; }
   });

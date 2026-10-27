@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Asteroid Collision: only → meets ←',
+    'title' => 'Asteroid Collision: only, so meets left',
     'leetcode' => 735,
     'difficulty' => 'Med',
     'summary' => 'A collision happens only when the top of the stack moves right (+) and the new asteroid moves left (−). The smaller one explodes; equal sizes both explode.',

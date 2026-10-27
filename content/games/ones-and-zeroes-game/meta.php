@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Ones and Zeroes: 0/1 knapsack with two budgets',
+    'title' => 'Ones and Zeroes: 0-1 knapsack with two budgets',
     'leetcode' => 474,
     'difficulty' => 'Med',
     'summary' => 'dp[z][o] = most strings using at most z zeros and o ones. For each string (zeros c0, ones c1), go backwards: dp[z][o] = max(dp[z][o], dp[z−c0][o−c1] + 1).',

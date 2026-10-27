@@ -5,7 +5,7 @@ return [
     'title' => 'Points Inside a Circle: squared distance test',
     'leetcode' => 1828,
     'difficulty' => 'Med',
-    'summary' => 'For each query circle, count the points with (x − cx)² + (y − cy)² ≤ r² (boundary counts).',
+    'summary' => 'For each query circle, count the points with (x − cx)² + (y − cy)² at most r² (boundary counts).',
     'category' => 'LeetCode',
     'subcategory' => 'Math',
     'topic' => 'LeetCode · Math',

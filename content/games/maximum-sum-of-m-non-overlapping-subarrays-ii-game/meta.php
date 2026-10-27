@@ -5,7 +5,7 @@ return [
     'title' => 'Maximum Sum of M Non-Overlapping Subarrays II',
     'leetcode' => 3957,
     'difficulty' => 'Hard',
-    'summary' => 'Same DP, but n is 10^5. For layer j, dp[j−1][i−L] − P[i−L] over L in [l, r] is a sliding-window maximum, so keep a monotonic deque per layer, and use the Aliens trick (a per-subarray penalty) to avoid the m layers.',
+    'summary' => 'Same DP, but n is 10 to the power 5. For layer j, dp[j−1][i−L] − P[i−L] over L in [l, r] is a sliding-window maximum, so keep a monotonic deque per layer, and use the Aliens trick (a per-subarray penalty) to avoid the m layers.',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

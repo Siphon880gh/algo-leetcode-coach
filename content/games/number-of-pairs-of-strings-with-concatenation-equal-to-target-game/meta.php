@@ -5,7 +5,7 @@ return [
     'title' => 'Pairs Concatenating to Target',
     'leetcode' => 2023,
     'difficulty' => 'Med',
-    'summary' => 'Count ordered pairs i ≠ j with nums[i] + nums[j] = target. With a count map: for each prefix match, add the count of the needed suffix (minus self if equal).',
+    'summary' => 'Count ordered pairs i not equal to j with nums[i] + nums[j] = target. With a count map: for each prefix match, add the count of the needed suffix (minus self if equal).',
     'category' => 'LeetCode',
     'subcategory' => 'Strings',
     'topic' => 'LeetCode · Strings',

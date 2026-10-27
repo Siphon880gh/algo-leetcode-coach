@@ -5,7 +5,7 @@ return [
     'title' => 'Possible Sets of Closing Branches',
     'leetcode' => 2959,
     'difficulty' => 'Hard',
-    'summary' => 'n ≤ 10, so try every subset of kept branches. Run Floyd–Warshall using only roads between kept branches and check every pair is within maxDistance.',
+    'summary' => 'n at most 10, so try every subset of kept branches. Run Floyd-Warshall using only roads between kept branches and check every pair is within maxDistance.',
     'category' => 'LeetCode',
     'subcategory' => 'Graphs',
     'topic' => 'LeetCode · Graphs',

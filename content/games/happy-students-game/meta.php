@@ -5,7 +5,7 @@ return [
     'title' => 'Happy Students',
     'leetcode' => 2860,
     'difficulty' => 'Med',
-    'summary' => 'Selecting k students only works by taking the k smallest values. k is valid iff (k = 0 or sorted[k−1] < k) and (k = n or sorted[k] > k). Count valid k.',
+    'summary' => 'Selecting k students only works by taking the k smallest values. k is valid exactly when (k = 0 or sorted[k−1] < k) and (k = n or sorted[k] > k). Count valid k.',
     'category' => 'LeetCode',
     'subcategory' => 'Sorting',
     'topic' => 'LeetCode · Sorting',

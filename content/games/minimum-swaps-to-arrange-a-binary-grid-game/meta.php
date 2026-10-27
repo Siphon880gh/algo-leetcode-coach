@@ -5,7 +5,7 @@ return [
     'title' => 'Minimum Swaps to Arrange a Binary Grid',
     'leetcode' => 1536,
     'difficulty' => 'Med',
-    'summary' => 'Row i needs ≥ n − 1 − i trailing zeros. Greedily, for each i find the first row at or below it with enough zeros and bubble it up with adjacent swaps; none found → −1.',
+    'summary' => 'Row i needs at least n − 1 − i trailing zeros. Greedily, for each i find the first row at or below it with enough zeros and bubble it up with adjacent swaps; none found: −1.',
     'category' => 'LeetCode',
     'subcategory' => 'Graphs',
     'topic' => 'LeetCode · Graphs',

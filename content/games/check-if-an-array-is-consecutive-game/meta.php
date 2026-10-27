@@ -5,7 +5,7 @@ return [
     'title' => 'Check if an Array Is Consecutive',
     'leetcode' => 2229,
     'difficulty' => 'Easy',
-    'summary' => 'Consecutive iff all values are distinct (hash set size n) and max − min = n − 1.',
+    'summary' => 'Consecutive exactly when all values are distinct (hash set size n) and max − min = n − 1.',
     'category' => 'LeetCode',
     'subcategory' => 'Hash Table',
     'topic' => 'LeetCode · Hash Table',

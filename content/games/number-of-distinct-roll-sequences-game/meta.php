@@ -5,7 +5,7 @@ return [
     'title' => 'Number of Distinct Roll Sequences: remember the last two rolls',
     'leetcode' => 2318,
     'difficulty' => 'Hard',
-    'summary' => 'dp[a][b] = sequences ending with rolls a, b. Next roll c needs gcd(b, c) = 1, c ≠ b and c ≠ a.',
+    'summary' => 'dp[a][b] = sequences ending with rolls a, b. Next roll c needs gcd(b, c) = 1, c not equal to b and c not equal to a.',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

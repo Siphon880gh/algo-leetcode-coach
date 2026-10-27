@@ -5,7 +5,7 @@ return [
     'title' => 'Product of Array Except Self',
     'leetcode' => 238,
     'difficulty' => 'Med',
-    'summary' => 'answer[i] = (product of everything left of i) × (product of everything right of i): one pass left to right, one pass right to left.',
+    'summary' => 'answer[i] = (product of everything left of i) times (product of everything right of i): one pass left to right, one pass right to left.',
     'category' => 'LeetCode',
     'subcategory' => 'Arrays',
     'topic' => 'LeetCode · Arrays',

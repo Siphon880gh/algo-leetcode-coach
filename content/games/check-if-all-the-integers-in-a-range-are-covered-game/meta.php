@@ -5,7 +5,7 @@ return [
     'title' => 'Check if All the Integers in a Range Are Covered',
     'leetcode' => 1893,
     'difficulty' => 'Easy',
-    'summary' => 'Difference array over 1..50: +1 at start, −1 after end. Prefix-sum it and check every x in [left, right] has coverage > 0.',
+    'summary' => 'Difference array over 1 to 50: +1 at start, −1 after end. Prefix-sum it and check every x in [left, right] has coverage > 0.',
     'category' => 'LeetCode',
     'subcategory' => 'Prefix Sum',
     'topic' => 'LeetCode · Prefix Sum',

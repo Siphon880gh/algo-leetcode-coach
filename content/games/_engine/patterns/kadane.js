@@ -12,8 +12,8 @@
       if (ext === x) key = ['ext', 'new']; else key = better ? 'ext' : 'new';
       var c = {}; for (var k = start; k < i; k++) c[k] = 'blue'; c[i] = 'hit';
       t.act(V(P.arr(a, { cls: c, ptr: { i: i }, label: label }), P.vars([[names[0], cur], [names[1], best]])), 'x = ' + x + '. ' + names[0] + ' = ' + cur + '.', EXT, key,
-        sign > 0 ? { ext: 'cur ' + cur + ' ≤ 0 drags x down: ' + cur + ' + ' + x + ' = ' + ext + ' < ' + x + '.', 'new': 'cur ' + cur + ' > 0 helps: ' + ext + ' > ' + x + '.' }
-          : { ext: 'cur ' + cur + ' ≥ 0 pushes the sum up: ' + ext + ' > ' + x + '.', 'new': 'cur ' + cur + ' < 0 makes it smaller: ' + ext + ' < ' + x + '.' },
+        sign > 0 ? { ext: 'cur ' + cur + ' at most 0 drags x down: ' + cur + ' + ' + x + ' = ' + ext + ' < ' + x + '.', 'new': 'cur ' + cur + ' > 0 helps: ' + ext + ' > ' + x + '.' }
+          : { ext: 'cur ' + cur + ' at least 0 pushes the sum up: ' + ext + ' > ' + x + '.', 'new': 'cur ' + cur + ' < 0 makes it smaller: ' + ext + ' < ' + x + '.' },
         (better || ext === x ? 'cur = ' + ext : 'cur = ' + x) + '.');
       if (better || ext === x) cur = ext; else { cur = x; start = i; }
       if (sign > 0 ? cur > best : cur < best) { best = cur; bs = start; be = i; }
@@ -66,7 +66,7 @@
       var total = 0, acts = [['take', 'Take the gain'], ['skip', 'Skip (no gain)']];
       for (var i = 1; i < p.length; i++) {
         var d = p[i] - p[i - 1], c = {}; c[i - 1] = 'warn'; c[i] = 'hit';
-        t.act(V(P.arr(p, { bars: true, cls: c }), P.vars([['diff', d], ['total', total]])), 'Day ' + (i - 1) + ' → ' + i + ': ' + p[i - 1] + ' → ' + p[i] + '.', acts, d > 0 ? 'take' : 'skip', d > 0 ? 'Prices rose by ' + d + '; buying yesterday and selling today earns it.' : 'Prices did not rise; holding through it only loses.', d > 0 ? '+' + d + '.' : 'No trade.');
+        t.act(V(P.arr(p, { bars: true, cls: c }), P.vars([['diff', d], ['total', total]])), 'Day ' + (i - 1) + ' to ' + i + ': price ' + p[i - 1] + ' to ' + p[i] + '.', acts, d > 0 ? 'take' : 'skip', d > 0 ? 'Prices rose by ' + d + '; buying yesterday and selling today earns it.' : 'Prices did not rise; holding through it only loses.', d > 0 ? '+' + d + '.' : 'No trade.');
         if (d > 0) total += d;
       }
       t.num(V(P.arr(p, { bars: true })), 'Total profit?', total, { wrong: 'Add up the gains you took.', note: total + '.' });
@@ -96,7 +96,7 @@
 
   LC.register('maximum-product-subarray', {
     title: 'Maximum Product Subarray: a negative swaps max and min',
-    rule: 'Track the largest and smallest product ending here. A negative x turns the smallest into the largest, so swap them first. Then hi = max(x, hi·x), lo = min(x, lo·x).',
+    rule: 'Track the largest and smallest product ending here. A negative x turns the smallest into the largest, so swap them first. Then hi = max(x, hi times x), lo = min(x, lo times x).',
     make: function (rng, round) {
       var a = []; for (var i = 0; i < 7 + round; i++) a.push(rng.pick([-3, -2, -1, 0, 1, 2, 3, 4, -2, 2]));
       var t = new LC.Trace();

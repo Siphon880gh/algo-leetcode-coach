@@ -5,7 +5,7 @@ return [
     'title' => 'Loud and Rich',
     'leetcode' => 851,
     'difficulty' => 'Med',
-    'summary' => 'Edge richer → poorer. For each person, DFS (memoized) over people richer than them: answer[x] is the quietest among x and everyone reachable upward.',
+    'summary' => 'Edge from richer to poorer. For each person, DFS (memoized) over people richer than them: answer[x] is the quietest among x and everyone reachable upward.',
     'category' => 'LeetCode',
     'subcategory' => 'Graphs',
     'topic' => 'LeetCode · Graphs',

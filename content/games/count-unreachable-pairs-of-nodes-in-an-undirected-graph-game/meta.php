@@ -5,7 +5,7 @@ return [
     'title' => 'Count Unreachable Pairs of Nodes in an Undirected Graph',
     'leetcode' => 2316,
     'difficulty' => 'Med',
-    'summary' => 'Union all edges to get component sizes. Each node pairs with every node outside its component: Σ s·(n − s) / 2.',
+    'summary' => 'Union all edges to get component sizes. Each node pairs with every node outside its component: the sum of s times (n − s) divided by 2.',
     'category' => 'LeetCode',
     'subcategory' => 'Union Find',
     'topic' => 'LeetCode · Union Find',

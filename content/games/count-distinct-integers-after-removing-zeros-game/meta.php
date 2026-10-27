@@ -5,7 +5,7 @@ return [
     'title' => 'Count Distinct Integers After Removing Zeros',
     'leetcode' => 3747,
     'difficulty' => 'Med',
-    'summary' => 'Removing zeros gives a zero-free number no bigger than x, and every zero-free y ≤ n appears (from x = y). So count zero-free numbers in [1, n]: 9^L for each shorter length L, plus a digit DP for n\'s own length.',
+    'summary' => 'Removing zeros gives a zero-free number no bigger than x, and every zero-free y at most n appears (from x = y). So count zero-free numbers in [1, n]: 9 to the power L for each shorter length L, plus a digit DP for n\'s own length.',
     'category' => 'LeetCode',
     'subcategory' => 'Math',
     'topic' => 'LeetCode · Math',

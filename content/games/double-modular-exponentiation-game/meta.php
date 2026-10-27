@@ -2,10 +2,10 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Double Modular Exponentiation: ((a^b mod 10)^c) mod m',
+    'title' => 'Double Modular Exponentiation: ((a to the power b mod 10) to the power c) mod m',
     'leetcode' => 2961,
     'difficulty' => 'Med',
-    'summary' => 'Compute a^b mod 10 with fast power, then raise that to c mod m. Keep the indices that equal target.',
+    'summary' => 'Compute a to the power b mod 10 with fast power, then raise that to c mod m. Keep the indices that equal target.',
     'category' => 'LeetCode',
     'subcategory' => 'Math',
     'topic' => 'LeetCode · Math',

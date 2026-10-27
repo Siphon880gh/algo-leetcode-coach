@@ -5,7 +5,7 @@ return [
     'title' => 'Neighboring Bitwise XOR',
     'leetcode' => 2683,
     'difficulty' => 'Med',
-    'summary' => 'Every original bit appears twice in the XOR of all derived values (circularly), so a valid original exists iff XOR(derived) = 0.',
+    'summary' => 'Every original bit appears twice in the XOR of all derived values (circularly), so a valid original exists exactly when XOR(derived) = 0.',
     'category' => 'LeetCode',
     'subcategory' => 'Bit Manipulation',
     'topic' => 'LeetCode · Bit Manipulation',

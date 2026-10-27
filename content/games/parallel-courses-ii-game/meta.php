@@ -5,7 +5,7 @@ return [
     'title' => 'Parallel Courses II (bitmask DP)',
     'leetcode' => 1494,
     'difficulty' => 'Hard',
-    'summary' => 'dp[mask] = fewest semesters to finish the courses in mask. From mask, the available courses have all prerequisites in mask; take all if ≤ k, otherwise try every subset of exactly k.',
+    'summary' => 'dp[mask] = fewest semesters to finish the courses in mask. From mask, the available courses have all prerequisites in mask; take all if at most k, otherwise try every subset of exactly k.',
     'category' => 'LeetCode',
     'subcategory' => 'Graphs',
     'topic' => 'LeetCode · Graphs',

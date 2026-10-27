@@ -5,7 +5,7 @@ return [
     'title' => 'Number of Laser Beams in a Bank',
     'leetcode' => 2125,
     'difficulty' => 'Med',
-    'summary' => 'Skip empty rows. Beams connect each pair of consecutive non-empty rows: add prev × cur device counts.',
+    'summary' => 'Skip empty rows. Beams connect each pair of consecutive non-empty rows: add prev times cur device counts.',
     'category' => 'LeetCode',
     'subcategory' => 'Graphs',
     'topic' => 'LeetCode · Graphs',

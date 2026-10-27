@@ -5,7 +5,7 @@ return [
     'title' => 'The Most Similar Path in a Graph',
     'leetcode' => 1548,
     'difficulty' => 'Hard',
-    'summary' => 'dp[i][v] = min edit cost of a path matching targetPath[0..i] ending at city v = (name mismatch) + min dp[i − 1][u] over neighbors u. Reconstruct with parent pointers.',
+    'summary' => 'dp[i][v] = min edit cost of a path matching targetPath[0 to i] ending at city v = (name mismatch) + min dp[i − 1][u] over neighbors u. Reconstruct with parent pointers.',
     'category' => 'LeetCode',
     'subcategory' => 'Graphs',
     'topic' => 'LeetCode · Graphs',

@@ -21,9 +21,9 @@
 
   D('maximum-product-of-first-and-last-elements-of-a-subsequence', {
     t: 'Maximum Product of First and Last Elements of a Subsequence',
-    r: 'If the last element is at j, the first can be at any i ≤ j − m + 1. Sweep j and keep the max and min of nums[0..j−m+1]; the best product with nums[j] uses one of them (sign matters).',
+    r: 'If the last element is at j, the first can be at any i at most j − m + 1. Sweep j and keep the max and min of nums[0 to j−m+1]; the best product with nums[j] uses one of them (sign matters).',
     g: R => { const n = R.int(2, 7); return { nums: R.ints(n, -6, 6), m: R.int(1, Math.min(3, n)) }; },
-    s(I, T) { const a = I.nums, m = I.m; let mx = -Infinity, mn = Infinity, best = -Infinity; for (let j = m - 1; j < a.length; j++) { const i = j - m + 1; mx = Math.max(mx, a[i]); mn = Math.min(mn, a[i]); const v = Math.max(mx * a[j], mn * a[j]); best = Math.max(best, v); if (j - m + 1 < 6) { T.at({ nums: A(a, { i, j, win: [0, i] }), max: mx, min: mn }); T.n(`Best product with the last element at index ${j}?`, v, a[j] >= 0 ? `nums[j] ≥ 0 pairs with the max (${mx}).` : `nums[j] < 0 pairs with the min (${mn}).`); } } return best; }
+    s(I, T) { const a = I.nums, m = I.m; let mx = -Infinity, mn = Infinity, best = -Infinity; for (let j = m - 1; j < a.length; j++) { const i = j - m + 1; mx = Math.max(mx, a[i]); mn = Math.min(mn, a[i]); const v = Math.max(mx * a[j], mn * a[j]); best = Math.max(best, v); if (j - m + 1 < 6) { T.at({ nums: A(a, { i, j, win: [0, i] }), max: mx, min: mn }); T.n(`Best product with the last element at index ${j}?`, v, a[j] >= 0 ? `nums[j] at least 0 pairs with the max (${mx}).` : `nums[j] < 0 pairs with the min (${mn}).`); } } return best; }
   });
 
   D('flip-square-submatrix-vertically', {
@@ -35,9 +35,9 @@
 
   D('number-of-perfect-pairs', {
     t: 'Number of Perfect Pairs',
-    r: 'With x = |a| ≤ y = |b|, the two conditions reduce to y ≤ 2x. Sort the absolute values and, for each right end, move the left pointer until 2·left ≥ right; every index in between pairs with it.',
+    r: 'With x = |a| at most y = |b|, the two conditions reduce to y at most 2x. Sort the absolute values and, for each right end, move the left pointer until 2 times left at least right; every index in between pairs with it.',
     g: R => ({ nums: R.ints(R.int(2, 7), -9, 9) }),
-    s(I, T) { const a = I.nums.map(Math.abs).sort((x, y) => x - y); let l = 0, tot = 0; for (let r = 0; r < a.length; r++) { while (2 * a[l] < a[r]) l++; tot += r - l; if (r < 6) { T.at({ abs: A(a, { l, r }) }); T.n(`Perfect pairs with right end ${r} (|value| ${a[r]})?`, r - l, `Indices l..r−1 with 2·|a| ≥ ${a[r]}.`); } } return tot; }
+    s(I, T) { const a = I.nums.map(Math.abs).sort((x, y) => x - y); let l = 0, tot = 0; for (let r = 0; r < a.length; r++) { while (2 * a[l] < a[r]) l++; tot += r - l; if (r < 6) { T.at({ abs: A(a, { l, r }) }); T.n(`Perfect pairs with right end ${r} (|value| ${a[r]})?`, r - l, `Indices l to r−1 with 2 times |a| at least ${a[r]}.`); } } return tot; }
   });
 
   D('sort-array-by-absolute-value', {
@@ -92,14 +92,14 @@
 
   D('limit-occurrences-in-sorted-array', {
     t: 'Limit Occurrences in Sorted Array',
-    r: 'The array is sorted, so copies of a value are adjacent. Keep a write pointer; copy nums[i] only if fewer than k elements back the written value differs (write < k or nums[write − k] ≠ nums[i]).',
+    r: 'The array is sorted, so copies of a value are adjacent. Keep a write pointer; copy nums[i] only if fewer than k elements back the written value differs (write < k or nums[write − k] not equal to nums[i]).',
     g: R => ({ nums: R.ints(R.int(1, 8), 1, 4).sort((a, b) => a - b), k: R.int(1, 3) }),
     s(I, T) { const out = []; I.nums.forEach((x, i) => { const keep = out.length < I.k || out[out.length - I.k] !== x; if (i < 7) { T.at({ nums: A(I.nums, { i }), kept: A(out.slice()), k: I.k }); T.yn(`Keep nums[${i}] = ${x}?`, keep, keep ? 'Fewer than k copies written so far.' : `Already wrote ${I.k} copies.`); } if (keep) out.push(x); }); return out; }
   });
 
   D('subsequence-after-one-replacement', {
     t: 'Subsequence After One Replacement',
-    r: 'pre[i] = where in t the greedy match of s[0..i) ends, suf[i] = where the greedy match of s[i..] from the right begins. Replacing s[i] works if some character of t lies strictly between pre[i] and suf[i + 1], i.e. pre[i] < suf[i + 1].',
+    r: 'pre[i] = where in t the greedy match of s[0 to i) ends, suf[i] = where the greedy match of s[i..] from the right begins. Replacing s[i] works if some character of t lies strictly between pre[i] and suf[i + 1], i.e. pre[i] < suf[i + 1].',
     g: R => ({ s: R.str(R.int(1, 4), 'abc'), t: R.str(R.int(1, 6), 'abc') }),
     s(I, T) { const s = I.s, t = I.t, n = s.length, pre = [0]; for (let i = 0, j = 0; i < n; i++) { while (j < t.length && t[j] !== s[i]) j++; j = j < t.length ? j + 1 : Infinity; pre.push(j); if (j === Infinity) { for (let q = i + 2; q <= n; q++) pre.push(Infinity); break; } } const suf = Array(n + 1).fill(-Infinity); suf[n] = t.length; for (let i = n - 1, j = t.length - 1; i >= 0; i--) { while (j >= 0 && t[j] !== s[i]) j--; if (j < 0) break; suf[i] = j; j--; } T.at({ s: A(s.split('')), t: A(t.split('')) }); T.yn('Is s already a subsequence of t?', pre[n] !== Infinity, 'Greedy left-to-right match.'); let ok = pre[n] !== Infinity; for (let i = 0; i < n; i++) { const can = pre[i] < suf[i + 1]; if (i < 3) { T.at({ s: A(s.split(''), { i }), t: A(t.split('')) }); T.yn(`Does replacing s[${i}] make it work?`, can, 'Needs a free character of t between the prefix match and the suffix match.'); } ok = ok || can; } return ok; }
   });

@@ -5,7 +5,7 @@ return [
     'title' => 'Maximum Average Pass Ratio',
     'leetcode' => 1792,
     'difficulty' => 'Med',
-    'summary' => 'Give each extra student to the class with the largest gain (p+1)/(t+1) − p/t, using a max-heap keyed by that gain; then average the ratios.',
+    'summary' => 'Give each extra student to the class with the largest gain (p+1) divided by (t+1) − p divided by t, using a max-heap keyed by that gain; then average the ratios.',
     'category' => 'LeetCode',
     'subcategory' => 'Heap',
     'topic' => 'LeetCode · Heap',

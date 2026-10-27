@@ -5,7 +5,7 @@ return [
     'title' => 'Almost Equivalent Strings',
     'leetcode' => 2068,
     'difficulty' => 'Easy',
-    'summary' => 'For every letter, |count1 − count2| must be ≤ 3.',
+    'summary' => 'For every letter, |count1 − count2| must be at most 3.',
     'category' => 'LeetCode',
     'subcategory' => 'Strings',
     'topic' => 'LeetCode · Strings',

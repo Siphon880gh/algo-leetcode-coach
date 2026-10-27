@@ -5,7 +5,7 @@ return [
     'title' => 'Flower Game: Alice wins when x + y is odd',
     'leetcode' => 3021,
     'difficulty' => 'Med',
-    'summary' => 'Alice takes the last flower exactly when the total x + y is odd. Count pairs with one odd and one even: odd(n)·even(m) + even(n)·odd(m).',
+    'summary' => 'Alice takes the last flower exactly when the total x + y is odd. Count pairs with one odd and one even: odd(n) times even(m) + even(n) times odd(m).',
     'category' => 'LeetCode',
     'subcategory' => 'Math',
     'topic' => 'LeetCode · Math',

@@ -5,7 +5,7 @@ return [
     'title' => 'Minimum Cost to Make Arrays Identical: rearrange or not',
     'leetcode' => 3424,
     'difficulty' => 'Med',
-    'summary' => 'Without rearranging: Σ |arr − brr|. With one rearrange (cost k), sort both and pair: k + Σ |sorted differences|. Take the smaller.',
+    'summary' => 'Without rearranging: the sum of |arr − brr|. With one rearrange (cost k), sort both and pair: k + the sum of |sorted differences|. Take the smaller.',
     'category' => 'LeetCode',
     'subcategory' => 'Greedy',
     'topic' => 'LeetCode · Greedy',

@@ -9,42 +9,42 @@
 
   D('longest-palindromic-subsequence-ii', {
     t: 'Longest Palindromic Subsequence II: even length, no repeated neighbors',
-    r: 'dp[i][j] = (length, outer letter) of the best good palindrome in s[i..j]. If s[i] == s[j] and differs from the inner best\'s outer letter, wrap it: length + 2. Otherwise take the better of dropping either end.',
+    r: 'dp[i][j] = (length, outer letter) of the best good palindrome in s[i to j]. If s[i] == s[j] and differs from the inner best\'s outer letter, wrap it: length + 2. Otherwise take the better of dropping either end.',
     g: R => ({ s: R.str(R.int(4, 6), 'abc') }),
     s(I, T) { const s = I.s, n = s.length, L = mk(n, n, 0), C = mk(n, n, ''); for (let len = 2; len <= n; len++) for (let i = 0; i + len <= n; i++) { const j = i + len - 1, inL = len > 2 ? L[i + 1][j - 1] : 0, inC = len > 2 ? C[i + 1][j - 1] : ''; if (s[i] === s[j] && s[i] !== inC) { L[i][j] = inL + 2; C[i][j] = s[i]; } else if (L[i + 1][j] >= L[i][j - 1]) { L[i][j] = L[i + 1][j]; C[i][j] = C[i + 1][j]; } else { L[i][j] = L[i][j - 1]; C[i][j] = C[i][j - 1]; } T.at({ s: A([...s], { win: [i, j] }) }); T.n(`Best good palindrome length in "${s.slice(i, j + 1)}"?`, L[i][j], s[i] === s[j] && s[i] !== inC ? 'Equal ends that differ from the inner outer letter: wrap.' : 'Drop one end.'); } return L[0][n - 1]; }
   });
 
   D('delivering-boxes-from-storage-to-ports', {
     t: 'Delivering Boxes: which boxes ride on the last trip?',
-    r: 'dp[i] = fewest trips for the first i boxes. The last trip carries boxes j..i−1 if they fit the box and weight limits: dp[j] + (port changes inside) + 2 (first stop and the return).',
+    r: 'dp[i] = fewest trips for the first i boxes. The last trip carries boxes j to i−1 if they fit the box and weight limits: dp[j] + (port changes inside) + 2 (first stop and the return).',
     g: R => ({ boxes: Array.from({ length: R.int(4, 5) }, () => [R.int(1, 3), R.int(1, 3)]), portsCount: 3, maxBoxes: R.int(2, 3), maxWeight: R.int(3, 6) }),
     s(I, T) { const b = I.boxes, n = b.length, dp = [0]; for (let i = 1; i <= n; i++) { let best = Infinity, w = 0, ch = 0; for (let j = i - 1; j >= 0 && i - j <= I.maxBoxes; j--) { w += b[j][1]; if (w > I.maxWeight) break; if (j < i - 1 && b[j][0] !== b[j + 1][0]) ch++; best = Math.min(best, dp[j] + ch + 2); } T.at({ boxes: A(b.map(x => `p${x[0]}/w${x[1]}`), { hl: [i - 1] }), dp: A(dp.concat('?')), limits: `${I.maxBoxes} boxes, ${I.maxWeight} weight` }); T.n(`dp[${i}]?`, best, 'Try every last load that fits: dp[j] + port changes + 2.'); dp.push(best); } return dp[n]; }
   });
 
   D('stone-game-vii', {
     t: 'Stone Game VII: score the remaining sum',
-    r: 'dp[i][j] = best difference for the player to move on stones i..j. Removing the left stone scores sum(i+1..j); removing the right scores sum(i..j−1). Subtract the opponent\'s dp after the move.',
+    r: 'dp[i][j] = best difference for the player to move on stones i to j. Removing the left stone scores sum(i+1 to j); removing the right scores sum(i to j−1). Subtract the opponent\'s dp after the move.',
     g: R => ({ stones: R.ints(R.int(3, 5), 1, 9) }),
     s(I, T) { const s = I.stones, n = s.length, P = [0]; s.forEach(x => P.push(P[P.length - 1] + x)); const S = (i, j) => i > j ? 0 : P[j + 1] - P[i], dp = mk(n, n, 0); for (let len = 2; len <= n; len++) for (let i = 0; i + len <= n; i++) { const j = i + len - 1; dp[i][j] = Math.max(S(i + 1, j) - dp[i + 1][j], S(i, j - 1) - dp[i][j - 1]); T.at({ stones: A(s, { win: [i, j] }) }); T.n(`dp[${i}][${j}]?`, dp[i][j], `max(${S(i + 1, j)} − ${dp[i + 1][j]}, ${S(i, j - 1)} − ${dp[i][j - 1]}).`); } return dp[0][n - 1]; }
   });
 
   D('maximum-height-by-stacking-cuboids', {
     t: 'Maximum Height by Stacking Cuboids: sort dims, then LIS',
-    r: 'Rotate each cuboid so its dims are sorted (tallest as height). Sort cuboids. dp[i] = height[i] + max dp[j] where every dim of j ≤ dim of i.',
+    r: 'Rotate each cuboid so its dims are sorted (tallest as height). Sort cuboids. dp[i] = height[i] + max dp[j] where every dim of j at most dim of i.',
     g: R => ({ cuboids: Array.from({ length: R.int(3, 4) }, () => R.ints(3, 1, 9)) }),
-    s(I, T) { const C = I.cuboids.map(c => c.slice().sort((a, b) => a - b)).sort((a, b) => a[0] - b[0] || a[1] - b[1] || a[2] - b[2]), dp = []; C.forEach((c, i) => { let b = c[2]; for (let j = 0; j < i; j++) if (C[j][0] <= c[0] && C[j][1] <= c[1] && C[j][2] <= c[2]) b = Math.max(b, dp[j] + c[2]); T.at({ cuboids: A(C.map(x => x.join('×')), { hl: [i] }), dp: A(dp.concat('?')) }); T.n(`Tallest stack topped by ${c.join('×')}?`, b, 'Its height + the best stack it can sit on.'); dp.push(b); }); return Math.max(...dp); }
+    s(I, T) { const C = I.cuboids.map(c => c.slice().sort((a, b) => a - b)).sort((a, b) => a[0] - b[0] || a[1] - b[1] || a[2] - b[2]), dp = []; C.forEach((c, i) => { let b = c[2]; for (let j = 0; j < i; j++) if (C[j][0] <= c[0] && C[j][1] <= c[1] && C[j][2] <= c[2]) b = Math.max(b, dp[j] + c[2]); T.at({ cuboids: A(C.map(x => x.join(' by ')), { hl: [i] }), dp: A(dp.concat('?')) }); T.n(`Tallest stack topped by ${c.join(' by ')}?`, b, 'Its height + the best stack it can sit on.'); dp.push(b); }); return Math.max(...dp); }
   });
 
   D('count-ways-to-distribute-candies', {
     t: 'Count Ways to Distribute Candies: Stirling numbers',
-    r: 'dp[i][j] = ways to put i candies in j non-empty unlabeled bags = dp[i−1][j−1] (new bag) + j · dp[i−1][j] (join one of j bags).',
+    r: 'dp[i][j] = ways to put i candies in j non-empty unlabeled bags = dp[i−1][j−1] (new bag) + j times dp[i−1][j] (join one of j bags).',
     g: R => { const n = R.int(3, 5); return { n, k: R.int(2, n) }; },
-    s(I, T) { const dp = mk(I.n + 1, I.k + 1, 0); dp[0][0] = 1; for (let i = 1; i <= I.n; i++) for (let j = 1; j <= Math.min(i, I.k); j++) { dp[i][j] = (dp[i - 1][j - 1] + j * dp[i - 1][j]) % MOD; if (j > 1 && j < i) { T.at({ dp: G(dp, { rh: dp.map((_, x) => x + ' candies'), ch: dp[0].map((_, x) => x + ' bags'), hl: [[i, j]] }) }); T.n(`dp[${i}][${j}]?`, dp[i][j], `${dp[i - 1][j - 1]} + ${j}·${dp[i - 1][j]}.`); } } return dp[I.n][I.k]; }
+    s(I, T) { const dp = mk(I.n + 1, I.k + 1, 0); dp[0][0] = 1; for (let i = 1; i <= I.n; i++) for (let j = 1; j <= Math.min(i, I.k); j++) { dp[i][j] = (dp[i - 1][j - 1] + j * dp[i - 1][j]) % MOD; if (j > 1 && j < i) { T.at({ dp: G(dp, { rh: dp.map((_, x) => x + ' candies'), ch: dp[0].map((_, x) => x + ' bags'), hl: [[i, j]] }) }); T.n(`dp[${i}][${j}]?`, dp[i][j], `${dp[i - 1][j - 1]} + ${j} times ${dp[i - 1][j]}.`); } } return dp[I.n][I.k]; }
   });
 
   D('jump-game-vi', {
     t: 'Jump Game VI: best of the last k',
-    r: 'dp[i] = nums[i] + max dp[i−k..i−1]. A decreasing deque keeps that window maximum.',
+    r: 'dp[i] = nums[i] + max dp[i−k to i−1]. A decreasing deque keeps that window maximum.',
     g: R => ({ nums: R.ints(R.int(5, 7), -6, 8), k: R.int(2, 3) }),
     s(I, T) { const a = I.nums, dp = [a[0]]; for (let i = 1; i < a.length; i++) { const m = Math.max(...dp.slice(Math.max(0, i - I.k))); T.at({ nums: A(a, { hl: [i] }), dp: A(dp.concat('?'), { win: [Math.max(0, i - I.k), i - 1] }) }); T.n(`dp[${i}]?`, a[i] + m, `${a[i]} + best in the window (${m}).`); dp.push(a[i] + m); } return dp[a.length - 1]; }
   });
@@ -58,7 +58,7 @@
 
   D('palindrome-partitioning-iv', {
     t: 'Palindrome Partitioning IV: three palindromes',
-    r: 'Precompute isPal[i][j]. Try every pair of cuts (i, j): s[0..i], s[i+1..j], s[j+1..] must all be palindromes.',
+    r: 'Precompute isPal[i][j]. Try every pair of cuts (i, j): s[0 to i], s[i+1 to j], s[j+1..] must all be palindromes.',
     g: R => ({ s: R.str(R.int(5, 7), 'ab') }),
     s(I, T) { const res = (() => { const s = I.s, n = s.length, p = (i, j) => { while (i < j) if (s[i++] !== s[j--]) return false; return true; }; T.at({ s: A([...s]) }); T.n('Length of s?', n, 'Each of the three parts needs at least one letter.'); for (let i = 0; i < n - 2; i++) if (p(0, i)) { let ok = false; for (let j = i + 1; j < n - 1; j++) if (p(i + 1, j) && p(j + 1, n - 1)) ok = true; T.at({ s: A([...s], { win: [0, i] }) }); T.yn(`First part "${s.slice(0, i + 1)}" (a palindrome): can the rest split into two palindromes?`, ok, 'Try every second cut.'); if (ok) return true; } return false; })(); T.yn('Can s split into three palindromes?', res, 'Some first cut and second cut both work.'); return res; }
   });
@@ -83,7 +83,7 @@
     g: R => ({ events: Array.from({ length: R.int(3, 5) }, () => { const s = R.int(1, 8); return [s, s + R.int(0, 3), R.int(1, 9)]; }), k: R.int(1, 3) }),
     s(I, T) {
       const E = I.events.slice().sort((a, b) => a[1] - b[1]), n = E.length, prev = E.map(([s], i) => { let j = i - 1; while (j >= 0 && E[j][1] >= s) j--; return j + 1; });
-      let dp = Array(n + 1).fill(0); for (let c = 1; c <= I.k; c++) { const nx = [0]; for (let i = 1; i <= n; i++) nx.push(Math.max(nx[i - 1], E[i - 1][2] + dp[prev[i - 1]])); dp = nx; T.at({ events: A(E.map(e => `${e[0]}-${e[1]}:${e[2]}`)), picks: c }); T.n(`Best total with at most ${c} event(s)?`, dp[n], 'Skip or take each event (sorted by end).'); }
+      let dp = Array(n + 1).fill(0); for (let c = 1; c <= I.k; c++) { const nx = [0]; for (let i = 1; i <= n; i++) nx.push(Math.max(nx[i - 1], E[i - 1][2] + dp[prev[i - 1]])); dp = nx; T.at({ events: A(E.map(e => `${e[0]}-${e[1]}:${e[2]}`)), picks: c }); T.n(`Best total with at most ${c} events?`, dp[n], 'Skip or take each event (sorted by end).'); }
       return dp[n];
     }
   });
@@ -94,7 +94,7 @@
     g: R => ({ nums: R.ints(R.int(4, 6), -7, 9), goal: R.int(-5, 15) }),
     s(I, T) {
       const h = I.nums.length >> 1, sums = a => a.reduce((s, x) => s.concat(s.map(v => v + x)), [0]), L = sums(I.nums.slice(0, h)), Rs = sums(I.nums.slice(h)).sort((a, b) => a - b);
-      T.at({ left: A(I.nums.slice(0, h)), right: A(I.nums.slice(h)) }); T.n('How many subset sums does the right half have (with repeats)?', Rs.length, `2^${I.nums.length - h}.`);
+      T.at({ left: A(I.nums.slice(0, h)), right: A(I.nums.slice(h)) }); T.n('How many subset sums does the right half have (with repeats)?', Rs.length, `2 to the power ${I.nums.length - h}.`);
       let best = Infinity; for (const l of [...new Set(L)].slice(0, 6)) { let b = Infinity; for (const r of Rs) b = Math.min(b, Math.abs(l + r - I.goal)); T.at({ 'left sum': l, goal: I.goal, 'right sums': A(Rs) }); T.n(`Left sum ${l}: closest |total − goal|?`, b, `Look for the right sum nearest ${I.goal - l}.`); best = Math.min(best, b); }
       for (const l of L) for (const r of Rs) best = Math.min(best, Math.abs(l + r - I.goal)); return best;
     }
@@ -107,7 +107,7 @@
     s(I, T) {
       const a = I.nums, m = I.multipliers, n = a.length, M = m.length, memo = new Map(), f = (i, l) => { if (i === M) return 0; const k = i * 1000 + l; if (memo.has(k)) return memo.get(k); const v = Math.max(a[l] * m[i] + f(i + 1, l + 1), a[n - 1 - (i - l)] * m[i] + f(i + 1, l)); memo.set(k, v); return v; };
       let l = 0; for (let i = 0; i < M; i++) { const L = a[l] * m[i] + f(i + 1, l + 1), Rt = a[n - 1 - (i - l)] * m[i] + f(i + 1, l), ok = []; if (L === f(i, l)) ok.push('L'); if (Rt === f(i, l)) ok.push('R');
-        T.at({ nums: A(a, { win: [l, n - 1 - (i - l)] }), multiplier: m[i] }); T.k(`Operation ${i} (×${m[i]}): take from which end (optimal)?`, [['L', 'left ' + a[l]], ['R', 'right ' + a[n - 1 - (i - l)]]], ok, `Left leads to ${L}, right to ${Rt}.`); if (ok[0] === 'L') l++; }
+        T.at({ nums: A(a, { win: [l, n - 1 - (i - l)] }), multiplier: m[i] }); T.k(`Operation ${i} (multiplier ${m[i]}): take from which end (optimal)?`, [['L', 'left ' + a[l]], ['R', 'right ' + a[n - 1 - (i - l)]]], ok, `Left leads to ${L}, right to ${Rt}.`); if (ok[0] === 'L') l++; }
       return f(0, 0);
     }
   });
@@ -171,9 +171,9 @@
 
   D('number-of-ways-to-rearrange-sticks-with-k-sticks-visible', {
     t: 'Rearrange Sticks with k Visible: place the shortest stick',
-    r: 'dp[n][k]: put the shortest stick first (it is visible: dp[n−1][k−1]) or anywhere else, hidden behind a taller one ((n − 1) · dp[n−1][k]).',
+    r: 'dp[n][k]: put the shortest stick first (it is visible: dp[n−1][k−1]) or anywhere else, hidden behind a taller one ((n − 1) times dp[n−1][k]).',
     g: R => { const n = R.int(3, 5); return { n, k: R.int(1, n) }; },
-    s(I, T) { const dp = mk(I.n + 1, I.k + 1, 0); dp[0][0] = 1; for (let i = 1; i <= I.n; i++) for (let j = 1; j <= I.k; j++) { dp[i][j] = (dp[i - 1][j - 1] + (i - 1) * dp[i - 1][j]) % MOD; if (j < i && j > 0 && i > 1) { T.at({ dp: G(dp, { rh: dp.map((_, x) => 'n=' + x), ch: dp[0].map((_, x) => 'k=' + x), hl: [[i, j]] }) }); T.n(`dp[${i}][${j}]?`, dp[i][j], `${dp[i - 1][j - 1]} + ${i - 1}·${dp[i - 1][j]}.`); } } return dp[I.n][I.k]; }
+    s(I, T) { const dp = mk(I.n + 1, I.k + 1, 0); dp[0][0] = 1; for (let i = 1; i <= I.n; i++) for (let j = 1; j <= I.k; j++) { dp[i][j] = (dp[i - 1][j - 1] + (i - 1) * dp[i - 1][j]) % MOD; if (j < i && j > 0 && i > 1) { T.at({ dp: G(dp, { rh: dp.map((_, x) => 'n=' + x), ch: dp[0].map((_, x) => 'k=' + x), hl: [[i, j]] }) }); T.n(`dp[${i}][${j}]?`, dp[i][j], `${dp[i - 1][j - 1]} + ${i - 1} times ${dp[i - 1][j]}.`); } } return dp[I.n][I.k]; }
   });
 
   D('jump-game-vii', {
@@ -185,7 +185,7 @@
 
   D('stone-game-viii', {
     t: 'Stone Game VIII: every move scores a prefix sum',
-    r: 'Each move scores some prefix sum P[i] (i ≥ 1). dp from the right: dp = P[n−1]; for i = n−2 down to 1: dp = max(dp, P[i] − dp).',
+    r: 'Each move scores some prefix sum P[i] (i at least 1). dp from the right: dp = P[n−1]; for i = n−2 down to 1: dp = max(dp, P[i] − dp).',
     g: R => ({ stones: R.ints(R.int(3, 6), -5, 8) }),
     s(I, T) { const P = []; I.stones.reduce((s, x) => (P.push(s + x), s + x), 0); const n = P.length; let dp = P[n - 1]; for (let i = n - 2; i >= 1; i--) { const v = Math.max(dp, P[i] - dp); T.at({ prefix: A(P, { hl: [i] }), dp }); T.n(`dp after considering prefix ${i}?`, v, `max(${dp}, ${P[i]} − ${dp}).`); dp = v; } return dp; }
   });
@@ -202,31 +202,31 @@
   });
 
   D('minimum-skips-to-arrive-at-meeting-on-time', {
-    t: 'Minimum Skips to Arrive on Time: time in units of 1/speed',
-    r: 'Scale time by speed to stay in integers. dp[j] = least scaled time after these roads with j skips. Not skipping rounds up to the next multiple of speed; skipping does not. The answer is the least j with dp[j] ≤ hoursBefore · speed.',
+    t: 'Minimum Skips to Arrive on Time: time in units of 1 divided by speed',
+    r: 'Scale time by speed to stay in integers. dp[j] = least scaled time after these roads with j skips. Not skipping rounds up to the next multiple of speed; skipping does not. The answer is the least j with dp[j] at most hoursBefore times speed.',
     g: R => ({ dist: R.ints(R.int(3, 4), 1, 7), speed: R.int(2, 4), hoursBefore: R.int(3, 8) }),
     s(I, T) {
       const d = I.dist, sp = I.speed, n = d.length, up = x => Math.ceil(x / sp) * sp; let dp = [0];
       for (let i = 0; i < n; i++) { const nx = Array(i + 2).fill(Infinity); for (let j = 0; j <= i; j++) { const t = dp[j] + d[i]; nx[j] = Math.min(nx[j], i === n - 1 ? t : up(t)); nx[j + 1] = Math.min(nx[j + 1], t); } dp = nx; }
       T.at({ dist: A(d), speed: sp, limit: I.hoursBefore * sp }); T.n('Scaled finish time with no skips?', dp[0], 'Every rest rounds up to a multiple of speed.');
-      for (let j = 0; j <= n; j++) { const ok = dp[j] <= I.hoursBefore * sp; T.at({ 'scaled times': A(dp.map(v => v === Infinity ? '∞' : v)), limit: I.hoursBefore * sp }); T.yn(`On time with ${j} skip(s)?`, ok, `Least time ${dp[j]} vs limit ${I.hoursBefore * sp}.`); if (ok) return j; }
+      for (let j = 0; j <= n; j++) { const ok = dp[j] <= I.hoursBefore * sp; T.at({ 'scaled times': A(dp.map(v => v === Infinity ? '∞' : v)), limit: I.hoursBefore * sp }); T.yn(`On time with ${j} skips?`, ok, `Least time ${dp[j]} vs limit ${I.hoursBefore * sp}.`); if (ok) return j; }
       return -1;
     }
   });
 
   D('egg-drop-with-2-eggs-and-n-floors', {
     t: 'Egg Drop With 2 Eggs: t drops cover t + (t−1) + … + 1 floors',
-    r: 'With t drops and 2 eggs, drop first from floor t, then t − 1 floors higher, and so on. That covers t(t + 1)/2 floors. Find the least t covering n.',
+    r: 'With t drops and 2 eggs, drop first from floor t, then t − 1 floors higher, and so on. That covers t(t + 1) divided by 2 floors. Find the least t covering n.',
     g: R => ({ n: R.int(3, 40) }),
-    s(I, T) { let t = 0; while (t * (t + 1) / 2 < I.n) { t++; T.at({ n: I.n, drops: t }); T.n(`Floors covered with ${t} drop(s)?`, t * (t + 1) / 2, `${t}·${t + 1}/2.`); } return t; }
+    s(I, T) { let t = 0; while (t * (t + 1) / 2 < I.n) { t++; T.at({ n: I.n, drops: t }); T.n(`Floors covered with ${t} drops?`, t * (t + 1) / 2, `${t} times ${t + 1} divided by 2.`); } return t; }
   });
 
   D('minimum-cost-to-change-the-final-value-of-expression', {
     t: 'Minimum Cost to Flip an Expression: value and flip cost per subexpression',
-    r: 'Each operand carries (value, cost to flip). &: 1&1 → (1, min), 0&0 → (0, min + 1), mixed → (0, 1). |: 0|0 → (0, min), 1|1 → (1, min + 1), mixed → (1, 1). Evaluate left to right with a stack for parentheses.',
+    r: 'Each operand carries (value, cost to flip). &: 1&1 becomes (1, min), 0&0 becomes (0, min + 1), mixed: (0, 1). |: 0|0 becomes (0, min), 1|1 becomes (1, min + 1), mixed: (1, 1). Evaluate left to right with a stack for parentheses.',
     g: R => { const leaf = () => R.pick(['0', '1']), op = () => R.pick(['&', '|']); return { expression: R.chance(0.5) ? `${leaf()}${op()}(${leaf()}${op()}${leaf()})` : `(${leaf()}${op()}${leaf()})${op()}${leaf()}${op()}${leaf()}` }; },
     s(I, T) {
-      const comb = (x, o, y) => { const [v1, c1] = x, [v2, c2] = y, m = Math.min(c1, c2); let r; if (o === '&') r = v1 && v2 ? [1, m] : !v1 && !v2 ? [0, m + 1] : [0, 1]; else r = !v1 && !v2 ? [0, m] : v1 && v2 ? [1, m + 1] : [1, 1]; T.at({ expression: I.expression, left: `value ${v1}, flip ${c1}`, right: `value ${v2}, flip ${c2}` }); T.n(`${v1} ${o} ${v2}: cost to flip the result?`, r[1], o === '&' ? 'AND: both 1 → flip one side; both 0 → flip one and change & to |; mixed → change the operator.' : 'OR: both 0 → flip one side; both 1 → flip one and change | to &; mixed → change the operator.'); return r; };
+      const comb = (x, o, y) => { const [v1, c1] = x, [v2, c2] = y, m = Math.min(c1, c2); let r; if (o === '&') r = v1 && v2 ? [1, m] : !v1 && !v2 ? [0, m + 1] : [0, 1]; else r = !v1 && !v2 ? [0, m] : v1 && v2 ? [1, m + 1] : [1, 1]; T.at({ expression: I.expression, left: `value ${v1}, flip ${c1}`, right: `value ${v2}, flip ${c2}` }); T.n(`${v1} ${o} ${v2}: cost to flip the result?`, r[1], o === '&' ? 'AND: both 1: flip one side; both 0: flip one and change & to |; mixed: change the operator.' : 'OR: both 0: flip one side; both 1: flip one and change | to &; mixed: change the operator.'); return r; };
       const st = [[null, null]]; for (const ch of I.expression) { const top = st[st.length - 1]; if (ch === '(') st.push([null, null]); else if (ch === '&' || ch === '|') top[1] = ch; else { const val = ch === ')' ? st.pop()[0] : [+ch, 1], t2 = st[st.length - 1]; t2[0] = t2[0] ? comb(t2[0], t2[1], val) : val; } }
       return st[0][0][1];
     }
@@ -258,7 +258,7 @@
     g: R => ({ m: R.int(1, 2), n: R.int(2, 4) }),
     s(I, T) {
       const pats = []; const gen = (p) => { if (p.length === I.m) { pats.push(p.slice()); return; } for (let c = 0; c < 3; c++) if (!p.length || p[p.length - 1] !== c) { p.push(c); gen(p); p.pop(); } }; gen([]);
-      T.at({ m: I.m }); T.n(`Valid single columns of height ${I.m}?`, pats.length, '3 · 2^(m−1).');
+      T.at({ m: I.m }); T.n(`Valid single columns of height ${I.m}?`, pats.length, '3 times 2 to the power (m−1).');
       let dp = pats.map(() => 1); for (let col = 2; col <= I.n; col++) { dp = pats.map(p => pats.reduce((s, q, j) => p.every((c, r) => c !== q[r]) ? (s + dp[j]) % MOD : s, 0)); T.at({ columns: col }); T.n(`Ways to paint ${col} columns?`, dp.reduce((a, b) => (a + b) % MOD, 0), 'Sum over compatible previous patterns.'); }
       return dp.reduce((a, b) => (a + b) % MOD, 0);
     }
@@ -280,12 +280,12 @@
 
   D('minimum-total-space-wasted-with-k-resizing-operations', {
     t: 'Minimum Space Wasted with k Resizes: k + 1 segments',
-    r: 'k resizes give k + 1 segments. A segment i..j wastes max · length − sum. dp[s][j] = least waste for the first j times in s segments.',
+    r: 'k resizes give k + 1 segments. A segment i to j wastes max times length − sum. dp[s][j] = least waste for the first j times in s segments.',
     g: R => ({ nums: R.ints(R.int(3, 5), 1, 9), k: R.int(0, 2) }),
     s(I, T) {
       const a = I.nums, n = a.length, waste = (i, j) => { let m = 0, s = 0; for (let x = i; x <= j; x++) { m = Math.max(m, a[x]); s += a[x]; } return m * (j - i + 1) - s; };
-      T.at({ nums: A(a) }); T.n('Waste with no resizes?', waste(0, n - 1), 'max · n − sum.');
-      let dp = Array(n + 1).fill(Infinity); dp[0] = 0; for (let s = 1; s <= I.k + 1; s++) { const nx = Array(n + 1).fill(Infinity); for (let j = 1; j <= n; j++) for (let i = 0; i < j; i++) nx[j] = Math.min(nx[j], dp[i] + waste(i, j - 1)); dp = nx; if (s > 1) { T.at({ nums: A(a), segments: s }); T.n(`Least waste with ${s - 1} resize(s)?`, dp[n], 'Best previous split + waste of the last segment.'); } }
+      T.at({ nums: A(a) }); T.n('Waste with no resizes?', waste(0, n - 1), 'max times n − sum.');
+      let dp = Array(n + 1).fill(Infinity); dp[0] = 0; for (let s = 1; s <= I.k + 1; s++) { const nx = Array(n + 1).fill(Infinity); for (let j = 1; j <= n; j++) for (let i = 0; i < j; i++) nx[j] = Math.min(nx[j], dp[i] + waste(i, j - 1)); dp = nx; if (s > 1) { T.at({ nums: A(a), segments: s }); T.n(`Least waste with ${s - 1} resizes?`, dp[n], 'Best previous split + waste of the last segment.'); } }
       return dp[n];
     }
   });

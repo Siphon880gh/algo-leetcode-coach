@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 return [
     'title' => 'Divide and Conquer Search',
-    'summary' => 'Binary search on a sorted array keeps a live range [lo, hi]. Look at mid = (lo + hi) / 2 rounded down: equal means found; if the target is larger drop the left half (lo = mid + 1), else drop the right half (hi = mid − 1). Empty range means not found (−1).',
+    'summary' => 'Binary search on a sorted array keeps a live range [lo, hi]. Look at mid = (lo + hi) divided by 2 rounded down: equal means found; if the target is larger drop the left half (lo = mid + 1), else drop the right half (hi = mid − 1). Empty range means not found (−1).',
     'category' => 'Algorithms',
     'subcategory' => 'Binary Search',
     'topic' => 'Algorithms · Binary Search',

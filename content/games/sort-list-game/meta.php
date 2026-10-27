@@ -5,7 +5,7 @@ return [
     'title' => 'Sort List',
     'leetcode' => 148,
     'difficulty' => 'Med',
-    'summary' => 'Merge sort: split at the middle with slow/fast pointers, sort both halves recursively, and merge them.',
+    'summary' => 'Merge sort: split at the middle with slow or fast pointers, sort both halves recursively, and merge them.',
     'category' => 'LeetCode',
     'subcategory' => 'Linked List',
     'topic' => 'LeetCode · Linked List',

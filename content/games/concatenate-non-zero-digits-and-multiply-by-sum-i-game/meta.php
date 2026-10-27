@@ -5,7 +5,7 @@ return [
     'title' => 'Concatenate Non-Zero Digits and Multiply by Sum I',
     'leetcode' => 3754,
     'difficulty' => 'Easy',
-    'summary' => 'Walk the digits, appending each non-zero one to x (x = 10x + d) and adding it to the digit sum. Return x × sum.',
+    'summary' => 'Walk the digits, appending each non-zero one to x (x = 10x + d) and adding it to the digit sum. Return x times sum.',
     'category' => 'LeetCode',
     'subcategory' => 'Math',
     'topic' => 'LeetCode · Math',

@@ -5,7 +5,7 @@ return [
     'title' => 'Maximum Matrix Sum',
     'leetcode' => 1975,
     'difficulty' => 'Med',
-    'summary' => 'Flipping adjacent pairs can move a minus sign anywhere, so negatives cancel in pairs. Sum of |values|; if the count of negatives is odd, subtract 2 × the smallest |value|.',
+    'summary' => 'Flipping adjacent pairs can move a minus sign anywhere, so negatives cancel in pairs. Sum of |values|; if the count of negatives is odd, subtract 2 times the smallest |value|.',
     'category' => 'LeetCode',
     'subcategory' => 'Graphs',
     'topic' => 'LeetCode · Graphs',

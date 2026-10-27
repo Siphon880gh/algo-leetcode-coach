@@ -5,7 +5,7 @@ return [
     'title' => 'Logger Rate Limiter',
     'leetcode' => 359,
     'difficulty' => 'Easy',
-    'summary' => 'Map each message to the next timestamp it may print. Print (and set next = t + 10) only if t ≥ that value.',
+    'summary' => 'Map each message to the next timestamp it may print. Print (and set next = t + 10) only if t at least that value.',
     'category' => 'LeetCode',
     'subcategory' => 'Design',
     'topic' => 'LeetCode · Design',

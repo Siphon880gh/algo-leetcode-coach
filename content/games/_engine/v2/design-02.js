@@ -23,12 +23,12 @@
     t: 'LFU Cache',
     r: 'Track each key\'s use count and recency. On overflow evict the key with the smallest count, breaking ties by least recently used. O(1) versions keep a list of keys per count plus the current minimum count.',
     g: R => seq(R, 'LFUCache', [R.int(1, 3)], R.int(4, 10), R => R.chance(0.5) ? ['put', [R.int(1, 4), R.int(1, 9)]] : ['get', [R.int(1, 4)]]),
-    s(I, T) { return play(I, T, cap => { const m = new Map(); let t = 0; return { m, get(k) { if (!m.has(k)) return -1; const e = m.get(k); e.f++; e.t = t++; return e.v; }, put(k, v) { if (!cap) return; if (m.has(k)) { const e = m.get(k); e.v = v; e.f++; e.t = t++; return; } if (m.size >= cap) { let b = null; for (const [kk, e] of m) if (!b || e.f < m.get(b).f || (e.f === m.get(b).f && e.t < m.get(b).t)) b = kk; m.delete(b); } m.set(k, { v, f: 1, t: t++ }); } }; }, { view: o => ({ cache: A([...o.m].map(([k, e]) => `${k}:${e.v} (×${e.f})`)) }), why: () => 'Missing → −1; hits raise the use count.' }); }
+    s(I, T) { return play(I, T, cap => { const m = new Map(); let t = 0; return { m, get(k) { if (!m.has(k)) return -1; const e = m.get(k); e.f++; e.t = t++; return e.v; }, put(k, v) { if (!cap) return; if (m.has(k)) { const e = m.get(k); e.v = v; e.f++; e.t = t++; return; } if (m.size >= cap) { let b = null; for (const [kk, e] of m) if (!b || e.f < m.get(b).f || (e.f === m.get(b).f && e.t < m.get(b).t)) b = kk; m.delete(b); } m.set(k, { v, f: 1, t: t++ }); } }; }, { view: o => ({ cache: A([...o.m].map(([k, e]) => `${k}:${e.v} (used ${e.f} times)`)) }), why: () => 'Missing: −1; hits raise the use count.' }); }
   });
 
   D('generate-random-point-in-a-circle', {
     t: 'Generate Random Point in a Circle',
-    r: 'Pick an angle uniformly and a radius r = R·√u (u uniform in [0, 1]). The square root spreads points evenly by area; a plain uniform radius would crowd the center.',
+    r: 'Pick an angle uniformly and a radius r = R times √u (u uniform in [0, 1]). The square root spreads points evenly by area; a plain uniform radius would crowd the center.',
     g: R => seq(R, 'Solution', [R.int(1, 5), R.int(-3, 3), R.int(-3, 3)], R.int(1, 4), () => ['randPoint', []]),
     cmp: (o, e, I) => { const [r, x, y] = I.args[0]; return Array.isArray(o) && o.length === e.length && o.slice(1).every(p => Array.isArray(p) && (p[0] - x) ** 2 + (p[1] - y) ** 2 <= r * r + 1e-9); },
     s(I, T) { const [rad, x, y] = I.args[0], rnd = rngOf(I); T.at({ radius: rad, center: `${x}, ${y}` }); T.n('Points requested?', I.ops.filter(o => o === 'randPoint').length, 'One per randPoint call.'); T.n('Area of the circle, rounded down?', Math.floor(Math.PI * rad * rad), 'Pi times r squared.'); T.c('Which radius sampling is uniform by area?', ['R times the square root of u', 'R times u', 'R times u squared'], 'R times the square root of u', 'Area grows with r squared, so take the square root.'); return play(I, T, () => ({ randPoint() { const a = rnd() * 2 * Math.PI, r = rad * Math.sqrt(rnd()); return [x + r * Math.cos(a), y + r * Math.sin(a)]; } }), { skip: () => true, max: 0 }); }
@@ -44,7 +44,7 @@
 
   D('random-flip-matrix', {
     t: 'Random Flip Matrix',
-    r: 'Treat cells as indices 0..m·n − 1. Pick a random index among the first `remaining`, return the cell it maps to (a hash map remembers swaps), then map it to the last free index and shrink. reset clears the map.',
+    r: 'Treat cells as indices 0 to m times n − 1. Pick a random index among the first `remaining`, return the cell it maps to (a hash map remembers swaps), then map it to the last free index and shrink. reset clears the map.',
     g: R => { const m = R.int(1, 3), n = R.int(1, 3), ops = ['Solution'], args = [[m, n]]; let left = m * n; for (let i = 0; i < R.int(2, 6); i++) { if (left && R.chance(0.75)) { ops.push('flip'); left--; } else { ops.push('reset'); left = m * n; } args.push([]); } return { ops, args }; },
     cmp: (o, e, I) => { if (!Array.isArray(o) || o.length !== e.length) return false; const [m, n] = I.args[0]; let seen = new Set(); for (let i = 1; i < I.ops.length; i++) { if (I.ops[i] === 'reset') { seen = new Set(); continue; } const p = o[i]; if (!Array.isArray(p) || p[0] < 0 || p[1] < 0 || p[0] >= m || p[1] >= n || seen.has(p.join())) return false; seen.add(p.join()); } return true; },
     s(I, T) { const [m, n] = I.args[0], rnd = rngOf(I); T.at({ rows: m, cols: n }); T.n('Cells available before any flip?', m * n, 'm times n.'); T.n('Flips requested?', I.ops.filter(o => o === 'flip').length, 'Each one removes a cell.'); T.n('Resets?', I.ops.filter(o => o === 'reset').length, 'Each one restores every cell.'); return play(I, T, () => { let left = m * n, map = new Map(); return { flip() { const k = Math.floor(rnd() * left--), v = map.has(k) ? map.get(k) : k; map.set(k, map.has(left) ? map.get(left) : left); return [Math.floor(v / n), v % n]; }, reset() { left = m * n; map = new Map(); } }; }, { skip: () => true, max: 0 }); }
@@ -60,7 +60,7 @@
 
   D('encode-and-decode-tinyurl', {
     t: 'Encode and Decode TinyURL',
-    r: 'Keep two maps: long → code and code → long. Encode assigns the next id (base-62 text) to new URLs; decode looks the code up.',
+    r: 'Keep two maps: long to code and code to long. Encode assigns the next id (base-62 text) to new URLs; decode looks the code up.',
     g: R => ({ url: 'https://leetcode.com/problems/' + R.str(R.int(3, 8), 'abcxyz') }),
     s(I, T) { const res = (() => { const al = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', b62 = n => { let s = ''; do { s = al[n % 62] + s; n = Math.floor(n / 62); } while (n); return s; }; const code = b62(1); T.at({ url: I.url }); T.c('Code given to the first URL (id 1 in base 62)?', ['1', '0', 'a'], code, 'The counter starts at 1.'); T.yn('Does decoding look the code up in a map?', true, 'It maps each code to its long URL.'); return I.url; })(); T.n('Length of the decoded URL?', res.length, 'Exactly the original.'); return res; }
   });
@@ -69,14 +69,14 @@
     t: 'Design In-Memory File System',
     r: 'A trie of path parts; each node is a directory (children map) or a file (content). ls on a file returns its name; on a directory, its sorted children. mkdir and addContentToFile create missing parts.',
     g: R => { const paths = ['/a', '/a/b', '/c'], files = ['/a/f', '/a/b/g', '/h']; const g = seq(R, 'FileSystem', [], R.int(3, 8), (R, st) => { st.f = st.f || []; const c = R.pick(['ls', 'mkdir', 'addContentToFile', 'readContentFromFile']); if (c === 'mkdir') return [c, [R.pick(paths)]]; if (c === 'addContentToFile') { const f = R.pick(files); st.f.push(f); return [c, [f, R.str(R.int(1, 3), 'xy')]]; } if (c === 'readContentFromFile') return st.f.length ? [c, [R.pick(st.f)]] : ['ls', ['/']]; return [c, [R.pick(['/', ...paths, ...st.f])]]; }); return g; },
-    s(I, T) { return play(I, T, () => { const root = { d: {} }; const walk = (p, mk) => { let n = root; for (const x of p.split('/').filter(Boolean)) { if (!n.d[x]) { if (!mk) return null; n.d[x] = { d: {} }; } n = n.d[x]; } return n; }; return { root, ls(p) { const n = walk(p, false); if (!n) return []; if (n.f !== undefined) return [p.split('/').pop()]; return Object.keys(n.d).sort(); }, mkdir(p) { walk(p, true); }, addContentToFile(p, c) { const n = walk(p, true); n.f = (n.f || '') + c; }, readContentFromFile(p) { return walk(p, false).f; } }; }, { view: o => { const out = []; const go = (n, p) => { for (const k of Object.keys(n.d).sort()) { const c = n.d[k]; out.push(p + '/' + k + (c.f !== undefined ? ` = "${c.f}"` : '/')); go(c, p + '/' + k); } }; go(o.root, ''); return { tree: A(out.length ? out : ['(empty)']) }; }, strOpts: (o, r) => [r + r.slice(-1), r.slice(1)], why: op => op === 'ls' ? 'File → its own name; directory → sorted children.' : 'Accumulated content of the file.' }); }
+    s(I, T) { return play(I, T, () => { const root = { d: {} }; const walk = (p, mk) => { let n = root; for (const x of p.split('/').filter(Boolean)) { if (!n.d[x]) { if (!mk) return null; n.d[x] = { d: {} }; } n = n.d[x]; } return n; }; return { root, ls(p) { const n = walk(p, false); if (!n) return []; if (n.f !== undefined) return [p.split('/').pop()]; return Object.keys(n.d).sort(); }, mkdir(p) { walk(p, true); }, addContentToFile(p, c) { const n = walk(p, true); n.f = (n.f || '') + c; }, readContentFromFile(p) { return walk(p, false).f; } }; }, { view: o => { const out = []; const go = (n, p) => { for (const k of Object.keys(n.d).sort()) { const c = n.d[k]; out.push(p + '/' + k + (c.f !== undefined ? ` = "${c.f}"` : '/')); go(c, p + '/' + k); } }; go(o.root, ''); return { tree: A(out.length ? out : ['(empty)']) }; }, strOpts: (o, r) => [r + r.slice(-1), r.slice(1)], why: op => op === 'ls' ? 'File: its own name; directory: sorted children.' : 'Accumulated content of the file.' }); }
   });
 
   D('range-addition-ii', {
     t: 'Range Addition II',
-    r: 'Every op increments the top-left a × b block, so the cells hit by all ops form the block min(a) × min(b). Those cells hold the maximum.',
+    r: 'Every op increments the top-left a times b block, so the cells hit by all ops form the block min(a) times min(b). Those cells hold the maximum.',
     g: R => { const m = R.int(1, 5), n = R.int(1, 5); return { m, n, ops: Array.from({ length: R.int(0, 4) }, () => [R.int(1, m), R.int(1, n)]) }; },
-    s(I, T) { let a = I.m, b = I.n; I.ops.forEach(([x, y], i) => { a = Math.min(a, x); b = Math.min(b, y); if (i < 4) { T.at({ op: `${x}×${y}`, overlap: `${a}×${b}` }); T.n('Rows of the overlap so far?', a, 'min of the a values.'); } }); if (!I.ops.length) { T.at({ m: I.m, n: I.n }); T.n('Cells with the max (no ops)?', I.m * I.n, 'Everything is 0.'); } return a * b; }
+    s(I, T) { let a = I.m, b = I.n; I.ops.forEach(([x, y], i) => { a = Math.min(a, x); b = Math.min(b, y); if (i < 4) { T.at({ op: `${x} by ${y}`, overlap: `${a} by ${b}` }); T.n('Rows of the overlap so far?', a, 'min of the a values.'); } }); if (!I.ops.length) { T.at({ m: I.m, n: I.n }); T.n('Cells with the max (no ops)?', I.m * I.n, 'Everything is 0.'); } return a * b; }
   });
 
   D('design-compressed-string-iterator', {
@@ -97,12 +97,12 @@
     t: 'Design Excel Sum Formula',
     r: 'Each cell holds a number or a formula: a multiset of referenced cells. get evaluates recursively (sum of referenced cells\' values), so formulas update automatically. set replaces a formula with a constant.',
     g: R => { const H = R.int(2, 3), W = 'B', cells = []; for (let r = 1; r <= H; r++) for (const c of 'AB') cells.push(c + r); return seq(R, 'Excel', [H, W], R.int(3, 7), (R, st) => { st.f = st.f || new Set(); const c = R.pick(['set', 'set', 'get', 'sum']), r = R.int(1, H), col = R.pick('AB'), me = col + r; if (c === 'set') { st.f.delete(me); return [c, [r, col, R.int(0, 9)]]; } if (c === 'get') return [c, [r, col]]; const refs = Array.from({ length: R.int(1, 2) }, () => R.pick(cells.filter(x => x !== me && !st.f.has(x)))).filter(Boolean); if (!refs.length) return ['get', [r, col]]; st.f.add(me); return [c, [r, col, refs]]; }); },
-    s(I, T) { return play(I, T, (H, W) => { const cell = {}; const val = k => { const c = cell[k]; if (!c) return 0; if (typeof c === 'number') return c; let s = 0; for (const [ref, m] of c) s += val(ref) * m; return s; }; return { cell, set(r, c, v) { cell[c + r] = v; }, get(r, c) { return val(c + r); }, sum(r, c, strs) { const f = new Map(); for (const s of strs) { const [a, b] = s.split(':'), b2 = b || a; for (let col = a.charCodeAt(0); col <= b2.charCodeAt(0); col++) for (let row = +a.slice(1); row <= +b2.slice(1); row++) { const k = String.fromCharCode(col) + row; f.set(k, (f.get(k) || 0) + 1); } } cell[c + r] = f; return val(c + r); } }; }, { view: o => ({ cells: K(Object.fromEntries(Object.entries(o.cell).map(([k, v]) => [k, typeof v === 'number' ? v : '=' + [...v].map(([x, m]) => m > 1 ? `${m}×${x}` : x).join('+')]))) }), why: () => 'Constants, or the sum of referenced cells (recursively).' }); }
+    s(I, T) { return play(I, T, (H, W) => { const cell = {}; const val = k => { const c = cell[k]; if (!c) return 0; if (typeof c === 'number') return c; let s = 0; for (const [ref, m] of c) s += val(ref) * m; return s; }; return { cell, set(r, c, v) { cell[c + r] = v; }, get(r, c) { return val(c + r); }, sum(r, c, strs) { const f = new Map(); for (const s of strs) { const [a, b] = s.split(':'), b2 = b || a; for (let col = a.charCodeAt(0); col <= b2.charCodeAt(0); col++) for (let row = +a.slice(1); row <= +b2.slice(1); row++) { const k = String.fromCharCode(col) + row; f.set(k, (f.get(k) || 0) + 1); } } cell[c + r] = f; return val(c + r); } }; }, { view: o => ({ cells: K(Object.fromEntries(Object.entries(o.cell).map(([k, v]) => [k, typeof v === 'number' ? v : '=' + [...v].map(([x, m]) => m > 1 ? `${m} times ${x}` : x).join('+')]))) }), why: () => 'Constants, or the sum of referenced cells (recursively).' }); }
   });
 
   D('design-log-storage-system', {
     t: 'Design Log Storage System',
-    r: 'Timestamps are fixed-width "Y:M:D:H:m:s" strings. For a granularity, compare only the prefix up to that unit: a log matches if start-prefix ≤ its prefix ≤ end-prefix.',
+    r: 'Timestamps are fixed-width "Y:M:D:H:m:s" strings. For a granularity, compare only the prefix up to that unit: a log matches if start-prefix at most its prefix at most end-prefix.',
     g: R => { const ts = () => ['2016', '2017'][R.int(0, 1)] + ':0' + R.int(1, 2) + ':0' + R.int(1, 2) + ':' + String(R.int(0, 23)).padStart(2, '0') + ':00:00'; let id = 1; return seq(R, 'LogSystem', [], R.int(3, 7), R => R.chance(0.6) ? ['put', [id++, ts()]] : (() => { const a = ts(), b = ts(); return ['retrieve', [a < b ? a : b, a < b ? b : a, R.pick(['Year', 'Month', 'Day', 'Hour'])]]; })()); },
     cmp: multisetCmp,
     s(I, T) { const L = { Year: 4, Month: 7, Day: 10, Hour: 13, Minute: 16, Second: 19 }; return play(I, T, () => { const logs = []; return { logs, put(id, t) { logs.push([id, t]); }, retrieve(a, b, g) { const k = L[g]; return logs.filter(([, t]) => t.slice(0, k) >= a.slice(0, k) && t.slice(0, k) <= b.slice(0, k)).map(x => x[0]); } }; }, { view: o => ({ logs: A(o.logs.map(([i, t]) => `${i}@${t}`)) }), why: (op, [a, b, g]) => `Compare the first ${L[g]} characters.` }); }
@@ -110,7 +110,7 @@
 
   D('design-circular-deque', {
     t: 'Design Circular Deque',
-    r: 'A fixed array with head index and size. insertFront moves head back one (mod k); insertLast writes at head + size. getFront/getRear read the ends; −1 when empty.',
+    r: 'A fixed array with head index and size. insertFront moves head back one (mod k); insertLast writes at head + size. getFront or getRear read the ends; −1 when empty.',
     g: R => seq(R, 'MyCircularDeque', [R.int(1, 3)], R.int(4, 10), R => R.pick([['insertFront', [R.int(1, 9)]], ['insertLast', [R.int(1, 9)]], ['deleteFront', []], ['deleteLast', []], ['getFront', []], ['getRear', []], ['isEmpty', []], ['isFull', []]])),
     s(I, T) { return play(I, T, k => { const d = []; return { d, insertFront(x) { if (d.length === k) return false; d.unshift(x); return true; }, insertLast(x) { if (d.length === k) return false; d.push(x); return true; }, deleteFront() { if (!d.length) return false; d.shift(); return true; }, deleteLast() { if (!d.length) return false; d.pop(); return true; }, getFront() { return d.length ? d[0] : -1; }, getRear() { return d.length ? d[d.length - 1] : -1; }, isEmpty() { return !d.length; }, isFull() { return d.length === k; } }; }, { view: o => ({ deque: A(o.d.slice()) }), why: op => /insert/.test(op) ? 'False when full.' : /delete/.test(op) ? 'False when empty.' : 'Read the end (−1 if empty) or compare size.' }); }
   });
@@ -131,7 +131,7 @@
 
   D('map-sum-pairs', {
     t: 'Map Sum Pairs',
-    r: 'Store key → value. A trie node keeps the sum of values of keys below it; inserting adds the delta (new − old value) along the path. sum(prefix) reads the node\'s total.',
+    r: 'Store key to value. A trie node keeps the sum of values of keys below it; inserting adds the delta (new − old value) along the path. sum(prefix) reads the node\'s total.',
     g: R => seq(R, 'MapSum', [], R.int(3, 8), R => R.chance(0.55) ? ['insert', [R.str(R.int(1, 3), 'ab'), R.int(1, 9)]] : ['sum', [R.str(R.int(1, 2), 'ab')]]),
     s(I, T) { return play(I, T, () => { const m = new Map(); return { m, insert(k, v) { m.set(k, v); }, sum(p) { let s = 0; for (const [k, v] of m) if (k.startsWith(p)) s += v; return s; } }; }, { view: o => ({ map: K(Object.fromEntries(o.m)) }), why: (op, [p]) => `Sum of values of keys starting with "${p}" (re-inserts overwrite).` }); }
   });
@@ -152,14 +152,14 @@
 
   D('design-linked-list', {
     t: 'Design Linked List',
-    r: 'Use a dummy head and a size counter. Walk index steps from the dummy to reach the node before a position. Out-of-range indices: get returns −1, insert/delete do nothing (index = size inserts at the tail).',
+    r: 'Use a dummy head and a size counter. Walk index steps from the dummy to reach the node before a position. Out-of-range indices: get returns −1, insert or delete do nothing (index = size inserts at the tail).',
     g: R => seq(R, 'MyLinkedList', [], R.int(4, 10), R => R.pick([['addAtHead', [R.int(1, 9)]], ['addAtTail', [R.int(1, 9)]], ['addAtIndex', [R.int(0, 3), R.int(1, 9)]], ['get', [R.int(0, 3)]], ['deleteAtIndex', [R.int(0, 3)]]])),
     s(I, T) { T.at({ calls: I.ops.length - 1 }); T.n('Operations after the constructor?', I.ops.length - 1, 'Count the calls.'); return play(I, T, () => { const a = []; return { a, get(i) { return i < a.length ? a[i] : -1; }, addAtHead(v) { a.unshift(v); }, addAtTail(v) { a.push(v); }, addAtIndex(i, v) { if (i <= a.length) a.splice(i, 0, v); }, deleteAtIndex(i) { if (i < a.length) a.splice(i, 1); } }; }, { view: o => ({ list: A(o.a.slice()) }), why: (op, [i]) => `Node at index ${i}, or −1 past the end.` }); }
   });
 
   D('random-pick-with-blacklist', {
     t: 'Random Pick With Blacklist',
-    r: 'Let k = n − |blacklist|. Pick uniformly in [0, k). Blacklisted numbers below k are remapped to the allowed numbers ≥ k, so every pick is one lookup.',
+    r: 'Let k = n − |blacklist|. Pick uniformly in [0, k). Blacklisted numbers below k are remapped to the allowed numbers at least k, so every pick is one lookup.',
     g: R => { const n = R.int(2, 8), bl = R.distinct(R.int(0, n - 2), 0, n - 1); return seq(R, 'Solution', [n, bl], R.int(1, 5), () => ['pick', []]); },
     cmp: (o, e, I) => { const [n, bl] = I.args[0]; return Array.isArray(o) && o.length === e.length && o.slice(1).every(v => Number.isInteger(v) && v >= 0 && v < n && !bl.includes(v)); },
     s(I, T) { const [n, bl] = I.args[0], k = n - bl.length, B = new Set(bl), map = new Map(); let w = k; for (const b of bl) if (b < k) { while (B.has(w)) w++; map.set(b, w++); } const rnd = rngOf(I); T.at({ n, blacklist: A(bl) }); T.n('Size of the pick range k?', k, 'n − blacklist size.'); T.n('Blacklisted numbers that need a remap (< k)?', map.size, 'Those inside [0, k).'); return play(I, T, () => ({ pick() { const x = Math.floor(rnd() * k); return map.has(x) ? map.get(x) : x; } }), { skip: () => true, max: 0 }); }
@@ -167,21 +167,21 @@
 
   D('range-module', {
     t: 'Range Module',
-    r: 'Keep sorted disjoint half-open intervals. addRange merges overlaps/touching ones; removeRange cuts intervals around [l, r); queryRange checks one interval covers [l, r) entirely.',
+    r: 'Keep sorted disjoint half-open intervals. addRange merges overlaps or touching ones; removeRange cuts intervals around [l, r); queryRange checks one interval covers [l, r) entirely.',
     g: R => seq(R, 'RangeModule', [], R.int(3, 8), R => { const l = R.int(1, 15), r = l + R.int(1, 6); return [R.pick(['addRange', 'addRange', 'removeRange', 'queryRange', 'queryRange']), [l, r]]; }),
     s(I, T) { return play(I, T, () => { let iv = []; return { get iv() { return iv; }, addRange(l, r) { const out = []; for (const [a, b] of iv) { if (b < l || a > r) out.push([a, b]); else { l = Math.min(l, a); r = Math.max(r, b); } } out.push([l, r]); iv = out.sort((x, y) => x[0] - y[0]); }, removeRange(l, r) { const out = []; for (const [a, b] of iv) { if (b <= l || a >= r) { out.push([a, b]); continue; } if (a < l) out.push([a, l]); if (b > r) out.push([r, b]); } iv = out; }, queryRange(l, r) { return iv.some(([a, b]) => a <= l && r <= b); } }; }, { view: o => ({ intervals: A(o.iv.map(([a, b]) => `[${a},${b})`)) }), why: (op, [l, r]) => `Is [${l},${r}) inside a single tracked interval?` }); }
   });
 
   D('max-stack', {
     t: 'Max Stack',
-    r: 'Keep the stack plus an ordered structure of (value, push id). top/pop use the stack; peekMax reads the largest (latest on ties); popMax removes that entry from both (lazy deletion works too).',
+    r: 'Keep the stack plus an ordered structure of (value, push id). top or pop use the stack; peekMax reads the largest (latest on ties); popMax removes that entry from both (lazy deletion works too).',
     g: R => seq(R, 'MaxStack', [], R.int(4, 10), (R, st) => { st.n = st.n || 0; const c = st.n ? R.pick(['push', 'pop', 'top', 'peekMax', 'popMax']) : 'push'; if (c === 'push') { st.n++; return [c, [R.int(1, 6)]]; } if (c === 'pop' || c === 'popMax') st.n--; return [c, []]; }),
     s(I, T) { return play(I, T, () => { const s = []; const mi = () => { let b = -1; s.forEach((x, i) => { if (b < 0 || x >= s[b]) b = i; }); return b; }; return { s, push(x) { s.push(x); }, pop() { return s.pop(); }, top() { return s[s.length - 1]; }, peekMax() { return s[mi()]; }, popMax() { return s.splice(mi(), 1)[0]; } }; }, { view: o => ({ stack: S(o.s.slice()) }), why: op => /Max/.test(op) ? 'Largest value; the topmost one on ties.' : 'Top of the stack.' }); }
   });
 
   D('my-calendar-i', {
     t: 'My Calendar I',
-    r: 'Keep booked intervals (sorted). A new [s, e) conflicts with [a, b) iff s < b and a < e. Book only if it conflicts with none.',
+    r: 'Keep booked intervals (sorted). A new [s, e) conflicts with [a, b) exactly when s < b and a < e. Book only if it conflicts with none.',
     g: calGen,
     s(I, T) { return play(I, T, () => { const b = []; return { b, book(s, e) { if (b.some(([x, y]) => s < y && x < e)) return false; b.push([s, e]); return true; } }; }, { view: o => ({ booked: A(o.b.slice().sort((x, y) => x[0] - y[0]).map(([x, y]) => `[${x},${y})`)) }), why: () => 'Overlap test: s < b and a < e.' }); }
   });
@@ -230,7 +230,7 @@
 
   D('online-election', {
     t: 'Online Election',
-    r: 'Precompute the leader after every vote (ties go to the most recent voter\'s candidate). q(t) binary searches the last vote time ≤ t and returns that leader.',
+    r: 'Precompute the leader after every vote (ties go to the most recent voter\'s candidate). q(t) binary searches the last vote time at most t and returns that leader.',
     g: R => { const n = R.int(1, 6), times = R.distinct(n, 0, 30).sort((a, b) => a - b); return seq(R, 'TopVotedCandidate', [R.ints(n, 0, 2), times], R.int(1, 4), R => ['q', [R.int(times[0], 35)]]); },
     s(I, T) { const [p, t] = I.args[0], lead = [], c = {}; let L = -1; p.forEach(x => { c[x] = (c[x] || 0) + 1; if (L < 0 || c[x] >= c[L]) L = x; lead.push(L); }); return play(I, T, () => ({ q(x) { let lo = 0, hi = t.length - 1; while (lo < hi) { const m = (lo + hi + 1) >> 1; if (t[m] <= x) lo = m; else hi = m - 1; } return lead[lo]; } }), { view: () => ({ times: A(t), leader: A(lead) }), why: (op, [x]) => `Leader after the last vote at or before ${x}.` }); }
   });
@@ -251,9 +251,9 @@
 
   D('time-based-key-value-store', {
     t: 'Time Based Key-Value Store',
-    r: 'Per key, keep (timestamp, value) pairs in increasing time. get(key, t) binary searches the last timestamp ≤ t; "" if none.',
+    r: 'Per key, keep (timestamp, value) pairs in increasing time. get(key, t) binary searches the last timestamp at most t; "" if none.',
     g: R => { let ts = 1; return seq(R, 'TimeMap', [], R.int(3, 8), R => R.chance(0.5) ? ['set', [R.pick(['k', 'q']), R.pick(['a', 'b', 'c']), ts += R.int(1, 3)]] : ['get', [R.pick(['k', 'q']), R.int(0, ts + 2)]]); },
-    s(I, T) { return play(I, T, () => { const m = {}; return { m, set(k, v, t) { (m[k] = m[k] || []).push([t, v]); }, get(k, t) { const a = m[k] || []; let r = ''; for (const [x, v] of a) if (x <= t) r = v; return r; } }; }, { view: o => ({ store: K(Object.fromEntries(Object.entries(o.m).map(([k, a]) => [k, a.map(([t, v]) => `${t}:${v}`).join(' ')]))) }), strOpts: () => ['a', 'b', 'c'], why: (op, [k, t]) => `Latest value of "${k}" at time ≤ ${t}, else "".` }); }
+    s(I, T) { return play(I, T, () => { const m = {}; return { m, set(k, v, t) { (m[k] = m[k] || []).push([t, v]); }, get(k, t) { const a = m[k] || []; let r = ''; for (const [x, v] of a) if (x <= t) r = v; return r; } }; }, { view: o => ({ store: K(Object.fromEntries(Object.entries(o.m).map(([k, a]) => [k, a.map(([t, v]) => `${t}:${v}`).join(' ')]))) }), strOpts: () => ['a', 'b', 'c'], why: (op, [k, t]) => `Latest value of "${k}" at time at most ${t}, else "".` }); }
   });
 
   D('stream-of-characters', {

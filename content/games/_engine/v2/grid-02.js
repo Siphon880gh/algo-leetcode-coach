@@ -8,14 +8,14 @@
 
   D('shift-2d-grid', {
     t: 'Shift 2D Grid',
-    r: 'Flatten row-major: element at index i moves to (i + k) mod (m·n). Map back to (row, col).',
+    r: 'Flatten row-major: element at index i moves to (i + k) mod (m times n). Map back to (row, col).',
     g: R => ({ grid: mat(R, R.int(1, 3), R.int(1, 4), 1, 9), k: R.int(0, 12) }),
     s(I, T) { const m = I.grid.length, n = I.grid[0].length, N = m * n, f = I.grid.flat(), out = Array(N); f.forEach((v, i) => out[(i + I.k) % N] = v); T.at({ grid: G(I.grid), k: I.k }); T.n('Where does flat index 0 land?', I.k % N, 'k modulo the number of cells.'); T.n('New top-left value?', out[0], 'The value that started k places earlier, wrapping around.'); T.n('New bottom-right value?', out[N - 1], 'The value k places before the end, wrapping around.'); return Array.from({ length: m }, (_, i) => out.slice(i * n, i * n + n)); }
   });
 
   D('count-servers-that-communicate', {
     t: 'Count Servers that Communicate',
-    r: 'Count servers per row and per column. A server communicates iff its row count > 1 or its column count > 1.',
+    r: 'Count servers per row and per column. A server communicates exactly when its row count > 1 or its column count > 1.',
     g: R => ({ grid: mat(R, R.int(1, 4), R.int(1, 4), 0, 1) }),
     s(I, T) { const g = I.grid, rc = g.map(r => r.reduce((a, b) => a + b, 0)), cc = g[0].map((_, j) => g.reduce((a, r) => a + r[j], 0)); let c = 0, asks = 0; g.forEach((r, i) => r.forEach((v, j) => { if (!v) return; const ok = rc[i] > 1 || cc[j] > 1; if (ok) c++; if (asks++ < 6) { T.at({ grid: G(g, { hl: [[i, j]] }), rowCount: rc[i], colCount: cc[j] }); T.yn('Does this server communicate?', ok, 'Another server in its row or column.'); } })); if (!asks) { T.at({ grid: G(g) }); T.n('Servers?', 0, 'None.'); } return c; }
   });
@@ -29,9 +29,9 @@
 
   D('minimum-number-of-flips-to-convert-binary-matrix-to-zero-matrix', {
     t: 'Minimum Number of Flips to Convert Binary Matrix to Zero Matrix',
-    r: 'At most 9 cells → encode the matrix as a bitmask. BFS over masks; a move flips a cell and its 4 neighbors (XOR with a precomputed mask). First time mask 0 is reached → answer; never → −1.',
+    r: 'At most 9 cells, so encode the matrix as a bitmask. BFS over masks; a move flips a cell and its 4 neighbors (XOR with a precomputed mask). The first time mask 0 is reached is the answer; never reached means −1.',
     g: R => ({ mat: mat(R, R.int(1, 3), R.int(1, 3), 0, 1) }),
-    s(I, T) { const m = I.mat.length, n = I.mat[0].length, mv = []; let start = 0; I.mat.forEach((r, i) => r.forEach((v, j) => { if (v) start |= 1 << (i * n + j); })); for (let i = 0; i < m; i++) for (let j = 0; j < n; j++) { let x = 1 << (i * n + j); for (const [di, dj] of N4) { const a = i + di, b = j + dj; if (a >= 0 && b >= 0 && a < m && b < n) x |= 1 << (a * n + b); } mv.push(x); } T.at({ mat: G(I.mat) }); T.n('Start mask value?', start, 'Bit i·n + j for each 1.'); const seen = new Set([start]); let q = [start], d = 0; while (q.length) { bfsAsk(T, d, q.length, 'States'); const nq = []; for (const s of q) { if (!s) return d; for (const x of mv) if (!seen.has(s ^ x)) { seen.add(s ^ x); nq.push(s ^ x); } } q = nq; d++; } return -1; }
+    s(I, T) { const m = I.mat.length, n = I.mat[0].length, mv = []; let start = 0; I.mat.forEach((r, i) => r.forEach((v, j) => { if (v) start |= 1 << (i * n + j); })); for (let i = 0; i < m; i++) for (let j = 0; j < n; j++) { let x = 1 << (i * n + j); for (const [di, dj] of N4) { const a = i + di, b = j + dj; if (a >= 0 && b >= 0 && a < m && b < n) x |= 1 << (a * n + b); } mv.push(x); } T.at({ mat: G(I.mat) }); T.n('Start mask value?', start, 'Bit i times n + j for each 1.'); const seen = new Set([start]); let q = [start], d = 0; while (q.length) { bfsAsk(T, d, q.length, 'States'); const nq = []; for (const s of q) { if (!s) return d; for (const x of mv) if (!seen.has(s ^ x)) { seen.add(s ^ x); nq.push(s ^ x); } } q = nq; d++; } return -1; }
   });
 
   D('shortest-path-in-a-grid-with-obstacles-elimination', {
@@ -50,7 +50,7 @@
 
   D('jump-game-iii', {
     t: 'Jump Game III',
-    r: 'BFS/DFS from start: from i you can go to i + arr[i] or i − arr[i] (in bounds). Reach any index with value 0 → true.',
+    r: 'BFS or DFS from start: from i you can go to i + arr[i] or i − arr[i] (in bounds). Reaching any index with value 0 means true.',
     g: R => { const a = R.ints(R.int(1, 8), 0, 4); return { arr: a, start: R.int(0, a.length - 1) }; },
     s(I, T) { const a = I.arr, seen = new Set([I.start]), st = [I.start]; let asks = 0; while (st.length) { const i = st.pop(); if (asks++ < 7) { T.at({ arr: A(a, { i }) }); T.yn('Is this a zero?', a[i] === 0, 'Goal reached if so.'); } if (!a[i]) return true; for (const j of [i + a[i], i - a[i]]) if (j >= 0 && j < a.length && !seen.has(j)) { seen.add(j); st.push(j); } } return false; }
   });
@@ -64,9 +64,9 @@
 
   D('matrix-block-sum', {
     t: 'Matrix Block Sum',
-    r: 'Build a 2D prefix sum P. Each answer is the sum over the clipped (2k+1)×(2k+1) block: P[r2][c2] − P[r1][c2] − P[r2][c1] + P[r1][c1].',
+    r: 'Build a 2D prefix sum P. Each answer is the sum over the clipped (2k+1) times (2k+1) block: P[r2][c2] − P[r1][c2] − P[r2][c1] + P[r1][c1].',
     g: R => ({ mat: mat(R, R.int(1, 4), R.int(1, 4), 1, 9), k: R.int(0, 2) }),
-    s(I, T) { const g = I.mat, m = g.length, n = g[0].length, P = Array.from({ length: m + 1 }, () => Array(n + 1).fill(0)); for (let i = 0; i < m; i++) for (let j = 0; j < n; j++) P[i + 1][j + 1] = g[i][j] + P[i][j + 1] + P[i + 1][j] - P[i][j]; T.at({ mat: G(g) }); T.n('Total sum (P[m][n])?', P[m][n], 'Prefix of everything.'); let asks = 0; return g.map((r, i) => r.map((_, j) => { const r1 = Math.max(0, i - I.k), c1 = Math.max(0, j - I.k), r2 = Math.min(m, i + I.k + 1), c2 = Math.min(n, j + I.k + 1), v = P[r2][c2] - P[r1][c2] - P[r2][c1] + P[r1][c1]; if (asks++ < 4) { T.at({ mat: G(g, { hl: [[i, j]] }), k: I.k }); T.n('Block sum here?', v, 'Inclusion–exclusion on the prefix sums.'); } return v; })); }
+    s(I, T) { const g = I.mat, m = g.length, n = g[0].length, P = Array.from({ length: m + 1 }, () => Array(n + 1).fill(0)); for (let i = 0; i < m; i++) for (let j = 0; j < n; j++) P[i + 1][j + 1] = g[i][j] + P[i][j + 1] + P[i + 1][j] - P[i][j]; T.at({ mat: G(g) }); T.n('Total sum (P[m][n])?', P[m][n], 'Prefix of everything.'); let asks = 0; return g.map((r, i) => r.map((_, j) => { const r1 = Math.max(0, i - I.k), c1 = Math.max(0, j - I.k), r2 = Math.min(m, i + I.k + 1), c2 = Math.min(n, j + I.k + 1), v = P[r2][c2] - P[r1][c2] - P[r2][c1] + P[r1][c1]; if (asks++ < 4) { T.at({ mat: G(g, { hl: [[i, j]] }), k: I.k }); T.n('Block sum here?', v, 'Inclusion to exclusion on the prefix sums.'); } return v; })); }
   });
 
   D('sort-the-matrix-diagonally', {
@@ -93,7 +93,7 @@
 
   D('check-if-there-is-a-valid-path-in-a-grid', {
     t: 'Check if There is a Valid Path in a Grid',
-    r: 'Each street type opens two directions. DFS from (0, 0): move to a neighbor only if the current cell opens toward it AND the neighbor opens back. Reaching the bottom-right → true.',
+    r: 'Each street type opens two directions. DFS from (0, 0): move to a neighbor only if the current cell opens toward it AND the neighbor opens back. Reaching the bottom-right: true.',
     g: R => ({ grid: mat(R, R.int(1, 3), R.int(1, 4), 1, 6) }),
     s(I, T) { const res = (() => { const g = I.grid, m = g.length, n = g[0].length, L = [0, -1], Rr = [0, 1], U = [-1, 0], Dn = [1, 0], O = { 1: [L, Rr], 2: [U, Dn], 3: [L, Dn], 4: [Rr, Dn], 5: [L, U], 6: [Rr, U] }; const seen = new Set(['0,0']), st = [[0, 0]]; let asks = 0; while (st.length) { const [r, c] = st.pop(); if (r === m - 1 && c === n - 1) { T.at({ grid: G(g, { hl: [[r, c]] }) }); T.yn('Reached the target?', true, 'Bottom-right corner.'); return true; } for (const [dr, dc] of O[g[r][c]]) { const a = r + dr, b = c + dc; if (a < 0 || b < 0 || a >= m || b >= n || seen.has(a + ',' + b)) continue; const ok = O[g[a][b]].some(([x, y]) => x === -dr && y === -dc); if (asks++ < 6) { T.at({ grid: G(g, { hl: [[r, c], [a, b]] }) }); T.yn(`Does street ${g[a][b]} connect back to street ${g[r][c]}?`, ok, 'The neighbor must open toward us.'); } if (ok) { seen.add(a + ',' + b); st.push([a, b]); } } } return false; })(); T.yn('Is there a valid path?', res, 'Follow connected streets from the top-left.'); return res; }
   });
@@ -107,9 +107,9 @@
 
   D('minimum-swaps-to-arrange-a-binary-grid', {
     t: 'Minimum Swaps to Arrange a Binary Grid',
-    r: 'Row i needs ≥ n − 1 − i trailing zeros. Greedily, for each i find the first row at or below it with enough zeros and bubble it up with adjacent swaps; none found → −1.',
+    r: 'Row i needs at least n − 1 − i trailing zeros. Greedily, for each i find the first row at or below it with enough zeros and bubble it up with adjacent swaps; none found: −1.',
     g: R => { const n = R.int(1, 4); return { grid: mat(R, n, n, 0, 1).map(r => r.map(x => R.chance(0.6) ? 0 : x)) }; },
-    s(I, T) { const n = I.grid.length, z = I.grid.map(r => { let c = 0; for (let j = n - 1; j >= 0 && !r[j]; j--) c++; return c; }); T.at({ grid: G(I.grid), trailingZeros: A(z.slice()) }); let sw = 0; for (let i = 0; i < n; i++) { let j = i; while (j < n && z[j] < n - 1 - i) j++; if (i < 5) { T.at({ trailingZeros: A(z.slice(), { i }), need: n - 1 - i }); T.n(`First row at/after ${i} with enough zeros (−1 if none)?`, j < n ? j : -1, 'Greedy: the nearest one.'); } if (j === n) return -1; while (j > i) { [z[j], z[j - 1]] = [z[j - 1], z[j]]; j--; sw++; } } return sw; }
+    s(I, T) { const n = I.grid.length, z = I.grid.map(r => { let c = 0; for (let j = n - 1; j >= 0 && !r[j]; j--) c++; return c; }); T.at({ grid: G(I.grid), trailingZeros: A(z.slice()) }); let sw = 0; for (let i = 0; i < n; i++) { let j = i; while (j < n && z[j] < n - 1 - i) j++; if (i < 5) { T.at({ trailingZeros: A(z.slice(), { i }), need: n - 1 - i }); T.n(`First row at or after ${i} with enough zeros (−1 if none)?`, j < n ? j : -1, 'Greedy: the nearest one.'); } if (j === n) return -1; while (j > i) { [z[j], z[j - 1]] = [z[j - 1], z[j]]; j--; sw++; } } return sw; }
   });
 
   D('matrix-diagonal-sum', {
@@ -121,7 +121,7 @@
 
   D('special-positions-in-a-binary-matrix', {
     t: 'Special Positions in a Binary Matrix',
-    r: 'Count ones per row and column. A 1 at (i, j) is special iff rowCount[i] == 1 and colCount[j] == 1.',
+    r: 'Count ones per row and column. A 1 at (i, j) is special exactly when rowCount[i] == 1 and colCount[j] == 1.',
     g: R => ({ mat: mat(R, R.int(1, 4), R.int(1, 4), 0, 1) }),
     s(I, T) { const g = I.mat, rc = g.map(r => r.reduce((a, b) => a + b, 0)), cc = g[0].map((_, j) => g.reduce((a, r) => a + r[j], 0)); let c = 0, asks = 0; g.forEach((r, i) => r.forEach((v, j) => { if (!v) return; const ok = rc[i] === 1 && cc[j] === 1; if (ok) c++; if (asks++ < 6) { T.at({ mat: G(g, { hl: [[i, j]] }), row: rc[i], col: cc[j] }); T.yn('Special?', ok, 'Only 1 in its row and column.'); } })); if (!asks) { T.at({ mat: G(g) }); T.n('Special positions?', 0, 'No ones.'); } return c; }
   });
@@ -136,7 +136,7 @@
 
   D('lexicographically-smallest-string-after-applying-operations', {
     t: 'Lexicographically Smallest String After Applying Operations',
-    r: 'There are few reachable strings (≤ 10 add-states × n rotations). BFS/DFS over states using both operations — add a to every odd index (mod 10) and rotate right by b — and keep the smallest.',
+    r: 'There are few reachable strings (at most 10 add-states times n rotations). BFS or DFS over states using both operations — add a to every odd index (mod 10) and rotate right by b — and keep the smallest.',
     g: R => { const n = 2 * R.int(1, 3); return { s: R.ints(n, 0, 9).join(''), a: R.int(1, 9), b: R.int(1, n - 1) }; },
     s(I, T) { const res = (() => { const add = s => [...s].map((c, i) => i % 2 ? String((+c + I.a) % 10) : c).join(''), rot = s => s.slice(-I.b) + s.slice(0, -I.b); const seen = new Set([I.s]), q = [I.s]; let best = I.s; for (let k = 0; k < q.length; k++) { const s = q[k]; if (s < best) best = s; for (const t of [add(s), rot(s)]) if (!seen.has(t)) { seen.add(t); q.push(t); } } T.at({ s: I.s, a: I.a, b: I.b }); T.c('Result of one "add" operation?', [...new Set([add(I.s), rot(I.s), I.s])], add(I.s), 'Add a to every odd index, wrapping past 9.'); T.n('Reachable strings?', seen.size, 'Explore both operations.'); return best; })(); T.n('First digit of the smallest string?', +res[0], 'The smallest reachable string.'); return res; }
   });
@@ -157,14 +157,14 @@
 
   D('largest-submatrix-with-rearrangements', {
     t: 'Largest Submatrix With Rearrangements',
-    r: 'For each row compute column heights of consecutive 1s ending there. Sort heights descending; with k columns of height ≥ h[k], area h[k]·(k + 1). Take the max over rows.',
+    r: 'For each row compute column heights of consecutive 1s ending there. Sort heights descending; with k columns of height at least h[k], area h[k] times (k + 1). Take the max over rows.',
     g: R => ({ matrix: mat(R, R.int(1, 4), R.int(1, 4), 0, 1) }),
-    s(I, T) { const n = I.matrix[0].length, h = Array(n).fill(0); let best = 0; I.matrix.forEach((r, i) => { r.forEach((v, j) => h[j] = v ? h[j] + 1 : 0); const s = h.slice().sort((a, b) => b - a); s.forEach((x, k) => best = Math.max(best, x * (k + 1))); if (i < 5) { T.at({ heights: A(h.slice()), sorted: A(s) }); T.n('Best area so far?', best, 'max over k of sorted[k] × (k + 1).'); } }); return best; }
+    s(I, T) { const n = I.matrix[0].length, h = Array(n).fill(0); let best = 0; I.matrix.forEach((r, i) => { r.forEach((v, j) => h[j] = v ? h[j] + 1 : 0); const s = h.slice().sort((a, b) => b - a); s.forEach((x, k) => best = Math.max(best, x * (k + 1))); if (i < 5) { T.at({ heights: A(h.slice()), sorted: A(s) }); T.n('Best area so far?', best, 'max over k of sorted[k] times (k + 1).'); } }); return best; }
   });
 
   D('shortest-path-to-get-food', {
     t: 'Shortest Path to Get Food',
-    r: 'Multi-step BFS from "*" through open cells "O" (and food "#"); "X" blocks. The first level at which a "#" is reached is the answer; none → −1.',
+    r: 'Multi-step BFS from "*" through open cells "O" (and food "#"); "X" blocks. The first level at which a "#" is reached is the answer; none: −1.',
     g: R => { const m = R.int(2, 4), n = R.int(2, 5), g = Array.from({ length: m }, () => Array.from({ length: n }, () => R.pick(['O', 'O', 'X', '#']))); g[R.int(0, m - 1)][R.int(0, n - 1)] = '*'; return { grid: g }; },
     s(I, T) { const g = I.grid, m = g.length, n = g[0].length; let s; g.forEach((r, i) => r.forEach((v, j) => { if (v === '*') s = [i, j]; })); const seen = new Set([s.join()]); let q = [s], d = 0; while (q.length) { bfsAsk(T, d, q.length, 'Cells'); const nq = []; for (const [r, c] of q) { if (g[r][c] === '#') return d; for (const [dr, dc] of N4) { const a = r + dr, b = c + dc; if (a < 0 || b < 0 || a >= m || b >= n || g[a][b] === 'X' || seen.has(a + ',' + b)) continue; seen.add(a + ',' + b); nq.push([a, b]); } } q = nq; d++; } return -1; }
   });
@@ -199,7 +199,7 @@
 
   D('largest-magic-square', {
     t: 'Largest Magic Square',
-    r: 'Try sizes k from min(m, n) down to 2; for each k×k window check all row, column and both diagonal sums are equal (row/column prefix sums make each check O(k)). Size 1 always works.',
+    r: 'Try sizes k from min(m, n) down to 2; for each k by k window check all row, column and both diagonal sums are equal (row or column prefix sums make each check O(k)). Size 1 always works.',
     g: R => ({ grid: mat(R, R.int(1, 4), R.int(1, 4), 1, 3) }),
     s(I, T) { const res = (() => { const g = I.grid, m = g.length, n = g[0].length; for (let k = Math.min(m, n); k >= 2; k--) { let found = false; for (let r = 0; r + k <= m && !found; r++) for (let c = 0; c + k <= n && !found; c++) { const t = g[r].slice(c, c + k).reduce((a, b) => a + b, 0); let ok = true; for (let i = 0; i < k && ok; i++) { if (g[r + i].slice(c, c + k).reduce((a, b) => a + b, 0) !== t) ok = false; let cs = 0; for (let j = 0; j < k; j++) cs += g[r + j][c + i]; if (cs !== t) ok = false; } let d1 = 0, d2 = 0; for (let i = 0; i < k; i++) { d1 += g[r + i][c + i]; d2 += g[r + i][c + k - 1 - i]; } if (d1 !== t || d2 !== t) ok = false; found = ok; } T.at({ grid: G(g), size: k }); T.yn(`Is there a magic square of size ${k}?`, found, 'All lines equal in some window.'); if (found) return k; } return 1; })(); T.n('Largest magic square size?', res, 'Every single cell is magic, so at least 1.'); return res; }
   });
@@ -213,14 +213,14 @@
 
   D('check-if-move-is-legal', {
     t: 'Check if Move is Legal',
-    r: 'From the move cell, look in each of 8 directions: there must be at least one opposite-color cell in a row, ending at a cell of your color (a line of length ≥ 3). Any such direction → legal.',
+    r: 'From the move cell, look in each of 8 directions: there must be at least one opposite-color cell in a row, ending at a cell of your color (a line of length at least 3). Any such direction: legal.',
     g: R => { const b = Array.from({ length: 8 }, () => Array.from({ length: 8 }, () => R.pick(['.', 'B', 'W']))); const r = R.int(0, 7), c = R.int(0, 7); b[r][c] = '.'; return { board: b, rMove: r, cMove: c, color: R.pick(['B', 'W']) }; },
     s(I, T) { const res = (() => { const b = I.board, me = I.color, op = me === 'B' ? 'W' : 'B'; for (const [dr, dc] of N8) { let r = I.rMove + dr, c = I.cMove + dc, k = 0; while (r >= 0 && c >= 0 && r < 8 && c < 8 && b[r][c] === op) { r += dr; c += dc; k++; } const ok = k > 0 && r >= 0 && c >= 0 && r < 8 && c < 8 && b[r][c] === me; if (k) { T.at({ board: G(b, { hl: [[I.rMove, I.cMove]] }), direction: `${dr},${dc}`, opposite: k }); T.yn('Does this direction end on your color?', ok, 'Opposite cells, then yours.'); } if (ok) return true; } return false; })(); T.yn('Is the move legal?', res, 'Some direction must end on your color.'); return res; }
   });
 
   D('maximum-matrix-sum', {
     t: 'Maximum Matrix Sum',
-    r: 'Flipping adjacent pairs can move a minus sign anywhere, so negatives cancel in pairs. Sum of |values|; if the count of negatives is odd, subtract 2 × the smallest |value|.',
+    r: 'Flipping adjacent pairs can move a minus sign anywhere, so negatives cancel in pairs. Sum of |values|; if the count of negatives is odd, subtract 2 times the smallest |value|.',
     g: R => { const n = R.int(2, 4); return { matrix: mat(R, n, n, -5, 5) }; },
     s(I, T) { const res = (() => { const f = I.matrix.flat(), neg = f.filter(x => x < 0).length, abs = f.reduce((s, x) => s + Math.abs(x), 0), mn = Math.min(...f.map(Math.abs)); T.at({ matrix: G(I.matrix) }); T.n('Number of negatives?', neg, 'Pairs cancel out.'); T.n('Sum of absolute values?', abs, 'Best case.'); return neg % 2 ? abs - 2 * mn : abs; })(); T.n('Maximum sum?', res, 'If the negatives are odd, one smallest absolute value stays negative.'); return res; }
   });
@@ -235,7 +235,7 @@
 
   D('smallest-greater-multiple-made-of-two-digits', {
     t: 'Smallest Greater Multiple Made of Two Digits',
-    r: 'Generate numbers made only of digit1/digit2 in increasing order (by length, then value — BFS over digits) and return the first that exceeds k and is divisible by k, staying within 2^31 − 1; else −1.',
+    r: 'Generate numbers made only of digit1 and digit2 in increasing order (by length, then value — BFS over digits) and return the first that exceeds k and is divisible by k, staying within 2 to the power 31 − 1; else −1.',
     g: R => ({ k: R.int(1, 30), digit1: R.int(0, 9), digit2: R.int(0, 9) }),
     s(I, T) { const ds = [...new Set([I.digit1, I.digit2])].sort((a, b) => a - b); let q = ds.filter(d => d > 0), asks = 0; while (q.length) { for (const x of q) if (x > I.k && x % I.k === 0) { T.at({ k: I.k, digits: A(ds) }); T.n('Answer?', x, 'First valid number in increasing order.'); return x; } const nq = []; for (const x of q) for (const d of ds) { const y = x * 10 + d; if (y <= 2147483647) nq.push(y); } if (asks++ < 3) { T.at({ k: I.k, digits: A(ds), length: String(q[0]).length }); T.n(`Candidates of length ${String(q[0]).length}?`, q.length, 'All combos of the two digits.'); } q = nq; } T.at({ k: I.k, digits: A(ds) }); T.yn('Found any valid multiple?', false, 'Return −1.'); return -1; }
   });
@@ -256,7 +256,7 @@
 
   D('convert-1d-array-into-2d-array', {
     t: 'Convert 1D Array Into 2D Array',
-    r: 'Possible only if m·n equals the length. Then element i goes to row ⌊i / n⌋, column i mod n.',
+    r: 'Possible only if m times n equals the length. Then element i goes to row i divided by n, rounded down, column i mod n.',
     g: R => ({ original: R.ints(R.int(1, 8), 1, 9), m: R.int(1, 4), n: R.int(1, 4) }),
     s(I, T) { const res = (() => { T.at({ length: I.original.length, m: I.m, n: I.n }); T.n('m times n?', I.m * I.n, 'Cells in the new array.'); T.yn('Is m times n equal to the length?', I.m * I.n === I.original.length, 'Otherwise return [].'); if (I.m * I.n !== I.original.length) return []; return Array.from({ length: I.m }, (_, i) => I.original.slice(i * I.n, i * I.n + I.n)); })(); T.n('Rows in the result?', res.length, 'm rows, or 0 when it does not fit.'); return res; }
   });
@@ -270,7 +270,7 @@
 
   D('decode-the-slanted-ciphertext', {
     t: 'Decode the Slanted Ciphertext',
-    r: 'cols = length / rows. The text was written down diagonals, so read each diagonal starting at (0, c) moving (+1, +1), for c = 0, 1, …; finally strip trailing spaces.',
+    r: 'cols = length divided by rows. The text was written down diagonals, so read each diagonal starting at (0, c) moving (+1, +1), for c = 0, 1, …; finally strip trailing spaces.',
     g: R => { const rows = R.int(1, 3), txt = R.str(R.int(1, 7), 'abc d'), cols = Math.ceil(txt.length / rows) + rows; const g = Array.from({ length: rows }, () => Array(cols).fill(' ')); [...txt].forEach((ch, i) => { const r = i % rows, c = Math.floor(i / rows) + r; if (c < cols) g[r][c] = ch; }); return { encodedText: g.map(r => r.join('')).join(''), rows }; },
     s(I, T) { const res = (() => { const n = I.encodedText.length, cols = n / I.rows; T.at({ length: n, rows: I.rows }); T.n('Columns?', cols, 'Length divided by rows.'); let out = ''; for (let c = 0; c < cols; c++) for (let r = 0, j = c; r < I.rows && j < cols; r++, j++) out += I.encodedText[r * cols + j]; T.n('Characters read before trimming?', out.length, 'One per cell on each diagonal.'); return out.replace(/\s+$/, ''); })(); T.n('Length of the decoded text?', res.length, 'Trailing spaces are removed.'); return res; }
   });
@@ -284,8 +284,8 @@
 
   D('number-of-laser-beams-in-a-bank', {
     t: 'Number of Laser Beams in a Bank',
-    r: 'Skip empty rows. Beams connect each pair of consecutive non-empty rows: add prev × cur device counts.',
+    r: 'Skip empty rows. Beams connect each pair of consecutive non-empty rows: add prev times cur device counts.',
     g: R => ({ bank: Array.from({ length: R.int(1, 5) }, () => R.str(R.int(3, 3), '0001')) }),
-    s(I, T) { let prev = 0, tot = 0, asks = 0; I.bank.forEach((row, i) => { const c = [...row].filter(x => x === '1').length; if (!c) return; tot += prev * c; if (asks++ < 6) { T.at({ row: i, devices: c, previous: prev }); T.n('Beams so far?', tot, 'prev × cur.'); } prev = c; }); if (!asks) { T.at({ bank: A(I.bank) }); T.n('Beams?', 0, 'No devices.'); } return tot; }
+    s(I, T) { let prev = 0, tot = 0, asks = 0; I.bank.forEach((row, i) => { const c = [...row].filter(x => x === '1').length; if (!c) return; tot += prev * c; if (asks++ < 6) { T.at({ row: i, devices: c, previous: prev }); T.n('Beams so far?', tot, 'prev times cur.'); } prev = c; }); if (!asks) { T.at({ bank: A(I.bank) }); T.n('Beams?', 0, 'No devices.'); } return tot; }
   });
 })();

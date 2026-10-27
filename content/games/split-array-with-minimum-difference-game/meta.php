@@ -5,7 +5,7 @@ return [
     'title' => 'Split Array With Minimum Difference',
     'leetcode' => 3698,
     'difficulty' => 'Med',
-    'summary' => 'Precompute where the strictly increasing prefix stops and where the strictly decreasing suffix starts. Every split point i where both nums[0..i] is increasing and nums[i+1..] is decreasing is valid; compare |prefix − suffix| with prefix sums.',
+    'summary' => 'Precompute where the strictly increasing prefix stops and where the strictly decreasing suffix starts. Every split point i where both nums[0 to i] is increasing and nums[i+1..] is decreasing is valid; compare |prefix − suffix| with prefix sums.',
     'category' => 'LeetCode',
     'subcategory' => 'Prefix Sum',
     'topic' => 'LeetCode · Prefix Sum',

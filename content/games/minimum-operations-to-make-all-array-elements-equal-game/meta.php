@@ -5,7 +5,7 @@ return [
     'title' => 'Operations to Make All Elements Equal to q',
     'leetcode' => 2602,
     'difficulty' => 'Med',
-    'summary' => 'Sort with prefix sums. For query q, binary search the split k: cost = q·k − P[k] + (P[n] − P[k]) − q·(n − k).',
+    'summary' => 'Sort with prefix sums. For query q, binary search the split k: cost = q times k − P[k] + (P[n] − P[k]) − q times (n − k).',
     'category' => 'LeetCode',
     'subcategory' => 'Binary Search',
     'topic' => 'LeetCode · Binary Search',

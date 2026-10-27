@@ -5,7 +5,7 @@ return [
     'title' => 'Count of Sub-Multisets With Bounded Sum: bounded knapsack by value',
     'leetcode' => 2902,
     'difficulty' => 'Hard',
-    'summary' => 'Group equal values. For value v with count c: new[s] = Σ dp[s − t·v] for t = 0..c (a sliding-window sum in the fast version). Zeros multiply everything by (zeros + 1). Sum dp over l..r.',
+    'summary' => 'Group equal values. For value v with count c: new[s] = the sum of dp[s − t times v] for t = 0 to c (a sliding-window sum in the fast version). Zeros multiply everything by (zeros + 1). Sum dp over l to r.',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

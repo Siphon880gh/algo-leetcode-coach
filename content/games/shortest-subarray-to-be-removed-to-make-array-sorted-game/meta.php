@@ -5,7 +5,7 @@ return [
     'title' => 'Shortest Subarray to Remove for Sorted',
     'leetcode' => 1574,
     'difficulty' => 'Med',
-    'summary' => 'Find the longest sorted prefix [0..l] and suffix [r..n−1]. Answer starts at min(n − l − 1, r); then two-pointer join prefix elements with suffix elements ≥ them.',
+    'summary' => 'Find the longest sorted prefix [0 to l] and suffix [r to n−1]. Answer starts at min(n − l − 1, r); then two-pointer join prefix elements with suffix elements at least them.',
     'category' => 'LeetCode',
     'subcategory' => 'Binary Search',
     'topic' => 'LeetCode · Binary Search',

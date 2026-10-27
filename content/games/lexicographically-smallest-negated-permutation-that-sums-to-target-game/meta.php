@@ -5,7 +5,7 @@ return [
     'title' => 'Lexicographically Smallest Negated Permutation That Sums to Target',
     'leetcode' => 3752,
     'difficulty' => 'Med',
-    'summary' => 'Start from 1..n all positive (sum S). Negating a set N lowers the sum by 2·sum(N), so we need sum(N) = (S − target)/2 = D (integer, 0 ≤ D ≤ S). Greedily negate from n downwards whenever i ≤ D left; output sorted ascending.',
+    'summary' => 'Start from 1 to n all positive (sum S). Negating a set N lowers the sum by 2 times sum(N), so we need sum(N) = (S − target) divided by 2 = D (integer, D from 0 to S). Greedily negate from n downwards whenever i at most D left; output sorted ascending.',
     'category' => 'LeetCode',
     'subcategory' => 'Greedy',
     'topic' => 'LeetCode · Greedy',

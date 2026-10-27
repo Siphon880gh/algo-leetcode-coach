@@ -5,7 +5,7 @@ return [
     'title' => 'Compare Version Numbers',
     'leetcode' => 165,
     'difficulty' => 'Med',
-    'summary' => 'Split on dots and compare revisions as integers left to right, treating missing revisions as 0. The first difference decides (−1 / 1); otherwise 0.',
+    'summary' => 'Split on dots and compare revisions as integers left to right, treating missing revisions as 0. The first difference decides (−1 or 1); otherwise 0.',
     'category' => 'LeetCode',
     'subcategory' => 'Two Pointers',
     'topic' => 'LeetCode · Two Pointers',

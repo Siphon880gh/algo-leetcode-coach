@@ -5,7 +5,7 @@ return [
     'title' => 'Snake in Matrix',
     'leetcode' => 3248,
     'difficulty' => 'Easy',
-    'summary' => 'Track (row, col): UP/DOWN change the row, LEFT/RIGHT the column. The final cell is row · n + col.',
+    'summary' => 'Track (row, col): UP or DOWN change the row, LEFT or RIGHT the column. The final cell is row times n + col.',
     'category' => 'LeetCode',
     'subcategory' => 'Simulation',
     'topic' => 'LeetCode · Simulation',

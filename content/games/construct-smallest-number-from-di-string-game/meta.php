@@ -5,7 +5,7 @@ return [
     'title' => 'Construct Smallest Number From DI String',
     'leetcode' => 2375,
     'difficulty' => 'Med',
-    'summary' => 'Push 1..n+1 onto a stack; whenever the pattern has I (or at the end), pop everything — reversing each run of D\'s.',
+    'summary' => 'Push 1 to n+1 onto a stack; whenever the pattern has I (or at the end), pop everything — reversing each run of D\'s.',
     'category' => 'LeetCode',
     'subcategory' => 'Backtracking',
     'topic' => 'LeetCode · Backtracking',

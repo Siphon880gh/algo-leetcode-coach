@@ -5,7 +5,7 @@ return [
     'title' => 'Number of Intersecting Interval Pairs I',
     'leetcode' => 4056,
     'difficulty' => 'Easy',
-    'summary' => 'Two closed intervals intersect exactly when max(start) ≤ min(end), shared endpoints included. With n ≤ 100, check every pair.',
+    'summary' => 'Two closed intervals intersect exactly when max(start) at most min(end), shared endpoints included. With n at most 100, check every pair.',
     'category' => 'LeetCode',
     'subcategory' => 'Intervals',
     'topic' => 'LeetCode · Intervals',

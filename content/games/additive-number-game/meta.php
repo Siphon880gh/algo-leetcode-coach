@@ -5,7 +5,7 @@ return [
     'title' => 'Additive Number',
     'leetcode' => 306,
     'difficulty' => 'Med',
-    'summary' => 'Choose the first two numbers (no leading zeros); then the rest is forced: repeatedly check the string continues with their sum. Try all first/second splits.',
+    'summary' => 'Choose the first two numbers (no leading zeros); then the rest is forced: repeatedly check the string continues with their sum. Try all first or second splits.',
     'category' => 'LeetCode',
     'subcategory' => 'Backtracking',
     'topic' => 'LeetCode · Backtracking',

@@ -5,7 +5,7 @@ return [
     'title' => 'Weighted Sum of a Tree',
     'leetcode' => 4015,
     'difficulty' => 'Med',
-    'summary' => 'BFS from the root to get each node\'s depth (root = 1) and the height h (the deepest level). Then add nums[i] · (h − depth + 1).',
+    'summary' => 'BFS from the root to get each node\'s depth (root = 1) and the height h (the deepest level). Then add nums[i] times (h − depth + 1).',
     'category' => 'LeetCode',
     'subcategory' => 'Trees',
     'topic' => 'LeetCode · Trees',

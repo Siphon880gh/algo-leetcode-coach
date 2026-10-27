@@ -5,7 +5,7 @@ return [
     'title' => 'Minimum Cost to Buy Apples II',
     'leetcode' => 3928,
     'difficulty' => 'Hard',
-    'summary' => 'Going out empty uses road costs; coming back uses cost × tax. Run Dijkstra on both metrics from every shop j; then ans[i] = min over j of empty(i, j) + prices[j] + taxed(j, i).',
+    'summary' => 'Going out empty uses road costs; coming back uses cost times tax. Run Dijkstra on both metrics from every shop j; then ans[i] = min over j of empty(i, j) + prices[j] + taxed(j, i).',
     'category' => 'LeetCode',
     'subcategory' => 'Graphs',
     'topic' => 'LeetCode · Graphs',

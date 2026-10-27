@@ -5,7 +5,7 @@ return [
     'title' => 'Capacity to Ship Packages: binary search on capacity',
     'leetcode' => 1011,
     'difficulty' => 'Med',
-    'summary' => 'Search capacity in [max weight, total weight]. Load greedily in order; count the days. If days ≤ D, the capacity works and smaller might too.',
+    'summary' => 'Search capacity in [max weight, total weight]. Load greedily in order; count the days. If the day count is at most D, the capacity works and smaller might too.',
     'category' => 'LeetCode',
     'subcategory' => 'Binary Search',
     'topic' => 'LeetCode · Binary Search',

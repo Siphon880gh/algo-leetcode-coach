@@ -5,7 +5,7 @@ return [
     'title' => 'Strange Printer II',
     'leetcode' => 1591,
     'difficulty' => 'Hard',
-    'summary' => 'Each color must be printed as its bounding rectangle. Any other color inside that rectangle must be printed later: an edge. The grid is printable iff these edges have no cycle.',
+    'summary' => 'Each color must be printed as its bounding rectangle. Any other color inside that rectangle must be printed later: an edge. The grid is printable exactly when these edges have no cycle.',
     'category' => 'LeetCode',
     'subcategory' => 'Graphs',
     'topic' => 'LeetCode · Graphs',

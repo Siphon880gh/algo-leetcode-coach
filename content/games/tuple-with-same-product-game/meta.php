@@ -5,7 +5,7 @@ return [
     'title' => 'Tuple With Same Product: count equal-product pairs',
     'leetcode' => 1726,
     'difficulty' => 'Med',
-    'summary' => 'Count every pair product. Two different pairs with the same product make 8 ordered tuples, so add 8 · C(c, 2) for each product seen c times.',
+    'summary' => 'Count every pair product. Two different pairs with the same product make 8 ordered tuples, so add 8 times C(c, 2) for each product seen c times.',
     'category' => 'LeetCode',
     'subcategory' => 'Math',
     'topic' => 'LeetCode · Math',

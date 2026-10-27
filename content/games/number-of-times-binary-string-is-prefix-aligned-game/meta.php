@@ -5,7 +5,7 @@ return [
     'title' => 'Number of Times Binary String Is Prefix-Aligned',
     'leetcode' => 1375,
     'difficulty' => 'Med',
-    'summary' => 'After step i (1-based), the string is prefix-aligned iff the largest flipped position so far equals i.',
+    'summary' => 'After step i (1-based), the string is prefix-aligned exactly when the largest flipped position so far equals i.',
     'category' => 'LeetCode',
     'subcategory' => 'Arrays',
     'topic' => 'LeetCode · Arrays',

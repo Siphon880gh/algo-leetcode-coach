@@ -5,7 +5,7 @@ return [
     'title' => 'Queries on a Permutation With Key',
     'leetcode' => 1409,
     'difficulty' => 'Med',
-    'summary' => 'Start with P = [1..m]. For each query, record its position in P, then move it to the front.',
+    'summary' => 'Start with P = [1 to m]. For each query, record its position in P, then move it to the front.',
     'category' => 'LeetCode',
     'subcategory' => 'Simulation',
     'topic' => 'LeetCode · Simulation',

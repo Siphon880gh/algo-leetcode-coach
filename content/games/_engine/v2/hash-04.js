@@ -28,7 +28,7 @@
 
   D('number-of-prefix-connected-groups', {
     t: 'Number of Prefix-Connected Groups',
-    r: 'Words of length ≥ k are grouped by their first k letters. Count each prefix in a hash map; every prefix with at least two words is one group.',
+    r: 'Words of length at least k are grouped by their first k letters. Count each prefix in a hash map; every prefix with at least two words is one group.',
     g: R => ({ words: Array.from({ length: R.int(1, 6) }, () => R.str(R.int(1, 4), 'ab')), k: R.int(1, 3) }),
     s(I, T) { const c = new Map(); I.words.forEach((w, i) => { const ok = w.length >= I.k; if (ok) c.set(w.slice(0, I.k), (c.get(w.slice(0, I.k)) || 0) + 1); if (i < 6) { T.at({ words: A(I.words, { i }), prefixes: K([...c]) }); T.yn(`Can "${w}" join a group?`, ok, ok ? `Its prefix is "${w.slice(0, I.k)}".` : `Shorter than k = ${I.k}.`); } }); return [...c.values()].filter(x => x >= 2).length; }
   });
@@ -63,7 +63,7 @@
 
   D('mirror-frequency-distance', {
     t: 'Mirror Frequency Distance',
-    r: 'Count every character. Pair each letter with its mirror (a↔z, b↔y, …) and each digit with its mirror (0↔9, …). For each pair where at least one side appears, add |freq(c) − freq(mirror)| once.',
+    r: 'Count every character. Pair each letter with its mirror (a and z, b and y, …) and each digit with its mirror (0 and 9, …). For each pair where at least one side appears, add |freq(c) − freq(mirror)| once.',
     g: R => ({ s: R.str(R.int(1, 8), 'abyz09m') }),
     s(I, T) { const c = {}; for (const ch of I.s) c[ch] = (c[ch] || 0) + 1; const mir = ch => /[a-z]/.test(ch) ? String.fromCharCode(219 - ch.charCodeAt(0)) : String(9 - Number(ch)); const seen = new Set(); let tot = 0; Object.keys(c).sort().forEach(ch => { const m = mir(ch), key = [ch, m].sort().join(''); if (seen.has(key)) return; seen.add(key); const d = Math.abs((c[ch] || 0) - (c[m] || 0)); tot += d; T.at({ s: A(I.s.split('')), counts: K(Object.entries(c).sort()) }); T.n(`|freq("${ch}") − freq("${m}")|?`, d, `Mirror of "${ch}" is "${m}".`); }); return tot; }
   });
@@ -77,21 +77,21 @@
 
   D('minimum-operations-to-make-array-modulo-alternating-i', {
     t: 'Minimum Operations to Make Array Modulo Alternating I',
-    r: 'For each target residue x, the cost for one element is the shorter way to reach a value ≡ x (mod k): up by d or down by k − d, staying non-negative. Total the costs over the even and odd indices for every x, then pick x ≠ y using the best and second-best options.',
+    r: 'For each target residue x, the cost for one element is the shorter way to reach a value ≡ x (mod k): up by d or down by k − d, staying non-negative. Total the costs over the even and odd indices for every x, then pick x not equal to y using the best and second-best options.',
     g: R => ({ nums: R.ints(R.int(1, 6), 1, 12), k: R.int(2, 4) }),
-    s(I, T) { const k = I.k, c = (v, x) => { const d = ((x - v) % k + k) % k; return v - (k - d) >= 0 ? Math.min(d, k - d) : d; }, E = range(0, k).map(x => sum(I.nums.filter((_, i) => i % 2 === 0).map(v => c(v, x)))), O = range(0, k).map(x => sum(I.nums.filter((_, i) => i % 2).map(v => c(v, x)))); T.at({ nums: A(I.nums), k }); T.n('Cheapest cost for the even indices alone (any x)?', Math.min(...E), 'Try every residue.'); T.n('Cheapest cost for the odd indices alone (any y)?', Math.min(...O), 'Try every residue.'); let best = Infinity; for (let x = 0; x < k; x++) for (let y = 0; y < k; y++) if (x !== y) best = Math.min(best, E[x] + O[y]); T.at({ even: A(E), odd: A(O) }); T.n('Best total with x ≠ y?', best, 'If both favour the same residue, move one of them to its second-best.'); return best; }
+    s(I, T) { const k = I.k, c = (v, x) => { const d = ((x - v) % k + k) % k; return v - (k - d) >= 0 ? Math.min(d, k - d) : d; }, E = range(0, k).map(x => sum(I.nums.filter((_, i) => i % 2 === 0).map(v => c(v, x)))), O = range(0, k).map(x => sum(I.nums.filter((_, i) => i % 2).map(v => c(v, x)))); T.at({ nums: A(I.nums), k }); T.n('Cheapest cost for the even indices alone (any x)?', Math.min(...E), 'Try every residue.'); T.n('Cheapest cost for the odd indices alone (any y)?', Math.min(...O), 'Try every residue.'); let best = Infinity; for (let x = 0; x < k; x++) for (let y = 0; y < k; y++) if (x !== y) best = Math.min(best, E[x] + O[y]); T.at({ even: A(E), odd: A(O) }); T.n('Best total with x not equal to y?', best, 'If both favour the same residue, move one of them to its second-best.'); return best; }
   });
 
   D('minimum-operations-to-make-array-modulo-alternating-ii', {
     t: 'Minimum Operations to Make Array Modulo Alternating II',
-    r: 'k is now up to 10^5, so you cannot price every residue element by element. Sort the residues of each parity class; the cost as a function of x is piecewise linear, so sweep x over 0..k−1 with prefix sums (handling wraparound) to get every total, then combine the best and second-best x ≠ y.',
+    r: 'k is now up to 10 to the power 5, so you cannot price every residue element by element. Sort the residues of each parity class; the cost as a function of x is piecewise linear, so sweep x over 0 to k−1 with prefix sums (handling wraparound) to get every total, then combine the best and second-best x not equal to y.',
     g: R => ({ nums: R.ints(R.int(1, 6), 1, 15), k: R.int(2, 5) }),
-    s(I, T) { const k = I.k, c = (v, x) => { const d = ((x - v) % k + k) % k; return v - (k - d) >= 0 ? Math.min(d, k - d) : d; }, ev = I.nums.filter((_, i) => i % 2 === 0), od = I.nums.filter((_, i) => i % 2), E = range(0, k).map(x => sum(ev.map(v => c(v, x)))), O = range(0, k).map(x => sum(od.map(v => c(v, x)))); T.at({ evenResidues: A(ev.map(v => v % k).sort((a, b) => a - b)), k }); T.n('Cost to send all even-index values to residue 0?', E[0], 'Sum the shorter way around for each.'); const bx = E.indexOf(Math.min(...E)); T.n('Which residue is cheapest for the even indices?', bx, 'Sweep every residue.'); let best = Infinity; for (let x = 0; x < k; x++) for (let y = 0; y < k; y++) if (x !== y) best = Math.min(best, E[x] + O[y]); T.at({ even: A(E), odd: A(O) }); T.n('Best total with x ≠ y?', best, 'Best pair, using a second-best if the two choices collide.'); return best; }
+    s(I, T) { const k = I.k, c = (v, x) => { const d = ((x - v) % k + k) % k; return v - (k - d) >= 0 ? Math.min(d, k - d) : d; }, ev = I.nums.filter((_, i) => i % 2 === 0), od = I.nums.filter((_, i) => i % 2), E = range(0, k).map(x => sum(ev.map(v => c(v, x)))), O = range(0, k).map(x => sum(od.map(v => c(v, x)))); T.at({ evenResidues: A(ev.map(v => v % k).sort((a, b) => a - b)), k }); T.n('Cost to send all even-index values to residue 0?', E[0], 'Sum the shorter way around for each.'); const bx = E.indexOf(Math.min(...E)); T.n('Which residue is cheapest for the even indices?', bx, 'Sweep every residue.'); let best = Infinity; for (let x = 0; x < k; x++) for (let y = 0; y < k; y++) if (x !== y) best = Math.min(best, E[x] + O[y]); T.at({ even: A(E), odd: A(O) }); T.n('Best total with x not equal to y?', best, 'Best pair, using a second-best if the two choices collide.'); return best; }
   });
 
   D('maximum-number-of-items-from-sale-i', {
     t: 'Maximum Number of Items From Sale I',
-    r: 'Buying at least one copy of item i earns one free copy of each other item whose factor it divides, once. So the first copy of i is worth 1 + bonus_i and extra copies are worth 1. Run a knapsack over the budget where each item is a group: skip it, or take c ≥ 1 copies for value c + bonus_i.',
+    r: 'Buying at least one copy of item i earns one free copy of each other item whose factor it divides, once. So the first copy of i is worth 1 + bonus_i and extra copies are worth 1. Run a knapsack over the budget where each item is a group: skip it, or take c at least 1 copies for value c + bonus_i.',
     g: R => ({ items: Array.from({ length: R.int(1, 4) }, () => [R.int(1, 6), R.int(1, 5)]), budget: R.int(1, 12) }),
     s(I, T) { const it = I.items, bonus = it.map((a, i) => it.filter((b, j) => j !== i && b[0] % a[0] === 0).length); T.at({ items: A(it.map(x => `f${x[0]}:$${x[1]}`)), budget: I.budget }); bonus.slice(0, 3).forEach((b, i) => T.n(`Free copies earned by buying item ${i}?`, b, 'Count other items whose factor is a multiple of its factor.')); let dp = Array(I.budget + 1).fill(0); it.forEach(([, p], i) => { const nd = dp.slice(); for (let B = 0; B <= I.budget; B++) for (let c = 1; c * p <= B; c++) nd[B] = Math.max(nd[B], dp[B - c * p] + c + bonus[i]); dp = nd; }); return dp[I.budget]; }
   });
@@ -112,21 +112,21 @@
 
   D('valid-subarrays-with-matching-sum-digits-i', {
     t: 'Valid Subarrays With Matching Sum Digits I',
-    r: 'n ≤ 1500, so try every subarray: extend the right end with a running sum and check that its first and last digits both equal x.',
+    r: 'n at most 1500, so try every subarray: extend the right end with a running sum and check that its first and last digits both equal x.',
     g: R => ({ nums: R.ints(R.int(1, 5), 1, 120), x: R.int(1, 3) }),
     s(I, T) { const a = I.nums, n = a.length, x = String(I.x); let c = 0; for (let l = 0; l < n; l++) { let s = 0, here = 0; for (let r = l; r < n; r++) { s += a[r]; const d = String(s); if (d[0] === x && d[d.length - 1] === x) here++; } c += here; if (l < 4) { T.at({ nums: A(a, { i: l }), x: I.x }); T.n(`Valid subarrays starting at ${l}?`, here, 'Running sum; check first and last digit.'); } } return c; }
   });
 
   D('valid-subarrays-with-matching-sum-digits-ii', {
     t: 'Valid Subarrays With Matching Sum Digits II',
-    r: 'For a fixed right end, the valid prefix sums P[l] satisfy P[r] − P[l] ≡ x (mod 10) and P[r] − P[l] lies in a band [x·10^d, (x+1)·10^d) for some digit count d. Prefix sums only increase, so for each d binary search (or two-pointer) the band, and count matching residues mod 10 inside it with per-residue position lists.',
+    r: 'For a fixed right end, the valid prefix sums P[l] satisfy P[r] − P[l] ≡ x (mod 10) and P[r] − P[l] lies in a band [x times 10 to the power d, (x+1) times 10 to the power d) for some digit count d. Prefix sums only increase, so for each d binary search (or two-pointer) the band, and count matching residues mod 10 inside it with per-residue position lists.',
     g: R => ({ nums: R.ints(R.int(1, 5), 1, 120), x: R.int(1, 3) }),
     s(I, T) { const a = I.nums, n = a.length, P = [0]; a.forEach(v => P.push(P[P.length - 1] + v)); let c = 0; for (let r = 1; r <= n; r++) { let here = 0; for (let l = 0; l < r; l++) { const d = String(P[r] - P[l]); if (+d[0] === I.x && +d[d.length - 1] === I.x) here++; } c += here; if (r <= 4) { T.at({ prefix: A(P, { i: r }), x: I.x }); T.n(`Valid subarrays ending at index ${r - 1}?`, here, 'Earlier prefix sums whose difference starts and ends with x.'); } } return c; }
   });
 
   D('widest-possible-fence', {
     t: 'Widest Possible Fence',
-    r: 'Try every candidate height H: each plank on its own, and each sum of two planks. For H, the width is the count of planks equal to H plus the most disjoint pairs summing to H, which a value-count map gives as Σ min(c[v], c[H − v]) over v < H − v plus ⌊c[H/2] / 2⌋.',
+    r: 'Try every candidate height H: each plank on its own, and each sum of two planks. For H, the width is the count of planks equal to H plus the most disjoint pairs summing to H, which a value-count map gives as the sum of min(c[v], c[H − v]) over v < H − v plus half of c[H divided by 2], rounded down.',
     g: R => ({ planks: R.ints(R.int(1, 7), 1, 5) }),
     s(I, T) { const c = new Map(); I.planks.forEach(x => c.set(x, (c.get(x) || 0) + 1)); const w = H => { let s = c.get(H) || 0; c.forEach((k, v) => { const u = H - v; if (v < u && c.has(u)) s += Math.min(k, c.get(u)); if (v === u) s += k >> 1; }); return s; }; const cand = new Set(I.planks); I.planks.forEach((x, i) => I.planks.forEach((y, j) => { if (i < j) cand.add(x + y); })); let best = 0, bh = 0; [...cand].sort((x, y) => x - y).forEach(H => { const v = w(H); if (v > best) { best = v; bh = H; } }); T.at({ planks: A(I.planks), counts: K([...c.entries()].sort((x, y) => x[0] - y[0])) }); const mx = Math.max(...I.planks); T.n(`Fence width at height ${mx} (the tallest plank)?`, w(mx), 'Singles of that height plus pairs summing to it.'); T.n('How many candidate heights are there?', cand.size, 'Single heights and pair sums.'); T.n('Widest fence over all heights?', w(bh), 'Best width over every candidate.'); return best; }
   });

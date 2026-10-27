@@ -9,14 +9,14 @@
 
   D('rearrange-spaces-between-words', {
     t: 'Rearrange Spaces Between Words',
-    r: 'Count spaces S and words w. Each gap gets ⌊S / (w − 1)⌋ spaces; leftovers go to the end (all of them if w = 1).',
+    r: 'Count spaces S and words w. Each gap gets S divided by (w − 1) (rounded down) spaces; leftovers go to the end (all of them if w = 1).',
     g: R => ({ text: (() => { let s = ''; const n = R.int(1, 4); for (let i = 0; i < n; i++) s += ' '.repeat(R.int(i ? 1 : 0, 2)) + R.str(R.int(1, 3), 'ab'); return s + ' '.repeat(R.int(0, 2)); })() }),
     s(I, T) { const S = [...I.text].filter(c => c === ' ').length, w = I.text.trim().split(/ +/); const gap = w.length > 1 ? Math.floor(S / (w.length - 1)) : 0; T.at({ words: A(w), spaces: S }); T.n('How many spaces in total?', S, 'Count every space in text.'); T.n('Spaces per gap?', gap, w.length > 1 ? `${S} divided by ${w.length - 1}, rounded down.` : 'One word: no gaps.'); T.n('Spaces left over at the end?', S - gap * (w.length - 1), 'Whatever the gaps could not share evenly.'); return w.join(' '.repeat(gap)) + ' '.repeat(S - gap * (w.length - 1)); }
   });
 
   D('alert-using-same-key-card-three-or-more-times-in-a-one-hour-period', {
     t: 'Key-Card Alerts: three uses within an hour',
-    r: 'Group times by name and sort them. Alert if some t[i + 2] − t[i] ≤ 60 minutes. Return alerted names sorted.',
+    r: 'Group times by name and sort them. Alert if some t[i + 2] − t[i] at most 60 minutes. Return alerted names sorted.',
     g: R => { const n = R.int(1, 7); return { keyName: Array.from({ length: n }, () => R.pick(['ann', 'bob'])), keyTime: Array.from({ length: n }, () => `${String(R.int(9, 11)).padStart(2, '0')}:${String(R.int(0, 59)).padStart(2, '0')}`) }; },
     s(I, T) { const m = new Map(); I.keyName.forEach((n, i) => { const [h, mi] = I.keyTime[i].split(':'); (m.get(n) || m.set(n, []).get(n)).push(+h * 60 + +mi); }); const out = []; T.at({ names: A([...m.keys()]) }); T.n('How many different people used a card?', m.size, 'Group the times by name.'); for (const [n, ts] of [...m].sort()) { ts.sort((a, b) => a - b); const bad = ts.some((t, i) => i + 2 < ts.length && ts[i + 2] - t <= 60); T.at({ name: n, minutes: A(ts) }); T.yn(`Alert for ${n}?`, bad, 'Any 3 consecutive uses within 60 minutes.'); if (bad) out.push(n); } T.n('How many people get an alert?', out.length, 'Count the yes answers.'); return out; }
   });
@@ -25,11 +25,11 @@
     t: 'Largest Substring Between Equal Characters',
     r: 'Remember each letter\'s first index; at a later index j, the gap is j − first − 1. Track the max (−1 if none).',
     g: R => ({ s: R.str(R.int(1, 8), 'abcd') }),
-    s(I, T) { const f = {}; let best = -1; [...I.s].forEach((c, j) => { if (c in f) { T.at({ s: chars(I.s), first: K(f) }); T.n(`Gap for '${c}' at index ${j}?`, j - f[c] - 1, `${j} − ${f[c]} − 1.`); best = Math.max(best, j - f[c] - 1); } else f[c] = j; }); if (best < 0) T.yn('Does any letter repeat?', false, 'No repeats → −1.'); return best; }
+    s(I, T) { const f = {}; let best = -1; [...I.s].forEach((c, j) => { if (c in f) { T.at({ s: chars(I.s), first: K(f) }); T.n(`Gap for '${c}' at index ${j}?`, j - f[c] - 1, `${j} − ${f[c]} − 1.`); best = Math.max(best, j - f[c] - 1); } else f[c] = j; }); if (best < 0) T.yn('Does any letter repeat?', false, 'No repeats: −1.'); return best; }
   });
 
   D('slowest-key', {
-    t: 'Slowest Key: longest press, ties → larger letter',
+    t: 'Slowest Key: longest press, ties go to the larger letter',
     r: 'Duration i = release[i] − release[i − 1] (first is release[0]). Keep the longest; on ties keep the lexicographically larger key.',
     g: R => { const n = R.int(2, 6); let t = 0; return { releaseTimes: Array.from({ length: n }, () => t += R.int(1, 5)), keysPressed: R.str(n, 'abcd') }; },
     s(I, T) { let best = I.keysPressed[0], d = I.releaseTimes[0]; for (let i = 1; i < I.releaseTimes.length; i++) { const x = I.releaseTimes[i] - I.releaseTimes[i - 1], k = I.keysPressed[i]; T.at({ release: A(I.releaseTimes, { hl: [i] }), best: `${best}:${d}` }); T.n(`Duration of press ${i}?`, x, 'Difference of release times.'); if (x > d || (x === d && k > best)) { d = x; best = k; } } return best; }
@@ -46,12 +46,12 @@
     t: 'Maximum Repeating Substring',
     r: 'Increase k while word repeated k + 1 times is still a substring of sequence.',
     g: R => { const w = R.str(R.int(1, 2), 'ab'); return { sequence: R.str(R.int(0, 2), 'ab') + w.repeat(R.int(0, 3)) + R.str(R.int(0, 2), 'ab') || 'a', word: w }; },
-    s(I, T) { let k = 0; for (;;) { const ok = I.sequence.includes(I.word.repeat(k + 1)); T.at({ sequence: I.sequence, word: I.word }); T.yn(`Is "${I.word}" × ${k + 1} inside?`, ok, 'Substring check.'); if (!ok) return k; k++; } }
+    s(I, T) { let k = 0; for (;;) { const ok = I.sequence.includes(I.word.repeat(k + 1)); T.at({ sequence: I.sequence, word: I.word }); T.yn(`Is "${I.word}" times ${k + 1} inside?`, ok, 'Substring check.'); if (!ok) return k; k++; } }
   });
 
   D('goal-parser-interpretation', {
     t: 'Goal Parser Interpretation',
-    r: '"G" → G, "()" → o, "(al)" → al.',
+    r: '"G" becomes G, "()" becomes o, "(al)" becomes al.',
     g: R => ({ command: Array.from({ length: R.int(1, 5) }, () => R.pick(['G', '()', '(al)'])).join('') }),
     s(I, T) { let i = 0, out = ''; const c = I.command; while (i < c.length) { const tok = c[i] === 'G' ? 'G' : c[i + 1] === ')' ? '()' : '(al)', v = tok === 'G' ? 'G' : tok === '()' ? 'o' : 'al'; T.at({ command: chars(c), at: i }); T.c(`Meaning of "${tok}"?`, ['G', 'o', 'al'], v, 'Fixed table.'); out += v; i += tok.length; } return out; }
   });
@@ -86,7 +86,7 @@
 
   D('count-items-matching-a-rule', {
     t: 'Count Items Matching a Rule',
-    r: 'Map ruleKey to column 0/1/2 (type/color/name) and count matching items.',
+    r: 'Map ruleKey to column 0, 1 or 2 (type, color or name) and count matching items.',
     g: R => ({ items: Array.from({ length: R.int(1, 5) }, () => [R.pick(['phone', 'pc']), R.pick(['blue', 'gold']), R.pick(['x', 'y'])]), ruleKey: R.pick(['type', 'color', 'name']), ruleValue: R.pick(['phone', 'gold', 'x']) }),
     s(I, T) { const k = ['type', 'color', 'name'].indexOf(I.ruleKey); T.at({ items: A(I.items.map(x => x.join(' '))) }); T.n(`Column index for "${I.ruleKey}"?`, k, 'type is 0, color is 1, name is 2.'); T.yn('Does the first item match the rule?', I.items[0][k] === I.ruleValue, `Compare column ${k} with "${I.ruleValue}".`); T.n('Items matching the rule?', I.items.filter(x => x[k] === I.ruleValue).length, 'Check every item the same way.'); return I.items.filter(x => x[k] === I.ruleValue).length; }
   });
@@ -100,7 +100,7 @@
 
   D('check-if-binary-string-has-at-most-one-segment-of-ones', {
     t: 'At Most One Segment of Ones',
-    r: 'Since s starts with 1, a second segment exists iff "01" appears.',
+    r: 'Since s starts with 1, a second segment exists exactly when "01" appears.',
     g: R => ({ s: '1' + R.str(R.int(0, 6), '01') }),
     s(I, T) { T.at({ s: chars(I.s) }); T.yn('Does "01" appear?', I.s.includes('01'), 'A 1 after a 0 starts a new segment.'); T.n('How many segments of ones?', I.s.match(/1+/g).length, 'Each block of consecutive ones.'); T.yn('At most one segment?', !I.s.includes('01'), 'No 0 is followed by a 1.'); return !I.s.includes('01'); }
   });
@@ -205,7 +205,7 @@
 
   D('number-of-pairs-of-strings-with-concatenation-equal-to-target', {
     t: 'Pairs Concatenating to Target',
-    r: 'Count ordered pairs i ≠ j with nums[i] + nums[j] = target. With a count map: for each prefix match, add the count of the needed suffix (minus self if equal).',
+    r: 'Count ordered pairs i not equal to j with nums[i] + nums[j] = target. With a count map: for each prefix match, add the count of the needed suffix (minus self if equal).',
     g: R => { const t = R.str(R.int(2, 4), '17'); return { nums: Array.from({ length: R.int(2, 5) }, () => R.chance(0.7) ? (R.chance(0.5) ? t.slice(0, R.int(1, t.length - 1)) : t.slice(R.int(1, t.length - 1))) : R.str(R.int(1, 2), '17')), target: t }; },
     s(I, T) { const c = cnt(I.nums); let tot = 0; I.nums.forEach((a, i) => { if (!I.target.startsWith(a) || a.length >= I.target.length) return; const b = I.target.slice(a.length), k = (c[b] || 0) - (a === b ? 1 : 0); T.at({ nums: A(I.nums, { hl: [i] }), need: b }); T.n(`Partners for "${a}"?`, k, `Copies of "${b}" (not itself).`); tot += k; }); if (!tot) T.n('Total pairs?', 0, 'No valid splits.'); return tot; }
   });
@@ -233,7 +233,7 @@
 
   D('check-whether-two-strings-are-almost-equivalent', {
     t: 'Almost Equivalent Strings',
-    r: 'For every letter, |count1 − count2| must be ≤ 3.',
+    r: 'For every letter, |count1 − count2| must be at most 3.',
     g: R => { const n = R.int(1, 8); return { word1: R.str(n, 'abc'), word2: R.str(n, 'abc') }; },
     s(I, T) { const a = cnt(I.word1), b = cnt(I.word2); let mx = 0; for (const k of new Set([...I.word1, ...I.word2])) mx = Math.max(mx, Math.abs((a[k] || 0) - (b[k] || 0))); T.at({ counts1: K(a), counts2: K(b) }); T.n('Largest frequency difference?', mx, 'Must be at most 3.'); T.n('Distinct letters across both words?', new Set([...I.word1, ...I.word2]).size, 'Check each of them.'); T.yn('Almost equivalent?', mx <= 3, 'No difference above 3.'); return mx <= 3; }
   });
@@ -254,21 +254,21 @@
 
   D('check-if-all-as-appears-before-all-bs', {
     t: 'All A\'s Before All B\'s',
-    r: 'Invalid iff "ba" appears.',
+    r: 'Invalid exactly when "ba" appears.',
     g: R => ({ s: R.str(R.int(1, 7), 'ab') }),
     s(I, T) { T.at({ s: chars(I.s) }); T.yn('Does "ba" appear?', I.s.includes('ba'), 'An a after a b.'); T.n('Index of the first b (−1 if none)?', I.s.indexOf('b'), 'No a may come after it.'); T.yn('Do all a letters come before all b letters?', !I.s.includes('ba'), 'True when "ba" never appears.'); return !I.s.includes('ba'); }
   });
 
   D('capitalize-the-title', {
     t: 'Capitalize the Title',
-    r: 'Words of length ≤ 2 become all lower case; longer words get a capital first letter and the rest lower case.',
+    r: 'Words of length at most 2 become all lower case; longer words get a capital first letter and the rest lower case.',
     g: R => ({ title: Array.from({ length: R.int(1, 4) }, () => R.str(R.int(1, 5), 'aBcD')).join(' ') }),
-    s(I, T) { return I.title.split(' ').map(w => { const l = w.toLowerCase(), r = l.length <= 2 ? l : l[0].toUpperCase() + l.slice(1); T.at({ word: w }); T.c(`Result for "${w}"?`, [...new Set([r, l, w.toUpperCase()])], r, l.length <= 2 ? 'Short → lower case.' : 'Capitalize.'); return r; }).join(' '); }
+    s(I, T) { return I.title.split(' ').map(w => { const l = w.toLowerCase(), r = l.length <= 2 ? l : l[0].toUpperCase() + l.slice(1); T.at({ word: w }); T.c(`Result for "${w}"?`, [...new Set([r, l, w.toUpperCase()])], r, l.length <= 2 ? 'Short: lower case.' : 'Capitalize.'); return r; }).join(' '); }
   });
 
   D('unique-substrings-with-equal-digit-frequency', {
     t: 'Unique Substrings With Equal Digit Frequency',
-    r: 'For each start, extend while tracking counts, the max count and the number of distinct digits: equal iff maxCount × distinct = length. Collect distinct substrings in a set (or by rolling hash).',
+    r: 'For each start, extend while tracking counts, the max count and the number of distinct digits: equal exactly when maxCount times distinct = length. Collect distinct substrings in a set (or by rolling hash).',
     g: R => ({ s: R.str(R.int(1, 7), '123') }),
     s(I, T) { const set = new Set(); for (let i = 0; i < I.s.length; i++) { const c = {}; let mx = 0, k = 0; for (let j = i; j < I.s.length; j++) { c[I.s[j]] = (c[I.s[j]] || 0) + 1; if (c[I.s[j]] === 1) k++; mx = Math.max(mx, c[I.s[j]]); if (mx * k === j - i + 1) set.add(I.s.slice(i, j + 1)); } if (i < 4) { T.at({ s: chars(I.s), start: i, found: set.size }); T.n(`Distinct good substrings found after start ${i}?`, set.size, 'Running set size.'); } } return set.size; }
   });
@@ -282,7 +282,7 @@
 
   D('minimum-number-of-steps-to-make-two-strings-anagram-ii', {
     t: 'Steps to Make Anagrams II',
-    r: 'Appending can only add letters, so the answer is Σ |count_s − count_t| over all letters.',
+    r: 'Appending can only add letters, so the answer is the sum of |count_s − count_t| over all letters.',
     g: R => ({ s: R.str(R.int(1, 7), 'abc'), t: R.str(R.int(1, 7), 'abc') }),
     s(I, T) { const c = cnt(I.s); for (const x of I.t) c[x] = (c[x] || 0) - 1; T.at({ diff: K(c) }); const v = Object.values(c).reduce((a, b) => a + Math.abs(b), 0); T.n('Letters to append to s?', Object.values(c).filter(x => x < 0).reduce((a, b) => a - b, 0), 'Where t has more.'); T.n('Letters to append to t?', Object.values(c).filter(x => x > 0).reduce((a, b) => a + b, 0), 'Where s has more.'); T.n('Total appends needed?', v, 'Sum of absolute differences.'); return v; }
   });

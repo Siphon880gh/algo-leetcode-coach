@@ -5,7 +5,7 @@ return [
     'title' => 'Random Pick With Blacklist',
     'leetcode' => 710,
     'difficulty' => 'Hard',
-    'summary' => 'Let k = n − |blacklist|. Pick uniformly in [0, k). Blacklisted numbers below k are remapped to the allowed numbers ≥ k, so every pick is one lookup.',
+    'summary' => 'Let k = n − |blacklist|. Pick uniformly in [0, k). Blacklisted numbers below k are remapped to the allowed numbers at least k, so every pick is one lookup.',
     'category' => 'LeetCode',
     'subcategory' => 'Design',
     'topic' => 'LeetCode · Design',

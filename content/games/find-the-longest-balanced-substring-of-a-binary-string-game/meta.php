@@ -5,7 +5,7 @@ return [
     'title' => 'Longest Balanced Binary Substring',
     'leetcode' => 2609,
     'difficulty' => 'Easy',
-    'summary' => 'For each block of zeros followed by a block of ones, the balanced length is 2 × min(zeros, ones).',
+    'summary' => 'For each block of zeros followed by a block of ones, the balanced length is 2 times min(zeros, ones).',
     'category' => 'LeetCode',
     'subcategory' => 'Strings',
     'topic' => 'LeetCode · Strings',

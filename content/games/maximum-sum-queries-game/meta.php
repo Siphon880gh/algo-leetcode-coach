@@ -5,7 +5,7 @@ return [
     'title' => 'Maximum Sum Queries',
     'leetcode' => 2736,
     'difficulty' => 'Hard',
-    'summary' => 'Offline: sort points by nums1 descending and queries by x descending; insert points with nums1 ≥ x into a structure keyed by nums2 (monotonic stack + binary search, or a max segment tree) and query max sum with nums2 ≥ y.',
+    'summary' => 'Offline: sort points by nums1 descending and queries by x descending; insert points with nums1 at least x into a structure keyed by nums2 (monotonic stack + binary search, or a max segment tree) and query max sum with nums2 at least y.',
     'category' => 'LeetCode',
     'subcategory' => 'Segment Tree',
     'topic' => 'LeetCode · Segment Tree',

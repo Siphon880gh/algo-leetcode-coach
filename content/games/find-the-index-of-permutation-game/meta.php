@@ -5,7 +5,7 @@ return [
     'title' => 'Find the Index of Permutation',
     'leetcode' => 3109,
     'difficulty' => 'Med',
-    'summary' => 'Lehmer code: index = Σ (# unused values smaller than perm[i]) × (n − 1 − i)!. A Fenwick tree counts the smaller unused values. Mod 1e9+7.',
+    'summary' => 'Lehmer code: index = the sum of (# unused values smaller than perm[i]) times (n − 1 − i)!. A Fenwick tree counts the smaller unused values. Mod 1e9+7.',
     'category' => 'LeetCode',
     'subcategory' => 'Segment Tree',
     'topic' => 'LeetCode · Segment Tree',

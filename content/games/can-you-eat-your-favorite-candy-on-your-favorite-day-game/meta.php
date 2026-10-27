@@ -5,7 +5,7 @@ return [
     'title' => 'Can You Eat Your Favorite Candy on Your Favorite Day?',
     'leetcode' => 1744,
     'difficulty' => 'Med',
-    'summary' => 'With prefix counts P, by day d you eat between d + 1 and (d + 1)·cap candies. You can reach type t on day d iff (d + 1)·cap > P[t] and d + 1 ≤ P[t + 1].',
+    'summary' => 'With prefix counts P, by day d you eat between d + 1 and (d + 1) times cap candies. You can reach type t on day d exactly when (d + 1) times cap > P[t] and d + 1 at most P[t + 1].',
     'category' => 'LeetCode',
     'subcategory' => 'Prefix Sum',
     'topic' => 'LeetCode · Prefix Sum',

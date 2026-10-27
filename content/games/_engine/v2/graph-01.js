@@ -31,14 +31,14 @@
 
   D('clone-graph', {
     t: 'Clone Graph',
-    r: 'BFS/DFS with a map original → copy. Create a node\'s copy the first time you see it, then wire each copy\'s neighbor list to the copies of its neighbors.',
+    r: 'BFS or DFS with a map original to copy. Create a node\'s copy the first time you see it, then wire each copy\'s neighbor list to the copies of its neighbors.',
     g: R => { const n = R.int(1, 5), e = R.edges(n, R.int(n - 1, n + 1), { conn: true }), adj = Array.from({ length: n }, () => []); e.forEach(([a, b]) => { adj[a].push(b + 1); adj[b].push(a + 1); }); return { adjList: adj.map(l => l.sort((a, b) => a - b)) }; },
     s(I, T) { const n = I.adjList.length; if (!n) { T.at({ adjList: A([]) }); T.n('Nodes to copy?', 0, 'Empty graph.'); return []; } const copy = new Map([[1, []]]), q = [1]; for (let i = 0; i < q.length; i++) { const u = q[i]; for (const v of I.adjList[u - 1]) { if (!copy.has(v)) { copy.set(v, []); q.push(v); } copy.get(u).push(v); } if (i < 6) { T.at({ graph: GR(n, I.adjList.flatMap((l, a) => l.filter(b => b > a + 1).map(b => [a + 1, b])), { cls: { [u]: 'hit' } }), copied: A([...copy.keys()]) }); T.n('Copies created so far?', copy.size, 'Every newly seen neighbor gets a copy.'); } } return Array.from({ length: n }, (_, i) => copy.get(i + 1) || []); }
   });
 
   D('alien-dictionary', {
     t: 'Alien Dictionary',
-    r: 'Compare each adjacent pair of words: the first differing letters give an edge a → b. A longer word before its own prefix is invalid. Topologically sort the letters (Kahn); a cycle means "".',
+    r: 'Compare each adjacent pair of words: the first differing letters give an edge a to b. A longer word before its own prefix is invalid. Topologically sort the letters (Kahn); a cycle means "".',
     g: R => { const ord = R.shuffle(['a', 'b', 'c', 'd']), rank = c => ord.indexOf(c); const ws = Array.from({ length: R.int(2, 5) }, () => R.str(R.int(1, 3), 'abcd')); if (R.chance(0.8)) ws.sort((x, y) => { for (let i = 0; i < Math.min(x.length, y.length); i++) if (x[i] !== y[i]) return rank(x[i]) - rank(y[i]); return x.length - y.length; }); return { words: ws }; },
     cmp: (o, e, I) => { if (e === '') return o === ''; if (typeof o !== 'string') return false; const letters = new Set(I.words.join('')); if (o.length !== letters.size || new Set(o).size !== o.length || [...o].some(c => !letters.has(c))) return false; for (let i = 0; i + 1 < I.words.length; i++) { const a = I.words[i], b = I.words[i + 1]; for (let j = 0; j < Math.min(a.length, b.length); j++) if (a[j] !== b[j]) { if (o.indexOf(a[j]) > o.indexOf(b[j])) return false; break; } } return true; },
     s(I, T) { const letters = [...new Set(I.words.join(''))], out = {}, indeg = {}; letters.forEach(c => { out[c] = new Set(); indeg[c] = 0; }); for (let i = 0; i + 1 < I.words.length; i++) { const a = I.words[i], b = I.words[i + 1]; let j = 0; while (j < Math.min(a.length, b.length) && a[j] === b[j]) j++; if (j === Math.min(a.length, b.length)) { if (a.length > b.length) { T.at({ a, b }); T.yn(`Is "${a}" before its prefix "${b}" a contradiction?`, true, 'A prefix must come first.'); return ''; } continue; } if (!out[a[j]].has(b[j])) { out[a[j]].add(b[j]); indeg[b[j]]++; } if (i < 5) { T.at({ a, b, edges: K(Object.fromEntries(letters.map(c => [c, [...out[c]].join(',')]))) }); T.c(`Which rule does "${a}" vs "${b}" give?`, [`${a[j]} before ${b[j]}`, `${b[j]} before ${a[j]}`], `${a[j]} before ${b[j]}`, 'First differing letter.'); } } const q = letters.filter(c => !indeg[c]); let res = ''; while (q.length) { const c = q.shift(); res += c; for (const d of out[c]) if (!--indeg[d]) q.push(d); } T.at({ order: res }); T.yn('Did every letter get placed (no cycle)?', res.length === letters.length, 'Kahn\'s algorithm.'); return res.length === letters.length ? res : ''; }
@@ -82,7 +82,7 @@
 
   D('sequence-reconstruction', {
     t: 'Sequence Reconstruction',
-    r: 'Build edges from consecutive elements of each sequence and run Kahn\'s algorithm. nums is the unique shortest supersequence iff the queue never holds more than one node and the order equals nums.',
+    r: 'Build edges from consecutive elements of each sequence and run Kahn\'s algorithm. nums is the unique shortest supersequence exactly when the queue never holds more than one node and the order equals nums.',
     g: R => { const n = R.int(1, 5), nums = R.perm(n).map(x => x + 1); return { nums, sequences: Array.from({ length: R.int(1, 3) }, () => nums.filter(() => R.chance(0.6))).filter(s => s.length).concat([[nums[0]]]) }; },
     s(I, T) { const n = I.nums.length, out = Array.from({ length: n + 1 }, () => new Set()), indeg = Array(n + 1).fill(0); for (const s of I.sequences) for (let i = 0; i + 1 < s.length; i++) if (!out[s[i]].has(s[i + 1])) { out[s[i]].add(s[i + 1]); indeg[s[i + 1]]++; } let q = []; for (let v = 1; v <= n; v++) if (!indeg[v]) q.push(v); const order = []; while (q.length) { T.at({ queue: Q(q), order: A(order) }); T.yn('Is the next element forced (queue size 1)?', q.length === 1, 'Two choices mean another order works too.'); if (q.length > 1) return false; const u = q.shift(); order.push(u); for (const v of out[u]) if (!--indeg[v]) q.push(v); } return order.length === n && order.every((x, i) => x === I.nums[i]); }
   });
@@ -138,9 +138,9 @@
 
   D('number-of-distinct-islands-ii', {
     t: 'Distinct Islands II (rotations & reflections)',
-    r: 'For each island, generate its 8 rotations/reflections, normalize each, and keep the smallest as the canonical key. Count distinct keys.',
+    r: 'For each island, generate its 8 rotations or reflections, normalize each, and keep the smallest as the canonical key. Count distinct keys.',
     g: R => ({ grid: binGrid(R) }),
-    s(I, T) { const isl = islands(I.grid), seen = new Set(); const canon = cells => { const t = [[1, 1, 0], [1, -1, 0], [-1, 1, 0], [-1, -1, 0], [1, 1, 1], [1, -1, 1], [-1, 1, 1], [-1, -1, 1]]; return t.map(([a, b, sw]) => norm(cells.map(([r, c]) => sw ? [c * a, r * b] : [r * a, c * b]))).sort()[0]; }; isl.forEach((cells, i) => { const k = canon(cells), nw = !seen.has(k); if (i < 5) { T.at({ grid: G(I.grid, { hl: cells }) }); T.yn('Is this shape new (up to rotation/reflection)?', nw, 'Compare canonical keys.'); } seen.add(k); }); if (!isl.length) { T.at({ grid: G(I.grid) }); T.n('Islands?', 0, 'No land.'); } return seen.size; }
+    s(I, T) { const isl = islands(I.grid), seen = new Set(); const canon = cells => { const t = [[1, 1, 0], [1, -1, 0], [-1, 1, 0], [-1, -1, 0], [1, 1, 1], [1, -1, 1], [-1, 1, 1], [-1, -1, 1]]; return t.map(([a, b, sw]) => norm(cells.map(([r, c]) => sw ? [c * a, r * b] : [r * a, c * b]))).sort()[0]; }; isl.forEach((cells, i) => { const k = canon(cells), nw = !seen.has(k); if (i < 5) { T.at({ grid: G(I.grid, { hl: cells }) }); T.yn('Is this shape new (up to rotation or reflection)?', nw, 'Compare canonical keys.'); } seen.add(k); }); if (!isl.length) { T.at({ grid: G(I.grid) }); T.n('Islands?', 0, 'No land.'); } return seen.size; }
   });
 
   D('closest-leaf-in-a-binary-tree', {
@@ -182,16 +182,16 @@
 
   D('sliding-puzzle', {
     t: 'Sliding Puzzle (BFS over boards)',
-    r: 'Each 2×3 board is a state; moves swap 0 with a neighbor. BFS from the start until "123450"; −1 if unreachable (half of the permutations are).',
+    r: 'Each 2 by 3 board is a state; moves swap 0 with a neighbor. BFS from the start until "123450"; −1 if unreachable (half of the permutations are).',
     g: R => { const b = R.perm(6); return { board: [b.slice(0, 3), b.slice(3)] }; },
     s(I, T) { const goal = '123450', nb = [[1, 3], [0, 2, 4], [1, 5], [0, 4], [1, 3, 5], [2, 4]], s0 = I.board.flat().join(''), dist = new Map([[s0, 0]]), q = [s0]; let asks = 0; for (let i = 0; i < q.length; i++) { const u = q[i]; if (u === goal) { T.at({ board: G([[...u.slice(0, 3)], [...u.slice(3)]]) }); T.n('Moves to solve?', dist.get(u), 'BFS level.'); return dist.get(u); } const z = u.indexOf('0'); if (i < 2 && asks < 2) { T.at({ board: G([[...u.slice(0, 3)], [...u.slice(3)]], { hl: [[Math.floor(z / 3), z % 3]] }) }); T.n('How many moves are possible from this board?', nb[z].length, 'Neighbors of the blank.'); asks++; } for (const j of nb[z]) { const a = [...u]; [a[z], a[j]] = [a[j], a[z]]; const v = a.join(''); if (!dist.has(v)) { dist.set(v, dist.get(u) + 1); q.push(v); } } } T.at({ explored: q.length }); T.n('Boards reachable from the start?', q.length, 'Only half of the 720 arrangements.'); return -1; }
   });
 
   D('cheapest-flights-within-k-stops', {
     t: 'Cheapest Flights Within K Stops',
-    r: 'Bellman–Ford limited to k + 1 rounds: each round relaxes every flight using a copy of the previous round\'s prices, so a path uses at most one more edge per round.',
+    r: 'Bellman-Ford limited to k + 1 rounds: each round relaxes every flight using a copy of the previous round\'s prices, so a path uses at most one more edge per round.',
     g: R => { const n = R.int(2, 5), f = R.edges(n, R.int(1, n * 2), { dir: true, w: [1, 9] }); return { n, flights: f, src: 0, dst: R.int(1, n - 1), k: R.int(0, 2) }; },
-    s(I, T) { let d = Array(I.n).fill(Infinity); d[I.src] = 0; for (let r = 0; r <= I.k; r++) { const nd = d.slice(); for (const [a, b, w] of I.flights) if (d[a] + w < nd[b]) nd[b] = d[a] + w; d = nd; T.at({ graph: GR(I.n, I.flights.map(e => [e[0], e[1]]), { dir: true, cls: { [I.dst]: 'hit' } }), price: A(d.map(x => x === Infinity ? '∞' : x)) }); T.n(`Cheapest to ${I.dst} using ≤ ${r + 1} flights? (−1 if none)`, d[I.dst] === Infinity ? -1 : d[I.dst], 'Relax from the previous round only.'); } return d[I.dst] === Infinity ? -1 : d[I.dst]; }
+    s(I, T) { let d = Array(I.n).fill(Infinity); d[I.src] = 0; for (let r = 0; r <= I.k; r++) { const nd = d.slice(); for (const [a, b, w] of I.flights) if (d[a] + w < nd[b]) nd[b] = d[a] + w; d = nd; T.at({ graph: GR(I.n, I.flights.map(e => [e[0], e[1]]), { dir: true, cls: { [I.dst]: 'hit' } }), price: A(d.map(x => x === Infinity ? '∞' : x)) }); T.n(`Cheapest to ${I.dst} using at most ${r + 1} flights? (−1 if none)`, d[I.dst] === Infinity ? -1 : d[I.dst], 'Relax from the previous round only.'); } return d[I.dst] === Infinity ? -1 : d[I.dst]; }
   });
 
   D('all-paths-from-source-to-target', {
@@ -232,14 +232,14 @@
 
   D('loud-and-rich', {
     t: 'Loud and Rich',
-    r: 'Edge richer → poorer. For each person, DFS (memoized) over people richer than them: answer[x] is the quietest among x and everyone reachable upward.',
+    r: 'Edge from richer to poorer. For each person, DFS (memoized) over people richer than them: answer[x] is the quietest among x and everyone reachable upward.',
     g: R => { const n = R.int(1, 6), p = R.perm(n), rich = []; for (let i = 0; i < n; i++) for (let j = i + 1; j < n; j++) if (R.chance(0.35)) rich.push([p[i], p[j]]); return { richer: rich, quiet: R.perm(n) }; },
     s(I, T) { const n = I.quiet.length, up = Array.from({ length: n }, () => []); I.richer.forEach(([a, b]) => up[b].push(a)); const ans = Array(n).fill(-1); const go = x => { if (ans[x] >= 0) return ans[x]; let b = x; for (const y of up[x]) { const c = go(y); if (I.quiet[c] < I.quiet[b]) b = c; } ans[x] = b; return b; }; for (let x = 0; x < n; x++) { go(x); if (x < 5) { T.at({ graph: GR(n, I.richer, { dir: true, cls: { [x]: 'hit' } }), quiet: A(I.quiet) }); T.n(`Quietest person at least as rich as ${x}?`, ans[x], 'Best of x and answers of richer neighbors.'); } } return ans; }
   });
 
   D('k-similar-strings', {
     t: 'K-Similar Strings (BFS on swaps)',
-    r: 'BFS from s1. At each state fix the first mismatched position i by swapping in a j > i with s[j] = s2[i] (and s[j] ≠ s2[j]). The level when reaching s2 is k.',
+    r: 'BFS from s1. At each state fix the first mismatched position i by swapping in a j > i with s[j] = s2[i] (and s[j] not equal to s2[j]). The level when reaching s2 is k.',
     g: R => { const a = R.str(R.int(1, 6), 'abcd'); return { s1: a, s2: R.shuffle([...a]).join('') }; },
     s(I, T) { const res = (() => { const t = I.s2, seen = new Set([I.s1]); let lv = [I.s1], d = 0; T.at({ s1: I.s1, s2: t }); T.n('Positions that differ?', [...t].filter((c, i) => c !== I.s1[i]).length, 'Each swap fixes one or two of them.'); for (;;) { if (lv.includes(t)) return d; const nx = []; for (const s of lv) { let i = 0; while (s[i] === t[i]) i++; for (let j = i + 1; j < s.length; j++) if (s[j] === t[i] && s[j] !== t[j]) { const a = [...s];[a[i], a[j]] = [a[j], a[i]]; const v = a.join(''); if (!seen.has(v)) { seen.add(v); nx.push(v); } } } if (d < 4) { T.at({ level: A(lv), target: t }); T.n(`Strings at distance ${d + 1}?`, nx.length, 'Useful swaps only.'); } lv = nx; d++; } })(); T.n('Fewest swaps?', res, 'BFS level where s2 appears.'); return res; }
   });
@@ -253,16 +253,16 @@
 
   D('reachable-nodes-in-subdivided-graph', {
     t: 'Reachable Nodes in Subdivided Graph',
-    r: 'Dijkstra on the original graph with edge weight cnt + 1. Count original nodes with dist ≤ maxMoves; on each edge, reach min(cnt, leftover from u + leftover from v) new nodes.',
+    r: 'Dijkstra on the original graph with edge weight cnt + 1. Count original nodes with dist at most maxMoves; on each edge, reach min(cnt, leftover from u + leftover from v) new nodes.',
     g: R => { const n = R.int(1, 5); return { edges: R.edges(n, R.int(0, n + 1), { w: [0, 5] }).map(([a, b, w]) => [Math.min(a, b), Math.max(a, b), w]), maxMoves: R.int(0, 10), n }; },
-    s(I, T) { const n = I.n, d = Array(n).fill(Infinity), done = Array(n).fill(false); d[0] = 0; for (let it = 0; it < n; it++) { let u = -1; for (let v = 0; v < n; v++) if (!done[v] && d[v] < Infinity && (u < 0 || d[v] < d[u])) u = v; if (u < 0) break; done[u] = true; for (const [a, b, c] of I.edges) { const v = a === u ? b : b === u ? a : -1; if (v >= 0 && d[u] + c + 1 < d[v]) d[v] = d[u] + c + 1; } } let tot = d.filter(x => x <= I.maxMoves).length; T.at({ graph: GR(n, I.edges.map(e => [e[0], e[1]])), dist: A(d.map(x => x === Infinity ? '∞' : x)) }); T.n('Original nodes reachable?', tot, `dist ≤ ${I.maxMoves}.`); I.edges.forEach(([a, b, c], i) => { const x = Math.min(c, Math.max(0, I.maxMoves - d[a]) + Math.max(0, I.maxMoves - d[b])); if (i < 4) { T.at({ edge: `${a}–${b}`, cnt: c }); T.n(`New nodes reached on edge ${a}–${b}?`, x, 'Leftover moves from both ends, capped at cnt.'); } tot += x; }); return tot; }
+    s(I, T) { const n = I.n, d = Array(n).fill(Infinity), done = Array(n).fill(false); d[0] = 0; for (let it = 0; it < n; it++) { let u = -1; for (let v = 0; v < n; v++) if (!done[v] && d[v] < Infinity && (u < 0 || d[v] < d[u])) u = v; if (u < 0) break; done[u] = true; for (const [a, b, c] of I.edges) { const v = a === u ? b : b === u ? a : -1; if (v >= 0 && d[u] + c + 1 < d[v]) d[v] = d[u] + c + 1; } } let tot = d.filter(x => x <= I.maxMoves).length; T.at({ graph: GR(n, I.edges.map(e => [e[0], e[1]])), dist: A(d.map(x => x === Infinity ? '∞' : x)) }); T.n('Original nodes reachable?', tot, `dist at most ${I.maxMoves}.`); I.edges.forEach(([a, b, c], i) => { const x = Math.min(c, Math.max(0, I.maxMoves - d[a]) + Math.max(0, I.maxMoves - d[b])); if (i < 4) { T.at({ edge: `${a} to ${b}`, cnt: c }); T.n(`New nodes reached on edge ${a} to ${b}?`, x, 'Leftover moves from both ends, capped at cnt.'); } tot += x; }); return tot; }
   });
 
   D('snakes-and-ladders', {
     t: 'Snakes and Ladders (BFS)',
-    r: 'Label squares boustrophedon from the bottom-left. BFS from square 1: each roll moves 1–6 squares, then follows a snake or ladder if one starts there. Count rolls to reach n².',
+    r: 'Label squares boustrophedon from the bottom-left. BFS from square 1: each roll moves 1 to 6 squares, then follows a snake or ladder if one starts there. Count rolls to reach n².',
     g: R => { const n = R.int(2, 4), N = n * n, b = Array.from({ length: n }, () => Array(n).fill(-1)), cell = s => { const r = Math.floor((s - 1) / n), c = (s - 1) % n; return [n - 1 - r, r % 2 ? n - 1 - c : c]; }; for (let i = 0; i < R.int(0, 3); i++) { const s = R.int(2, N - 1), [r, c] = cell(s); b[r][c] = R.int(1, N); } return { board: b }; },
-    s(I, T) { const n = I.board.length, N = n * n, val = s => { const r = Math.floor((s - 1) / n), c = (s - 1) % n; return I.board[n - 1 - r][r % 2 ? n - 1 - c : c]; }; const dist = Array(N + 1).fill(-1); dist[1] = 0; const q = [1]; for (let i = 0; i < q.length; i++) { const u = q[i]; if (u === N) return dist[u]; const nx = []; for (let k = 1; k <= 6 && u + k <= N; k++) { const v = val(u + k) > 0 ? val(u + k) : u + k; if (dist[v] < 0) { dist[v] = dist[u] + 1; q.push(v); nx.push(v); } } if (i < 4) { T.at({ board: G(I.board), square: u }); T.n(`New squares reachable from ${u} in one roll?`, nx.length, 'Follow snakes/ladders at the landing square.'); } } return -1; }
+    s(I, T) { const n = I.board.length, N = n * n, val = s => { const r = Math.floor((s - 1) / n), c = (s - 1) % n; return I.board[n - 1 - r][r % 2 ? n - 1 - c : c]; }; const dist = Array(N + 1).fill(-1); dist[1] = 0; const q = [1]; for (let i = 0; i < q.length; i++) { const u = q[i]; if (u === N) return dist[u]; const nx = []; for (let k = 1; k <= 6 && u + k <= N; k++) { const v = val(u + k) > 0 ? val(u + k) : u + k; if (dist[v] < 0) { dist[v] = dist[u] + 1; q.push(v); nx.push(v); } } if (i < 4) { T.at({ board: G(I.board), square: u }); T.n(`New squares reachable from ${u} in one roll?`, nx.length, 'Follow snakes or ladders at the landing square.'); } } return -1; }
   });
 
   D('cat-and-mouse', {
@@ -281,7 +281,7 @@
 
   D('knight-dialer', {
     t: 'Knight Dialer',
-    r: 'dp[d] = numbers of the current length ending at digit d. Each step, dp\'[d] = Σ dp[from] over digits a knight jump away. Sum after n − 1 steps, mod 1e9 + 7.',
+    r: 'dp[d] = numbers of the current length ending at digit d. Each step, dp\'[d] = the sum of dp[from] over digits a knight jump away. Sum after n − 1 steps, mod 1e9 + 7.',
     g: R => ({ n: R.int(1, 8) }),
     s(I, T) { const MOD = 1000000007, J = [[4, 6], [6, 8], [7, 9], [4, 8], [0, 3, 9], [], [0, 1, 7], [2, 6], [1, 3], [2, 4]]; let dp = Array(10).fill(1); T.at({ jumps: K(Object.fromEntries(J.map((l, d) => [d, l.join(',')]))) }); T.n('How many digits can a knight reach from 4?', 3, '0, 3 and 9.'); for (let s = 1; s < I.n; s++) { const nx = Array(10).fill(0); for (let d = 0; d < 10; d++) for (const f of J[d]) nx[d] = (nx[d] + dp[f]) % MOD; dp = nx; if (s < 4) { T.at({ dp: A(dp) }); T.n(`Numbers of length ${s + 1} ending in 0?`, dp[0], 'Sum over 4 and 6.'); } } return dp.reduce((a, b) => (a + b) % MOD, 0); }
   });

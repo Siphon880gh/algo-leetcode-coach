@@ -5,7 +5,7 @@ return [
     'title' => 'House Robber IV: minimize the capability',
     'leetcode' => 2560,
     'difficulty' => 'Med',
-    'summary' => 'Binary search capability c: greedily rob any house ≤ c that is not adjacent to the last robbed. c works if you rob ≥ k houses.',
+    'summary' => 'Binary search capability c: greedily rob any house at most c that is not adjacent to the last robbed. c works if you rob at least k houses.',
     'category' => 'LeetCode',
     'subcategory' => 'Binary Search',
     'topic' => 'LeetCode · Binary Search',

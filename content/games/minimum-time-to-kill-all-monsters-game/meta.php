@@ -5,7 +5,7 @@ return [
     'title' => 'Minimum Time to Kill All Monsters: bitmask over the killed',
     'leetcode' => 2403,
     'difficulty' => 'Hard',
-    'summary' => 'gain = killed + 1, so killing monster i next takes ceil(power[i] / gain) days. dp[mask] = least days to kill the monsters in mask.',
+    'summary' => 'gain = killed + 1, so killing monster i next takes ceil(power[i] divided by gain) days. dp[mask] = least days to kill the monsters in mask.',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

@@ -5,7 +5,7 @@ return [
     'title' => 'Smallest Max Run With Flips II',
     'leetcode' => 3399,
     'difficulty' => 'Hard',
-    'summary' => 'Same check for long strings: binary search L, count ⌊run / (L + 1)⌋ per run, and handle L = 1 with the alternating patterns.',
+    'summary' => 'Same check for long strings: binary search L, count run divided by (L + 1), rounded down per run, and handle L = 1 with the alternating patterns.',
     'category' => 'LeetCode',
     'subcategory' => 'Binary Search',
     'topic' => 'LeetCode · Binary Search',

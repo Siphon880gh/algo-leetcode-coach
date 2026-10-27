@@ -5,7 +5,7 @@ return [
     'title' => 'Minimum Deletions to Make Array Divisible',
     'leetcode' => 2344,
     'difficulty' => 'Hard',
-    'summary' => 'An element divides every numsDivide value iff it divides their gcd. Sort nums; the answer is the index of the first element dividing the gcd (−1 if none).',
+    'summary' => 'An element divides every numsDivide value exactly when it divides their gcd. Sort nums; the answer is the index of the first element dividing the gcd (−1 if none).',
     'category' => 'LeetCode',
     'subcategory' => 'Heap',
     'topic' => 'LeetCode · Heap',

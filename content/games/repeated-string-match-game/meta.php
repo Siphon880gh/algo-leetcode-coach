@@ -5,7 +5,7 @@ return [
     'title' => 'Repeated String Match: enough copies to cover b',
     'leetcode' => 686,
     'difficulty' => 'Med',
-    'summary' => 'Repeat a until its length ≥ b\'s length (q copies). b must appear in q or q + 1 copies; otherwise −1.',
+    'summary' => 'Repeat a until its length at least b\'s length (q copies). b must appear in q or q + 1 copies; otherwise −1.',
     'category' => 'LeetCode',
     'subcategory' => 'Strings',
     'topic' => 'LeetCode · Strings',

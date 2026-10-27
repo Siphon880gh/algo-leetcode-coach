@@ -5,7 +5,7 @@ return [
     'title' => 'Number of Increasing Paths in a Grid',
     'leetcode' => 2328,
     'difficulty' => 'Hard',
-    'summary' => 'paths[cell] = 1 + Σ paths[neighbor] over strictly larger neighbors. Memoized DFS (or process cells by decreasing value); sum all cells mod 1e9 + 7.',
+    'summary' => 'paths[cell] = 1 + the sum of paths[neighbor] over strictly larger neighbors. Memoized DFS (or process cells by decreasing value); sum all cells mod 1e9 + 7.',
     'category' => 'LeetCode',
     'subcategory' => 'Graphs',
     'topic' => 'LeetCode · Graphs',

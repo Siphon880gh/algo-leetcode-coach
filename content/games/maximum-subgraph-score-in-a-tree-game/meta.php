@@ -5,7 +5,7 @@ return [
     'title' => 'Maximum Subgraph Score in a Tree',
     'leetcode' => 3772,
     'difficulty' => 'Hard',
-    'summary' => 'Rerooting DP. down[u] = (good ? 1 : −1) + Σ max(0, down[child]). Then going down, a child v gets ans[v] = down[v] + max(0, ans[u] − max(0, down[v])).',
+    'summary' => 'Rerooting DP. down[u] = (good ? 1 : −1) + the sum of max(0, down[child]). Then going down, a child v gets ans[v] = down[v] + max(0, ans[u] − max(0, down[v])).',
     'category' => 'LeetCode',
     'subcategory' => 'Trees',
     'topic' => 'LeetCode · Trees',

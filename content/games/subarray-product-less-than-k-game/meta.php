@@ -5,7 +5,7 @@ return [
     'title' => 'Subarray Product Less Than K',
     'leetcode' => 713,
     'difficulty' => 'Med',
-    'summary' => 'Grow the window to the right multiplying the product; while product ≥ k, divide out from the left. Each right end adds r − l + 1 subarrays.',
+    'summary' => 'Grow the window to the right multiplying the product; while product at least k, divide out from the left. Each right end adds r − l + 1 subarrays.',
     'category' => 'LeetCode',
     'subcategory' => 'Sliding Window',
     'topic' => 'LeetCode · Sliding Window',

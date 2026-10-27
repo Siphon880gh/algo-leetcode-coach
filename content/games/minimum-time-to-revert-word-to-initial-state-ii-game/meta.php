@@ -5,7 +5,7 @@ return [
     'title' => 'Revert Word to Initial State II: Z-function',
     'leetcode' => 3031,
     'difficulty' => 'Hard',
-    'summary' => 'Same idea with n up to 10^6: compute the Z-array; the first t with t·k ≥ n or z[t·k] ≥ n − t·k is the answer.',
+    'summary' => 'Same idea with n up to 10 to the power 6: compute the Z-array; the first t with t times k at least n or z[t times k] at least n − t times k is the answer.',
     'category' => 'LeetCode',
     'subcategory' => 'Strings',
     'topic' => 'LeetCode · Strings',

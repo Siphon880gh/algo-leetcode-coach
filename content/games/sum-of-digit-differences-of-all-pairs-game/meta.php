@@ -5,7 +5,7 @@ return [
     'title' => 'Sum of Digit Differences: count per position',
     'leetcode' => 3153,
     'difficulty' => 'Med',
-    'summary' => 'For each digit position, count each digit. Differing pairs there = C(n, 2) − Σ C(count, 2). Add over positions.',
+    'summary' => 'For each digit position, count each digit. Differing pairs there = C(n, 2) − the sum of C(count, 2). Add over positions.',
     'category' => 'LeetCode',
     'subcategory' => 'Math',
     'topic' => 'LeetCode · Math',

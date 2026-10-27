@@ -5,7 +5,7 @@ return [
     'title' => 'Number of Pairs Satisfying Inequality',
     'leetcode' => 2426,
     'difficulty' => 'Hard',
-    'summary' => 'Rewrite with d[i] = nums1[i] − nums2[i]: count i < j with d[i] ≤ d[j] + diff. Scan j, querying a Fenwick tree (or merge sort) for earlier d[i] ≤ d[j] + diff.',
+    'summary' => 'Rewrite with d[i] = nums1[i] − nums2[i]: count i < j with d[i] at most d[j] + diff. Scan j, querying a Fenwick tree (or merge sort) for earlier d[i] at most d[j] + diff.',
     'category' => 'LeetCode',
     'subcategory' => 'Segment Tree',
     'topic' => 'LeetCode · Segment Tree',

@@ -5,7 +5,7 @@ return [
     'title' => 'Valid Parentheses String Path: sets of open counts',
     'leetcode' => 2267,
     'difficulty' => 'Hard',
-    'summary' => 'For each cell keep every possible open-minus-close balance along a right/down path (never negative). The last cell must allow balance 0. Odd path length fails immediately.',
+    'summary' => 'For each cell keep every possible open-minus-close balance along a right or down path (never negative). The last cell must allow balance 0. Odd path length fails immediately.',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

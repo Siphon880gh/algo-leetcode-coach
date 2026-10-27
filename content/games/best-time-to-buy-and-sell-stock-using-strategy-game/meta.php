@@ -5,7 +5,7 @@ return [
     'title' => 'Best Time to Buy and Sell Stock using Strategy',
     'leetcode' => 3652,
     'difficulty' => 'Med',
-    'summary' => 'Base profit = Σ strategy[i] × prices[i]. Changing window [i, i+k) removes its old contribution and adds the prices of its second half. Slide the window with prefix sums and add the best non-negative gain.',
+    'summary' => 'Base profit = the sum of strategy[i] times prices[i]. Changing window [i, i+k) removes its old contribution and adds the prices of its second half. Slide the window with prefix sums and add the best non-negative gain.',
     'category' => 'LeetCode',
     'subcategory' => 'Sliding Window',
     'topic' => 'LeetCode · Sliding Window',

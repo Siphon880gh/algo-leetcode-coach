@@ -5,7 +5,7 @@ return [
     'title' => 'Longest Word With All Prefixes',
     'leetcode' => 1858,
     'difficulty' => 'Med',
-    'summary' => 'Insert words into a trie; a word qualifies iff every node along its path is a word end. Keep the longest, tie-breaking lexicographically.',
+    'summary' => 'Insert words into a trie; a word qualifies exactly when every node along its path is a word end. Keep the longest, tie-breaking lexicographically.',
     'category' => 'LeetCode',
     'subcategory' => 'Trie',
     'topic' => 'LeetCode · Trie',

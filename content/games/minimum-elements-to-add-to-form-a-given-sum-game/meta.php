@@ -5,7 +5,7 @@ return [
     'title' => 'Minimum Elements to Add: chunks of size limit',
     'leetcode' => 1785,
     'difficulty' => 'Med',
-    'summary' => 'The gap is |goal − Σ nums|; each added element covers at most limit of it: ⌈gap / limit⌉.',
+    'summary' => 'The gap is |goal − the sum of nums|; each added element covers at most limit of it: gap divided by limit, rounded up.',
     'category' => 'LeetCode',
     'subcategory' => 'Greedy',
     'topic' => 'LeetCode · Greedy',

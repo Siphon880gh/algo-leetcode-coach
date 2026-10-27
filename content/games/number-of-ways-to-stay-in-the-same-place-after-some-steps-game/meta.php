@@ -5,7 +5,7 @@ return [
     'title' => 'Number of Ways to Stay in the Same Place: left, right or stay',
     'leetcode' => 1269,
     'difficulty' => 'Hard',
-    'summary' => 'ways[p] = ways to be at p. Each step: new[p] = ways[p−1] + ways[p] + ways[p+1], staying inside the array. Only positions ≤ steps/2 can come back.',
+    'summary' => 'ways[p] = ways to be at p. Each step: new[p] = ways[p−1] + ways[p] + ways[p+1], staying inside the array. Only positions at most steps divided by 2 can come back.',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

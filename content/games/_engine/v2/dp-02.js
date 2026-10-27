@@ -8,7 +8,7 @@
 
   D('scramble-string', {
     t: 'Scramble String: try every split, kept or swapped',
-    r: 'Same letters are required. Then for each split point k, either the two halves stay in order (s1[0..k) ~ s2[0..k)) or they were swapped (s1[0..k) ~ the last k letters of s2). Recurse with memo.',
+    r: 'Same letters are required. Then for each split point k, either the two halves stay in order (s1[0 to k) ~ s2[0 to k)) or they were swapped (s1[0 to k) ~ the last k letters of s2). Recurse with memo.',
     g: R => { const s1 = [...R.shuffle([...'abcd'])].join('').slice(0, 4); const scr = s => { if (s.length < 2) return s; const k = R.int(1, s.length - 1), x = scr(s.slice(0, k)), y = scr(s.slice(k)); return R.chance(0.5) ? y + x : x + y; }; return { s1, s2: R.chance(0.65) ? scr(s1) : R.shuffle([...s1]).join('') }; },
     s(I, T) {
       const memo = new Map();
@@ -31,7 +31,7 @@
 
   D('interleaving-string', {
     t: 'Interleaving String: the next letter of s3 comes from s1 or s2',
-    r: 'dp[i][j]: can s1[0..i) and s2[0..j) form s3[0..i+j)? True if s1[i−1] == s3[i+j−1] and dp[i−1][j], or s2[j−1] == s3[i+j−1] and dp[i][j−1].',
+    r: 'dp[i][j]: can s1[0 to i) and s2[0 to j) form s3[0 to i+j)? True if s1[i−1] == s3[i+j−1] and dp[i−1][j], or s2[j−1] == s3[i+j−1] and dp[i][j−1].',
     g: R => { const s1 = R.str(R.int(2, 3), 'ab'), s2 = R.str(R.int(2, 3), 'ab'); let i = 0, j = 0, s3 = ''; while (i < s1.length || j < s2.length) s3 += (j >= s2.length || (i < s1.length && R.chance(0.5))) ? s1[i++] : s2[j++]; if (R.chance(0.35)) { const k = R.int(0, s3.length - 1); s3 = s3.slice(0, k) + (s3[k] === 'a' ? 'b' : 'a') + s3.slice(k + 1); } return { s1, s2, s3 }; },
     s(I, T) {
       const { s1, s2, s3 } = I, m = s1.length, n = s2.length;
@@ -40,7 +40,7 @@
       for (let i = 0; i <= m; i++) for (let j = 0; j <= n; j++) {
         let v; if (!i && !j) v = true; else v = (i > 0 && s1[i - 1] === s3[i + j - 1] && dp[i - 1][j]) || (j > 0 && s2[j - 1] === s3[i + j - 1] && dp[i][j - 1]);
         if (i && j) { T.at({ s3: A([...s3], { hl: [i + j - 1] }), dp: tbl(dp, { rh, ch, hl: [[i, j]] }) });
-          T.yn(`dp[${i}][${j}]: next letter s3[${i + j - 1}] = "${s3[i + j - 1]}". Reachable?`, !!v, `From above: s1[${i - 1}]="${s1[i - 1]}" ${s1[i - 1] === s3[i + j - 1] ? '==' : '≠'} "${s3[i + j - 1]}", dp[${i - 1}][${j}]=${dp[i - 1][j]}. From left: s2[${j - 1}]="${s2[j - 1]}" ${s2[j - 1] === s3[i + j - 1] ? '==' : '≠'}, dp[${i}][${j - 1}]=${dp[i][j - 1]}.`); }
+          T.yn(`dp[${i}][${j}]: next letter s3[${i + j - 1}] = "${s3[i + j - 1]}". Reachable?`, !!v, `From above: s1[${i - 1}]="${s1[i - 1]}" ${s1[i - 1] === s3[i + j - 1] ? 'equals' : 'does not equal'} "${s3[i + j - 1]}", dp[${i - 1}][${j}]=${dp[i - 1][j]}. From left: s2[${j - 1}]="${s2[j - 1]}" ${s2[j - 1] === s3[i + j - 1] ? 'equals' : 'does not equal'}, dp[${i}][${j - 1}]=${dp[i][j - 1]}.`); }
         dp[i][j] = !!v;
       }
       T.at({ dp: tbl(dp, { rh, ch, hl: [[m, n]] }) });
@@ -50,7 +50,7 @@
 
   D('distinct-subsequences', {
     t: 'Distinct Subsequences: use this letter or skip it',
-    r: 'dp[i][j] = ways to form t[0..j) from s[0..i). Skipping s[i−1] always gives dp[i−1][j]; if s[i−1] == t[j−1], also add dp[i−1][j−1].',
+    r: 'dp[i][j] = ways to form t[0 to j) from s[0 to i). Skipping s[i−1] always gives dp[i−1][j]; if s[i−1] == t[j−1], also add dp[i−1][j−1].',
     g: R => { const t = R.str(R.int(2, 3), 'ab'); return { s: R.str(R.int(5, 6), 'ab'), t }; },
     s(I, T) {
       const { s, t } = I, m = s.length, n = t.length, dp = mk(m + 1, n + 1, undefined);
@@ -100,21 +100,21 @@
     return sell[k];
   }
   D('best-time-to-buy-and-sell-stock-iii', {
-    t: 'Stock III: four states, buy1 → sell1 → buy2 → sell2',
+    t: 'Stock III: four states, buy1, then sell1, then buy2, then sell2',
     r: 'Track the best cash after each state: buy1 = max(buy1, −p), sell1 = max(sell1, buy1 + p), buy2 = max(buy2, sell1 − p), sell2 = max(sell2, buy2 + p).',
     g: R => ({ prices: R.ints(R.int(6, 7), 0, 9) }),
     s: (I, T) => stockK(I, T, 2)
   });
   D('best-time-to-buy-and-sell-stock-iv', {
-    t: 'Stock IV: one buy/sell state pair per allowed transaction',
-    r: 'For t = 1..k: buy[t] = max(buy[t], sell[t−1] − p) and sell[t] = max(sell[t], buy[t] + p). The answer is sell[k].',
+    t: 'Stock IV: one buy or sell state pair per allowed transaction',
+    r: 'For t = 1 to k: buy[t] = max(buy[t], sell[t−1] − p) and sell[t] = max(sell[t], buy[t] + p). The answer is sell[k].',
     g: R => ({ k: R.int(1, 3), prices: R.ints(6, 0, 9) }),
     s: (I, T) => stockK(I, T, I.k)
   });
 
   D('palindrome-partitioning-ii', {
     t: 'Palindrome Partitioning II: the last piece is a palindrome',
-    r: 'cuts[i] = fewest cuts for s[0..i]. If s[0..i] is a palindrome, 0. Otherwise try every palindrome s[j..i] as the last piece: cuts[j−1] + 1.',
+    r: 'cuts[i] = fewest cuts for s[0 to i]. If s[0 to i] is a palindrome, 0. Otherwise try every palindrome s[j to i] as the last piece: cuts[j−1] + 1.',
     g: R => ({ s: R.str(R.int(5, 7), R.pick(['ab', 'aab', 'abc'])) }),
     s(I, T) {
       const s = I.s, n = s.length, pal = (a, b) => { while (a < b) if (s[a++] !== s[b--]) return false; return true; }, cut = [];
@@ -137,7 +137,7 @@
         const nx = i === m - 1 && j === n - 1 ? 1 : Math.min(i + 1 < m ? need[i + 1][j] : Infinity, j + 1 < n ? need[i][j + 1] : Infinity);
         const v = Math.max(1, nx - d[i][j]);
         T.at({ dungeon: G(d, { hl: [[i, j]] }), need: tbl(need, { hl: [[i, j]] }) });
-        T.n(`need[${i}][${j}] (room ${d[i][j]})?`, v, `max(1, ${nx} − (${d[i][j]})) = ${v}. ${i === m - 1 && j === n - 1 ? 'You must leave with at least 1.' : 'Take the cheaper of down/right.'}`);
+        T.n(`need[${i}][${j}] (room ${d[i][j]})?`, v, `max(1, ${nx} − (${d[i][j]})) = ${v}. ${i === m - 1 && j === n - 1 ? 'You must leave with at least 1.' : 'Take the cheaper of down or right.'}`);
         need[i][j] = v;
       }
       return need[0][0];
@@ -146,14 +146,14 @@
 
   D('number-of-digit-one', {
     t: 'Number of Digit One: count ones place by place',
-    r: 'For each place value p (1, 10, 100, …): high = n / (10p), cur = (n / p) % 10, low = n % p. Ones there: high·p, plus p if cur > 1, plus low + 1 if cur == 1.',
+    r: 'For each place value p (1, 10, 100, …): high = n divided by (10p), cur = (n divided by p) % 10, low = n % p. Ones there: high times p, plus p if cur > 1, plus low + 1 if cur == 1.',
     g: R => ({ n: R.int(10, 999) }),
     s(I, T) {
       const n = I.n; let total = 0;
       for (let p = 1; p <= n; p *= 10) {
         const high = Math.floor(n / (p * 10)), cur = Math.floor(n / p) % 10, low = n % p, c = high * p + (cur > 1 ? p : cur === 1 ? low + 1 : 0);
         T.at({ n, place: p, high, cur, low, total });
-        T.n(`Ones in the ${p}s place?`, c, `${high}·${p}${cur > 1 ? ' + ' + p + ' (cur > 1)' : cur === 1 ? ' + ' + (low + 1) + ' (cur == 1: low + 1)' : ' (cur == 0)'} = ${c}.`);
+        T.n(`Ones in the ${p}s place?`, c, `${high} times ${p}${cur > 1 ? ' + ' + p + ' (cur > 1)' : cur === 1 ? ' + ' + (low + 1) + ' (cur == 1: low + 1)' : ' (cur == 0)'} = ${c}.`);
         total += c;
       }
       return total;
@@ -173,7 +173,7 @@
       for (let i = 0; i < e.length; i++) if ('+-*'.includes(e[i])) {
         const L = f(e.slice(0, i)), Rr = f(e.slice(i + 1));
         T.at({ expression: A([...e], { hl: [i] }), left: A(L, { label: 'left results' }), right: A(Rr, { label: 'right results' }) });
-        T.n(`Last operator "${e[i]}" at index ${i}: how many results does it contribute?`, L.length * Rr.length, `Every left result pairs with every right result: ${L.length} × ${Rr.length}.`);
+        T.n(`Last operator "${e[i]}" at index ${i}: how many results does it contribute?`, L.length * Rr.length, `Every left result pairs with every right result: ${L.length} times ${Rr.length}.`);
         for (const a of L) for (const b of Rr) res.push(e[i] === '+' ? a + b : e[i] === '-' ? a - b : a * b);
       }
       return res.length ? res : [+e];
@@ -195,25 +195,25 @@
 
   D('ugly-number-ii', {
     t: 'Ugly Number II: three pointers, take the smallest candidate',
-    r: 'ugly[0] = 1. Pointers p2, p3, p5 point into the list. The next ugly number is min(2·ugly[p2], 3·ugly[p3], 5·ugly[p5]); advance every pointer that produced it.',
+    r: 'ugly[0] = 1. Pointers p2, p3, p5 point into the list. The next ugly number is min(2 times ugly[p2], 3 times ugly[p3], 5 times ugly[p5]); advance every pointer that produced it.',
     g: R => ({ n: R.int(8, 12) }),
     s(I, T) {
       const u = [1]; let a = 0, b = 0, c = 0;
       while (u.length < I.n) { const x = Math.min(2 * u[a], 3 * u[b], 5 * u[c]);
         T.at({ ugly: A(u, { p2: a, p3: b, p5: c }), candidates: `${2 * u[a]}, ${3 * u[b]}, ${5 * u[c]}` });
-        T.n(`ugly[${u.length}]?`, x, `min(2·${u[a]}, 3·${u[b]}, 5·${u[c]}).`);
+        T.n(`ugly[${u.length}]?`, x, `min(2 times ${u[a]}, 3 times ${u[b]}, 5 times ${u[c]}).`);
         u.push(x); if (x === 2 * u[a]) a++; if (x === 3 * u[b]) b++; if (x === 5 * u[c]) c++; }
       return u[I.n - 1];
     }
   });
   D('super-ugly-number', {
     t: 'Super Ugly Number: one pointer per prime',
-    r: 'Like Ugly Number II with a pointer per prime: next = min over primes of prime·ugly[ptr]; advance every pointer that ties.',
+    r: 'Like Ugly Number II with a pointer per prime: next = min over primes of prime times ugly[ptr]; advance every pointer that ties.',
     g: R => ({ n: R.int(7, 10), primes: R.pick([[2, 3, 7], [2, 5, 7], [3, 5, 7], [2, 7, 13]]) }),
     s(I, T) {
       const u = [1], ptr = I.primes.map(() => 0);
       while (u.length < I.n) { const cand = I.primes.map((p, i) => p * u[ptr[i]]), x = Math.min(...cand);
-        T.at({ ugly: A(u), candidates: A(cand, { labels: I.primes.map(p => '×' + p) }) });
+        T.at({ ugly: A(u), candidates: A(cand, { labels: I.primes.map(p => 'times ' + p) }) });
         T.n(`ugly[${u.length}]?`, x, `The smallest candidate: ${x}.`);
         u.push(x); cand.forEach((v, i) => { if (v === x) ptr[i]++; }); }
       return u[I.n - 1];
@@ -222,13 +222,13 @@
 
   D('paint-fence', {
     t: 'Paint Fence: end with a repeat or with a change',
-    r: 'same[i] = diff[i−1] (repeat the last color once). diff[i] = (same[i−1] + diff[i−1]) · (k − 1). Total = same + diff.',
+    r: 'same[i] = diff[i−1] (repeat the last color once). diff[i] = (same[i−1] + diff[i−1]) times (k − 1). Total = same + diff.',
     g: R => ({ n: R.int(4, 5), k: R.int(2, 3) }),
     s(I, T) {
       const { n, k } = I; if (n === 1) return k; let same = 0, diff = k;
       for (let i = 1; i < n; i++) { const ns = diff, nd = (same + diff) * (k - 1);
         T.at({ post: i, same, diff }); T.n(`Post ${i}: ways ending in a repeat (same)?`, ns, `A repeat must follow a change: diff[${i - 1}] = ${diff}.`);
-        T.n(`Post ${i}: ways ending in a change (diff)?`, nd, `(${same} + ${diff}) · (k − 1).`); same = ns; diff = nd; }
+        T.n(`Post ${i}: ways ending in a change (diff)?`, nd, `(${same} + ${diff}) times (k − 1).`); same = ns; diff = nd; }
       return same + diff;
     }
   });
@@ -249,14 +249,14 @@
 
   D('burst-balloons', {
     t: 'Burst Balloons: choose the LAST balloon in each interval',
-    r: 'Pad with 1s. dp[l][r] = best coins bursting everything strictly between l and r. Try each k as the last one: dp[l][k] + dp[k][r] + v[l]·v[k]·v[r].',
+    r: 'Pad with 1s. dp[l][r] = best coins bursting everything strictly between l and r. Try each k as the last one: dp[l][k] + dp[k][r] + v[l] times v[k] times v[r].',
     g: R => ({ nums: R.ints(R.int(3, 4), 1, 8) }),
     s(I, T) {
       const v = [1, ...I.nums, 1], n = v.length, dp = mk(n, n, 0);
       for (let len = 2; len < n; len++) for (let l = 0; l + len < n; l++) { const r = l + len; let best = 0, bk = -1;
         for (let k = l + 1; k < r; k++) { const c = dp[l][k] + dp[k][r] + v[l] * v[k] * v[r]; if (c > best) { best = c; bk = k; } }
         T.at({ v: A(v, { l, r, hl: [bk] }) });
-        T.n(`dp[${l}][${r}]: best coins for the balloons between ${l} and ${r}?`, best, `Best last balloon is index ${bk}: dp[${l}][${bk}] + dp[${bk}][${r}] + ${v[l]}·${v[bk]}·${v[r]} = ${best}.`);
+        T.n(`dp[${l}][${r}]: best coins for the balloons between ${l} and ${r}?`, best, `Best last balloon is index ${bk}: dp[${l}][${bk}] + dp[${bk}][${r}] + ${v[l]} times ${v[bk]} times ${v[r]} = ${best}.`);
         dp[l][r] = best; }
       return dp[0][n - 1];
     }
@@ -287,14 +287,14 @@
 
   D('integer-break', {
     t: 'Integer Break: split off j, keep or break the rest',
-    r: 'dp[i] = max over j of j · max(i − j, dp[i − j]). Each part is either kept whole or broken further.',
+    r: 'dp[i] = max over j of j times max(i − j, dp[i − j]). Each part is either kept whole or broken further.',
     g: R => ({ n: R.int(7, 10) }),
-    s(I, T) { const dp = [0, 1]; for (let i = 2; i <= I.n; i++) { let b = 0, bj = 1; for (let j = 1; j < i; j++) { const c = j * Math.max(i - j, dp[i - j]); if (c > b) { b = c; bj = j; } } T.at({ dp: A(dp.concat('?')) }); T.n(`dp[${i}]?`, b, `Best split j = ${bj}: ${bj} · max(${i - bj}, dp[${i - bj}]) = ${b}.`); dp.push(b); } return dp[I.n]; }
+    s(I, T) { const dp = [0, 1]; for (let i = 2; i <= I.n; i++) { let b = 0, bj = 1; for (let j = 1; j < i; j++) { const c = j * Math.max(i - j, dp[i - j]); if (c > b) { b = c; bj = j; } } T.at({ dp: A(dp.concat('?')) }); T.n(`dp[${i}]?`, b, `Best split j = ${bj}: ${bj} times max(${i - bj}, dp[${i - bj}]) = ${b}.`); dp.push(b); } return dp[I.n]; }
   });
 
   D('russian-doll-envelopes', {
     t: 'Russian Doll Envelopes: sort, then LIS on heights',
-    r: 'Sort by width ascending and, for equal widths, height descending (so two of the same width never nest). Then run patience LIS on heights: replace the first tail ≥ h, or append.',
+    r: 'Sort by width ascending and, for equal widths, height descending (so two of the same width never nest). Then run patience LIS on heights: replace the first tail at least h, or append.',
     g: R => ({ envelopes: Array.from({ length: R.int(6, 7) }, () => [R.int(1, 6), R.int(1, 6)]) }),
     s(I, T) {
       const e = I.envelopes.slice().sort((a, b) => a[0] - b[0] || b[1] - a[1]), tails = [];
@@ -302,7 +302,7 @@
       T.c('How must envelopes with equal width be ordered?', ['height ascending', 'height descending'], 'height descending', 'Ascending heights would let two envelopes of the same width chain in the LIS.');
       e.forEach(([w, h], i) => { let lo = 0, hi = tails.length; while (lo < hi) { const m = (lo + hi) >> 1; if (tails[m] < h) lo = m + 1; else hi = m; }
         T.at({ envelope: `[${w},${h}]`, tails: A(tails.length ? tails : []) });
-        T.n(`Envelope [${w},${h}]: index in tails where height ${h} goes?`, lo, lo === tails.length ? 'Larger than every tail: append.' : `First tail ≥ ${h} is at ${lo}: replace it.`);
+        T.n(`Envelope [${w},${h}]: index in tails where height ${h} goes?`, lo, lo === tails.length ? 'Larger than every tail: append.' : `First tail at least ${h} is at ${lo}: replace it.`);
         tails[lo] = h; });
       return tails.length;
     }
@@ -310,9 +310,9 @@
 
   D('count-numbers-with-unique-digits', {
     t: 'Count Numbers with Unique Digits: choices shrink digit by digit',
-    r: 'Numbers with exactly k digits and no repeats: 9 · 9 · 8 · … (k factors). Add them up for k = 1..n, plus 1 for zero.',
+    r: 'Numbers with exactly k digits and no repeats: 9 times 9 times 8 times … (k factors). Add them up for k = 1 to n, plus 1 for zero.',
     g: R => ({ n: R.int(3, 5) }),
-    s(I, T) { if (I.n === 0) return 1; let total = 10, cur = 9; T.at({ total }); for (let k = 2; k <= I.n; k++) { cur *= 11 - k; T.at({ digits: k, total }); T.n(`How many ${k}-digit numbers have unique digits?`, cur, `Previous count × (11 − ${k}) = ${cur}.`); total += cur; } return total; }
+    s(I, T) { if (I.n === 0) return 1; let total = 10, cur = 9; T.at({ total }); for (let k = 2; k <= I.n; k++) { cur *= 11 - k; T.at({ digits: k, total }); T.n(`How many ${k}-digit numbers have unique digits?`, cur, `Previous count times (11 − ${k}) = ${cur}.`); total += cur; } return total; }
   });
 
   D('bomb-enemy', {

@@ -5,7 +5,7 @@ return [
     'title' => 'Remove Adjacent Duplicates: equal to the top cancels',
     'leetcode' => 1047,
     'difficulty' => 'Easy',
-    'summary' => 'Compare each char to the top of the stack. Equal → pop (both vanish). Otherwise push. Chain reactions happen for free.',
+    'summary' => 'Compare each char to the top of the stack. Equal: pop (both vanish). Otherwise push. Chain reactions happen for free.',
     'category' => 'LeetCode',
     'subcategory' => 'Stack',
     'topic' => 'LeetCode · Stack',

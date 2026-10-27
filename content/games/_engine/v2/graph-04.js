@@ -30,17 +30,17 @@
 
   D('modify-graph-edge-weights', {
     t: 'Modify Graph Edge Weights',
-    r: 'Treat every −1 edge as huge. If the shortest path is already < target: impossible. Then switch −1 edges to weight 1 one at a time; when the distance first drops to ≤ target, raise that edge by the gap so it is exactly target.',
+    r: 'Treat every −1 edge as huge. If the shortest path is already < target: impossible. Then switch −1 edges to weight 1 one at a time; when the distance first drops to at most target, raise that edge by the gap so it is exactly target.',
     g: R => { const n = R.int(2, 5), e = R.edges(n, R.int(n - 1, n + 2), { conn: true }).map(([a, b]) => [a, b, R.chance(0.5) ? -1 : R.int(1, 5)]); return { n, edges: e, source: 0, destination: n - 1, target: R.int(1, 10) }; },
     cmp: (o, e, I) => { if (!e.length) return Array.isArray(o) && !o.length; if (!Array.isArray(o) || o.length !== I.edges.length) return false; const key = x => Math.min(x[0], x[1]) + ',' + Math.max(x[0], x[1]), orig = new Map(I.edges.map(x => [key(x), x[2]])); for (const x of o) { const w = orig.get(key(x)); if (w === undefined || (w > 0 && x[2] !== w) || x[2] < 1 || x[2] > 2e9) return false; } return dijkstra(adjW(I.n, o), I.source)[I.destination] === I.target; },
-    s(I, T) { const BIG = 2000000000, ed = I.edges.map(e => e.slice()), dist = () => dijkstra(adjW(I.n, ed.map(([a, b, w]) => [a, b, w < 0 ? BIG : w])), I.source)[I.destination]; const d0 = dist(); T.at({ graph: GR(I.n, I.edges.map(e => [e[0], e[1]])), target: I.target }); T.n('Shortest distance with all −1 edges set huge (−1 if ≥ 2·10⁹)?', d0 >= BIG ? -1 : d0, 'Fixed edges only.'); if (d0 < I.target) return []; if (d0 === I.target) return ed.map(([a, b, w]) => [a, b, w < 0 ? BIG : w]); for (let i = 0, asks = 0; i < ed.length; i++) { if (ed[i][2] >= 0) continue; ed[i][2] = 1; const d = dist(); if (asks++ < 4) { T.at({ graph: GR(I.n, ed.map(e => [e[0], e[1]]), { ecls: { [ed[i][0] + '-' + ed[i][1]]: 'hit' } }) }); T.yn(`With edge ${ed[i][0]}–${ed[i][1]} set to 1, is the distance ≤ ${I.target}?`, d <= I.target, `Distance ${d}.`); } if (d <= I.target) { ed[i][2] += I.target - d; return ed.map(([a, b, w]) => [a, b, w < 0 ? BIG : w]); } } return []; }
+    s(I, T) { const BIG = 2000000000, ed = I.edges.map(e => e.slice()), dist = () => dijkstra(adjW(I.n, ed.map(([a, b, w]) => [a, b, w < 0 ? BIG : w])), I.source)[I.destination]; const d0 = dist(); T.at({ graph: GR(I.n, I.edges.map(e => [e[0], e[1]])), target: I.target }); T.n('Shortest distance with all −1 edges set huge (−1 if at least 2 times 10⁹)?', d0 >= BIG ? -1 : d0, 'Fixed edges only.'); if (d0 < I.target) return []; if (d0 === I.target) return ed.map(([a, b, w]) => [a, b, w < 0 ? BIG : w]); for (let i = 0, asks = 0; i < ed.length; i++) { if (ed[i][2] >= 0) continue; ed[i][2] = 1; const d = dist(); if (asks++ < 4) { T.at({ graph: GR(I.n, ed.map(e => [e[0], e[1]]), { ecls: { [ed[i][0] + '-' + ed[i][1]]: 'hit' } }) }); T.yn(`With edge ${ed[i][0]} to ${ed[i][1]} set to 1, is the distance at most ${I.target}?`, d <= I.target, `Distance ${d}.`); } if (d <= I.target) { ed[i][2] += I.target - d; return ed.map(([a, b, w]) => [a, b, w < 0 ? BIG : w]); } } return []; }
   });
 
   D('find-shortest-path-with-k-hops', {
     t: 'Shortest Path With K Hops',
     r: 'Dijkstra on states (node, hops used). Each edge can be paid normally or hopped for free if hops remain.',
     g: R => { const n = R.int(2, 5), [s, d] = R.shuffle([...Array(n).keys()]); return { n, edges: R.edges(n, R.int(n - 1, n + 2), { conn: true, w: [1, 9] }), s, d, k: R.int(0, n - 1) }; },
-    s(I, T) { const K2 = I.k + 1, g = adjW(I.n, I.edges), N = I.n * K2, dist = Array(N).fill(Infinity), done = Array(N).fill(false); dist[I.s * K2] = 0; let asks = 0; for (;;) { let u = -1; for (let x = 0; x < N; x++) if (!done[x] && dist[x] < Infinity && (u < 0 || dist[x] < dist[u])) u = x; if (u < 0) return -1; done[u] = true; const v0 = Math.floor(u / K2), h = u % K2; if (v0 === I.d) { T.at({ cost: dist[u], hops: h }); T.n('Shortest cost to d?', dist[u], 'First settled state at d.'); return dist[u]; } for (const [v, w] of g[v0]) { if (dist[u] + w < dist[v * K2 + h]) dist[v * K2 + h] = dist[u] + w; if (h + 1 < K2 && dist[u] < dist[v * K2 + h + 1]) dist[v * K2 + h + 1] = dist[u]; } if (asks++ < 4) { T.at({ graph: GR(I.n, I.edges.map(e => [e[0], e[1]]), { cls: { [v0]: 'hit', [I.d]: 'ok' } }), state: `node ${v0}, hops ${h}` }); T.n(`Settled cost at node ${v0} with ${h} hop(s) used?`, dist[u], 'Smallest tentative state.'); } } }
+    s(I, T) { const K2 = I.k + 1, g = adjW(I.n, I.edges), N = I.n * K2, dist = Array(N).fill(Infinity), done = Array(N).fill(false); dist[I.s * K2] = 0; let asks = 0; for (;;) { let u = -1; for (let x = 0; x < N; x++) if (!done[x] && dist[x] < Infinity && (u < 0 || dist[x] < dist[u])) u = x; if (u < 0) return -1; done[u] = true; const v0 = Math.floor(u / K2), h = u % K2; if (v0 === I.d) { T.at({ cost: dist[u], hops: h }); T.n('Shortest cost to d?', dist[u], 'First settled state at d.'); return dist[u]; } for (const [v, w] of g[v0]) { if (dist[u] + w < dist[v * K2 + h]) dist[v * K2 + h] = dist[u] + w; if (h + 1 < K2 && dist[u] < dist[v * K2 + h + 1]) dist[v * K2 + h + 1] = dist[u]; } if (asks++ < 4) { T.at({ graph: GR(I.n, I.edges.map(e => [e[0], e[1]]), { cls: { [v0]: 'hit', [I.d]: 'ok' } }), state: `node ${v0}, hops ${h}` }); T.n(`Settled cost at node ${v0} with ${h} hops used?`, dist[u], 'Smallest tentative state.'); } } }
   });
 
   D('find-the-closest-marked-node', {
@@ -59,14 +59,14 @@
 
   D('minimum-edge-weight-equilibrium-queries-in-a-tree', {
     t: 'Edge Weight Equilibrium Queries',
-    r: 'Make every edge on the path a–b equal to its most common weight: answer = path length − max frequency. Weights ≤ 26, so prefix counts from the root per weight plus LCA give each count fast.',
+    r: 'Make every edge on the path a to b equal to its most common weight: answer = path length − max frequency. Weights at most 26, so prefix counts from the root per weight plus LCA give each count fast.',
     g: R => { const n = R.int(2, 7); return { n, edges: treeEdges(R, n).map(([a, b]) => [a, b, R.int(1, 3)]), queries: Array.from({ length: R.int(1, 3) }, () => [R.int(0, n - 1), R.int(0, n - 1)]) }; },
     s(I, T) { const g = adjW(I.n, I.edges), par = Array(I.n).fill(-1), pw = Array(I.n).fill(0), dep = Array(I.n).fill(0), order = [0], seen = new Set([0]); for (let i = 0; i < order.length; i++) for (const [v, w] of g[order[i]]) if (!seen.has(v)) { seen.add(v); par[v] = order[i]; pw[v] = w; dep[v] = dep[order[i]] + 1; order.push(v); } return I.queries.map(([a, b]) => { const c = {}; let len = 0; while (a !== b) { if (dep[a] < dep[b]) [a, b] = [b, a]; c[pw[a]] = (c[pw[a]] || 0) + 1; len++; a = par[a]; } const mx = Math.max(0, ...Object.values(c)); T.at({ graph: GR(I.n, I.edges.map(e => [e[0], e[1]])), weightCounts: K(c) }); T.n('Edges on the path?', len, 'Up to the LCA from both sides.'); return len - mx; }); }
   });
 
   D('minimum-edge-reversals-so-every-node-is-reachable', {
     t: 'Minimum Edge Reversals From Every Node',
-    r: 'Root at 0: count edges pointing toward the root (they must flip). Rerooting from parent p to child c changes only edge p–c: +1 if it pointed p → c, −1 otherwise.',
+    r: 'Root at 0: count edges pointing toward the root (they must flip). Rerooting from parent p to child c changes only edge p to c: +1 if it pointed p to c, −1 otherwise.',
     g: R => { const n = R.int(2, 7); return { n, edges: treeEdges(R, n).map(([a, b]) => R.chance(0.5) ? [a, b] : [b, a]) }; },
     s(I, T) { const g = Array.from({ length: I.n }, () => []); I.edges.forEach(([a, b]) => { g[a].push([b, 0]); g[b].push([a, 1]); }); const order = [0], par = Array(I.n).fill(-1), cost = Array(I.n).fill(0); let base = 0; const seen = new Set([0]); for (let i = 0; i < order.length; i++) for (const [v, rev] of g[order[i]]) if (!seen.has(v)) { seen.add(v); par[v] = order[i]; cost[v] = rev; base += rev; order.push(v); } T.at({ graph: GR(I.n, I.edges, { dir: true, cls: { 0: 'hit' } }) }); T.n('Reversals needed from node 0?', base, 'Edges pointing toward 0.'); const ans = Array(I.n).fill(0); ans[0] = base; for (const v of order.slice(1)) { ans[v] = ans[par[v]] + (cost[v] ? -1 : 1); if (v < 5) { T.at({ graph: GR(I.n, I.edges, { dir: true, cls: { [v]: 'hit' } }), ans: A(ans) }); T.n(`Reversals from node ${v}?`, ans[v], cost[v] ? 'Edge pointed toward the parent: one fewer.' : 'Edge pointed away from the parent: one more.'); } } return ans; }
   });
@@ -87,21 +87,21 @@
 
   D('number-of-possible-sets-of-closing-branches', {
     t: 'Possible Sets of Closing Branches',
-    r: 'n ≤ 10, so try every subset of kept branches. Run Floyd–Warshall using only roads between kept branches and check every pair is within maxDistance.',
+    r: 'n at most 10, so try every subset of kept branches. Run Floyd-Warshall using only roads between kept branches and check every pair is within maxDistance.',
     g: R => { const n = R.int(1, 4), e = n > 1 ? R.edges(n, R.int(n - 1, n + 2), { conn: true, w: [1, 9] }) : []; return { n, maxDistance: R.int(1, 12), roads: e }; },
     s(I, T) { const n = I.n; let c = 0, asks = 0; for (let m = 0; m < 1 << n; m++) { const d = Array.from({ length: n }, (_, i) => Array.from({ length: n }, (_, j) => i === j ? 0 : Infinity)); for (const [a, b, w] of I.roads) if (m >> a & 1 && m >> b & 1) { d[a][b] = Math.min(d[a][b], w); d[b][a] = Math.min(d[b][a], w); } for (let k = 0; k < n; k++) if (m >> k & 1) for (let i = 0; i < n; i++) for (let j = 0; j < n; j++) d[i][j] = Math.min(d[i][j], d[i][k] + d[k][j]); let ok = true; for (let i = 0; i < n; i++) for (let j = 0; j < n; j++) if (m >> i & 1 && m >> j & 1 && d[i][j] > I.maxDistance) ok = false; if (asks++ < 5 && m) { T.at({ graph: GR(n, I.roads.map(e => [e[0], e[1]]), { cls: Object.fromEntries([...Array(n).keys()].filter(i => m >> i & 1).map(i => [i, 'hit'])) }), maxDistance: I.maxDistance }); T.yn('Are all kept branches within maxDistance of each other?', ok, 'Floyd on the kept subgraph.'); } if (ok) c++; } return c; }
   });
 
   D('minimum-cost-to-convert-string-i', {
     t: 'Minimum Cost to Convert String I',
-    r: 'Letters are 26 nodes; each (original → changed, cost) is a directed edge. Floyd–Warshall gives the cheapest conversion for every pair; sum them per position (−1 if any is impossible).',
+    r: 'Letters are 26 nodes; each (original to changed, cost) is a directed edge. Floyd-Warshall gives the cheapest conversion for every pair; sum them per position (−1 if any is impossible).',
     g: R => { const n = R.int(1, 5), m = R.int(1, 6); return { source: R.str(n, 'abc'), target: R.str(n, 'abc'), original: Array.from({ length: m }, () => R.pick('abc')), changed: Array.from({ length: m }, () => R.pick('abc')), cost: R.ints(m, 1, 9) }; },
     s(I, T) { const res = (() => { const L = 'abcdefghijklmnopqrstuvwxyz', d = Array.from({ length: 26 }, (_, i) => Array.from({ length: 26 }, (_, j) => i === j ? 0 : Infinity)); I.original.forEach((o, i) => { const a = L.indexOf(o), b = L.indexOf(I.changed[i]); d[a][b] = Math.min(d[a][b], I.cost[i]); }); for (let k = 0; k < 26; k++) for (let i = 0; i < 26; i++) for (let j = 0; j < 26; j++) d[i][j] = Math.min(d[i][j], d[i][k] + d[k][j]); let tot = 0; for (let i = 0; i < I.source.length; i++) { const c = d[L.indexOf(I.source[i])][L.indexOf(I.target[i])]; if (i < 5) { T.at({ rules: A(I.original.map((o, j) => `${o} to ${I.changed[j]}, cost ${I.cost[j]}`)) }); T.n(`Cheapest way to turn ${I.source[i]} into ${I.target[i]}? (−1 if impossible)`, c === Infinity ? -1 : c, 'Floyd-Warshall over letters.'); } if (c === Infinity) return -1; tot += c; } return tot; })(); T.n('Minimum total cost (−1 if impossible)?', res, 'Add the cheapest conversion at every position.'); return res; }
   });
 
   D('count-the-number-of-houses-at-a-certain-distance-i', {
     t: 'Houses at a Certain Distance I',
-    r: 'For every ordered pair, distance = min(|i − j|, path through the extra street x–y in either direction). Count pairs per distance.',
+    r: 'For every ordered pair, distance = min(|i − j|, path through the extra street x to y in either direction). Count pairs per distance.',
     g: R => ({ n: R.int(2, 8), x: R.int(1, 8), y: R.int(1, 8) }),
     exIn: I => I,
     s(I, T) { const J = Object.assign({}, I, { x: Math.min(I.x, I.n), y: Math.min(I.y, I.n) }); return houses(J, T); }
@@ -123,14 +123,14 @@
 
   D('find-edges-in-shortest-paths', {
     t: 'Find Edges in Shortest Paths',
-    r: 'Dijkstra from 0 and from n − 1. Edge (a, b, w) lies on some shortest path iff d0[a] + w + dN[b] = d0[n − 1] (or with a and b swapped).',
+    r: 'Dijkstra from 0 and from n − 1. Edge (a, b, w) lies on some shortest path exactly when d0[a] + w + dN[b] = d0[n − 1] (or with a and b swapped).',
     g: R => { const n = R.int(2, 6); return { n, edges: R.edges(n, R.int(1, n + 3), { w: [1, 5] }) }; },
-    s(I, T) { const g = adjW(I.n, I.edges), d0 = dijkstra(g, 0), dn = dijkstra(g, I.n - 1), best = d0[I.n - 1]; T.at({ graph: GR(I.n, I.edges.map(e => [e[0], e[1]])), from0: A(d0.map(x => x === Infinity ? '∞' : x)), fromLast: A(dn.map(x => x === Infinity ? '∞' : x)) }); T.n(`Shortest distance 0 → ${I.n - 1}? (−1 if unreachable)`, best === Infinity ? -1 : best, 'Dijkstra.'); return I.edges.map(([a, b, w], i) => { const on = best < Infinity && (d0[a] + w + dn[b] === best || d0[b] + w + dn[a] === best); if (i < 4) { T.at({ edge: `${a}–${b} (${w})` }); T.yn(`Is edge ${a}–${b} on a shortest path?`, on, 'd0 + w + dN = best, either direction.'); } return on; }); }
+    s(I, T) { const g = adjW(I.n, I.edges), d0 = dijkstra(g, 0), dn = dijkstra(g, I.n - 1), best = d0[I.n - 1]; T.at({ graph: GR(I.n, I.edges.map(e => [e[0], e[1]])), from0: A(d0.map(x => x === Infinity ? '∞' : x)), fromLast: A(dn.map(x => x === Infinity ? '∞' : x)) }); T.n(`Shortest distance from 0 to ${I.n - 1}? (−1 if unreachable)`, best === Infinity ? -1 : best, 'Dijkstra.'); return I.edges.map(([a, b, w], i) => { const on = best < Infinity && (d0[a] + w + dn[b] === best || d0[b] + w + dn[a] === best); if (i < 4) { T.at({ edge: `${a} to ${b} (${w})` }); T.yn(`Is edge ${a} to ${b} on a shortest path?`, on, 'd0 + w + dN = best, either direction.'); } return on; }); }
   });
 
   D('find-minimum-diameter-after-merging-two-trees', {
     t: 'Minimum Diameter After Merging Two Trees',
-    r: 'Connect the two tree centers. The new diameter is max(d1, d2, ⌈d1/2⌉ + ⌈d2/2⌉ + 1).',
+    r: 'Connect the two tree centers. The new diameter is max(d1, d2, (half of d1, rounded up) + (half of d2, rounded up) + 1).',
     g: R => ({ edges1: treeEdges(R, R.int(1, 7)), edges2: treeEdges(R, R.int(1, 7)) }),
     s(I, T) { const res = (() => { const a = diam(I.edges1), b = diam(I.edges2); T.at({ tree1: GR(I.edges1.length + 1, I.edges1), tree2: GR(I.edges2.length + 1, I.edges2) }); T.n('Diameter of tree 1?', a, 'Two BFS passes.'); T.n('Diameter of tree 2?', b, 'Two BFS passes.'); return Math.max(a, b, Math.ceil(a / 2) + Math.ceil(b / 2) + 1); })(); T.n('Minimum diameter after merging?', res, 'Join the two centres, or keep the larger diameter.'); return res; }
   });
@@ -151,14 +151,14 @@
 
   D('shortest-distance-after-road-addition-queries-ii', {
     t: 'Shortest Distance After Road Additions II',
-    r: 'Shortcuts never cross, so keep the set of cities still on the main chain. A road u → v removes the cities strictly between (if u is still on it); the answer is the chain length − 1.',
+    r: 'Shortcuts never cross, so keep the set of cities still on the main chain. A road u to v removes the cities strictly between (if u is still on it); the answer is the chain length − 1.',
     g: R => { const n = R.int(3, 8), q = [], used = []; for (let t = 0; t < R.int(1, 4); t++) { const u = R.int(0, n - 3), v = R.int(u + 2, n - 1); if (used.every(([a, b]) => v <= a || u >= b || (a <= u && v <= b) || (u <= a && b <= v))) { q.push([u, v]); used.push([u, v]); } } if (!q.length) q.push([0, n - 1]); return { n, queries: q }; },
     s(I, T) { return addRoad(I, T); }
   });
 
   D('find-a-safe-walk-through-a-grid', {
     t: 'Find a Safe Walk Through a Grid',
-    r: 'Unsafe cells (1) cost one health. 0-1 BFS for the least damage path from (0, 0) (counting the start cell) to the corner; safe iff health − damage ≥ 1.',
+    r: 'Unsafe cells (1) cost one health. 0-1 BFS for the least damage path from (0, 0) (counting the start cell) to the corner; safe exactly when health − damage at least 1.',
     g: R => { const m = R.int(1, 4), n = R.int(2, 4); return { grid: Array.from({ length: m }, () => Array.from({ length: n }, () => R.chance(0.35) ? 1 : 0)), health: R.int(1, 4) }; },
     s(I, T) { const g = I.grid, d = g.map(r => r.map(() => Infinity)); d[0][0] = g[0][0]; const dq = [[0, 0]]; let asks = 0; while (dq.length) { const [r, c] = dq.shift(); for (const [dr, dc] of DIRS) { const x = r + dr, y = c + dc; if (!inG(g, x, y)) continue; const nd = d[r][c] + g[x][y]; if (nd < d[x][y]) { d[x][y] = nd; if (g[x][y]) dq.push([x, y]); else dq.unshift([x, y]); if (asks++ < 4) { T.at({ grid: G(g, { hl: [[x, y]] }) }); T.n(`Least damage to reach (${x}, ${y})?`, nd, g[x][y] ? 'Unsafe: +1.' : 'Safe: +0.'); } } } } const dmg = d[g.length - 1][g[0].length - 1]; T.n('Least damage to the corner?', dmg, '0-1 BFS.'); return I.health - dmg >= 1; }
   });
@@ -209,14 +209,14 @@
 
   D('minimum-time-to-break-locks-ii', {
     t: 'Minimum Time to Break Locks II',
-    r: 'Breaking lock i as the j-th lock takes ⌈strength[i] / j⌉ minutes: an assignment problem (min-cost matching / flow). For small n, bitmask DP over which locks are broken works too.',
+    r: 'Breaking lock i as the j-th lock takes strength[i] divided by j (rounded up) minutes: an assignment problem (min-cost matching or flow). For small n, bitmask DP over which locks are broken works too.',
     g: R => ({ strength: R.ints(R.int(1, 5), 1, 12) }),
-    s(I, T) { const n = I.strength.length, dp = Array(1 << n).fill(Infinity); dp[0] = 0; let asks = 0; for (let m = 0; m < 1 << n; m++) { if (dp[m] === Infinity) continue; let x = 1; for (let t = m; t; t >>= 1) x += t & 1; for (let i = 0; i < n; i++) if (!(m >> i & 1)) { const c = dp[m] + Math.ceil(I.strength[i] / x); if (c < dp[m | 1 << i]) dp[m | 1 << i] = c; if (asks++ < 4) { T.at({ strength: A(I.strength, { hl: [i] }), factor: x }); T.n(`Minutes to break lock ${i} with factor ${x}?`, Math.ceil(I.strength[i] / x), `⌈${I.strength[i]} / ${x}⌉.`); } } } return dp[(1 << n) - 1]; }
+    s(I, T) { const n = I.strength.length, dp = Array(1 << n).fill(Infinity); dp[0] = 0; let asks = 0; for (let m = 0; m < 1 << n; m++) { if (dp[m] === Infinity) continue; let x = 1; for (let t = m; t; t >>= 1) x += t & 1; for (let i = 0; i < n; i++) if (!(m >> i & 1)) { const c = dp[m] + Math.ceil(I.strength[i] / x); if (c < dp[m | 1 << i]) dp[m | 1 << i] = c; if (asks++ < 4) { T.at({ strength: A(I.strength, { hl: [i] }), factor: x }); T.n(`Minutes to break lock ${i} with factor ${x}?`, Math.ceil(I.strength[i] / x), `${I.strength[i]} divided by ${x}, rounded up.`); } } } return dp[(1 << n) - 1]; }
   });
 
   D('maximize-amount-after-two-days-of-conversions', {
     t: 'Maximize Amount After Two Days of Conversions',
-    r: 'Day 1: DFS from the initial currency multiplying rates (reverse edges use 1/rate) to get the best amount of every currency. Day 2: the same DFS gives each currency\'s rate back to the initial one. Answer = max product.',
+    r: 'Day 1: DFS from the initial currency multiplying rates (reverse edges use 1 divided by rate) to get the best amount of every currency. Day 2: the same DFS gives each currency\'s rate back to the initial one. Answer = max product.',
     g: R => { const cur = ['A', 'B', 'C', 'D'], mk = () => { const p = []; const sh = R.shuffle(cur.slice()); for (let i = 1; i < R.int(2, 4); i++) p.push([sh[R.int(0, i - 1)], sh[i]]); return p; }; const p1 = mk(), p2 = mk(); return { initialCurrency: 'A', pairs1: p1, rates1: p1.map(() => R.int(1, 5)), pairs2: p2, rates2: p2.map(() => R.int(1, 5)) }; },
     cmp: 'float',
     s(I, T) { const res = (() => { const walk = (pairs, rates) => { const g = {}; pairs.forEach(([a, b], i) => { (g[a] = g[a] || []).push([b, rates[i]]); (g[b] = g[b] || []).push([a, 1 / rates[i]]); }); const amt = { [I.initialCurrency]: 1 }, st = [I.initialCurrency]; while (st.length) { const u = st.pop(); for (const [v, r] of g[u] || []) if (!(v in amt)) { amt[v] = amt[u] * r; st.push(v); } } return amt; }; const a1 = walk(I.pairs1, I.rates1), a2 = walk(I.pairs2, I.rates2); T.at({ day1: K(Object.fromEntries(Object.entries(a1).map(([k, v]) => [k, Math.round(v * 1000) / 1000]))) }); T.n('Currencies reachable on day 1 (including the start)?', Object.keys(a1).length, 'DFS over both directions.'); T.n('Currencies reachable on day 2 (including the start)?', Object.keys(a2).length, 'The same DFS on the day 2 pairs.'); let best = 1; for (const c in a1) if (c in a2) best = Math.max(best, a1[c] / a2[c]); return best; })(); T.yn('Is converting better than keeping the starting amount?', res > 1, 'Best over currencies reachable on both days.'); return res; }
@@ -226,7 +226,7 @@
     t: 'Minimize the Maximum Edge Weight',
     r: 'Reverse the edges: node 0 must reach everyone. A BFS tree uses at most one outgoing edge per node, so the threshold never binds. Binary search the max weight W (or use a Dijkstra on bottleneck weights).',
     g: R => { const n = R.int(2, 5); return { n, edges: R.edges(n, R.int(1, n * 2), { dir: true, w: [1, 9] }), threshold: R.int(1, n - 1) }; },
-    s(I, T) { const ok = W => { const g = Array.from({ length: I.n }, () => []); I.edges.forEach(([a, b, w]) => { if (w <= W) g[b].push(a); }); const seen = new Set([0]), st = [0]; while (st.length) for (const v of g[st.pop()]) if (!seen.has(v)) { seen.add(v); st.push(v); } return seen.size === I.n; }; const ws = [...new Set(I.edges.map(e => e[2]))].sort((a, b) => a - b); T.at({ graph: GR(I.n, I.edges.map(e => [e[0], e[1]]), { dir: true }) }); const all = ok(Infinity); T.yn('With every edge allowed, can all nodes reach 0?', all, 'Otherwise −1.'); if (!all) return -1; let lo = 0, hi = ws.length - 1, asks = 0; while (lo < hi) { const mid = (lo + hi) >> 1, v = ok(ws[mid]); if (asks++ < 4) { T.at({ maxWeight: ws[mid] }); T.yn(`Using only weights ≤ ${ws[mid]}, can every node reach 0?`, v, v ? 'hi = mid.' : 'lo = mid + 1.'); } if (v) hi = mid; else lo = mid + 1; } return ws[lo]; }
+    s(I, T) { const ok = W => { const g = Array.from({ length: I.n }, () => []); I.edges.forEach(([a, b, w]) => { if (w <= W) g[b].push(a); }); const seen = new Set([0]), st = [0]; while (st.length) for (const v of g[st.pop()]) if (!seen.has(v)) { seen.add(v); st.push(v); } return seen.size === I.n; }; const ws = [...new Set(I.edges.map(e => e[2]))].sort((a, b) => a - b); T.at({ graph: GR(I.n, I.edges.map(e => [e[0], e[1]]), { dir: true }) }); const all = ok(Infinity); T.yn('With every edge allowed, can all nodes reach 0?', all, 'Otherwise −1.'); if (!all) return -1; let lo = 0, hi = ws.length - 1, asks = 0; while (lo < hi) { const mid = (lo + hi) >> 1, v = ok(ws[mid]); if (asks++ < 4) { T.at({ maxWeight: ws[mid] }); T.yn(`Using only weights at most ${ws[mid]}, can every node reach 0?`, v, v ? 'hi = mid.' : 'lo = mid + 1.'); } if (v) hi = mid; else lo = mid + 1; } return ws[lo]; }
   });
 
   D('frequencies-of-shortest-supersequences', {

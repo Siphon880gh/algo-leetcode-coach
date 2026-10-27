@@ -5,7 +5,7 @@ return [
     'title' => 'Divide Into Increasing Sequences: the most frequent value decides',
     'leetcode' => 1121,
     'difficulty' => 'Hard',
-    'summary' => 'Equal values must go to different sequences, so there are at least maxFreq sequences, each of length ≥ k. Possible exactly when maxFreq · k ≤ n.',
+    'summary' => 'Equal values must go to different sequences, so there are at least maxFreq sequences, each of length at least k. Possible exactly when maxFreq times k at most n.',
     'category' => 'LeetCode',
     'subcategory' => 'Greedy',
     'topic' => 'LeetCode · Greedy',

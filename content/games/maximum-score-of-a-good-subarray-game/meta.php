@@ -5,7 +5,7 @@ return [
     'title' => 'Maximum Score of a Good Subarray',
     'leetcode' => 1793,
     'difficulty' => 'Hard',
-    'summary' => 'Start with [k, k] and expand greedily toward the larger neighbor, tracking the running minimum. Score = min × length; keep the best.',
+    'summary' => 'Start with [k, k] and expand greedily toward the larger neighbor, tracking the running minimum. Score = min times length; keep the best.',
     'category' => 'LeetCode',
     'subcategory' => 'Two Pointers',
     'topic' => 'LeetCode · Two Pointers',

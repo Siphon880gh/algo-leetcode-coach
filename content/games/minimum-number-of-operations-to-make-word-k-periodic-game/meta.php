@@ -5,7 +5,7 @@ return [
     'title' => 'Make a Word k-Periodic',
     'leetcode' => 3137,
     'difficulty' => 'Med',
-    'summary' => 'Split into n / k blocks; keep the most frequent block and overwrite the rest: answer = blocks − max frequency.',
+    'summary' => 'Split into n divided by k blocks; keep the most frequent block and overwrite the rest: answer = blocks − max frequency.',
     'category' => 'LeetCode',
     'subcategory' => 'Strings',
     'topic' => 'LeetCode · Strings',

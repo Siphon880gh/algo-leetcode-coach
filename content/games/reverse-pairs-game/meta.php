@@ -5,7 +5,7 @@ return [
     'title' => 'Reverse Pairs',
     'leetcode' => 493,
     'difficulty' => 'Hard',
-    'summary' => 'Merge sort: before merging two sorted halves, for each left element count right elements with left > 2·right using a moving pointer. Sum across levels.',
+    'summary' => 'Merge sort: before merging two sorted halves, for each left element count right elements with left > 2 times right using a moving pointer. Sum across levels.',
     'category' => 'LeetCode',
     'subcategory' => 'Segment Tree',
     'topic' => 'LeetCode · Segment Tree',

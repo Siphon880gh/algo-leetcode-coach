@@ -5,7 +5,7 @@ return [
     'title' => 'Minimum Total Price After Applying Discounts',
     'leetcode' => 4014,
     'difficulty' => 'Med',
-    'summary' => 'A discount d saves p·d/100, so pair the biggest discounts with the most expensive items: sort both descending and match them in order until one list runs out.',
+    'summary' => 'A discount d saves p times d divided by 100, so pair the biggest discounts with the most expensive items: sort both descending and match them in order until one list runs out.',
     'category' => 'LeetCode',
     'subcategory' => 'Greedy',
     'topic' => 'LeetCode · Greedy',

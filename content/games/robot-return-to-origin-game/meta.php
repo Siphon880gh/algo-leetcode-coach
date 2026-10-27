@@ -5,7 +5,7 @@ return [
     'title' => 'Robot Return to Origin',
     'leetcode' => 657,
     'difficulty' => 'Easy',
-    'summary' => 'Track (x, y): U/D change y, L/R change x. The robot returns iff both are 0 at the end.',
+    'summary' => 'Track (x, y): U or D change y, L or R change x. The robot returns exactly when both are 0 at the end.',
     'category' => 'LeetCode',
     'subcategory' => 'Simulation',
     'topic' => 'LeetCode · Simulation',

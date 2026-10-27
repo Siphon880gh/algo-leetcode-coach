@@ -5,7 +5,7 @@ return [
     'title' => 'k-Subsequences With Maximum Beauty: the most frequent letters',
     'leetcode' => 2842,
     'difficulty' => 'Hard',
-    'summary' => 'Pick the k most frequent distinct letters. Letters above the cutoff frequency v are forced; among the t letters with frequency v choose r: C(t, r) · v^r times the product of the forced frequencies.',
+    'summary' => 'Pick the k most frequent distinct letters. Letters above the cutoff frequency v are forced; among the t letters with frequency v choose r: C(t, r) times v to the power r times the product of the forced frequencies.',
     'category' => 'LeetCode',
     'subcategory' => 'Greedy',
     'topic' => 'LeetCode · Greedy',

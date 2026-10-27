@@ -5,7 +5,7 @@ return [
     'title' => 'Maximum Product Subarray: a negative swaps max and min',
     'leetcode' => 152,
     'difficulty' => 'Med',
-    'summary' => 'Track the largest and smallest product ending here. A negative x turns the smallest into the largest, so swap them first. Then hi = max(x, hi·x), lo = min(x, lo·x).',
+    'summary' => 'Track the largest and smallest product ending here. A negative x turns the smallest into the largest, so swap them first. Then hi = max(x, hi times x), lo = min(x, lo times x).',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

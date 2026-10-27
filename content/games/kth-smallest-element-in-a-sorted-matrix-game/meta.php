@@ -5,7 +5,7 @@ return [
     'title' => 'Kth Smallest in a Sorted Matrix: search values',
     'leetcode' => 378,
     'difficulty' => 'Med',
-    'summary' => 'Binary search on value x: count entries ≤ x with the staircase walk. The first x with count ≥ k is the answer.',
+    'summary' => 'Binary search on value x: count entries at most x with the staircase walk. The first x with count at least k is the answer.',
     'category' => 'LeetCode',
     'subcategory' => 'Binary Search',
     'topic' => 'LeetCode · Binary Search',

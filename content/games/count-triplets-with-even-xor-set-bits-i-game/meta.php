@@ -5,7 +5,7 @@ return [
     'title' => 'Count Triplets with Even XOR Set Bits I',
     'leetcode' => 3199,
     'difficulty' => 'Easy',
-    'summary' => 'popcount(a ^ b ^ c) is even iff the parities of popcount(a), popcount(b), popcount(c) sum to even. Count even/odd-parity values in each array and combine: e·e·e + e·o·o + o·e·o + o·o·e.',
+    'summary' => 'popcount(a ^ b ^ c) is even exactly when the parities of popcount(a), popcount(b), popcount(c) sum to even. Count even or odd-parity values in each array and combine: e times e times e + e times o times o + o times e times o + o times o times e.',
     'category' => 'LeetCode',
     'subcategory' => 'Bit Manipulation',
     'topic' => 'LeetCode · Bit Manipulation',

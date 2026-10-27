@@ -5,7 +5,7 @@ return [
     'title' => 'Build Array with Exactly k Max Updates: length, max, cost',
     'leetcode' => 1420,
     'difficulty' => 'Hard',
-    'summary' => 'dp[i][j][c] = arrays of length i with maximum j and c updates. Appending a value ≤ j keeps both: dp·j. Appending a new maximum j from a smaller max j\' adds one update: Σ dp[i−1][j\'][c−1].',
+    'summary' => 'dp[i][j][c] = arrays of length i with maximum j and c updates. Appending a value at most j keeps both: dp times j. Appending a new maximum j from a smaller max j\' adds one update: the sum of dp[i−1][j\'][c−1].',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

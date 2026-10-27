@@ -5,7 +5,7 @@ return [
     'title' => 'Find Duplicate Files: group by content',
     'leetcode' => 609,
     'difficulty' => 'Med',
-    'summary' => 'Parse each "dir file(content) …" entry; map content → list of full paths; keep groups with at least two files.',
+    'summary' => 'Parse each "dir file(content) …" entry; map content to list of full paths; keep groups with at least two files.',
     'category' => 'LeetCode',
     'subcategory' => 'Strings',
     'topic' => 'LeetCode · Strings',

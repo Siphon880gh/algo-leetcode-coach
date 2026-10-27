@@ -5,7 +5,7 @@ return [
     'title' => 'Minimum Non-Zero Product: pair into 1 and max − 1',
     'leetcode' => 1969,
     'difficulty' => 'Med',
-    'summary' => 'Swapping bits can turn each pair (x, max − 1 − x) into (1, max − 1). With max = 2^p − 1 the answer is max · (max − 1)^(2^(p−1) − 1) mod 1e9+7.',
+    'summary' => 'Swapping bits can turn each pair (x, max − 1 − x) into (1, max − 1). With max = 2 to the power p − 1 the answer is max times (max − 1) to the power (2 to the power (p−1) − 1) mod 1e9+7.',
     'category' => 'LeetCode',
     'subcategory' => 'Greedy',
     'topic' => 'LeetCode · Greedy',

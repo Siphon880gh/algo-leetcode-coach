@@ -5,7 +5,7 @@ return [
     'title' => 'Minimize the Maximum of Two Arrays',
     'leetcode' => 2513,
     'difficulty' => 'Med',
-    'summary' => 'Binary search x: need x − ⌊x/d1⌋ ≥ c1, x − ⌊x/d2⌋ ≥ c2 and x − ⌊x/lcm⌋ ≥ c1 + c2.',
+    'summary' => 'Binary search x: need x − (x divided by d1, rounded down) at least c1, x − (x divided by d2, rounded down) at least c2 and x − (x divided by lcm, rounded down) at least c1 + c2.',
     'category' => 'LeetCode',
     'subcategory' => 'Binary Search',
     'topic' => 'LeetCode · Binary Search',

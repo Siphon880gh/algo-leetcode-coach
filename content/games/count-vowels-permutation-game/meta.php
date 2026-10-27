@@ -5,7 +5,7 @@ return [
     'title' => 'Count Vowels Permutation: who may come before each vowel?',
     'leetcode' => 1220,
     'difficulty' => 'Hard',
-    'summary' => 'Rules: a→e, e→a|i, i→anything but i, o→i|u, u→a. Count strings ending in each vowel: new[a] = e + i + u, new[e] = a + i, new[i] = e + o, new[o] = i, new[u] = i + o.',
+    'summary' => 'Rules: a to e, e to a|i, i to anything but i, o to i|u, u to a. Count strings ending in each vowel: new[a] = e + i + u, new[e] = a + i, new[i] = e + o, new[o] = i, new[u] = i + o.',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

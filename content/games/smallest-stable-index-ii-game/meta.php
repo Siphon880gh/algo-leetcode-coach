@@ -5,7 +5,7 @@ return [
     'title' => 'Smallest Stable Index II',
     'leetcode' => 3904,
     'difficulty' => 'Med',
-    'summary' => 'Same rule with n up to 1e5: one right-to-left pass for suffix minimums, one left-to-right pass with a running maximum, stopping at the first index whose score is ≤ k. O(n).',
+    'summary' => 'Same rule with n up to 1e5: one right-to-left pass for suffix minimums, one left-to-right pass with a running maximum, stopping at the first index whose score is at most k. O(n).',
     'category' => 'LeetCode',
     'subcategory' => 'Prefix Sum',
     'topic' => 'LeetCode · Prefix Sum',

@@ -9,7 +9,7 @@
     t: 'H-Index',
     r: 'Sort citations descending; h is the largest i such that the i-th paper has at least i citations. (Counting sort makes it O(n).)',
     g: R => ({ citations: R.ints(R.int(1, 7), 0, 8) }),
-    s(I, T) { const c = I.citations.slice().sort((a, b) => b - a); let h = 0; c.forEach((x, i) => { const ok = x >= i + 1; if (ok) h = i + 1; if (i < 6) { T.at({ sorted: A(c, { i }) }); T.yn(`At least ${i + 1} papers with ≥ ${i + 1} citations?`, ok, 'Compare the i-th largest with i.'); } }); return h; }
+    s(I, T) { const c = I.citations.slice().sort((a, b) => b - a); let h = 0; c.forEach((x, i) => { const ok = x >= i + 1; if (ok) h = i + 1; if (i < 6) { T.at({ sorted: A(c, { i }) }); T.yn(`At least ${i + 1} papers with at least ${i + 1} citations?`, ok, 'Compare the i-th largest with i.'); } }); return h; }
   });
 
   D('third-maximum-number', {
@@ -49,7 +49,7 @@
 
   D('mean-of-array-after-removing-some-elements', {
     t: 'Mean of Array After Removing Some Elements',
-    r: 'Sort, drop n/20 elements from each end, and average the rest.',
+    r: 'Sort, drop n divided by 20 elements from each end, and average the rest.',
     cmp: 'float',
     g: R => ({ arr: R.ints(20 * R.int(1, 2), 0, 9) }),
     s(I, T) { const a = I.arr.slice().sort((x, y) => x - y), k = a.length / 20, mid = a.slice(k, a.length - k); T.at({ sorted: A(a) }); T.n('Elements removed from each end?', k, '5% of n.'); T.n('Elements left in the middle?', mid.length, 'n minus both ends.'); T.n('Sum of the middle elements?', mid.reduce((x, y) => x + y, 0), 'Divide this by the count for the mean.'); return mid.reduce((x, y) => x + y, 0) / mid.length; }
@@ -114,7 +114,7 @@
 
   D('count-ways-to-group-overlapping-ranges', {
     t: 'Count Ways to Group Overlapping Ranges',
-    r: 'Sort and merge overlapping ranges into connected components; each component goes to either group: 2^components mod 1e9+7.',
+    r: 'Sort and merge overlapping ranges into connected components; each component goes to either group: 2 to the power components mod 1e9+7.',
     g: R => ({ ranges: Array.from({ length: R.int(1, 6) }, () => { const a = R.int(0, 12); return [a, a + R.int(0, 3)]; }) }),
     s(I, T) { const res = (() => { const c = merge(I.ranges).length; T.n('Ranges?', I.ranges.length, 'Sort them by start, then merge.'); T.at({ ranges: A(I.ranges.map(r => r.join(' to '))) }); T.n('Connected components after merging?', c, 'Overlapping ranges must share a group.'); let p = 1; for (let i = 0; i < c; i++) p = p * 2 % MOD; return p; })(); T.n('Number of ways (mod 1e9+7)?', res, 'Each group goes to one of two sides, so 2 to the power of the group count.'); return res; }
   });
@@ -128,7 +128,7 @@
 
   D('neither-minimum-nor-maximum', {
     t: 'Neither Minimum nor Maximum',
-    r: 'Any three distinct values contain a middle one: sort the first three and return the middle; fewer than three elements → −1.',
+    r: 'Any three distinct values contain a middle one: sort the first three and return the middle; fewer than three elements: −1.',
     cmp: (o, e, I) => I.nums.length < 3 ? o === -1 : o !== Math.min(...I.nums) && o !== Math.max(...I.nums) && I.nums.includes(o),
     g: R => ({ nums: R.distinct(R.int(1, 6), 1, 12) }),
     s(I, T) { const res = (() => { T.at({ nums: A(I.nums) }); T.yn('At least three elements?', I.nums.length >= 3, 'Otherwise every value is min or max.'); return I.nums.length < 3 ? -1 : I.nums.slice(0, 3).sort((a, b) => a - b)[1]; })(); if (I.nums.length >= 3) { T.at({ first3: A(I.nums.slice(0, 3)) }); T.n('Smallest of the first three?', Math.min(...I.nums.slice(0, 3)), 'Skip it.'); T.n('Middle of the first three?', res, 'It cannot be the min or the max.'); } else { T.n('Answer?', -1, 'Too few values.'); } return res; }
@@ -143,7 +143,7 @@
 
   D('happy-students', {
     t: 'Happy Students',
-    r: 'Selecting k students only works by taking the k smallest values. k is valid iff (k = 0 or sorted[k−1] < k) and (k = n or sorted[k] > k). Count valid k.',
+    r: 'Selecting k students only works by taking the k smallest values. k is valid exactly when (k = 0 or sorted[k−1] < k) and (k = n or sorted[k] > k). Count valid k.',
     g: R => { const n = R.int(1, 7); return { nums: R.ints(n, 0, n - 1) }; },
     s(I, T) { const a = I.nums.slice().sort((x, y) => x - y), n = a.length; let c = 0; for (let k = 0; k <= n; k++) { const ok = (k === 0 || a[k - 1] < k) && (k === n || a[k] > k); if (ok) c++; if (k < 6) { T.at({ sorted: A(a, { k }) }); T.yn(`Can exactly ${k} students be selected?`, ok, 'Check the boundary values.'); } } return c; }
   });

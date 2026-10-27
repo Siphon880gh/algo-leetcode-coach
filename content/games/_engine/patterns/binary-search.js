@@ -25,7 +25,7 @@
 
   LC.register('binary-search', {
     title: 'Binary Search: halve the range every probe',
-    rule: 'Compare nums[mid] with the target. Equal → done. Smaller → the target can only be right of mid. Larger → only left.',
+    rule: 'Compare nums[mid] with the target. Equal: done. Smaller: the target can only be right of mid. Larger: only left.',
     make: function (rng, round) {
       var n = 10 + round * 2, a = rng.distinct(n, -10, 40).sort(function (x, y) { return x - y; });
       var target = rng.chance(0.75) ? rng.pick(a) : rng.int(-10, 40);
@@ -80,7 +80,7 @@
         var mid = (lo + hi) >> 1, isBad = mid >= bad; seen[mid - 1] = isBad ? 'bad' : 'ok';
         var v = arrView(vers, lo - 1, hi - 1, mid - 1, [['isBadVersion(' + mid + ')', isBad]], { cls: seen });
         if (isBad) t.act(v, 'Version ' + mid + ' is bad.', HALF, 'L', 'mid itself might be the first bad one; lo = mid + 1 would skip it.', 'hi = ' + mid + '.');
-        else t.act(v, 'Version ' + mid + ' is good.', HALF, 'R', 'Good versions come before the first bad one, so everything ≤ mid is good.', 'lo = ' + (mid + 1) + '.');
+        else t.act(v, 'Version ' + mid + ' is good.', HALF, 'R', 'Good versions come before the first bad one, so everything at most mid is good.', 'lo = ' + (mid + 1) + '.');
         if (isBad) hi = mid; else lo = mid + 1;
       }
       t.num(arrView(vers, lo - 1, hi - 1, null, [['lo', lo], ['hi', hi]], { cls: seen }), 'lo == hi. First bad version?', lo, { wrong: 'lo and hi have met on the answer.', note: 'Version ' + lo + '.' });
@@ -105,7 +105,7 @@
         if (g === 1) { t.act(v, 'guess(' + mid + ') says ' + say + '.', CLOSED, 'R', { F: 'Not correct yet.', L: 'Higher means the pick is ABOVE mid.' }, 'lo = ' + (mid + 1) + '.'); lo = mid + 1; }
         else { t.act(v, 'guess(' + mid + ') says ' + say + '.', CLOSED, 'L', { F: 'Not correct yet.', R: 'Lower means the pick is BELOW mid.' }, 'hi = ' + (mid - 1) + '.'); hi = mid - 1; }
       }
-      t.done(rangeView(pick, pick, pick, [1, n]), 'The pick was ' + pick + '. At most ⌈log₂ ' + n + '⌉ guesses.');
+      t.done(rangeView(pick, pick, pick, [1, n]), 'The pick was ' + pick + '. At most log₂ of ' + n + ', rounded up, guesses.');
       return t;
     }
   });
@@ -134,17 +134,17 @@
   }
 
   answerSpace('sqrt-x', 'Sqrt(x): binary search on the answer',
-    'Search k in [0, x]. If k·k ≤ x, k is a candidate and the answer is k or bigger; otherwise it is smaller. The last k that fit wins.',
+    'Search k in [0, x]. If k times k is at most x, k is a candidate and the answer is k or bigger; otherwise it is smaller. The last k that fit wins.',
     function (rng, round) { var x = rng.int([10, 40, 120][round] || 50, [40, 120, 400][round] || 200); return { lo: 0, hi: x, x: x, setup: 'x = ' + x }; },
     function (k, g) { return k * k <= g.x ? -1 : 1; }, function (k) { return k + '² = ' + k * k; }, 'Integer square root?');
 
   answerSpace('valid-perfect-square', 'Valid Perfect Square: hunt for an exact square',
-    'Search k in [1, num]. k² == num → true. k² < num → look right. k² > num → look left. If lo passes hi, it is not a perfect square.',
+    'Search k in [1, num]. k² == num: true. k² < num: look right. k² > num: look left. If lo passes hi, it is not a perfect square.',
     function (rng, round) { var num = rng.chance(0.6) ? Math.pow(rng.int(3, 15 + round * 5), 2) : rng.int(10, 300); return { lo: 1, hi: num, x: num, exact: true, setup: 'num = ' + num }; },
     function (k, g) { return k * k === g.x ? 0 : k * k < g.x ? -1 : 1; }, function (k) { return k + '² = ' + k * k; });
 
   answerSpace('arranging-coins', 'Arranging Coins: largest complete staircase',
-    'Search k rows. k complete rows need k(k+1)/2 coins. If that fits in n, k is possible and the answer is k or more.',
+    'Search k rows. k complete rows need k(k+1) divided by 2 coins. If that fits in n, k is possible and the answer is k or more.',
     function (rng, round) { var n = rng.int(8, [30, 80, 200][round] || 100); return { lo: 0, hi: n, x: n, setup: 'n = ' + n + ' coins' }; },
     function (k, g) { return k * (k + 1) / 2 <= g.x ? -1 : 1; }, function (k) { return k + ' rows need ' + (k * (k + 1) / 2); }, 'Complete rows?');
 
@@ -189,7 +189,7 @@
       while (lo < hi) {
         var mid = (lo + hi) >> 1, v = arrView(a, lo, hi, mid, [['nums[mid]', a[mid]], ['nums[hi]', a[hi]]]);
         if (a[mid] > a[hi]) t.act(v, a[mid] + ' vs ' + a[hi] + '.', HALF, 'R', 'nums[mid] > nums[hi] means the values drop somewhere after mid.', 'The minimum is right of mid.');
-        else t.act(v, a[mid] + ' vs ' + a[hi] + '.', HALF, 'L', 'mid..hi is sorted, so the minimum is mid or left of it. Do not skip mid.', 'hi = mid.');
+        else t.act(v, a[mid] + ' vs ' + a[hi] + '.', HALF, 'L', 'mid to hi is sorted, so the minimum is mid or left of it. Do not skip mid.', 'hi = mid.');
         if (a[mid] > a[hi]) lo = mid + 1; else hi = mid;
       }
       t.done(arrView(a, lo, lo, lo), 'Minimum ' + a[lo] + ' at index ' + lo + '.');
@@ -199,7 +199,7 @@
 
   LC.register('search-in-rotated-sorted-array', {
     title: 'Search in Rotated Sorted Array: find the sorted half first',
-    rule: 'One half of [lo, hi] is always sorted. Find it (nums[lo] ≤ nums[mid] means the left half). If the target lies inside that sorted range, go there; otherwise go to the other half.',
+    rule: 'One half of [lo, hi] is always sorted. Find it (nums[lo] at most nums[mid] means the left half). If the target lies inside that sorted range, go there; otherwise go to the other half.',
     make: function (rng, round) {
       var n = 9 + round * 2, a = rotated(rng, n), target = rng.chance(0.8) ? rng.pick(a) : 41;
       var t = new LC.Trace();
@@ -209,7 +209,7 @@
         var mid = (lo + hi) >> 1, v = arrView(a, lo, hi, mid, [['target', target]]);
         if (a[mid] === target) { t.act(v, 'nums[mid] = ' + a[mid] + '.', CLOSED, 'F', 'It is the target.', 'Found.'); res = mid; break; }
         var leftSorted = a[lo] <= a[mid];
-        t.act(v, 'Which half of [' + lo + ', ' + hi + '] is sorted?', sortActs, leftSorted ? 'LS' : 'RS', leftSorted ? 'nums[lo] = ' + a[lo] + ' ≤ nums[mid] = ' + a[mid] + ', so lo..mid has no drop.' : 'nums[lo] = ' + a[lo] + ' > nums[mid] = ' + a[mid] + ', so the drop is in the left half; mid..hi is sorted.', leftSorted ? 'Left half [' + a[lo] + '..' + a[mid] + '] is sorted.' : 'Right half [' + a[mid] + '..' + a[hi] + '] is sorted.');
+        t.act(v, 'Which half of [' + lo + ', ' + hi + '] is sorted?', sortActs, leftSorted ? 'LS' : 'RS', leftSorted ? 'nums[lo] = ' + a[lo] + ' at most nums[mid] = ' + a[mid] + ', so lo to mid has no drop.' : 'nums[lo] = ' + a[lo] + ' > nums[mid] = ' + a[mid] + ', so the drop is in the left half; mid to hi is sorted.', leftSorted ? 'Left half [' + a[lo] + '..' + a[mid] + '] is sorted.' : 'Right half [' + a[mid] + '..' + a[hi] + '] is sorted.');
         var goLeft = leftSorted ? (a[lo] <= target && target < a[mid]) : !(a[mid] < target && target <= a[hi]);
         t.act(v, leftSorted ? 'Is ' + target + ' inside [' + a[lo] + ', ' + a[mid] + ')?' : 'Is ' + target + ' inside (' + a[mid] + ', ' + a[hi] + ']?', CLOSED, goLeft ? 'L' : 'R',
           { F: 'nums[mid] is not the target.', L: 'The target is not in the left part.', R: 'The target is not in the right part.' }, goLeft ? 'Go left.' : 'Go right.');
@@ -271,11 +271,11 @@
     });
   }
   capacity('koko-eating-bananas', 'Koko Eating Bananas: binary search on speed',
-    'Search the speed k in [1, max pile]. Hours at speed k = Σ ceil(pile / k). If that is ≤ h, k works and smaller might too; otherwise go faster.',
-    function (rng, round) { var a = rng.ints(4 + round, 3, 30), h = a.length + rng.int(1, 4); var mx = Math.max.apply(null, a); return { a: a, limit: h, lo: 1, hi: mx, label: 'piles', setup: 'piles = ' + LC.fmt(a) + '   h = ' + h, hint: function (k) { return 'Σ ceil(pile / ' + k + ') = ' + a.map(function (p) { return Math.ceil(p / k); }).join(' + ') + '.'; } }; },
+    'Search the speed k in [1, max pile]. Hours at speed k = the sum of ceil(pile divided by k). If that is at most h, k works and smaller might too; otherwise go faster.',
+    function (rng, round) { var a = rng.ints(4 + round, 3, 30), h = a.length + rng.int(1, 4); var mx = Math.max.apply(null, a); return { a: a, limit: h, lo: 1, hi: mx, label: 'piles', setup: 'piles = ' + LC.fmt(a) + '   h = ' + h, hint: function (k) { return 'the sum of ceil(pile / ' + k + ') = ' + a.map(function (p) { return Math.ceil(p / k); }).join(' + ') + '.'; } }; },
     function (k, g) { return g.a.reduce(function (s, p) { return s + Math.ceil(p / k); }, 0); }, 'speed', 'hours');
   capacity('capacity-to-ship-packages-within-d-days', 'Capacity to Ship Packages: binary search on capacity',
-    'Search capacity in [max weight, total weight]. Load greedily in order; count the days. If days ≤ D, the capacity works and smaller might too.',
+    'Search capacity in [max weight, total weight]. Load greedily in order; count the days. If the day count is at most D, the capacity works and smaller might too.',
     function (rng, round) {
       var a = rng.ints(6 + round, 1, 9), d = rng.int(2, 4), sum = a.reduce(function (x, y) { return x + y; }, 0);
       return { a: a, limit: d, lo: Math.max.apply(null, a), hi: sum, label: 'weights', setup: 'weights = ' + LC.fmt(a) + '   days = ' + d, hint: function (cap) { return 'Load in order and start a new day when the next package would pass ' + cap + '.'; } };
@@ -284,7 +284,7 @@
 
   LC.register('find-smallest-letter-greater-than-target', {
     title: 'Smallest Letter Greater Than Target: strictly greater, then wrap',
-    rule: 'Find the first letter strictly greater than the target: letters[mid] ≤ target → go right; otherwise keep mid. If lo runs off the end, wrap to letters[0].',
+    rule: 'Find the first letter strictly greater than the target: letters[mid] at most target, so go right; otherwise keep mid. If lo runs off the end, wrap to letters[0].',
     make: function (rng, round) {
       var pool = 'abcdefghijklmnopqrstuvwxyz'.split(''), n = 7 + round * 2;
       var a = rng.shuffle(pool).slice(0, n).sort();
@@ -331,13 +331,13 @@
 
   LC.register('search-a-2d-matrix', {
     title: 'Search a 2D Matrix: one sorted list in disguise',
-    rule: 'Treat the m × n matrix as one sorted array of length m·n. Index i lives at row i / n, column i % n. Then run a normal binary search.',
+    rule: 'Treat the m times n matrix as one sorted array of length m times n. Index i lives at row i divided by n, column i % n. Then run a normal binary search.',
     make: function (rng, round) {
       var m = 3 + (round > 1 ? 1 : 0), n = 4, vals = rng.distinct(m * n, 1, 60).sort(function (x, y) { return x - y; });
       var grid = []; for (var r = 0; r < m; r++) grid.push(vals.slice(r * n, r * n + n));
       var target = rng.chance(0.7) ? rng.pick(vals) : rng.int(1, 60);
       var t = new LC.Trace();
-      t.setup = 'matrix ' + m + '×' + n + '   target = ' + target;
+      t.setup = 'matrix ' + m + ' by ' + n + '   target = ' + target;
       var lo = 0, hi = m * n - 1, res = false, first = true;
       function gv(lo, hi, mid) { var cls = {}; for (var i = 0; i < m * n; i++) { var key = Math.floor(i / n) + ',' + (i % n); if (i < lo || i > hi) cls[key] = 'dim'; } if (mid !== null) cls[Math.floor(mid / n) + ',' + (mid % n)] = 'hit'; return cls; }
       while (lo <= hi) {
@@ -346,13 +346,13 @@
         if (first) {
           first = false;
           var v0 = LC.clone(v); v0.panels[0].cls[row + ',' + col] = undefined;
-          t.num(v0, 'mid = ' + mid + '. Which row is it in?', row, { wrong: 'row = mid / n = ' + mid + ' / ' + n + ' (integer division).', note: 'Row ' + row + ', column ' + mid + ' % ' + n + ' = ' + col + '.' });
+          t.num(v0, 'mid = ' + mid + '. Which row is it in?', row, { wrong: 'row = mid divided by n = ' + mid + ' / ' + n + ' (integer division).', note: 'Row ' + row + ', column ' + mid + ' % ' + n + ' = ' + col + '.' });
         }
         if (val === target) { t.act(v, 'matrix[' + row + '][' + col + '] = ' + val + '.', CLOSED, 'F', 'It is the target.', 'Found.'); res = true; break; }
         if (val < target) { t.act(v, 'matrix[' + row + '][' + col + '] = ' + val + ' < ' + target + '.', CLOSED, 'R', { F: 'Not equal.', L: 'All earlier cells are smaller still.' }, 'lo = mid + 1.'); lo = mid + 1; }
         else { t.act(v, 'matrix[' + row + '][' + col + '] = ' + val + ' > ' + target + '.', CLOSED, 'L', { F: 'Not equal.', R: 'All later cells are bigger still.' }, 'hi = mid − 1.'); hi = mid - 1; }
       }
-      t.done(V(P.grid(grid, {})), res ? 'Found in O(log(m·n)).' : 'Not in the matrix.');
+      t.done(V(P.grid(grid, {})), res ? 'Found in O(log(m times n)).' : 'Not in the matrix.');
       return t;
     }
   });

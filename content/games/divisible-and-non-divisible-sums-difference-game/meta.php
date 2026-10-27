@@ -5,7 +5,7 @@ return [
     'title' => 'Divisible and Non-Divisible Sums Difference',
     'leetcode' => 2894,
     'difficulty' => 'Easy',
-    'summary' => 'num2 = m·q(q + 1)/2 with q = ⌊n/m⌋; num1 = n(n + 1)/2 − num2. Return num1 − num2.',
+    'summary' => 'num2 = m times q(q + 1) divided by 2 with q = (n divided by m, rounded down); num1 = n(n + 1) divided by 2 − num2. Return num1 − num2.',
     'category' => 'LeetCode',
     'subcategory' => 'Math',
     'topic' => 'LeetCode · Math',

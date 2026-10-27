@@ -5,7 +5,7 @@ return [
     'title' => 'Reverse K Subarrays',
     'leetcode' => 3865,
     'difficulty' => 'Med',
-    'summary' => 'Each block has length n / k. Reverse every block in place with two pointers.',
+    'summary' => 'Each block has length n divided by k. Reverse every block in place with two pointers.',
     'category' => 'LeetCode',
     'subcategory' => 'Arrays',
     'topic' => 'LeetCode · Arrays',

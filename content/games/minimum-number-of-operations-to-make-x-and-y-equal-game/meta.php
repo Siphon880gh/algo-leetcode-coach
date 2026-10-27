@@ -5,7 +5,7 @@ return [
     'title' => 'Make x and y Equal: walk to a multiple, then divide',
     'leetcode' => 2998,
     'difficulty' => 'Med',
-    'summary' => 'f(x) = x ≤ y ? y − x : min(x − y, for d in {5, 11}: (x mod d) + 1 + f(⌊x/d⌋), (d − x mod d) + 1 + f(⌊x/d⌋ + 1)).',
+    'summary' => 'f(x) = x at most y ? y − x : min(x − y, for d in {5, 11}: (x mod d) + 1 + f((x divided by d, rounded down)), (d − x mod d) + 1 + f((x divided by d, rounded down) + 1)).',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

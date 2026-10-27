@@ -5,7 +5,7 @@ return [
     'title' => 'Apply Discount to Prices',
     'leetcode' => 2288,
     'difficulty' => 'Med',
-    'summary' => 'A word is a price if it is "$" followed by digits only. Replace it with price × (100 − d)/100 to two decimals.',
+    'summary' => 'A word is a price if it is "$" followed by digits only. Replace it with price times (100 − d) divided by 100 to two decimals.',
     'category' => 'LeetCode',
     'subcategory' => 'Strings',
     'topic' => 'LeetCode · Strings',

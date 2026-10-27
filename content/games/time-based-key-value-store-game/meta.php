@@ -5,7 +5,7 @@ return [
     'title' => 'Time Based Key-Value Store',
     'leetcode' => 981,
     'difficulty' => 'Med',
-    'summary' => 'Per key, keep (timestamp, value) pairs in increasing time. get(key, t) binary searches the last timestamp ≤ t; "" if none.',
+    'summary' => 'Per key, keep (timestamp, value) pairs in increasing time. get(key, t) binary searches the last timestamp at most t; "" if none.',
     'category' => 'LeetCode',
     'subcategory' => 'Design',
     'topic' => 'LeetCode · Design',

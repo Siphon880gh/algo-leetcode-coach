@@ -5,7 +5,7 @@ return [
     'title' => 'Smallest Letter Greater Than Target: strictly greater, then wrap',
     'leetcode' => 744,
     'difficulty' => 'Easy',
-    'summary' => 'Find the first letter strictly greater than the target: letters[mid] ≤ target → go right; otherwise keep mid. If lo runs off the end, wrap to letters[0].',
+    'summary' => 'Find the first letter strictly greater than the target: letters[mid] at most target, so go right; otherwise keep mid. If lo runs off the end, wrap to letters[0].',
     'category' => 'LeetCode',
     'subcategory' => 'Binary Search',
     'topic' => 'LeetCode · Binary Search',

@@ -5,7 +5,7 @@ return [
     'title' => 'Number of Valid Clock Times',
     'leetcode' => 2437,
     'difficulty' => 'Easy',
-    'summary' => 'Count hours 00–23 matching the hh pattern and minutes 00–59 matching mm; multiply.',
+    'summary' => 'Count hours 00 to 23 matching the hh pattern and minutes 00 to 59 matching mm; multiply.',
     'category' => 'LeetCode',
     'subcategory' => 'Strings',
     'topic' => 'LeetCode · Strings',

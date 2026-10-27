@@ -48,7 +48,7 @@
         var R = 5 + (round > 1 ? 1 : 0), C = 6, g;
         do { g = rand(rng, R, C, 0.45); } while (comps(g, function (v) { return v === 1; }).length < 2);
         var t = new LC.Trace();
-        t.setup = 'grid ' + R + '×' + C + ' (brown = land, blue = water)';
+        t.setup = 'grid ' + R + ' by ' + C + ' (brown = land, blue = water)';
         var isl = comps(g, function (v) { return v === 1; }), sunk = {}, count = 0, best = 0;
         var L = links(g, function (r, c, nr, nc) { return g[r][c] === 1 && g[nr][nc] === 1; });
         isl.forEach(function (cells, k) {
@@ -80,12 +80,12 @@
         });
         if (cfg.area) t.num(landView(g, sunk, { vars: [['islands', count]] }), 'Max area of an island?', best, { wrong: 'The largest area you recorded.', note: 'Max ' + best + '.' });
         else t.num(landView(g, sunk), 'Scan finished. How many islands?', count, { wrong: 'One per new start cell you clicked.', note: count + ' islands.' });
-        t.done(landView(g, sunk), cfg.area ? 'Max area = ' + best + '. O(R·C).' : count + ' islands. Each cell is visited once: O(R·C).');
+        t.done(landView(g, sunk), cfg.area ? 'Max area = ' + best + '. O(R times C).' : count + ' islands. Each cell is visited once: O(R times C).');
         return t;
       }
     });
   }
-  islands('number-of-islands', { title: 'Number of Islands: count, then sink', rule: 'Scan the grid. Each land cell you have not visited starts a new island: count it, then flood (DFS/BFS) every 4-connected land cell so it is never counted again.' });
+  islands('number-of-islands', { title: 'Number of Islands: count, then sink', rule: 'Scan the grid. Each land cell you have not visited starts a new island: count it, then flood (DFS or BFS) every 4-connected land cell so it is never counted again.' });
   islands('max-area-of-island', { title: 'Max Area of Island: flood and measure', rule: 'Each unvisited land cell starts an island. Flood it through 4-connected land, count the cells you flooded, and keep the max.', area: true });
 
   LC.register('flood-fill', {
@@ -97,7 +97,7 @@
       var sr = rng.int(0, R - 1), sc = rng.int(0, C - 1), orig = g[sr][sc];
       var color = round === 2 ? orig : (orig + rng.int(1, 2)) % 3;
       var t = new LC.Trace();
-      t.setup = 'image ' + R + '×' + C + '   sr = ' + sr + ', sc = ' + sc + '   color = ' + color;
+      t.setup = 'image ' + R + ' by ' + C + '   sr = ' + sr + ', sc = ' + sc + '   color = ' + color;
       var cc = g.map(function (row) { return row.map(function (v) { return ['water', 'land', 'blue'][v]; }); });
       function view(cls) { return V(P.grid(g, { cc: cc, cls: cls, pick: 'g', label: 'image (values shown)' }), P.vars([['start color', orig], ['new color', color]])); }
       var s0 = {}; s0[sr + ',' + sc] = 'hit';
@@ -120,7 +120,7 @@
         cells.forEach(function (x) { g[x[0]][x[1]] = color; cc[x[0]][x[1]] = ['water', 'land', 'blue'][color]; });
       }
       if (same) t.num(view(s0), 'How many cells change color?', 0, { wrong: 'The new color equals the old one, so nothing changes.', note: 'Nothing changes.' });
-      t.done(view({}), same ? 'Unchanged image.' : 'Filled. O(R·C).');
+      t.done(view({}), same ? 'Unchanged image.' : 'Filled. O(R times C).');
       return t;
     }
   });
@@ -134,7 +134,7 @@
       for (var r = 0; r < R; r++) { var row = []; for (var c = 0; c < C; c++) row.push(rng.chance(0.7) ? 1 : 0); g.push(row); }
       var nRot = rng.int(1, 2); for (var k = 0; k < nRot; k++) g[rng.int(0, R - 1)][rng.int(0, C - 1)] = 2;
       var t = new LC.Trace();
-      t.setup = 'grid ' + R + '×' + C + '   0 empty, 1 fresh, 2 rotten';
+      t.setup = 'grid ' + R + ' by ' + C + '   0 empty, 1 fresh, 2 rotten';
       function view(minute) {
         var cc = g.map(function (row) { return row.map(function (v) { return v === 0 ? 'water' : v === 1 ? 'warn' : 'bad'; }); });
         return V(P.grid(g, { cc: cc, pick: 'g', label: 'oranges' }), P.vars([['minute', minute]]));
@@ -157,8 +157,8 @@
         minute++;
       }
       var fresh = 0; g.forEach(function (row) { row.forEach(function (v) { if (v === 1) fresh++; }); });
-      t.act(view(minute), 'Nothing new rots. Answer?', [['m', 'Return the minutes: ' + minute], ['neg', 'Return −1']], fresh ? 'neg' : 'm', fresh ? fresh + ' fresh orange(s) can never be reached.' : 'Every orange is rotten.', fresh ? 'Unreachable fresh orange → −1.' : minute + ' minutes.');
-      t.done(view(minute), fresh ? 'Answer −1.' : 'Answer ' + minute + ' minutes. O(R·C).');
+      t.act(view(minute), 'Nothing new rots. Answer?', [['m', 'Return the minutes: ' + minute], ['neg', 'Return −1']], fresh ? 'neg' : 'm', fresh ? fresh + ' fresh oranges can never be reached.' : 'Every orange is rotten.', fresh ? 'Unreachable fresh orange: −1.' : minute + ' minutes.');
+      t.done(view(minute), fresh ? 'Answer −1.' : 'Answer ' + minute + ' minutes. O(R times C).');
       return t;
     }
   });
@@ -205,7 +205,7 @@
   borderFlood('number-of-enclaves', {
     title: 'Number of Enclaves: flood from the border first',
     rule: 'Any land connected to the border can walk off the grid. Flood from every border land cell; the land you never reach is enclosed.',
-    on: 1, setup: function (R, C) { return 'grid ' + R + '×' + C + ' (brown = land)'; },
+    on: 1, setup: function (R, C) { return 'grid ' + R + ' by ' + C + ' (brown = land)'; },
     ask: 'Click every land cell that can reach the border.', innerWhy: 'That land is not connected to the border.', offWhy: 'Water.', floodNote: 'Border-connected land is marked.',
     answer: function (inner) { return inner.length; }, finalAsk: 'How many land cells are enclaves (orange)?', finalWhy: 'Count the land you never reached.',
     done: function (a) { return a + ' enclave cells.'; }
@@ -213,7 +213,7 @@
   borderFlood('surrounded-regions', {
     title: 'Surrounded Regions: save the border-connected O\'s',
     rule: 'An O region is captured unless it touches the border. Flood from every border O and mark it safe; every other O flips to X.',
-    on: 1, setup: function (R, C) { return 'board ' + R + '×' + C + ' (brown = "O", blue = "X")'; },
+    on: 1, setup: function (R, C) { return 'board ' + R + ' by ' + C + ' (brown = "O", blue = "X")'; },
     ask: 'Click every O that is safe (connected to the border).', innerWhy: 'That O is surrounded by X; it is not connected to the border.', offWhy: 'That is an X.', floodNote: 'Safe O\'s marked.',
     answer: function (inner) { return inner.length; }, finalAsk: 'How many O\'s get flipped to X?', finalWhy: 'Count the O\'s you did not mark safe.',
     done: function (a) { return a + ' cells captured.'; }
@@ -221,7 +221,7 @@
   borderFlood('number-of-closed-islands', {
     title: 'Number of Closed Islands: border islands do not count',
     rule: 'An island that touches the border is not closed. Flood those away first, then every island left is closed: count them.',
-    on: 1, p: 0.5, setup: function (R, C) { return 'grid ' + R + '×' + C + ' (brown = land)'; },
+    on: 1, p: 0.5, setup: function (R, C) { return 'grid ' + R + ' by ' + C + ' (brown = land)'; },
     ask: 'Click every land cell of islands that touch the border.', innerWhy: 'That island never touches the border.', offWhy: 'Water.', floodNote: 'Open islands removed.',
     answer: function (inner, g) {
       var m = {}; inner.forEach(function (x) { m[x[0] + ',' + x[1]] = 1; });
@@ -240,7 +240,7 @@
       for (var r = 0; r < R; r++) { var row = []; for (var c = 0; c < C; c++) row.push(rng.chance(0.3) ? 0 : 1); g.push(row); }
       g[rng.int(0, R - 1)][rng.int(0, C - 1)] = 0;
       var t = new LC.Trace();
-      t.setup = 'mat ' + R + '×' + C;
+      t.setup = 'mat ' + R + ' by ' + C;
       var dist = g.map(function (row) { return row.map(function (v) { return v === 0 ? 0 : null; }); });
       function view(d) {
         var cc = dist.map(function (row) { return row.map(function (v) { return v === null ? 'land' : v === 0 ? 'water' : 'blue'; }); });
@@ -263,7 +263,7 @@
         d++;
       }
       t.num(view(d), 'Largest distance in the matrix?', d, { wrong: 'It equals the number of BFS layers after the zeros.', note: 'Farthest cell is ' + d + ' steps from a 0.' });
-      t.done(view(d), 'Every distance is the BFS layer that first reached it. O(R·C).');
+      t.done(view(d), 'Every distance is the BFS layer that first reached it. O(R times C).');
       return t;
     }
   });
@@ -276,7 +276,7 @@
       var R = 4 + (round > 1 ? 1 : 0), C = 4 + (round > 0 ? 1 : 0), g = [];
       for (var r = 0; r < R; r++) { var row = []; for (var c = 0; c < C; c++) row.push(rng.int(1, 6)); g.push(row); }
       var t = new LC.Trace();
-      t.setup = 'heights ' + R + '×' + C + '   Pacific: top and left edges   Atlantic: bottom and right edges';
+      t.setup = 'heights ' + R + ' by ' + C + '   Pacific: top and left edges   Atlantic: bottom and right edges';
       var L = links(g, function (r0, c0, nr, nc) { return g[nr][nc] >= g[r0][c0]; });
       function flood(isEdge) {
         var seen = {}, q = [], out = [];
@@ -306,7 +306,7 @@
       t.num(view(cls), 'How many cells can drain to the Pacific?', pac.cells.length, { wrong: 'Count every cell the Pacific flood reached, edges included.', note: pac.cells.length + ' cells.' });
       var both = pac.cells.filter(function (x) { return atl.seen[x[0] + ',' + x[1]]; }).length;
       t.num(view(cls), 'How many cells drain to both oceans (green)?', both, { wrong: 'Count the cells reached by both floods.', note: both + ' cells.' });
-      t.done(view(cls), both + ' cells reach both oceans. Two floods: O(R·C).');
+      t.done(view(cls), both + ' cells reach both oceans. Two floods: O(R times C).');
       return t;
     }
   });
@@ -318,7 +318,7 @@
     make: function (rng, round) {
       var R = 5, C = 5 + (round > 0 ? 1 : 0), g1 = rand(rng, R, C, 0.7), g2 = rand(rng, R, C, 0.45);
       var t = new LC.Trace();
-      t.setup = 'grid1 and grid2 ' + R + '×' + C;
+      t.setup = 'grid1 and grid2 ' + R + ' by ' + C;
       var isl = comps(g2, function (v) { return v === 1; }), count = 0;
       function view(cls1, cls2) {
         return V(P.grid(g1, { cc: g1.map(function (row) { return row.map(function (v) { return v ? 'land' : 'water'; }); }), cls: cls1, hide: true, label: 'grid1' }),

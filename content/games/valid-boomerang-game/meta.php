@@ -5,7 +5,7 @@ return [
     'title' => 'Valid Boomerang: non-zero cross product',
     'leetcode' => 1037,
     'difficulty' => 'Easy',
-    'summary' => 'Three points form a boomerang when they are not collinear (which also rules out duplicates): (p2 − p1) × (p3 − p1) ≠ 0.',
+    'summary' => 'Three points form a boomerang when they are not collinear (which also rules out duplicates): (p2 − p1) times (p3 − p1) not equal to 0.',
     'category' => 'LeetCode',
     'subcategory' => 'Math',
     'topic' => 'LeetCode · Math',

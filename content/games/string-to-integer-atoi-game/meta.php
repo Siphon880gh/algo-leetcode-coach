@@ -5,7 +5,7 @@ return [
     'title' => 'String to Integer (atoi): skip, sign, digits, clamp',
     'leetcode' => 8,
     'difficulty' => 'Med',
-    'summary' => 'Skip leading spaces, read one optional sign, read digits until a non-digit, then clamp to [−2^31, 2^31 − 1].',
+    'summary' => 'Skip leading spaces, read one optional sign, read digits until a non-digit, then clamp to [−2 to the power 31, 2 to the power 31 − 1].',
     'category' => 'LeetCode',
     'subcategory' => 'Strings',
     'topic' => 'LeetCode · Strings',

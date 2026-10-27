@@ -5,7 +5,7 @@ return [
     'title' => 'Number of Employees Who Met the Target',
     'leetcode' => 2798,
     'difficulty' => 'Easy',
-    'summary' => 'Count hours[i] ≥ target.',
+    'summary' => 'Count hours[i] at least target.',
     'category' => 'LeetCode',
     'subcategory' => 'Arrays',
     'topic' => 'LeetCode · Arrays',

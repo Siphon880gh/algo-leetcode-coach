@@ -35,7 +35,7 @@
 
   D('jump-game-ix', {
     t: 'Jump Game IX',
-    r: 'From i you can always reach the max of nums[0..i] (jump back to it). If that prefix max is bigger than the min of nums[i+1..], you can cross to the right and do as well as i+1. So sweep from the right: ans[i] = ans[i+1] if prefMax[i] > sufMin[i+1], else prefMax[i].',
+    r: 'From i you can always reach the max of nums[0 to i] (jump back to it). If that prefix max is bigger than the min of nums[i+1..], you can cross to the right and do as well as i+1. So sweep from the right: ans[i] = ans[i+1] if prefMax[i] > sufMin[i+1], else prefMax[i].',
     g: R => ({ nums: R.ints(R.int(2, 8), 1, 9) }),
     s(I, T) { const a = I.nums, n = a.length, pm = [], sm = Array(n + 1).fill(Infinity); a.forEach((x, i) => pm.push(Math.max(x, i ? pm[i - 1] : -Infinity))); for (let i = n - 1; i >= 0; i--) sm[i] = Math.min(a[i], sm[i + 1]); const ans = Array(n); ans[n - 1] = pm[n - 1]; for (let i = n - 2; i >= 0; i--) { const cross = pm[i] > sm[i + 1]; ans[i] = cross ? ans[i + 1] : pm[i]; if (n - 2 - i < 6) { T.at({ nums: A(a, { i }), prefMax: A(pm), sufMin: A(sm.slice(0, n)), ans: A(ans.map(v => v === undefined ? '·' : v)) }); T.n(`ans[${i}]?`, ans[i], cross ? `prefMax ${pm[i]} > sufMin ${sm[i + 1]}: cross right and inherit ans[${i + 1}].` : `Cannot cross right; best is the prefix max ${pm[i]}.`); } } return ans; }
   });
@@ -91,7 +91,7 @@
 
   D('count-dominant-indices', {
     t: 'Count Dominant Indices',
-    r: 'Sweep from the right with a running suffix sum and count. Index i is dominant when nums[i] × count > suffix sum (compare without dividing).',
+    r: 'Sweep from the right with a running suffix sum and count. Index i is dominant when nums[i] times count > suffix sum (compare without dividing).',
     g: R => ({ nums: R.ints(R.int(1, 7), 1, 9) }),
     s(I, T) { const a = I.nums; let s = 0, c = 0, d = 0; for (let i = a.length - 1; i >= 0; i--) { if (c) { const ok = a[i] * c > s; if (ok) d++; if (a.length - 1 - i <= 6) { T.at({ nums: A(a, { i, win: [i + 1, a.length - 1] }), suffixSum: s, count: c }); T.yn(`Is index ${i} dominant?`, ok, `${a[i]} vs average ${s}/${c}.`); } } s += a[i]; c++; } if (a.length === 1) { T.at({ nums: A(a) }); T.yn('Can the last element be dominant?', false, 'Nothing lies to its right.'); T.n('Answer?', 0, 'No dominant index.'); } return d; }
   });
@@ -105,16 +105,16 @@
 
   D('minimum-capacity-box', {
     t: 'Minimum Capacity Box',
-    r: 'Scan the boxes once. Keep the index of the smallest capacity that is still ≥ itemSize; only replace it on a strictly smaller capacity, so ties keep the earlier index.',
+    r: 'Scan the boxes once. Keep the index of the smallest capacity that is still at least itemSize; only replace it on a strictly smaller capacity, so ties keep the earlier index.',
     g: R => ({ capacity: R.ints(R.int(1, 6), 1, 9), itemSize: R.int(1, 9) }),
     s(I, T) { let best = -1; I.capacity.forEach((c, i) => { const fits = c >= I.itemSize; if (fits && (best < 0 || c < I.capacity[best])) best = i; if (i < 6) { T.at({ capacity: A(I.capacity, { i }), itemSize: I.itemSize }); T.n(`Best box index after checking box ${i}? (−1 if none)`, best, fits ? 'It fits; keep it if strictly smaller.' : 'Too small.'); } }); return best; }
   });
 
   D('reverse-k-subarrays', {
     t: 'Reverse K Subarrays',
-    r: 'Each block has length n / k. Reverse every block in place with two pointers.',
+    r: 'Each block has length n divided by k. Reverse every block in place with two pointers.',
     g: R => { const k = R.int(1, 3), L = R.int(1, 3); return { nums: R.ints(k * L, 1, 9), k }; },
-    s(I, T) { const a = I.nums.slice(), L = a.length / I.k; T.at({ nums: A(a) }); T.n('Length of each block?', L, `${a.length} / ${I.k}.`); for (let b = 0; b < I.k; b++) { let i = b * L, j = i + L - 1; while (i < j) { [a[i], a[j]] = [a[j], a[i]]; i++; j--; } if (b < 4) { T.at({ nums: A(a.slice(), { win: [b * L, b * L + L - 1] }) }); T.n(`First value of block ${b} after reversing?`, a[b * L], 'It was the last value of that block.'); } } return a; }
+    s(I, T) { const a = I.nums.slice(), L = a.length / I.k; T.at({ nums: A(a) }); T.n('Length of each block?', L, `${a.length} divided by ${I.k}.`); for (let b = 0; b < I.k; b++) { let i = b * L, j = i + L - 1; while (i < j) { [a[i], a[j]] = [a[j], a[i]]; i++; j--; } if (b < 4) { T.at({ nums: A(a.slice(), { win: [b * L, b * L + L - 1] }) }); T.n(`First value of block ${b} after reversing?`, a[b * L], 'It was the last value of that block.'); } } return a; }
   });
 
   D('longest-arithmetic-sequence-after-changing-at-most-one-element', {
@@ -140,9 +140,9 @@
 
   D('compare-sums-of-bitonic-parts', {
     t: 'Compare Sums of Bitonic Parts',
-    r: 'Find the peak (the first index where the next element is smaller), sum 0..peak and peak..n−1 (the peak counts in both), and compare.',
+    r: 'Find the peak (the first index where the next element is smaller), sum 0 to peak and peak to n−1 (the peak counts in both), and compare.',
     g: R => { const up = R.int(1, 3), dn = R.int(1, 3), s = R.distinct(up + dn + 1, 1, 15).sort((a, b) => a - b), pk = s.pop(), L = s.slice(0, up).sort((a, b) => a - b), Rr = s.slice(up).sort((a, b) => b - a); return { nums: [...L, pk, ...Rr] }; },
-    s(I, T) { const a = I.nums; let p = 0; while (p + 1 < a.length && a[p + 1] > a[p]) p++; T.at({ nums: A(a) }); T.n('Index of the peak?', p, 'Where increasing turns into decreasing.'); const up = sum(a.slice(0, p + 1)), dn = sum(a.slice(p)); T.at({ nums: A(a, { i: p }) }); T.n('Sum of the ascending part?', up, '0..peak inclusive.'); T.n('Sum of the descending part?', dn, 'peak..end inclusive.'); return up > dn ? 0 : dn > up ? 1 : -1; }
+    s(I, T) { const a = I.nums; let p = 0; while (p + 1 < a.length && a[p + 1] > a[p]) p++; T.at({ nums: A(a) }); T.n('Index of the peak?', p, 'Where increasing turns into decreasing.'); const up = sum(a.slice(0, p + 1)), dn = sum(a.slice(p)); T.at({ nums: A(a, { i: p }) }); T.n('Sum of the ascending part?', up, '0 to peak inclusive.'); T.n('Sum of the descending part?', dn, 'peak to end inclusive.'); return up > dn ? 0 : dn > up ? 1 : -1; }
   });
 
   D('valid-elements-in-an-array', {
@@ -161,14 +161,14 @@
 
   D('minimum-operations-to-sort-a-permutation', {
     t: 'Minimum Operations to Sort a Permutation',
-    r: 'Reversing and rotating keep the cyclic order (up to direction), so the array is sortable only if it is a rotation of 0..n−1 or of its reverse. Then compare the few candidates: rotate left r times, or reverse and rotate, in either order, and take the cheapest.',
+    r: 'Reversing and rotating keep the cyclic order (up to direction), so the array is sortable only if it is a rotation of 0 to n−1 or of its reverse. Then compare the few candidates: rotate left r times, or reverse and rotate, in either order, and take the cheapest.',
     g: R => { const n = R.int(1, 5), b = range(0, n); const c = R.chance(0.7) ? (() => { const r = R.int(0, n - 1); let x = b.slice(r).concat(b.slice(0, r)); if (R.chance(0.5)) x.reverse(); return x; })() : R.perm(n); return { nums: c }; },
     s(I, T) { const n = I.nums.length, key = a => a.join(','), goal = key(range(0, n)), seen = new Map([[key(I.nums), 0]]), q = [I.nums]; while (q.length) { const a = q.shift(), d = seen.get(key(a)); [a.slice().reverse(), a.slice(1).concat(a.slice(0, 1))].forEach(b => { if (!seen.has(key(b))) { seen.set(key(b), d + 1); q.push(b); } }); } const rotSorted = range(0, n).some(r => key(I.nums.slice(r).concat(I.nums.slice(0, r))) === goal), rev = I.nums.slice().reverse(), rotRev = range(0, n).some(r => key(rev.slice(r).concat(rev.slice(0, r))) === goal); T.at({ nums: A(I.nums) }); T.yn('Is nums a rotation of the sorted array?', rotSorted, 'Then rotating alone can sort it.'); T.yn('Is the reversed array a rotation of the sorted array?', rotRev, 'Then one reversal plus rotations works.'); const ans = seen.has(goal) ? seen.get(goal) : -1; T.n('Fewest operations (−1 if impossible)?', ans, 'Compare the rotate-only and reverse-plus-rotate options.'); return ans; }
   });
 
   D('maximum-valid-pair-sum', {
     t: 'Maximum Valid Pair Sum',
-    r: 'Sweep j from k upward while keeping the best nums[i] with i ≤ j − k. Each j pairs with that running maximum.',
+    r: 'Sweep j from k upward while keeping the best nums[i] with i at most j − k. Each j pairs with that running maximum.',
     g: R => { const n = R.int(2, 7); return { nums: R.ints(n, 1, 9), k: R.int(1, n - 1) }; },
     s(I, T) { let mx = -Infinity, best = -Infinity; for (let j = I.k; j < I.nums.length; j++) { mx = Math.max(mx, I.nums[j - I.k]); best = Math.max(best, mx + I.nums[j]); if (j - I.k < 5) { T.at({ nums: A(I.nums, { i: j - I.k, j }), bestLeft: mx }); T.n(`Best pair ending at j = ${j}?`, mx + I.nums[j], `Running max of nums[0..${j - I.k}] plus nums[${j}].`); } } return best; }
   });
@@ -182,14 +182,14 @@
 
   D('minimum-total-cost-to-process-all-elements', {
     t: 'Minimum Total Cost to Process All Elements',
-    r: 'Only top up when you must, and by as little as possible: when resources fall short of nums[i], do c = ⌈(nums[i] − res) / k⌉ operations. Their costs are the next c integers, so add an arithmetic series (mod 1e9+7).',
+    r: 'Only top up when you must, and by as little as possible: when resources fall short of nums[i], do c = ((nums[i] − res) divided by k, rounded up) operations. Their costs are the next c integers, so add an arithmetic series (mod 1e9+7).',
     g: R => ({ nums: R.ints(R.int(1, 6), 1, 12), k: R.int(1, 6) }),
     s(I, T) { let res = I.k, ops = 0, cost = 0n; I.nums.forEach((x, i) => { let c = 0; if (res < x) { c = Math.ceil((x - res) / I.k); const a = BigInt(ops + 1), b = BigInt(ops + c); cost += (a + b) * BigInt(c) / 2n; ops += c; res += c * I.k; } if (i < 6) { T.at({ nums: A(I.nums, { i }), resources: res - c * I.k, opsSoFar: ops - c }); T.n(`Operations needed before processing ${x}?`, c, c ? `Short by ${x - (res - c * I.k)}; each op adds ${I.k}.` : 'Enough already.'); } res -= x; }); return Number(cost % BigInt(MOD)); }
   });
 
   D('find-all-numbers-disappeared-in-an-array-ii', {
     t: 'Find All Numbers Disappeared in an Array II',
-    r: 'Mark the values present in a boolean array, then walk lower..upper and open a range at each missing value, extending it while values stay missing.',
+    r: 'Mark the values present in a boolean array, then walk lower to upper and open a range at each missing value, extending it while values stay missing.',
     g: R => { const lo = R.int(1, 5); return { nums: R.ints(R.int(1, 5), 1, 12), lower: lo, upper: lo + R.int(0, 7) }; },
     s(I, T) { const has = new Set(I.nums), out = []; for (let v = I.lower; v <= I.upper; v++) { if (has.has(v)) continue; const last = out[out.length - 1]; if (last && last[1] === v - 1) last[1] = v; else out.push([v, v]); } T.at({ nums: A(I.nums), range: `[${I.lower}, ${I.upper}]` }); T.n('How many values in the range are missing?', range(I.lower, I.upper + 1).filter(v => !has.has(v)).length, 'Check each against the set.'); T.n('How many missing ranges?', out.length, 'Consecutive missing values join one range.'); if (out.length) T.n('Start of the first missing range?', out[0][0], 'The first value not present.'); return out; }
   });

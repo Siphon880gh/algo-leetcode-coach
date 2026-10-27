@@ -5,7 +5,7 @@ return [
     'title' => 'Word Squares',
     'leetcode' => 425,
     'difficulty' => 'Hard',
-    'summary' => 'Backtrack row by row: row k must start with the prefix formed by column k of rows 0..k−1. A trie (or prefix map) lists candidate words for that prefix instantly.',
+    'summary' => 'Backtrack row by row: row k must start with the prefix formed by column k of rows 0 to k−1. A trie (or prefix map) lists candidate words for that prefix instantly.',
     'category' => 'LeetCode',
     'subcategory' => 'Trie',
     'topic' => 'LeetCode · Trie',

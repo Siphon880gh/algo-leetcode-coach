@@ -5,7 +5,7 @@ return [
     'title' => 'Closest Nodes Queries: binary search the inorder list',
     'leetcode' => 2476,
     'difficulty' => 'Med',
-    'summary' => 'Inorder gives a sorted list. For each query, the floor is the largest value ≤ q and the ceiling the smallest value ≥ q (−1 if missing).',
+    'summary' => 'Inorder gives a sorted list. For each query, the floor is the largest value at most q and the ceiling the smallest value at least q (−1 if missing).',
     'category' => 'LeetCode',
     'subcategory' => 'Trees',
     'topic' => 'LeetCode · Trees',

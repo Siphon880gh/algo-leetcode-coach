@@ -19,7 +19,7 @@
       while (curr !== -1) {
         t.act(view(), 'curr = ' + v[curr] + '. First operation?', ops, 'save', { flip: 'If you flip first, curr.next no longer points to the rest of the list and you lose it.', adv: 'next has not been saved yet, and curr has not been flipped.' }, 'Saved next = ' + (nx[curr] === -1 ? '∅' : v[nx[curr]]) + '.');
         next = nx[curr];
-        t.act(view(), 'next is saved. Now?', ops, 'flip', { save: 'next is already saved.', adv: 'Moving on now would leave curr pointing forward, so it would never be reversed.' }, v[curr] + '.next → ' + (prev === -1 ? '∅' : v[prev]) + '.');
+        t.act(view(), 'next is saved. Now?', ops, 'flip', { save: 'next is already saved.', adv: 'Moving on now would leave curr pointing forward, so it would never be reversed.' }, v[curr] + '.next right' + (prev === -1 ? '∅' : v[prev]) + '.');
         nx[curr] = prev;
         t.act(view(), v[curr] + ' now points back. Now?', ops, 'adv', { save: 'next is already saved.', flip: 'curr is already flipped.' }, 'Advance.');
         prev = curr; curr = next; next = null;
@@ -65,8 +65,8 @@
     make: function (rng, round) {
       var g = cycleList(rng, round), v = g.v, nx = g.nx;
       var t = new LC.Trace();
-      t.setup = 'list: ' + v.join(' → ') + (g.cyc ? ' → back to ' + v[g.entry] : ' → ∅') + '   (the game knows; your pointers do not)';
-      var slow = 0, fast = 0, acts = [['move', 'slow += 1, fast += 2'], ['met', 'They met → cycle'], ['end', 'fast hit ∅ → no cycle']];
+      t.setup = 'list: ' + v.join(' → ') + (g.cyc ? 'to back to ' + v[g.entry] : ' → ∅') + '   (the game knows; your pointers do not)';
+      var slow = 0, fast = 0, acts = [['move', 'slow += 1, fast += 2'], ['met', 'They met: cycle'], ['end', 'fast hit ∅: no cycle']];
       var first = true;
       while (true) {
         var view = V(L(v, { nx: nx, ptr: { slow: slow, fast: fast }, showIdx: true, label: 'list' }));
@@ -87,7 +87,7 @@
     make: function (rng, round) {
       var g = cycleList(rng, round, true), v = g.v, nx = g.nx;
       var t = new LC.Trace();
-      t.setup = 'list: ' + v.join(' → ') + ' → back into the list somewhere';
+      t.setup = 'list: ' + v.join(' → ') + 'to back into the list somewhere';
       var slow = 0, fast = 0, first = true, acts = [['move', 'slow += 1, fast += 2'], ['met', 'They met: switch phase']];
       while (true) {
         var view = V(L(v, { nx: nx, ptr: { slow: slow, fast: fast }, showIdx: true, label: 'phase 1: find a meeting point' }));
@@ -157,7 +157,7 @@
       while (pre < left - 1) { t.act(V(L(order, { ptr: { pre: pre }, cls: cls(), label: 'list' })), 'pre is at position ' + pre + '.', acts, 'walk', { pull: 'pre must sit right before position ' + left + ' first.', done: 'Nothing has been reversed yet.' }, 'pre moves.'); pre++; }
       var curr = pre + 1;
       for (var m = 0; m < right - left; m++) {
-        t.act(V(L(order, { ptr: { pre: pre, curr: curr }, cls: cls(), label: 'list' })), 'Pull ' + (m + 1) + ' of ' + (right - left) + '.', acts, 'pull', { walk: 'pre is already in place.', done: (right - left - m) + ' more node(s) still need to move.' }, 'Moved ' + order[curr + 1] + ' to the front.');
+        t.act(V(L(order, { ptr: { pre: pre, curr: curr }, cls: cls(), label: 'list' })), 'Pull ' + (m + 1) + ' of ' + (right - left) + '.', acts, 'pull', { walk: 'pre is already in place.', done: (right - left - m) + ' more nodes still need to move.' }, 'Moved ' + order[curr + 1] + ' to the front.');
         var node = order.splice(curr + 1, 1)[0]; order.splice(pre + 1, 0, node); curr++;
       }
       t.act(V(L(order, { ptr: { pre: pre }, cls: cls(), label: 'list' })), 'All pulls done?', acts, 'done', { walk: 'pre stays put.', pull: 'You already moved right − left = ' + (right - left) + ' nodes.' }, 'Sublist reversed.');
@@ -178,8 +178,8 @@
       while (true) {
         var left = order.length - 1 - prev;
         var view = V(L(order, { ptr: { prev: prev }, cls: (function () { var c = {}; if (left >= 2) { c[prev + 1] = 'hit'; c[prev + 2] = 'hit'; } return c; })(), label: 'list' }));
-        if (swapped) { t.act(view, 'Pair swapped.', acts, 'jump', { swap: 'This pair is already swapped; swapping again undoes it.', done: 'prev has not moved past this pair.' }, 'prev → ' + order[prev + 2] + '.'); prev += 2; swapped = false; continue; }
-        if (left < 2) { t.act(view, left + ' node(s) after prev.', acts, 'done', { swap: 'A pair needs two nodes.', jump: 'There is no pair left to jump over.' }, 'Finished.'); break; }
+        if (swapped) { t.act(view, 'Pair swapped.', acts, 'jump', { swap: 'This pair is already swapped; swapping again undoes it.', done: 'prev has not moved past this pair.' }, 'prev right' + order[prev + 2] + '.'); prev += 2; swapped = false; continue; }
+        if (left < 2) { t.act(view, left + ' nodes after prev.', acts, 'done', { swap: 'A pair needs two nodes.', jump: 'There is no pair left to jump over.' }, 'Finished.'); break; }
         t.act(view, 'Two nodes after prev.', acts, 'swap', { jump: 'Swap this pair before moving on.', done: 'Two nodes remain.' }, 'Swapped ' + order[prev + 1] + ' and ' + order[prev + 2] + '.');
         var tmp = order[prev + 1]; order[prev + 1] = order[prev + 2]; order[prev + 2] = tmp; swapped = true;
       }
@@ -237,7 +237,7 @@
       for (var i = 0; i < v.length; i++) {
         var pos = i + 1, key = pos % 2 ? 'odd' : 'even';
         t.act(V(L(v, { ptr: { node: i }, cls: (function () { var c = {}; c[i] = 'hit'; return c; })(), label: 'input (position 1 is the head)' }), L(odd.length ? odd : ['∅'], { label: 'odd chain' }), L(even.length ? even : ['∅'], { label: 'even chain' })), 'Node at position ' + pos + ' (value ' + v[i] + ').', acts, key,
-          'Odd/even here means POSITION ' + pos + ', not the value ' + v[i] + '.', 'Position ' + pos + ' → ' + key + '.');
+          'Odd or even here means POSITION ' + pos + ', not the value ' + v[i] + '.', 'Position ' + pos + ' → ' + key + '.');
         if (key === 'odd') odd.push(v[i]); else even.push(v[i]);
       }
       t.act(V(L(odd, { label: 'odd chain' }), L(even, { label: 'even chain' })), 'Both chains built. Finish?', [['oe', 'odd tail.next = even head'], ['eo', 'even tail.next = odd head']], 'oe', 'The result starts with the odd chain (it holds the original head).', 'Joined.');

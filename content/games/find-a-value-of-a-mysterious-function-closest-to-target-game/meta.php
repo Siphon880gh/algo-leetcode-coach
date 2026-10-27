@@ -5,7 +5,7 @@ return [
     'title' => 'Find a Value of a Mysterious Function Closest to Target',
     'leetcode' => 1521,
     'difficulty' => 'Hard',
-    'summary' => 'func is the AND of arr[l..r]. For each r, the set of ANDs of subarrays ending at r has at most ~20 values: AND each previous value with arr[r] and add arr[r]. Track the closest to target.',
+    'summary' => 'func is the AND of arr[l to r]. For each r, the set of ANDs of subarrays ending at r has at most ~20 values: AND each previous value with arr[r] and add arr[r]. Track the closest to target.',
     'category' => 'LeetCode',
     'subcategory' => 'Bit Manipulation',
     'topic' => 'LeetCode · Bit Manipulation',

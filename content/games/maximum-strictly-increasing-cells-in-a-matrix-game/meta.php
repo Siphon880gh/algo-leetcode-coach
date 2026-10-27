@@ -5,7 +5,7 @@ return [
     'title' => 'Max Strictly Increasing Cells: process values in order, best per row and column',
     'leetcode' => 2713,
     'difficulty' => 'Hard',
-    'summary' => 'Sort cells by value. A cell\'s best path = 1 + max(bestRow[r], bestCol[c]) from strictly smaller values. Update rows/columns only after the whole group of equal values is computed.',
+    'summary' => 'Sort cells by value. A cell\'s best path = 1 + max(bestRow[r], bestCol[c]) from strictly smaller values. Update rows or columns only after the whole group of equal values is computed.',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

@@ -5,7 +5,7 @@ return [
     'title' => 'Four Divisors: enumerate divisor pairs to √n',
     'leetcode' => 1390,
     'difficulty' => 'Med',
-    'summary' => 'For each number, collect divisors in pairs (d, n/d) up to √n, stopping once there are more than 4. If exactly 4, add their sum.',
+    'summary' => 'For each number, collect divisors in pairs (d, n divided by d) up to √n, stopping once there are more than 4. If exactly 4, add their sum.',
     'category' => 'LeetCode',
     'subcategory' => 'Math',
     'topic' => 'LeetCode · Math',

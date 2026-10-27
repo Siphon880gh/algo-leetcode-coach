@@ -5,7 +5,7 @@ return [
     'title' => 'Maximum Strength of k Disjoint Subarrays: alternating weights',
     'leetcode' => 3077,
     'difficulty' => 'Hard',
-    'summary' => 'The i-th chosen subarray sum is multiplied by (−1)^(i+1)·(k − i + 1). dp over (index, subarrays used, inside a subarray?): extend the current one, start the next, or skip.',
+    'summary' => 'The i-th chosen subarray sum is multiplied by (−1) to the power (i+1) times (k − i + 1). dp over (index, subarrays used, inside a subarray?): extend the current one, start the next, or skip.',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

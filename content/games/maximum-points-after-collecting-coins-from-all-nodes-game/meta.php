@@ -5,7 +5,7 @@ return [
     'title' => 'Collect Coins: subtract k or halve the subtree',
     'leetcode' => 2920,
     'difficulty' => 'Hard',
-    'summary' => 'dp(u, j) where j = halvings applied by ancestors (coins become coins >> j). Option 1: (coins >> j) − k + Σ dp(c, j). Option 2: (coins >> (j+1)) + Σ dp(c, j+1). After ~14 halvings everything is 0.',
+    'summary' => 'dp(u, j) where j = halvings applied by ancestors (coins become coins >> j). Option 1: (coins >> j) − k + the sum of dp(c, j). Option 2: (coins >> (j+1)) + the sum of dp(c, j+1). After ~14 halvings everything is 0.',
     'category' => 'LeetCode',
     'subcategory' => 'Trees',
     'topic' => 'LeetCode · Trees',

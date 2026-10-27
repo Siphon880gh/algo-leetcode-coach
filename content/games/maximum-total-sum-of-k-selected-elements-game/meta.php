@@ -5,7 +5,7 @@ return [
     'title' => 'Maximum Total Sum of K Selected Elements',
     'leetcode' => 3974,
     'difficulty' => 'Med',
-    'summary' => 'Pick the k largest elements and process them biggest first, so the biggest values meet the biggest multipliers. For each, add x·mul while mul > 1, otherwise just add x.',
+    'summary' => 'Pick the k largest elements and process them biggest first, so the biggest values meet the biggest multipliers. For each, add x times mul while mul > 1, otherwise just add x.',
     'category' => 'LeetCode',
     'subcategory' => 'Greedy',
     'topic' => 'LeetCode · Greedy',

@@ -5,7 +5,7 @@ return [
     'title' => 'Design Front Middle Back Queue',
     'leetcode' => 1670,
     'difficulty' => 'Med',
-    'summary' => 'Two balanced deques make every op O(1); viewed as one list, pushMiddle inserts at ⌊n/2⌋, popMiddle removes at ⌊(n − 1)/2⌋. Pops on an empty queue return −1.',
+    'summary' => 'Two balanced deques make every op O(1); viewed as one list, pushMiddle inserts at half of n, rounded down, popMiddle removes at half of (n − 1), rounded down. Pops on an empty queue return −1.',
     'category' => 'LeetCode',
     'subcategory' => 'Design',
     'topic' => 'LeetCode · Design',

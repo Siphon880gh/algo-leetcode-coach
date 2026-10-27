@@ -5,7 +5,7 @@ return [
     'title' => 'Ways to Split Into Three Subarrays',
     'leetcode' => 1712,
     'difficulty' => 'Med',
-    'summary' => 'With prefix sums P, for each end i of left, mid end j must satisfy P[j] − P[i] ≥ P[i] and P[n] − P[j] ≥ P[j] − P[i]. Binary search the valid j range.',
+    'summary' => 'With prefix sums P, for each end i of left, mid end j must satisfy P[j] − P[i] at least P[i] and P[n] − P[j] at least P[j] − P[i]. Binary search the valid j range.',
     'category' => 'LeetCode',
     'subcategory' => 'Binary Search',
     'topic' => 'LeetCode · Binary Search',

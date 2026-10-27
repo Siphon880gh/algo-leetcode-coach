@@ -5,7 +5,7 @@ return [
     'title' => 'Number of Self-Divisible Permutations',
     'leetcode' => 2992,
     'difficulty' => 'Med',
-    'summary' => 'Backtrack (or bitmask DP) filling positions i = 1..n with unused numbers x where gcd(x, i) = 1.',
+    'summary' => 'Backtrack (or bitmask DP) filling positions i = 1 to n with unused numbers x where gcd(x, i) = 1.',
     'category' => 'LeetCode',
     'subcategory' => 'Backtracking',
     'topic' => 'LeetCode · Backtracking',

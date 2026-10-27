@@ -5,7 +5,7 @@ return [
     'title' => 'Minimum Cost Array Permutation: a cycle starting at 0',
     'leetcode' => 3149,
     'difficulty' => 'Hard',
-    'summary' => 'score = Σ |perm[i] − nums[perm[i+1]]| around the cycle. Rotation does not change it, so start at 0. Bitmask DP f(mask, last) = cheapest finish; build the lexicographically smallest optimal order greedily.',
+    'summary' => 'score = the sum of |perm[i] − nums[perm[i+1]]| around the cycle. Rotation does not change it, so start at 0. Bitmask DP f(mask, last) = cheapest finish; build the lexicographically smallest optimal order greedily.',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

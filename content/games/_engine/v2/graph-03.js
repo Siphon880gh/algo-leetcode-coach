@@ -20,7 +20,7 @@
 
   D('minimum-cost-to-reach-destination-in-time', {
     t: 'Minimum Cost to Reach Destination in Time',
-    r: 'dp[t][v] = cheapest fees to stand at v at exactly time t. Relax every road for every time ≤ maxTime; answer = min over t of dp[t][n − 1].',
+    r: 'dp[t][v] = cheapest fees to stand at v at exactly time t. Relax every road for every time at most maxTime; answer = min over t of dp[t][n − 1].',
     g: R => { const n = R.int(2, 5); return { maxTime: R.int(1, 12), edges: R.edges(n, R.int(n - 1, n + 2), { conn: true, w: [1, 5] }), passingFees: R.ints(n, 1, 9) }; },
     s(I, T) { const n = I.passingFees.length, M = I.maxTime, dp = Array.from({ length: M + 1 }, () => Array(n).fill(Infinity)); dp[0][0] = I.passingFees[0]; for (let t = 0; t <= M; t++) for (let v = 0; v < n; v++) if (dp[t][v] < Infinity) for (const [a, b, w] of I.edges) { const u = a === v ? b : b === v ? a : -1; if (u >= 0 && t + w <= M) dp[t + w][u] = Math.min(dp[t + w][u], dp[t][v] + I.passingFees[u]); } let best = Infinity, asks = 0; for (let t = 0; t <= M; t++) { if (dp[t][n - 1] < Infinity && asks++ < 4) { T.at({ graph: GR(n, I.edges.map(e => [e[0], e[1]]), { cls: { [n - 1]: 'hit' } }), fees: A(I.passingFees) }); T.n(`Cheapest fees arriving at ${n - 1} at exactly time ${t}?`, dp[t][n - 1], 'Time-layered DP.'); } best = Math.min(best, dp[t][n - 1]); } if (!asks) { T.at({ maxTime: M }); T.yn('Can the destination be reached in time?', false, '−1.'); } return best === Infinity ? -1 : best; }
   });
@@ -34,7 +34,7 @@
 
   D('the-time-when-the-network-becomes-idle', {
     t: 'When the Network Becomes Idle',
-    r: 'BFS from the master gives d. Server i gets its reply after r = 2d seconds; it last resends at ⌊(r − 1)/patience⌋·patience, and that copy\'s reply arrives r later. Idle = max over servers + 1.',
+    r: 'BFS from the master gives d. Server i gets its reply after r = 2d seconds; it last resends at ((r − 1) divided by patience, rounded down) times patience, and that copy\'s reply arrives r later. Idle = max over servers + 1.',
     g: R => { const n = R.int(2, 6); return { edges: R.edges(n, R.int(n - 1, n + 1), { conn: true }), patience: [0, ...R.ints(n - 1, 1, 5)] }; },
     s(I, T) { const n = I.patience.length, g = adjU(n, I.edges), d = Array(n).fill(-1); d[0] = 0; const q = [0]; for (let i = 0; i < q.length; i++) for (const v of g[q[i]]) if (d[v] < 0) { d[v] = d[q[i]] + 1; q.push(v); } let best = 0; for (let i = 1; i < n; i++) { const r = 2 * d[i], last = Math.floor((r - 1) / I.patience[i]) * I.patience[i], t = last + r + 1; if (i < 5) { T.at({ graph: GR(n, I.edges, { cls: { [i]: 'hit' } }), patience: A(I.patience) }); T.n(`Second when server ${i} goes quiet?`, t, `Round trip ${r}, last resend at ${last}.`); } best = Math.max(best, t); } return best; }
   });
@@ -57,7 +57,7 @@
     t: 'Minimum Operations to Convert Number',
     r: 'BFS from start over x + num, x − num, x XOR num. Reaching goal (even out of range) ends; only values in [0, 1000] can be expanded further.',
     g: R => ({ nums: R.distinct(R.int(1, 3), -6, 12), start: R.int(0, 20), goal: R.int(-10, 30) }),
-    s(I, T) { if (I.start === I.goal) return 0; const seen = new Set([I.start]); let lv = [I.start], d = 0; while (lv.length) { d++; const nx = []; for (const x of lv) for (const v of I.nums) for (const y of [x + v, x - v, x ^ v]) { if (y === I.goal) { T.at({ from: x, nums: A(I.nums) }); T.n('Operations used?', d, 'BFS level.'); return d; } if (y >= 0 && y <= 1000 && !seen.has(y)) { seen.add(y); nx.push(y); } } if (d < 4) { T.at({ level: A(lv.slice(0, 12)), nums: A(I.nums) }); T.n(`New in-range values after ${d} operation(s)?`, nx.length, 'Unseen, within [0, 1000].'); } lv = nx; } return -1; }
+    s(I, T) { if (I.start === I.goal) return 0; const seen = new Set([I.start]); let lv = [I.start], d = 0; while (lv.length) { d++; const nx = []; for (const x of lv) for (const v of I.nums) for (const y of [x + v, x - v, x ^ v]) { if (y === I.goal) { T.at({ from: x, nums: A(I.nums) }); T.n('Operations used?', d, 'BFS level.'); return d; } if (y >= 0 && y <= 1000 && !seen.has(y)) { seen.add(y); nx.push(y); } } if (d < 4) { T.at({ level: A(lv.slice(0, 12)), nums: A(I.nums) }); T.n(`New in-range values after ${d} operations?`, nx.length, 'Unseen, within [0, 1000].'); } lv = nx; } return -1; }
   });
 
   D('maximum-path-quality-of-a-graph', {
@@ -71,14 +71,14 @@
     t: 'Confusion Score: Count Triangles',
     r: 'A cycle of length 3 is a triangle. For each corridor (a, b) with a < b, count common neighbors c > b.',
     g: R => { const n = R.int(2, 6); return { n, corridors: R.edges(n, R.int(1, n + 4)).map(([a, b]) => [a + 1, b + 1]) }; },
-    s(I, T) { const adj = Array.from({ length: I.n + 1 }, () => new Set()); I.corridors.forEach(([a, b]) => { adj[a].add(b); adj[b].add(a); }); let c = 0, asks = 0; for (let a = 1; a <= I.n; a++) for (const b of adj[a]) if (b > a) { const k = [...adj[a]].filter(x => x > b && adj[b].has(x)).length; if (asks++ < 5) { T.at({ graph: GR(ids(I.n, 1), I.corridors, { cls: { [a]: 'hit', [b]: 'hit' } }) }); T.n(`Triangles closing corridor ${a}–${b} with a third room > ${b}?`, k, 'Common neighbors.'); } c += k; } return c; }
+    s(I, T) { const adj = Array.from({ length: I.n + 1 }, () => new Set()); I.corridors.forEach(([a, b]) => { adj[a].add(b); adj[b].add(a); }); let c = 0, asks = 0; for (let a = 1; a <= I.n; a++) for (const b of adj[a]) if (b > a) { const k = [...adj[a]].filter(x => x > b && adj[b].has(x)).length; if (asks++ < 5) { T.at({ graph: GR(ids(I.n, 1), I.corridors, { cls: { [a]: 'hit', [b]: 'hit' } }) }); T.n(`Triangles closing corridor ${a} to ${b} with a third room > ${b}?`, k, 'Common neighbors.'); } c += k; } return c; }
   });
 
   D('minimum-cost-to-reach-city-with-discounts', {
     t: 'Min Cost to Reach City With Discounts',
-    r: 'Dijkstra on states (city, discounts used). Each highway costs toll, or ⌊toll/2⌋ if a discount remains.',
+    r: 'Dijkstra on states (city, discounts used). Each highway costs toll, or half of toll, rounded down if a discount remains.',
     g: R => { const n = R.int(2, 5); return { n, highways: R.edges(n, R.int(1, n + 2), { w: [0, 20] }), discounts: R.int(0, 2) }; },
-    s(I, T) { const n = I.n, K2 = I.discounts + 1, g = adjW(n, I.highways), d = Array(n * K2).fill(Infinity), done = Array(n * K2).fill(false); d[0] = 0; let asks = 0; for (;;) { let u = -1; for (let s = 0; s < n * K2; s++) if (!done[s] && d[s] < Infinity && (u < 0 || d[s] < d[u])) u = s; if (u < 0) break; done[u] = true; const v0 = Math.floor(u / K2), k = u % K2; if (v0 === n - 1) { T.at({ cost: d[u], used: k }); T.n('Cheapest cost to the last city?', d[u], 'First time it is settled.'); return d[u]; } for (const [v, w] of g[v0]) { if (d[u] + w < d[v * K2 + k]) d[v * K2 + k] = d[u] + w; if (k + 1 < K2 && d[u] + Math.floor(w / 2) < d[v * K2 + k + 1]) d[v * K2 + k + 1] = d[u] + Math.floor(w / 2); } if (asks++ < 4) { T.at({ graph: GR(n, I.highways.map(e => [e[0], e[1]]), { cls: { [v0]: 'hit' } }), state: `city ${v0}, used ${k}` }); T.n(`Cost settled for city ${v0} with ${k} discount(s) used?`, d[u], 'Smallest tentative state.'); } } return -1; }
+    s(I, T) { const n = I.n, K2 = I.discounts + 1, g = adjW(n, I.highways), d = Array(n * K2).fill(Infinity), done = Array(n * K2).fill(false); d[0] = 0; let asks = 0; for (;;) { let u = -1; for (let s = 0; s < n * K2; s++) if (!done[s] && d[s] < Infinity && (u < 0 || d[s] < d[u])) u = s; if (u < 0) break; done[u] = true; const v0 = Math.floor(u / K2), k = u % K2; if (v0 === n - 1) { T.at({ cost: d[u], used: k }); T.n('Cheapest cost to the last city?', d[u], 'First time it is settled.'); return d[u]; } for (const [v, w] of g[v0]) { if (d[u] + w < d[v * K2 + k]) d[v * K2 + k] = d[u] + w; if (k + 1 < K2 && d[u] + Math.floor(w / 2) < d[v * K2 + k + 1]) d[v * K2 + k + 1] = d[u] + Math.floor(w / 2); } if (asks++ < 4) { T.at({ graph: GR(n, I.highways.map(e => [e[0], e[1]]), { cls: { [v0]: 'hit' } }), state: `city ${v0}, used ${k}` }); T.n(`Cost settled for city ${v0} with ${k} discounts used?`, d[u], 'Smallest tentative state.'); } } return -1; }
   });
 
   D('valid-arrangement-of-pairs', {
@@ -91,7 +91,7 @@
 
   D('detonate-the-maximum-bombs', {
     t: 'Detonate the Maximum Bombs',
-    r: 'Directed edge i → j if bomb j lies within bomb i\'s radius (compare squared distances). DFS from every bomb and take the largest reachable count.',
+    r: 'Directed edge i to j if bomb j lies within bomb i\'s radius (compare squared distances). DFS from every bomb and take the largest reachable count.',
     g: R => ({ bombs: Array.from({ length: R.int(1, 6) }, () => [R.int(0, 8), R.int(0, 8), R.int(1, 4)]) }),
     s(I, T) { const b = I.bombs, n = b.length, out = b.map(([x, y, r]) => b.map(([x2, y2], j) => (x - x2) ** 2 + (y - y2) ** 2 <= r * r ? j : -1).filter(j => j >= 0)); let best = 0; for (let s = 0; s < n; s++) { const seen = new Set([s]), st = [s]; while (st.length) for (const v of out[st.pop()]) if (!seen.has(v)) { seen.add(v); st.push(v); } if (s < 5) { T.at({ bombs: A(b.map(x => x.join('/'))), from: s }); T.n(`Bombs detonated starting from bomb ${s}?`, seen.size, 'Chain reaction (directed reachability).'); } best = Math.max(best, seen.size); } return best; }
   });
@@ -113,7 +113,7 @@
 
   D('maximum-employees-to-be-invited-to-a-meeting', {
     t: 'Maximum Employees Invited to a Meeting',
-    r: 'favorite is a functional graph. Either seat one big cycle (length ≥ 3), or seat every mutual pair (2-cycle) with the longest chain hanging off each side — these can all sit together. Answer = max of the two.',
+    r: 'favorite is a functional graph. Either seat one big cycle (length at least 3), or seat every mutual pair (2-cycle) with the longest chain hanging off each side — these can all sit together. Answer = max of the two.',
     g: R => { const n = R.int(2, 7); return { favorite: Array.from({ length: n }, (_, i) => { let f = R.int(0, n - 1); if (f === i) f = (i + 1) % n; return f; }) }; },
     s(I, T) { const res = (() => { const f = I.favorite, n = f.length, indeg = Array(n).fill(0), depth = Array(n).fill(1); f.forEach(v => indeg[v]++); const q = [...Array(n).keys()].filter(v => !indeg[v]); T.at({ graph: GR(n, f.map((v, k) => [k, v]), { dir: true }) }); T.n('Employees that nobody picks as favourite?', q.length, 'They start the chains.'); for (let i = 0; i < q.length; i++) { const u = q[i], v = f[u]; depth[v] = Math.max(depth[v], depth[u] + 1); if (!--indeg[v]) q.push(v); } let big = 0, pairs = 0; const seen = Array(n).fill(false); for (let i = 0; i < n; i++) if (indeg[i] && !seen[i]) { let len = 0, j = i; while (!seen[j]) { seen[j] = true; j = f[j]; len++; } if (len === 2) { const s = depth[i] + depth[f[i]]; T.at({ graph: GR(n, f.map((v, k) => [k, v]), { dir: true, cls: { [i]: 'hit', [f[i]]: 'hit' } }) }); T.n(`Seats for the mutual pair ${i} and ${f[i]}, with their chains?`, s, 'Longest chain into each side.'); pairs += s; } else { T.at({ graph: GR(n, f.map((v, k) => [k, v]), { dir: true, cls: { [i]: 'hit' } }) }); T.n('Length of this cycle?', len, 'Follow favorites until back.'); big = Math.max(big, len); } } return Math.max(big, pairs); })(); T.n('Most employees invited?', res, 'One big cycle, or all mutual pairs with chains.'); return res; }
   });
@@ -127,7 +127,7 @@
 
   D('remove-all-ones-with-row-and-column-flips-ii', {
     t: 'Remove All Ones With Row and Column Flips II',
-    r: 'The grid has ≤ 15 cells, so it fits in a bitmask. BFS (or memoized search) over masks: an operation on a 1 at (i, j) clears row i and column j.',
+    r: 'The grid has at most 15 cells, so it fits in a bitmask. BFS (or memoized search) over masks: an operation on a 1 at (i, j) clears row i and column j.',
     g: R => { const m = R.int(1, 3), n = R.int(1, 4); return { grid: Array.from({ length: m }, () => Array.from({ length: n }, () => R.chance(0.5) ? 1 : 0)) }; },
     s(I, T) { const res = (() => { const m = I.grid.length, n = I.grid[0].length; let s0 = 0; I.grid.forEach((row, r) => row.forEach((v, c) => { if (v) s0 |= 1 << (r * n + c); })); T.at({ grid: G(I.grid) }); T.n('Ones in the grid?', I.grid.flat().filter(Boolean).length, 'Each operation must pick a 1.'); const seen = new Set([s0]); let lv = [s0], d = 0; while (lv.length) { if (lv.includes(0)) return d; const nx = []; for (const s of lv) for (let i = 0; i < m * n; i++) if (s >> i & 1) { const r = Math.floor(i / n), c = i % n; let t = s; for (let k = 0; k < n; k++) t &= ~(1 << (r * n + k)); for (let k = 0; k < m; k++) t &= ~(1 << (k * n + c)); if (!seen.has(t)) { seen.add(t); nx.push(t); } } if (d < 3) { T.at({ grid: G(I.grid), states: lv.length }); T.n(`New grid states after ${d + 1} operations?`, nx.length, 'One state per distinct result.'); } lv = nx; d++; } return d; })(); T.n('Fewest operations?', res, 'The BFS level where the empty grid appears.'); return res; }
   });
@@ -141,16 +141,16 @@
 
   D('minimum-weighted-subgraph-with-the-required-paths', {
     t: 'Minimum Weighted Subgraph With Required Paths',
-    r: 'The two paths merge at some node v and share v → dest. Run Dijkstra from src1, from src2, and from dest on reversed edges; answer = min over v of d1[v] + d2[v] + d3[v].',
+    r: 'The two paths merge at some node v and share v to dest. Run Dijkstra from src1, from src2, and from dest on reversed edges; answer = min over v of d1[v] + d2[v] + d3[v].',
     g: R => { const n = R.int(3, 6), e = R.edges(n, R.int(2, n + 4), { dir: true, w: [1, 6] }), [a, b, c] = R.shuffle([...Array(n).keys()]); return { n, edges: e, src1: a, src2: b, dest: c }; },
-    s(I, T) { const g = adjW(I.n, I.edges, 0, true), rg = adjW(I.n, I.edges.map(([a, b, w]) => [b, a, w]), 0, true), d1 = dijkstra(g, I.src1), d2 = dijkstra(g, I.src2), d3 = dijkstra(rg, I.dest); let best = Infinity; for (let v = 0; v < I.n; v++) { const s = d1[v] + d2[v] + d3[v]; if (v < 4) { T.at({ graph: GR(I.n, I.edges.map(e => [e[0], e[1]]), { dir: true, cls: { [v]: 'hit', [I.dest]: 'ok' } }) }); T.n(`Total weight if paths meet at ${v}? (−1 if impossible)`, s === Infinity ? -1 : s, 'd1 + d2 + d(v → dest).'); } best = Math.min(best, s); } return best === Infinity ? -1 : best; }
+    s(I, T) { const g = adjW(I.n, I.edges, 0, true), rg = adjW(I.n, I.edges.map(([a, b, w]) => [b, a, w]), 0, true), d1 = dijkstra(g, I.src1), d2 = dijkstra(g, I.src2), d3 = dijkstra(rg, I.dest); let best = Infinity; for (let v = 0; v < I.n; v++) { const s = d1[v] + d2[v] + d3[v]; if (v < 4) { T.at({ graph: GR(I.n, I.edges.map(e => [e[0], e[1]]), { dir: true, cls: { [v]: 'hit', [I.dest]: 'ok' } }) }); T.n(`Total weight if paths meet at ${v}? (−1 if impossible)`, s === Infinity ? -1 : s, 'd1 + d2 + d(v to dest).'); } best = Math.min(best, s); } return best === Infinity ? -1 : best; }
   });
 
   D('maximum-score-of-a-node-sequence', {
     t: 'Maximum Score of a Node Sequence',
     r: 'Fix the middle edge (b, c). Extend with a neighbor a of b and d of c, all four distinct. Only each node\'s top-3 neighbors by score can matter.',
     g: R => { const n = R.int(4, 7); return { scores: R.ints(n, 1, 20), edges: R.edges(n, R.int(2, n + 4)) }; },
-    s(I, T) { const n = I.scores.length, adj = adjU(n, I.edges).map(l => l.sort((a, b) => I.scores[b] - I.scores[a]).slice(0, 3)); let best = -1, asks = 0; for (const [b, c] of I.edges) { let here = -1; for (const a of adj[b]) for (const d of adj[c]) if (a !== c && d !== b && a !== d) here = Math.max(here, I.scores[a] + I.scores[b] + I.scores[c] + I.scores[d]); if (asks++ < 4) { T.at({ graph: GR(n, I.edges, { cls: { [b]: 'hit', [c]: 'hit' } }), scores: A(I.scores) }); T.n(`Best score with middle edge ${b}–${c}? (−1 if none)`, here, 'Top-3 neighbors on each side.'); } best = Math.max(best, here); } if (!asks) T.n('Edges?', 0, 'No sequence: −1.'); return best; }
+    s(I, T) { const n = I.scores.length, adj = adjU(n, I.edges).map(l => l.sort((a, b) => I.scores[b] - I.scores[a]).slice(0, 3)); let best = -1, asks = 0; for (const [b, c] of I.edges) { let here = -1; for (const a of adj[b]) for (const d of adj[c]) if (a !== c && d !== b && a !== d) here = Math.max(here, I.scores[a] + I.scores[b] + I.scores[c] + I.scores[d]); if (asks++ < 4) { T.at({ graph: GR(n, I.edges, { cls: { [b]: 'hit', [c]: 'hit' } }), scores: A(I.scores) }); T.n(`Best score with middle edge ${b} to ${c}? (−1 if none)`, here, 'Top-3 neighbors on each side.'); } best = Math.max(best, here); } if (!asks) T.n('Edges?', 0, 'No sequence: −1.'); return best; }
   });
 
   D('longest-path-with-different-adjacent-characters', {
@@ -176,7 +176,7 @@
 
   D('maximum-total-importance-of-roads', {
     t: 'Maximum Total Importance of Roads',
-    r: 'Each city\'s value counts once per road touching it. Give the largest values to the highest-degree cities: sort degrees and multiply by 1..n.',
+    r: 'Each city\'s value counts once per road touching it. Give the largest values to the highest-degree cities: sort degrees and multiply by 1 to n.',
     g: R => { const n = R.int(2, 6); return { n, roads: R.edges(n, R.int(1, n + 2)) }; },
     s(I, T) { const res = (() => { const deg = Array(I.n).fill(0); I.roads.forEach(([a, b]) => { deg[a]++; deg[b]++; }); const s = deg.slice().sort((a, b) => a - b); T.at({ graph: GR(I.n, I.roads), degree: A(deg) }); T.n(`Value given to the busiest city?`, I.n, 'Largest value to largest degree.'); T.n('Smallest degree?', s[0], 'That city gets value 1.'); return s.reduce((t, d, i) => t + d * (i + 1), 0); })(); T.n('Maximum total importance?', res, 'Each degree times its value.'); return res; }
   });
@@ -192,12 +192,12 @@
     t: 'Jump Game VIII',
     r: 'Valid jumps from i go to its next greater-or-equal element and its next smaller element (all in between are on the other side). Monotonic stacks find them; then dp[j] = min dp[i] + costs[j].',
     g: R => { const n = R.int(1, 7); return { nums: R.ints(n, 0, 6), costs: R.ints(n, 0, 9) }; },
-    s(I, T) { const a = I.nums, n = a.length, dp = Array(n).fill(Infinity); dp[0] = 0; for (let i = 0; i < n; i++) { const js = []; for (let j = i + 1; j < n; j++) { const mid = a.slice(i + 1, j); if ((a[i] <= a[j] && mid.every(x => x < a[i])) || (a[i] > a[j] && mid.every(x => x >= a[i]))) js.push(j); } js.forEach(j => dp[j] = Math.min(dp[j], dp[i] + I.costs[j])); if (i < 4 && i < n - 1) { T.at({ nums: A(a, { hl: [i] }), dp: A(dp.map(x => x === Infinity ? '∞' : x)) }); T.n(`How many valid jumps start at index ${i}?`, js.length, 'Stack-style next greater-or-equal / next smaller targets.'); } } if (n === 1) T.n('Cost to stand at the end?', 0, 'Already there.'); return dp[n - 1]; }
+    s(I, T) { const a = I.nums, n = a.length, dp = Array(n).fill(Infinity); dp[0] = 0; for (let i = 0; i < n; i++) { const js = []; for (let j = i + 1; j < n; j++) { const mid = a.slice(i + 1, j); if ((a[i] <= a[j] && mid.every(x => x < a[i])) || (a[i] > a[j] && mid.every(x => x >= a[i]))) js.push(j); } js.forEach(j => dp[j] = Math.min(dp[j], dp[i] + I.costs[j])); if (i < 4 && i < n - 1) { T.at({ nums: A(a, { hl: [i] }), dp: A(dp.map(x => x === Infinity ? '∞' : x)) }); T.n(`How many valid jumps start at index ${i}?`, js.length, 'Stack-style next greater-or-equal and next smaller targets.'); } } if (n === 1) T.n('Cost to stand at the end?', 0, 'Already there.'); return dp[n - 1]; }
   });
 
   D('number-of-increasing-paths-in-a-grid', {
     t: 'Number of Increasing Paths in a Grid',
-    r: 'paths[cell] = 1 + Σ paths[neighbor] over strictly larger neighbors. Memoized DFS (or process cells by decreasing value); sum all cells mod 1e9 + 7.',
+    r: 'paths[cell] = 1 + the sum of paths[neighbor] over strictly larger neighbors. Memoized DFS (or process cells by decreasing value); sum all cells mod 1e9 + 7.',
     g: R => { const m = R.int(1, 3), n = R.int(1, 4); return { grid: Array.from({ length: m }, () => R.ints(n, 1, 6)) }; },
     s(I, T) { const g = I.grid, memo = g.map(r => r.map(() => 0)), MOD = 1000000007; let asks = 0; const go = (r, c) => { if (memo[r][c]) return memo[r][c]; let s = 1; for (const [dr, dc] of DIRS) { const x = r + dr, y = c + dc; if (inG(g, x, y) && g[x][y] > g[r][c]) s = (s + go(x, y)) % MOD; } memo[r][c] = s; if (asks++ < 5) { T.at({ grid: G(g, { hl: [[r, c]] }), paths: G(memo) }); T.n(`Increasing paths starting at (${r}, ${c})?`, s, '1 + paths of larger neighbors.'); } return s; }; let tot = 0; g.forEach((row, r) => row.forEach((_, c) => tot = (tot + go(r, c)) % MOD)); return tot; }
   });
@@ -225,7 +225,7 @@
 
   D('build-a-matrix-with-conditions', {
     t: 'Build a Matrix With Conditions',
-    r: 'Topologically sort 1..k by the row conditions and separately by the column conditions. Place number x at (rowOrder index, colOrder index). A cycle in either means [].',
+    r: 'Topologically sort 1 to k by the row conditions and separately by the column conditions. Place number x at (rowOrder index, colOrder index). A cycle in either means [].',
     g: R => { const k = R.int(2, 4), c = () => Array.from({ length: R.int(1, 3) }, () => { const a = R.int(1, k); let b = R.int(1, k); if (b === a) b = a % k + 1; return [a, b]; }); return { k, rowConditions: c(), colConditions: c() }; },
     cmp: (o, e, I) => { if (!e.length) return Array.isArray(o) && !o.length; if (!Array.isArray(o) || o.length !== I.k) return false; const pos = {}; o.forEach((row, r) => row.forEach((v, c) => { if (v) pos[v] = [r, c]; })); if (Object.keys(pos).length !== I.k) return false; return I.rowConditions.every(([a, b]) => pos[a][0] < pos[b][0]) && I.colConditions.every(([a, b]) => pos[a][1] < pos[b][1]); },
     s(I, T) { const res = (() => { const topo = (conds, label) => { const out = Array.from({ length: I.k + 1 }, () => []), indeg = Array(I.k + 1).fill(0); conds.forEach(([a, b]) => { out[a].push(b); indeg[b]++; }); const q = ids(I.k, 1).filter(v => !indeg[v]); for (let i = 0; i < q.length; i++) for (const v of out[q[i]]) if (!--indeg[v]) q.push(v); T.at({ graph: GR(ids(I.k, 1), conds, { dir: true }) }); T.yn(`Can the ${label} conditions all be met (no cycle)?`, q.length === I.k, 'Topological sort.'); return q.length === I.k ? q : null; }; const ro = topo(I.rowConditions, 'row'); if (!ro) return []; const co = topo(I.colConditions, 'column'); if (!co) return []; const m = Array.from({ length: I.k }, () => Array(I.k).fill(0)); for (let x = 1; x <= I.k; x++) m[ro.indexOf(x)][co.indexOf(x)] = x; return m; })(); T.yn('Can the matrix be built?', res.length > 0, 'Both orders must exist.'); return res; }
@@ -240,14 +240,14 @@
 
   D('minimum-cost-to-buy-apples', {
     t: 'Minimum Cost to Buy Apples',
-    r: 'Going and returning use the same shortest path, so the trip to city j costs dist(i, j)·(k + 1) + appleCost[j]. Run Dijkstra (or one multi-source Dijkstra seeded with appleCost).',
+    r: 'Going and returning use the same shortest path, so the trip to city j costs dist(i, j) times (k + 1) + appleCost[j]. Run Dijkstra (or one multi-source Dijkstra seeded with appleCost).',
     g: R => { const n = R.int(2, 5); return { n, roads: R.edges(n, R.int(1, n + 2), { w: [1, 9] }).map(([a, b, w]) => [a + 1, b + 1, w]), appleCost: R.ints(n, 1, 40), k: R.int(1, 3) }; },
-    s(I, T) { const g = adjW(I.n, I.roads, 1); return ids(I.n, 1).map(i => { const d = dijkstra(g, i); let best = Infinity; for (let j = 1; j <= I.n; j++) if (d[j] < Infinity) best = Math.min(best, d[j] * (I.k + 1) + I.appleCost[j - 1]); if (i <= 4) { T.at({ graph: GR(ids(I.n, 1), I.roads.map(e => [e[0], e[1]]), { cls: { [i]: 'hit' } }), appleCost: A(I.appleCost) }); T.n(`Cheapest apple trip from city ${i}?`, best, `dist·${I.k + 1} + apple price.`); } return best; }); }
+    s(I, T) { const g = adjW(I.n, I.roads, 1); return ids(I.n, 1).map(i => { const d = dijkstra(g, i); let best = Infinity; for (let j = 1; j <= I.n; j++) if (d[j] < Infinity) best = Math.min(best, d[j] * (I.k + 1) + I.appleCost[j - 1]); if (i <= 4) { T.at({ graph: GR(ids(I.n, 1), I.roads.map(e => [e[0], e[1]]), { cls: { [i]: 'hit' } }), appleCost: A(I.appleCost) }); T.n(`Cheapest apple trip from city ${i}?`, best, `dist times ${I.k + 1} + apple price.`); } return best; }); }
   });
 
   D('minimum-fuel-cost-to-report-to-the-capital', {
     t: 'Minimum Fuel Cost to Report to the Capital',
-    r: 'DFS from 0: the people in a subtree of size s must cross the edge to its parent, needing ⌈s / seats⌉ cars, i.e. that many liters.',
+    r: 'DFS from 0: the people in a subtree of size s must cross the edge to its parent, needing s divided by seats (rounded up) cars, i.e. that many liters.',
     g: R => { const n = R.int(1, 8); return { roads: treeEdges(R, n), seats: R.int(1, 4) }; },
     s(I, T) { const n = I.roads.length + 1, g = adjU(n, I.roads); let fuel = 0, asks = 0; const go = (u, p) => { let s = 1; for (const v of g[u]) if (v !== p) s += go(v, u); if (u) { const c = Math.ceil(s / I.seats); fuel += c; if (asks++ < 5) { T.at({ graph: GR(n, I.roads, { cls: { [u]: 'hit' } }) }); T.n(`Cars crossing the road above city ${u}?`, c, `${s} people, ${I.seats} seats each.`); } } return s; }; go(0, -1); if (!asks) T.n('Fuel needed?', 0, 'Only the capital.'); return fuel; }
   });
@@ -260,7 +260,7 @@
   });
 
   D('add-edges-to-make-degrees-of-all-nodes-even', {
-    t: 'Add ≤ 2 Edges to Make All Degrees Even',
+    t: 'Add at most 2 Edges to Make All Degrees Even',
     r: 'Only odd-degree nodes matter. 0 odd: yes. 2 odd (a, b): connect them if not adjacent, or both to some c adjacent to neither. 4 odd: some pairing must be two non-edges. Otherwise no.',
     g: R => { const n = R.int(3, 6); return { n, edges: R.edges(n, R.int(1, n + 3)).map(([a, b]) => [a + 1, b + 1]) }; },
     s(I, T) { const res = (() => { const adj = Array.from({ length: I.n + 1 }, () => new Set()); I.edges.forEach(([a, b]) => { adj[a].add(b); adj[b].add(a); }); const odd = ids(I.n, 1).filter(v => adj[v].size % 2); T.at({ graph: GR(ids(I.n, 1), I.edges, { cls: Object.fromEntries(odd.map(v => [v, 'hit'])) }) }); T.n('Nodes with odd degree?', odd.length, 'Each needs one new edge end.'); T.yn('Is the number of odd nodes 0, 2 or 4?', [0, 2, 4].includes(odd.length), 'Two new edges fix at most four ends.'); const free = (a, b) => !adj[a].has(b); if (!odd.length) return true; if (odd.length === 2) { const [a, b] = odd; return free(a, b) || ids(I.n, 1).some(c => c !== a && c !== b && free(a, c) && free(b, c)); } if (odd.length === 4) { const [a, b, c, d] = odd; return (free(a, b) && free(c, d)) || (free(a, c) && free(b, d)) || (free(a, d) && free(b, c)); } return false; })(); T.yn('Can at most two edges make every degree even?', res, 'Pair up the odd nodes with missing edges.'); return res; }
@@ -268,7 +268,7 @@
 
   D('disconnect-path-in-a-binary-matrix-by-at-most-one-flip', {
     t: 'Disconnect Path With At Most One Flip',
-    r: 'Find one path from (0, 0) to the corner (right/down moves) and erase its inner cells, then search again. If no second path exists, all paths share a cell, so one flip disconnects.',
+    r: 'Find one path from (0, 0) to the corner (right or down moves) and erase its inner cells, then search again. If no second path exists, all paths share a cell, so one flip disconnects.',
     g: R => { const m = R.int(1, 4), n = R.int(1, 4), g = Array.from({ length: m }, () => Array.from({ length: n }, () => R.chance(0.75) ? 1 : 0)); g[0][0] = 1; g[m - 1][n - 1] = 1; return { grid: g }; },
     s(I, T) { const res = (() => { const g = I.grid.map(r => r.slice()), m = g.length, n = g[0].length; const dfs = (r, c) => { if (r === m - 1 && c === n - 1) return true; if (r >= m || c >= n || !g[r][c]) return false; if (r || c) g[r][c] = 0; return dfs(r + 1, c) || dfs(r, c + 1); }; const a = dfs(0, 0); T.at({ grid: G(I.grid) }); T.yn('Is there a path at all?', a, 'If not, it is already disconnected.'); if (!a) return true; const b = dfs(0, 0); T.at({ grid: G(g) }); T.yn('After erasing the first path, is there a second disjoint path?', b, b ? 'Two disjoint paths: one flip cannot cut both.' : 'Every path shares a cell.'); return !b; })(); T.yn('Can one flip disconnect the grid?', res, 'Only if there are not two disjoint paths.'); return res; }
   });

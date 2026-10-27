@@ -5,7 +5,7 @@ return [
     'title' => 'Can One String Break Another: compare sorted strings',
     'leetcode' => 1433,
     'difficulty' => 'Med',
-    'summary' => 'Sort both. One breaks the other exactly when one sorted string is ≥ the other at every position.',
+    'summary' => 'Sort both. One breaks the other exactly when one sorted string is at least the other at every position.',
     'category' => 'LeetCode',
     'subcategory' => 'Greedy',
     'topic' => 'LeetCode · Greedy',

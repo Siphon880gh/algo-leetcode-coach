@@ -5,7 +5,7 @@ return [
     'title' => 'Minimum Swaps to Make Sequences Increasing: keep or swap each column',
     'leetcode' => 801,
     'difficulty' => 'Hard',
-    'summary' => 'keep[i] / swap[i] = fewest swaps with column i unswapped / swapped. If both stay increasing in order, keep follows keep and swap follows swap. If they stay increasing crossed, keep follows swap and swap follows keep.',
+    'summary' => 'keep[i] and swap[i] = fewest swaps with column i unswapped or swapped. If both stay increasing in order, keep follows keep and swap follows swap. If they stay increasing crossed, keep follows swap and swap follows keep.',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

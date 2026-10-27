@@ -5,7 +5,7 @@ return [
     'title' => 'Sum of Decoded Numbers',
     'leetcode' => 4039,
     'difficulty' => 'Med',
-    'summary' => 'Split each code: width = last digit, the rest gives x (first width digits) and y (remaining digits). Add x^y mod 1e9+7 using fast exponentiation.',
+    'summary' => 'Split each code: width = last digit, the rest gives x (first width digits) and y (remaining digits). Add x to the power y mod 1e9+7 using fast exponentiation.',
     'category' => 'LeetCode',
     'subcategory' => 'Math',
     'topic' => 'LeetCode · Math',

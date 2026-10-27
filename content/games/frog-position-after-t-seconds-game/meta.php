@@ -5,7 +5,7 @@ return [
     'title' => 'Frog Position After t Seconds: split probability, stop at leaves',
     'leetcode' => 1377,
     'difficulty' => 'Hard',
-    'summary' => 'DFS from vertex 1 multiplying by 1/(unvisited children). At the target: if exactly t seconds passed, or the frog is stuck (no unvisited children) before t, return the probability; otherwise 0.',
+    'summary' => 'DFS from vertex 1 multiplying by 1 divided by (unvisited children). At the target: if exactly t seconds passed, or the frog is stuck (no unvisited children) before t, return the probability; otherwise 0.',
     'category' => 'LeetCode',
     'subcategory' => 'Trees',
     'topic' => 'LeetCode · Trees',

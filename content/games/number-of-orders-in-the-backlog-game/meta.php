@@ -5,7 +5,7 @@ return [
     'title' => 'Number of Orders in the Backlog',
     'leetcode' => 1801,
     'difficulty' => 'Med',
-    'summary' => 'Keep buy orders in a max-heap and sell orders in a min-heap by price. A buy matches the cheapest sells ≤ its price; a sell matches the highest buys ≥ its price. Leftovers go into the backlog; sum remaining amounts mod 1e9+7.',
+    'summary' => 'Keep buy orders in a max-heap and sell orders in a min-heap by price. A buy matches the cheapest sells at most its price; a sell matches the highest buys at least its price. Leftovers go into the backlog; sum remaining amounts mod 1e9+7.',
     'category' => 'LeetCode',
     'subcategory' => 'Heap',
     'topic' => 'LeetCode · Heap',

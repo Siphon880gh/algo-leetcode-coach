@@ -5,7 +5,7 @@ return [
     'title' => 'Maximum Marked Indices',
     'leetcode' => 2576,
     'difficulty' => 'Med',
-    'summary' => 'Sort. Match the smallest half against the largest half with two pointers: pair a[i] with the next a[j] (from the middle) where 2·a[i] ≤ a[j].',
+    'summary' => 'Sort. Match the smallest half against the largest half with two pointers: pair a[i] with the next a[j] (from the middle) where 2 times a[i] at most a[j].',
     'category' => 'LeetCode',
     'subcategory' => 'Binary Search',
     'topic' => 'LeetCode · Binary Search',

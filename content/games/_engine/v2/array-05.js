@@ -25,10 +25,10 @@
 
   D('array', {
     t: 'Array: Read vs Insert',
-    r: 'Element i lives at base + i × size, so reading any index is O(1). Inserting at index k shifts every element from k to the end one slot right, which is O(n).',
+    r: 'Element i lives at base + i times size, so reading any index is O(1). Inserting at index k shifts every element from k to the end one slot right, which is O(n).',
     exs: [{ in: { nums: [72, 88, 91, 65, 80], index: 2, insertAt: 2, value: 99 }, out: [72, 88, 99, 91, 65, 80] }],
     g: R => { const n = R.int(4, 7); return { nums: R.ints(n, 10, 99), index: R.int(0, n - 1), insertAt: R.int(0, n - 1), value: R.int(10, 99) }; },
-    s(I, T) { const a = I.nums, n = a.length, k = I.insertAt; T.at({ nums: A(a, { hl: I.index }) }); T.n(`Read index ${I.index}: which value?`, a[I.index], 'Jump straight to base + index × size.'); T.at({ nums: A(a, { hl: range(k, n) }) }); T.n(`Insert ${I.value} at index ${k}: how many elements shift right?`, n - k, `Indexes ${k} to ${n - 1}.`); const b = a.slice(0, k).concat([I.value], a.slice(k)); T.at({ nums: A(b, { hl: k }) }); T.n(`After the insert, which value sits at index ${k + 1}?`, b[k + 1], 'The old value at the insert spot moved one slot right.'); T.n('New length?', b.length, 'One more than before.'); return b; }
+    s(I, T) { const a = I.nums, n = a.length, k = I.insertAt; T.at({ nums: A(a, { hl: I.index }) }); T.n(`Read index ${I.index}: which value?`, a[I.index], 'Jump straight to base + index times size.'); T.at({ nums: A(a, { hl: range(k, n) }) }); T.n(`Insert ${I.value} at index ${k}: how many elements shift right?`, n - k, `Indexes ${k} to ${n - 1}.`); const b = a.slice(0, k).concat([I.value], a.slice(k)); T.at({ nums: A(b, { hl: k }) }); T.n(`After the insert, which value sits at index ${k + 1}?`, b[k + 1], 'The old value at the insert spot moved one slot right.'); T.n('New length?', b.length, 'One more than before.'); return b; }
   });
 
   D('exercises', {
@@ -57,7 +57,7 @@
 
   D('labu-topic-5c4cadf47ae4', {
     t: 'Array Fundamentals: Prefix Sums',
-    r: 'pre[i] = pre[i − 1] + a[i], with pre[0] = a[0]. Then the sum of a[l..r] is pre[r] − pre[l − 1] (or just pre[r] when l = 0), in O(1) per query after an O(n) build.',
+    r: 'pre[i] = pre[i − 1] + a[i], with pre[0] = a[0]. Then the sum of a[l to r] is pre[r] − pre[l − 1] (or just pre[r] when l = 0), in O(1) per query after an O(n) build.',
     exs: [{ in: { nums: [4, 5, 6], l: 1, r: 2 }, out: [4, 9, 15] }],
     g: R => { const n = R.int(4, 7), l = R.int(1, n - 2); return { nums: R.ints(n, 1, 9), l, r: R.int(l, n - 1) }; },
     s(I, T) { const a = I.nums, p = []; a.forEach((x, i) => { p[i] = (i ? p[i - 1] : 0) + x; if (i > 0 && i < 6) { T.at({ nums: A(a, { hl: i }), pre: A(p.slice(0, i)) }); T.n(`pre[${i}]?`, p[i], `pre[${i - 1}] + a[${i}] = ${p[i - 1]} + ${x}.`); } }); const s = p[I.r] - (I.l ? p[I.l - 1] : 0); T.at({ nums: A(a, { win: [I.l, I.r] }), pre: A(p) }); T.n(`Sum of a[${I.l}..${I.r}] using prefixes?`, s, `pre[${I.r}] − pre[${I.l - 1}] = ${p[I.r]} − ${p[I.l - 1]}.`); return p; }

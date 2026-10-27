@@ -5,7 +5,7 @@ return [
     'title' => 'Count Numbers with Unique Digits: choices shrink digit by digit',
     'leetcode' => 357,
     'difficulty' => 'Med',
-    'summary' => 'Numbers with exactly k digits and no repeats: 9 · 9 · 8 · … (k factors). Add them up for k = 1..n, plus 1 for zero.',
+    'summary' => 'Numbers with exactly k digits and no repeats: 9 times 9 times 8 times … (k factors). Add them up for k = 1 to n, plus 1 for zero.',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

@@ -5,7 +5,7 @@ return [
     'title' => 'BST to Sorted Doubly Linked List: inorder linking',
     'leetcode' => 426,
     'difficulty' => 'Med',
-    'summary' => 'Inorder traversal visits values in order; link prev ↔ cur as you go, then close the circle head ↔ tail.',
+    'summary' => 'Inorder traversal visits values in order; link prev and cur as you go, then close the circle head and tail.',
     'category' => 'LeetCode',
     'subcategory' => 'Trees',
     'topic' => 'LeetCode · Trees',

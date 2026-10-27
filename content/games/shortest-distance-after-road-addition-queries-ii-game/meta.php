@@ -5,7 +5,7 @@ return [
     'title' => 'Shortest Distance After Road Additions II',
     'leetcode' => 3244,
     'difficulty' => 'Hard',
-    'summary' => 'Shortcuts never cross, so keep the set of cities still on the main chain. A road u → v removes the cities strictly between (if u is still on it); the answer is the chain length − 1.',
+    'summary' => 'Shortcuts never cross, so keep the set of cities still on the main chain. A road u to v removes the cities strictly between (if u is still on it); the answer is the chain length − 1.',
     'category' => 'LeetCode',
     'subcategory' => 'Graphs',
     'topic' => 'LeetCode · Graphs',

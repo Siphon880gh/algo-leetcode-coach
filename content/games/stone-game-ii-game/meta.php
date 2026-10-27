@@ -5,7 +5,7 @@ return [
     'title' => 'Stone Game II: take up to 2M piles',
     'leetcode' => 1140,
     'difficulty' => 'Med',
-    'summary' => 'f(i, M) = most stones the player to move can get from piles i..end. Take X piles (1 ≤ X ≤ 2M): suffix(i) − f(i + X, max(M, X)). If 2M covers the rest, take everything.',
+    'summary' => 'f(i, M) = most stones the player to move can get from piles i to end. Take X piles (X from 1 to 2M): suffix(i) − f(i + X, max(M, X)). If 2M covers the rest, take everything.',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

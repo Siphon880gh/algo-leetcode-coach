@@ -5,7 +5,7 @@ return [
     'title' => 'Count Different Palindromic Subsequences: handle equal ends carefully',
     'leetcode' => 730,
     'difficulty' => 'Hard',
-    'summary' => 'If s[i] ≠ s[j]: dp[i+1][j] + dp[i][j−1] − dp[i+1][j−1]. If equal, find the next equal letters inside: none → 2·inner + 2, one → 2·inner + 1, two or more → 2·inner − dp between them.',
+    'summary' => 'If s[i] not equal to s[j]: dp[i+1][j] + dp[i][j−1] − dp[i+1][j−1]. If equal, find the next equal letters inside: none gives 2 times inner + 2; one gives 2 times inner + 1; two or more gives 2 times inner − dp between them.',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

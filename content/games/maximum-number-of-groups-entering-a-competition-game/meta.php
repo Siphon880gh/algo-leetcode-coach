@@ -5,7 +5,7 @@ return [
     'title' => 'Maximum Groups Entering a Competition',
     'leetcode' => 2358,
     'difficulty' => 'Med',
-    'summary' => 'Sorting makes later groups bigger in sum automatically; only sizes 1, 2, 3, … matter. The answer is the largest g with g(g + 1)/2 ≤ n.',
+    'summary' => 'Sorting makes later groups bigger in sum automatically; only sizes 1, 2, 3, … matter. The answer is the largest g with g(g + 1) divided by 2 at most n.',
     'category' => 'LeetCode',
     'subcategory' => 'Binary Search',
     'topic' => 'LeetCode · Binary Search',

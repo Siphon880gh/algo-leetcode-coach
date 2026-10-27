@@ -5,7 +5,7 @@ return [
     'title' => 'Valid Word Abbreviation',
     'leetcode' => 408,
     'difficulty' => 'Easy',
-    'summary' => 'Walk the abbreviation: a letter must match word[i]; a number (no leading zero) skips that many characters. Valid iff both end together.',
+    'summary' => 'Walk the abbreviation: a letter must match word[i]; a number (no leading zero) skips that many characters. Valid exactly when both end together.',
     'category' => 'LeetCode',
     'subcategory' => 'Two Pointers',
     'topic' => 'LeetCode · Two Pointers',

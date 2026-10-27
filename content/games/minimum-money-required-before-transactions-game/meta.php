@@ -5,7 +5,7 @@ return [
     'title' => 'Minimum Money Before Transactions: worst-case order',
     'leetcode' => 2412,
     'difficulty' => 'Hard',
-    'summary' => 'The adversary does every losing transaction first. Total loss L = Σ max(0, cost − cashback). Then add the largest of cashback (losing) or cost (non-losing) for the transaction done last.',
+    'summary' => 'The adversary does every losing transaction first. Total loss L = the sum of max(0, cost − cashback). Then add the largest of cashback (losing) or cost (non-losing) for the transaction done last.',
     'category' => 'LeetCode',
     'subcategory' => 'Greedy',
     'topic' => 'LeetCode · Greedy',

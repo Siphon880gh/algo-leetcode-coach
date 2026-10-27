@@ -5,7 +5,7 @@ return [
     'title' => 'Count Subarrays With Even Odd Ratio I',
     'leetcode' => 4011,
     'difficulty' => 'Med',
-    'summary' => 'x/y ≤ a/b ⇔ b·x − a·y ≤ 0. Score evens as +b and odds as −a; a subarray is valid when its sum is ≤ 0 (that forces y > 0). So count pairs l < r with P[l] ≥ P[r], using a Fenwick tree over compressed prefix sums or merge sort.',
+    'summary' => 'x divided by y at most a divided by b exactly when b times x − a times y at most 0. Score evens as +b and odds as −a; a subarray is valid when its sum is at most 0 (that forces y > 0). So count pairs l < r with P[l] at least P[r], using a Fenwick tree over compressed prefix sums or merge sort.',
     'category' => 'LeetCode',
     'subcategory' => 'Prefix Sum',
     'topic' => 'LeetCode · Prefix Sum',

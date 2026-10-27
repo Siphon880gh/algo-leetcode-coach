@@ -30,7 +30,7 @@
 
   D('max-chunks-to-make-sorted-ii', {
     t: 'Max Chunks To Make Sorted II',
-    r: 'Stack of chunk maxima. For each x: if x ≥ top, push; else pop all chunks with max > x and push back the largest popped max (merging). Answer = stack size.',
+    r: 'Stack of chunk maxima. For each x: if x at least top, push; else pop all chunks with max > x and push back the largest popped max (merging). Answer = stack size.',
     g: R => ({ arr: R.ints(R.int(1, 7), 1, 6) }),
     s(I, T) { const st = []; I.arr.forEach((x, i) => { if (!st.length || x >= st[st.length - 1]) st.push(x); else { const m = st.pop(); while (st.length && st[st.length - 1] > x) st.pop(); st.push(m); } if (i < 7) { T.at({ arr: A(I.arr, { i }), chunkMaxes: S(st.slice()) }); T.n('Chunks so far?', st.length, 'Merge every chunk whose max exceeds x.'); } }); return st.length; }
   });
@@ -72,7 +72,7 @@
 
   D('buildings-with-an-ocean-view', {
     t: 'Buildings With an Ocean View',
-    r: 'Scan from the right tracking the tallest building seen; a building has a view iff it is strictly taller than all to its right.',
+    r: 'Scan from the right tracking the tallest building seen; a building has a view exactly when it is strictly taller than all to its right.',
     g: R => ({ heights: R.ints(R.int(1, 7), 1, 6) }),
     s(I, T) { const out = []; let mx = 0; for (let i = I.heights.length - 1; i >= 0; i--) { const v = I.heights[i] > mx; if (v) out.unshift(i); mx = Math.max(mx, I.heights[i]); if (I.heights.length - i <= 6) { T.at({ heights: A(I.heights, { i }) }); T.yn('Ocean view?', v, 'Taller than everything to the right.'); } } return out; }
   });
@@ -87,9 +87,9 @@
 
   D('maximum-subarray-min-product', {
     t: 'Maximum Subarray Min-Product',
-    r: 'Treat each element as the minimum: monotonic stacks give the widest span where it is the min; prefix sums give that span\'s sum. Maximize min × sum, then mod 1e9+7.',
+    r: 'Treat each element as the minimum: monotonic stacks give the widest span where it is the min; prefix sums give that span\'s sum. Maximize min times sum, then mod 1e9+7.',
     g: R => ({ nums: R.ints(R.int(1, 7), 1, 8) }),
-    s(I, T) { const a = I.nums; let best = 0; a.forEach((x, i) => { let l = i, r = i; while (l > 0 && a[l - 1] >= x) l--; while (r + 1 < a.length && a[r + 1] >= x) r++; const s = a.slice(l, r + 1).reduce((p, q) => p + q, 0); best = Math.max(best, x * s); if (i < 5) { T.at({ nums: A(a, { i, l, r }) }); T.n('Min-product with this as the minimum?', x * s, `${x} × span sum ${s}.`); } }); return best % MOD; }
+    s(I, T) { const a = I.nums; let best = 0; a.forEach((x, i) => { let l = i, r = i; while (l > 0 && a[l - 1] >= x) l--; while (r + 1 < a.length && a[r + 1] >= x) r++; const s = a.slice(l, r + 1).reduce((p, q) => p + q, 0); best = Math.max(best, x * s); if (i < 5) { T.at({ nums: A(a, { i, l, r }) }); T.n('Min-product with this as the minimum?', x * s, `${x} times span sum ${s}.`); } }); return best % MOD; }
   });
 
   D('number-of-visible-people-in-a-queue', {

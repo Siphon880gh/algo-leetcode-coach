@@ -5,7 +5,7 @@ return [
     'title' => 'Type of Triangle: check the triangle inequality first',
     'leetcode' => 3024,
     'difficulty' => 'Easy',
-    'summary' => 'Sort the sides; if a + b ≤ c it is "none". Otherwise count distinct lengths: 1 → equilateral, 2 → isosceles, 3 → scalene.',
+    'summary' => 'Sort the sides; if a + b at most c it is "none". Otherwise count distinct lengths: 1 is equilateral, 2 is isosceles, 3 is scalene.',
     'category' => 'LeetCode',
     'subcategory' => 'Math',
     'topic' => 'LeetCode · Math',

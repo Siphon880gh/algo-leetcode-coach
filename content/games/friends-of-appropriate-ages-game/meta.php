@@ -5,7 +5,7 @@ return [
     'title' => 'Friends of Appropriate Ages: count by age',
     'leetcode' => 825,
     'difficulty' => 'Med',
-    'summary' => 'Count people per age. x sends to y unless age[y] ≤ 0.5·age[x] + 7, age[y] > age[x], or (age[y] > 100 and age[x] < 100). Pairs of ages a, b give cnt[a] · (cnt[b] − [a = b]) requests.',
+    'summary' => 'Count people per age. x sends to y unless age[y] at most 0.5 times age[x] + 7, age[y] > age[x], or (age[y] > 100 and age[x] < 100). Pairs of ages a, b give cnt[a] times (cnt[b] − [a = b]) requests.',
     'category' => 'LeetCode',
     'subcategory' => 'Math',
     'topic' => 'LeetCode · Math',

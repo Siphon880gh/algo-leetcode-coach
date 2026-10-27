@@ -5,7 +5,7 @@ return [
     'title' => 'Minimum Total Operations',
     'leetcode' => 3353,
     'difficulty' => 'Easy',
-    'summary' => 'An operation on a prefix can fix one "step" between neighbors. Each index where nums[i] ≠ nums[i + 1] needs exactly one operation.',
+    'summary' => 'An operation on a prefix can fix one "step" between neighbors. Each index where nums[i] not equal to nums[i + 1] needs exactly one operation.',
     'category' => 'LeetCode',
     'subcategory' => 'Arrays',
     'topic' => 'LeetCode · Arrays',

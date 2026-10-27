@@ -5,7 +5,7 @@ return [
     'title' => 'Maximum Compatibility Score Sum',
     'leetcode' => 1947,
     'difficulty' => 'Med',
-    'summary' => 'Precompute the score of every student–mentor pair (matching answers). Backtrack assigning mentors to students with a used mask (or bitmask DP) and maximize the sum.',
+    'summary' => 'Precompute the score of every student-mentor pair (matching answers). Backtrack assigning mentors to students with a used mask (or bitmask DP) and maximize the sum.',
     'category' => 'LeetCode',
     'subcategory' => 'Backtracking',
     'topic' => 'LeetCode · Backtracking',

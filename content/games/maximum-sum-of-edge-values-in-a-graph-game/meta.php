@@ -5,7 +5,7 @@ return [
     'title' => 'Maximum Sum of Edge Values in a Graph',
     'leetcode' => 3547,
     'difficulty' => 'Hard',
-    'summary' => 'With degree ≤ 2 and connected, the graph is a path or a cycle (m = n). Place n first, then each smaller value at whichever end currently holds the larger number, so big values sit beside big values. A cycle also links the two ends.',
+    'summary' => 'With degree at most 2 and connected, the graph is a path or a cycle (m = n). Place n first, then each smaller value at whichever end currently holds the larger number, so big values sit beside big values. A cycle also links the two ends.',
     'category' => 'LeetCode',
     'subcategory' => 'Greedy',
     'topic' => 'LeetCode · Greedy',

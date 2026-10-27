@@ -5,7 +5,7 @@ return [
     'title' => 'Count All Possible Routes: memo on (city, fuel)',
     'leetcode' => 1575,
     'difficulty' => 'Hard',
-    'summary' => 'f(city, fuel) = (city == finish ? 1 : 0) + Σ f(next, fuel − |loc[city] − loc[next]|) over other cities with enough fuel.',
+    'summary' => 'f(city, fuel) = (city == finish ? 1 : 0) + the sum of f(next, fuel − |loc[city] − loc[next]|) over other cities with enough fuel.',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

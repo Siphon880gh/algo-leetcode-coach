@@ -5,7 +5,7 @@ return [
     'title' => 'Most Visited Sector: only start and end matter',
     'leetcode' => 1560,
     'difficulty' => 'Easy',
-    'summary' => 'Full laps add equally to every sector. The extra visits are from rounds[0] to rounds[last]: [start..end] if start ≤ end, else [1..end] plus [start..n].',
+    'summary' => 'Full laps add equally to every sector. The extra visits are from rounds[0] to rounds[last]: [start to end] if start at most end, else [1 to end] plus [start to n].',
     'category' => 'LeetCode',
     'subcategory' => 'Math',
     'topic' => 'LeetCode · Math',

@@ -5,7 +5,7 @@ return [
     'title' => 'Number of Substrings With Fixed Ratio',
     'leetcode' => 2489,
     'difficulty' => 'Med',
-    'summary' => 'zeros:ones = num1:num2 ⇔ zeros·num2 − ones·num1 = 0. Count prefix values of that key; equal keys bound a valid substring.',
+    'summary' => 'zeros:ones = num1:num2 exactly when zeros times num2 − ones times num1 = 0. Count prefix values of that key; equal keys bound a valid substring.',
     'category' => 'LeetCode',
     'subcategory' => 'Prefix Sum',
     'topic' => 'LeetCode · Prefix Sum',

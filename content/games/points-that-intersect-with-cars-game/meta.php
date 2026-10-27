@@ -5,7 +5,7 @@ return [
     'title' => 'Points That Intersect With Cars',
     'leetcode' => 2848,
     'difficulty' => 'Easy',
-    'summary' => 'Difference array over 1..100: +1 at start, −1 after end. Count points with positive running coverage.',
+    'summary' => 'Difference array over 1 to 100: +1 at start, −1 after end. Count points with positive running coverage.',
     'category' => 'LeetCode',
     'subcategory' => 'Prefix Sum',
     'topic' => 'LeetCode · Prefix Sum',

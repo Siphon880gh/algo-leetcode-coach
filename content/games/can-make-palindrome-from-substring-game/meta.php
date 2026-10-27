@@ -5,7 +5,7 @@ return [
     'title' => 'Can Make Palindrome from Substring',
     'leetcode' => 1177,
     'difficulty' => 'Med',
-    'summary' => 'Prefix parity masks: mask[r+1] XOR mask[l] gives letters with odd counts. With odd letters m, we need ⌊m/2⌋ replacements ≤ k.',
+    'summary' => 'Prefix parity masks: mask[r+1] XOR mask[l] gives letters with odd counts. With odd letters m, we need half of m (rounded down) replacements at most k.',
     'category' => 'LeetCode',
     'subcategory' => 'Prefix Sum',
     'topic' => 'LeetCode · Prefix Sum',

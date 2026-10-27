@@ -5,7 +5,7 @@ return [
     'title' => 'Path in Zigzag Labelled Tree: mirror, then halve',
     'leetcode' => 1104,
     'difficulty' => 'Med',
-    'summary' => 'In a normal heap the parent is label / 2. Zigzag rows mirror labels within the row: parent = (2^level + 2^(level+1) − 1 − label) / 2.',
+    'summary' => 'In a normal heap the parent is label divided by 2. Zigzag rows mirror labels within the row: parent = (2 to the power level + 2 to the power (level+1) − 1 − label) divided by 2.',
     'category' => 'LeetCode',
     'subcategory' => 'Trees',
     'topic' => 'LeetCode · Trees',

@@ -28,7 +28,7 @@
 
   D('count-houses-in-a-circular-street', {
     t: 'Count Houses in a Circular Street',
-    r: 'Close every door while walking k houses (k ≥ n, so all are closed). Open the current door, then walk forward counting steps until you see an open door again — that count is n.',
+    r: 'Close every door while walking k houses (k at least n, so all are closed). Open the current door, then walk forward counting steps until you see an open door again — that count is n.',
     g: R => ({ street: R.ints(R.int(1, 6), 0, 1), k: 8 }),
     s(I, T) { return street(I, T, true); }
   });
@@ -42,9 +42,9 @@
 
   D('collecting-chocolates', {
     t: 'Collecting Chocolates',
-    r: 'With k rotations (cost k·x), chocolate type i can be bought at the cheapest of nums[i..i+k] (circularly). Try every k from 0 to n − 1, keeping a running min per type.',
+    r: 'With k rotations (cost k times x), chocolate type i can be bought at the cheapest of nums[i to i+k] (circularly). Try every k from 0 to n − 1, keeping a running min per type.',
     g: R => ({ nums: R.ints(R.int(1, 5), 1, 20), x: R.int(1, 10) }),
-    s(I, T) { const n = I.nums.length, m = I.nums.slice(); let best = sum(m); for (let k = 0; k < n; k++) { if (k) for (let i = 0; i < n; i++) m[i] = Math.min(m[i], I.nums[(i + k) % n]); const c = k * I.x + sum(m); best = Math.min(best, c); if (k < 4) { T.at({ cheapest: A(m.slice()), rotations: k }); T.n('Total cost with this many rotations?', c, 'k·x + Σ cheapest.'); } } return best; }
+    s(I, T) { const n = I.nums.length, m = I.nums.slice(); let best = sum(m); for (let k = 0; k < n; k++) { if (k) for (let i = 0; i < n; i++) m[i] = Math.min(m[i], I.nums[(i + k) % n]); const c = k * I.x + sum(m); best = Math.min(best, c); if (k < 4) { T.at({ cheapest: A(m.slice()), rotations: k }); T.n('Total cost with this many rotations?', c, 'k times x + the sum of cheapest.'); } } return best; }
   });
 
   D('longest-alternating-subarray', {
@@ -56,9 +56,9 @@
 
   D('number-of-employees-who-met-the-target', {
     t: 'Number of Employees Who Met the Target',
-    r: 'Count hours[i] ≥ target.',
+    r: 'Count hours[i] at least target.',
     g: R => ({ hours: R.ints(R.int(1, 6), 0, 9), target: R.int(0, 9) }),
-    s(I, T) { let c = 0; I.hours.forEach((h, i) => { if (h >= I.target) c++; if (i < 6) { T.at({ hours: A(I.hours, { i }) }); T.yn('Met the target?', h >= I.target, `≥ ${I.target}.`); } }); return c; }
+    s(I, T) { let c = 0; I.hours.forEach((h, i) => { if (h >= I.target) c++; if (i < 6) { T.at({ hours: A(I.hours, { i }) }); T.yn('Met the target?', h >= I.target, ` at least ${I.target}.`); } }); return c; }
   });
 
   D('minimum-right-shifts-to-sort-the-array', {
@@ -70,14 +70,14 @@
 
   D('maximum-value-of-an-ordered-triplet-i', {
     t: 'Maximum Value of an Ordered Triplet I',
-    r: 'Scan k left to right keeping the best prefix max and the best (max_i − nums[j]) so far; value = bestDiff × nums[k] (or 0).',
+    r: 'Scan k left to right keeping the best prefix max and the best (max_i − nums[j]) so far; value = bestDiff times nums[k] (or 0).',
     g: R => ({ nums: R.ints(R.int(3, 7), 1, 20) }),
-    s(I, T) { let mx = 0, diff = 0, best = 0; I.nums.forEach((x, k) => { best = Math.max(best, diff * x); diff = Math.max(diff, mx - x); mx = Math.max(mx, x); if (k < 6) { T.at({ nums: A(I.nums, { i: k }), bestDiff: diff }); T.n('Best value so far?', best, 'bestDiff × nums[k].'); } }); return best; }
+    s(I, T) { let mx = 0, diff = 0, best = 0; I.nums.forEach((x, k) => { best = Math.max(best, diff * x); diff = Math.max(diff, mx - x); mx = Math.max(mx, x); if (k < 6) { T.at({ nums: A(I.nums, { i: k }), bestDiff: diff }); T.n('Best value so far?', best, 'bestDiff times nums[k].'); } }); return best; }
   });
 
   D('maximum-value-of-an-ordered-triplet-ii', {
     t: 'Maximum Value of an Ordered Triplet II',
-    r: 'One pass: as each element arrives, first use it as k (bestDiff × x), then as j (update bestDiff = max(prefixMax − x)), then as i (update prefixMax).',
+    r: 'One pass: as each element arrives, first use it as k (bestDiff times x), then as j (update bestDiff = max(prefixMax − x)), then as i (update prefixMax).',
     g: R => ({ nums: R.ints(R.int(3, 7), 1, 20) }),
     s(I, T) { let mx = 0, diff = 0, best = 0; I.nums.forEach((x, k) => { best = Math.max(best, diff * x); diff = Math.max(diff, mx - x); mx = Math.max(mx, x); if (k < 6) { T.at({ nums: A(I.nums, { i: k }), prefixMax: mx }); T.n('Best (prefixMax − nums[j]) so far?', diff, 'Update after using x as k.'); } }); return best; }
   });
@@ -107,7 +107,7 @@
     t: 'Maximum Area of Longest Diagonal Rectangle',
     r: 'Compare squared diagonals l² + w²; among the longest, take the largest area.',
     g: R => ({ dimensions: Array.from({ length: R.int(1, 5) }, () => [R.int(1, 9), R.int(1, 9)]) }),
-    s(I, T) { let bd = -1, ba = 0; I.dimensions.forEach(([l, w], i) => { const d = l * l + w * w; if (d > bd || (d === bd && l * w > ba)) { bd = d; ba = l * w; } if (i < 5) { T.at({ rect: `${l} × ${w}` }); T.n('Squared diagonal?', d, 'l² + w².'); } }); return ba; }
+    s(I, T) { let bd = -1, ba = 0; I.dimensions.forEach(([l, w], i) => { const d = l * l + w * w; if (d > bd || (d === bd && l * w > ba)) { bd = d; ba = l * w; } if (i < 5) { T.at({ rect: `${l} by ${w}` }); T.n('Squared diagonal?', d, 'l² + w².'); } }); return ba; }
   });
 
   D('minimum-operations-to-exceed-threshold-value-i', {
@@ -147,21 +147,21 @@
 
   D('find-indices-of-stable-mountains', {
     t: 'Find Indices of Stable Mountains',
-    r: 'Mountain i (i ≥ 1) is stable if height[i − 1] > threshold.',
+    r: 'Mountain i (i at least 1) is stable if height[i − 1] > threshold.',
     g: R => ({ height: R.ints(R.int(2, 7), 1, 9), threshold: R.int(1, 8) }),
     s(I, T) { const out = []; for (let i = 1; i < I.height.length; i++) { const ok = I.height[i - 1] > I.threshold; if (ok) out.push(i); if (i < 6) { T.at({ height: A(I.height, { i, j: i - 1 }) }); T.yn('Stable?', ok, 'Previous mountain above threshold.'); } } return out; }
   });
 
   D('adjacent-increasing-subarrays-detection-i', {
     t: 'Adjacent Increasing Subarrays Detection I',
-    r: 'Compute inc[i] = length of the strictly increasing run ending at i. Two adjacent increasing windows of length k exist if some run is ≥ 2k, or two consecutive runs are both ≥ k.',
+    r: 'Compute inc[i] = length of the strictly increasing run ending at i. Two adjacent increasing windows of length k exist if some run is at least 2k, or two consecutive runs are both at least k.',
     g: R => { const k = R.int(1, 3); return { nums: R.ints(R.int(2 * k, 9), 1, 9), k }; },
-    s(I, T) { const a = I.nums, k = I.k, inc = a.map(() => 1); for (let i = 1; i < a.length; i++) if (a[i] > a[i - 1]) inc[i] = inc[i - 1] + 1; for (let s = 0; s + 2 * k <= a.length; s++) { const ok = inc[s + k - 1] >= k && inc[s + 2 * k - 1] >= k; if (s < 5) { T.at({ nums: A(a, { i: s, j: s + 2 * k - 1 }) }); T.yn('Both windows strictly increasing?', ok, 'Run length at each window end ≥ k.'); } if (ok) return true; } return false; }
+    s(I, T) { const a = I.nums, k = I.k, inc = a.map(() => 1); for (let i = 1; i < a.length; i++) if (a[i] > a[i - 1]) inc[i] = inc[i - 1] + 1; for (let s = 0; s + 2 * k <= a.length; s++) { const ok = inc[s + k - 1] >= k && inc[s + 2 * k - 1] >= k; if (s < 5) { T.at({ nums: A(a, { i: s, j: s + 2 * k - 1 }) }); T.yn('Both windows strictly increasing?', ok, 'Run length at each window end at least k.'); } if (ok) return true; } return false; }
   });
 
   D('minimum-total-operations', {
     t: 'Minimum Total Operations',
-    r: 'An operation on a prefix can fix one "step" between neighbors. Each index where nums[i] ≠ nums[i + 1] needs exactly one operation.',
+    r: 'An operation on a prefix can fix one "step" between neighbors. Each index where nums[i] not equal to nums[i + 1] needs exactly one operation.',
     g: R => ({ nums: R.ints(R.int(1, 7), 1, 4) }),
     s(I, T) { let c = 0; for (let i = 0; i + 1 < I.nums.length; i++) { const d = I.nums[i] !== I.nums[i + 1]; if (d) c++; if (i < 6) { T.at({ nums: A(I.nums, { i, j: i + 1 }) }); T.yn('Is there a step here?', d, 'Different neighbors.'); } } return c; }
   });
@@ -175,7 +175,7 @@
 
   D('count-subarrays-of-length-three-with-a-condition', {
     t: 'Count Subarrays of Length Three With a Condition',
-    r: 'Check every window [a, b, c]: count it if 2·(a + c) == b.',
+    r: 'Check every window [a, b, c]: count it if 2 times (a + c) == b.',
     g: R => ({ nums: R.ints(R.int(3, 8), -4, 8) }),
     s(I, T) { let c = 0; for (let i = 0; i + 2 < I.nums.length; i++) { const ok = 2 * (I.nums[i] + I.nums[i + 2]) === I.nums[i + 1]; if (ok) c++; if (i < 6) { T.at({ nums: A(I.nums, { i, j: i + 2 }) }); T.yn('Is a + c exactly half of the middle?', ok, '2(a + c) == b.'); } } return c; }
   });

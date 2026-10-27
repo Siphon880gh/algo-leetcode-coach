@@ -27,7 +27,7 @@
       else if (mode < 5) s.splice(rng.int(0, s.length), 0, rng.pick(['(', '[', '{']));
       var t = new LC.Trace();
       t.setup = 's = "' + s.join('') + '"';
-      var st = [], acts = [['push', 'Push'], ['pop', 'Pop (matches top)'], ['bad', 'Invalid → false']];
+      var st = [], acts = [['push', 'Push'], ['pop', 'Pop (matches top)'], ['bad', 'Invalid: false']];
       for (i = 0; i < s.length; i++) {
         var ch = s[i], v = tokView(s, i, st);
         if (!PAIR[ch]) { t.act(v, '"' + ch + '" arrives.', acts, 'push', { pop: 'Openers never pop; they wait for their closer.', bad: 'An opener cannot make the string invalid yet.' }, 'Opener waits on the stack.'); st.push(ch); continue; }
@@ -37,7 +37,7 @@
         return t;
       }
       var endActs = [['T', 'Return true'], ['F', 'Return false']];
-      t.act(tokView(s, s.length, st), 'Input finished. Verdict?', endActs, st.length ? 'F' : 'T', st.length ? st.length + ' opener(s) never closed.' : 'Every opener was matched; the stack is empty.', st.length ? 'Leftover openers mean false.' : 'Empty stack means valid.');
+      t.act(tokView(s, s.length, st), 'Input finished. Verdict?', endActs, st.length ? 'F' : 'T', st.length ? st.length + ' openers never closed.' : 'Every opener was matched; the stack is empty.', st.length ? 'Leftover openers mean false.' : 'Empty stack means valid.');
       t.done(tokView(s, s.length, st), st.length ? 'Invalid: unclosed openers.' : 'Valid. O(n) time, O(n) stack.');
       return t;
     }
@@ -87,10 +87,10 @@
     });
   }
   adjacentGame('remove-all-adjacent-duplicates-in-string', 'Remove Adjacent Duplicates: equal to the top cancels',
-    'Compare each char to the top of the stack. Equal → pop (both vanish). Otherwise push. Chain reactions happen for free.',
+    'Compare each char to the top of the stack. Equal: pop (both vanish). Otherwise push. Chain reactions happen for free.',
     ['a', 'b', 'c'], 'same', function (a, b) { return '"' + b + '" equals the top "' + a + '".'; });
   adjacentGame('make-the-string-great', 'Make The String Great: same letter, opposite case cancels',
-    'Compare each char to the top. Same letter in the opposite case (a/A) → pop both. Otherwise push.',
+    'Compare each char to the top. Same letter in the opposite case (a or A): pop both. Otherwise push.',
     ['a', 'A', 'b', 'B', 'c'], 'case', function (a, b) { return '"' + a + '" and "' + b + '" are the same letter in opposite case.'; });
 
   LC.register('backspace-string-compare', {
@@ -116,7 +116,7 @@
         results.push(st.join(''));
       });
       var eq = results[0] === results[1];
-      t.act(V(P.vars([['s types', '"' + results[0] + '"'], ['t types', '"' + results[1] + '"']])), 'Same final text?', [['T', 'Equal → true'], ['F', 'Different → false']], eq ? 'T' : 'F', eq ? 'Both type "' + results[0] + '".' : '"' + results[0] + '" ≠ "' + results[1] + '".', eq ? 'True.' : 'False.');
+      t.act(V(P.vars([['s types', '"' + results[0] + '"'], ['t types', '"' + results[1] + '"']])), 'Same final text?', [['T', 'Equal: true'], ['F', 'Different: false']], eq ? 'T' : 'F', eq ? 'Both type "' + results[0] + '".' : '"' + results[0] + '" is not "' + results[1] + '".', eq ? 'True.' : 'False.');
       t.done(V(P.vars([['s', '"' + results[0] + '"'], ['t', '"' + results[1] + '"']])), eq ? 'True.' : 'False.');
       return t;
     }
@@ -191,7 +191,7 @@
       for (i = 0; i < ops.length; i++) {
         var o = ops[i], v = tokView(ops, i, st);
         if (o === '+') { t.num(v, '"+": what gets pushed?', st[st.length - 1] + st[st.length - 2], { wrong: 'Sum the top two: ' + st[st.length - 2] + ' + ' + st[st.length - 1] + '.', note: 'Pushed the sum.' }); st.push(st[st.length - 1] + st[st.length - 2]); }
-        else if (o === 'D') { t.num(v, '"D": what gets pushed?', 2 * st[st.length - 1], { wrong: 'Double the top: 2 × ' + st[st.length - 1] + '.', note: 'Pushed the double.' }); st.push(2 * st[st.length - 1]); }
+        else if (o === 'D') { t.num(v, '"D": what gets pushed?', 2 * st[st.length - 1], { wrong: 'Double the top: 2 times ' + st[st.length - 1] + '.', note: 'Pushed the double.' }); st.push(2 * st[st.length - 1]); }
         else if (o === 'C') { t.act(v, '"C" arrives.', acts, 'pop', 'C cancels the previous score.', 'Removed ' + st[st.length - 1] + '.'); st.pop(); }
         else { t.act(v, '"' + o + '" arrives.', acts, 'push', 'A plain integer is a new score.', 'Recorded.'); st.push(Number(o)); }
       }
@@ -254,7 +254,7 @@
   });
 
   LC.register('asteroid-collision', {
-    title: 'Asteroid Collision: only → meets ←',
+    title: 'Asteroid Collision: only, so meets left',
     rule: 'A collision happens only when the top of the stack moves right (+) and the new asteroid moves left (−). The smaller one explodes; equal sizes both explode.',
     make: function (rng, round) {
       var a = []; for (var i = 0; i < 7 + round; i++) { var v = rng.int(1, 9); a.push(rng.chance(0.5) ? v : -v); }
@@ -289,7 +289,7 @@
       var s = []; for (var i = 0; i < 9 + round; i++) s.push(rng.chance(0.55) ? '(' : ')');
       var t = new LC.Trace();
       t.setup = 's = "' + s.join('') + '"';
-      var st = [-1], best = 0, acts = [['push', 'Push i'], ['measure', 'Pop, then length = i − top'], ['base', 'Pop, stack empty → i is the new base']];
+      var st = [-1], best = 0, acts = [['push', 'Push i'], ['measure', 'Pop, then length = i − top'], ['base', 'Pop, stack empty: i is the new base']];
       for (i = 0; i < s.length; i++) {
         var v = V(P.arr(s, { ptr: { i: i }, cls: (function () { var c = {}; c[i] = 'hit'; return c; })() }), P.stack(st, 'index stack'), P.vars([['best', best]]));
         if (s[i] === '(') { t.act(v, '"(" at ' + i + '.', acts, 'push', 'Openers push their index.', 'Pushed ' + i + '.'); st.push(i); continue; }

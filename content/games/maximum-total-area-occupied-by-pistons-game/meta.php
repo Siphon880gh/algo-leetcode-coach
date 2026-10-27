@@ -5,7 +5,7 @@ return [
     'title' => 'Maximum Total Area Occupied by Pistons',
     'leetcode' => 3279,
     'difficulty' => 'Hard',
-    'summary' => 'Total area changes linearly between "events" when a piston hits 0 or height and flips direction. Track the slope (#up − #down) with a difference array of event times over one period 2·height and take the maximum area.',
+    'summary' => 'Total area changes linearly between "events" when a piston hits 0 or height and flips direction. Track the slope (#up − #down) with a difference array of event times over one period 2 times height and take the maximum area.',
     'category' => 'LeetCode',
     'subcategory' => 'Prefix Sum',
     'topic' => 'LeetCode · Prefix Sum',

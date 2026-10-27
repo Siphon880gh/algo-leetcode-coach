@@ -5,7 +5,7 @@ return [
     'title' => 'Range Addition II',
     'leetcode' => 598,
     'difficulty' => 'Easy',
-    'summary' => 'Every op increments the top-left a × b block, so the cells hit by all ops form the block min(a) × min(b). Those cells hold the maximum.',
+    'summary' => 'Every op increments the top-left a times b block, so the cells hit by all ops form the block min(a) times min(b). Those cells hold the maximum.',
     'category' => 'LeetCode',
     'subcategory' => 'Design',
     'topic' => 'LeetCode · Design',

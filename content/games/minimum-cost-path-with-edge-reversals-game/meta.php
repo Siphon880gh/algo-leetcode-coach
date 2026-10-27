@@ -5,7 +5,7 @@ return [
     'title' => 'Minimum Cost Path with Edge Reversals',
     'leetcode' => 3650,
     'difficulty' => 'Med',
-    'summary' => 'A switch lets you walk any incoming edge v → u backwards at double cost, and a shortest path never revisits a node, so just add a reverse edge u → v with cost 2w for every edge and run Dijkstra.',
+    'summary' => 'A switch lets you walk any incoming edge v to u backwards at double cost, and a shortest path never revisits a node, so just add a reverse edge u to v with cost 2w for every edge and run Dijkstra.',
     'category' => 'LeetCode',
     'subcategory' => 'Graphs',
     'topic' => 'LeetCode · Graphs',

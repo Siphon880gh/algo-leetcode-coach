@@ -5,7 +5,7 @@ return [
     'title' => 'Count Dominant Indices',
     'leetcode' => 3833,
     'difficulty' => 'Easy',
-    'summary' => 'Sweep from the right with a running suffix sum and count. Index i is dominant when nums[i] × count > suffix sum (compare without dividing).',
+    'summary' => 'Sweep from the right with a running suffix sum and count. Index i is dominant when nums[i] times count > suffix sum (compare without dividing).',
     'category' => 'LeetCode',
     'subcategory' => 'Arrays',
     'topic' => 'LeetCode · Arrays',

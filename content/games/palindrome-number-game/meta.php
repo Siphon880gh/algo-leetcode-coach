@@ -5,7 +5,7 @@ return [
     'title' => 'Palindrome Number: reverse half the digits',
     'leetcode' => 9,
     'difficulty' => 'Easy',
-    'summary' => 'Negatives and numbers ending in 0 (except 0) are not palindromes. Move digits from x onto rev until rev ≥ x; then compare x with rev (or rev / 10 for odd length).',
+    'summary' => 'Negatives and numbers ending in 0 (except 0) are not palindromes. Move digits from x onto rev until rev at least x; then compare x with rev (or rev divided by 10 for odd length).',
     'category' => 'LeetCode',
     'subcategory' => 'Math',
     'topic' => 'LeetCode · Math',

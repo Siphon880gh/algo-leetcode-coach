@@ -5,7 +5,7 @@ return [
     'title' => 'Target Sum',
     'leetcode' => 494,
     'difficulty' => 'Med',
-    'summary' => 'Let P be the + set: sum(P) = (total + target) / 2. Count subsets with that sum by 0/1 knapsack (or backtrack ± with memo).',
+    'summary' => 'Let P be the + set: sum(P) = (total + target) divided by 2. Count subsets with that sum by 0-1 knapsack (or backtrack ± with memo).',
     'category' => 'LeetCode',
     'subcategory' => 'Backtracking',
     'topic' => 'LeetCode · Backtracking',

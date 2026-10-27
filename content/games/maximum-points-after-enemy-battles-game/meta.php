@@ -5,7 +5,7 @@ return [
     'title' => 'Maximum Points After Enemy Battles: farm the weakest',
     'leetcode' => 3207,
     'difficulty' => 'Med',
-    'summary' => 'If you cannot beat the weakest enemy, 0. Otherwise absorb every other enemy\'s energy and keep beating the weakest: ⌊(energy + Σ − min) / min⌋.',
+    'summary' => 'If you cannot beat the weakest enemy, 0. Otherwise absorb every other enemy\'s energy and keep beating the weakest: (energy + the total − min) divided by min, rounded down.',
     'category' => 'LeetCode',
     'subcategory' => 'Greedy',
     'topic' => 'LeetCode · Greedy',

@@ -5,7 +5,7 @@ return [
     'title' => 'Count Operations to Obtain Zero: subtract in bulk',
     'leetcode' => 2169,
     'difficulty' => 'Easy',
-    'summary' => 'This is Euclid with subtraction. Each phase does ⌊a / b⌋ subtractions at once, then continue with (b, a mod b) until one is 0.',
+    'summary' => 'This is Euclid with subtraction. Each phase does a divided by b (rounded down) subtractions at once, then continue with (b, a mod b) until one is 0.',
     'category' => 'LeetCode',
     'subcategory' => 'Math',
     'topic' => 'LeetCode · Math',

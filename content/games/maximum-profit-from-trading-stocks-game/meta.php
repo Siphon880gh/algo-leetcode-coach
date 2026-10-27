@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Maximum Profit From Trading Stocks: 0/1 knapsack on the budget',
+    'title' => 'Maximum Profit From Trading Stocks: 0-1 knapsack on the budget',
     'leetcode' => 2291,
     'difficulty' => 'Med',
     'summary' => 'Each stock costs present[i] and earns future[i] − present[i]. dp[b] = best profit with budget b; process each stock with b descending.',

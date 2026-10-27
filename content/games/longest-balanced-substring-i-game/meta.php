@@ -5,7 +5,7 @@ return [
     'title' => 'Longest Balanced Substring I',
     'leetcode' => 3713,
     'difficulty' => 'Med',
-    'summary' => 'n ≤ 1000, so fix each start and extend the end, updating letter counts, the number of distinct letters and the maximum count. The substring is balanced when maxCount × distinct = length.',
+    'summary' => 'n at most 1000, so fix each start and extend the end, updating letter counts, the number of distinct letters and the maximum count. The substring is balanced when maxCount times distinct = length.',
     'category' => 'LeetCode',
     'subcategory' => 'Hash Table',
     'topic' => 'LeetCode · Hash Table',

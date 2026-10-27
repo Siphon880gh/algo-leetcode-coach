@@ -5,7 +5,7 @@ return [
     'title' => 'Find the Losers of the Circular Game',
     'leetcode' => 2682,
     'difficulty' => 'Easy',
-    'summary' => 'Pass the ball i·k steps on turn i; stop when someone receives it a second time. Everyone who never received it loses.',
+    'summary' => 'Pass the ball i times k steps on turn i; stop when someone receives it a second time. Everyone who never received it loses.',
     'category' => 'LeetCode',
     'subcategory' => 'Simulation',
     'topic' => 'LeetCode · Simulation',

@@ -5,7 +5,7 @@ return [
     'title' => 'Uncommon Words: count across both sentences',
     'leetcode' => 884,
     'difficulty' => 'Easy',
-    'summary' => 'A word is uncommon iff it appears exactly once in the combined sentences.',
+    'summary' => 'A word is uncommon exactly when it appears exactly once in the combined sentences.',
     'category' => 'LeetCode',
     'subcategory' => 'Strings',
     'topic' => 'LeetCode · Strings',

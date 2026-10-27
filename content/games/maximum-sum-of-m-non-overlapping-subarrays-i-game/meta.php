@@ -5,7 +5,7 @@ return [
     'title' => 'Maximum Sum of M Non-Overlapping Subarrays I',
     'leetcode' => 3956,
     'difficulty' => 'Hard',
-    'summary' => 'dp[j][i] = best sum of exactly j subarrays inside the first i elements. Either skip element i, or end a subarray at i of length L in [l, r]: dp[j−1][i−L] + P[i] − P[i−L]. Take the best over j = 1..m at i = n. O(n·m·(r − l)) fits n ≤ 1000.',
+    'summary' => 'dp[j][i] = best sum of exactly j subarrays inside the first i elements. Either skip element i, or end a subarray at i of length L in [l, r]: dp[j−1][i−L] + P[i] − P[i−L]. Take the best over j = 1 to m at i = n. O(n times m times (r − l)) fits n at most 1000.',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

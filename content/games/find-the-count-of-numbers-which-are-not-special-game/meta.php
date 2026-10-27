@@ -5,7 +5,7 @@ return [
     'title' => 'Numbers That Are Not Special: squares of primes',
     'leetcode' => 3233,
     'difficulty' => 'Med',
-    'summary' => 'Exactly two proper divisors (1 and p) means x = p² for a prime p. Count primes p with l ≤ p² ≤ r and subtract from the range size.',
+    'summary' => 'Exactly two proper divisors (1 and p) means x = p² for a prime p. Count primes p with l at most p² at most r and subtract from the range size.',
     'category' => 'LeetCode',
     'subcategory' => 'Math',
     'topic' => 'LeetCode · Math',

@@ -8,7 +8,7 @@
 
   D('string-to-integer-atoi', {
     t: 'String to Integer (atoi): skip, sign, digits, clamp',
-    r: 'Skip leading spaces, read one optional sign, read digits until a non-digit, then clamp to [−2^31, 2^31 − 1].',
+    r: 'Skip leading spaces, read one optional sign, read digits until a non-digit, then clamp to [−2 to the power 31, 2 to the power 31 − 1].',
     g: R => ({ s: R.pick(['', ' ', '  ']) + R.pick(['', '-', '+']) + R.str(R.int(0, 2), '0') + R.str(R.int(0, 6), '0123456789') + R.pick(['', 'abc', ' 42', '.5']) + (R.chance(0.15) ? '99999999999' : '') }),
     s(I, T) { const s = I.s; let i = 0; while (s[i] === ' ') i++; T.at({ s: chars(s) }); T.n('Index of the first non-space character?', i, 'Skip leading spaces.'); let sg = 1; if (s[i] === '-' || s[i] === '+') { sg = s[i] === '-' ? -1 : 1; i++; } T.n('Sign (1 or −1)?', sg, 'At most one sign.'); let v = 0; while (i < s.length && s[i] >= '0' && s[i] <= '9') { v = v * 10 + (+s[i]); i++; if (v > 2 ** 31) break; } const r = Math.max(-(2 ** 31), Math.min(2 ** 31 - 1, sg * v)); T.n('Result after clamping?', r === 0 ? 0 : r, 'Sign times the digits read, limited to the 32-bit range.'); return r === 0 ? 0 : r; }
   });
@@ -30,28 +30,28 @@
 
   D('valid-number', {
     t: 'Valid Number: digits, dot, exponent',
-    r: 'A valid number is an optional sign, digits with at most one dot (at least one digit overall), optionally followed by e/E, an optional sign and at least one digit.',
+    r: 'A valid number is an optional sign, digits with at most one dot (at least one digit overall), optionally followed by e or E, an optional sign and at least one digit.',
     g: R => ({ s: R.pick(['', '+', '-']) + R.str(R.int(0, 2), '0123456789') + R.pick(['', '.', '.5']) + R.pick(['', 'e', 'E3', 'e-2', 'e+', 'a']) + R.pick(['', '', '1', '.']) }),
     s(I, T) { const s = I.s, m = s.match(/^([+-]?(\d+\.?\d*|\.\d+))([eE][+-]?\d+)?$/); const base = s.split(/[eE]/)[0]; T.at({ s: chars(s) }); T.yn(`Is the part before any exponent ("${base}") a valid decimal?`, /^[+-]?(\d+\.?\d*|\.\d+)$/.test(base), 'Optional sign, digits, at most one dot, and at least 1 digit.'); T.yn('Does s contain an exponent marker (e or E)?', /[eE]/.test(s), 'If so, an integer must follow it.'); T.yn('Is s a valid number?', !!m, 'A valid decimal, then an optional exponent with an integer.'); return !!m; }
   });
 
   D('isomorphic-strings', {
     t: 'Isomorphic Strings: two-way mapping',
-    r: 'Map s[i] → t[i] and t[i] → s[i]; any conflict in either direction means not isomorphic.',
+    r: 'Map s[i] to t[i] and t[i] to s[i]; any conflict in either direction means not isomorphic.',
     g: R => { const n = R.int(1, 6), s = R.str(n, 'abc'); const p = R.shuffle(['x', 'y', 'z']); let t = [...s].map(c => p['abc'.indexOf(c)]).join(''); if (R.chance(0.4)) t = R.str(n, 'xyz'); return { s, t }; },
-    s(I, T) { const a = new Map(), b = new Map(); for (let i = 0; i < I.s.length; i++) { const x = I.s[i], y = I.t[i]; const ok = (!a.has(x) || a.get(x) === y) && (!b.has(y) || b.get(y) === x); T.at({ s: chars(I.s), t: chars(I.t), map: K(Object.fromEntries(a)) }); T.yn(`Is ${x} → ${y} consistent?`, ok, 'Both directions must agree.'); if (!ok) return false; a.set(x, y); b.set(y, x); } return true; }
+    s(I, T) { const a = new Map(), b = new Map(); for (let i = 0; i < I.s.length; i++) { const x = I.s[i], y = I.t[i]; const ok = (!a.has(x) || a.get(x) === y) && (!b.has(y) || b.get(y) === x); T.at({ s: chars(I.s), t: chars(I.t), map: K(Object.fromEntries(a)) }); T.yn(`Is mapping ${x} to ${y} consistent?`, ok, 'Both directions must agree.'); if (!ok) return false; a.set(x, y); b.set(y, x); } return true; }
   });
 
   D('shortest-palindrome', {
     t: 'Shortest Palindrome: KMP on s + # + reverse',
-    r: 'The longest palindromic prefix of s has length = the last prefix-function value of s + "#" + reverse(s). Prepend the reversed rest.',
+    r: 'The longest palindromic prefix of s has length = the last prefix-function value of s + "#" + reverses. Prepend the reversed rest.',
     g: R => ({ s: R.str(R.int(0, 7), 'ab') }),
     s(I, T) { const s = I.s, t = s + '#' + [...s].reverse().join(''), pi = Array(t.length).fill(0); for (let i = 1; i < t.length; i++) { let k = pi[i - 1]; while (k && t[i] !== t[k]) k = pi[k - 1]; if (t[i] === t[k]) k++; pi[i] = k; } const L = t.length ? pi[t.length - 1] : 0; T.at({ t: chars(t), pi: A(pi) }); T.n('Length of the longest palindromic prefix?', L, 'Last prefix-function value.'); T.n('Characters to add in front?', s.length - L, 'Everything after the palindromic prefix, reversed.'); T.n('Length of the result?', 2 * s.length - L, 'Added characters plus s.'); return [...s.slice(L)].reverse().join('') + s; }
   });
 
   D('valid-anagram', {
     t: 'Valid Anagram: letter counts',
-    r: 'Count letters of s up and t down; it is an anagram iff every count ends at 0.',
+    r: 'Count letters of s up and t down; it is an anagram exactly when every count ends at 0.',
     g: R => { const s = R.str(R.int(1, 6), 'abc'); return { s, t: R.chance(0.5) ? R.shuffle([...s]).join('') : R.str(R.int(1, 6), 'abc') }; },
     s(I, T) { T.at({ s: I.s, t: I.t }); T.yn('Same length?', I.s.length === I.t.length, 'Different lengths cannot be anagrams.'); if (I.s.length !== I.t.length) return false; const c = cnt(I.s); for (const ch of I.t) c[ch] = (c[ch] || 0) - 1; T.at({ counts: K(c) }); T.n('Letters whose count is not zero?', Object.values(c).filter(x => x !== 0).length, 'Each one is a mismatch.'); const ok = Object.values(c).every(x => x === 0); T.yn('Are all counts zero?', ok, 'Same multiset of letters.'); return ok; }
   });
@@ -65,15 +65,15 @@
   });
 
   D('word-pattern', {
-    t: 'Word Pattern: letter ↔ word bijection',
-    r: 'Split s into words; counts must match. Keep two maps (letter → word, word → letter) and reject on any conflict.',
+    t: 'Word Pattern: letter and word bijection',
+    r: 'Split s into words; counts must match. Keep two maps (letter to word, word to letter) and reject on any conflict.',
     g: R => { const p = R.str(R.int(1, 5), 'ab'); const w = { a: 'dog', b: 'cat' }; const ws = [...p].map(c => R.chance(0.85) ? w[c] : R.pick(['dog', 'cat', 'fish'])); if (R.chance(0.1)) ws.push('dog'); return { pattern: p, s: ws.join(' ') }; },
     s(I, T) { const w = I.s.split(' '); T.at({ pattern: chars(I.pattern), words: A(w) }); T.yn('Same number of letters and words?', w.length === I.pattern.length, `${I.pattern.length} vs ${w.length}.`); if (w.length !== I.pattern.length) return false; const a = new Map(), b = new Map(); for (let i = 0; i < w.length; i++) { const c = I.pattern[i]; if ((a.has(c) && a.get(c) !== w[i]) || (b.has(w[i]) && b.get(w[i]) !== c)) { T.n('Pairs checked before the conflict?', i, 'Every earlier letter and word matched.'); T.yn(`Is pairing '${c}' with "${w[i]}" consistent?`, false, 'It conflicts with an earlier pairing.'); return false; } a.set(c, w[i]); b.set(w[i], c); } T.n('Distinct letters, each paired with its own word?', a.size, 'The mapping works in both directions.'); return true; }
   });
 
   D('bulls-and-cows', {
     t: 'Bulls and Cows: exact matches, then shared counts',
-    r: 'Bulls are positions with equal digits. Among the rest, cows = Σ min(count in secret, count in guess) per digit.',
+    r: 'Bulls are positions with equal digits. Among the rest, cows = the sum of min(count in secret, count in guess) per digit.',
     g: R => { const n = R.int(1, 6); return { secret: R.str(n, '0123'), guess: R.str(n, '0123') }; },
     s(I, T) { let b = 0; const cs = {}, cg = {}; for (let i = 0; i < I.secret.length; i++) { if (I.secret[i] === I.guess[i]) b++; else { cs[I.secret[i]] = (cs[I.secret[i]] || 0) + 1; cg[I.guess[i]] = (cg[I.guess[i]] || 0) + 1; } } T.at({ secret: chars(I.secret), guess: chars(I.guess) }); T.n('Bulls?', b, 'Same digit, same position.'); let c = 0; for (const d in cs) c += Math.min(cs[d], cg[d] || 0); T.at({ secretLeft: K(cs), guessLeft: K(cg) }); T.n('Cows?', c, 'Shared counts among non-bull digits.'); T.n('Digits that match somewhere (bulls plus cows)?', b + c, 'Add the two counts.'); return `${b}A${c}B`; }
   });
@@ -102,14 +102,14 @@
 
   D('repeated-substring-pattern', {
     t: 'Repeated Substring Pattern: (s + s) trick',
-    r: 's is built from a repeated block iff s appears in (s + s) with the first and last characters removed. Equivalently, try each divisor length.',
+    r: 's is built from a repeated block exactly when s appears in (s + s) with the first and last characters removed. Equivalently, try each divisor length.',
     g: R => { const b = R.str(R.int(1, 3), 'ab'); return { s: R.chance(0.5) ? b.repeat(R.int(1, 3)) : R.str(R.int(1, 6), 'ab') }; },
-    s(I, T) { const s = I.s, n = s.length; let ok = false; T.at({ s: chars(s) }); T.n('How many block lengths up to n / 2 divide n?', [...Array(Math.floor(n / 2)).keys()].filter(x => n % (x + 1) === 0).length, 'Only those can tile s exactly.'); for (let L = 1; L <= n / 2; L++) { if (n % L) continue; const r = s.slice(0, L).repeat(n / L) === s; T.at({ s: chars(s), block: s.slice(0, L) }); T.yn(`Does block "${s.slice(0, L)}" rebuild s?`, r, `Repeat it ${n / L} times.`); if (r) { ok = true; break; } } if (n < 2) T.yn('Can a single character be a repeat of a shorter block?', false, 'Needs at least two copies.'); T.yn('Is s a repeat of a shorter block?', ok, 'Some block rebuilt s.'); return ok; }
+    s(I, T) { const s = I.s, n = s.length; let ok = false; T.at({ s: chars(s) }); T.n('How many block lengths up to n divided by 2 divide n?', [...Array(Math.floor(n / 2)).keys()].filter(x => n % (x + 1) === 0).length, 'Only those can tile s exactly.'); for (let L = 1; L <= n / 2; L++) { if (n % L) continue; const r = s.slice(0, L).repeat(n / L) === s; T.at({ s: chars(s), block: s.slice(0, L) }); T.yn(`Does block "${s.slice(0, L)}" rebuild s?`, r, `Repeat it ${n / L} times.`); if (r) { ok = true; break; } } if (n < 2) T.yn('Can a single character be a repeat of a shorter block?', false, 'Needs at least two copies.'); T.yn('Is s a repeat of a shorter block?', ok, 'Some block rebuilt s.'); return ok; }
   });
 
   D('validate-ip-address', {
     t: 'Validate IP Address: IPv4 or IPv6 rules',
-    r: 'IPv4: 4 decimal parts 0–255, no leading zeros. IPv6: 8 hex parts of length 1–4. Otherwise "Neither".',
+    r: 'IPv4: 4 decimal parts 0 to 255, no leading zeros. IPv6: 8 hex parts of length 1 to 4. Otherwise "Neither".',
     g: R => ({ queryIP: R.chance(0.5) ? Array.from({ length: R.int(3, 5) }, () => R.pick(['0', '1', '01', '255', '256', '172', 'a'])).join('.') : Array.from({ length: R.int(7, 9) }, () => R.pick(['2001', '0db8', '0', 'ffff', '00000', 'g1', ''])).join(':') }),
     s(I, T) { const q = I.queryIP; const v4 = q.split('.'), v6 = q.split(':'); const kind = v4.length === 4 ? 'IPv4' : v6.length === 8 ? 'IPv6' : 'Neither'; T.at({ ip: q }); T.n('Pieces when splitting on dots?', v4.length, 'IPv4 needs exactly 4.'); T.n('Pieces when splitting on colons?', v6.length, 'IPv6 needs exactly 8.'); T.c('Which format should we try?', ['IPv4', 'IPv6', 'Neither'], kind, 'Count the separators.'); if (kind === 'IPv4' && v4.every(p => /^(0|[1-9]\d{0,2})$/.test(p) && +p <= 255)) return 'IPv4'; if (kind === 'IPv6' && v6.every(p => /^[0-9a-fA-F]{1,4}$/.test(p))) return 'IPv6'; return 'Neither'; }
   });
@@ -130,7 +130,7 @@
 
   D('longest-uncommon-subsequence-i', {
     t: 'Longest Uncommon Subsequence I: compare whole strings',
-    r: 'If a ≠ b, the longer whole string is not a subsequence of the other, so the answer is max length; if equal, −1.',
+    r: 'If a not equal to b, the longer whole string is not a subsequence of the other, so the answer is max length; if equal, −1.',
     g: R => { const a = R.str(R.int(1, 4), 'ab'); return { a, b: R.chance(0.3) ? a : R.str(R.int(1, 4), 'ab') }; },
     s(I, T) { T.at({ a: I.a, b: I.b }); T.yn('Are the strings equal?', I.a === I.b, 'Equal strings share every subsequence.'); T.n('Length of the longer string?', Math.max(I.a.length, I.b.length), 'The longer string cannot be a subsequence of the shorter one.'); T.n('Answer?', I.a === I.b ? -1 : Math.max(I.a.length, I.b.length), 'Equal strings give −1.'); return I.a === I.b ? -1 : Math.max(I.a.length, I.b.length); }
   });
@@ -152,7 +152,7 @@
 
   D('find-duplicate-file-in-system', {
     t: 'Find Duplicate Files: group by content',
-    r: 'Parse each "dir file(content) …" entry; map content → list of full paths; keep groups with at least two files.',
+    r: 'Parse each "dir file(content) …" entry; map content to list of full paths; keep groups with at least two files.',
     cmp: 'sets',
     g: R => ({ paths: Array.from({ length: R.int(1, 3) }, (_, i) => `root/${'abc'[i]} ` + Array.from({ length: R.int(1, 2) }, (_, j) => `${j + 1}.txt(${R.pick(['x', 'y', 'z'])})`).join(' ')) }),
     s(I, T) { const m = new Map(); for (const p of I.paths) { const [dir, ...fs] = p.split(' '); for (const f of fs) { const k = f.indexOf('('), name = f.slice(0, k), c = f.slice(k + 1, -1); (m.get(c) || m.set(c, []).get(c)).push(dir + '/' + name); } } const g = [...m.values()].filter(x => x.length > 1); T.at({ byContent: K(Object.fromEntries([...m].map(([a, b]) => [a, b.length]))) }); T.n('How many duplicate groups?', g.length, 'Contents shared by at least 2 files.'); T.n('Files in total?', [...m.values()].reduce((s, x) => s + x.length, 0), 'Every file in every directory.'); T.n('Files that belong to a duplicate group?', g.reduce((s, x) => s + x.length, 0), 'Add up the group sizes.'); return g; }
@@ -167,13 +167,13 @@
 
   D('repeated-string-match', {
     t: 'Repeated String Match: enough copies to cover b',
-    r: 'Repeat a until its length ≥ b\'s length (q copies). b must appear in q or q + 1 copies; otherwise −1.',
+    r: 'Repeat a until its length at least b\'s length (q copies). b must appear in q or q + 1 copies; otherwise −1.',
     g: R => { const a = R.str(R.int(1, 3), 'ab'); const x = a.repeat(R.int(1, 4)), i = R.int(0, x.length - 1); return { a, b: R.chance(0.7) ? x.slice(i) + a.slice(0, R.int(0, a.length)) || a : R.str(R.int(1, 4), 'abc') }; },
     s(I, T) { const q = Math.ceil(I.b.length / I.a.length); T.at({ a: I.a, b: I.b }); T.n('Minimum copies so the length is at least the length of b?', q, `${I.b.length} divided by ${I.a.length}, rounded up.`); const inQ = I.a.repeat(q).includes(I.b); T.yn(`Is b inside ${q} copies?`, inQ, 'Check the shortest repeat first.'); if (inQ) { T.n('Fewest copies needed?', q, 'That many copies already contain b.'); return q; } const r = I.a.repeat(q + 1).includes(I.b); T.yn(`Is b inside ${q + 1} copies?`, r, 'One more copy covers any offset.'); T.n('Fewest copies needed (−1 if impossible)?', r ? q + 1 : -1, 'One extra copy is the last chance.'); return r ? q + 1 : -1; }
   });
 
   D('to-lower-case', {
-    t: 'To Lower Case: shift A–Z by 32',
+    t: 'To Lower Case: shift A to Z by 32',
     r: 'For each character between A and Z, add 32 to its code; others stay.',
     g: R => ({ s: R.str(R.int(1, 6), 'aBcD1!') }),
     s(I, T) { let out = ''; for (const c of I.s) { const up = c >= 'A' && c <= 'Z'; if (up) { T.at({ s: chars(I.s), out }); T.c(`Lower case of '${c}'?`, [c.toLowerCase(), c], c.toLowerCase(), 'Code + 32.'); } out += up ? String.fromCharCode(c.charCodeAt(0) + 32) : c; } if (out === I.s) { T.at({ s: I.s }); T.yn('Any upper-case letters?', false, 'Nothing changes.'); } T.n('Characters that changed?', [...I.s].filter(c => c >= 'A' && c <= 'Z').length, 'Only upper case letters change.'); return out; }
@@ -188,7 +188,7 @@
 
   D('shortest-completing-word', {
     t: 'Shortest Completing Word: letter counts',
-    r: 'Count the plate\'s letters (ignore digits/spaces/case). A word completes it if it has at least those counts; pick the shortest, earliest on ties.',
+    r: 'Count the plate\'s letters (ignore digits, spaces and case). A word completes it if it has at least those counts; pick the shortest, earliest on ties.',
     g: R => ({ licensePlate: R.str(R.int(1, 5), 'aB1 s'), words: words(R, R.int(1, 5), 'absx', 1, 6) }),
     s(I, T) { const need = cnt(I.licensePlate.toLowerCase().replace(/[^a-z]/g, '')); let best = null; for (const w of I.words) { const c = cnt(w), ok = Object.keys(need).every(k => (c[k] || 0) >= need[k]); T.at({ need: K(need), word: w }); T.yn(`Does "${w}" complete the plate?`, ok, 'Enough of every letter.'); if (ok && (!best || w.length < best.length)) best = w; } return best === null ? '' : best; }
   });
@@ -223,7 +223,7 @@
 
   D('rotate-string', {
     t: 'Rotate String: look inside s + s',
-    r: 'goal is a rotation of s iff they have the same length and goal appears in s + s.',
+    r: 'goal is a rotation of s exactly when they have the same length and goal appears in s + s.',
     g: R => { const s = R.str(R.int(1, 6), 'abc'), k = R.int(0, s.length - 1); return { s, goal: R.chance(0.6) ? s.slice(k) + s.slice(0, k) : R.str(s.length, 'abc') }; },
     s(I, T) { const ok = I.s.length === I.goal.length && (I.s + I.s).includes(I.goal); T.at({ doubled: chars(I.s + I.s), goal: I.goal }); T.yn('Do s and goal have the same length?', I.s.length === I.goal.length, 'A rotation never changes the length.'); T.n('Length of s + s?', 2 * I.s.length, 'Every rotation of s appears inside it.'); T.yn('Is goal inside s + s (same length)?', ok, 'Every rotation is a window of s + s.'); return ok; }
   });
@@ -274,7 +274,7 @@
 
   D('uncommon-words-from-two-sentences', {
     t: 'Uncommon Words: count across both sentences',
-    r: 'A word is uncommon iff it appears exactly once in the combined sentences.',
+    r: 'A word is uncommon exactly when it appears exactly once in the combined sentences.',
     cmp: 'set',
     g: R => ({ s1: Array.from({ length: R.int(1, 4) }, () => R.pick(['a', 'b', 'c'])).join(' '), s2: Array.from({ length: R.int(1, 4) }, () => R.pick(['b', 'c', 'd'])).join(' ') }),
     s(I, T) { const c = cnt((I.s1 + ' ' + I.s2).split(' ')); T.at({ counts: K(c) }); const r = Object.keys(c).filter(k => c[k] === 1); T.n('How many words appear exactly once?', r.length, 'Count over both sentences.'); T.n('Words in total?', Object.values(c).reduce((a, b) => a + b, 0), 'Both sentences together.'); T.n('Distinct words?', Object.keys(c).length, 'Count the keys.'); return r; }
@@ -289,7 +289,7 @@
 
   D('groups-of-special-equivalent-strings', {
     t: 'Special-Equivalent Groups: sort even and odd letters',
-    r: 'Swaps keep letters on even/odd positions. Key = sorted even letters + sorted odd letters; count distinct keys.',
+    r: 'Swaps keep letters on even or odd positions. Key = sorted even letters + sorted odd letters; count distinct keys.',
     g: R => { const n = R.int(1, 4); return { words: words(R, R.int(1, 6), 'ab', n, n) }; },
     s(I, T) { const set = new Set(); for (const w of I.words) { const e = [...w].filter((_, i) => i % 2 === 0).sort().join(''), o = [...w].filter((_, i) => i % 2).sort().join(''), k = e + '|' + o; T.at({ word: w, groups: A([...set]) }); T.yn(`Does "${w}" start a new group?`, !set.has(k), `Key ${k}.`); set.add(k); } return set.size; }
   });

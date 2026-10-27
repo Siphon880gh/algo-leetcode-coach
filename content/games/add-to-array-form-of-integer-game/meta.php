@@ -5,7 +5,7 @@ return [
     'title' => 'Add to Array-Form: fold k into the digits',
     'leetcode' => 989,
     'difficulty' => 'Easy',
-    'summary' => 'From the last digit, set cur = digit + k; write cur mod 10 and continue with k = ⌊cur / 10⌋. Keep going while digits or k remain.',
+    'summary' => 'From the last digit, set cur = digit + k; write cur mod 10 and continue with k = (cur divided by 10, rounded down). Keep going while digits or k remain.',
     'category' => 'LeetCode',
     'subcategory' => 'Math',
     'topic' => 'LeetCode · Math',

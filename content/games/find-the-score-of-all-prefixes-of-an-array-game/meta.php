@@ -5,7 +5,7 @@ return [
     'title' => 'Find the Score of All Prefixes of an Array',
     'leetcode' => 2640,
     'difficulty' => 'Med',
-    'summary' => 'conver[i] = nums[i] + max(nums[0..i]); the answer is the running sum of conver.',
+    'summary' => 'conver[i] = nums[i] + max(nums[0 to i]); the answer is the running sum of conver.',
     'category' => 'LeetCode',
     'subcategory' => 'Prefix Sum',
     'topic' => 'LeetCode · Prefix Sum',

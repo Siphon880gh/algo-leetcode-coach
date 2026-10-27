@@ -5,7 +5,7 @@ return [
     'title' => 'Data Stream as Disjoint Intervals',
     'leetcode' => 352,
     'difficulty' => 'Hard',
-    'summary' => 'Keep sorted disjoint intervals. addNum(x) finds where x falls: ignore if covered, else merge with the interval ending at x − 1 and/or starting at x + 1, or insert [x, x].',
+    'summary' => 'Keep sorted disjoint intervals. addNum(x) finds where x falls: ignore if covered, else merge with the interval ending at x − 1 and or or starting at x + 1, or insert [x, x].',
     'category' => 'LeetCode',
     'subcategory' => 'Design',
     'topic' => 'LeetCode · Design',

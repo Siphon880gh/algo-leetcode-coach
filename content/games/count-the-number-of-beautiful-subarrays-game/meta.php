@@ -5,7 +5,7 @@ return [
     'title' => 'Count the Number of Beautiful Subarrays',
     'leetcode' => 2588,
     'difficulty' => 'Med',
-    'summary' => 'A subarray can be zeroed iff every bit appears an even number of times, i.e. its XOR is 0. Count equal prefix XORs.',
+    'summary' => 'A subarray can be zeroed exactly when every bit appears an even number of times, i.e. its XOR is 0. Count equal prefix XORs.',
     'category' => 'LeetCode',
     'subcategory' => 'Prefix Sum',
     'topic' => 'LeetCode · Prefix Sum',

@@ -5,7 +5,7 @@ return [
     'title' => 'Connectable Server Pairs: branch counts per center',
     'leetcode' => 3067,
     'difficulty' => 'Med',
-    'summary' => 'For each center c, count servers in each neighbor branch whose distance from c is divisible by signalSpeed. Pairs across different branches: Σ over branches of count × (total so far).',
+    'summary' => 'For each center c, count servers in each neighbor branch whose distance from c is divisible by signalSpeed. Pairs across different branches: the sum over branches of count times (total so far).',
     'category' => 'LeetCode',
     'subcategory' => 'Trees',
     'topic' => 'LeetCode · Trees',

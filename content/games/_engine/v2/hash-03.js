@@ -42,9 +42,9 @@
 
   D('count-special-triplets', {
     t: 'Count Special Triplets',
-    r: 'Fix the middle j. The triplets through j are (count of 2·nums[j] to its left) × (count of 2·nums[j] to its right). Keep two hash maps and move j left to right.',
+    r: 'Fix the middle j. The triplets through j are (count of 2 times nums[j] to its left) times (count of 2 times nums[j] to its right). Keep two hash maps and move j left to right.',
     g: R => ({ nums: Array.from({ length: R.int(3, 8) }, () => R.pick([0, 1, 2, 2, 4, 4, 8, 3, 6])) }),
-    s(I, T) { const a = I.nums, L = new Map(), Rm = new Map(); a.forEach(x => Rm.set(x, (Rm.get(x) || 0) + 1)); let tot = 0; a.forEach((x, j) => { Rm.set(x, Rm.get(x) - 1); const t = x * 2, c = (L.get(t) || 0) * (Rm.get(t) || 0); tot = (tot + c) % MOD; if (j < 6) { T.at({ nums: A(a, { j }), left: K([...L].map(([k, v]) => [k, v])), right: K([...Rm].filter(e => e[1]).map(([k, v]) => [k, v])) }); T.n(`Triplets with middle index ${j}?`, c, `left[${t}] × right[${t}].`); } L.set(x, (L.get(x) || 0) + 1); }); return tot; }
+    s(I, T) { const a = I.nums, L = new Map(), Rm = new Map(); a.forEach(x => Rm.set(x, (Rm.get(x) || 0) + 1)); let tot = 0; a.forEach((x, j) => { Rm.set(x, Rm.get(x) - 1); const t = x * 2, c = (L.get(t) || 0) * (Rm.get(t) || 0); tot = (tot + c) % MOD; if (j < 6) { T.at({ nums: A(a, { j }), left: K([...L].map(([k, v]) => [k, v])), right: K([...Rm].filter(e => e[1]).map(([k, v]) => [k, v])) }); T.n(`Triplets with middle index ${j}?`, c, `left[${t}] times right[${t}].`); } L.set(x, (L.get(x) || 0) + 1); }); return tot; }
   });
 
   D('check-if-any-element-has-prime-frequency', {
@@ -56,14 +56,14 @@
 
   D('threshold-majority-queries', {
     t: 'Threshold Majority Queries',
-    r: 'For each query count values in nums[l..r] (Mo\'s algorithm or square-root splitting keeps counts incrementally). Return the most frequent value, smallest on ties, if its count reaches the threshold; otherwise −1.',
+    r: 'For each query count values in nums[l to r] (Mo\'s algorithm or square-root splitting keeps counts incrementally). Return the most frequent value, smallest on ties, if its count reaches the threshold; otherwise −1.',
     g: R => { const n = R.int(3, 7); return { nums: R.ints(n, 1, 3), queries: Array.from({ length: R.int(2, 3) }, () => { const l = R.int(0, n - 1), r = R.int(l, n - 1); return [l, r, R.int(1, r - l + 1)]; }) }; },
     s(I, T) { return I.queries.map(([l, r, th]) => { const c = new Map(); for (let i = l; i <= r; i++) c.set(I.nums[i], (c.get(I.nums[i]) || 0) + 1); let bv = -1, bc = 0; for (const [v, f] of c) if (f > bc || (f === bc && v < bv)) { bv = v; bc = f; } const ans = bc >= th ? bv : -1; T.at({ nums: A(I.nums, { win: [l, r] }), counts: K([...c].sort((a, b) => a[0] - b[0])), threshold: th }); T.n(`Answer for [${l}, ${r}] with threshold ${th}?`, ans, bc >= th ? 'Most frequent (smallest on ties) meets the threshold.' : `Top count ${bc} < ${th}.`); return ans; }); }
   });
 
   D('partition-array-into-k-distinct-groups', {
     t: 'Partition Array into K Distinct Groups',
-    r: 'The array must split into g = n / k groups (n divisible by k), and a value can appear at most once per group, so every frequency must be at most g. Dealing values round-robin then always works.',
+    r: 'The array must split into g = n divided by k groups (n divisible by k), and a value can appear at most once per group, so every frequency must be at most g. Dealing values round-robin then always works.',
     g: R => ({ nums: R.ints(R.int(2, 8), 1, 4), k: R.int(1, 4) }),
     s(I, T) { const res = (() => { const n = I.nums.length; T.at({ nums: A(I.nums), k: I.k }); T.n('Distinct values?', new Set(I.nums).size, 'Each group needs k different values.'); T.yn('Is n divisible by k?', n % I.k === 0, `${n} divided by ${I.k} leaves ${n % I.k}.`); if (n % I.k) return false; const c = new Map(); I.nums.forEach(x => c.set(x, (c.get(x) || 0) + 1)); const mx = Math.max(...c.values()), g = n / I.k; T.at({ counts: K([...c].sort((a, b) => a[0] - b[0])), groups: g }); T.n('Highest frequency of any value?', mx, 'Count each value.'); return mx <= g; })(); T.yn('Can it be partitioned?', res, 'No value appears more often than there are groups.'); return res; }
   });
@@ -72,12 +72,12 @@
     t: 'Filter Characters by Frequency',
     r: 'Count every character first, then rebuild the string keeping only characters whose total count is below k, in their original order.',
     g: R => ({ s: R.str(R.int(3, 10), 'abcd'), k: R.int(1, 4) }),
-    s(I, T) { const c = {}; for (const ch of I.s) c[ch] = (c[ch] || 0) + 1; Object.keys(c).sort().forEach(ch => { T.at({ s: A(I.s.split('')), counts: K(c), k: I.k }); T.yn(`Keep every "${ch}"?`, c[ch] < I.k, `It appears ${c[ch]} time(s); keep only if fewer than ${I.k}.`); }); return I.s.split('').filter(ch => c[ch] < I.k).join(''); }
+    s(I, T) { const c = {}; for (const ch of I.s) c[ch] = (c[ch] || 0) + 1; Object.keys(c).sort().forEach(ch => { T.at({ s: A(I.s.split('')), counts: K(c), k: I.k }); T.yn(`Keep every "${ch}"?`, c[ch] < I.k, `It appears ${c[ch]} times; keep only if fewer than ${I.k}.`); }); return I.s.split('').filter(ch => c[ch] < I.k).join(''); }
   });
 
   D('find-the-least-frequent-digit', {
     t: 'Find the Least Frequent Digit',
-    r: 'Count the digits of n in a 10-slot table, then scan digits 0–9 that actually appear and keep the one with the smallest count (smaller digit on ties).',
+    r: 'Count the digits of n in a 10-slot table, then scan digits 0 to 9 that actually appear and keep the one with the smallest count (smaller digit on ties).',
     g: R => ({ n: R.int(10, 9999999) }),
     s(I, T) { const c = Array(10).fill(0); String(I.n).split('').forEach(d => c[+d]++); const present = range(0, 10).filter(d => c[d]); present.slice(0, 3).forEach(d => { T.at({ n: String(I.n) }); T.n(`How many times does digit ${d} appear?`, c[d], 'Count it.'); }); let best = present[0]; present.forEach(d => { if (c[d] < c[best]) best = d; }); T.at({ counts: K(present.map(d => [d, c[d]])) }); T.c('Least frequent digit?', present, best, 'Smallest count; smaller digit on ties.'); return best; }
   });
@@ -115,21 +115,21 @@
     r: 'Count each letter, then group letters by their count. The majority group has the most letters; on a tie the larger frequency wins.',
     cmp: (o, e) => typeof o === 'string' && o.split('').sort().join('') === e.split('').sort().join(''),
     g: R => ({ s: R.str(R.int(2, 9), 'abcde') }),
-    s(I, T) { const c = {}; for (const ch of I.s) c[ch] = (c[ch] || 0) + 1; const g = {}; Object.entries(c).forEach(([ch, f]) => (g[f] = g[f] || []).push(ch)); let bf = 0; Object.keys(g).map(Number).forEach(f => { if (!bf || g[f].length > g[bf].length || (g[f].length === g[bf].length && f > bf)) bf = f; }); T.at({ s: A(I.s.split('')), counts: K(Object.entries(c).sort()) }); Object.keys(g).map(Number).slice(0, 3).forEach(f => T.n(`How many letters appear exactly ${f} time(s)?`, g[f].length, 'Size of that frequency group.')); T.c('Which frequency wins?', Object.keys(g).map(Number), bf, 'Largest group; break ties by the larger frequency.'); return g[bf].sort().join(''); }
+    s(I, T) { const c = {}; for (const ch of I.s) c[ch] = (c[ch] || 0) + 1; const g = {}; Object.entries(c).forEach(([ch, f]) => (g[f] = g[f] || []).push(ch)); let bf = 0; Object.keys(g).map(Number).forEach(f => { if (!bf || g[f].length > g[bf].length || (g[f].length === g[bf].length && f > bf)) bf = f; }); T.at({ s: A(I.s.split('')), counts: K(Object.entries(c).sort()) }); Object.keys(g).map(Number).slice(0, 3).forEach(f => T.n(`How many letters appear exactly ${f} times?`, g[f].length, 'Size of that frequency group.')); T.c('Which frequency wins?', Object.keys(g).map(Number), bf, 'Largest group; break ties by the larger frequency.'); return g[bf].sort().join(''); }
   });
 
   D('sum-of-elements-with-frequency-divisible-by-k', {
     t: 'Sum of Elements With Frequency Divisible by K',
-    r: 'Count every value. A value whose count is divisible by k adds value × count; the others add nothing.',
+    r: 'Count every value. A value whose count is divisible by k adds value times count; the others add nothing.',
     g: R => ({ nums: R.ints(R.int(2, 8), 1, 4), k: R.int(1, 3) }),
-    s(I, T) { const c = new Map(); I.nums.forEach(x => c.set(x, (c.get(x) || 0) + 1)); let s = 0; [...c].sort((a, b) => a[0] - b[0]).forEach(([v, f]) => { const add = f % I.k === 0 ? v * f : 0; s += add; T.at({ nums: A(I.nums, { hl: I.nums.map((x, i) => x === v ? i : -1).filter(i => i >= 0) }), counts: K([...c].sort((a, b) => a[0] - b[0])), k: I.k }); T.n(`What does value ${v} add?`, add, add ? `${f} is divisible by ${I.k}: add ${v} × ${f}.` : `${f} is not divisible by ${I.k}.`); }); return s; }
+    s(I, T) { const c = new Map(); I.nums.forEach(x => c.set(x, (c.get(x) || 0) + 1)); let s = 0; [...c].sort((a, b) => a[0] - b[0]).forEach(([v, f]) => { const add = f % I.k === 0 ? v * f : 0; s += add; T.at({ nums: A(I.nums, { hl: I.nums.map((x, i) => x === v ? i : -1).filter(i => i >= 0) }), counts: K([...c].sort((a, b) => a[0] - b[0])), k: I.k }); T.n(`What does value ${v} add?`, add, add ? `${f} is divisible by ${I.k}: add ${v} times ${f}.` : `${f} is not divisible by ${I.k}.`); }); return s; }
   });
 
   D('longest-balanced-substring-i', {
     t: 'Longest Balanced Substring I',
-    r: 'n ≤ 1000, so fix each start and extend the end, updating letter counts, the number of distinct letters and the maximum count. The substring is balanced when maxCount × distinct = length.',
+    r: 'n at most 1000, so fix each start and extend the end, updating letter counts, the number of distinct letters and the maximum count. The substring is balanced when maxCount times distinct = length.',
     g: R => ({ s: R.str(R.int(1, 7), 'abc') }),
-    s(I, T) { let best = 0; for (let i = 0; i < I.s.length; i++) { const c = {}; let mx = 0, d = 0, b = 0; for (let j = i; j < I.s.length; j++) { const ch = I.s[j]; if (!c[ch]) d++; c[ch] = (c[ch] || 0) + 1; mx = Math.max(mx, c[ch]); if (mx * d === j - i + 1) b = j - i + 1; } best = Math.max(best, b); if (i < 5) { T.at({ s: A(I.s.split(''), { i }), best }); T.n(`Longest balanced substring starting at ${i}?`, b, 'Balanced when maxCount × distinct equals the length.'); } } return best; }
+    s(I, T) { let best = 0; for (let i = 0; i < I.s.length; i++) { const c = {}; let mx = 0, d = 0, b = 0; for (let j = i; j < I.s.length; j++) { const ch = I.s[j]; if (!c[ch]) d++; c[ch] = (c[ch] || 0) + 1; mx = Math.max(mx, c[ch]); if (mx * d === j - i + 1) b = j - i + 1; } best = Math.max(best, b); if (i < 5) { T.at({ s: A(I.s.split(''), { i }), best }); T.n(`Longest balanced substring starting at ${i}?`, b, 'Balanced when maxCount times distinct equals the length.'); } } return best; }
   });
 
   D('longest-balanced-substring-ii', {
@@ -164,19 +164,19 @@
     t: 'Minimum Distance Between Three Equal Elements I',
     r: 'For indices i < j < k the distance is 2(k − i). Group the positions of each value; the best triple for a value is three consecutive positions, so check every window of 3.',
     g: R => ({ nums: R.ints(R.int(1, 8), 1, 3) }),
-    s(I, T) { const pos = new Map(); I.nums.forEach((v, i) => { if (!pos.has(v)) pos.set(v, []); pos.get(v).push(i); }); let best = -1; [...pos].sort((a, b) => a[0] - b[0]).forEach(([v, p]) => { let b = -1; for (let i = 0; i + 2 < p.length; i++) { const d = 2 * (p[i + 2] - p[i]); if (b < 0 || d < b) b = d; } if (b >= 0 && (best < 0 || b < best)) best = b; T.at({ nums: A(I.nums, { hl: p }), positions: A(p) }); T.n(`Smallest distance for value ${v}? (−1 if fewer than 3)`, b, 'Distance is 2 × (last − first) over three consecutive positions.'); }); return best; }
+    s(I, T) { const pos = new Map(); I.nums.forEach((v, i) => { if (!pos.has(v)) pos.set(v, []); pos.get(v).push(i); }); let best = -1; [...pos].sort((a, b) => a[0] - b[0]).forEach(([v, p]) => { let b = -1; for (let i = 0; i + 2 < p.length; i++) { const d = 2 * (p[i + 2] - p[i]); if (b < 0 || d < b) b = d; } if (b >= 0 && (best < 0 || b < best)) best = b; T.at({ nums: A(I.nums, { hl: p }), positions: A(p) }); T.n(`Smallest distance for value ${v}? (−1 if fewer than 3)`, b, 'Distance is 2 times (last − first) over three consecutive positions.'); }); return best; }
   });
 
   D('minimum-distance-between-three-equal-elements-ii', {
     t: 'Minimum Distance Between Three Equal Elements II',
-    r: 'Same formula, done in one pass: keep the last two indices of each value in a hash map. When a value appears again at k, its triple costs 2 × (k − the older stored index).',
+    r: 'Same formula, done in one pass: keep the last two indices of each value in a hash map. When a value appears again at k, its triple costs 2 times (k − the older stored index).',
     g: R => ({ nums: R.ints(R.int(1, 8), 1, 3) }),
-    s(I, T) { const last = new Map(); let best = -1, asks = 0; I.nums.forEach((v, k) => { const p = last.get(v) || []; if (p.length === 2) { const d = 2 * (k - p[0]); if (best < 0 || d < best) best = d; if (asks++ < 5) { T.at({ nums: A(I.nums, { i: k, hl: p }), lastTwo: K([...last].map(([x, q]) => [x, q.join(',')])) }); T.n(`Triple distance ending at index ${k}?`, d, `2 × (${k} − ${p[0]}).`); } } last.set(v, [...p, k].slice(-2)); }); T.at({ nums: A(I.nums) }); T.n('Minimum distance overall? (−1 if none)', best, 'Smallest triple seen.'); return best; }
+    s(I, T) { const last = new Map(); let best = -1, asks = 0; I.nums.forEach((v, k) => { const p = last.get(v) || []; if (p.length === 2) { const d = 2 * (k - p[0]); if (best < 0 || d < best) best = d; if (asks++ < 5) { T.at({ nums: A(I.nums, { i: k, hl: p }), lastTwo: K([...last].map(([x, q]) => [x, q.join(',')])) }); T.n(`Triple distance ending at index ${k}?`, d, `2 times (${k} − ${p[0]}).`); } } last.set(v, [...p, k].slice(-2)); }); T.at({ nums: A(I.nums) }); T.n('Minimum distance overall? (−1 if none)', best, 'Smallest triple seen.'); return best; }
   });
 
   D('minimum-absolute-distance-between-mirror-pairs', {
     t: 'Minimum Absolute Distance Between Mirror Pairs',
-    r: 'Sweep j left to right. Before moving on, store reverse(nums[j]) → j in a hash map (latest index wins). At each j, if nums[j] is a key, the pair distance is j minus that stored index.',
+    r: 'Sweep j left to right. Before moving on, store reverse(nums[j]) to j in a hash map (latest index wins). At each j, if nums[j] is a key, the pair distance is j minus that stored index.',
     g: R => { const n = R.int(2, 6), a = []; for (let i = 0; i < n; i++) a.push(a.length && R.chance(0.4) ? Number(String(R.pick(a)).split('').reverse().join('')) : R.int(10, 99)); return { nums: a }; },
     s(I, T) { const rv = x => Number(String(x).split('').reverse().join('')), m = new Map(); let best = -1; I.nums.forEach((x, j) => { const d = m.has(x) ? j - m.get(x) : -1; if (d >= 0 && (best < 0 || d < best)) best = d; if (j && j < 7) { T.at({ nums: A(I.nums, { i: j }), reversedSeen: K([...m]) }); T.n(`Closest mirror partner distance for index ${j}? (−1 if none)`, d, d >= 0 ? `reverse(nums[${m.get(x)}]) = ${x}.` : `${x} is not a stored reversal.`); } m.set(rv(x), j); }); return best; }
   });
@@ -190,9 +190,9 @@
 
   D('minimum-number-of-operations-to-have-distinct-elements', {
     t: 'Minimum Number of Operations to Have Distinct Elements',
-    r: 'Scan from the right with a set. The first value seen twice, at index i, must be removed, so the prefix 0..i has to go: ⌈(i + 1) / 3⌉ operations. No repeat means 0.',
+    r: 'Scan from the right with a set. The first value seen twice, at index i, must be removed, so the prefix 0 to i has to go: (i + 1) divided by 3 (rounded up) operations. No repeat means 0.',
     g: R => ({ nums: R.ints(R.int(1, 9), 1, 6) }),
-    s(I, T) { const seen = new Set(); for (let i = I.nums.length - 1; i >= 0; i--) { const dup = seen.has(I.nums[i]); T.at({ nums: A(I.nums, { i }), seen: A([...seen]) }); T.yn(`Is ${I.nums[i]} at index ${i} already in the suffix?`, dup, dup ? `Indices 0..${i} must be removed.` : 'Add it and move left.'); if (dup) { T.n('Operations needed?', Math.ceil((i + 1) / 3), `⌈${i + 1} / 3⌉.`); return Math.ceil((i + 1) / 3); } seen.add(I.nums[i]); } return 0; }
+    s(I, T) { const seen = new Set(); for (let i = I.nums.length - 1; i >= 0; i--) { const dup = seen.has(I.nums[i]); T.at({ nums: A(I.nums, { i }), seen: A([...seen]) }); T.yn(`Is ${I.nums[i]} at index ${i} already in the suffix?`, dup, dup ? `Indices 0..${i} must be removed.` : 'Add it and move left.'); if (dup) { T.n('Operations needed?', Math.ceil((i + 1) / 3), `${i + 1} divided by 3, rounded up.`); return Math.ceil((i + 1) / 3); } seen.add(I.nums[i]); } return 0; }
   });
 
   D('minimum-deletion-cost-to-make-all-characters-equal', {
@@ -218,7 +218,7 @@
 
   D('minimum-operations-to-reach-target-array', {
     t: 'Minimum Operations to Reach Target Array',
-    r: 'One operation on value x fixes every position currently holding x at once, and fixed positions never need touching again. So the answer is the number of distinct values nums[i] at positions where nums[i] ≠ target[i].',
+    r: 'One operation on value x fixes every position currently holding x at once, and fixed positions never need touching again. So the answer is the number of distinct values nums[i] at positions where nums[i] not equal to target[i].',
     g: R => { const n = R.int(1, 7); return { nums: R.ints(n, 1, 4), target: R.ints(n, 1, 4) }; },
     s(I, T) { const set = new Set(); I.nums.forEach((x, i) => { const bad = x !== I.target[i]; if (bad) set.add(x); if (i < 6) { T.at({ nums: A(I.nums, { i }), target: A(I.target, { i }), valuesToFix: A([...set]) }); T.yn(`Does index ${i} need fixing?`, bad, bad ? `Value ${x} needs one operation.` : 'Already matches.'); } }); return set.size; }
   });

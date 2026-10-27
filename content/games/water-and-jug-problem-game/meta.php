@@ -5,7 +5,7 @@ return [
     'title' => 'Water and Jug Problem',
     'leetcode' => 365,
     'difficulty' => 'Med',
-    'summary' => 'By Bézout, the reachable amounts are exactly the multiples of gcd(x, y) up to x + y. So: target ≤ x + y and target % gcd(x, y) == 0.',
+    'summary' => 'By Bézout, the reachable amounts are exactly the multiples of gcd(x, y) up to x + y. So: target at most x + y and target % gcd(x, y) == 0.',
     'category' => 'LeetCode',
     'subcategory' => 'Graphs',
     'topic' => 'LeetCode · Graphs',

@@ -28,14 +28,14 @@
 
   D('minimum-operations-to-make-array-parity-alternating', {
     t: 'Minimum Operations to Make Array Parity Alternating',
-    r: 'There are two parity patterns (start even or start odd). Each element with the wrong parity costs exactly 1 and can move to x − 1 or x + 1. Pick the pattern(s) with the fewest changes, then choose each ±1 to make max − min as small as possible.',
+    r: 'There are two parity patterns (start even or start odd). Each element with the wrong parity costs exactly 1 and can move to x − 1 or x + 1. Pick the patterns with the fewest changes, then choose each ±1 to make max − min as small as possible.',
     g: R => ({ nums: R.ints(R.int(1, 6), -4, 6) }),
     s(I, T) { const a = I.nums, n = a.length, md = x => ((x % 2) + 2) % 2; let bestOps = Infinity, bestRange = Infinity; [0, 1].forEach(p => { const bad = range(0, n).filter(i => md(a[i]) !== (p + i) % 2); T.at({ nums: A(a, { hl: bad }), pattern: p ? 'odd first' : 'even first' }); T.n(`Changes needed if index 0 is ${p ? 'odd' : 'even'}?`, bad.length, 'Count elements with the wrong parity.'); if (bad.length > bestOps) return; let rg = Infinity; for (let m = 0; m < 1 << bad.length; m++) { const b = a.slice(); bad.forEach((i, t) => b[i] += m >> t & 1 ? 1 : -1); rg = Math.min(rg, Math.max(...b) - Math.min(...b)); } if (bad.length < bestOps) { bestOps = bad.length; bestRange = rg; } else bestRange = Math.min(bestRange, rg); }); T.at({ nums: A(a), changes: bestOps }); T.n('Smallest max − min using that many changes?', bestRange, 'Choose +1 or −1 for each changed element to keep the spread tight.'); return [bestOps, bestRange]; }
   });
 
   D('minimum-cost-to-equalize-arrays-using-swaps', {
     t: 'Minimum Cost to Equalize Arrays Using Swaps',
-    r: 'Inside an array, order is free, so only counts matter. Every value must appear an even number of times overall. nums1 must give away (c1 − c2)/2 copies of each surplus value, and one paid cross swap moves one surplus copy out while bringing a needed one in: the answer is the total surplus.',
+    r: 'Inside an array, order is free, so only counts matter. Every value must appear an even number of times overall. nums1 must give away (c1 − c2) divided by 2 copies of each surplus value, and one paid cross swap moves one surplus copy out while bringing a needed one in: the answer is the total surplus.',
     g: R => { const n = R.int(2, 5); return { nums1: R.ints(n, 1, 3), nums2: R.ints(n, 1, 3) }; },
     s(I, T) { const c = new Map(); I.nums1.forEach(x => { if (!c.has(x)) c.set(x, [0, 0]); c.get(x)[0]++; }); I.nums2.forEach(x => { if (!c.has(x)) c.set(x, [0, 0]); c.get(x)[1]++; }); const ok = [...c.values()].every(([p, q]) => (p + q) % 2 === 0); T.at({ nums1: A(I.nums1), nums2: A(I.nums2), counts: K([...c].sort((a, b) => a[0] - b[0]).map(([v, [p, q]]) => [v, `${p} | ${q}`])) }); T.yn('Does every value appear an even number of times in total?', ok, ok ? 'Each array can get half.' : 'An odd total can never be split evenly: −1.'); if (!ok) return -1; let s = 0; [...c].sort((a, b) => a[0] - b[0]).forEach(([v, [p, q]]) => { const sur = Math.max(0, (p - q) / 2); s += sur; T.at({ value: v, inNums1: p, inNums2: q }); T.n(`Copies of ${v} nums1 must send over?`, sur, `It keeps half of ${p + q}.`); }); return s; }
   });
@@ -77,14 +77,14 @@
 
   D('maximum-total-value', {
     t: 'Maximum Total Value',
-    r: 'Each index offers a decreasing sequence value, value − decay, …. Taking the m largest terms overall is optimal (stop at negatives). Binary search the cutoff value v such that at least m terms are ≥ v, add the arithmetic sums of the terms above it, and fill the rest with v.',
+    r: 'Each index offers a decreasing sequence value, value − decay, …. Taking the m largest terms overall is optimal (stop at negatives). Binary search the cutoff value v such that at least m terms are at least v, add the arithmetic sums of the terms above it, and fill the rest with v.',
     g: R => { const n = R.int(1, 3); return { value: R.ints(n, 1, 9), decay: R.ints(n, 1, 4), m: R.int(1, 6) }; },
     s(I, T) { const n = I.value.length, t = Array(n).fill(0); let tot = 0; for (let p = 0; p < I.m; p++) { let bi = -1, bv = 0; for (let i = 0; i < n; i++) { const g = I.value[i] - I.decay[i] * t[i]; if (g > bv) { bv = g; bi = i; } } if (bi < 0) { T.at({ value: A(I.value), decay: A(I.decay), taken: A(t.slice()) }); T.yn('Is any positive gain left?', false, 'Stop: further picks only lose value.'); break; } if (p < 5) { T.at({ value: A(I.value), decay: A(I.decay), taken: A(t.slice()) }); T.n(`Gain of pick ${p + 1}?`, bv, 'The largest next term across all indices.'); } t[bi]++; tot += bv; } return tot % MOD; }
   });
 
   D('maximum-total-sum-of-k-selected-elements', {
     t: 'Maximum Total Sum of K Selected Elements',
-    r: 'Pick the k largest elements and process them biggest first, so the biggest values meet the biggest multipliers. For each, add x·mul while mul > 1, otherwise just add x.',
+    r: 'Pick the k largest elements and process them biggest first, so the biggest values meet the biggest multipliers. For each, add x times mul while mul > 1, otherwise just add x.',
     g: R => { const n = R.int(1, 6); return { nums: R.ints(n, 1, 9), k: R.int(1, n), mul: R.int(1, 4) }; },
     s(I, T) { const s = I.nums.slice().sort((a, b) => b - a).slice(0, I.k); let m = I.mul, tot = 0; s.forEach((x, i) => { const g = x * Math.max(m, 1); if (i < 5) { T.at({ chosen: A(s, { i }), mul: m, total: tot }); T.n(`Gain from ${x} with mul = ${m}?`, g, m > 1 ? 'Multiply: mul beats 1.' : 'Just add it: mul is not more than 1.'); } tot += g; m--; }); return tot; }
   });
@@ -100,19 +100,19 @@
     t: 'Largest Integer With Given Digit Sum',
     r: 'Use all n digits and put the largest digits first: each position takes min(9, what is left). If 9n < s it is impossible; leading zeros vanish only when s = 0.',
     g: R => ({ n: R.int(1, 4), s: R.int(0, 30) }),
-    s(I, T) { T.at({ n: I.n, s: I.s }); T.yn('Is it possible?', I.s <= 9 * I.n, `At most 9 × ${I.n} = ${9 * I.n}.`); if (I.s > 9 * I.n) return -1; let left = I.s, d = ''; for (let i = 0; i < I.n; i++) { const x = Math.min(9, left); if (i < 4) { T.at({ built: d || '(empty)', left }); T.n(`Digit at position ${i}?`, x, 'As large as possible, front first.'); } d += x; left -= x; } return Number(d); }
+    s(I, T) { T.at({ n: I.n, s: I.s }); T.yn('Is it possible?', I.s <= 9 * I.n, `At most 9 times ${I.n} = ${9 * I.n}.`); if (I.s > 9 * I.n) return -1; let left = I.s, d = ''; for (let i = 0; i < I.n; i++) { const x = Math.min(9, left); if (i < 4) { T.at({ built: d || '(empty)', left }); T.n(`Digit at position ${i}?`, x, 'As large as possible, front first.'); } d += x; left -= x; } return Number(d); }
   });
 
   D('minimum-initial-strength-to-defeat-all-monsters', {
     t: 'Minimum Initial Strength to Defeat All Monsters',
-    r: 'Bonuses come from a difference array. Work backwards: need[i] = the strength you must have before monster i = max(monster − bonus, monster + need[i+1]) clamped at ≥ 0, since strength left after a fight is max(0, s − monster). Or binary search the start strength and simulate.',
+    r: 'Bonuses come from a difference array. Work backwards: need[i] = the strength you must have before monster i = max(monster − bonus, monster + need[i+1]) clamped at at least 0, since strength left after a fight is max(0, s − monster). Or binary search the start strength and simulate.',
     g: R => { const n = R.int(1, 5); return { monsters: R.ints(n, 1, 12), boosts: Array.from({ length: R.int(0, 2) }, () => { const l = R.int(0, n - 1); return [l, R.int(l, n - 1), R.int(1, 8)]; }) }; },
     s(I, T) { const n = I.monsters.length, d = Array(n + 1).fill(0); I.boosts.forEach(([l, r, v]) => { d[l] += v; d[r + 1] -= v; }); const bonus = []; let run = 0; for (let i = 0; i < n; i++) { run += d[i]; bonus.push(run); } T.at({ monsters: A(I.monsters), bonus: A(bonus) }); T.n('Total bonus over all monsters?', sum(bonus), 'Difference array over the boost ranges.'); const sim = s => { for (let i = 0; i < n; i++) { if (s + bonus[i] < I.monsters[i]) return false; s = Math.max(0, s - I.monsters[i]); } return true; }; let lo = 0, hi = sum(I.monsters), asks = 0; while (lo < hi) { const m = lo + hi >> 1, ok = sim(m); if (asks++ < 3) { T.at({ monsters: A(I.monsters), bonus: A(bonus), try: m }); T.yn(`Does starting strength ${m} beat every monster?`, ok, 'Simulate left to right.'); } if (ok) hi = m; else lo = m + 1; } return lo; }
   });
 
   D('minimum-total-price-after-applying-discounts', {
     t: 'Minimum Total Price After Applying Discounts',
-    r: 'A discount d saves p·d/100, so pair the biggest discounts with the most expensive items: sort both descending and match them in order until one list runs out.',
+    r: 'A discount d saves p times d divided by 100, so pair the biggest discounts with the most expensive items: sort both descending and match them in order until one list runs out.',
     g: R => ({ prices: R.ints(R.int(1, 4), 1, 50), discounts: R.ints(R.int(1, 4), 1, 100) }),
     cmp: (a, b) => Math.abs(a - b) < 1e-5,
     s(I, T) { const p = I.prices.slice().sort((x, y) => y - x), d = I.discounts.slice().sort((x, y) => y - x); let tot = 0; p.forEach((x, i) => { const f = i < d.length ? x * (100 - d[i]) / 100 : x; if (i < 4) { T.at({ prices: A(p, { i }), discounts: A(d, i < d.length ? { i } : {}) }); T.n(`Final price of the item costing ${x}?`, f, i < d.length ? `Gets the ${i + 1}-th biggest discount, ${d[i]}%.` : 'No discount left.'); } tot += f; }); return tot; }

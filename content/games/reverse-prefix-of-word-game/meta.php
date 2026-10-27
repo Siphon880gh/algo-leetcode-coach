@@ -5,7 +5,7 @@ return [
     'title' => 'Reverse Prefix of Word',
     'leetcode' => 2000,
     'difficulty' => 'Easy',
-    'summary' => 'Find the first occurrence of ch; reverse word[0..i] with two pointers. No occurrence → unchanged.',
+    'summary' => 'Find the first occurrence of ch; reverse word[0 to i] with two pointers. No occurrence: unchanged.',
     'category' => 'LeetCode',
     'subcategory' => 'Two Pointers',
     'topic' => 'LeetCode · Two Pointers',

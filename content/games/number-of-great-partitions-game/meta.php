@@ -5,7 +5,7 @@ return [
     'title' => 'Number of Great Partitions: subtract the bad ones',
     'leetcode' => 2518,
     'difficulty' => 'Hard',
-    'summary' => 'If total < 2k, nothing works. Otherwise a partition is bad if one group sums to < k. Count subsets with sum < k (knapsack); answer = 2^n − 2 · that count.',
+    'summary' => 'If total < 2k, nothing works. Otherwise a partition is bad if one group sums to < k. Count subsets with sum < k (knapsack); answer = 2 to the power n − 2 times that count.',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

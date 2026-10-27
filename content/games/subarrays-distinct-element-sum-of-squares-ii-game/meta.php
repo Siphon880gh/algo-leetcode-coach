@@ -5,7 +5,7 @@ return [
     'title' => 'Subarrays Distinct Element Sum of Squares II',
     'leetcode' => 2916,
     'difficulty' => 'Hard',
-    'summary' => 'Sweep the right end r. Adding nums[r] increments the distinct count of every subarray starting after its previous occurrence; a lazy segment tree maintains Σ count and Σ count² under range +1.',
+    'summary' => 'Sweep the right end r. Adding nums[r] increments the distinct count of every subarray starting after its previous occurrence; a lazy segment tree maintains the sum of count and the sum of count² under range +1.',
     'category' => 'LeetCode',
     'subcategory' => 'Segment Tree',
     'topic' => 'LeetCode · Segment Tree',

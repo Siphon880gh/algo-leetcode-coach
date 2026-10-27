@@ -5,7 +5,7 @@ return [
     'title' => 'Most Expensive Item That Can Not Be Bought: the Frobenius number',
     'leetcode' => 2979,
     'difficulty' => 'Med',
-    'summary' => 'With coins p and q (coprime), every amount above p·q − p − q can be paid. A reachability DP over amounts confirms which ones cannot.',
+    'summary' => 'With coins p and q (coprime), every amount above p times q − p − q can be paid. A reachability DP over amounts confirms which ones cannot.',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

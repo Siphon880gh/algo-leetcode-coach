@@ -5,7 +5,7 @@ return [
     'title' => 'Goal Parser Interpretation',
     'leetcode' => 1678,
     'difficulty' => 'Easy',
-    'summary' => '"G" → G, "()" → o, "(al)" → al.',
+    'summary' => '"G" becomes G, "()" becomes o, "(al)" becomes al.',
     'category' => 'LeetCode',
     'subcategory' => 'Strings',
     'topic' => 'LeetCode · Strings',

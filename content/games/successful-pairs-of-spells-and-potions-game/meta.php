@@ -5,7 +5,7 @@ return [
     'title' => 'Successful Pairs of Spells and Potions',
     'leetcode' => 2300,
     'difficulty' => 'Med',
-    'summary' => 'Sort potions. For each spell s, binary search the first potion ≥ ⌈success / s⌉; everything after works.',
+    'summary' => 'Sort potions. For each spell s, binary search the first potion at least (success divided by s, rounded up); everything after works.',
     'category' => 'LeetCode',
     'subcategory' => 'Binary Search',
     'topic' => 'LeetCode · Binary Search',

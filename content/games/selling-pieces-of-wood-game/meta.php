@@ -5,7 +5,7 @@ return [
     'title' => 'Selling Pieces of Wood: sell whole or cut once',
     'leetcode' => 2312,
     'difficulty' => 'Hard',
-    'summary' => 'dp[h][w] = best money for an h × w piece = max(price of that exact shape, best horizontal cut dp[i][w] + dp[h−i][w], best vertical cut dp[h][j] + dp[h][w−j]).',
+    'summary' => 'dp[h][w] = best money for an h times w piece = max(price of that exact shape, best horizontal cut dp[i][w] + dp[h−i][w], best vertical cut dp[h][j] + dp[h][w−j]).',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

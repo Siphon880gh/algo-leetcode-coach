@@ -5,7 +5,7 @@ return [
     'title' => 'Count Lattice Points Inside Circles: union of point sets',
     'leetcode' => 2249,
     'difficulty' => 'Med',
-    'summary' => 'For each circle, scan its bounding square and add every (x, y) with dx² + dy² ≤ r² to one set. The answer is the set size.',
+    'summary' => 'For each circle, scan its bounding square and add every (x, y) with dx² + dy² at most r² to one set. The answer is the set size.',
     'category' => 'LeetCode',
     'subcategory' => 'Math',
     'topic' => 'LeetCode · Math',

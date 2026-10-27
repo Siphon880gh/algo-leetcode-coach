@@ -5,7 +5,7 @@ return [
     'title' => 'Minimum Energy to Maintain Brightness',
     'leetcode' => 3951,
     'difficulty' => 'Med',
-    'summary' => 'One bulb lights at most 3 positions, and c bulbs can light min(n, 3c), so every required time unit needs ⌈brightness / 3⌉ bulbs. Sort and merge the intervals to count the covered time units, then multiply.',
+    'summary' => 'One bulb lights at most 3 positions, and c bulbs can light min(n, 3c), so every required time unit needs brightness divided by 3 (rounded up) bulbs. Sort and merge the intervals to count the covered time units, then multiply.',
     'category' => 'LeetCode',
     'subcategory' => 'Sorting',
     'topic' => 'LeetCode · Sorting',

@@ -5,7 +5,7 @@ return [
     'title' => 'Binary-Searchable Numbers',
     'leetcode' => 1966,
     'difficulty' => 'Med',
-    'summary' => 'A value is always found iff it is greater than everything to its left and smaller than everything to its right. Compute prefix maxima and suffix minima.',
+    'summary' => 'A value is always found exactly when it is greater than everything to its left and smaller than everything to its right. Compute prefix maxima and suffix minima.',
     'category' => 'LeetCode',
     'subcategory' => 'Binary Search',
     'topic' => 'LeetCode · Binary Search',

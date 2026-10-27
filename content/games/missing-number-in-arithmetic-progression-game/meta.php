@@ -5,7 +5,7 @@ return [
     'title' => 'Missing Number in an Arithmetic Progression',
     'leetcode' => 1228,
     'difficulty' => 'Easy',
-    'summary' => 'The step is (last − first) / n. Binary search the first index where arr[i] ≠ first + i·step; the missing value is first + i·step.',
+    'summary' => 'The step is (last − first) divided by n. Binary search the first index where arr[i] not equal to first + i times step; the missing value is first + i times step.',
     'category' => 'LeetCode',
     'subcategory' => 'Binary Search',
     'topic' => 'LeetCode · Binary Search',

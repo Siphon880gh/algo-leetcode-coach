@@ -5,7 +5,7 @@ return [
     'title' => 'Max Chunks to Make Sorted: prefix max equals index',
     'leetcode' => 769,
     'difficulty' => 'Med',
-    'summary' => 'For a permutation of 0…n−1, a chunk can end at i exactly when max(arr[0..i]) = i.',
+    'summary' => 'For a permutation of 0…n−1, a chunk can end at i exactly when max(arr[0 to i]) = i.',
     'category' => 'LeetCode',
     'subcategory' => 'Greedy',
     'topic' => 'LeetCode · Greedy',

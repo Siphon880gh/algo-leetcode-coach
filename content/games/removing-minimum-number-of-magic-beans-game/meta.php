@@ -5,7 +5,7 @@ return [
     'title' => 'Removing Minimum Number of Magic Beans',
     'leetcode' => 2171,
     'difficulty' => 'Med',
-    'summary' => 'Sort. If every bag from i on keeps b[i] beans, we keep b[i]·(n − i). Removed = total − max kept.',
+    'summary' => 'Sort. If every bag from i on keeps b[i] beans, we keep b[i] times (n − i). Removed = total − max kept.',
     'category' => 'LeetCode',
     'subcategory' => 'Prefix Sum',
     'topic' => 'LeetCode · Prefix Sum',

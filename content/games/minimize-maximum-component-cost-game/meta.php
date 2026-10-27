@@ -5,7 +5,7 @@ return [
     'title' => 'Minimize Maximum Component Cost',
     'leetcode' => 3613,
     'difficulty' => 'Med',
-    'summary' => 'Kruskal: add edges from lightest to heaviest, merging components. Stop as soon as the count is ≤ k; the last weight that merged is the answer (0 if n ≤ k already).',
+    'summary' => 'Kruskal: add edges from lightest to heaviest, merging components. Stop as soon as the count is at most k; the last weight that merged is the answer (0 if n at most k already).',
     'category' => 'LeetCode',
     'subcategory' => 'Union Find',
     'topic' => 'LeetCode · Union Find',

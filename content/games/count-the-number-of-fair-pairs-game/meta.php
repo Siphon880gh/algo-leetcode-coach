@@ -5,7 +5,7 @@ return [
     'title' => 'Count Fair Pairs',
     'leetcode' => 2563,
     'difficulty' => 'Med',
-    'summary' => 'Sort. For each i, binary search j > i with lower − a[i] ≤ a[j] ≤ upper − a[i].',
+    'summary' => 'Sort. For each i, binary search j > i with lower − a[j] from a[i] to upper − a[i].',
     'category' => 'LeetCode',
     'subcategory' => 'Binary Search',
     'topic' => 'LeetCode · Binary Search',

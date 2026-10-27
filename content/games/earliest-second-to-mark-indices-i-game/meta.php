@@ -5,7 +5,7 @@ return [
     'title' => 'Earliest Second to Mark Indices I',
     'leetcode' => 3048,
     'difficulty' => 'Med',
-    'summary' => 'Binary search second t. Each index must be marked at its last appearance within 1..t; before that, enough free seconds must have been spent decrementing it.',
+    'summary' => 'Binary search second t. Each index must be marked at its last appearance within 1 to t; before that, enough free seconds must have been spent decrementing it.',
     'category' => 'LeetCode',
     'subcategory' => 'Binary Search',
     'topic' => 'LeetCode · Binary Search',

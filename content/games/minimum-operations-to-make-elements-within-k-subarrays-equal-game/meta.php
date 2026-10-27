@@ -5,7 +5,7 @@ return [
     'title' => 'Minimum Operations to Make Elements Within K Subarrays Equal',
     'leetcode' => 3505,
     'difficulty' => 'Hard',
-    'summary' => 'A window of size x is cheapest to flatten to its median: cost = Σ|a − median|. Then dp[i][j] = min(dp[i−1][j], dp[i−x][j−1] + cost of the window ending at i−1).',
+    'summary' => 'A window of size x is cheapest to flatten to its median: cost = the sum of |a − median|. Then dp[i][j] = min(dp[i−1][j], dp[i−x][j−1] + cost of the window ending at i−1).',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

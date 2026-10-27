@@ -21,9 +21,9 @@
 
   D('minimum-operations-to-make-array-elements-zero', {
     t: 'Minimum Operations to Make Array Elements Zero',
-    r: 'Number x needs floor(log4 x) + 1 divisions by 4 to reach 0, and each operation does two divisions at once. For a range [l, r], add up the steps and take ceil(total / 2).',
+    r: 'Number x needs floor(log4 x) + 1 divisions by 4 to reach 0, and each operation does two divisions at once. For a range [l, r], add up the steps and take ceil(total divided by 2).',
     g: R => ({ queries: Array.from({ length: R.int(1, 2) }, () => { const l = R.int(1, 40); return [l, l + R.int(1, 5)]; }) }),
-    s(I, T) { let ans = 0; const st = x => { let c = 0; while (x) { x = Math.floor(x / 4); c++; } return c; }; I.queries.forEach(([l, r]) => { let tot = 0; for (let x = l; x <= r; x++) { const s = st(x); tot += s; if (x - l < 3) { T.at({ query: `[${l}, ${r}]`, x }); T.n(`Divisions by 4 to bring ${x} to 0?`, s, `${x} lies in [4^${s - 1}, 4^${s}).`); } } T.at({ query: `[${l}, ${r}]`, totalSteps: tot }); T.n(`Operations for [${l}, ${r}]?`, Math.ceil(tot / 2), 'Each operation performs two divisions.'); ans += Math.ceil(tot / 2); }); return ans; }
+    s(I, T) { let ans = 0; const st = x => { let c = 0; while (x) { x = Math.floor(x / 4); c++; } return c; }; I.queries.forEach(([l, r]) => { let tot = 0; for (let x = l; x <= r; x++) { const s = st(x); tot += s; if (x - l < 3) { T.at({ query: `[${l}, ${r}]`, x }); T.n(`Divisions by 4 to bring ${x} to 0?`, s, `${x} lies in [4 to the power ${s - 1}, 4 to the power ${s}).`); } } T.at({ query: `[${l}, ${r}]`, totalSteps: tot }); T.n(`Operations for [${l}, ${r}]?`, Math.ceil(tot / 2), 'Each operation performs two divisions.'); ans += Math.ceil(tot / 2); }); return ans; }
   });
 
   D('once-twice', {
@@ -35,9 +35,9 @@
 
   D('number-of-integers-with-popcount-depth-equal-to-k-i', {
     t: 'Number of Integers With Popcount-Depth Equal to K I',
-    r: 'After one popcount every number is at most ~50, so depth(x) = 1 + depth(popcount(x)) (depth(1) = 0). The full solution counts, with a binary digit DP, how many x ≤ n have each popcount; here you trace depths directly.',
+    r: 'After one popcount every number is at most ~50, so depth(x) = 1 + depth(popcount(x)) (depth(1) = 0). The full solution counts, with a binary digit DP, how many x at most n have each popcount; here you trace depths directly.',
     g: R => ({ n: R.int(4, 40), k: R.int(0, 3) }),
-    s(I, T) { const dep = x => x === 1 ? 0 : 1 + dep(popc(x)); let c = 0; for (let x = 1; x <= I.n; x++) { const d = dep(x); if (d === I.k) c++; if (x >= 3 && T.room() && x % 3 === 0) { T.at({ x, binary: x.toString(2), popcount: popc(x) }); T.n(`Popcount-depth of ${x}?`, d, `${x} → ${popc(x)} → … → 1.`); } } T.at({ n: I.n, k: I.k }); T.n(`How many x in [1, ${I.n}] have depth ${I.k}?`, c, 'Count matches.'); return c; }
+    s(I, T) { const dep = x => x === 1 ? 0 : 1 + dep(popc(x)); let c = 0; for (let x = 1; x <= I.n; x++) { const d = dep(x); if (d === I.k) c++; if (x >= 3 && T.room() && x % 3 === 0) { T.at({ x, binary: x.toString(2), popcount: popc(x) }); T.n(`Popcount-depth of ${x}?`, d, `${x}, then ${popc(x)}, then …, then 1.`); } } T.at({ n: I.n, k: I.k }); T.n(`How many x in [1, ${I.n}] have depth ${I.k}?`, c, 'Count matches.'); return c; }
   });
 
   D('partition-array-for-maximum-xor-and-and', {
@@ -49,7 +49,7 @@
 
   D('maximum-k-to-sort-a-permutation', {
     t: 'Maximum K to Sort a Permutation',
-    r: 'Only misplaced elements (nums[i] ≠ i) need to move, and every swap partner pair must AND to k, so k must be a sub-mask of all of them. The AND of all misplaced values is the largest k that works (0 if already sorted).',
+    r: 'Only misplaced elements (nums[i] not equal to i) need to move, and every swap partner pair must AND to k, so k must be a sub-mask of all of them. The AND of all misplaced values is the largest k that works (0 if already sorted).',
     g: R => ({ nums: R.perm(R.int(3, 8)) }),
     s(I, T) { let k = -1; I.nums.forEach((v, i) => { const mis = v !== i; T.at({ nums: A(I.nums, { i }), runningAnd: k < 0 ? '–' : k }); T.yn(`Is nums[${i}] = ${v} misplaced?`, mis, mis ? 'It must be swapped, so k ⊆ its bits.' : 'Already at its index.'); if (mis) k = k < 0 ? v : k & v; }); return k < 0 ? 0 : k; }
   });
@@ -63,9 +63,9 @@
 
   D('count-binary-palindromic-numbers', {
     t: 'Count Binary Palindromic Numbers',
-    r: 'A binary palindrome with L bits is fixed by its first ⌈L/2⌉ bits, whose top bit is 1: 2^(⌈L/2⌉ − 1) of them. Add all shorter lengths, then count the palindromes of n\'s own length that are ≤ n (plus 0).',
+    r: 'A binary palindrome with L bits is fixed by its first half of L (rounded up) bits, whose top bit is 1: 2 to the power ((half of L, rounded up) − 1) of them. Add all shorter lengths, then count the palindromes of n\'s own length that are at most n (plus 0).',
     g: R => ({ n: R.int(0, 120) }),
-    s(I, T) { const n = I.n; if (!n) return 1; const L = n.toString(2).length; for (let len = 1; len < L && len <= 4; len++) { T.at({ n, bits: n.toString(2) }); T.n(`Binary palindromes with exactly ${len} bit${len > 1 ? 's' : ''}?`, Math.pow(2, Math.ceil(len / 2) - 1), 'Free choice of the inner half, leading bit fixed to 1.'); } let c = 1; for (let x = 1; x <= n; x++) { const b = x.toString(2); if (b === b.split('').reverse().join('')) c++; } const same = range(1 << (L - 1), n + 1).filter(x => { const b = x.toString(2); return b === b.split('').reverse().join(''); }).length; T.at({ n, bits: n.toString(2) }); T.n(`Palindromes with ${L} bits that are ≤ ${n}?`, same, 'Mirror candidate halves and compare with n.'); return c; }
+    s(I, T) { const n = I.n; if (!n) return 1; const L = n.toString(2).length; for (let len = 1; len < L && len <= 4; len++) { T.at({ n, bits: n.toString(2) }); T.n(`Binary palindromes with exactly ${len} bit${len > 1 ? 's' : ''}?`, Math.pow(2, Math.ceil(len / 2) - 1), 'Free choice of the inner half, leading bit fixed to 1.'); } let c = 1; for (let x = 1; x <= n; x++) { const b = x.toString(2); if (b === b.split('').reverse().join('')) c++; } const same = range(1 << (L - 1), n + 1).filter(x => { const b = x.toString(2); return b === b.split('').reverse().join(''); }).length; T.at({ n, bits: n.toString(2) }); T.n(`Palindromes with ${L} bits that are at most ${n}?`, same, 'Mirror candidate halves and compare with n.'); return c; }
   });
 
   D('maximum-xor-of-subsequences', {
@@ -84,9 +84,9 @@
 
   D('number-of-effective-subsequences', {
     t: 'Number of Effective Subsequences',
-    r: 'Removing S lowers the OR exactly when S contains every holder of some bit of the total OR. Count with inclusion–exclusion over bit sets B: (−1)^(|B|+1) · 2^(n − |holders of any bit in B|).',
+    r: 'Removing S lowers the OR exactly when S contains every holder of some bit of the total OR. Count with inclusion-exclusion over bit sets B: (−1) to the power (|B|+1) times 2 to the power (n − |holders of any bit in B|).',
     g: R => ({ nums: R.ints(R.int(1, 5), 1, 7) }),
-    s(I, T) { const n = I.nums.length, tot = I.nums.reduce((a, b) => a | b, 0), bits = range(0, 21).filter(b => tot >> b & 1); bits.slice(0, 4).forEach(b => { const h = I.nums.filter(x => x >> b & 1).length; T.at({ nums: A(I.nums, { hl: I.nums.map((x, i) => x >> b & 1 ? i : -1).filter(i => i >= 0) }), bit: b }); T.n(`Subsequences that remove every holder of bit ${b}?`, Math.pow(2, n - h), `${h} holder(s) must go; the other ${n - h} are free.`); }); let ans = 0; for (let m = 1; m < 1 << bits.length; m++) { const B = bits.filter((_, i) => m >> i & 1), hs = I.nums.filter(x => B.some(b => x >> b & 1)).length; ans += (B.length % 2 ? 1 : -1) * Math.pow(2, n - hs); } return ans % MOD; }
+    s(I, T) { const n = I.nums.length, tot = I.nums.reduce((a, b) => a | b, 0), bits = range(0, 21).filter(b => tot >> b & 1); bits.slice(0, 4).forEach(b => { const h = I.nums.filter(x => x >> b & 1).length; T.at({ nums: A(I.nums, { hl: I.nums.map((x, i) => x >> b & 1 ? i : -1).filter(i => i >= 0) }), bit: b }); T.n(`Subsequences that remove every holder of bit ${b}?`, Math.pow(2, n - h), `${h} holders must go; the other ${n - h} are free.`); }); let ans = 0; for (let m = 1; m < 1 << bits.length; m++) { const B = bits.filter((_, i) => m >> i & 1), hs = I.nums.filter(x => B.some(b => x >> b & 1)).length; ans += (B.length % 2 ? 1 : -1) * Math.pow(2, n - hs); } return ans % MOD; }
   });
 
   D('minimum-operations-to-make-binary-palindrome', {
@@ -98,7 +98,7 @@
 
   D('maximum-bitwise-and-after-increment-operations', {
     t: 'Maximum Bitwise AND After Increment Operations',
-    r: 'Build the answer bit by bit from the top. For a candidate mask, each number\'s cost is the gap to the smallest v ≥ x containing all mask bits. Keep the bit if the m cheapest costs fit within k.',
+    r: 'Build the answer bit by bit from the top. For a candidate mask, each number\'s cost is the gap to the smallest v at least x containing all mask bits. Keep the bit if the m cheapest costs fit within k.',
     g: R => { const n = R.int(1, 5); return { nums: R.ints(n, 1, 9), k: R.int(1, 12), m: R.int(1, n) }; },
     s(I, T) { const up = (x, mask) => { let v = x; while ((v & mask) !== mask) v++; return v - x; }; let ans = 0; for (let b = 5; b >= 0; b--) { const c = ans | 1 << b, costs = I.nums.map(x => up(x, c)).sort((p, q) => p - q), need = sum(costs.slice(0, I.m)), ok = need <= I.k; if (b <= 4) { T.at({ nums: A(I.nums), candidate: c.toString(2), k: I.k, m: I.m }); T.yn(`Can we keep bit ${b} (mask ${c.toString(2)})?`, ok, `The ${I.m} cheapest raises cost ${need}.`); } if (ok) ans = c; } return ans; }
   });

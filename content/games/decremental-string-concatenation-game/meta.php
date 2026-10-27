@@ -5,7 +5,7 @@ return [
     'title' => 'Decremental String Concatenation: only the ends matter',
     'leetcode' => 2746,
     'difficulty' => 'Med',
-    'summary' => 'State: (first letter, last letter) of the joined string → least length. Add each word on the right or the left; a matching boundary letter saves 1.',
+    'summary' => 'State: (first letter, last letter) of the joined string, mapped to the least length. Add each word on the right or the left; a matching boundary letter saves 1.',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

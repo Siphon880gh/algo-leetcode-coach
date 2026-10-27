@@ -5,7 +5,7 @@ return [
     'title' => 'Next Permutation',
     'leetcode' => 31,
     'difficulty' => 'Med',
-    'summary' => 'From the right, find the first i with a[i] < a[i + 1] (the pivot). Swap it with the rightmost element larger than it, then reverse the suffix after i. No pivot → reverse everything.',
+    'summary' => 'From the right, find the first i with a[i] < a[i + 1] (the pivot). Swap it with the rightmost element larger than it, then reverse the suffix after i. No pivot: reverse everything.',
     'category' => 'LeetCode',
     'subcategory' => 'Two Pointers',
     'topic' => 'LeetCode · Two Pointers',

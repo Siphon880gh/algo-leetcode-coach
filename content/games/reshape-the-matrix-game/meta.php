@@ -5,7 +5,7 @@ return [
     'title' => 'Reshape the Matrix',
     'leetcode' => 566,
     'difficulty' => 'Easy',
-    'summary' => 'If m·n ≠ r·c return the original. Otherwise element number k (row-major) goes to (⌊k / c⌋, k mod c).',
+    'summary' => 'If m times n not equal to r times c return the original. Otherwise element number k (row-major) goes to ((k divided by c, rounded down), k mod c).',
     'category' => 'LeetCode',
     'subcategory' => 'Graphs',
     'topic' => 'LeetCode · Graphs',

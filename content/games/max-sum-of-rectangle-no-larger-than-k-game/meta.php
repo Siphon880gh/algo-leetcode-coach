@@ -2,10 +2,10 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Max Rectangle Sum ≤ k',
+    'title' => 'Max Rectangle Sum at most k',
     'leetcode' => 363,
     'difficulty' => 'Hard',
-    'summary' => 'Fix a pair of rows, collapse columns into sums, then for each prefix p find the smallest earlier prefix ≥ p − k (sorted set + binary search).',
+    'summary' => 'Fix a pair of rows, collapse columns into sums, then for each prefix p find the smallest earlier prefix at least p − k (sorted set + binary search).',
     'category' => 'LeetCode',
     'subcategory' => 'Binary Search',
     'topic' => 'LeetCode · Binary Search',

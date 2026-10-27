@@ -5,7 +5,7 @@ return [
     'title' => 'Average Height of Buildings in Each Segment',
     'leetcode' => 2015,
     'difficulty' => 'Med',
-    'summary' => 'Sweep events tracking (total height, count). Between event points the average is floor(total / count); merge adjacent segments with equal averages and skip empty stretches.',
+    'summary' => 'Sweep events tracking (total height, count). Between event points the average is floor(total divided by count); merge adjacent segments with equal averages and skip empty stretches.',
     'category' => 'LeetCode',
     'subcategory' => 'Intervals',
     'topic' => 'LeetCode · Intervals',

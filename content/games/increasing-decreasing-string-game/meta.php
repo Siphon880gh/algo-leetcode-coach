@@ -5,7 +5,7 @@ return [
     'title' => 'Increasing Decreasing String: sweep counts up and down',
     'leetcode' => 1370,
     'difficulty' => 'Easy',
-    'summary' => 'Using letter counts, repeatedly sweep a→z taking one of each available letter, then z→a, until all are used.',
+    'summary' => 'Using letter counts, repeatedly sweep a to z taking one of each available letter, then z to a, until all are used.',
     'category' => 'LeetCode',
     'subcategory' => 'Strings',
     'topic' => 'LeetCode · Strings',

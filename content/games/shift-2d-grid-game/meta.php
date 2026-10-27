@@ -5,7 +5,7 @@ return [
     'title' => 'Shift 2D Grid',
     'leetcode' => 1260,
     'difficulty' => 'Easy',
-    'summary' => 'Flatten row-major: element at index i moves to (i + k) mod (m·n). Map back to (row, col).',
+    'summary' => 'Flatten row-major: element at index i moves to (i + k) mod (m times n). Map back to (row, col).',
     'category' => 'LeetCode',
     'subcategory' => 'Graphs',
     'topic' => 'LeetCode · Graphs',

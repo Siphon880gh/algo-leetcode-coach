@@ -5,7 +5,7 @@ return [
     'title' => 'Minimize Connected Groups by Inserting an Interval',
     'leetcode' => 3323,
     'difficulty' => 'Med',
-    'summary' => 'Merge intervals into groups. A new interval of length ≤ k can bridge from group i to every group j whose start − end_i ≤ k: binary search the farthest j. Groups saved = j − i.',
+    'summary' => 'Merge intervals into groups. A new interval of length at most k can bridge from group i to every group j whose start − end_i at most k: binary search the farthest j. Groups saved = j − i.',
     'category' => 'LeetCode',
     'subcategory' => 'Binary Search',
     'topic' => 'LeetCode · Binary Search',

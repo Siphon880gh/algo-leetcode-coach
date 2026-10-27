@@ -5,7 +5,7 @@ return [
     'title' => 'Minimum Factorization: divide by 9 down to 2',
     'leetcode' => 625,
     'difficulty' => 'Med',
-    'summary' => 'num < 10 is its own answer. Otherwise divide out 9, 8, …, 2 greedily (bigger digits mean fewer digits), then write the digits in increasing order. Leftover > 1 or overflow → 0.',
+    'summary' => 'num < 10 is its own answer. Otherwise divide out 9, 8, …, 2 greedily (bigger digits mean fewer digits), then write the digits in increasing order. Leftover > 1 or overflow: 0.',
     'category' => 'LeetCode',
     'subcategory' => 'Greedy',
     'topic' => 'LeetCode · Greedy',

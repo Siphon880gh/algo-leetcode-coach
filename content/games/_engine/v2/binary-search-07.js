@@ -29,25 +29,25 @@
 
   D('binary-search-boundaries', {
     t: 'Binary Search Boundaries',
-    r: 'With a monotonic test (false ... false, true ... true), binary search finds the first true index: if the test holds at mid set hi = mid, else lo = mid + 1, until lo = hi. Leftmost index of x: first index with a[i] ≥ x. Rightmost index of x: (first index with a[i] > x) − 1.',
+    r: 'With a monotonic test (false ... false, true ... true), binary search finds the first true index: if the test holds at mid set hi = mid, else lo = mid + 1, until lo = hi. Leftmost index of x: first index with a[i] at least x. Rightmost index of x: (first index with a[i] > x) − 1.',
     exs: [{ in: { nums: [1, 2, 2, 2, 5], target: 2 }, out: [1, 3] }, { in: { nums: [1, 3], target: 2 }, out: [-1, -1] }],
     g: R => { const a = sortedArr(R); return { nums: a, target: R.chance(0.8) ? a[R.int(0, a.length - 1)] : R.int(1, 9) }; },
-    s(I, T) { const a = I.nums, x = I.target, L = firstTrue(a, v => v >= x, T, v => `${v} ≥ ${x}`); T.at({ nums: A(a, { hl: L < a.length ? L : undefined }) }); T.n(`First index with a[i] ≥ ${x}?`, L, 'Where lo and hi met.'); const U = firstTrue(a, v => v > x, T, v => `${v} > ${x}`); T.n(`First index with a[i] > ${x}?`, U, 'Where lo and hi met.'); return L < a.length && a[L] === x ? [L, U - 1] : [-1, -1]; }
+    s(I, T) { const a = I.nums, x = I.target, L = firstTrue(a, v => v >= x, T, v => `${v} at least ${x}`); T.at({ nums: A(a, { hl: L < a.length ? L : undefined }) }); T.n(`First index with a[i] at least ${x}?`, L, 'Where lo and hi met.'); const U = firstTrue(a, v => v > x, T, v => `${v} > ${x}`); T.n(`First index with a[i] > ${x}?`, U, 'Where lo and hi met.'); return L < a.length && a[L] === x ? [L, U - 1] : [-1, -1]; }
   });
 
   D('binary-search-insertion-point', {
     t: 'Binary Search Insertion Point',
-    r: 'The insertion point of x in a sorted array is the first index i with a[i] ≥ x (lower bound); it is n when every value is smaller. Search lo = 0, hi = n: if a[mid] ≥ x set hi = mid, else lo = mid + 1.',
+    r: 'The insertion point of x in a sorted array is the first index i with a[i] at least x (lower bound); it is n when every value is smaller. Search lo = 0, hi = n: if a[mid] at least x set hi = mid, else lo = mid + 1.',
     exs: [{ in: { nums: [1, 3, 5, 7], target: 4 }, out: 2 }, { in: { nums: [1, 3, 5, 7], target: 9 }, out: 4 }],
     g: R => ({ nums: R.distinct(R.int(5, 9), 1, 30).sort((x, y) => x - y), target: R.int(0, 31) }),
-    s(I, T) { const a = I.nums, x = I.target, i = firstTrue(a, v => v >= x, T, v => `${v} ≥ ${x}`); T.at({ nums: A(a) }); T.n(`Insertion point for ${x}?`, i, 'lo once the range is empty.'); const b = a.slice(0, i).concat([x], a.slice(i)); T.at({ nums: A(b, { hl: i }) }); T.n(`After inserting, how many values sit to the right of ${x}?`, a.length - i, 'Those all shift one slot.'); return i; }
+    s(I, T) { const a = I.nums, x = I.target, i = firstTrue(a, v => v >= x, T, v => `${v} at least ${x}`); T.at({ nums: A(a) }); T.n(`Insertion point for ${x}?`, i, 'lo once the range is empty.'); const b = a.slice(0, i).concat([x], a.slice(i)); T.at({ nums: A(b, { hl: i }) }); T.n(`After inserting, how many values sit to the right of ${x}?`, a.length - i, 'Those all shift one slot.'); return i; }
   });
 
   D('divide-and-conquer-search-strategy', {
     t: 'Divide and Conquer Search',
-    r: 'Binary search on a sorted array keeps a live range [lo, hi]. Look at mid = (lo + hi) / 2 rounded down: equal means found; if the target is larger drop the left half (lo = mid + 1), else drop the right half (hi = mid − 1). Empty range means not found (−1).',
+    r: 'Binary search on a sorted array keeps a live range [lo, hi]. Look at mid = (lo + hi) divided by 2 rounded down: equal means found; if the target is larger drop the left half (lo = mid + 1), else drop the right half (hi = mid − 1). Empty range means not found (−1).',
     exs: [{ in: { nums: [1, 3, 5, 7, 9], target: 7 }, out: 3 }, { in: { nums: [1, 3, 5, 7, 9], target: 4 }, out: -1 }],
     g: R => { const a = R.distinct(R.int(5, 10), 1, 30).sort((x, y) => x - y); return { nums: a, target: R.chance(0.75) ? a[R.int(0, a.length - 1)] : R.int(1, 30) }; },
-    s(I, T) { const a = I.nums, x = I.target; let lo = 0, hi = a.length - 1, steps = 0; T.at({ nums: A(a) }); T.n('Starting hi index?', hi, 'The last index, n − 1.'); while (lo <= hi) { const mid = (lo + hi) >> 1; steps++; T.at({ nums: A(a, { lo, hi, win: [lo, hi] }), target: x }); T.n('mid index?', mid, `(${lo} + ${hi}) / 2 rounded down.`); const mv = a[mid] === x ? 'found' : x > a[mid] ? 'drop the left half' : 'drop the right half'; T.c(`a[mid] = ${a[mid]}, target ${x}: what next?`, ['found', 'drop the left half', 'drop the right half'], mv, `${x} vs ${a[mid]}.`); if (mv === 'found') return mid; if (x > a[mid]) lo = mid + 1; else hi = mid - 1; } return -1; }
+    s(I, T) { const a = I.nums, x = I.target; let lo = 0, hi = a.length - 1, steps = 0; T.at({ nums: A(a) }); T.n('Starting hi index?', hi, 'The last index, n − 1.'); while (lo <= hi) { const mid = (lo + hi) >> 1; steps++; T.at({ nums: A(a, { lo, hi, win: [lo, hi] }), target: x }); T.n('mid index?', mid, `(${lo} + ${hi}) divided by 2 rounded down.`); const mv = a[mid] === x ? 'found' : x > a[mid] ? 'drop the left half' : 'drop the right half'; T.c(`a[mid] = ${a[mid]}, target ${x}: what next?`, ['found', 'drop the left half', 'drop the right half'], mv, `${x} vs ${a[mid]}.`); if (mv === 'found') return mid; if (x > a[mid]) lo = mid + 1; else hi = mid - 1; } return -1; }
   });
 })();

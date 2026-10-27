@@ -5,7 +5,7 @@ return [
     'title' => 'Kth Smallest Single-Coin Amount',
     'leetcode' => 3116,
     'difficulty' => 'Hard',
-    'summary' => 'Amounts are multiples of some coin. Count multiples ≤ x with inclusion–exclusion over subsets (lcm of each subset). Binary search the first x with count ≥ k.',
+    'summary' => 'Amounts are multiples of some coin. Count multiples at most x with inclusion-exclusion over subsets (lcm of each subset). Binary search the first x with count at least k.',
     'category' => 'LeetCode',
     'subcategory' => 'Binary Search',
     'topic' => 'LeetCode · Binary Search',

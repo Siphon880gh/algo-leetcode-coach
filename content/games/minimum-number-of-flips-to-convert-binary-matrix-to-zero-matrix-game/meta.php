@@ -5,7 +5,7 @@ return [
     'title' => 'Minimum Number of Flips to Convert Binary Matrix to Zero Matrix',
     'leetcode' => 1284,
     'difficulty' => 'Hard',
-    'summary' => 'At most 9 cells → encode the matrix as a bitmask. BFS over masks; a move flips a cell and its 4 neighbors (XOR with a precomputed mask). First time mask 0 is reached → answer; never → −1.',
+    'summary' => 'At most 9 cells, so encode the matrix as a bitmask. BFS over masks; a move flips a cell and its 4 neighbors (XOR with a precomputed mask). The first time mask 0 is reached is the answer; never reached means −1.',
     'category' => 'LeetCode',
     'subcategory' => 'Graphs',
     'topic' => 'LeetCode · Graphs',

@@ -35,18 +35,18 @@
 
   D('bucket-sort', {
     t: 'Bucket Sort',
-    r: 'For values in [0, 1) and k buckets, value x goes to bucket floor(x × k). Sort each bucket (they are small), then join the buckets in order.',
+    r: 'For values in [0, 1) and k buckets, value x goes to bucket floor(x times k). Sort each bucket (they are small), then join the buckets in order.',
     exs: [{ in: { nums: [0.42, 0.11, 0.75, 0.08], buckets: 4 }, out: [0.08, 0.11, 0.42, 0.75] }],
     g: R => ({ nums: R.ints(R.int(4, 7), 0, 99).map(x => x / 100), buckets: R.int(3, 5) }),
-    s(I, T) { const k = I.buckets, B = Array.from({ length: k }, () => []); I.nums.forEach((x, i) => { const b = Math.floor(x * k); T.at({ nums: A(I.nums, { hl: i }), buckets: K(B.map((v, j) => ['bucket ' + j, show(v)])) }); T.n(`Which bucket gets ${x}?`, b, `floor(${x} × ${k}) = ${b}.`); B[b].push(x); }); const big = B.reduce((m, v, j) => v.length > B[m].length ? j : m, 0); T.at({ buckets: K(B.map((v, j) => ['bucket ' + j, show(v)])) }); T.n('How many values sit in the fullest bucket?', B[big].length, 'Count each bucket.'); const out = [].concat(...B.map(v => v.slice().sort((x, y) => x - y))); return out; }
+    s(I, T) { const k = I.buckets, B = Array.from({ length: k }, () => []); I.nums.forEach((x, i) => { const b = Math.floor(x * k); T.at({ nums: A(I.nums, { hl: i }), buckets: K(B.map((v, j) => ['bucket ' + j, show(v)])) }); T.n(`Which bucket gets ${x}?`, b, `floor(${x} times ${k}) = ${b}.`); B[b].push(x); }); const big = B.reduce((m, v, j) => v.length > B[m].length ? j : m, 0); T.at({ buckets: K(B.map((v, j) => ['bucket ' + j, show(v)])) }); T.n('How many values sit in the fullest bucket?', B[big].length, 'Count each bucket.'); const out = [].concat(...B.map(v => v.slice().sort((x, y) => x - y))); return out; }
   });
 
   D('counting-sort', {
     t: 'Counting Sort',
-    r: 'For small integer keys 0 to k: count each key, turn counts into prefix sums (prefix[v] = how many keys are ≤ v), then scan the input from right to left and place each key at index prefix[key] − 1, decreasing prefix[key]. That keeps it stable.',
+    r: 'For small integer keys 0 to k: count each key, turn counts into prefix sums (prefix[v] = how many keys are at most v), then scan the input from right to left and place each key at index prefix[key] − 1, decreasing prefix[key]. That keeps it stable.',
     exs: [{ in: { nums: [2, 0, 2, 1, 0] }, out: [0, 0, 1, 2, 2] }],
     g: R => ({ nums: R.ints(R.int(5, 8), 0, 3) }),
-    s(I, T) { const a = I.nums, k = Math.max(...a), cnt = Array(k + 1).fill(0); a.forEach(x => cnt[x]++); for (let v = 0; v <= k; v++) { T.at({ nums: A(a, { hl: a.map((x, i) => x === v ? i : -1).filter(i => i >= 0) }) }); T.n(`count[${v}]?`, cnt[v], `How many times does ${v} appear?`); } const pre = []; cnt.reduce((s, c, v) => (pre[v] = s + c), 0); T.at({ count: A(cnt) }); T.n(`prefix[${k}] (keys ≤ ${k})?`, pre[k], 'The last prefix is the array length.'); const p = pre.slice(), out = Array(a.length).fill(null); for (let i = a.length - 1; i >= 0; i--) { const pos = --p[a[i]]; if (i >= a.length - 2) { T.at({ nums: A(a, { hl: i }), prefix: A(p.map((x, v) => v === a[i] ? x + 1 : x)), output: A(out) }); T.n(`Scanning right to left, at which output index does ${a[i]} (input index ${i}) land?`, pos, `prefix[${a[i]}] − 1 = ${pos}.`); } out[pos] = a[i]; } return out; }
+    s(I, T) { const a = I.nums, k = Math.max(...a), cnt = Array(k + 1).fill(0); a.forEach(x => cnt[x]++); for (let v = 0; v <= k; v++) { T.at({ nums: A(a, { hl: a.map((x, i) => x === v ? i : -1).filter(i => i >= 0) }) }); T.n(`count[${v}]?`, cnt[v], `How many times does ${v} appear?`); } const pre = []; cnt.reduce((s, c, v) => (pre[v] = s + c), 0); T.at({ count: A(cnt) }); T.n(`prefix[${k}] (keys at most ${k})?`, pre[k], 'The last prefix is the array length.'); const p = pre.slice(), out = Array(a.length).fill(null); for (let i = a.length - 1; i >= 0; i--) { const pos = --p[a[i]]; if (i >= a.length - 2) { T.at({ nums: A(a, { hl: i }), prefix: A(p.map((x, v) => v === a[i] ? x + 1 : x)), output: A(out) }); T.n(`Scanning right to left, at which output index does ${a[i]} (input index ${i}) land?`, pos, `prefix[${a[i]}] − 1 = ${pos}.`); } out[pos] = a[i]; } return out; }
   });
 
   D('insertion-sort', {
@@ -58,7 +58,7 @@
 
   D('merge-sort', {
     t: 'Merge Sort',
-    r: 'Split the array in half (the left half gets the first floor(n / 2) items), sort each half, then merge: compare the fronts of the two sorted runs and take the smaller, taking from the left on ties.',
+    r: 'Split the array in half (the left half gets the first floor(n divided by 2) items), sort each half, then merge: compare the fronts of the two sorted runs and take the smaller, taking from the left on ties.',
     exs: SX, g: nums47,
     s(I, T) { const go = a => { if (a.length < 2) return a; const m = Math.floor(a.length / 2), L = go(a.slice(0, m)), Rr = go(a.slice(m)), out = []; let i = 0, j = 0; while (i < L.length && j < Rr.length) { const fromL = L[i] <= Rr[j]; if (a.length > 2 || T.asks < 3) { T.v(A(L, { i, label: 'left run' }), A(Rr, { j, label: 'right run' }), A(out, { label: 'merged' })); T.c(`Merge step: take ${L[i]} from the left or ${Rr[j]} from the right?`, [`left ${L[i]}`, `right ${Rr[j]}`], fromL ? `left ${L[i]}` : `right ${Rr[j]}`, 'Take the smaller front. On a tie take the left one so the sort stays stable.'); } out.push(fromL ? L[i++] : Rr[j++]); } return out.concat(L.slice(i), Rr.slice(j)); }; return go(I.nums.slice()); }
   });
@@ -80,7 +80,7 @@
 
   D('selection-sort', {
     t: 'Selection Sort',
-    r: 'For each position i from the left, find the smallest value in a[i..n − 1] and swap it into position i. After pass i the first i + 1 slots are final.',
+    r: 'For each position i from the left, find the smallest value in a[i to n − 1] and swap it into position i. After pass i the first i + 1 slots are final.',
     exs: SX, g: nums47,
     s(I, T) { const a = I.nums.slice(), n = a.length; for (let i = 0; i < n - 1; i++) { let m = i; for (let j = i + 1; j < n; j++) if (a[j] < a[m]) m = j; T.at({ nums: A(a, { ok: range(0, i), i }) }); T.n(`Pass ${i}: index of the smallest value in a[${i}..${n - 1}]?`, m, 'Scan the unsorted part; keep the first smallest.'); [a[i], a[m]] = [a[m], a[i]]; } return a; }
   });

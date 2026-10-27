@@ -5,7 +5,7 @@ return [
     'title' => 'XOR Operation in an Array',
     'leetcode' => 1486,
     'difficulty' => 'Easy',
-    'summary' => 'XOR start + 2i for i = 0..n−1.',
+    'summary' => 'XOR start + 2i for i = 0 to n−1.',
     'category' => 'LeetCode',
     'subcategory' => 'Bit Manipulation',
     'topic' => 'LeetCode · Bit Manipulation',

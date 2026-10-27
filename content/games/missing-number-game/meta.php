@@ -5,7 +5,7 @@ return [
     'title' => 'Missing Number',
     'leetcode' => 268,
     'difficulty' => 'Easy',
-    'summary' => 'XOR all indices 0..n with all values; everything pairs up except the missing number.',
+    'summary' => 'XOR all indices 0 to n with all values; everything pairs up except the missing number.',
     'category' => 'LeetCode',
     'subcategory' => 'Bit Manipulation',
     'topic' => 'LeetCode · Bit Manipulation',

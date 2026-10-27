@@ -5,7 +5,7 @@ return [
     'title' => 'Sum of Absolute Differences in a Sorted Array',
     'leetcode' => 1685,
     'difficulty' => 'Med',
-    'summary' => 'With prefix sums: result[i] = x·i − left sum + right sum − x·(n − 1 − i).',
+    'summary' => 'With prefix sums: result[i] = x times i − left sum + right sum − x times (n − 1 − i).',
     'category' => 'LeetCode',
     'subcategory' => 'Prefix Sum',
     'topic' => 'LeetCode · Prefix Sum',

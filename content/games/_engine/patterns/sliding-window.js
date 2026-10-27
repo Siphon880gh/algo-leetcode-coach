@@ -18,7 +18,7 @@
         var t = new LC.Trace();
         t.setup = g.setup;
         var l = 0, best = cfg.type === 'max' ? 0 : Infinity, bestWin = null;
-        var acts = [['E', 'Expand R →'], ['S', 'Shrink L →']];
+        var acts = [['E', 'Expand R right'], ['S', 'Shrink L right']];
         function win(r) { return a.slice(l, r + 1); }
         function view(r) {
           var w = win(r);
@@ -86,8 +86,8 @@
   });
 
   variable('longest-repeating-character-replacement', {
-    title: 'Longest Repeating Character Replacement: len − maxFreq ≤ k',
-    rule: 'A window is fixable when (length − count of its most common letter) ≤ k. Grow R; shrink L when more than k replacements would be needed.',
+    title: 'Longest Repeating Character Replacement: len − maxFreq at most k',
+    rule: 'A window is fixable when (length − count of its most common letter) at most k. Grow R; shrink L when more than k replacements would be needed.',
     type: 'max', measureName: 'length',
     gen: function (rng, round) { var k = rng.int(1, 2), s = []; for (var i = 0; i < 10 + round; i++) s.push(rng.pick(round === 2 ? ['A', 'B', 'C'] : ['A', 'B'])); return { a: s, k: k, setup: 's = "' + s.join('') + '"   k = ' + k }; },
     valid: function (w, g) { var m = counts(w), mx = 0; for (var c in m) mx = Math.max(mx, m[c]); return w.length - mx <= g.k; },
@@ -133,7 +133,7 @@
       for (var i = 0; i < 10 + round; i++) s.push(rng.pick(['T', 'F']));
       var flip = round % 2 === 0 ? 'F' : 'T';
       var other = maxPass(s, k, flip === 'F' ? 'T' : 'F');
-      return { a: s, k: k, flip: flip, other: other, setup: 'answerKey = "' + s.join('') + '"   k = ' + k + '   this pass: flip ' + flip + ' → ' + (flip === 'F' ? 'T' : 'F') };
+      return { a: s, k: k, flip: flip, other: other, setup: 'answerKey = "' + s.join('') + '"   k = ' + k + '   this pass: flip ' + flip + ' to ' + (flip === 'F' ? 'T' : 'F') };
     },
     valid: function (w, g) { return w.filter(function (x) { return x === g.flip; }).length <= g.k; },
     whyBad: function (w, g) { return w.filter(function (x) { return x === g.flip; }).length + ' ' + g.flip + "'s to flip > k = " + g.k + '.'; },
@@ -159,7 +159,7 @@
 
   variable('minimum-size-subarray-sum', {
     title: 'Minimum Size Subarray Sum: grow to reach, shrink to tighten',
-    rule: 'Grow R until sum ≥ target. Then shrink L as long as the sum still reaches the target, recording each length. Shortest wins.',
+    rule: 'Grow R until sum at least target. Then shrink L as long as the sum still reaches the target, recording each length. Shortest wins.',
     type: 'min',
     gen: function (rng, round) { var a = rng.ints(9 + round, 1, 6); var target = rng.int(7, 13); return { a: a, target: target, setup: 'nums = ' + LC.fmt(a) + '   target = ' + target }; },
     valid: function (w, g) { return w.reduce(function (x, y) { return x + y; }, 0) >= g.target; },

@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Unique BSTs II: every root, every left × right',
+    'title' => 'Unique BSTs II: every root, every left times right',
     'leetcode' => 95,
     'difficulty' => 'Med',
     'summary' => 'For a range lo … hi, each value r can be the root; combine every left tree from lo … r−1 with every right tree from r+1 … hi.',

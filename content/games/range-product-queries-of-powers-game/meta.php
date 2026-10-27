@@ -5,7 +5,7 @@ return [
     'title' => 'Range Product Queries of Powers',
     'leetcode' => 2438,
     'difficulty' => 'Med',
-    'summary' => 'powers = the set bits of n in increasing order. A query multiplies powers[l..r] (mod 1e9+7) — or add exponents with a prefix sum and compute one power of 2.',
+    'summary' => 'powers = the set bits of n in increasing order. A query multiplies powers[l to r] (mod 1e9+7) — or add exponents with a prefix sum and compute one power of 2.',
     'category' => 'LeetCode',
     'subcategory' => 'Prefix Sum',
     'topic' => 'LeetCode · Prefix Sum',

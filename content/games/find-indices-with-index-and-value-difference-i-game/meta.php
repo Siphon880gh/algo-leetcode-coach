@@ -5,7 +5,7 @@ return [
     'title' => 'Find Indices With Index and Value Difference I',
     'leetcode' => 2903,
     'difficulty' => 'Easy',
-    'summary' => 'Scan j from indexDifference; keep the indices of the min and max among nums[0..j − indexDifference]. If nums[j] is far enough from either, return that pair.',
+    'summary' => 'Scan j from indexDifference; keep the indices of the min and max among nums[0 to j − indexDifference]. If nums[j] is far enough from either, return that pair.',
     'category' => 'LeetCode',
     'subcategory' => 'Two Pointers',
     'topic' => 'LeetCode · Two Pointers',

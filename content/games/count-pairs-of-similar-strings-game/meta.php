@@ -5,7 +5,7 @@ return [
     'title' => 'Count Pairs Of Similar Strings',
     'leetcode' => 2506,
     'difficulty' => 'Easy',
-    'summary' => 'Two words are similar iff their letter-set masks are equal. Count masks; each new word pairs with all earlier equal masks.',
+    'summary' => 'Two words are similar exactly when their letter-set masks are equal. Count masks; each new word pairs with all earlier equal masks.',
     'category' => 'LeetCode',
     'subcategory' => 'Bit Manipulation',
     'topic' => 'LeetCode · Bit Manipulation',

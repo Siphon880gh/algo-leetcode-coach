@@ -5,7 +5,7 @@ return [
     'title' => 'Verify Preorder Serialization: count open slots',
     'leetcode' => 331,
     'difficulty' => 'Med',
-    'summary' => 'Start with 1 slot. Each token fills a slot (fail if none); a number opens 2 more. Valid iff exactly 0 slots remain at the end.',
+    'summary' => 'Start with 1 slot. Each token fills a slot (fail if none); a number opens 2 more. Valid exactly when exactly 0 slots remain at the end.',
     'category' => 'LeetCode',
     'subcategory' => 'Trees',
     'topic' => 'LeetCode · Trees',

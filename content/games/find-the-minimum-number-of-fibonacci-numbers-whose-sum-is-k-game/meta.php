@@ -5,7 +5,7 @@ return [
     'title' => 'Minimum Fibonacci Numbers Summing to k: largest first',
     'leetcode' => 1414,
     'difficulty' => 'Med',
-    'summary' => 'Repeatedly subtract the largest Fibonacci number ≤ k. (Zeckendorf: this is optimal.)',
+    'summary' => 'Repeatedly subtract the largest Fibonacci number at most k. (Zeckendorf: this is optimal.)',
     'category' => 'LeetCode',
     'subcategory' => 'Greedy',
     'topic' => 'LeetCode · Greedy',

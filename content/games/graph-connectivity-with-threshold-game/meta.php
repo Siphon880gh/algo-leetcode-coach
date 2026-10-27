@@ -5,7 +5,7 @@ return [
     'title' => 'Graph Connectivity With Threshold',
     'leetcode' => 1627,
     'difficulty' => 'Hard',
-    'summary' => 'For each divisor z > threshold, union all its multiples (z, 2z, 3z, …). Two cities are connected iff they share a root.',
+    'summary' => 'For each divisor z > threshold, union all its multiples (z, 2z, 3z, …). Two cities are connected exactly when they share a root.',
     'category' => 'LeetCode',
     'subcategory' => 'Union Find',
     'topic' => 'LeetCode · Union Find',

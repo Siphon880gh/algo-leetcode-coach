@@ -5,7 +5,7 @@ return [
     'title' => 'Partition Array into Disjoint Intervals',
     'leetcode' => 915,
     'difficulty' => 'Med',
-    'summary' => 'Precompute suffix minimums. The first i where prefix max(0..i) ≤ suffix min(i+1..) gives left length i + 1.',
+    'summary' => 'Precompute suffix minimums. The first i where prefix max(0 to i) at most suffix min(i+1..) gives left length i + 1.',
     'category' => 'LeetCode',
     'subcategory' => 'Prefix Sum',
     'topic' => 'LeetCode · Prefix Sum',

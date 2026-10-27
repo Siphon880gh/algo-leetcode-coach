@@ -5,7 +5,7 @@ return [
     'title' => 'Maximum GCD-Sum of a Subarray',
     'leetcode' => 2941,
     'difficulty' => 'Hard',
-    'summary' => 'For a fixed right end there are only O(log V) distinct gcds of subarrays ending there; keep the leftmost start for each and score sum × gcd when the length ≥ k.',
+    'summary' => 'For a fixed right end there are only O(log V) distinct gcds of subarrays ending there; keep the leftmost start for each and score sum times gcd when the length at least k.',
     'category' => 'LeetCode',
     'subcategory' => 'Binary Search',
     'topic' => 'LeetCode · Binary Search',

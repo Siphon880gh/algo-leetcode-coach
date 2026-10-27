@@ -5,7 +5,7 @@ return [
     'title' => 'Minimum Time to Break Locks II',
     'leetcode' => 3385,
     'difficulty' => 'Hard',
-    'summary' => 'Breaking lock i as the j-th lock takes ⌈strength[i] / j⌉ minutes: an assignment problem (min-cost matching / flow). For small n, bitmask DP over which locks are broken works too.',
+    'summary' => 'Breaking lock i as the j-th lock takes strength[i] divided by j (rounded up) minutes: an assignment problem (min-cost matching or flow). For small n, bitmask DP over which locks are broken works too.',
     'category' => 'LeetCode',
     'subcategory' => 'Graphs',
     'topic' => 'LeetCode · Graphs',

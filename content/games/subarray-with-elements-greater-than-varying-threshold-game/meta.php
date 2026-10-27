@@ -5,7 +5,7 @@ return [
     'title' => 'Subarray With Elements Greater Than Varying Threshold',
     'leetcode' => 2334,
     'difficulty' => 'Hard',
-    'summary' => 'Add elements from largest to smallest, merging with already-added neighbors. When value v joins a segment of length k, every element in it is ≥ v; if v > threshold / k, k is a valid answer.',
+    'summary' => 'Add elements from largest to smallest, merging with already-added neighbors. When value v joins a segment of length k, every element in it is at least v; if v > threshold divided by k, k is a valid answer.',
     'category' => 'LeetCode',
     'subcategory' => 'Union Find',
     'topic' => 'LeetCode · Union Find',

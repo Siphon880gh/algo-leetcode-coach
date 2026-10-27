@@ -5,7 +5,7 @@ return [
     'title' => 'Decode the Message',
     'leetcode' => 2325,
     'difficulty' => 'Easy',
-    'summary' => 'Build the substitution table from the first appearance of each letter in key (first → a, second → b, …); spaces stay.',
+    'summary' => 'Build the substitution table from the first appearance of each letter in key (first to a, second to b, …); spaces stay.',
     'category' => 'LeetCode',
     'subcategory' => 'Strings',
     'topic' => 'LeetCode · Strings',

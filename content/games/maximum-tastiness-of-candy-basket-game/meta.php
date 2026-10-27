@@ -5,7 +5,7 @@ return [
     'title' => 'Maximum Tastiness of a Candy Basket',
     'leetcode' => 2517,
     'difficulty' => 'Med',
-    'summary' => 'Sort prices. Binary search gap g: greedily pick candies at least g apart; g works if you pick ≥ k.',
+    'summary' => 'Sort prices. Binary search gap g: greedily pick candies at least g apart; g works if you pick at least k.',
     'category' => 'LeetCode',
     'subcategory' => 'Binary Search',
     'topic' => 'LeetCode · Binary Search',

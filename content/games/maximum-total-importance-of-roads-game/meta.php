@@ -5,7 +5,7 @@ return [
     'title' => 'Maximum Total Importance of Roads',
     'leetcode' => 2285,
     'difficulty' => 'Med',
-    'summary' => 'Each city\'s value counts once per road touching it. Give the largest values to the highest-degree cities: sort degrees and multiply by 1..n.',
+    'summary' => 'Each city\'s value counts once per road touching it. Give the largest values to the highest-degree cities: sort degrees and multiply by 1 to n.',
     'category' => 'LeetCode',
     'subcategory' => 'Graphs',
     'topic' => 'LeetCode · Graphs',

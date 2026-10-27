@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Final Prices With a Discount: first later price ≤ yours',
+    'title' => 'Final Prices With a Discount: first later price at most yours',
     'leetcode' => 1475,
     'difficulty' => 'Easy',
     'summary' => 'Each item waits on the stack for the first later price that is less than or equal to it. That price pops it and becomes its discount.',

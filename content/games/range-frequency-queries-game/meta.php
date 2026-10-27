@@ -5,7 +5,7 @@ return [
     'title' => 'Range Frequency Queries',
     'leetcode' => 2080,
     'difficulty' => 'Med',
-    'summary' => 'For each value keep its sorted list of indices. query(l, r, v) = (first index > r) − (first index ≥ l) in that list, via two binary searches.',
+    'summary' => 'For each value keep its sorted list of indices. query(l, r, v) = (first index > r) − (first index at least l) in that list, via two binary searches.',
     'category' => 'LeetCode',
     'subcategory' => 'Design',
     'topic' => 'LeetCode · Design',

@@ -5,7 +5,7 @@ return [
     'title' => 'Convert String in k Moves: shifts collide every 26',
     'leetcode' => 1540,
     'difficulty' => 'Med',
-    'summary' => 'Each position needs shift d = (t − s) mod 26. The j-th position needing the same d must use move d + 26·(j − 1). All must be ≤ k.',
+    'summary' => 'Each position needs shift d = (t − s) mod 26. The j-th position needing the same d must use move d + 26 times (j − 1). All must be at most k.',
     'category' => 'LeetCode',
     'subcategory' => 'Strings',
     'topic' => 'LeetCode · Strings',

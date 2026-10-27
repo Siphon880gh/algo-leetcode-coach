@@ -5,7 +5,7 @@ return [
     'title' => 'Distinct Echo Substrings: a + a',
     'leetcode' => 1316,
     'difficulty' => 'Hard',
-    'summary' => 'For each start and half-length L, the substring is an echo if text[i..i+L) equals text[i+L..i+2L). Count distinct ones (hashing makes the comparison O(1)).',
+    'summary' => 'For each start and half-length L, the substring is an echo if text[i to i+L) equals text[i+L to i+2L). Count distinct ones (hashing makes the comparison O(1)).',
     'category' => 'LeetCode',
     'subcategory' => 'Strings',
     'topic' => 'LeetCode · Strings',

@@ -5,7 +5,7 @@ return [
     'title' => 'Total Appeal of a String: count each letter\'s first occurrence',
     'leetcode' => 2262,
     'difficulty' => 'Hard',
-    'summary' => 'Credit a letter to a substring only at its first occurrence there. s[i] is first in substrings starting after the previous same letter: (i − last[c]) · (n − i).',
+    'summary' => 'Credit a letter to a substring only at its first occurrence there. s[i] is first in substrings starting after the previous same letter: (i − last[c]) times (n − i).',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

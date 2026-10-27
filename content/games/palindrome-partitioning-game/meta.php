@@ -5,7 +5,7 @@ return [
     'title' => 'Palindrome Partitioning',
     'leetcode' => 131,
     'difficulty' => 'Med',
-    'summary' => 'Backtrack over cut positions: from index i try every end j where s[i..j] is a palindrome (precompute a table), recurse from j + 1.',
+    'summary' => 'Backtrack over cut positions: from index i try every end j where s[i to j] is a palindrome (precompute a table), recurse from j + 1.',
     'category' => 'LeetCode',
     'subcategory' => 'Backtracking',
     'topic' => 'LeetCode · Backtracking',

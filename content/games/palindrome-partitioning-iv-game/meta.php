@@ -5,7 +5,7 @@ return [
     'title' => 'Palindrome Partitioning IV: three palindromes',
     'leetcode' => 1745,
     'difficulty' => 'Hard',
-    'summary' => 'Precompute isPal[i][j]. Try every pair of cuts (i, j): s[0..i], s[i+1..j], s[j+1..] must all be palindromes.',
+    'summary' => 'Precompute isPal[i][j]. Try every pair of cuts (i, j): s[0 to i], s[i+1 to j], s[j+1..] must all be palindromes.',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

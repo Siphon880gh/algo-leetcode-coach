@@ -5,7 +5,7 @@ return [
     'title' => 'Total Hamming Distance',
     'leetcode' => 477,
     'difficulty' => 'Med',
-    'summary' => 'For each bit, if k numbers have it set, it contributes k · (n − k) to the total.',
+    'summary' => 'For each bit, if k numbers have it set, it contributes k times (n − k) to the total.',
     'category' => 'LeetCode',
     'subcategory' => 'Bit Manipulation',
     'topic' => 'LeetCode · Bit Manipulation',

@@ -5,7 +5,7 @@ return [
     'title' => 'Maximum Set Size After Removals: unique first, then shared',
     'leetcode' => 3002,
     'difficulty' => 'Med',
-    'summary' => 'Each array keeps n/2. Take values unique to nums1 (up to n/2) and unique to nums2 (up to n/2), then fill with shared values; cap at n.',
+    'summary' => 'Each array keeps n divided by 2. Take values unique to nums1 (up to n divided by 2) and unique to nums2 (up to n divided by 2), then fill with shared values; cap at n.',
     'category' => 'LeetCode',
     'subcategory' => 'Greedy',
     'topic' => 'LeetCode · Greedy',

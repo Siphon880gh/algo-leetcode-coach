@@ -5,7 +5,7 @@ return [
     'title' => 'Total Waviness of Numbers in Range II',
     'leetcode' => 3753,
     'difficulty' => 'Hard',
-    'summary' => 'Up to 1e15: digit DP for f(N) = total waviness of 1..N, state (position, previous two digits, tight, started), returning (count of numbers, total waviness). The answer is f(num2) − f(num1 − 1).',
+    'summary' => 'Up to 1e15: digit DP for f(N) = total waviness of 1 to N, state (position, previous two digits, tight, started), returning (count of numbers, total waviness). The answer is f(num2) − f(num1 − 1).',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

@@ -5,7 +5,7 @@ return [
     'title' => 'Knight Probability: count the paths that stay on the board',
     'leetcode' => 688,
     'difficulty' => 'Med',
-    'summary' => 'ways[r][c] = move sequences still on the board ending at (r,c). Each move sends every count to its 8 knight targets that are on the board. Probability = remaining ways / 8^k.',
+    'summary' => 'ways[r][c] = move sequences still on the board ending at (r,c). Each move sends every count to its 8 knight targets that are on the board. Probability = remaining ways divided by 8 to the power k.',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

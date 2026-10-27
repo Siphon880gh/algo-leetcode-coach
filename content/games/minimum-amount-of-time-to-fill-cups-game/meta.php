@@ -5,7 +5,7 @@ return [
     'title' => 'Minimum Amount of Time to Fill Cups',
     'leetcode' => 2335,
     'difficulty' => 'Easy',
-    'summary' => 'Fill the two largest counts together each second. The answer is max(largest, ⌈total/2⌉).',
+    'summary' => 'Fill the two largest counts together each second. The answer is max(largest, (half of total, rounded up)).',
     'category' => 'LeetCode',
     'subcategory' => 'Heap',
     'topic' => 'LeetCode · Heap',

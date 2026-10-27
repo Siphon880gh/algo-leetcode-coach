@@ -5,7 +5,7 @@ return [
     'title' => 'Minimum Fuel Cost to Report to the Capital',
     'leetcode' => 2477,
     'difficulty' => 'Med',
-    'summary' => 'DFS from 0: the people in a subtree of size s must cross the edge to its parent, needing ⌈s / seats⌉ cars, i.e. that many liters.',
+    'summary' => 'DFS from 0: the people in a subtree of size s must cross the edge to its parent, needing s divided by seats (rounded up) cars, i.e. that many liters.',
     'category' => 'LeetCode',
     'subcategory' => 'Graphs',
     'topic' => 'LeetCode · Graphs',

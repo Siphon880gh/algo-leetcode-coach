@@ -5,7 +5,7 @@ return [
     'title' => 'Circular Array Loop',
     'leetcode' => 457,
     'difficulty' => 'Med',
-    'summary' => 'From each start, move with slow/fast pointers while the direction stays the same. A meeting point means a cycle — reject it if it is a self-loop (length 1). Mark explored paths dead.',
+    'summary' => 'From each start, move with slow or fast pointers while the direction stays the same. A meeting point means a cycle — reject it if it is a self-loop (length 1). Mark explored paths dead.',
     'category' => 'LeetCode',
     'subcategory' => 'Two Pointers',
     'topic' => 'LeetCode · Two Pointers',

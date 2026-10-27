@@ -11,12 +11,12 @@
     t: 'Divide Two Integers',
     r: 'Work with absolute values. From the highest shift down, if divisor << s fits in the remainder, subtract it and add 1 << s to the quotient. Apply the sign, truncate, and clamp to 32-bit.',
     g: R => ({ dividend: R.int(-100, 100), divisor: R.pick([-7, -3, -2, -1, 1, 2, 3, 5, 7]) }),
-    s(I, T) { let a = Math.abs(I.dividend), b = Math.abs(I.divisor), q = 0, asks = 0; for (let s = 31; s >= 0; s--) if (b * 2 ** s <= a) { a -= b * 2 ** s; q += 2 ** s; if (asks++ < 5) { T.at({ remainder: a + b * 2 ** s, chunk: `${b} << ${s}` }); T.n('Remainder after subtracting this chunk?', a, `Quotient gains 2^${s}.`); } } if (!asks) { T.at({ dividend: I.dividend, divisor: I.divisor }); T.n('Quotient magnitude?', 0, 'Divisor larger than dividend.'); } const r = (I.dividend < 0) !== (I.divisor < 0) ? -q : q; return Math.max(-(2 ** 31), Math.min(2 ** 31 - 1, r)); }
+    s(I, T) { let a = Math.abs(I.dividend), b = Math.abs(I.divisor), q = 0, asks = 0; for (let s = 31; s >= 0; s--) if (b * 2 ** s <= a) { a -= b * 2 ** s; q += 2 ** s; if (asks++ < 5) { T.at({ remainder: a + b * 2 ** s, chunk: `${b} << ${s}` }); T.n('Remainder after subtracting this chunk?', a, `Quotient gains 2 to the power ${s}.`); } } if (!asks) { T.at({ dividend: I.dividend, divisor: I.divisor }); T.n('Quotient magnitude?', 0, 'Divisor larger than dividend.'); } const r = (I.dividend < 0) !== (I.divisor < 0) ? -q : q; return Math.max(-(2 ** 31), Math.min(2 ** 31 - 1, r)); }
   });
 
   D('pow-x-n', {
     t: 'Pow(x, n)',
-    r: 'Fast exponentiation: walk the bits of |n|; square the base each step and multiply it into the result when the bit is 1. For negative n, return 1 / result.',
+    r: 'Fast exponentiation: walk the bits of |n|; square the base each step and multiply it into the result when the bit is 1. For negative n, return 1 divided by result.',
     g: R => ({ x: R.pick([2, 3, 0.5, 1.5, -2, 2.1]), n: R.int(-6, 10) }),
     cmp: 'float',
     s(I, T) { let e = Math.abs(I.n), b = I.x, r = 1, step = 0; while (e) { if (e & 1) r *= b; if (step++ < 5) { T.at({ exponentBits: bin(e), base: +b.toFixed(6) }); T.yn('Is the low bit set (multiply the base in)?', !!(e & 1), 'Binary exponentiation.'); } b *= b; e >>= 1; } if (!step) { T.at({ n: I.n }); T.n('x⁰?', 1, 'Anything to the 0 is 1.'); } return I.n < 0 ? 1 / r : r; }
@@ -67,7 +67,7 @@
 
   D('power-of-two', {
     t: 'Power of Two',
-    r: 'n is a power of two iff n > 0 and n & (n − 1) == 0 (exactly one set bit).',
+    r: 'n is a power of two exactly when n > 0 and n & (n − 1) == 0 (exactly one set bit).',
     g: R => ({ n: R.chance(0.5) ? 2 ** R.int(0, 20) : R.int(-8, 1000) }),
     s(I, T) { const res = (() => { T.at({ n: I.n, binary: I.n > 0 ? bin(I.n) : '—' }); T.yn('Is n positive?', I.n > 0, 'Required.'); T.n('Set bits in n? (0 if not positive)', I.n > 0 ? pc(I.n) : 0, 'A power of two has exactly one.'); if (I.n <= 0) return false; T.n('n AND (n minus 1)?', I.n & (I.n - 1), 'Zero exactly when there is one set bit.'); return (I.n & (I.n - 1)) === 0; })(); T.yn('Is n a power of two?', res, 'Positive with one set bit.'); return res; }
   });
@@ -82,28 +82,28 @@
 
   D('palindrome-permutation', {
     t: 'Palindrome Permutation',
-    r: 'Toggle a bit per character; a permutation can be a palindrome iff at most one bit remains set.',
+    r: 'Toggle a bit per character; a permutation can be a palindrome exactly when at most one bit remains set.',
     g: R => ({ s: R.str(R.int(1, 8), 'abc') }),
     s(I, T) { let m = 0; [...I.s].forEach((c, i) => { m ^= 1 << (c.charCodeAt(0) - 97); if (i < 7) { T.at({ s: A([...I.s], { i }), mask: bin(m, 3) }); T.n('Odd-count letters so far?', pc(m), 'Set bits in the mask.'); } }); return pc(m) <= 1; }
   });
 
   D('missing-number', {
     t: 'Missing Number',
-    r: 'XOR all indices 0..n with all values; everything pairs up except the missing number.',
+    r: 'XOR all indices 0 to n with all values; everything pairs up except the missing number.',
     g: R => { const n = R.int(1, 7), m = R.int(0, n); return { nums: R.shuffle([...Array(n + 1).keys()].filter(x => x !== m)) }; },
     s(I, T) { let x = I.nums.length; I.nums.forEach((v, i) => { x ^= i ^ v; if (i < 6) { T.at({ nums: A(I.nums, { i }) }); T.n('Running XOR (starting from n)?', x, 'XOR in i and nums[i].'); } }); return x; }
   });
 
   D('maximum-product-of-word-lengths', {
     t: 'Maximum Product of Word Lengths',
-    r: 'Encode each word as a 26-bit letter mask. Two words share no letters iff mask1 & mask2 == 0; maximize len1 · len2 over such pairs.',
+    r: 'Encode each word as a 26-bit letter mask. Two words share no letters exactly when mask1 & mask2 == 0; maximize len1 times len2 over such pairs.',
     g: R => ({ words: Array.from({ length: R.int(2, 6) }, () => R.str(R.int(1, 5), 'abcdef')) }),
-    s(I, T) { const m = I.words.map(w => [...w].reduce((s, c) => s | 1 << (c.charCodeAt(0) - 97), 0)); let best = 0, asks = 0; for (let i = 0; i < m.length; i++) for (let j = i + 1; j < m.length; j++) { const ok = !(m[i] & m[j]); if (ok) best = Math.max(best, I.words[i].length * I.words[j].length); if (asks++ < 6) { T.at({ pair: `${I.words[i]} / ${I.words[j]}`, masks: A([bin(m[i], 6), bin(m[j], 6)]) }); T.yn('No shared letters?', ok, 'mask AND is 0.'); } } return best; }
+    s(I, T) { const m = I.words.map(w => [...w].reduce((s, c) => s | 1 << (c.charCodeAt(0) - 97), 0)); let best = 0, asks = 0; for (let i = 0; i < m.length; i++) for (let j = i + 1; j < m.length; j++) { const ok = !(m[i] & m[j]); if (ok) best = Math.max(best, I.words[i].length * I.words[j].length); if (asks++ < 6) { T.at({ pair: `${I.words[i]} divided by ${I.words[j]}`, masks: A([bin(m[i], 6), bin(m[j], 6)]) }); T.yn('No shared letters?', ok, 'mask AND is 0.'); } } return best; }
   });
 
   D('power-of-four', {
     t: 'Power of Four',
-    r: 'A power of four is a power of two whose single set bit is at an even position: n > 0, n & (n − 1) == 0, and n & 0x55555555 ≠ 0.',
+    r: 'A power of four is a power of two whose single set bit is at an even position: n > 0, n & (n − 1) == 0, and n & 0x55555555 not equal to 0.',
     g: R => ({ n: R.chance(0.5) ? 2 ** R.int(0, 20) : R.int(-4, 300) }),
     s(I, T) { const res = (() => { const p2 = I.n > 0 && (I.n & (I.n - 1)) === 0; T.at({ n: I.n, binary: I.n > 0 ? bin(I.n) : '—' }); T.n('Set bits in n? (0 if not positive)', I.n > 0 ? pc(I.n) : 0, 'Count the ones.'); T.yn('Power of two?', p2, 'One set bit.'); if (!p2) return false; T.yn('Is that bit at an even position?', (I.n & 0x55555555) !== 0, 'Mask 0x55555555.'); return (I.n & 0x55555555) !== 0; })(); T.yn('Is n a power of four?', res, 'One set bit at an even position.'); return res; }
   });
@@ -124,7 +124,7 @@
 
   D('utf-8-validation', {
     t: 'UTF-8 Validation',
-    r: 'Read the leading 1-bits of each byte: 0 → 1-byte char; 110/1110/11110 → expect 1/2/3 continuation bytes starting with 10; anything else is invalid.',
+    r: 'Read the leading 1-bits of each byte: 0 means a 1-byte char; 110, 1110 or 11110 mean expect 1, 2 or 3 continuation bytes starting with 10; anything else is invalid.',
     g: R => { const out = []; for (let i = 0; i < R.int(1, 3); i++) { const k = R.int(1, 4); out.push(k === 1 ? R.int(0, 127) : k === 2 ? R.int(192, 223) : k === 3 ? R.int(224, 239) : R.int(240, 247)); for (let j = 1; j < k; j++) out.push(R.chance(0.9) ? R.int(128, 191) : R.int(0, 255)); } return { data: out }; },
     s(I, T) { let need = 0; for (const [i, b] of I.data.entries()) { const x = b & 255; if (need) { const ok = x >> 6 === 2; if (i < 8) { T.at({ data: A(I.data.map(v => bin(v & 255, 8)), { i }), expecting: need }); T.yn('Valid continuation byte (10xxxxxx)?', ok, 'Top two bits 10.'); } if (!ok) return false; need--; } else { const lead = x >> 7 === 0 ? 0 : x >> 5 === 6 ? 1 : x >> 4 === 14 ? 2 : x >> 3 === 30 ? 3 : -1; if (i < 8) { T.at({ data: A(I.data.map(v => bin(v & 255, 8)), { i }) }); T.n('Continuation bytes this lead byte needs (−1 if invalid)?', lead, 'Count the leading 1s.'); } if (lead < 0) return false; need = lead; } } return need === 0; }
   });
@@ -152,9 +152,9 @@
 
   D('total-hamming-distance', {
     t: 'Total Hamming Distance',
-    r: 'For each bit, if k numbers have it set, it contributes k · (n − k) to the total.',
+    r: 'For each bit, if k numbers have it set, it contributes k times (n − k) to the total.',
     g: R => ({ nums: R.ints(R.int(1, 6), 0, 15) }),
-    s(I, T) { let t = 0; for (let b = 0; b < 4; b++) { const k = I.nums.filter(x => x >> b & 1).length, add = k * (I.nums.length - k); t += add; T.at({ nums: A(I.nums.map(x => bin(x, 4))), bit: b }); T.n(`Contribution of bit ${b}?`, add, 'ones × zeros.'); } return t; }
+    s(I, T) { let t = 0; for (let b = 0; b < 4; b++) { const k = I.nums.filter(x => x >> b & 1).length, add = k * (I.nums.length - k); t += add; T.at({ nums: A(I.nums.map(x => bin(x, 4))), bit: b }); T.n(`Contribution of bit ${b}?`, add, 'ones times zeros.'); } return t; }
   });
 
   D('set-mismatch', {
@@ -166,23 +166,23 @@
 
   D('binary-number-with-alternating-bits', {
     t: 'Binary Number with Alternating Bits',
-    r: 'x = n ^ (n >> 1) is all 1s iff the bits alternate; check x & (x + 1) == 0.',
+    r: 'x = n ^ (n >> 1) is all 1s exactly when the bits alternate; check x & (x + 1) == 0.',
     g: R => ({ n: R.chance(0.4) ? R.pick([1, 2, 5, 10, 21, 42, 85]) : R.int(1, 100) }),
     s(I, T) { const res = (() => { const x = I.n ^ (I.n >> 1); T.at({ n: bin(I.n) }); T.n('n XOR (n shifted right by 1)?', x, 'All ones if alternating.'); T.n('That value AND itself plus 1?', x & (x + 1), 'Zero when it is all ones.'); return (x & (x + 1)) === 0; })(); T.yn('Does n have alternating bits?', res, 'The check above is zero.'); return res; }
   });
 
   D('ip-to-cidr', {
     t: 'IP to CIDR',
-    r: 'Convert the IP to a 32-bit number x. Repeatedly take the largest block 2^k that is aligned at x (x & −x) and does not exceed the remaining count; emit x/(32 − k), advance x and reduce n.',
+    r: 'Convert the IP to a 32-bit number x. Repeatedly take the largest block 2 to the power k that is aligned at x (x & −x) and does not exceed the remaining count; emit x divided by (32 − k), advance x and reduce n.',
     g: R => ({ ip: `10.0.${R.int(0, 3)}.${R.int(0, 255)}`, n: R.int(1, 40) }),
-    s(I, T) { let x = I.ip.split('.').reduce((s, p) => s * 256 + +p, 0), n = I.n; const out = []; while (n > 0) { let step = 1; while (step < 2 ** 32 && x % (step * 2) === 0) step *= 2; while (step > n) step /= 2; const k = Math.log2(step); const ipStr = [24, 16, 8, 0].map(s => Math.floor(x / 2 ** s) % 256).join('.'); if (out.length < 5) { T.at({ ip: ipStr, remaining: n }); T.n('Block size taken here?', step, 'Largest aligned power of two ≤ remaining.'); } out.push(`${ipStr}/${32 - k}`); x += step; n -= step; } return out; }
+    s(I, T) { let x = I.ip.split('.').reduce((s, p) => s * 256 + +p, 0), n = I.n; const out = []; while (n > 0) { let step = 1; while (step < 2 ** 32 && x % (step * 2) === 0) step *= 2; while (step > n) step /= 2; const k = Math.log2(step); const ipStr = [24, 16, 8, 0].map(s => Math.floor(x / 2 ** s) % 256).join('.'); if (out.length < 5) { T.at({ ip: ipStr, remaining: n }); T.n('Block size taken here?', step, 'Largest aligned power of two at most remaining.'); } out.push(`${ipStr}/${32 - k}`); x += step; n -= step; } return out; }
   });
 
   D('prime-number-of-set-bits-in-binary-representation', {
     t: 'Prime Number of Set Bits in Binary Representation',
-    r: 'For each number in [left, right], count set bits and check if that count is prime (counts are ≤ 20, so a small prime set works).',
+    r: 'For each number in [left, right], count set bits and check if that count is prime (counts are at most 20, so a small prime set works).',
     g: R => { const l = R.int(1, 40); return { left: l, right: l + R.int(0, 8) }; },
-    s(I, T) { let c = 0; for (let x = I.left; x <= I.right; x++) { const ok = isPrime(pc(x)); if (ok) c++; if (x - I.left < 6) { T.at({ x, binary: bin(x) }); T.yn(`Is the set-bit count (${pc(x)}) prime?`, ok, 'Primes ≤ 20.'); } } return c; }
+    s(I, T) { let c = 0; for (let x = I.left; x <= I.right; x++) { const ok = isPrime(pc(x)); if (ok) c++; if (x - I.left < 6) { T.at({ x, binary: bin(x) }); T.yn(`Is the set-bit count (${pc(x)}) prime?`, ok, 'Primes at most 20.'); } } return c; }
   });
 
   D('k-th-symbol-in-grammar', {
@@ -203,7 +203,7 @@
     t: 'Prison Cells After N Days',
     r: 'Encode the 8 cells as a bitmask. States repeat (period divides 14 after day 1), so memoize states to find the cycle and skip ahead with n mod cycle length.',
     g: R => ({ cells: R.ints(8, 0, 1), n: R.int(1, 40) }),
-    s(I, T) { const next = c => c.map((_, i) => i > 0 && i < 7 && c[i - 1] === c[i + 1] ? 1 : 0); let c = I.cells.slice(); const seen = new Map(); let n = I.n, day = 0; while (n > 0) { const key = c.join(''); if (seen.has(key)) { const cyc = seen.get(key) - n; n %= cyc; T.at({ state: key }); T.n('Cycle length detected?', cyc, 'Days between repeats.'); if (!n) break; } seen.set(key, n); c = next(c); n--; if (day++ < 3) { T.at({ cells: A(c) }); T.n('Occupied cells after this day?', c.filter(Boolean).length, 'Cell is 1 iff both neighbors match.'); } } return c; }
+    s(I, T) { const next = c => c.map((_, i) => i > 0 && i < 7 && c[i - 1] === c[i + 1] ? 1 : 0); let c = I.cells.slice(); const seen = new Map(); let n = I.n, day = 0; while (n > 0) { const key = c.join(''); if (seen.has(key)) { const cyc = seen.get(key) - n; n %= cyc; T.at({ state: key }); T.n('Cycle length detected?', cyc, 'Days between repeats.'); if (!n) break; } seen.set(key, n); c = next(c); n--; if (day++ < 3) { T.at({ cells: A(c) }); T.n('Occupied cells after this day?', c.filter(Boolean).length, 'Cell is 1 exactly when both neighbors match.'); } } return c; }
   });
 
   D('triples-with-bitwise-and-equal-to-zero', {
@@ -215,7 +215,7 @@
 
   D('complement-of-base-10-integer', {
     t: 'Complement of Base 10 Integer',
-    r: 'Mask of all 1s as wide as n (at least one bit, so 0 → 1), then n ^ mask.',
+    r: 'Mask of all 1s as wide as n (at least one bit, so 0 becomes 1), then n ^ mask.',
     g: R => ({ n: R.int(0, 200) }),
     s(I, T) { const res = (() => { let m = 1; while (m <= I.n) m <<= 1; m = Math.max(1, m - 1); T.at({ n: bin(I.n) }); T.n('Bit length of n?', bin(I.n).length, 'The mask needs this many ones.'); T.n('Mask?', m, 'All ones, same width.'); return I.n ^ m; })(); T.n('Complement?', res, 'n XOR the mask.'); return res; }
   });
@@ -258,7 +258,7 @@
 
   D('minimum-flips-to-make-a-or-b-equal-to-c', {
     t: 'Minimum Flips to Make a OR b Equal to c',
-    r: 'Per bit: if c\'s bit is 1 and both a, b are 0 → 1 flip. If c\'s bit is 0 → flip each of a, b that is 1.',
+    r: 'Per bit: if c\'s bit is 1 and both a, b are 0, that is 1 flip. If c\'s bit is 0, flip each of a, b that is 1.',
     g: R => ({ a: R.int(0, 15), b: R.int(0, 15), c: R.int(0, 15) }),
     s(I, T) { let t = 0; for (let k = 0; k < 4; k++) { const x = I.a >> k & 1, y = I.b >> k & 1, z = I.c >> k & 1, f = z ? (x | y ? 0 : 1) : x + y; t += f; T.at({ a: bin(I.a, 4), b: bin(I.b, 4), c: bin(I.c, 4), bit: k }); T.n(`Flips for bit ${k}?`, f, 'c=1 needs one 1; c=0 needs both 0.'); } return t; }
   });
@@ -267,7 +267,7 @@
     t: 'Number of Steps to Reduce a Number to Zero',
     r: 'Each 1 bit costs a subtract and each bit position (except the top) costs a halving: steps = popcount + bitLength − 1 (0 for zero).',
     g: R => ({ num: R.int(0, 200) }),
-    s(I, T) { let n = I.num, s = 0; while (n) { n = n & 1 ? n - 1 : n >> 1; s++; if (s <= 6) { T.at({ num: bin(n) }); T.n('Steps so far?', s, 'Odd → −1, even → ÷2.'); } } return s; }
+    s(I, T) { let n = I.num, s = 0; while (n) { n = n & 1 ? n - 1 : n >> 1; s++; if (s <= 6) { T.at({ num: bin(n) }); T.n('Steps so far?', s, 'Odd: subtract 1; even: divide by 2.'); } } return s; }
   });
 
   D('sort-integers-by-the-number-of-1-bits', {
@@ -279,42 +279,42 @@
 
   D('number-of-steps-to-reduce-a-number-in-binary-representation-to-one', {
     t: 'Number of Steps to Reduce a Number in Binary Representation to One',
-    r: 'Scan from the lowest bit up to (not including) the top with a carry: if bit + carry is 1, it is odd → add 1 then halve (2 steps, carry = 1); otherwise 1 step. Add the final carry.',
+    r: 'Scan from the lowest bit up to (not including) the top with a carry: if bit + carry is 1, it is odd, so add 1 then halve (2 steps, carry = 1); otherwise 1 step. Add the final carry.',
     g: R => ({ s: '1' + R.str(R.int(0, 8), '01') }),
     s(I, T) { let carry = 0, steps = 0; for (let i = I.s.length - 1; i > 0; i--) { const b = +I.s[i] + carry; if (b === 1) { steps += 2; carry = 1; } else steps += 1; if (I.s.length - i <= 6) { T.at({ s: A([...I.s], { i }), carry }); T.n('Steps so far?', steps, 'Odd costs 2 (add, halve); even costs 1.'); } } return steps + carry; }
   });
 
   D('xor-operation-in-an-array', {
     t: 'XOR Operation in an Array',
-    r: 'XOR start + 2i for i = 0..n−1.',
+    r: 'XOR start + 2i for i = 0 to n−1.',
     g: R => ({ n: R.int(1, 8), start: R.int(0, 10) }),
     s(I, T) { let x = 0; for (let i = 0; i < I.n; i++) { x ^= I.start + 2 * i; if (i < 6) { T.at({ element: I.start + 2 * i }); T.n('Running XOR?', x, 'XOR in start + 2i.'); } } return x; }
   });
 
   D('find-a-value-of-a-mysterious-function-closest-to-target', {
     t: 'Find a Value of a Mysterious Function Closest to Target',
-    r: 'func is the AND of arr[l..r]. For each r, the set of ANDs of subarrays ending at r has at most ~20 values: AND each previous value with arr[r] and add arr[r]. Track the closest to target.',
+    r: 'func is the AND of arr[l to r]. For each r, the set of ANDs of subarrays ending at r has at most ~20 values: AND each previous value with arr[r] and add arr[r]. Track the closest to target.',
     g: R => ({ arr: R.ints(R.int(1, 7), 1, 15), target: R.int(0, 15) }),
     s(I, T) { let S = new Set(), best = Infinity; I.arr.forEach((x, r) => { S = new Set([...S].map(v => v & x).concat([x])); for (const v of S) best = Math.min(best, Math.abs(v - I.target)); if (r < 6) { T.at({ arr: A(I.arr, { i: r }), ands: A([...S].sort((a, b) => a - b)) }); T.n('Closest distance so far?', best, 'Check every AND ending here.'); } }); return best; }
   });
 
   D('minimum-one-bit-operations-to-make-integers-zero', {
     t: 'Minimum One Bit Operations to Make Integers Zero',
-    r: 'The answer is the inverse Gray code of n: XOR of n, n >> 1, n >> 2, … (equivalently f(2^k) = 2^(k+1) − 1 with alternating signs over set bits).',
+    r: 'The answer is the inverse Gray code of n: XOR of n, n >> 1, n >> 2, … (equivalently f(2 to the power k) = 2 to the power (k+1) − 1 with alternating signs over set bits).',
     g: R => ({ n: R.int(0, 64) }),
     s(I, T) { let r = 0, n = I.n, k = 0; while (n) { r ^= n; n >>= 1; if (k++ < 5) { T.at({ shifted: bin(n), result: bin(r) }); T.n('Accumulated XOR?', r, 'XOR in the next shift.'); } } if (!k) { T.at({ n: 0 }); T.n('Operations?', 0, 'Already zero.'); } return r; }
   });
 
   D('concatenation-of-consecutive-binary-numbers', {
     t: 'Concatenation of Consecutive Binary Numbers',
-    r: 'For i = 1..n: when i is a power of two the bit length grows; value = (value << len | i) mod 1e9+7.',
+    r: 'For i = 1 to n: when i is a power of two the bit length grows; value = (value << len | i) mod 1e9+7.',
     g: R => ({ n: R.int(1, 20) }),
     s(I, T) { let v = 0n, len = 0; for (let i = 1; i <= I.n; i++) { if ((i & (i - 1)) === 0) len++; v = ((v << BigInt(len)) | BigInt(i)) % 1000000007n; if (i <= 5) { T.at({ i, binary: bin(i) }); T.n('Bit length used for this number?', len, 'Grows at powers of two.'); } } return Number(v); }
   });
 
   D('count-the-number-of-consistent-strings', {
     t: 'Count the Number of Consistent Strings',
-    r: 'Make a bitmask of allowed letters; a word is consistent iff its mask has no bits outside it (wordMask & ~allowed == 0).',
+    r: 'Make a bitmask of allowed letters; a word is consistent exactly when its mask has no bits outside it (wordMask & ~allowed == 0).',
     g: R => ({ allowed: R.distinct(R.int(1, 3), 0, 4).map(i => 'abcde'[i]).join(''), words: Array.from({ length: R.int(1, 6) }, () => R.str(R.int(1, 4), 'abcde')) }),
     s(I, T) { const m = [...I.allowed].reduce((s, c) => s | 1 << (c.charCodeAt(0) - 97), 0); let c = 0; I.words.forEach((w, i) => { const wm = [...w].reduce((s, ch) => s | 1 << (ch.charCodeAt(0) - 97), 0), ok = !(wm & ~m); if (ok) c++; if (i < 6) { T.at({ allowed: bin(m, 5), word: w, wordMask: bin(wm, 5) }); T.yn('Consistent?', ok, 'No letters outside allowed.'); } }); return c; }
   });

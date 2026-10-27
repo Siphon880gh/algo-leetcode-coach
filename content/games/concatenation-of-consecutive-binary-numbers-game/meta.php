@@ -5,7 +5,7 @@ return [
     'title' => 'Concatenation of Consecutive Binary Numbers',
     'leetcode' => 1680,
     'difficulty' => 'Med',
-    'summary' => 'For i = 1..n: when i is a power of two the bit length grows; value = (value << len | i) mod 1e9+7.',
+    'summary' => 'For i = 1 to n: when i is a power of two the bit length grows; value = (value << len | i) mod 1e9+7.',
     'category' => 'LeetCode',
     'subcategory' => 'Bit Manipulation',
     'topic' => 'LeetCode · Bit Manipulation',

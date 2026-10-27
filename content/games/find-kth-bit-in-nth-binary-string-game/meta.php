@@ -5,7 +5,7 @@ return [
     'title' => 'Kth Bit in Nth Binary String: mirror recursion',
     'leetcode' => 1545,
     'difficulty' => 'Med',
-    'summary' => 'S_n has length 2^n − 1 with middle 1. If k is the middle, answer 1; left half recurses into S_{n−1}; right half mirrors to position 2^n − k and inverts.',
+    'summary' => 'S_n has length 2 to the power n − 1 with middle 1. If k is the middle, answer 1; left half recurses into S_{n−1}; right half mirrors to position 2 to the power n − k and inverts.',
     'category' => 'LeetCode',
     'subcategory' => 'Strings',
     'topic' => 'LeetCode · Strings',

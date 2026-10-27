@@ -5,7 +5,7 @@ return [
     'title' => 'Clumsy Factorial',
     'leetcode' => 1006,
     'difficulty' => 'Med',
-    'summary' => 'Apply * / + − in rotation with a stack: * and / combine with the top (floor division of positives), + pushes, − pushes the negation. Sum the stack.',
+    'summary' => 'Apply *, /, + and − in rotation with a stack: * and / combine with the top (floor division of positives), + pushes, − pushes the negation. Sum the stack.',
     'category' => 'LeetCode',
     'subcategory' => 'Stack',
     'topic' => 'LeetCode · Stack',

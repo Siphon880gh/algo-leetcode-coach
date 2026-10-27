@@ -5,7 +5,7 @@ return [
     'title' => 'Letter Case Permutation',
     'leetcode' => 784,
     'difficulty' => 'Med',
-    'summary' => 'Backtrack over characters: digits stay, letters branch into lower and upper case. 2^(letters) results.',
+    'summary' => 'Backtrack over characters: digits stay, letters branch into lower and upper case. 2 to the power (letters) results.',
     'category' => 'LeetCode',
     'subcategory' => 'Backtracking',
     'topic' => 'LeetCode · Backtracking',

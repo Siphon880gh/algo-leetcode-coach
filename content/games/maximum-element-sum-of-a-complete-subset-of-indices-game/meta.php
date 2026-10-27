@@ -5,7 +5,7 @@ return [
     'title' => 'Complete Subset of Indices: k times perfect squares',
     'leetcode' => 2862,
     'difficulty' => 'Hard',
-    'summary' => 'i·j is a square when i and j share the same square-free part. For every k, the indices k·1², k·2², k·3², … ≤ n form a group; take the best group sum.',
+    'summary' => 'i times j is a square when i and j share the same square-free part. For every k, the indices k times 1², k times 2², k times 3², … at most n form a group; take the best group sum.',
     'category' => 'LeetCode',
     'subcategory' => 'Math',
     'topic' => 'LeetCode · Math',

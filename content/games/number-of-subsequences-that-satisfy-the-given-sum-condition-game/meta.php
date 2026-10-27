@@ -5,7 +5,7 @@ return [
     'title' => 'Number of Subsequences That Satisfy the Given Sum Condition',
     'leetcode' => 1498,
     'difficulty' => 'Med',
-    'summary' => 'Sort. For each left end l (the minimum), shrink r while a[l] + a[r] > target; then any subset of (l, r] can join: add 2^(r − l). Mod 1e9+7.',
+    'summary' => 'Sort. For each left end l (the minimum), shrink r while a[l] + a[r] > target; then any subset of (l, r] can join: add 2 to the power (r − l). Mod 1e9+7.',
     'category' => 'LeetCode',
     'subcategory' => 'Two Pointers',
     'topic' => 'LeetCode · Two Pointers',

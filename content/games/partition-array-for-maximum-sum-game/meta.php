@@ -5,7 +5,7 @@ return [
     'title' => 'Partition Array for Maximum Sum: try every last-block length',
     'leetcode' => 1043,
     'difficulty' => 'Med',
-    'summary' => 'dp[i] = best sum for the first i numbers = max over len ≤ k of dp[i − len] + len · max(last len numbers).',
+    'summary' => 'dp[i] = best sum for the first i numbers = max over len at most k of dp[i − len] + len times max(last len numbers).',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

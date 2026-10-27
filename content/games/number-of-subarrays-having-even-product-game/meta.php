@@ -5,7 +5,7 @@ return [
     'title' => 'Number of Subarrays Having Even Product: remember the last even number',
     'leetcode' => 2495,
     'difficulty' => 'Med',
-    'summary' => 'A subarray ending at i has an even product iff it contains an even number. If the last even index is e, there are e + 1 such subarrays ending at i.',
+    'summary' => 'A subarray ending at i has an even product exactly when it contains an even number. If the last even index is e, there are e + 1 such subarrays ending at i.',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

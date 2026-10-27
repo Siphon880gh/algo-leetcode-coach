@@ -5,7 +5,7 @@ return [
     'title' => 'Sum of Subarray Ranges',
     'leetcode' => 2104,
     'difficulty' => 'Med',
-    'summary' => 'Σ max − Σ min over all subarrays. Each element contributes value × (#subarrays where it is the max) — computed from previous/next greater via monotonic stacks — and likewise for min.',
+    'summary' => 'the sum of max − the sum of min over all subarrays. Each element contributes value times (#subarrays where it is the max) — computed from previous or next greater via monotonic stacks — and likewise for min.',
     'category' => 'LeetCode',
     'subcategory' => 'Monotonic Stack',
     'topic' => 'LeetCode · Monotonic Stack',

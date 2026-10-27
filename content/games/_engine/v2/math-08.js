@@ -23,12 +23,12 @@
     t: 'Count Numbers with Non-Decreasing Digits',
     r: 'Write each number in base b and check that every digit is at least the one before it. The full solution is a digit DP over (position, last digit, tight); here you check the base-b digits of each number.',
     g: R => { const b = R.int(2, 6), l = R.int(1, 40); return { l: String(l), r: String(l + R.int(3, 8)), b }; },
-    s(I, T) { let c = 0; for (let x = +I.l; x <= +I.r; x++) { const d = x.toString(I.b).split('').map(Number), ok = d.every((v, i) => !i || v >= d[i - 1]); if (ok) c++; if (T.room()) { T.at({ x, ['base ' + I.b]: A(d) }); T.yn(`Are the base-${I.b} digits of ${x} non-decreasing?`, ok, ok ? 'Each digit ≥ the previous.' : 'Some digit drops below the one before it.'); } } return c % MOD; }
+    s(I, T) { let c = 0; for (let x = +I.l; x <= +I.r; x++) { const d = x.toString(I.b).split('').map(Number), ok = d.every((v, i) => !i || v >= d[i - 1]); if (ok) c++; if (T.room()) { T.at({ x, ['base ' + I.b]: A(d) }); T.yn(`Are the base-${I.b} digits of ${x} non-decreasing?`, ok, ok ? 'Each digit at least the previous.' : 'Some digit drops below the one before it.'); } } return c % MOD; }
   });
 
   D('smallest-index-with-digit-sum-equal-to-index', {
     t: 'Smallest Index With Digit Sum Equal to Index',
-    r: 'Scan left to right, computing each number\'s digit sum with % 10 and / 10. Return the first index i whose digit sum equals i, or −1.',
+    r: 'Scan left to right, computing each number\'s digit sum with % 10 and integer division by 10. Return the first index i whose digit sum equals i, or −1.',
     g: R => ({ nums: Array.from({ length: R.int(3, 7) }, (_, i) => R.chance(0.3) ? (i < 10 ? i : 9) + (R.chance(0.5) ? 0 : 9) : R.int(0, 120)) }),
     s(I, T) { for (let i = 0; i < I.nums.length; i++) { const d = sum(digits(I.nums[i])); T.at({ nums: A(I.nums, { i }) }); T.n(`Digit sum of nums[${i}] = ${I.nums[i]}?`, d, 'Add the decimal digits.'); if (d === i) return i; } return -1; }
   });
@@ -49,28 +49,28 @@
 
   D('maximize-subarray-gcd-score', {
     t: 'Maximize Subarray GCD Score',
-    r: 'Doubling helps a subarray\'s gcd only if every element with the fewest factors of 2 gets doubled. So for each subarray: score = length × gcd × (2 if that count ≤ k, else 1).',
+    r: 'Doubling helps a subarray\'s gcd only if every element with the fewest factors of 2 gets doubled. So for each subarray: score = length times gcd times (2 if that count at most k, else 1).',
     g: R => ({ nums: Array.from({ length: R.int(2, 5) }, () => R.pick([1, 2, 3, 4, 6, 8, 12])), k: R.int(1, 3) }),
-    s(I, T) { const a = I.nums, n = a.length, v2 = x => { let c = 0; while (x % 2 === 0) { x /= 2; c++; } return c; }; let best = 0, asked = 0; for (let i = 0; i < n; i++) { let g = 0; for (let j = i; j < n; j++) { g = gcd(g, a[j]); const w = a.slice(i, j + 1), mn = Math.min(...w.map(v2)), c = w.filter(x => v2(x) === mn).length, sc = (j - i + 1) * g * (c <= I.k ? 2 : 1); best = Math.max(best, sc); if (asked < 5 && j > i) { asked++; T.at({ nums: A(a, { win: [i, j] }), gcd: g, k: I.k }); T.n(`Best score of nums[${i}..${j}]?`, sc, c <= I.k ? `${c} element(s) hold the fewest 2s; doubling them doubles the gcd.` : `${c} elements hold the fewest 2s, more than k.`); } } } T.at({ nums: A(a), k: I.k }); T.n('Maximum score?', best, 'Best over every subarray (single elements count: one doubling gives 2 × value).'); return best; }
+    s(I, T) { const a = I.nums, n = a.length, v2 = x => { let c = 0; while (x % 2 === 0) { x /= 2; c++; } return c; }; let best = 0, asked = 0; for (let i = 0; i < n; i++) { let g = 0; for (let j = i; j < n; j++) { g = gcd(g, a[j]); const w = a.slice(i, j + 1), mn = Math.min(...w.map(v2)), c = w.filter(x => v2(x) === mn).length, sc = (j - i + 1) * g * (c <= I.k ? 2 : 1); best = Math.max(best, sc); if (asked < 5 && j > i) { asked++; T.at({ nums: A(a, { win: [i, j] }), gcd: g, k: I.k }); T.n(`Best score of nums[${i}..${j}]?`, sc, c <= I.k ? `${c} elements hold the fewest 2s; doubling them doubles the gcd.` : `${c} elements hold the fewest 2s, more than k.`); } } } T.at({ nums: A(a), k: I.k }); T.n('Maximum score?', best, 'Best over every subarray (single elements count: one doubling gives 2 times value).'); return best; }
   });
 
   D('find-maximum-area-of-a-triangle', {
     t: 'Find Maximum Area of a Triangle',
-    r: 'An axis-parallel side lies on one x (or one y). For each x, the longest vertical side is maxY − minY there, and the third point should be as far as possible in x: max(x − minX, maxX − x). Twice the area is side × distance; repeat for horizontal sides.',
+    r: 'An axis-parallel side lies on one x (or one y). For each x, the longest vertical side is maxY − minY there, and the third point should be as far as possible in x: max(x − minX, maxX − x). Twice the area is side times distance; repeat for horizontal sides.',
     g: R => { const pts = new Set(); while (pts.size < R.int(3, 7)) pts.add(R.int(1, 5) + ',' + R.int(1, 5)); return { coords: [...pts].map(s => s.split(',').map(Number)) }; },
-    s(I, T) { const P = I.coords; let best = 0; for (const ax of [0, 1]) { const o = 1 - ax, by = new Map(); P.forEach(p => { const k = p[ax]; const v = by.get(k) || [Infinity, -Infinity]; by.set(k, [Math.min(v[0], p[o]), Math.max(v[1], p[o])]); }); const lo = Math.min(...P.map(p => p[ax])), hi = Math.max(...P.map(p => p[ax])); for (const [k, [a, b]] of [...by].sort((x, y) => x[0] - y[0])) { const v = (b - a) * Math.max(k - lo, hi - k); best = Math.max(best, v); if (b > a && T.room()) { T.at({ points: A(P.map(p => `(${p[0]},${p[1]})`)), line: (ax ? 'y = ' : 'x = ') + k, side: b - a, farthest: Math.max(k - lo, hi - k) }); T.n(`Twice the best area using a side on ${ax ? 'y' : 'x'} = ${k}?`, v, 'Side length × farthest distance from that line.'); } } } return best || -1; }
+    s(I, T) { const P = I.coords; let best = 0; for (const ax of [0, 1]) { const o = 1 - ax, by = new Map(); P.forEach(p => { const k = p[ax]; const v = by.get(k) || [Infinity, -Infinity]; by.set(k, [Math.min(v[0], p[o]), Math.max(v[1], p[o])]); }); const lo = Math.min(...P.map(p => p[ax])), hi = Math.max(...P.map(p => p[ax])); for (const [k, [a, b]] of [...by].sort((x, y) => x[0] - y[0])) { const v = (b - a) * Math.max(k - lo, hi - k); best = Math.max(best, v); if (b > a && T.room()) { T.at({ points: A(P.map(p => `(${p[0]},${p[1]})`)), line: (ax ? 'y = ' : 'x = ') + k, side: b - a, farthest: Math.max(k - lo, hi - k) }); T.n(`Twice the best area using a side on ${ax ? 'y' : 'x'} = ${k}?`, v, 'Side length times farthest distance from that line.'); } } } return best || -1; }
   });
 
   D('hexadecimal-and-hexatrigesimal-conversion', {
     t: 'Hexadecimal and Hexatrigesimal Conversion',
-    r: 'Convert by repeated division: the remainders mod 16 (for n²) and mod 36 (for n³) are the digits from right to left, using A–F and A–Z past 9. Concatenate the two strings.',
+    r: 'Convert by repeated division: the remainders mod 16 (for n²) and mod 36 (for n³) are the digits from right to left, using A to F and A to Z past 9. Concatenate the two strings.',
     g: R => ({ n: R.int(2, 60) }),
     s(I, T) { const a = I.n * I.n, b = a * I.n, h = a.toString(16).toUpperCase(), t = b.toString(36).toUpperCase(); T.at({ n: I.n, 'n²': a }); T.c(`n² = ${a} in base 16?`, [h, a.toString(36).toUpperCase(), String(a), a.toString(8)], h, 'Divide by 16 repeatedly; read remainders bottom-up.'); T.at({ n: I.n, 'n³': b }); T.n(`Last base-36 digit value of ${b} (that is, ${b} mod 36)?`, b % 36, 'The rightmost digit is the remainder.'); T.c(`n³ = ${b} in base 36?`, [t, b.toString(16).toUpperCase(), String(b)], t, 'Divide by 36 repeatedly.'); return h + t; }
   });
 
   D('minimum-moves-to-reach-target-in-grid', {
     t: 'Minimum Moves to Reach Target in Grid',
-    r: 'Work backwards from the target. If x > y, the last move grew x: from x/2 when x ≥ 2y (x must be even), else from x − y. Symmetric when y > x. When x = y, the previous point was (0, y) or (x, 0).',
+    r: 'Work backwards from the target. If x > y, the last move grew x: from x divided by 2 when x at least 2y (x must be even), else from x − y. Symmetric when y > x. When x = y, the previous point was (0, y) or (x, 0).',
     g: R => { const sx = R.int(0, 3), sy = R.int(sx ? 0 : 1, 3); let x = sx, y = sy; const k = R.int(1, 4); for (let i = 0; i < k; i++) { const m = Math.max(x, y); if (R.chance(0.5)) x += m; else y += m; } if (R.chance(0.2)) x++; return { sx, sy, tx: x, ty: y }; },
     s(I, T) { const { sx, sy } = I, memo = new Map(); const rev = (X, Y) => { if (X < sx || Y < sy) return Infinity; if (X === sx && Y === sy) return 0; const k = X + ',' + Y; if (memo.has(k)) return memo.get(k); let r = Infinity; if (X === Y) { if (X) r = 1 + Math.min(rev(0, Y), rev(X, 0)); } else if (X > Y) { if (X >= 2 * Y) { if (X % 2 === 0) r = 1 + rev(X / 2, Y); } else r = 1 + rev(X - Y, Y); } else { if (Y >= 2 * X) { if (Y % 2 === 0) r = 1 + rev(X, Y / 2); } else r = 1 + rev(X, Y - X); } memo.set(k, r); return r; }; const ans = rev(I.tx, I.ty); let X = I.tx, Y = I.ty; for (let s = 0; s < 5 && !(X === sx && Y === sy); s++) { let opts, c; if (X === Y) { if (!X) break; opts = [`(0,${Y})`, `(${X},0)`, `(${X / 2},${Y})`]; c = rev(0, Y) <= rev(X, 0) ? [0, Y] : [X, 0]; } else if (X > Y) { const a = X >= 2 * Y ? (X % 2 ? null : [X / 2, Y]) : [X - Y, Y]; if (!a) break; opts = [`(${a[0]},${a[1]})`, `(${X - Y},${Y})`, `(${Math.floor(X / 2)},${Y})`, `(${X},${Y - 1})`]; c = a; } else { const a = Y >= 2 * X ? (Y % 2 ? null : [X, Y / 2]) : [X, Y - X]; if (!a) break; opts = [`(${a[0]},${a[1]})`, `(${X},${Y - X})`, `(${X},${Math.floor(Y / 2)})`, `(${X - 1},${Y})`]; c = a; } if (rev(c[0], c[1]) === Infinity && ans !== Infinity) break; T.at({ start: `(${sx},${sy})`, at: `(${X},${Y})` }); T.c(`Which point came right before (${X},${Y})?`, [...new Set(opts)], `(${c[0]},${c[1]})`, X === Y ? 'Equal coordinates: one of them was 0 before.' : 'If the grown side was the max it doubled; otherwise it gained the other side.'); X = c[0]; Y = c[1]; } T.at({ start: `(${sx},${sy})`, target: `(${I.tx},${I.ty})` }); T.n('Minimum moves? (−1 if unreachable)', ans === Infinity ? -1 : ans, 'Count backward steps until the start (or a dead end).'); return ans === Infinity ? -1 : ans; }
   });
@@ -105,16 +105,16 @@
 
   D('sum-of-beautiful-subsequences', {
     t: 'Sum of Beautiful Subsequences',
-    r: 'f(g) = number of strictly increasing subsequences using only multiples of g (a Fenwick tree counts them). The count with gcd exactly g is f(g) minus the exact counts of 2g, 3g, …; go from large g down and add g × exact(g).',
+    r: 'f(g) = number of strictly increasing subsequences using only multiples of g (a Fenwick tree counts them). The count with gcd exactly g is f(g) minus the exact counts of 2g, 3g, …; go from large g down and add g times exact(g).',
     g: R => ({ nums: R.ints(R.int(2, 5), 1, 8) }),
-    s(I, T) { const mx = Math.max(...I.nums), inc = arr => { const dp = arr.map(() => 1); for (let i = 0; i < arr.length; i++) for (let j = 0; j < i; j++) if (arr[j] < arr[i]) dp[i] += dp[j]; return sum(dp); }; const ex = Array(mx + 1).fill(0); let tot = 0; for (let g = mx; g >= 1; g--) { const f = inc(I.nums.filter(x => x % g === 0)); let e = f; for (let m = 2 * g; m <= mx; m += g) e -= ex[m]; ex[g] = e; tot = (tot + g * e) % MOD; if (g <= 3 && f) { T.at({ nums: A(I.nums, { hl: I.nums.map((x, i) => x % g === 0 ? i : -1).filter(i => i >= 0) }), g }); T.n(`Increasing subsequences made only of multiples of ${g}?`, f, 'dp[i] = 1 + Σ dp[j] for j < i with a smaller value.'); T.n(`How many have gcd exactly ${g}?`, e, `Subtract the exact counts for ${2 * g}, ${3 * g}, ….`); } } return tot; }
+    s(I, T) { const mx = Math.max(...I.nums), inc = arr => { const dp = arr.map(() => 1); for (let i = 0; i < arr.length; i++) for (let j = 0; j < i; j++) if (arr[j] < arr[i]) dp[i] += dp[j]; return sum(dp); }; const ex = Array(mx + 1).fill(0); let tot = 0; for (let g = mx; g >= 1; g--) { const f = inc(I.nums.filter(x => x % g === 0)); let e = f; for (let m = 2 * g; m <= mx; m += g) e -= ex[m]; ex[g] = e; tot = (tot + g * e) % MOD; if (g <= 3 && f) { T.at({ nums: A(I.nums, { hl: I.nums.map((x, i) => x % g === 0 ? i : -1).filter(i => i >= 0) }), g }); T.n(`Increasing subsequences made only of multiples of ${g}?`, f, 'dp[i] = 1 + the sum of dp[j] for j < i with a smaller value.'); T.n(`How many have gcd exactly ${g}?`, e, `Subtract the exact counts for ${2 * g}, ${3 * g}, ….`); } } return tot; }
   });
 
   D('compute-decimal-representation', {
     t: 'Compute Decimal Representation',
-    r: 'Each non-zero digit d at place 10^p becomes the component d·10^p. Read the digits from the most significant end and skip zeros.',
+    r: 'Each non-zero digit d at place 10 to the power p becomes the component d times 10 to the power p. Read the digits from the most significant end and skip zeros.',
     g: R => ({ n: R.int(1, 99999) }),
-    s(I, T) { const s = String(I.n), out = []; s.split('').forEach((ch, i) => { const v = Number(ch) * Math.pow(10, s.length - 1 - i); T.at({ digits: A(s.split(''), { i }), parts: A(out.slice()) }); T.n(`Component from digit ${i} (0 to skip)?`, v, ch === '0' ? 'Zero digit: no component.' : `${ch} × 10^${s.length - 1 - i}.`); if (v) out.push(v); }); return out; }
+    s(I, T) { const s = String(I.n), out = []; s.split('').forEach((ch, i) => { const v = Number(ch) * Math.pow(10, s.length - 1 - i); T.at({ digits: A(s.split(''), { i }), parts: A(out.slice()) }); T.n(`Component from digit ${i} (0 to skip)?`, v, ch === '0' ? 'Zero digit: no component.' : `${ch} times 10 to the power ${s.length - 1 - i}.`); if (v) out.push(v); }); return out; }
   });
 
   D('count-no-zero-pairs-that-sum-to-n', {
@@ -133,14 +133,14 @@
 
   D('count-distinct-integers-after-removing-zeros', {
     t: 'Count Distinct Integers After Removing Zeros',
-    r: 'Removing zeros gives a zero-free number no bigger than x, and every zero-free y ≤ n appears (from x = y). So count zero-free numbers in [1, n]: 9^L for each shorter length L, plus a digit DP for n\'s own length.',
+    r: 'Removing zeros gives a zero-free number no bigger than x, and every zero-free y at most n appears (from x = y). So count zero-free numbers in [1, n]: 9 to the power L for each shorter length L, plus a digit DP for n\'s own length.',
     g: R => ({ n: R.int(1, 400) }),
-    s(I, T) { const s = String(I.n); for (let L = 1; L < s.length; L++) { T.at({ n: I.n }); T.n(`Zero-free numbers with exactly ${L} digit${L > 1 ? 's' : ''}?`, Math.pow(9, L), '9 choices (1–9) per digit.'); } let same = 0; for (let x = Math.pow(10, s.length - 1); x <= I.n; x++) if (!String(x).includes('0')) same++; T.at({ n: I.n }); T.n(`Zero-free numbers with ${s.length} digits that are ≤ ${I.n}?`, same, 'Digit DP along n, never using 0.'); let tot = same; for (let L = 1; L < s.length; L++) tot += Math.pow(9, L); return tot; }
+    s(I, T) { const s = String(I.n); for (let L = 1; L < s.length; L++) { T.at({ n: I.n }); T.n(`Zero-free numbers with exactly ${L} digit${L > 1 ? 's' : ''}?`, Math.pow(9, L), '9 choices (1 to 9) per digit.'); } let same = 0; for (let x = Math.pow(10, s.length - 1); x <= I.n; x++) if (!String(x).includes('0')) same++; T.at({ n: I.n }); T.n(`Zero-free numbers with ${s.length} digits that are at most ${I.n}?`, same, 'Digit DP along n, never using 0.'); let tot = same; for (let L = 1; L < s.length; L++) tot += Math.pow(9, L); return tot; }
   });
 
   D('concatenate-non-zero-digits-and-multiply-by-sum-i', {
     t: 'Concatenate Non-Zero Digits and Multiply by Sum I',
-    r: 'Walk the digits, appending each non-zero one to x (x = 10x + d) and adding it to the digit sum. Return x × sum.',
+    r: 'Walk the digits, appending each non-zero one to x (x = 10x + d) and adding it to the digit sum. Return x times sum.',
     g: R => ({ n: R.pick([R.int(0, 9999), R.int(100, 100000) * 10, R.int(1, 9) * 1000 + R.int(0, 9)]) }),
     s(I, T) { let x = 0, s = 0; String(I.n).split('').forEach((ch, i) => { const d = +ch; if (d) { x = x * 10 + d; s += d; } if (i < 6) { T.at({ digits: A(String(I.n).split(''), { i }), x, sum: s }); T.n(`x after digit ${i}?`, x, d ? `Append ${d}.` : 'Zero: skip.'); } }); return x * s; }
   });
@@ -154,9 +154,9 @@
 
   D('largest-prime-from-consecutive-prime-sum', {
     t: 'Largest Prime From Consecutive Prime Sum',
-    r: 'Sieve the primes up to n, then add them one by one starting from 2 while the running sum stays ≤ n. Each running sum that is itself prime is a candidate; keep the last one.',
+    r: 'Sieve the primes up to n, then add them one by one starting from 2 while the running sum stays at most n. Each running sum that is itself prime is a candidate; keep the last one.',
     g: R => ({ n: R.int(1, 120) }),
-    s(I, T) { let s = 0, best = 0, asks = 0; for (let p = 2; p <= I.n; p++) { if (!isPrime(p)) continue; if (s + p > I.n) break; s += p; const ok = isPrime(s); if (ok) best = s; if (asks++ < 6) { T.at({ n: I.n, added: p, runningSum: s, best: best === s ? best : best }); T.yn(`Running sum ${s} (after adding ${p}) — is it prime?`, ok, ok ? 'New best candidate.' : 'Composite: keep adding.'); } } if (!asks) { T.at({ n: I.n }); T.yn('Is any prime ≤ n?', false, 'n < 2: no primes.'); T.n('Answer?', 0, 'Nothing qualifies.'); } return best; }
+    s(I, T) { let s = 0, best = 0, asks = 0; for (let p = 2; p <= I.n; p++) { if (!isPrime(p)) continue; if (s + p > I.n) break; s += p; const ok = isPrime(s); if (ok) best = s; if (asks++ < 6) { T.at({ n: I.n, added: p, runningSum: s, best: best === s ? best : best }); T.yn(`Running sum ${s} (after adding ${p}) — is it prime?`, ok, ok ? 'New best candidate.' : 'Composite: keep adding.'); } } if (!asks) { T.at({ n: I.n }); T.yn('Is any prime at most n?', false, 'n < 2: no primes.'); T.n('Answer?', 0, 'Nothing qualifies.'); } return best; }
   });
 
   D('last-remaining-integer-after-alternating-deletion-operations', {
@@ -170,21 +170,21 @@
     t: 'Smallest All Ones Multiple',
     r: 'Never build the huge number: track only its remainder, r = (10r + 1) mod k, for lengths 1, 2, 3, …. Hitting 0 gives the length; there are only k remainders, so after k steps without 0 the answer is −1.',
     g: R => ({ k: R.int(2, 40) }),
-    s(I, T) { let r = 0; for (let L = 1; L <= I.k; L++) { r = (r * 10 + 1) % I.k; if (L <= 5) { T.at({ k: I.k, length: L }); T.n(`Remainder of ${'1'.repeat(L)} mod ${I.k}?`, r, '(10 × previous + 1) mod k.'); } if (!r) return L; } T.at({ k: I.k }); T.yn('Did any length up to k reach remainder 0?', false, 'Remainders must repeat within k steps: impossible.'); return -1; }
+    s(I, T) { let r = 0; for (let L = 1; L <= I.k; L++) { r = (r * 10 + 1) % I.k; if (L <= 5) { T.at({ k: I.k, length: L }); T.n(`Remainder of ${'1'.repeat(L)} mod ${I.k}?`, r, '(10 times previous + 1) mod k.'); } if (!r) return L; } T.at({ k: I.k }); T.yn('Did any length up to k reach remainder 0?', false, 'Remainders must repeat within k steps: impossible.'); return -1; }
   });
 
   D('sum-of-increasing-product-blocks', {
     t: 'Sum of Increasing Product Blocks',
     r: 'Keep a counter of the next integer. Block i multiplies the next i integers (mod 1e9+7) and advances the counter by i; add each block to the total.',
     g: R => ({ n: R.int(1, 7) }),
-    s(I, T) { let c = 1, tot = 0; for (let i = 1; i <= I.n; i++) { let p = 1; const used = []; for (let j = 0; j < i; j++) { p = p * c % MOD; used.push(c++); } tot = (tot + p) % MOD; if (i <= 5) { T.at({ block: i, numbers: A(used) }); T.n(`Value of block ${i} (mod 1e9+7)?`, p, `Product of ${used.join(' × ')}.`); } } return tot; }
+    s(I, T) { let c = 1, tot = 0; for (let i = 1; i <= I.n; i++) { let p = 1; const used = []; for (let j = 0; j < i; j++) { p = p * c % MOD; used.push(c++); } tot = (tot + p) % MOD; if (i <= 5) { T.at({ block: i, numbers: A(used) }); T.n(`Value of block ${i} (mod 1e9+7)?`, p, `Product of ${used.join(' times ')}.`); } } return tot; }
   });
 
   D('number-of-ways-to-paint-sheets', {
     t: 'Number of Ways to Paint Sheets',
-    r: 'An ordered pair of colors (i first, j second) with first segment length x needs 1 ≤ x ≤ n−1, x ≤ limit[i] and n − x ≤ limit[j]: that is max(0, min(limit[i], n−1) − max(1, n − limit[j]) + 1) ways. Sort the capped limits and use prefix sums to add all pairs fast.',
+    r: 'An ordered pair of colors (i first, j second) with first segment length x needs 1 at most x at most n−1, x at most limit[i] and n − x at most limit[j]: that is max(0, min(limit[i], n−1) − max(1, n − limit[j]) + 1) ways. Sort the capped limits and use prefix sums to add all pairs fast.',
     g: R => ({ n: R.int(2, 6), limit: R.ints(R.int(2, 4), 1, 6) }),
-    s(I, T) { const n = I.n, L = I.limit, m = L.length, w = (i, j) => Math.max(0, Math.min(L[i], n - 1) - Math.max(1, n - L[j]) + 1); let tot = 0, asks = 0; for (let i = 0; i < m; i++) for (let j = 0; j < m; j++) if (i !== j) { const c = w(i, j); tot += c; if (asks++ < 5) { T.at({ n, limit: A(L, { i, j }) }); T.n(`Ways with color ${i} first and color ${j} second?`, c, `First length x with max(1, n − ${L[j]}) ≤ x ≤ min(${L[i]}, n − 1).`); } } return tot % MOD; }
+    s(I, T) { const n = I.n, L = I.limit, m = L.length, w = (i, j) => Math.max(0, Math.min(L[i], n - 1) - Math.max(1, n - L[j]) + 1); let tot = 0, asks = 0; for (let i = 0; i < m; i++) for (let j = 0; j < m; j++) if (i !== j) { const c = w(i, j); tot += c; if (asks++ < 5) { T.at({ n, limit: A(L, { i, j }) }); T.n(`Ways with color ${i} first and color ${j} second?`, c, `First length x with max(1, n − ${L[j]}) at most x at most min(${L[i]}, n − 1).`); } } return tot % MOD; }
   });
 
   D('check-digitorial-permutation', {
@@ -217,8 +217,8 @@
 
   D('integers-with-multiple-sum-of-two-cubes', {
     t: 'Integers With Multiple Sum of Two Cubes',
-    r: 'Enumerate pairs a ≤ b with a³ + b³ ≤ n (only about 1000 values of b) and count each sum in a hash map. Sums seen at least twice are good; sort them.',
+    r: 'Enumerate pairs a at most b with a³ + b³ at most n (only about 1000 values of b) and count each sum in a hash map. Sums seen at least twice are good; sort them.',
     g: R => ({ n: R.pick([1729, 4104, 578, 5000, 20683, 13832, 40000]) }),
-    s(I, T) { const c = new Map(); for (let a = 1; 2 * a * a * a <= I.n; a++) for (let b = a; a * a * a + b * b * b <= I.n; b++) { const v = a * a * a + b * b * b; c.set(v, (c.get(v) || 0) + 1); } const good = [...c].filter(([, x]) => x >= 2).map(([v]) => v).sort((a, b) => a - b); T.at({ n: I.n }); T.n('Largest b worth trying (b³ ≤ n)?', Math.floor(Math.cbrt(I.n + 0.5)), 'Any bigger cube already exceeds n.'); T.n('How many good integers are there?', good.length, 'Sums reached by two different pairs.'); if (good.length) T.c('Smallest good integer?', [good[0], 1729, 4104, 13832].filter((x, i, s) => s.indexOf(x) === i), good[0], 'The first sum counted twice.'); return good; }
+    s(I, T) { const c = new Map(); for (let a = 1; 2 * a * a * a <= I.n; a++) for (let b = a; a * a * a + b * b * b <= I.n; b++) { const v = a * a * a + b * b * b; c.set(v, (c.get(v) || 0) + 1); } const good = [...c].filter(([, x]) => x >= 2).map(([v]) => v).sort((a, b) => a - b); T.at({ n: I.n }); T.n('Largest b worth trying (b³ at most n)?', Math.floor(Math.cbrt(I.n + 0.5)), 'Any bigger cube already exceeds n.'); T.n('How many good integers are there?', good.length, 'Sums reached by two different pairs.'); if (good.length) T.c('Smallest good integer?', [good[0], 1729, 4104, 13832].filter((x, i, s) => s.indexOf(x) === i), good[0], 'The first sum counted twice.'); return good; }
   });
 })();

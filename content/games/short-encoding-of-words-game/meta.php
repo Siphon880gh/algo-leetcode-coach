@@ -5,7 +5,7 @@ return [
     'title' => 'Short Encoding of Words',
     'leetcode' => 820,
     'difficulty' => 'Med',
-    'summary' => 'Insert reversed words into a trie; only leaves need their own "word#" segment. Answer = Σ (length + 1) over words that are not a suffix of another word.',
+    'summary' => 'Insert reversed words into a trie; only leaves need their own "word#" segment. Answer = the sum of (length + 1) over words that are not a suffix of another word.',
     'category' => 'LeetCode',
     'subcategory' => 'Trie',
     'topic' => 'LeetCode · Trie',

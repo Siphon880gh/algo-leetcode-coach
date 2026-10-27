@@ -5,7 +5,7 @@ return [
     'title' => '24 Game',
     'leetcode' => 679,
     'difficulty' => 'Hard',
-    'summary' => 'Pick any two numbers, replace them with each result of +, −, ×, ÷ (both orders, skip ÷0), and recurse on the shorter list; succeed when one number ≈ 24.',
+    'summary' => 'Pick any two numbers, replace them with each result of +, −, times , divided by (both orders, skip division by 0), and recurse on the shorter list; succeed when one number about 24.',
     'category' => 'LeetCode',
     'subcategory' => 'Backtracking',
     'topic' => 'LeetCode · Backtracking',

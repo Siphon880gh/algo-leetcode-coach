@@ -5,7 +5,7 @@ return [
     'title' => 'Maximum Strong Pair XOR II',
     'leetcode' => 2935,
     'difficulty' => 'Hard',
-    'summary' => 'Sort; y pairs with x ≤ y iff y ≤ 2x. Sliding window over sorted values with a binary trie supporting insert/delete; query max XOR within the window.',
+    'summary' => 'Sort; y pairs with x at most y exactly when y at most 2x. Sliding window over sorted values with a binary trie supporting insert or delete; query max XOR within the window.',
     'category' => 'LeetCode',
     'subcategory' => 'Trie',
     'topic' => 'LeetCode · Trie',

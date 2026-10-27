@@ -5,7 +5,7 @@ return [
     'title' => 'Number of Ways Where Square of Number Is Equal to Product of Two Numbers',
     'leetcode' => 1577,
     'difficulty' => 'Med',
-    'summary' => 'For each x in one array, count pairs j < k in the other with product x² — a count map of the other array checks x² / y for each y. Do both directions.',
+    'summary' => 'For each x in one array, count pairs j < k in the other with product x² — a count map of the other array checks x² divided by y for each y. Do both directions.',
     'category' => 'LeetCode',
     'subcategory' => 'Two Pointers',
     'topic' => 'LeetCode · Two Pointers',

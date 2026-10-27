@@ -5,7 +5,7 @@ return [
     'title' => 'Maximum Palindromes After Operations: shortest words first',
     'leetcode' => 3035,
     'difficulty' => 'Med',
-    'summary' => 'Letters can move freely; only pairs matter (odd middles are always available). Count total pairs, then satisfy words in order of length, each needing ⌊len / 2⌋ pairs.',
+    'summary' => 'Letters can move freely; only pairs matter (odd middles are always available). Count total pairs, then satisfy words in order of length, each needing half of len (rounded down) pairs.',
     'category' => 'LeetCode',
     'subcategory' => 'Greedy',
     'topic' => 'LeetCode · Greedy',

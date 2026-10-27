@@ -5,7 +5,7 @@ return [
     'title' => 'Split BST: recurse down one side',
     'leetcode' => 776,
     'difficulty' => 'Med',
-    'summary' => 'If root ≤ target, root belongs to the small tree: split root.right, attach its small part as root.right. Otherwise symmetric on the left.',
+    'summary' => 'If root at most target, root belongs to the small tree: split root.right, attach its small part as root.right. Otherwise symmetric on the left.',
     'category' => 'LeetCode',
     'subcategory' => 'Trees',
     'topic' => 'LeetCode · Trees',

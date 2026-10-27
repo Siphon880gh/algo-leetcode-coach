@@ -5,7 +5,7 @@ return [
     'title' => 'Count Connected Subgraphs With Even Node Sum',
     'leetcode' => 3910,
     'difficulty' => 'Hard',
-    'summary' => 'n ≤ 13, so enumerate all 2^n − 1 subsets as bitmasks. Skip odd sums (popcount of the mask ANDed with the 1-valued nodes), and check connectivity with a BFS restricted to the mask.',
+    'summary' => 'n at most 13, so enumerate all 2 to the power n − 1 subsets as bitmasks. Skip odd sums (popcount of the mask ANDed with the 1-valued nodes), and check connectivity with a BFS restricted to the mask.',
     'category' => 'LeetCode',
     'subcategory' => 'Graphs',
     'topic' => 'LeetCode · Graphs',

@@ -5,7 +5,7 @@ return [
     'title' => 'Count Items Matching a Rule',
     'leetcode' => 1773,
     'difficulty' => 'Easy',
-    'summary' => 'Map ruleKey to column 0/1/2 (type/color/name) and count matching items.',
+    'summary' => 'Map ruleKey to column 0, 1 or 2 (type, color or name) and count matching items.',
     'category' => 'LeetCode',
     'subcategory' => 'Strings',
     'topic' => 'LeetCode · Strings',

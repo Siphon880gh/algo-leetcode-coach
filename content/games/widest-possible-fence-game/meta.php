@@ -5,7 +5,7 @@ return [
     'title' => 'Widest Possible Fence',
     'leetcode' => 4007,
     'difficulty' => 'Hard',
-    'summary' => 'Try every candidate height H: each plank on its own, and each sum of two planks. For H, the width is the count of planks equal to H plus the most disjoint pairs summing to H, which a value-count map gives as Σ min(c[v], c[H − v]) over v < H − v plus ⌊c[H/2] / 2⌋.',
+    'summary' => 'Try every candidate height H: each plank on its own, and each sum of two planks. For H, the width is the count of planks equal to H plus the most disjoint pairs summing to H, which a value-count map gives as the sum of min(c[v], c[H − v]) over v < H − v plus half of c[H divided by 2], rounded down.',
     'category' => 'LeetCode',
     'subcategory' => 'Hash Table',
     'topic' => 'LeetCode · Hash Table',

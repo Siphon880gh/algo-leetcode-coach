@@ -5,7 +5,7 @@ return [
     'title' => 'Count Good Partitions: merge by last occurrence',
     'leetcode' => 2963,
     'difficulty' => 'Hard',
-    'summary' => 'Equal values must stay in one piece, so each value forces [first, last] together. Merging these gives k blocks that cannot be split; any of the k − 1 borders can be cut: 2^(k − 1).',
+    'summary' => 'Equal values must stay in one piece, so each value forces [first, last] together. Merging these gives k blocks that cannot be split; any of the k − 1 borders can be cut: 2 to the power (k − 1).',
     'category' => 'LeetCode',
     'subcategory' => 'Math',
     'topic' => 'LeetCode · Math',

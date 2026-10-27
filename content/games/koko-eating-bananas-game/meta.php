@@ -5,7 +5,7 @@ return [
     'title' => 'Koko Eating Bananas: binary search on speed',
     'leetcode' => 875,
     'difficulty' => 'Med',
-    'summary' => 'Search the speed k in [1, max pile]. Hours at speed k = Σ ceil(pile / k). If that is ≤ h, k works and smaller might too; otherwise go faster.',
+    'summary' => 'Search the speed k in [1, max pile]. Hours at speed k = the sum of ceil(pile divided by k). If that is at most h, k works and smaller might too; otherwise go faster.',
     'category' => 'LeetCode',
     'subcategory' => 'Binary Search',
     'topic' => 'LeetCode · Binary Search',

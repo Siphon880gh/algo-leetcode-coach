@@ -5,7 +5,7 @@ return [
     'title' => 'Minimum Cost to Divide Array into Subarrays',
     'leetcode' => 3500,
     'difficulty' => 'Hard',
-    'summary' => 'The k · i term telescopes: starting a new piece at l adds k × (cost of everything from l to the end). So dp[i] = min over j of dp[j] + pre[i] × (cost[j..i−1]) + k × (cost[j..n−1]).',
+    'summary' => 'The k times i term telescopes: starting a new piece at l adds k times (cost of everything from l to the end). So dp[i] = min over j of dp[j] + pre[i] times (cost[j to i−1]) + k times (cost[j to n−1]).',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

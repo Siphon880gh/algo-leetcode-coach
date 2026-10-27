@@ -5,7 +5,7 @@ return [
     'title' => 'Minimize the Maximum Difference of Pairs: binary search + greedy pairing',
     'leetcode' => 2616,
     'difficulty' => 'Med',
-    'summary' => 'Sort. For a candidate d, greedily pair neighbors with difference ≤ d (skip both when paired). If you get ≥ p pairs, d works. Binary search the smallest d.',
+    'summary' => 'Sort. For a candidate d, greedily pair neighbors with difference at most d (skip both when paired). If you get at least p pairs, d works. Binary search the smallest d.',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

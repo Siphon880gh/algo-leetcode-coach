@@ -5,7 +5,7 @@ return [
     'title' => 'Minimum Adjacent Swaps to Alternate Parity',
     'leetcode' => 3587,
     'difficulty' => 'Med',
-    'summary' => 'Evens and odds may differ in count by at most one. For each allowed pattern (even first or odd first), the k-th even goes to the k-th even slot; the swaps needed are Σ |current index − target index| over the evens. Take the cheaper pattern.',
+    'summary' => 'Evens and odds may differ in count by at most one. For each allowed pattern (even first or odd first), the k-th even goes to the k-th even slot; the swaps needed are the sum of |current index − target index| over the evens. Take the cheaper pattern.',
     'category' => 'LeetCode',
     'subcategory' => 'Greedy',
     'topic' => 'LeetCode · Greedy',

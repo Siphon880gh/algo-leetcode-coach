@@ -5,7 +5,7 @@ return [
     'title' => 'Find Triangular Sum: add neighbors mod 10',
     'leetcode' => 2221,
     'difficulty' => 'Med',
-    'summary' => 'Replace the array by (a[i] + a[i+1]) mod 10 until one value is left. (Closed form: Σ C(n−1, i)·a[i] mod 10.)',
+    'summary' => 'Replace the array by (a[i] + a[i+1]) mod 10 until one value is left. (Closed form: the sum of C(n−1, i) times a[i] mod 10.)',
     'category' => 'LeetCode',
     'subcategory' => 'Math',
     'topic' => 'LeetCode · Math',

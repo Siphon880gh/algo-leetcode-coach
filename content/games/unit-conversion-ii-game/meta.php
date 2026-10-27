@@ -5,7 +5,7 @@ return [
     'title' => 'Unit Conversion II',
     'leetcode' => 3535,
     'difficulty' => 'Med',
-    'summary' => 'Compute base[i] = units of i in one unit 0 with a BFS over the tree. Then one unit of A is base[B] / base[A] units of B, returned as base[B] × base[A]^(−1) mod 1e9+7.',
+    'summary' => 'Compute base[i] = units of i in one unit 0 with a BFS over the tree. Then one unit of A is base[B] divided by base[A] units of B, returned as base[B] times base[A] to the power (−1) mod 1e9+7.',
     'category' => 'LeetCode',
     'subcategory' => 'Graphs',
     'topic' => 'LeetCode · Graphs',

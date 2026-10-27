@@ -5,7 +5,7 @@ return [
     'title' => 'Height of Special Binary Tree: ignore the leaf ring',
     'leetcode' => 2773,
     'difficulty' => 'Med',
-    'summary' => 'Leaves are linked in a cycle through their left/right pointers. Treat a child as real only if it does not point back to the node (child.right ≠ node); then compute the height.',
+    'summary' => 'Leaves are linked in a cycle through their left or right pointers. Treat a child as real only if it does not point back to the node (child.right not equal to node); then compute the height.',
     'category' => 'LeetCode',
     'subcategory' => 'Trees',
     'topic' => 'LeetCode · Trees',

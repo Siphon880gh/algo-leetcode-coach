@@ -5,7 +5,7 @@ return [
     'title' => 'Valid Permutations for DI Sequence: rank of the last number',
     'leetcode' => 903,
     'difficulty' => 'Hard',
-    'summary' => 'dp[i][j] = ways to arrange the first i+1 numbers so the last one is the j-th smallest. After "I": sum dp[i−1][k] for k < j. After "D": sum dp[i−1][k] for k ≥ j.',
+    'summary' => 'dp[i][j] = ways to arrange the first i+1 numbers so the last one is the j-th smallest. After "I": sum dp[i−1][k] for k < j. After "D": sum dp[i−1][k] for k at least j.',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

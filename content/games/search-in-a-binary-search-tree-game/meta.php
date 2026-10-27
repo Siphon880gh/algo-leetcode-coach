@@ -5,7 +5,7 @@ return [
     'title' => 'Search in a BST: one comparison per level',
     'leetcode' => 700,
     'difficulty' => 'Easy',
-    'summary' => 'At each node: equal → found. Target smaller → only the left subtree can hold it. Bigger → only the right. Reaching null means it is not in the tree.',
+    'summary' => 'At each node: equal means found. Target smaller: only the left subtree can hold it. Bigger: only the right. Reaching null means it is not in the tree.',
     'category' => 'LeetCode',
     'subcategory' => 'Trees',
     'topic' => 'LeetCode · Trees',

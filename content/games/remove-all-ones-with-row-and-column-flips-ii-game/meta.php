@@ -5,7 +5,7 @@ return [
     'title' => 'Remove All Ones With Row and Column Flips II',
     'leetcode' => 2174,
     'difficulty' => 'Med',
-    'summary' => 'The grid has ≤ 15 cells, so it fits in a bitmask. BFS (or memoized search) over masks: an operation on a 1 at (i, j) clears row i and column j.',
+    'summary' => 'The grid has at most 15 cells, so it fits in a bitmask. BFS (or memoized search) over masks: an operation on a 1 at (i, j) clears row i and column j.',
     'category' => 'LeetCode',
     'subcategory' => 'Graphs',
     'topic' => 'LeetCode · Graphs',

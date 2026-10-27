@@ -5,7 +5,7 @@ return [
     'title' => 'Coordinate With Maximum Network Quality: try every grid point',
     'leetcode' => 1620,
     'difficulty' => 'Med',
-    'summary' => 'Coordinates are small, so try every integer point in the towers\' bounding box. Quality = Σ ⌊q / (1 + d)⌋ over towers within radius. Keep the best, smallest coordinate on ties.',
+    'summary' => 'Coordinates are small, so try every integer point in the towers\' bounding box. Quality = the sum of q divided by (1 + d), rounded down over towers within radius. Keep the best, smallest coordinate on ties.',
     'category' => 'LeetCode',
     'subcategory' => 'Math',
     'topic' => 'LeetCode · Math',

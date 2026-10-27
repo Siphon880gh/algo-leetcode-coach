@@ -5,7 +5,7 @@ return [
     'title' => '3Sum Closest: squeeze toward the target',
     'leetcode' => 16,
     'difficulty' => 'Med',
-    'summary' => 'Fix i and squeeze L/R like 3Sum. Too small → L moves right, too big → R moves left, and keep the closest sum seen. An exact hit ends the search.',
+    'summary' => 'Fix i and squeeze L or R like 3Sum. Too small: L moves right; too big: R moves left. Keep the closest sum seen. An exact hit ends the search.',
     'category' => 'LeetCode',
     'subcategory' => 'Two Pointers',
     'topic' => 'LeetCode · Two Pointers',

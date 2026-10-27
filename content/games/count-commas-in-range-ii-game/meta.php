@@ -5,7 +5,7 @@ return [
     'title' => 'Count Commas in Range II',
     'leetcode' => 3871,
     'difficulty' => 'Med',
-    'summary' => 'A number gets one comma for each power 1000, 1000², … that it reaches. So the total is the sum over t ≥ 1 of max(0, n − 1000^t + 1).',
+    'summary' => 'A number gets one comma for each power 1000, 1000², … that it reaches. So the total is the sum over t at least 1 of max(0, n − 1000 to the power t + 1).',
     'category' => 'LeetCode',
     'subcategory' => 'Math',
     'topic' => 'LeetCode · Math',

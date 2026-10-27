@@ -31,10 +31,10 @@
 
   D('heap-construction-operation', {
     t: 'Build a Heap Bottom-Up',
-    r: 'Floyd heapify for a max-heap: start at the last parent, index (n − 2) / 2 rounded down, and sift each node down to index 0. Sift down swaps a node with its larger child until it is at least as large as both children. Total work is O(n).',
+    r: 'Floyd heapify for a max-heap: start at the last parent, index (n − 2) divided by 2 rounded down, and sift each node down to index 0. Sift down swaps a node with its larger child until it is at least as large as both children. Total work is O(n).',
     exs: [{ in: { nums: [2, 3, 9, 5, 6] }, out: [9, 6, 2, 5, 3] }],
     g: R => ({ nums: R.distinct(R.int(5, 8), 1, 20) }),
-    s(I, T) { const a = I.nums.slice(), n = a.length, last = (n - 2) >> 1; T.at({ nums: A(a) }); T.n('Index of the last parent, where sift down starts?', last, `(n − 2) / 2 rounded down = (${n} − 2) / 2.`); for (let i = last; i >= 0; i--) { const before = a.slice(), r = siftDown(a, i, n); T.v(A(before, { hl: i, label: 'array' }), heapView(before)); T.n(`Sift down index ${i} (value ${before[i]}): how many swaps?`, r.sw, 'Swap with the larger child while that child is bigger.'); if (i <= 1) T.n(`Value at index ${i} afterwards?`, a[i], 'The largest of the node and its subtree tops rises here.'); } return a; }
+    s(I, T) { const a = I.nums.slice(), n = a.length, last = (n - 2) >> 1; T.at({ nums: A(a) }); T.n('Index of the last parent, where sift down starts?', last, `(n − 2) divided by 2 rounded down = (${n} − 2) divided by 2.`); for (let i = last; i >= 0; i--) { const before = a.slice(), r = siftDown(a, i, n); T.v(A(before, { hl: i, label: 'array' }), heapView(before)); T.n(`Sift down index ${i} (value ${before[i]}): how many swaps?`, r.sw, 'Swap with the larger child while that child is bigger.'); if (i <= 1) T.n(`Value at index ${i} afterwards?`, a[i], 'The largest of the node and its subtree tops rises here.'); } return a; }
   });
 
   D('heap-sort', {
@@ -47,10 +47,10 @@
 
   D('heap', {
     t: 'Heap Basics: Peek and Push',
-    r: 'A max-heap stored in an array: the parent of index i is (i − 1) / 2 rounded down, its children are 2i + 1 and 2i + 2, and every parent is at least as large as its children. Peek reads index 0. Push appends at the end and sifts up, swapping with the parent while it is bigger.',
+    r: 'A max-heap stored in an array: the parent of index i is (i − 1) divided by 2 rounded down, its children are 2i + 1 and 2i + 2, and every parent is at least as large as its children. Peek reads index 0. Push appends at the end and sifts up, swapping with the parent while it is bigger.',
     exs: [{ in: { heap: [9, 5, 6, 2, 3], push: 7 }, out: [9, 5, 7, 2, 3, 6] }],
     g: R => ({ heap: heapify(R.distinct(R.int(4, 7), 1, 20)), push: R.int(1, 25) }),
-    s(I, T) { const a = I.heap.slice(), n = a.length; T.v(A(a, { label: 'heap array' }), heapView(a)); T.n('Peek: the maximum value?', a[0], 'The root at index 0.'); T.n(`Parent index of index ${n - 1}?`, (n - 2) >> 1, `(${n - 1} − 1) / 2 rounded down.`); a.push(I.push); const r = siftUp(a, n); T.v(A(a.map((x, k) => k === n ? I.push : x), { hl: n, label: 'after append' }), heapView(a)); T.n(`Push ${I.push}: how many swaps does sift up make?`, r.sw, 'Swap with the parent while the new value is bigger.'); T.n(`At which index does ${I.push} settle?`, r.i, 'Where its parent is at least as large, or at the root.'); return a; }
+    s(I, T) { const a = I.heap.slice(), n = a.length; T.v(A(a, { label: 'heap array' }), heapView(a)); T.n('Peek: the maximum value?', a[0], 'The root at index 0.'); T.n(`Parent index of index ${n - 1}?`, (n - 2) >> 1, `(${n - 1} − 1) divided by 2 rounded down.`); a.push(I.push); const r = siftUp(a, n); T.v(A(a.map((x, k) => k === n ? I.push : x), { hl: n, label: 'after append' }), heapView(a)); T.n(`Push ${I.push}: how many swaps does sift up make?`, r.sw, 'Swap with the parent while the new value is bigger.'); T.n(`At which index does ${I.push} settle?`, r.i, 'Where its parent is at least as large, or at the root.'); return a; }
   });
 
   D('labu-topic-92b6a2489d29', {
@@ -66,6 +66,6 @@
     r: 'Keep a min-heap of size k. Push the first k values. For each later value x, if x is bigger than the heap top (the smallest of the kept values), pop the top and push x. At the end the heap holds the k largest values.',
     exs: [{ in: { nums: [5, 1, 9, 3, 7, 8], k: 3 }, out: [9, 8, 7] }],
     g: R => ({ nums: R.distinct(R.int(5, 8), 1, 20), k: R.int(2, 3) }),
-    s(I, T) { const k = I.k, h = I.nums.slice(0, k); h.sort((x, y) => x - y); T.at({ nums: A(I.nums, { ok: range(0, k) }), heap: A(h, { label: 'min-heap (sorted view)' }) }); T.n('Heap top after the first k values?', h[0], 'The smallest of the first k.'); for (let i = k; i < I.nums.length; i++) { const x = I.nums[i], top = h[0]; T.at({ nums: A(I.nums, { hl: i }), heap: A(h.slice(), { label: 'min-heap (sorted view)' }) }); T.yn(`x = ${x}: replace the top ${top}?`, x > top, x > top ? `${x} > ${top}, so ${top} cannot be in the top k.` : `${x} ≤ ${top}, so it is not among the k largest so far.`); if (x > top) { h[0] = x; h.sort((a, b) => a - b); } T.n('Heap top now?', h[0], 'The smallest kept value.'); } return h.slice().sort((a, b) => b - a); }
+    s(I, T) { const k = I.k, h = I.nums.slice(0, k); h.sort((x, y) => x - y); T.at({ nums: A(I.nums, { ok: range(0, k) }), heap: A(h, { label: 'min-heap (sorted view)' }) }); T.n('Heap top after the first k values?', h[0], 'The smallest of the first k.'); for (let i = k; i < I.nums.length; i++) { const x = I.nums[i], top = h[0]; T.at({ nums: A(I.nums, { hl: i }), heap: A(h.slice(), { label: 'min-heap (sorted view)' }) }); T.yn(`x = ${x}: replace the top ${top}?`, x > top, x > top ? `${x} > ${top}, so ${top} cannot be in the top k.` : `${x} at most ${top}, so it is not among the k largest so far.`); if (x > top) { h[0] = x; h.sort((a, b) => a - b); } T.n('Heap top now?', h[0], 'The smallest kept value.'); } return h.slice().sort((a, b) => b - a); }
   });
 })();

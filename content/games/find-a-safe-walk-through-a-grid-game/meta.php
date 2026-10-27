@@ -5,7 +5,7 @@ return [
     'title' => 'Find a Safe Walk Through a Grid',
     'leetcode' => 3286,
     'difficulty' => 'Med',
-    'summary' => 'Unsafe cells (1) cost one health. 0-1 BFS for the least damage path from (0, 0) (counting the start cell) to the corner; safe iff health − damage ≥ 1.',
+    'summary' => 'Unsafe cells (1) cost one health. 0-1 BFS for the least damage path from (0, 0) (counting the start cell) to the corner; safe exactly when health − damage at least 1.',
     'category' => 'LeetCode',
     'subcategory' => 'Graphs',
     'topic' => 'LeetCode · Graphs',

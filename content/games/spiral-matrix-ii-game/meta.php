@@ -5,7 +5,7 @@ return [
     'title' => 'Spiral Matrix II',
     'leetcode' => 59,
     'difficulty' => 'Med',
-    'summary' => 'Fill 1..n² along the spiral using shrinking bounds (top row → right column → bottom row → left column).',
+    'summary' => 'Fill 1 to n² along the spiral using shrinking bounds (top row, then right column, then bottom row, then left column).',
     'category' => 'LeetCode',
     'subcategory' => 'Graphs',
     'topic' => 'LeetCode · Graphs',

@@ -5,7 +5,7 @@ return [
     'title' => 'Insert into a BST: fall into the empty spot',
     'leetcode' => 701,
     'difficulty' => 'Med',
-    'summary' => 'Walk like a search (smaller → left, bigger → right). The first null child you reach is exactly where the new value belongs.',
+    'summary' => 'Walk like a search (smaller goes left, bigger goes right). The first null child you reach is exactly where the new value belongs.',
     'category' => 'LeetCode',
     'subcategory' => 'Trees',
     'topic' => 'LeetCode · Trees',

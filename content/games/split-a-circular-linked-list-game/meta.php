@@ -5,7 +5,7 @@ return [
     'title' => 'Split a Circular Linked List',
     'leetcode' => 2674,
     'difficulty' => 'Med',
-    'summary' => 'Slow/fast pointers find the middle: the first half gets ⌈n/2⌉ nodes. Cut after it and close both halves into circles.',
+    'summary' => 'Slow or fast pointers find the middle: the first half gets half of n (rounded up) nodes. Cut after it and close both halves into circles.',
     'category' => 'LeetCode',
     'subcategory' => 'Linked List',
     'topic' => 'LeetCode · Linked List',

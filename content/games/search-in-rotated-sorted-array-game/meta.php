@@ -5,7 +5,7 @@ return [
     'title' => 'Search in Rotated Sorted Array: find the sorted half first',
     'leetcode' => 33,
     'difficulty' => 'Med',
-    'summary' => 'One half of [lo, hi] is always sorted. Find it (nums[lo] ≤ nums[mid] means the left half). If the target lies inside that sorted range, go there; otherwise go to the other half.',
+    'summary' => 'One half of [lo, hi] is always sorted. Find it (nums[lo] at most nums[mid] means the left half). If the target lies inside that sorted range, go there; otherwise go to the other half.',
     'category' => 'LeetCode',
     'subcategory' => 'Binary Search',
     'topic' => 'LeetCode · Binary Search',

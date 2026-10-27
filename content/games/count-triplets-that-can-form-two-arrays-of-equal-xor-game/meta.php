@@ -5,7 +5,7 @@ return [
     'title' => 'Count Triplets That Can Form Two Arrays of Equal XOR',
     'leetcode' => 1442,
     'difficulty' => 'Med',
-    'summary' => 'a == b iff XOR(arr[i..k]) = 0, i.e. prefix[i] == prefix[k+1]. Each such pair contributes k − i choices of j.',
+    'summary' => 'a == b exactly when XOR(arr[i to k]) = 0, i.e. prefix[i] == prefix[k+1]. Each such pair contributes k − i choices of j.',
     'category' => 'LeetCode',
     'subcategory' => 'Prefix Sum',
     'topic' => 'LeetCode · Prefix Sum',

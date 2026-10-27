@@ -5,7 +5,7 @@ return [
     'title' => 'Count Servers that Communicate',
     'leetcode' => 1267,
     'difficulty' => 'Med',
-    'summary' => 'Count servers per row and per column. A server communicates iff its row count > 1 or its column count > 1.',
+    'summary' => 'Count servers per row and per column. A server communicates exactly when its row count > 1 or its column count > 1.',
     'category' => 'LeetCode',
     'subcategory' => 'Graphs',
     'topic' => 'LeetCode · Graphs',

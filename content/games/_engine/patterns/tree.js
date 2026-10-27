@@ -46,9 +46,9 @@
   function T(tr, cls, tag, label) { return { t: 'tree', v: tr, cls: cls || {}, tag: tag || {}, pick: 't', label: label || 'tree', wide: true }; }
 
   var WHY = {
-    'in': 'Inorder is left subtree → node → right subtree. Finish everything on the left first.',
-    pre: 'Preorder is node → left subtree → right subtree. Visit a node before its children.',
-    post: 'Postorder is left subtree → right subtree → node. A node comes after both its subtrees.'
+    'in': 'Inorder is left subtree, then node, then right subtree. Finish everything on the left first.',
+    pre: 'Preorder is node, then left subtree, then right subtree. Visit a node before its children.',
+    post: 'Postorder is left subtree, then right subtree, then node. A node comes after both its subtrees.'
   };
   function traversal(slug, kind, title, rule) {
     LC.register(slug, {
@@ -96,7 +96,7 @@
 
   LC.register('binary-tree-zigzag-level-order-traversal', {
     title: 'Zigzag Level Order: flip direction every level',
-    rule: 'Do a normal BFS level by level, but read level 0 left→right, level 1 right→left, level 2 left→right, and so on.',
+    rule: 'Do a normal BFS level by level, but read level 0 left to right, level 1 right to left, level 2 left to right, and so on.',
     make: function (rng, round) {
       var tr = randTree(rng, 6 + round, 9 + round), lv = levels(tr);
       var t = new LC.Trace();
@@ -105,8 +105,8 @@
       lv.forEach(function (level, d) {
         var seq = d % 2 ? level.slice().reverse() : level, row = [];
         seq.forEach(function (node) {
-          var wm = {}; for (var i = 0; i < MAX; i++) if (has(tr, i) && i !== node) { var di = Math.floor(Math.log2(i + 1)); wm['t:' + i] = cls[i] ? 'Already visited.' : di !== d ? 'Finish level ' + d + ' first.' : 'Level ' + d + ' reads ' + (d % 2 ? 'right → left' : 'left → right') + '.'; }
-          t.pick(V(T(tr, cls, tag), P.vars([['levels', out.length ? out.map(LC.fmt).join(' ') : '—'], ['direction', d % 2 ? '←' : '→']])), 'Level ' + d + ' (' + (d % 2 ? 'right → left' : 'left → right') + '): next node?', 't:' + node, { wrongMap: wm, note: tr[node] + '.' });
+          var wm = {}; for (var i = 0; i < MAX; i++) if (has(tr, i) && i !== node) { var di = Math.floor(Math.log2(i + 1)); wm['t:' + i] = cls[i] ? 'Already visited.' : di !== d ? 'Finish level ' + d + ' first.' : 'Level ' + d + ' reads ' + (d % 2 ? 'right to left' : 'left to right') + '.'; }
+          t.pick(V(T(tr, cls, tag), P.vars([['levels', out.length ? out.map(LC.fmt).join(' ') : '—'], ['direction', d % 2 ? 'right to left' : 'left to right']])), 'Level ' + d + ' (' + (d % 2 ? 'right to left' : 'left to right') + '): next node?', 't:' + node, { wrongMap: wm, note: tr[node] + '.' });
           cls[node] = 'done'; tag[node] = String(++k); row.push(tr[node]);
         });
         out.push(row);
@@ -181,7 +181,7 @@
   var WALK = [['L', 'Go left'], ['R', 'Go right'], ['F', 'Found it'], ['N', 'Hit null']];
   LC.register('search-in-a-binary-search-tree', {
     title: 'Search in a BST: one comparison per level',
-    rule: 'At each node: equal → found. Target smaller → only the left subtree can hold it. Bigger → only the right. Reaching null means it is not in the tree.',
+    rule: 'At each node: equal means found. Target smaller: only the left subtree can hold it. Bigger: only the right. Reaching null means it is not in the tree.',
     rounds: 5, minSteps: 3,
     make: function (rng, round) {
       var tr = randBST(rng, 7, 10), vals = tr.filter(function (x) { return x !== null; });
@@ -193,7 +193,7 @@
         var c = LC.clone(cls); if (has(tr, i)) c[i] = 'hit';
         if (!has(tr, i)) { t.act(V(T(tr, c), P.vars([['val', target]])), 'The next child is null.', WALK, 'N', 'There is no node here.', 'Not found: return null.'); break; }
         var key = tr[i] === target ? 'F' : target < tr[i] ? 'L' : 'R';
-        t.act(V(T(tr, c), P.vars([['val', target]])), 'At ' + tr[i] + '.', WALK, key, { F: tr[i] + ' ≠ ' + target + '.', L: target + ' > ' + tr[i] + ', so the left subtree (all smaller) cannot hold it.', R: target + ' < ' + tr[i] + ', so the right subtree (all bigger) cannot hold it.', N: 'You are on a real node.' }, key === 'F' ? 'Found.' : 'Discard the other subtree.');
+        t.act(V(T(tr, c), P.vars([['val', target]])), 'At ' + tr[i] + '.', WALK, key, { F: tr[i] + ' is not ' + target + '.', L: target + ' > ' + tr[i] + ', so the left subtree (all smaller) cannot hold it.', R: target + ' < ' + tr[i] + ', so the right subtree (all bigger) cannot hold it.', N: 'You are on a real node.' }, key === 'F' ? 'Found.' : 'Discard the other subtree.');
         if (key === 'F') { cls[i] = 'ok'; break; }
         cls[i] = 'done'; i = key === 'L' ? 2 * i + 1 : 2 * i + 2;
         if (i >= MAX) { t.act(V(T(tr, cls), P.vars([['val', target]])), 'The next child is null.', WALK, 'N', 'There is no node here.', 'Not found.'); break; }
@@ -205,7 +205,7 @@
 
   LC.register('insert-into-a-binary-search-tree', {
     title: 'Insert into a BST: fall into the empty spot',
-    rule: 'Walk like a search (smaller → left, bigger → right). The first null child you reach is exactly where the new value belongs.',
+    rule: 'Walk like a search (smaller goes left, bigger goes right). The first null child you reach is exactly where the new value belongs.',
     rounds: 5, minSteps: 3,
     make: function (rng, round) {
       var tr, val, path;
@@ -279,7 +279,7 @@
       }
       var t = new LC.Trace();
       t.setup = 'Check each node against its inherited (low, high) bounds, in preorder.';
-      var cls = {}, tag = {}, bad = false, acts = [['ok', 'Inside the bounds'], ['bad', 'Out of bounds → false']];
+      var cls = {}, tag = {}, bad = false, acts = [['ok', 'Inside the bounds'], ['bad', 'Out of bounds: false']];
       var stack = [[0, -Infinity, Infinity]];
       while (stack.length && !bad) {
         var top = stack.pop(), i = top[0], lo = top[1], hi = top[2];

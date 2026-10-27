@@ -5,7 +5,7 @@ return [
     'title' => 'Display Table of Food Orders in a Restaurant',
     'leetcode' => 1418,
     'difficulty' => 'Med',
-    'summary' => 'Build a map table → food → count and a set of foods. Header = "Table" + foods sorted; rows sorted numerically by table, each with counts as strings.',
+    'summary' => 'Build a map table to food to count and a set of foods. Header = "Table" + foods sorted; rows sorted numerically by table, each with counts as strings.',
     'category' => 'LeetCode',
     'subcategory' => 'Hash Table',
     'topic' => 'LeetCode · Hash Table',

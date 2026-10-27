@@ -5,7 +5,7 @@ return [
     'title' => 'Count Submatrices with Top-Left Element and Sum Less Than k',
     'leetcode' => 3070,
     'difficulty' => 'Med',
-    'summary' => 'Submatrices containing (0, 0) are exactly 2D prefixes. Build the prefix sum P[i][j] and count cells with P ≤ k.',
+    'summary' => 'Submatrices containing (0, 0) are exactly 2D prefixes. Build the prefix sum P[i][j] and count cells with P at most k.',
     'category' => 'LeetCode',
     'subcategory' => 'Graphs',
     'topic' => 'LeetCode · Graphs',

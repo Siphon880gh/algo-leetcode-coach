@@ -5,7 +5,7 @@ return [
     'title' => 'Zero Array Transformation I',
     'leetcode' => 3355,
     'difficulty' => 'Med',
-    'summary' => 'Each query can decrement every index in its range by 1. With a difference array of coverage counts, the array can be zeroed iff coverage[i] ≥ nums[i] everywhere.',
+    'summary' => 'Each query can decrement every index in its range by 1. With a difference array of coverage counts, the array can be zeroed exactly when coverage[i] at least nums[i] everywhere.',
     'category' => 'LeetCode',
     'subcategory' => 'Prefix Sum',
     'topic' => 'LeetCode · Prefix Sum',

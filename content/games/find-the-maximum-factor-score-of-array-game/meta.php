@@ -5,7 +5,7 @@ return [
     'title' => 'Maximum Factor Score: try removing each element',
     'leetcode' => 3334,
     'difficulty' => 'Med',
-    'summary' => 'Score = gcd · lcm of the remaining array (0 if empty). Try removing nothing and removing each index (prefix/suffix gcd and lcm make it O(n)).',
+    'summary' => 'Score = gcd times lcm of the remaining array (0 if empty). Try removing nothing and removing each index (prefix or suffix gcd and lcm make it O(n)).',
     'category' => 'LeetCode',
     'subcategory' => 'Math',
     'topic' => 'LeetCode · Math',

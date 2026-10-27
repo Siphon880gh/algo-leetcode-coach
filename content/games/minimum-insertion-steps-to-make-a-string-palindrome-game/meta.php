@@ -5,7 +5,7 @@ return [
     'title' => 'Minimum Insertion Steps to Make a Palindrome: interval DP',
     'leetcode' => 1312,
     'difficulty' => 'Hard',
-    'summary' => 'dp[i][j] = insertions for s[i..j]. Equal ends: dp[i+1][j−1]. Otherwise 1 + min(dp[i+1][j], dp[i][j−1]).',
+    'summary' => 'dp[i][j] = insertions for s[i to j]. Equal ends: dp[i+1][j−1]. Otherwise 1 + min(dp[i+1][j], dp[i][j−1]).',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

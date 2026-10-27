@@ -5,7 +5,7 @@ return [
     'title' => 'Maximum Upgradable Servers',
     'leetcode' => 3155,
     'difficulty' => 'Med',
-    'summary' => 'Upgrade x servers and sell the rest: need x·upgrade ≤ money + (count − x)·sell. So x = min(count, ⌊(money + count·sell) / (upgrade + sell)⌋) (or binary search x).',
+    'summary' => 'Upgrade x servers and sell the rest: need x times upgrade at most money + (count − x) times sell. So x = min(count, ((money + count times sell) divided by (upgrade + sell), rounded down)) (or binary search x).',
     'category' => 'LeetCode',
     'subcategory' => 'Binary Search',
     'topic' => 'LeetCode · Binary Search',

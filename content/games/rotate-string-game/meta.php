@@ -5,7 +5,7 @@ return [
     'title' => 'Rotate String: look inside s + s',
     'leetcode' => 796,
     'difficulty' => 'Easy',
-    'summary' => 'goal is a rotation of s iff they have the same length and goal appears in s + s.',
+    'summary' => 'goal is a rotation of s exactly when they have the same length and goal appears in s + s.',
     'category' => 'LeetCode',
     'subcategory' => 'Strings',
     'topic' => 'LeetCode · Strings',

@@ -5,7 +5,7 @@ return [
     'title' => 'Words Within Two Edits of Dictionary',
     'leetcode' => 2452,
     'difficulty' => 'Med',
-    'summary' => 'For each query, compare against dictionary words (or DFS a trie allowing at most two mismatches) — keep it if some word differs in ≤ 2 positions. Preserve query order.',
+    'summary' => 'For each query, compare against dictionary words (or DFS a trie allowing at most two mismatches) — keep it if some word differs in at most 2 positions. Preserve query order.',
     'category' => 'LeetCode',
     'subcategory' => 'Trie',
     'topic' => 'LeetCode · Trie',

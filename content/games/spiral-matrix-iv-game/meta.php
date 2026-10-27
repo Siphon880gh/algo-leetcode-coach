@@ -5,7 +5,7 @@ return [
     'title' => 'Spiral Matrix IV',
     'leetcode' => 2326,
     'difficulty' => 'Med',
-    'summary' => 'Fill an m × n matrix of −1 in spiral order (right, down, left, up, turning at walls or filled cells) with the list values until the list ends.',
+    'summary' => 'Fill an m times n matrix of −1 in spiral order (right, down, left, up, turning at walls or filled cells) with the list values until the list ends.',
     'category' => 'LeetCode',
     'subcategory' => 'Linked List',
     'topic' => 'LeetCode · Linked List',

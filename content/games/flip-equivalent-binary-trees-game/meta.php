@@ -5,7 +5,7 @@ return [
     'title' => 'Flip Equivalent Trees: match children either way',
     'leetcode' => 951,
     'difficulty' => 'Med',
-    'summary' => 'Roots must match; then the children must match either straight (left–left, right–right) or flipped (left–right, right–left).',
+    'summary' => 'Roots must match; then the children must match either straight (left-left, right-right) or flipped (left-right, right-left).',
     'category' => 'LeetCode',
     'subcategory' => 'Trees',
     'topic' => 'LeetCode · Trees',

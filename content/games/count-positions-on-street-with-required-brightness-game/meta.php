@@ -5,7 +5,7 @@ return [
     'title' => 'Count Positions on Street With Required Brightness',
     'leetcode' => 2237,
     'difficulty' => 'Med',
-    'summary' => 'Each lamp brightens [p − r, p + r] clipped to the street: +1 / −1 on a difference array. Prefix-sum it and count positions where brightness ≥ requirement.',
+    'summary' => 'Each lamp brightens [p − r, p + r] clipped to the street: +1 and −1 on a difference array. Prefix-sum it and count positions where brightness at least requirement.',
     'category' => 'LeetCode',
     'subcategory' => 'Prefix Sum',
     'topic' => 'LeetCode · Prefix Sum',

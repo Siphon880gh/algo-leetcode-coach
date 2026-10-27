@@ -5,7 +5,7 @@ return [
     'title' => 'Maximum Coin Collection',
     'leetcode' => 3466,
     'difficulty' => 'Med',
-    'summary' => 'dp[s] = best coins for a trip ending at the current mile having made s switches (lane = s even ? 1 : 2). Each mile: dp[s] = coin(lane(s)) + max(0 [enter here], dp[s], dp[s−1]). Track the best value seen.',
+    'summary' => 'dp[s] = best coins for a trip ending at the current mile having made s switches (lane = s even ? 1 : 2). Each mile: dp[s] = coin(lanes) + max(0 [enter here], dp[s], dp[s−1]). Track the best value seen.',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

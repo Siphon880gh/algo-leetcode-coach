@@ -5,7 +5,7 @@ return [
     'title' => 'Count Good Triplets',
     'leetcode' => 1534,
     'difficulty' => 'Easy',
-    'summary' => 'Enumerate i < j < k; check |a_i − a_j| ≤ a, |a_j − a_k| ≤ b, |a_i − a_k| ≤ c (skip k early when the first test fails).',
+    'summary' => 'Enumerate i < j < k; check |a_i − a_j| at most a, |a_j − a_k| at most b, |a_i − a_k| at most c (skip k early when the first test fails).',
     'category' => 'LeetCode',
     'subcategory' => 'Arrays',
     'topic' => 'LeetCode · Arrays',

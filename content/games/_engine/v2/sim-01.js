@@ -63,9 +63,9 @@
 
   D('robot-return-to-origin', {
     t: 'Robot Return to Origin',
-    r: 'Track (x, y): U/D change y, L/R change x. The robot returns iff both are 0 at the end.',
+    r: 'Track (x, y): U or D change y, L or R change x. The robot returns exactly when both are 0 at the end.',
     g: R => ({ moves: R.str(R.int(1, 8), 'UDLR') }),
-    s(I, T) { let x = 0, y = 0; [...I.moves].forEach((m, i) => { if (m === 'U') y++; else if (m === 'D') y--; else if (m === 'L') x--; else x++; if (i < 6) { T.at({ moves: A([...I.moves], { i }) }); T.n('x after this move?', x, 'L/R move horizontally.'); } }); return x === 0 && y === 0; }
+    s(I, T) { let x = 0, y = 0; [...I.moves].forEach((m, i) => { if (m === 'U') y++; else if (m === 'D') y--; else if (m === 'L') x--; else x++; if (i < 6) { T.at({ moves: A([...I.moves], { i }) }); T.n('x after this move?', x, 'L or R move horizontally.'); } }); return x === 0 && y === 0; }
   });
 
   D('remove-comments', {
@@ -133,7 +133,7 @@
 
   D('queries-on-a-permutation-with-key', {
     t: 'Queries on a Permutation With Key',
-    r: 'Start with P = [1..m]. For each query, record its position in P, then move it to the front.',
+    r: 'Start with P = [1 to m]. For each query, record its position in P, then move it to the front.',
     g: R => { const m = R.int(1, 6); return { queries: R.ints(R.int(1, 5), 1, m), m }; },
     s(I, T) { const P = Array.from({ length: I.m }, (_, i) => i + 1); return I.queries.map(q => { const i = P.indexOf(q); T.at({ P: A(P.slice(), { i }) }); T.n(`Position of ${q}?`, i, 'Then move it to the front.'); P.splice(i, 1); P.unshift(q); return i; }); }
   });
@@ -142,7 +142,7 @@
     t: 'Minimum Number of Frogs Croaking',
     r: 'Count how many frogs are at each stage of "croak". Each letter must follow a frog at the previous stage; "c" starts a new frog (or reuses a finished one). Track the max simultaneously active frogs; leftovers mean −1.',
     g: R => ({ croakOfFrogs: R.chance(0.6) ? (() => { const k = R.int(1, 3), pos = Array(k).fill(0); let s = ''; while (pos.some(p => p < 5)) { const i = R.pick(pos.map((p, j) => p < 5 ? j : -1).filter(j => j >= 0)); s += 'croak'[pos[i]++]; } return s; })() : R.str(R.int(1, 10), 'croak') }),
-    s(I, T) { const st = { c: 0, r: 1, o: 2, a: 3, k: 4 }, cnt = [0, 0, 0, 0, 0]; let active = 0, best = 0; for (const [i, ch] of [...I.croakOfFrogs].entries()) { const k = st[ch]; if (k === 0) { cnt[0]++; active++; best = Math.max(best, active); } else { if (!cnt[k - 1]) { T.at({ s: A([...I.croakOfFrogs], { i }) }); T.yn('Is a frog ready for this letter?', false, 'Out of order → −1.'); return -1; } cnt[k - 1]--; if (k === 4) active--; else cnt[k]++; } if (i < 6) { T.at({ s: A([...I.croakOfFrogs], { i }), stages: K({ c: cnt[0], r: cnt[1], o: cnt[2], a: cnt[3] }) }); T.n('Frogs croaking right now?', active, '"c" starts one, "k" finishes one.'); } } return active ? -1 : best; }
+    s(I, T) { const st = { c: 0, r: 1, o: 2, a: 3, k: 4 }, cnt = [0, 0, 0, 0, 0]; let active = 0, best = 0; for (const [i, ch] of [...I.croakOfFrogs].entries()) { const k = st[ch]; if (k === 0) { cnt[0]++; active++; best = Math.max(best, active); } else { if (!cnt[k - 1]) { T.at({ s: A([...I.croakOfFrogs], { i }) }); T.yn('Is a frog ready for this letter?', false, 'Out of order: −1.'); return -1; } cnt[k - 1]--; if (k === 4) active--; else cnt[k]++; } if (i < 6) { T.at({ s: A([...I.croakOfFrogs], { i }), stages: K({ c: cnt[0], r: cnt[1], o: cnt[2], a: cnt[3] }) }); T.n('Frogs croaking right now?', active, '"c" starts one, "k" finishes one.'); } } return active ? -1 : best; }
   });
 
   D('find-the-winner-of-an-array-game', {
@@ -168,9 +168,9 @@
 
   D('maximum-profit-of-operating-a-centennial-wheel', {
     t: 'Maximum Profit of Operating a Centennial Wheel',
-    r: 'Each rotation: add the arriving customers to the queue, board up to 4, and update profit (boarded × boardingCost − runningCost). Continue while customers wait; return the rotation count with the best positive profit (−1 if never positive).',
+    r: 'Each rotation: add the arriving customers to the queue, board up to 4, and update profit (boarded times boardingCost − runningCost). Continue while customers wait; return the rotation count with the best positive profit (−1 if never positive).',
     g: R => ({ customers: R.ints(R.int(1, 4), 0, 10), boardingCost: R.int(1, 8), runningCost: R.int(1, 20) }),
-    s(I, T) { let wait = 0, p = 0, best = 0, ans = -1, rot = 0, i = 0; while (i < I.customers.length || wait > 0) { if (i < I.customers.length) wait += I.customers[i++]; const b = Math.min(4, wait); wait -= b; rot++; p += b * I.boardingCost - I.runningCost; if (p > best) { best = p; ans = rot; } if (rot <= 5) { T.at({ rotation: rot, waiting: wait }); T.n('Profit so far?', p, 'boarded × boardingCost − runningCost.'); } } return ans; }
+    s(I, T) { let wait = 0, p = 0, best = 0, ans = -1, rot = 0, i = 0; while (i < I.customers.length || wait > 0) { if (i < I.customers.length) wait += I.customers[i++]; const b = Math.min(4, wait); wait -= b; rot++; p += b * I.boardingCost - I.runningCost; if (p > best) { best = p; ans = rot; } if (rot <= 5) { T.at({ rotation: rot, waiting: wait }); T.n('Profit so far?', p, 'boarded times boardingCost − runningCost.'); } } return ans; }
   });
 
   D('get-maximum-in-generated-array', {
@@ -197,7 +197,7 @@
 
   D('build-array-from-permutation', {
     t: 'Build Array from Permutation',
-    r: 'ans[i] = nums[nums[i]]. (The O(1)-space trick stores both values in one slot as a + n·b.)',
+    r: 'ans[i] = nums[nums[i]]. (The O(1)-space trick stores both values in one slot as a + n times b.)',
     g: R => ({ nums: R.perm(R.int(1, 7)) }),
     s(I, T) { return I.nums.map((v, i) => { const r = I.nums[v]; if (i < 5) { T.at({ nums: A(I.nums, { i, j: v }) }); T.n(`ans[${i}]?`, r, `nums[nums[${i}]] = nums[${v}].`); } return r; }); }
   });

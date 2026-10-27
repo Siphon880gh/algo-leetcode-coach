@@ -2,10 +2,10 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Longest Repeating Character Replacement: len − maxFreq ≤ k',
+    'title' => 'Longest Repeating Character Replacement: len − maxFreq at most k',
     'leetcode' => 424,
     'difficulty' => 'Med',
-    'summary' => 'A window is fixable when (length − count of its most common letter) ≤ k. Grow R; shrink L when more than k replacements would be needed.',
+    'summary' => 'A window is fixable when (length − count of its most common letter) at most k. Grow R; shrink L when more than k replacements would be needed.',
     'category' => 'LeetCode',
     'subcategory' => 'Sliding Window',
     'topic' => 'LeetCode · Sliding Window',

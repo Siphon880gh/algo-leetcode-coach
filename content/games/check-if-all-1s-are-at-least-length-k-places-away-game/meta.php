@@ -5,7 +5,7 @@ return [
     'title' => 'Check If All 1\'s Are at Least Length K Places Away',
     'leetcode' => 1437,
     'difficulty' => 'Easy',
-    'summary' => 'Remember the index of the previous 1; each new 1 must have at least k zeros between them (i − prev − 1 ≥ k).',
+    'summary' => 'Remember the index of the previous 1; each new 1 must have at least k zeros between them (i − prev − 1 at least k).',
     'category' => 'LeetCode',
     'subcategory' => 'Arrays',
     'topic' => 'LeetCode · Arrays',

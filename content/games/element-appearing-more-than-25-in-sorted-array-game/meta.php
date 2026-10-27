@@ -5,7 +5,7 @@ return [
     'title' => 'Element Appearing More Than 25% In Sorted Array',
     'leetcode' => 1287,
     'difficulty' => 'Easy',
-    'summary' => 'In a sorted array, the frequent element x occupies more than n/4 consecutive slots, so arr[i] == arr[i + ⌊n/4⌋] for some i.',
+    'summary' => 'In a sorted array, the frequent element x occupies more than n divided by 4 consecutive slots, so arr[i] == arr[i + (n divided by 4, rounded down)] for some i.',
     'category' => 'LeetCode',
     'subcategory' => 'Arrays',
     'topic' => 'LeetCode · Arrays',

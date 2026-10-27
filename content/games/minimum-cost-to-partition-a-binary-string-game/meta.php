@@ -5,7 +5,7 @@ return [
     'title' => 'Minimum Cost to Partition a Binary String',
     'leetcode' => 3864,
     'difficulty' => 'Hard',
-    'summary' => 'Recurse on segments: a segment costs flatCost with no sensitive elements, else L × X × encCost. If its length is even, it may instead split into two halves, each solved the same way. Prefix counts give X in O(1).',
+    'summary' => 'Recurse on segments: a segment costs flatCost with no sensitive elements, else L times X times encCost. If its length is even, it may instead split into two halves, each solved the same way. Prefix counts give X in O(1).',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

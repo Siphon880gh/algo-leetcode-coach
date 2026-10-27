@@ -5,7 +5,7 @@ return [
     'title' => 'Merge Operations to Turn Array Into a Palindrome',
     'leetcode' => 2422,
     'difficulty' => 'Med',
-    'summary' => 'Two pointers with running sums at each end. Equal → move both inward; the smaller side merges with its neighbor (one operation).',
+    'summary' => 'Two pointers with running sums at each end. Equal: move both inward; the smaller side merges with its neighbor (one operation).',
     'category' => 'LeetCode',
     'subcategory' => 'Two Pointers',
     'topic' => 'LeetCode · Two Pointers',

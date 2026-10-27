@@ -5,7 +5,7 @@ return [
     'title' => 'Longest Common Subsequence Between Sorted Arrays',
     'leetcode' => 1940,
     'difficulty' => 'Med',
-    'summary' => 'Each array is strictly increasing, so a value is common iff it appears in all arrays. Count occurrences across arrays; output values with count = number of arrays, in order.',
+    'summary' => 'Each array is strictly increasing, so a value is common exactly when it appears in all arrays. Count occurrences across arrays; output values with count = number of arrays, in order.',
     'category' => 'LeetCode',
     'subcategory' => 'Hash Table',
     'topic' => 'LeetCode · Hash Table',

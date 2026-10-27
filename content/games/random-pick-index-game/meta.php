@@ -5,7 +5,7 @@ return [
     'title' => 'Random Pick Index (reservoir sampling)',
     'leetcode' => 398,
     'difficulty' => 'Med',
-    'summary' => 'Scan nums; for the k-th occurrence of target, keep its index with probability 1/k. Each matching index is returned uniformly.',
+    'summary' => 'Scan nums; for the k-th occurrence of target, keep its index with probability 1 divided by k. Each matching index is returned uniformly.',
     'category' => 'LeetCode',
     'subcategory' => 'Design',
     'topic' => 'LeetCode · Design',

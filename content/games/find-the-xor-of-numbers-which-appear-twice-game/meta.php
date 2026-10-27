@@ -5,7 +5,7 @@ return [
     'title' => 'Find the XOR of Numbers Which Appear Twice',
     'leetcode' => 3158,
     'difficulty' => 'Easy',
-    'summary' => 'Use a seen bitmask (values ≤ 50); when a value is seen again, XOR it into the answer.',
+    'summary' => 'Use a seen bitmask (values at most 50); when a value is seen again, XOR it into the answer.',
     'category' => 'LeetCode',
     'subcategory' => 'Bit Manipulation',
     'topic' => 'LeetCode · Bit Manipulation',

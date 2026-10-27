@@ -5,7 +5,7 @@ return [
     'title' => 'Non-Overlapping Palindrome Substrings: only lengths k and k + 1 matter',
     'leetcode' => 2472,
     'difficulty' => 'Hard',
-    'summary' => 'dp[i] = most palindromes in s[0..i). dp[i] = max(dp[i−1], dp[i−k] + 1 if s[i−k..i) is a palindrome, dp[i−k−1] + 1 if s[i−k−1..i) is).',
+    'summary' => 'dp[i] = most palindromes in s[0 to i). dp[i] = max(dp[i−1], dp[i−k] + 1 if s[i−k to i) is a palindrome, dp[i−k−1] + 1 if s[i−k−1 to i) is).',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

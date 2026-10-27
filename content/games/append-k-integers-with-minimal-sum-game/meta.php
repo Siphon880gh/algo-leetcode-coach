@@ -5,7 +5,7 @@ return [
     'title' => 'Append k Integers With Minimal Sum: skip the taken ones',
     'leetcode' => 2195,
     'difficulty' => 'Med',
-    'summary' => 'Start with 1 … k. For each distinct value x in nums (sorted) with x ≤ the current limit, the limit grows by 1 (the next number replaces x).',
+    'summary' => 'Start with 1 … k. For each distinct value x in nums (sorted) with x at most the current limit, the limit grows by 1 (the next number replaces x).',
     'category' => 'LeetCode',
     'subcategory' => 'Greedy',
     'topic' => 'LeetCode · Greedy',

@@ -5,7 +5,7 @@ return [
     'title' => 'Find Missing Observations: spread the missing total',
     'leetcode' => 2028,
     'difficulty' => 'Med',
-    'summary' => 'Missing total = mean·(n + m) − Σ rolls. It must lie in [n, 6n]. Give every missing roll ⌊total/n⌋ and add 1 to the first (total mod n) of them.',
+    'summary' => 'Missing total = mean times (n + m) − the sum of rolls. It must lie in [n, 6n]. Give every missing roll total divided by n, rounded down and add 1 to the first (total mod n) of them.',
     'category' => 'LeetCode',
     'subcategory' => 'Math',
     'topic' => 'LeetCode · Math',

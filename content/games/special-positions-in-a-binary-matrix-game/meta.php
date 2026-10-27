@@ -5,7 +5,7 @@ return [
     'title' => 'Special Positions in a Binary Matrix',
     'leetcode' => 1582,
     'difficulty' => 'Easy',
-    'summary' => 'Count ones per row and column. A 1 at (i, j) is special iff rowCount[i] == 1 and colCount[j] == 1.',
+    'summary' => 'Count ones per row and column. A 1 at (i, j) is special exactly when rowCount[i] == 1 and colCount[j] == 1.',
     'category' => 'LeetCode',
     'subcategory' => 'Graphs',
     'topic' => 'LeetCode · Graphs',

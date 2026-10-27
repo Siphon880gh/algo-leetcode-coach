@@ -21,7 +21,7 @@
 
   D('count-bowl-subarrays', {
     t: 'Count Bowl Subarrays',
-    r: 'Keep a decreasing stack. When nums[r] arrives, every element it pops is smaller and still "sees" r, and so does the first larger element left on the stack. Each such left end at distance ≥ 2 forms a bowl with r.',
+    r: 'Keep a decreasing stack. When nums[r] arrives, every element it pops is smaller and still "sees" r, and so does the first larger element left on the stack. Each such left end at distance at least 2 forms a bowl with r.',
     g: R => ({ nums: R.distinct(R.int(3, 8), 1, 12) }),
     s(I, T) { const a = I.nums, st = []; let tot = 0; a.forEach((x, r) => { let c = 0; const before = st.slice(); while (st.length && a[st[st.length - 1]] < x) { const l = st.pop(); if (r - l >= 2) c++; } if (st.length && r - st[st.length - 1] >= 2) c++; st.push(r); tot += c; if (r >= 2) { T.at({ nums: A(a, { i: r }), stack: S(before.map(i => a[i])) }); T.n(`Bowls ending at index ${r}?`, c, 'Popped elements and the first larger one left, if at least 2 apart.'); } }); return tot; }
   });

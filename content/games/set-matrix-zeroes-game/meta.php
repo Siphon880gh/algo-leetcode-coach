@@ -5,7 +5,7 @@ return [
     'title' => 'Set Matrix Zeroes',
     'leetcode' => 73,
     'difficulty' => 'Med',
-    'summary' => 'Record which rows and columns contain a zero (O(1) space: use the first row/column as markers plus two flags), then zero every cell whose row or column is marked.',
+    'summary' => 'Record which rows and columns contain a zero (O(1) space: use the first row or column as markers plus two flags), then zero every cell whose row or column is marked.',
     'category' => 'LeetCode',
     'subcategory' => 'Graphs',
     'topic' => 'LeetCode · Graphs',

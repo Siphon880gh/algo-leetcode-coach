@@ -5,7 +5,7 @@ return [
     'title' => 'Largest Square Inside Two Rectangles: pairwise intersections',
     'leetcode' => 3047,
     'difficulty' => 'Med',
-    'summary' => 'For each pair of rectangles, the intersection is [max left, min right] × [max bottom, min top]. A square fits with side min(width, height) if positive. Return the largest side².',
+    'summary' => 'For each pair of rectangles, the intersection is [max left, min right] times [max bottom, min top]. A square fits with side min(width, height) if positive. Return the largest side².',
     'category' => 'LeetCode',
     'subcategory' => 'Math',
     'topic' => 'LeetCode · Math',

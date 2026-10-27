@@ -5,7 +5,7 @@ return [
     'title' => 'Longest Palindrome: use pairs, plus one middle',
     'leetcode' => 409,
     'difficulty' => 'Easy',
-    'summary' => 'Every letter contributes 2·⌊count/2⌋. If any count is odd, one letter can sit in the middle: +1.',
+    'summary' => 'Every letter contributes 2 times (half of count, rounded down). If any count is odd, one letter can sit in the middle: +1.',
     'category' => 'LeetCode',
     'subcategory' => 'Greedy',
     'topic' => 'LeetCode · Greedy',

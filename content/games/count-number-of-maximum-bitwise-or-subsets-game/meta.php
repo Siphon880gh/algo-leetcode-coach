@@ -5,7 +5,7 @@ return [
     'title' => 'Count Number of Maximum Bitwise-OR Subsets',
     'leetcode' => 2044,
     'difficulty' => 'Med',
-    'summary' => 'The maximum OR is the OR of all. Backtrack include/exclude carrying the OR and count subsets reaching it.',
+    'summary' => 'The maximum OR is the OR of all. Backtrack include or exclude carrying the OR and count subsets reaching it.',
     'category' => 'LeetCode',
     'subcategory' => 'Backtracking',
     'topic' => 'LeetCode · Backtracking',

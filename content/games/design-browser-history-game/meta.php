@@ -5,7 +5,7 @@ return [
     'title' => 'Design Browser History',
     'leetcode' => 1472,
     'difficulty' => 'Med',
-    'summary' => 'An array of pages and a cursor. visit truncates everything after the cursor and appends. back/forward move the cursor by up to steps (clamped) and return that page.',
+    'summary' => 'An array of pages and a cursor. visit truncates everything after the cursor and appends. back or forward move the cursor by up to steps (clamped) and return that page.',
     'category' => 'LeetCode',
     'subcategory' => 'Design',
     'topic' => 'LeetCode · Design',

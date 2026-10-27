@@ -71,13 +71,13 @@
   });
 
   mono('final-prices-with-a-special-discount-in-a-shop', {
-    title: 'Final Prices With a Discount: first later price ≤ yours',
+    title: 'Final Prices With a Discount: first later price at most yours',
     rule: 'Each item waits on the stack for the first later price that is less than or equal to it. That price pops it and becomes its discount.',
     gen: function (rng, round) { var a = rng.ints(7 + round, 1, 9); return { a: a, setup: 'prices = ' + LC.fmt(a) }; },
     empty: null, ansLabel: 'final price',
     settles: function (top, cur) { return cur <= top; },
     resolve: function (top, i, a) { return a[top] - a[i]; },
-    whyPop: function (top, cur) { return cur + ' ≤ ' + top + ', so it is the discount.'; },
+    whyPop: function (top, cur) { return cur + ' is at most ' + top + ', so it is the discount.'; },
     whyPush: function (top, cur) { return cur + ' > ' + top + ', so it cannot discount it.'; },
     done: function (ans, g) { var out = ans.map(function (x, i) { return x === null ? g.a[i] : x; }); return 'final = ' + LC.fmt(out) + ' (items never popped pay full price).'; }
   });
@@ -104,7 +104,7 @@
       var t = new LC.Trace();
       t.setup = 'nums1 = ' + LC.fmt(a) + '   nums2 = ' + LC.fmt(b);
       var st = [], map = {};
-      function mapStr() { var k = Object.keys(map); return k.length ? k.map(function (x) { return x + '→' + map[x]; }).join(' ') : '—'; }
+      function mapStr() { var k = Object.keys(map); return k.length ? k.map(function (x) { return x + ': ' + map[x]; }).join(', ') : '—'; }
       for (var i = 0; i < n; i++) {
         while (st.length && b[i] > st[st.length - 1]) {
           var c = {}; c[i] = 'hit';
@@ -126,7 +126,7 @@
 
   LC.register('online-stock-span', {
     title: 'Online Stock Span: absorb the spans you pop',
-    rule: 'Keep (price, span) pairs with decreasing prices. A new price pops every pair with price ≤ it and adds their spans to its own (starting at 1).',
+    rule: 'Keep (price, span) pairs with decreasing prices. A new price pops every pair with price at most it and adds their spans to its own (starting at 1).',
     minSteps: 8,
     make: function (rng, round) {
       var a = rng.ints(8 + round, 50, 90);
@@ -137,7 +137,7 @@
       for (var i = 0; i < a.length; i++) {
         var span = 1;
         while (st.length && st[st.length - 1][0] <= a[i]) {
-          t.act(view(i, span), 'Price ' + a[i] + '; top is ' + st[st.length - 1][0] + '.', ACTS, 'pop', st[st.length - 1][0] + ' ≤ ' + a[i] + ', so those days count toward today\'s span.', 'span += ' + st[st.length - 1][1] + '.');
+          t.act(view(i, span), 'Price ' + a[i] + '; top is ' + st[st.length - 1][0] + '.', ACTS, 'pop', st[st.length - 1][0] + ' is at most ' + a[i] + ', so those days count toward today\'s span.', 'span += ' + st[st.length - 1][1] + '.');
           span += st.pop()[1];
         }
         t.num(view(i, span), 'Nothing left to absorb. Span for ' + a[i] + '?', span, { wrong: 'Start at 1 and add the spans you popped.', note: 'Span ' + span + '. Push (' + a[i] + ', ' + span + ').' });
@@ -164,11 +164,11 @@
           t.act(view(i), 'Bar ' + h[i] + ' arrives; top bar is ' + h[top] + '.', acts, 'pop', h[i] + ' < ' + h[top] + ': bar ' + top + ' cannot extend past i, so settle it now.', 'Measure bar ' + top + '.');
           st.pop();
           var left = st.length ? st[st.length - 1] : -1, width = i - left - 1, area = h[top] * width;
-          t.num(view(i), 'Rectangle with height ' + h[top] + ': width runs from ' + (left + 1) + ' to ' + (i - 1) + '. Area?', area, { wrong: 'Area = height × (i − newTop − 1) = ' + h[top] + ' × ' + width + '.', note: 'Area ' + area + '.' });
+          t.num(view(i), 'Rectangle with height ' + h[top] + ': width runs from ' + (left + 1) + ' to ' + (i - 1) + '. Area?', area, { wrong: 'Area = height times (i − newTop − 1) = ' + h[top] + ' times ' + width + '.', note: 'Area ' + area + '.' });
           best = Math.max(best, area);
         }
         if (i < h.length - 1) {
-          t.act(view(i), 'Bar ' + h[i] + ' arrives; top is ' + (st.length ? h[st[st.length - 1]] : 'empty') + '.', acts, 'push', st.length ? h[i] + ' ≥ ' + h[st[st.length - 1]] + ', so nothing is settled yet.' : 'Nothing to settle.', 'Push.');
+          t.act(view(i), 'Bar ' + h[i] + ' arrives; top is ' + (st.length ? h[st[st.length - 1]] : 'empty') + '.', acts, 'push', st.length ? h[i] + ' is at least ' + h[st[st.length - 1]] + ', so nothing is settled yet.' : 'Nothing to settle.', 'Push.');
           st.push(i);
         }
       }
@@ -193,7 +193,7 @@
           t.act(view(i), d[i] + ' arrives; top is ' + st[st.length - 1] + ', k = ' + k + '.', ACTS, 'pop', st[st.length - 1] + ' > ' + d[i] + ': removing it puts a smaller digit in a higher place.', 'Removed ' + st[st.length - 1] + '.');
           st.pop(); k--;
         }
-        t.act(view(i), d[i] + ' arrives; top is ' + (st.length ? st[st.length - 1] : 'empty') + ', k = ' + k + '.', ACTS, 'push', k === 0 ? 'No removals left.' : st.length ? st[st.length - 1] + ' ≤ ' + d[i] + ', so removing it would not help.' : 'Nothing to compare.', 'Kept.');
+        t.act(view(i), d[i] + ' arrives; top is ' + (st.length ? st[st.length - 1] : 'empty') + ', k = ' + k + '.', ACTS, 'push', k === 0 ? 'No removals left.' : st.length ? st[st.length - 1] + ' is at most ' + d[i] + ', so removing it would not help.' : 'Nothing to compare.', 'Kept.');
         st.push(d[i]);
       }
       var kept = st.slice(0, st.length - k);

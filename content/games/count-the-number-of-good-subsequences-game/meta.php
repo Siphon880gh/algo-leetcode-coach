@@ -5,7 +5,7 @@ return [
     'title' => 'Count Good Subsequences: fix the common frequency',
     'leetcode' => 2539,
     'difficulty' => 'Med',
-    'summary' => 'For each frequency f, every letter either is absent or appears exactly f times: Π (1 + C(cnt_c, f)) − 1 (the −1 drops the empty choice). Sum over f.',
+    'summary' => 'For each frequency f, every letter either is absent or appears exactly f times: the product of (1 + C(cnt_c, f)) − 1 (the −1 drops the empty choice). Sum over f.',
     'category' => 'LeetCode',
     'subcategory' => 'Math',
     'topic' => 'LeetCode · Math',

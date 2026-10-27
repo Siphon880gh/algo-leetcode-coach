@@ -5,7 +5,7 @@ return [
     'title' => 'Paint House IV: paint mirrored pairs together',
     'leetcode' => 3429,
     'difficulty' => 'Med',
-    'summary' => 'Process pairs (i, n−1−i) from the outside in. State: the colors of the previous pair. A pair (a, b) needs a ≠ b, a ≠ previous left color, b ≠ previous right color.',
+    'summary' => 'Process pairs (i, n−1−i) from the outside in. State: the colors of the previous pair. A pair (a, b) needs a not equal to b, a not equal to previous left color, b not equal to previous right color.',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

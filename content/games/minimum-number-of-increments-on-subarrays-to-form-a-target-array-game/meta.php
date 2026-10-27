@@ -5,7 +5,7 @@ return [
     'title' => 'Increments on Subarrays: count the rises',
     'leetcode' => 1526,
     'difficulty' => 'Hard',
-    'summary' => 'An operation that covers target[i] can extend from i − 1, so only rises cost: answer = target[0] + Σ max(0, target[i] − target[i − 1]).',
+    'summary' => 'An operation that covers target[i] can extend from i − 1, so only rises cost: answer = target[0] + the sum of max(0, target[i] − target[i − 1]).',
     'category' => 'LeetCode',
     'subcategory' => 'Greedy',
     'topic' => 'LeetCode · Greedy',

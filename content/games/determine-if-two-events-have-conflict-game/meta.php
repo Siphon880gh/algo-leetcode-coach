@@ -5,7 +5,7 @@ return [
     'title' => 'Two Events Conflict',
     'leetcode' => 2446,
     'difficulty' => 'Easy',
-    'summary' => 'Inclusive intervals overlap iff start1 ≤ end2 and start2 ≤ end1 (HH:MM strings compare correctly).',
+    'summary' => 'Inclusive intervals overlap exactly when start1 at most end2 and start2 at most end1 (HH:MM strings compare correctly).',
     'category' => 'LeetCode',
     'subcategory' => 'Strings',
     'topic' => 'LeetCode · Strings',

@@ -14,14 +14,14 @@
       function view(i) { var c = {}; for (var k = 0; k <= Math.min(far, n - 1); k++) c[k] = 'ok'; if (i < n) c[i] = 'hit'; return V(P.arr(a, { cls: c, ptr: i < n ? { i: i } : {} }), P.vars([['farthest', far], ['last index', n - 1]])); }
       for (var i = 0; i < n; i++) {
         if (i > far) {
-          t.act(view(i), 'i = ' + i + ', farthest = ' + far + '.', [['upd', 'Update farthest'], ['stuck', 'i > farthest → return false']], 'stuck', 'You cannot even stand on index ' + i + ': no earlier jump reaches it.', 'Stuck.');
+          t.act(view(i), 'i = ' + i + ', farthest = ' + far + '.', [['upd', 'Update farthest'], ['stuck', 'i > farthest: return false']], 'stuck', 'You cannot even stand on index ' + i + ': no earlier jump reaches it.', 'Stuck.');
           ans = false; break;
         }
         var nf = Math.max(far, i + a[i]);
         t.num(view(i), 'i = ' + i + ' is reachable. New farthest = max(' + far + ', ' + i + ' + ' + a[i] + ') = ?', nf, { wrong: 'max(farthest, i + nums[i]).', note: 'farthest = ' + nf + '.' });
         far = nf;
         if (far >= n - 1) {
-          t.act(view(i), 'farthest = ' + far + ' ≥ last index ' + (n - 1) + '.', [['win', 'Return true'], ['go', 'Keep walking']], 'win', 'The last index is already within reach; nothing later can change that.', 'Reachable.');
+          t.act(view(i), 'farthest = ' + far + ' at least last index ' + (n - 1) + '.', [['win', 'Return true'], ['go', 'Keep walking']], 'win', 'The last index is already within reach; nothing later can change that.', 'Reachable.');
           ans = true; break;
         }
       }
@@ -56,7 +56,7 @@
 
   LC.register('gas-station', {
     title: 'Gas Station: a negative tank moves the start past here',
-    rule: 'Add gas[i] − cost[i] to the tank. If the tank drops below 0, no station from the current start up to i can work: restart at i + 1 with an empty tank. If total gas ≥ total cost, the last start is the answer.',
+    rule: 'Add gas[i] − cost[i] to the tank. If the tank drops below 0, no station from the current start up to i can work: restart at i + 1 with an empty tank. If total gas at least total cost, the last start is the answer.',
     make: function (rng, round) {
       var n = 5 + round, g = rng.ints(n, 1, 6), c = rng.ints(n, 1, 6);
       var t = new LC.Trace(), tank = 0, start = 0, total = 0;
@@ -68,12 +68,12 @@
         total += diff[i];
         var key = nt < 0 ? 'reset' : 'go';
         tank = nt;
-        t.act(view(i), 'Station ' + i + ': tank = ' + tank + '.', [['go', 'Keep going'], ['reset', 'Tank < 0 → start = ' + (i + 1) + ', tank = 0']], key,
-          key === 'reset' ? 'The tank is negative: you cannot leave station ' + i + ' from any start since ' + start + '.' : 'The tank is still ≥ 0.', key === 'reset' ? 'Restart after ' + i + '.' : 'Fine.');
+        t.act(view(i), 'Station ' + i + ': tank = ' + tank + '.', [['go', 'Keep going'], ['reset', 'Tank < 0: start = ' + (i + 1) + ', tank = 0']], key,
+          key === 'reset' ? 'The tank is negative: you cannot leave station ' + i + ' from any start since ' + start + '.' : 'The tank is still at least 0.', key === 'reset' ? 'Restart after ' + i + '.' : 'Fine.');
         if (key === 'reset') { start = i + 1; tank = 0; }
       }
       var ans = total >= 0 ? start : -1;
-      t.num(view(n), 'total = ' + total + '. Answer (start index, or -1)?', ans, { wrong: total >= 0 ? 'Total ≥ 0, so the last start works.' : 'Total < 0: not enough gas overall.', note: String(ans) + '.' });
+      t.num(view(n), 'total = ' + total + '. Answer (start index, or -1)?', ans, { wrong: total >= 0 ? 'Total at least 0, so the last start works.' : 'Total < 0: not enough gas overall.', note: String(ans) + '.' });
       t.done(view(n), 'Answer ' + ans + '. One pass, O(n).');
       return t;
     }
@@ -90,7 +90,7 @@
       while (i < g.length && j < s.length) {
         var key = s[j] >= g[i] ? 'give' : 'skip';
         t.act(view(), 'Child needs ' + g[i] + ', cookie is ' + s[j] + '.', [['give', 'Give it (i++, j++)'], ['skip', 'Too small: next cookie (j++)']], key,
-          key === 'give' ? s[j] + ' ≥ ' + g[i] + ': it satisfies this child, and it is the smallest cookie that could.' : s[j] + ' < ' + g[i] + ': this child, and every greedier one, rejects it.', key === 'give' ? 'Content +1.' : 'Discard ' + s[j] + '.');
+          key === 'give' ? s[j] + ' is at least ' + g[i] + ': it satisfies this child, and it is the smallest cookie that could.' : s[j] + ' < ' + g[i] + ': this child, and every greedier one, rejects it.', key === 'give' ? 'Content +1.' : 'Discard ' + s[j] + '.');
         if (key === 'give') { cnt++; i++; } j++;
       }
       t.num(view(), 'Content children?', cnt, { wrong: 'Count the gives.', note: cnt + '.' });
@@ -107,17 +107,17 @@
       for (var k = 0; k < n; k++) s.push(rng.pick(al));
       var last = {}; s.forEach(function (ch, i) { last[ch] = i; });
       var t = new LC.Trace(), end = 0, startP = 0, parts = [];
-      t.setup = 's = "' + s.join('') + '"   last: ' + Object.keys(last).sort().map(function (ch) { return ch + '→' + last[ch]; }).join(' ');
+      t.setup = 's = "' + s.join('') + '"   last: ' + Object.keys(last).sort().map(function (ch) { return ch + ' at ' + last[ch]; }).join(', ');
       function view(i) { var c = {}; for (var k = startP; k <= end && k < n; k++) c[k] = 'blue'; if (i < n) c[i] = 'hit'; return V(P.arr(s, { cls: c, ptr: i < n ? { i: i } : {} }), P.vars([['end', end], ['parts', fmt(parts)]])); }
       for (var i = 0; i < n; i++) {
         var ne = Math.max(end, last[s[i]]);
         var key = i === ne ? 'cut' : last[s[i]] > end ? 'ext' : 'keep';
         var L = last[s[i]], why = {
           cut: 'end is ' + ne + '; i = ' + i + ' has not reached it yet.',
-          ext: key === 'cut' ? 'After the update, i == end: cut here.' : '"' + s[i] + '" last appears at ' + L + ' ≤ end ' + end + ': no stretch needed.',
+          ext: key === 'cut' ? 'After the update, i == end: cut here.' : '"' + s[i] + '" last appears at ' + L + ' at most end ' + end + ': no stretch needed.',
           keep: key === 'cut' ? 'i == end: every letter so far ends here. Cut.' : 'last["' + s[i] + '"] = ' + L + ' > end ' + end + ': stretch end.'
         };
-        t.act(view(i), 'i = ' + i + ' ("' + s[i] + '"), end = ' + end + '.', [['keep', 'Keep going'], ['ext', 'Stretch end to last["' + s[i] + '"]'], ['cut', 'i == end → cut']], key, why,
+        t.act(view(i), 'i = ' + i + ' ("' + s[i] + '"), end = ' + end + '.', [['keep', 'Keep going'], ['ext', 'Stretch end to last["' + s[i] + '"]'], ['cut', 'i == end: cut']], key, why,
           key === 'cut' ? 'Part of size ' + (i - startP + 1) + '.' : key === 'ext' ? 'end = ' + ne + '.' : 'Inside the part.');
         end = ne;
         if (key === 'cut') { parts.push(i - startP + 1); startP = i + 1; end = i + 1; }

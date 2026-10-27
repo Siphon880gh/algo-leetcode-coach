@@ -5,7 +5,7 @@
 
   D('maximum-coin-collection', {
     t: 'Maximum Coin Collection',
-    r: 'dp[s] = best coins for a trip ending at the current mile having made s switches (lane = s even ? 1 : 2). Each mile: dp[s] = coin(lane(s)) + max(0 [enter here], dp[s], dp[s−1]). Track the best value seen.',
+    r: 'dp[s] = best coins for a trip ending at the current mile having made s switches (lane = s even ? 1 : 2). Each mile: dp[s] = coin(lanes) + max(0 [enter here], dp[s], dp[s−1]). Track the best value seen.',
     g: R => { const n = R.int(1, 6); return { lane1: R.ints(n, -5, 6), lane2: R.ints(n, -5, 6) }; },
     s(I, T) { let dp = [-Infinity, -Infinity, -Infinity], best = -Infinity; I.lane1.forEach((_, i) => { const v = s => s % 2 ? I.lane2[i] : I.lane1[i], nd = [0, 1, 2].map(s => v(s) + Math.max(0, dp[s], s ? dp[s - 1] : -Infinity)); dp = nd; best = Math.max(best, ...nd); if (i < 5) { T.at({ lanes: G([I.lane1, I.lane2], { c: i }), dp: A(nd) }); T.n('Best trip ending here with 0 switches?', nd[0], 'Lane 1 only: extend or start fresh.'); } }); return best; }
   });
@@ -26,8 +26,8 @@
 
   D('sum-of-k-subarrays-with-length-at-least-m', {
     t: 'Sum of K Subarrays With Length at Least M',
-    r: 'dp[t][i] = best sum using t subarrays within nums[..i). Either skip element i−1, or end the t-th subarray at i with start ≤ i − m (prefix sums plus a running max of dp[t−1][j] − P[j]).',
+    r: 'dp[t][i] = best sum using t subarrays within nums[..i). Either skip element i−1, or end the t-th subarray at i with start at most i − m (prefix sums plus a running max of dp[t−1][j] − P[j]).',
     g: R => { const m = R.int(1, 3), k = R.int(1, 3); return { nums: R.ints(R.int(k * m, Math.max(7, k * m)), -5, 6), k, m }; },
-    s(I, T) { const a = I.nums, n = a.length, P = [0]; a.forEach(x => P.push(P[P.length - 1] + x)); let prev = Array(n + 1).fill(0); for (let t = 1; t <= I.k; t++) { const cur = Array(n + 1).fill(-Infinity); for (let i = 1; i <= n; i++) { cur[i] = cur[i - 1]; for (let j = 0; j <= i - I.m; j++) if (prev[j] > -Infinity) cur[i] = Math.max(cur[i], prev[j] + P[i] - P[j]); } if (t <= 3) { T.at({ nums: A(a), round: t }); T.n(`Best total with ${t} subarray(s)?`, cur[n], `Each subarray has length ≥ ${I.m}.`); } prev = cur; } return prev[n]; }
+    s(I, T) { const a = I.nums, n = a.length, P = [0]; a.forEach(x => P.push(P[P.length - 1] + x)); let prev = Array(n + 1).fill(0); for (let t = 1; t <= I.k; t++) { const cur = Array(n + 1).fill(-Infinity); for (let i = 1; i <= n; i++) { cur[i] = cur[i - 1]; for (let j = 0; j <= i - I.m; j++) if (prev[j] > -Infinity) cur[i] = Math.max(cur[i], prev[j] + P[i] - P[j]); } if (t <= 3) { T.at({ nums: A(a), round: t }); T.n(`Best total with ${t} subarrays?`, cur[n], `Each subarray has length at least ${I.m}.`); } prev = cur; } return prev[n]; }
   });
 })();

@@ -5,7 +5,7 @@ return [
     'title' => 'Count of Range Sum',
     'leetcode' => 327,
     'difficulty' => 'Hard',
-    'summary' => 'With prefix sums P, a range (i, j] qualifies iff lower ≤ P[j] − P[i] ≤ upper. For each j count earlier P[i] in [P[j] − upper, P[j] − lower] (Fenwick tree or merge sort).',
+    'summary' => 'With prefix sums P, a range (i, j] qualifies exactly when lower at most P[j] − P[i] at most upper. For each j count earlier P[i] in [P[j] − upper, P[j] − lower] (Fenwick tree or merge sort).',
     'category' => 'LeetCode',
     'subcategory' => 'Segment Tree',
     'topic' => 'LeetCode · Segment Tree',

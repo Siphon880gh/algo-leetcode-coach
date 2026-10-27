@@ -5,7 +5,7 @@ return [
     'title' => 'Minimum Work Sessions: bitmask of finished tasks',
     'leetcode' => 1986,
     'difficulty' => 'Med',
-    'summary' => 'dp[mask] = (sessions, time used in the last session), smallest first. Adding a task fits in the current session if time + task ≤ sessionTime; otherwise it opens a new one.',
+    'summary' => 'dp[mask] = (sessions, time used in the last session), smallest first. Adding a task fits in the current session if time + task at most sessionTime; otherwise it opens a new one.',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

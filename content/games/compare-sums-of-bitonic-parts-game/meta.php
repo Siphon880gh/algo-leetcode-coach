@@ -5,7 +5,7 @@ return [
     'title' => 'Compare Sums of Bitonic Parts',
     'leetcode' => 3909,
     'difficulty' => 'Med',
-    'summary' => 'Find the peak (the first index where the next element is smaller), sum 0..peak and peak..n−1 (the peak counts in both), and compare.',
+    'summary' => 'Find the peak (the first index where the next element is smaller), sum 0 to peak and peak to n−1 (the peak counts in both), and compare.',
     'category' => 'LeetCode',
     'subcategory' => 'Arrays',
     'topic' => 'LeetCode · Arrays',

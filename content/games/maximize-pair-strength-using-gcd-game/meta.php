@@ -5,7 +5,7 @@ return [
     'title' => 'Maximize Pair Strength Using GCD',
     'leetcode' => 4010,
     'difficulty' => 'Easy',
-    'summary' => 'The strength is (a·b)/gcd² = (a/g)·(b/g). With n ≤ 2000 just try every pair, computing the gcd each time.',
+    'summary' => 'The strength is (a times b) divided by gcd² = (a divided by g) times (b divided by g). With n at most 2000 just try every pair, computing the gcd each time.',
     'category' => 'LeetCode',
     'subcategory' => 'Math',
     'topic' => 'LeetCode · Math',

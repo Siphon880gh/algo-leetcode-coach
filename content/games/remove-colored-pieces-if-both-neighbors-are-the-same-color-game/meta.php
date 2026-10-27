@@ -5,7 +5,7 @@ return [
     'title' => 'Remove Colored Pieces: count each player\'s moves',
     'leetcode' => 2038,
     'difficulty' => 'Med',
-    'summary' => 'Moves never affect the other player, so count interior As in runs of AAA (Alice) and interior Bs (Bob). Alice wins iff her count is larger.',
+    'summary' => 'Moves never affect the other player, so count interior As in runs of AAA (Alice) and interior Bs (Bob). Alice wins exactly when her count is larger.',
     'category' => 'LeetCode',
     'subcategory' => 'Greedy',
     'topic' => 'LeetCode · Greedy',

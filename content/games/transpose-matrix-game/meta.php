@@ -5,7 +5,7 @@ return [
     'title' => 'Transpose Matrix',
     'leetcode' => 867,
     'difficulty' => 'Easy',
-    'summary' => 'Build an n × m result where result[j][i] = matrix[i][j].',
+    'summary' => 'Build an n times m result where result[j][i] = matrix[i][j].',
     'category' => 'LeetCode',
     'subcategory' => 'Graphs',
     'topic' => 'LeetCode · Graphs',

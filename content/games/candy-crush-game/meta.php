@@ -5,7 +5,7 @@ return [
     'title' => 'Candy Crush',
     'leetcode' => 723,
     'difficulty' => 'Med',
-    'summary' => 'Repeat: mark every cell in a horizontal or vertical line of ≥ 3 equal non-zero candies (mark first, crush together), set them to 0, then let each column fall with a write pointer from the bottom. Stop when nothing is marked.',
+    'summary' => 'Repeat: mark every cell in a horizontal or vertical line of at least 3 equal non-zero candies (mark first, crush together), set them to 0, then let each column fall with a write pointer from the bottom. Stop when nothing is marked.',
     'category' => 'LeetCode',
     'subcategory' => 'Two Pointers',
     'topic' => 'LeetCode · Two Pointers',

@@ -5,7 +5,7 @@ return [
     'title' => 'Seconds to Make the Mountain Height Zero',
     'leetcode' => 3296,
     'difficulty' => 'Med',
-    'summary' => 'Binary search time t. Worker w can remove x units where w·x(x + 1)/2 ≤ t. t works if the workers together remove ≥ the height.',
+    'summary' => 'Binary search time t. Worker w can remove x units where w times x(x + 1) divided by 2 at most t. t works if the workers together remove at least the height.',
     'category' => 'LeetCode',
     'subcategory' => 'Binary Search',
     'topic' => 'LeetCode · Binary Search',

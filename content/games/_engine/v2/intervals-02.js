@@ -24,15 +24,15 @@
 
   D('number-of-intersecting-interval-pairs-i', {
     t: 'Number of Intersecting Interval Pairs I',
-    r: 'Two closed intervals intersect exactly when max(start) ≤ min(end), shared endpoints included. With n ≤ 100, check every pair.',
+    r: 'Two closed intervals intersect exactly when max(start) at most min(end), shared endpoints included. With n at most 100, check every pair.',
     g: R => ({ intervals: Array.from({ length: R.int(3, 5) }, () => { const s = R.int(0, 8); return [s, s + R.int(0, 4)]; }) }),
-    s(I, T) { const v = I.intervals, n = v.length; let c = 0, asked = 0; for (let i = 0; i < n; i++) for (let j = i + 1; j < n; j++) { const lo = Math.max(v[i][0], v[j][0]), hi = Math.min(v[i][1], v[j][1]), ok = lo <= hi; if (asked < 8) { T.at({ intervals: IV(v, { hl: [i, j] }), pairs: c }); T.yn(`Do [${v[i].join(', ')}] and [${v[j].join(', ')}] intersect?`, ok, `max start ${lo} ${ok ? '≤' : '>'} min end ${hi}.`); asked++; } if (ok) c++; } T.at({ intervals: IV(v), pairs: c }); T.n('How many intersecting pairs?', c, 'Count the pairs that intersect.'); return c; }
+    s(I, T) { const v = I.intervals, n = v.length; let c = 0, asked = 0; for (let i = 0; i < n; i++) for (let j = i + 1; j < n; j++) { const lo = Math.max(v[i][0], v[j][0]), hi = Math.min(v[i][1], v[j][1]), ok = lo <= hi; if (asked < 8) { T.at({ intervals: IV(v, { hl: [i, j] }), pairs: c }); T.yn(`Do [${v[i].join(', ')}] and [${v[j].join(', ')}] intersect?`, ok, `max start ${lo} ${ok ? 'is at most' : 'is more than'} min end ${hi}.`); asked++; } if (ok) c++; } T.at({ intervals: IV(v), pairs: c }); T.n('How many intersecting pairs?', c, 'Count the pairs that intersect.'); return c; }
   });
 
   D('number-of-intersecting-interval-pairs-ii', {
     t: 'Number of Intersecting Interval Pairs II',
     r: 'Sort by start. Each interval intersects every earlier one whose end is at least its start. Keep the earlier ends in a min-heap, pop the ends below the current start, and add the heap size.',
     g: R => ({ intervals: Array.from({ length: R.int(3, 6) }, () => { const s = R.int(0, 9); return [s, s + R.int(0, 4)]; }) }),
-    s(I, T) { const v = I.intervals.slice().sort((a, b) => a[0] - b[0] || a[1] - b[1]); let heap = [], c = 0; v.forEach(([s, e], i) => { if (i < 7) { T.at({ sorted: IV(v, { hl: i }), heap: A(heap.slice()), pairs: c }); T.n(`After popping ends below ${s}, how many earlier intervals remain?`, heap.filter(x => x >= s).length, 'Earlier starts are ≤ s, so they intersect exactly when their end ≥ s.'); } heap = heap.filter(x => x >= s); c += heap.length; heap.push(e); heap.sort((a, b) => a - b); }); T.at({ sorted: IV(v), pairs: c }); T.n('How many intersecting pairs?', c, 'Add the heap sizes.'); return c; }
+    s(I, T) { const v = I.intervals.slice().sort((a, b) => a[0] - b[0] || a[1] - b[1]); let heap = [], c = 0; v.forEach(([s, e], i) => { if (i < 7) { T.at({ sorted: IV(v, { hl: i }), heap: A(heap.slice()), pairs: c }); T.n(`After popping ends below ${s}, how many earlier intervals remain?`, heap.filter(x => x >= s).length, 'Earlier starts are at most s, so they intersect exactly when their end at least s.'); } heap = heap.filter(x => x >= s); c += heap.length; heap.push(e); heap.sort((a, b) => a - b); }); T.at({ sorted: IV(v), pairs: c }); T.n('How many intersecting pairs?', c, 'Add the heap sizes.'); return c; }
   });
 })();

@@ -5,7 +5,7 @@ return [
     'title' => 'Partition Array into K Distinct Groups',
     'leetcode' => 3659,
     'difficulty' => 'Med',
-    'summary' => 'The array must split into g = n / k groups (n divisible by k), and a value can appear at most once per group, so every frequency must be ≤ g. Dealing values round-robin then always works.',
+    'summary' => 'The array must split into g = n divided by k groups (n divisible by k), and a value can appear at most once per group, so every frequency must be at most g. Dealing values round-robin then always works.',
     'category' => 'LeetCode',
     'subcategory' => 'Hash Table',
     'topic' => 'LeetCode · Hash Table',

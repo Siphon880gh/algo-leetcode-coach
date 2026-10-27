@@ -5,7 +5,7 @@ return [
     'title' => 'Minimum Cost Good Caption: runs of at least 3',
     'leetcode' => 3441,
     'difficulty' => 'Hard',
-    'summary' => 'dp from the right: each block of ≥ 3 equal letters costs Σ |caption[i] − letter|. Tie-break toward the lexicographically smallest result. Here: try every good caption over the nearby letters.',
+    'summary' => 'dp from the right: each block of at least 3 equal letters costs the sum of |caption[i] − letter|. Tie-break toward the lexicographically smallest result. Here: try every good caption over the nearby letters.',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

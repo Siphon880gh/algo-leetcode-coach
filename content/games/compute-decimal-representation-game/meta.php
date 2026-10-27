@@ -5,7 +5,7 @@ return [
     'title' => 'Compute Decimal Representation',
     'leetcode' => 3697,
     'difficulty' => 'Easy',
-    'summary' => 'Each non-zero digit d at place 10^p becomes the component d·10^p. Read the digits from the most significant end and skip zeros.',
+    'summary' => 'Each non-zero digit d at place 10 to the power p becomes the component d times 10 to the power p. Read the digits from the most significant end and skip zeros.',
     'category' => 'LeetCode',
     'subcategory' => 'Math',
     'topic' => 'LeetCode · Math',

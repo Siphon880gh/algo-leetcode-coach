@@ -5,7 +5,7 @@ return [
     'title' => 'Largest Number At Least Twice of Others',
     'leetcode' => 747,
     'difficulty' => 'Easy',
-    'summary' => 'Find the largest and second largest. The answer is the largest\'s index if it is ≥ 2 × second, else −1.',
+    'summary' => 'Find the largest and second largest. The answer is the largest\'s index if it is at least 2 times second, else −1.',
     'category' => 'LeetCode',
     'subcategory' => 'Arrays',
     'topic' => 'LeetCode · Arrays',

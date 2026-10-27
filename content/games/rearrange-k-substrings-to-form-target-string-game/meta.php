@@ -5,7 +5,7 @@ return [
     'title' => 'Rearrange k Substrings',
     'leetcode' => 3365,
     'difficulty' => 'Med',
-    'summary' => 'Split both strings into k blocks of length n / k; possible iff the multisets of blocks match.',
+    'summary' => 'Split both strings into k blocks of length n divided by k; possible exactly when the multisets of blocks match.',
     'category' => 'LeetCode',
     'subcategory' => 'Strings',
     'topic' => 'LeetCode · Strings',

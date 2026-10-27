@@ -5,7 +5,7 @@ return [
     'title' => 'Largest Prime From Consecutive Prime Sum',
     'leetcode' => 3770,
     'difficulty' => 'Med',
-    'summary' => 'Sieve the primes up to n, then add them one by one starting from 2 while the running sum stays ≤ n. Each running sum that is itself prime is a candidate; keep the last one.',
+    'summary' => 'Sieve the primes up to n, then add them one by one starting from 2 while the running sum stays at most n. Each running sum that is itself prime is a candidate; keep the last one.',
     'category' => 'LeetCode',
     'subcategory' => 'Math',
     'topic' => 'LeetCode · Math',

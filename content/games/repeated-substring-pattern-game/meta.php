@@ -5,7 +5,7 @@ return [
     'title' => 'Repeated Substring Pattern: (s + s) trick',
     'leetcode' => 459,
     'difficulty' => 'Easy',
-    'summary' => 's is built from a repeated block iff s appears in (s + s) with the first and last characters removed. Equivalently, try each divisor length.',
+    'summary' => 's is built from a repeated block exactly when s appears in (s + s) with the first and last characters removed. Equivalently, try each divisor length.',
     'category' => 'LeetCode',
     'subcategory' => 'Strings',
     'topic' => 'LeetCode · Strings',

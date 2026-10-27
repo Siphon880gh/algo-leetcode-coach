@@ -5,7 +5,7 @@ return [
     'title' => 'Subarrays With Score Less Than k',
     'leetcode' => 2302,
     'difficulty' => 'Hard',
-    'summary' => 'Sliding window: extend right, shrink left while sum × length ≥ k; every window ending at r with start ≥ l counts.',
+    'summary' => 'Sliding window: extend right, shrink left while sum times length at least k; every window ending at r with start at least l counts.',
     'category' => 'LeetCode',
     'subcategory' => 'Binary Search',
     'topic' => 'LeetCode · Binary Search',

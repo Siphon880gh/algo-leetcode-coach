@@ -31,14 +31,14 @@
 
   D('right-triangles', {
     t: 'Right Triangles: row and column counts',
-    r: 'Count 1s per row and per column. A 1 at (r, c) is the right-angle corner of (row[r] − 1)·(col[c] − 1) triangles.',
+    r: 'Count 1s per row and per column. A 1 at (r, c) is the right-angle corner of (row[r] − 1) times (col[c] − 1) triangles.',
     g: R => ({ grid: R.grid(R.int(2, 3), R.int(2, 4), 0, 1) }),
-    s(I, T) { const g = I.grid, rw = g.map(r => r.reduce((a, b) => a + b, 0)), cl = g[0].map((_, j) => g.reduce((a, r) => a + r[j], 0)); let t = 0; g.forEach((r, i) => r.forEach((v, j) => { if (!v) return; const k = (rw[i] - 1) * (cl[j] - 1); T.at({ grid: G(g, { hl: [[i, j]] }), rows: A(rw), cols: A(cl) }); T.n(`Triangles with the corner at (${i},${j})?`, k, `(${rw[i]} − 1)·(${cl[j]} − 1).`); t += k; })); return t; }
+    s(I, T) { const g = I.grid, rw = g.map(r => r.reduce((a, b) => a + b, 0)), cl = g[0].map((_, j) => g.reduce((a, r) => a + r[j], 0)); let t = 0; g.forEach((r, i) => r.forEach((v, j) => { if (!v) return; const k = (rw[i] - 1) * (cl[j] - 1); T.at({ grid: G(g, { hl: [[i, j]] }), rows: A(rw), cols: A(cl) }); T.n(`Triangles with the corner at (${i},${j})?`, k, `(${rw[i]} − 1) times (${cl[j]} − 1).`); t += k; })); return t; }
   });
 
   D('sum-of-digit-differences-of-all-pairs', {
     t: 'Sum of Digit Differences: count per position',
-    r: 'For each digit position, count each digit. Differing pairs there = C(n, 2) − Σ C(count, 2). Add over positions.',
+    r: 'For each digit position, count each digit. Differing pairs there = C(n, 2) − the sum of C(count, 2). Add over positions.',
     g: R => { const L = R.int(1, 3); return { nums: Array.from({ length: R.int(2, 5) }, () => +('1' + R.str(L - 1, '0123'))) }; },
     s(I, T) { const s = I.nums.map(String), n = s.length, L = s[0].length; let t = 0; for (let p = 0; p < L; p++) { const c = {}; s.forEach(x => c[x[p]] = (c[x[p]] || 0) + 1); const d = n * (n - 1) / 2 - Object.values(c).reduce((a, v) => a + v * (v - 1) / 2, 0); T.at({ nums: A(s), position: p, digits: K(c) }); T.n(`Pairs that differ at position ${p}?`, d, 'All pairs minus same-digit pairs.'); t += d; } return t; }
   });
@@ -73,7 +73,7 @@
 
   D('find-the-count-of-numbers-which-are-not-special', {
     t: 'Numbers That Are Not Special: squares of primes',
-    r: 'Exactly two proper divisors (1 and p) means x = p² for a prime p. Count primes p with l ≤ p² ≤ r and subtract from the range size.',
+    r: 'Exactly two proper divisors (1 and p) means x = p² for a prime p. Count primes p with l at most p² at most r and subtract from the range size.',
     g: R => { const l = R.int(1, 60); return { l, r: l + R.int(0, 120) }; },
     s(I, T) { let c = 0; for (let p = 2; p * p <= I.r; p++) if (isPrime(p) && p * p >= I.l) { c++; T.at({ l: I.l, r: I.r, special: c }); T.n(`${p} is prime. Which special number does it give?`, p * p, 'p² has proper divisors 1 and p only.'); } return I.r - I.l + 1 - c; }
   });
@@ -115,9 +115,9 @@
 
   D('find-the-maximum-factor-score-of-array', {
     t: 'Maximum Factor Score: try removing each element',
-    r: 'Score = gcd · lcm of the remaining array (0 if empty). Try removing nothing and removing each index (prefix/suffix gcd and lcm make it O(n)).',
+    r: 'Score = gcd times lcm of the remaining array (0 if empty). Try removing nothing and removing each index (prefix or suffix gcd and lcm make it O(n)).',
     g: R => ({ nums: R.ints(R.int(1, 5), 1, 12) }),
-    s(I, T) { const sc = a => { if (!a.length) return 0; let g = 0, l = 1; a.forEach(x => { g = gcd(g, x); l = l / gcd(l, x) * x; }); return g * l; }; let best = sc(I.nums); T.at({ nums: A(I.nums) }); T.n('Score with nothing removed?', best, 'gcd · lcm.'); I.nums.forEach((_, i) => { const v = sc(I.nums.filter((__, j) => j !== i)); T.at({ nums: A(I.nums, { dim: [i] }) }); T.n(`Score without index ${i}?`, v, 'gcd · lcm of the rest.'); best = Math.max(best, v); }); return best; }
+    s(I, T) { const sc = a => { if (!a.length) return 0; let g = 0, l = 1; a.forEach(x => { g = gcd(g, x); l = l / gcd(l, x) * x; }); return g * l; }; let best = sc(I.nums); T.at({ nums: A(I.nums) }); T.n('Score with nothing removed?', best, 'gcd times lcm.'); I.nums.forEach((_, i) => { const v = sc(I.nums.filter((__, j) => j !== i)); T.at({ nums: A(I.nums, { dim: [i] }) }); T.n(`Score without index ${i}?`, v, 'gcd times lcm of the rest.'); best = Math.max(best, v); }); return best; }
   });
 
   D('smallest-divisible-digit-product-i', {
@@ -136,17 +136,17 @@
 
   D('maximum-area-rectangle-with-point-constraints-i', {
     t: 'Maximum Area Rectangle With Point Constraints I: brute force',
-    r: 'n ≤ 10: try every pair as opposite corners with both other corners present, reject rectangles with any other point inside or on the border, keep the largest area (−1 if none).',
+    r: 'n at most 10: try every pair as opposite corners with both other corners present, reject rectangles with any other point inside or on the border, keep the largest area (−1 if none).',
     g: R => { const s = new Set(); while (s.size < R.int(4, 7)) s.add(R.int(0, 3) + ',' + R.int(0, 3)); return { points: [...s].map(p => p.split(',').map(Number)) }; },
     s(I, T) { const res = (() => { const p = I.points, S = new Set(p.map(q => q.join())); let best = -1; T.at({ points: A(p.map(q => `(${q})`)) }); T.n('Distinct x values?', new Set(p.map(q => q[0])).size, 'A rectangle needs two of them.'); for (let i = 0; i < p.length; i++) for (let j = 0; j < p.length; j++) { const [a, b] = [p[i], p[j]]; if (!(a[0] < b[0] && a[1] < b[1])) continue; if (!S.has([a[0], b[1]].join()) || !S.has([b[0], a[1]].join())) continue; const inside = p.filter(q => q[0] >= a[0] && q[0] <= b[0] && q[1] >= a[1] && q[1] <= b[1]).length; T.at({ points: A(p.map(q => `(${q})`), { hl: [i, j] }) }); T.yn(`Rectangle from (${a}) to (${b}): any other point inside or on it?`, inside > 4, inside > 4 ? 'It is blocked.' : 'Only its four corners.'); if (inside === 4) best = Math.max(best, (b[0] - a[0]) * (b[1] - a[1])); } return best; })(); T.n('Largest area? (−1 if none)', res, 'Best empty rectangle.'); return res; }
   });
 
   D('subsequences-with-a-unique-middle-mode-i', { t: 'Unique Middle Mode I: fix the middle element', r: 'Fix the middle index; choose 2 from the left and 2 from the right. Count choices where the middle value is the strict mode, by counting how many copies of it (and of other values) land on each side.', g: R => ({ nums: R.ints(R.int(5, 7), 1, 3) }), s: middleMode });
-  D('subsequences-with-a-unique-middle-mode-ii', { t: 'Unique Middle Mode II: complement counting per middle', r: 'For each middle index, count all C(left, 2)·C(right, 2) choices and subtract the ones where the middle value is not a unique mode, using prefix/suffix counts of every value (sums of squares keep it fast).', g: R => ({ nums: R.ints(R.int(5, 7), 1, 3) }), s: middleMode });
+  D('subsequences-with-a-unique-middle-mode-ii', { t: 'Unique Middle Mode II: complement counting per middle', r: 'For each middle index, count all C(left, 2) times C(right, 2) choices and subtract the ones where the middle value is not a unique mode, using prefix or suffix counts of every value (sums of squares keep it fast).', g: R => ({ nums: R.ints(R.int(5, 7), 1, 3) }), s: middleMode });
 
   D('count-special-subsequences', {
     t: 'Count Special Subsequences: equal ratios with gaps',
-    r: 'nums[p]·nums[r] = nums[q]·nums[s] ⇔ nums[p]/nums[q] = nums[s]/nums[r]. For each r, add ratios nums[p]/nums[q] with q = r − 2 into a map, then look up nums[s]/nums[r] for s ≥ r + 2 (gaps of at least 2 everywhere).',
+    r: 'nums[p] times nums[r] = nums[q] times nums[s] exactly when nums[p] divided by nums[q] = nums[s] divided by nums[r]. For each r, add ratios nums[p] divided by nums[q] with q = r − 2 into a map, then look up nums[s] divided by nums[r] for s at least r + 2 (gaps of at least 2 everywhere).',
     g: R => ({ nums: R.ints(R.int(7, 8), 1, 4) }),
     s(I, T) { const res = (() => { const a = I.nums, n = a.length; let t = 0; T.at({ nums: A(a) }); T.n('Pairs of q and r to try?', Array.from({ length: n }, (_, q) => q >= 2 ? Math.max(0, n - q - 2) : 0).reduce((x, y) => x + y, 0), 'r must be at least 2 after q.'); for (let q = 2; q < n; q++) for (let r = q + 2; r < n; r++) { let c = 0; for (let p = 0; p + 1 < q; p++) for (let s = r + 2; s < n; s++) if (a[p] * a[r] === a[q] * a[s]) c++; if (c) { T.at({ nums: A(a, { hl: [q, r] }) }); T.n(`Special subsequences with q = ${q}, r = ${r}?`, c, 'Pairs with p at least 2 before q and s at least 2 after r, where nums[p] times nums[r] equals nums[q] times nums[s].'); } t += c; } return t; })(); T.n('Total special subsequences?', res, 'Add the counts for every q and r.'); return res; }
   });
@@ -166,7 +166,7 @@
   });
 
   D('check-if-digits-are-equal-in-string-after-operations-i', { t: 'Digits Equal After Operations I: simulate the rows', r: 'Replace the digits by neighbor sums mod 10 until two remain, then compare them.', g: R => ({ s: R.str(R.int(3, 7), '0123456789') }), s: reduceDigits });
-  D('check-if-digits-are-equal-in-string-after-operations-ii', { t: 'Digits Equal After Operations II: binomial weights mod 10', r: 'The final two digits are Σ C(n−2, i)·s[i] and Σ C(n−2, i)·s[i+1] mod 10. C mod 10 comes from Lucas\' theorem mod 2 and mod 5 combined. Here: watch the rows shrink.', g: R => ({ s: R.str(R.int(3, 7), '0123456789') }), s: reduceDigits });
+  D('check-if-digits-are-equal-in-string-after-operations-ii', { t: 'Digits Equal After Operations II: binomial weights mod 10', r: 'The final two digits are the sum of C(n−2, i) times s[i] and the sum of C(n−2, i) times s[i+1] mod 10. C mod 10 comes from Lucas\' theorem mod 2 and mod 5 combined. Here: watch the rows shrink.', g: R => ({ s: R.str(R.int(3, 7), '0123456789') }), s: reduceDigits });
 
   D('find-the-number-of-copy-arrays', {
     t: 'Number of Copy Arrays: intersect shifted ranges',

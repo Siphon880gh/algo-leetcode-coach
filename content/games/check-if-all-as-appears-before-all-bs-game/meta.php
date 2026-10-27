@@ -5,7 +5,7 @@ return [
     'title' => 'All A\'s Before All B\'s',
     'leetcode' => 2124,
     'difficulty' => 'Easy',
-    'summary' => 'Invalid iff "ba" appears.',
+    'summary' => 'Invalid exactly when "ba" appears.',
     'category' => 'LeetCode',
     'subcategory' => 'Strings',
     'topic' => 'LeetCode · Strings',

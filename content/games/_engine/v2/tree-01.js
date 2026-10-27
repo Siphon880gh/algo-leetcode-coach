@@ -9,18 +9,18 @@
   const naryGen = R => { const n = R.int(1, 7), vals = R.distinct(n, 1, 20), nodes = [{ val: vals[0], children: [] }]; for (let i = 1; i < n; i++) { const p = R.pick(nodes); const c = { val: vals[i], children: [] }; p.children.push(c); nodes.push(c); } const out = [nodes[0].val, null], q = [nodes[0]]; while (q.length) { const x = q.shift(); x.children.forEach(c => { out.push(c.val); q.push(c); }); out.push(null); } while (out.length && out[out.length - 1] === null) out.pop(); return out; };
 
   D('unique-binary-search-trees-ii', {
-    t: 'Unique BSTs II: every root, every left × right',
+    t: 'Unique BSTs II: every root, every left times right',
     r: 'For a range lo … hi, each value r can be the root; combine every left tree from lo … r−1 with every right tree from r+1 … hi.',
     g: R => ({ n: R.int(1, 4) }),
     cmp: 'set',
-    s(I, T) { const cat = [1, 1, 2, 5, 14]; const gen = (lo, hi) => { if (lo > hi) return [null]; const out = []; for (let r = lo; r <= hi; r++) for (const L of gen(lo, r - 1)) for (const Rt of gen(r + 1, hi)) out.push(N(r, L, Rt)); return out; }; for (let r = 1; r <= I.n; r++) { T.at({ values: A(Array.from({ length: I.n }, (_, i) => i + 1), { hl: [r - 1] }) }); T.n(`How many trees have root ${r}?`, cat[r - 1] * cat[I.n - r], `left shapes (${r - 1} nodes) × right shapes (${I.n - r} nodes).`); } return gen(1, I.n).map(Tr.arr); }
+    s(I, T) { const cat = [1, 1, 2, 5, 14]; const gen = (lo, hi) => { if (lo > hi) return [null]; const out = []; for (let r = lo; r <= hi; r++) for (const L of gen(lo, r - 1)) for (const Rt of gen(r + 1, hi)) out.push(N(r, L, Rt)); return out; }; for (let r = 1; r <= I.n; r++) { T.at({ values: A(Array.from({ length: I.n }, (_, i) => i + 1), { hl: [r - 1] }) }); T.n(`How many trees have root ${r}?`, cat[r - 1] * cat[I.n - r], `left shapes (${r - 1} nodes) times right shapes (${I.n - r} nodes).`); } return gen(1, I.n).map(Tr.arr); }
   });
 
   D('unique-binary-search-trees', {
     t: 'Unique BSTs: Catalan numbers',
-    r: 'G(0) = G(1) = 1 and G(n) = Σ over root r of G(r − 1) · G(n − r).',
+    r: 'G(0) = G(1) = 1 and G(n) = the sum over root r of G(r − 1) times G(n − r).',
     g: R => ({ n: R.int(1, 8) }),
-    s(I, T) { const g = [1, 1]; for (let n = 2; n <= I.n; n++) { g[n] = 0; for (let r = 1; r <= n; r++) g[n] += g[r - 1] * g[n - r]; T.at({ G: A(g) }); T.n(`G(${n})?`, g[n], 'Σ G(left) · G(right) over roots.'); } return g[I.n]; }
+    s(I, T) { const g = [1, 1]; for (let n = 2; n <= I.n; n++) { g[n] = 0; for (let r = 1; r <= n; r++) g[n] += g[r - 1] * g[n - r]; T.at({ G: A(g) }); T.n(`G(${n})?`, g[n], 'the sum of G(left) times G(right) over roots.'); } return g[I.n]; }
   });
 
   D('recover-binary-search-tree', {
@@ -74,7 +74,7 @@
 
   D('convert-sorted-list-to-binary-search-tree', {
     t: 'Sorted List to BST: middle node as root',
-    r: 'Collect the list values (or use slow/fast pointers); the middle element is the root, and each half becomes a subtree.',
+    r: 'Collect the list values (or use slow or fast pointers); the middle element is the root, and each half becomes a subtree.',
     g: R => ({ head: R.distinct(R.int(0, 7), -9, 9).sort((a, b) => a - b) }),
     s(I, T) { const v = I.head; const go = (l, r) => { if (l > r) return null; const m = Math.ceil((l + r) / 2); T.at({ list: A(v, { win: [l, r] }) }); T.n(`Root value for positions ${l}…${r}?`, v[m], 'The middle node.'); return N(v[m], go(l, m - 1), go(m + 1, r)); }; return Tr.arr(go(0, v.length - 1)); }
   });
@@ -136,8 +136,8 @@
   });
 
   D('sum-root-to-leaf-numbers', {
-    t: 'Sum Root-to-Leaf Numbers: carry ×10 + digit',
-    r: 'Pass the number so far down: cur = cur × 10 + val. Add it at each leaf.',
+    t: 'Sum Root-to-Leaf Numbers: carry times 10 + digit',
+    r: 'Pass the number so far down: cur = cur times 10 + val. Add it at each leaf.',
     g: R => ({ root: R.tree(R.int(1, 7), 0, 9) }),
     s(I, T) { const root = Tr.from(I.root); let s = 0; const go = (n, c) => { if (!n) return; c = c * 10 + n.val; if (!n.left && !n.right) { T.at({ tree: TR(root, { hit: n }), total: s }); T.n(`Number formed at leaf ${n.val}?`, c, 'Digits along the path.'); s += c; } go(n.left, c); go(n.right, c); }; go(root, 0); return s; }
   });
@@ -151,7 +151,7 @@
 
   D('count-complete-tree-nodes', {
     t: 'Count Complete Tree Nodes: compare edge heights',
-    r: 'If the leftmost and rightmost depths match, the subtree is perfect: 2^h − 1 nodes. Otherwise recurse into both children.',
+    r: 'If the leftmost and rightmost depths match, the subtree is perfect: 2 to the power h − 1 nodes. Otherwise recurse into both children.',
     g: R => ({ root: Array.from({ length: R.int(0, 12) }, (_, i) => i + 1) }),
     s(I, T) { const root = Tr.from(I.root); const go = n => { if (!n) return 0; let l = 0, r = 0, x = n; while (x) { l++; x = x.left; } x = n; while (x) { r++; x = x.right; } T.at({ tree: TR(root, { hit: n }) }); T.yn(`Is the subtree at ${n.val} perfect?`, l === r, `Left depth ${l}, right depth ${r}.`); return l === r ? 2 ** l - 1 : 1 + go(n.left) + go(n.right); }; return go(root); }
   });
@@ -230,7 +230,7 @@
 
   D('verify-preorder-serialization-of-a-binary-tree', {
     t: 'Verify Preorder Serialization: count open slots',
-    r: 'Start with 1 slot. Each token fills a slot (fail if none); a number opens 2 more. Valid iff exactly 0 slots remain at the end.',
+    r: 'Start with 1 slot. Each token fills a slot (fail if none); a number opens 2 more. Valid exactly when exactly 0 slots remain at the end.',
     g: R => { const t = R.chance(0.6) ? Tr.from(R.tree(R.int(1, 5))) : null; const out = []; const go = n => { if (!n) { out.push('#'); return; } out.push(n.val); go(n.left); go(n.right); }; go(t); if (R.chance(0.4)) out.splice(R.int(0, out.length - 1), 1); return { preorder: out.join(',') }; },
     s(I, T) { let slots = 1; const tok = I.preorder.split(','); for (const [i, t] of tok.entries()) { if (slots === 0) { T.at({ tokens: A(tok, { hl: [i] }) }); T.yn('Is there a slot for this token?', false, 'No open slots left.'); return false; } slots += t === '#' ? -1 : 1; T.at({ tokens: A(tok, { hl: [i] }) }); T.n(`Open slots after "${t}"?`, slots, t === '#' ? 'A null fills one.' : 'A node fills one and opens two.'); } return slots === 0; }
   });
@@ -265,7 +265,7 @@
 
   D('convert-binary-search-tree-to-sorted-doubly-linked-list', {
     t: 'BST to Sorted Doubly Linked List: inorder linking',
-    r: 'Inorder traversal visits values in order; link prev ↔ cur as you go, then close the circle head ↔ tail.',
+    r: 'Inorder traversal visits values in order; link prev and cur as you go, then close the circle head and tail.',
     g: R => ({ root: R.bst(R.int(0, 7), 1, 20) }),
     exIn: I => I.root && I.root.__raw ? { root: JSON.parse(I.root.__raw.match(/\[[^\]]*\]/)[0]) } : I,
     s(I, T) { const root = Tr.from(I.root); const io = inorder(root); io.forEach((n, i) => { if (i) { T.at({ tree: TR(root, { hit: n }), list: A(io.slice(0, i + 1).map(x => x.val)) }); T.n(`Predecessor linked to ${n.val}?`, io[i - 1].val, 'The previous inorder node.'); } }); return io.map(n => n.val); }
@@ -275,7 +275,7 @@
     t: 'Construct Quad Tree: leaf if uniform, else split in four',
     r: 'If the region is all 0s or all 1s, make a leaf. Otherwise split into top-left, top-right, bottom-left, bottom-right and recurse.',
     g: R => { const k = R.int(0, 2), n = 2 ** k; return { grid: Array.from({ length: n }, () => Array.from({ length: n }, () => R.chance(0.7) ? 1 : 0)) }; },
-    s(I, T) { const g = I.grid; const go = (r, c, n) => { let same = true; for (let i = r; i < r + n; i++) for (let j = c; j < c + n; j++) if (g[i][j] !== g[r][c]) same = false; if (n > 1 || r + c === 0) { const hl = []; for (let i = r; i < r + n; i++) for (let j = c; j < c + n; j++) hl.push([i, j]); T.at({ grid: G(g, { hl }) }); T.yn(`Is the ${n}×${n} region at (${r},${c}) a leaf?`, same, 'All cells equal.'); } if (same) return { leaf: 1, val: g[r][c] }; const h = n / 2; return { leaf: 0, val: 1, ch: [go(r, c, h), go(r, c + h, h), go(r + h, c, h), go(r + h, c + h, h)] }; }; const root = go(0, 0, g.length), out = [], q = [root]; while (q.length) { const x = q.shift(); if (!x) { out.push(null); continue; } out.push([x.leaf, x.val]); if (x.leaf) q.push(null, null, null, null); else q.push(...x.ch); } while (out.length && out[out.length - 1] === null) out.pop(); return out; }
+    s(I, T) { const g = I.grid; const go = (r, c, n) => { let same = true; for (let i = r; i < r + n; i++) for (let j = c; j < c + n; j++) if (g[i][j] !== g[r][c]) same = false; if (n > 1 || r + c === 0) { const hl = []; for (let i = r; i < r + n; i++) for (let j = c; j < c + n; j++) hl.push([i, j]); T.at({ grid: G(g, { hl }) }); T.yn(`Is the ${n} by ${n} region at (${r},${c}) a leaf?`, same, 'All cells equal.'); } if (same) return { leaf: 1, val: g[r][c] }; const h = n / 2; return { leaf: 0, val: 1, ch: [go(r, c, h), go(r, c + h, h), go(r + h, c, h), go(r + h, c + h, h)] }; }; const root = go(0, 0, g.length), out = [], q = [root]; while (q.length) { const x = q.shift(); if (!x) { out.push(null); continue; } out.push([x.leaf, x.val]); if (x.leaf) q.push(null, null, null, null); else q.push(...x.ch); } while (out.length && out[out.length - 1] === null) out.pop(); return out; }
   });
 
   D('serialize-and-deserialize-n-ary-tree', {

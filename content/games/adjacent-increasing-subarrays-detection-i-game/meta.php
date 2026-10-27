@@ -5,7 +5,7 @@ return [
     'title' => 'Adjacent Increasing Subarrays Detection I',
     'leetcode' => 3349,
     'difficulty' => 'Easy',
-    'summary' => 'Compute inc[i] = length of the strictly increasing run ending at i. Two adjacent increasing windows of length k exist if some run is ≥ 2k, or two consecutive runs are both ≥ k.',
+    'summary' => 'Compute inc[i] = length of the strictly increasing run ending at i. Two adjacent increasing windows of length k exist if some run is at least 2k, or two consecutive runs are both at least k.',
     'category' => 'LeetCode',
     'subcategory' => 'Arrays',
     'topic' => 'LeetCode · Arrays',

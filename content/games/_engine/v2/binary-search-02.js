@@ -19,9 +19,9 @@
 
   D('minimum-number-of-days-to-make-m-bouquets', {
     t: 'Minimum Days to Make m Bouquets',
-    r: 'Binary search the day d. Count bouquets of k adjacent bloomed flowers greedily; d works if that is ≥ m. If m·k > n, return −1.',
+    r: 'Binary search the day d. Count bouquets of k adjacent bloomed flowers greedily; d works if that is at least m. If m times k > n, return −1.',
     g: R => ({ bloomDay: R.ints(R.int(1, 8), 1, 12), m: R.int(1, 3), k: R.int(1, 2) }),
-    s(I, T) { const b = I.bloomDay; T.at({ bloomDay: A(b) }); T.yn('Are there enough flowers at all (m·k ≤ n)?', I.m * I.k <= b.length, `${I.m}·${I.k} vs ${b.length}.`); if (I.m * I.k > b.length) return -1; const bq = d => { let c = 0, run = 0; for (const x of b) { run = x <= d ? run + 1 : 0; if (run === I.k) { c++; run = 0; } } return c; }; return firstTrue(Math.min(...b), Math.max(...b), d => bq(d) >= I.m, T, d => ({ bouquets: bq(d) }), d => `By day ${d}, can we make ${I.m} bouquets?`); }
+    s(I, T) { const b = I.bloomDay; T.at({ bloomDay: A(b) }); T.yn('Are there enough flowers at all (m times k at most n)?', I.m * I.k <= b.length, `${I.m} times ${I.k} vs ${b.length}.`); if (I.m * I.k > b.length) return -1; const bq = d => { let c = 0, run = 0; for (const x of b) { run = x <= d ? run + 1 : 0; if (run === I.k) { c++; run = 0; } } return c; }; return firstTrue(Math.min(...b), Math.max(...b), d => bq(d) >= I.m, T, d => ({ bouquets: bq(d) }), d => `By day ${d}, can we make ${I.m} bouquets?`); }
   });
 
   D('avoid-flood-in-the-city', {
@@ -34,7 +34,7 @@
 
   D('range-sum-of-sorted-subarray-sums', {
     t: 'Range Sum of Sorted Subarray Sums',
-    r: 'List all subarray sums, sort them, and add positions left..right (1-indexed), mod 1e9+7. Faster: binary search the k-th sum and count with two pointers.',
+    r: 'List all subarray sums, sort them, and add positions left to right (1-indexed), mod 1e9+7. Faster: binary search the k-th sum and count with two pointers.',
     g: R => { const n = R.int(1, 5), t = n * (n + 1) / 2, l = R.int(1, t); return { nums: R.ints(n, 1, 9), n, left: l, right: R.int(l, t) }; },
     s(I, T) { const res = (() => { const s = []; for (let i = 0; i < I.nums.length; i++) { let x = 0; for (let j = i; j < I.nums.length; j++) s.push(x += I.nums[j]); } s.sort((a, b) => a - b); T.at({ nums: A(I.nums) }); T.n('How many subarray sums?', s.length, 'n times n plus 1, halved.'); T.at({ sums: A(s, { win: [I.left - 1, I.right - 1] }) }); T.n(`The ${I.left}-th smallest subarray sum?`, s[I.left - 1], 'Sorted order.'); return s.slice(I.left - 1, I.right).reduce((a, b) => (a + b) % MOD, 0); })(); T.n('Sum of that range (mod 1e9+7)?', res, 'Add the sorted sums from left to right.'); return res; }
   });
@@ -49,30 +49,30 @@
 
   D('kth-missing-positive-number', {
     t: 'Kth Missing Positive Number',
-    r: 'Before index i, arr[i] − i − 1 numbers are missing. Binary search the first i with that ≥ k; the answer is i + k.',
+    r: 'Before index i, arr[i] − i − 1 numbers are missing. Binary search the first i with that at least k; the answer is i + k.',
     g: R => ({ arr: R.distinct(R.int(1, 6), 1, 15).sort((a, b) => a - b), k: R.int(1, 8) }),
     s(I, T) { const a = I.arr, i = firstTrue(0, a.length, i => i === a.length || a[i] - i - 1 >= I.k, T, i => ({ arr: A(a, { hl: [i] }), missing: i < a.length ? a[i] - i - 1 : '—' }), i => `Are at least ${I.k} numbers missing before arr[${i}]?`); return i + I.k; }
   });
 
   D('magnetic-force-between-two-balls', {
     t: 'Magnetic Force Between Balls: maximize the minimum gap',
-    r: 'Sort positions. Binary search gap g: greedily place balls from the left whenever the gap ≥ g; g works if you place ≥ m balls.',
+    r: 'Sort positions. Binary search gap g: greedily place balls from the left whenever the gap at least g; g works if you place at least m balls.',
     g: R => { const n = R.int(2, 7); return { position: R.distinct(n, 1, 20), m: R.int(2, n) }; },
-    s(I, T) { const p = I.position.slice().sort((a, b) => a - b), cnt = g => { let c = 1, last = p[0]; for (const x of p) if (x - last >= g) { c++; last = x; } return c; }; return lastTrue(1, p[p.length - 1] - p[0], g => cnt(g) >= I.m, T, g => ({ positions: A(p), placed: cnt(g) }), g => `Can ${I.m} balls be ≥ ${g} apart?`); }
+    s(I, T) { const p = I.position.slice().sort((a, b) => a - b), cnt = g => { let c = 1, last = p[0]; for (const x of p) if (x - last >= g) { c++; last = x; } return c; }; return lastTrue(1, p[p.length - 1] - p[0], g => cnt(g) >= I.m, T, g => ({ positions: A(p), placed: cnt(g) }), g => `Can ${I.m} balls be at least ${g} apart?`); }
   });
 
   D('shortest-subarray-to-be-removed-to-make-array-sorted', {
     t: 'Shortest Subarray to Remove for Sorted',
-    r: 'Find the longest sorted prefix [0..l] and suffix [r..n−1]. Answer starts at min(n − l − 1, r); then two-pointer join prefix elements with suffix elements ≥ them.',
+    r: 'Find the longest sorted prefix [0 to l] and suffix [r to n−1]. Answer starts at min(n − l − 1, r); then two-pointer join prefix elements with suffix elements at least them.',
     g: R => ({ arr: R.ints(R.int(1, 8), 0, 9) }),
     s(I, T) { const res = (() => { const a = I.arr, n = a.length; let l = 0; while (l + 1 < n && a[l] <= a[l + 1]) l++; if (l === n - 1) { T.at({ arr: A(a) }); T.yn('Is the array already sorted?', true, 'Remove nothing.'); T.n('Last index of the sorted prefix?', l, 'It runs to the end.'); return 0; } let r = n - 1; while (r > 0 && a[r - 1] <= a[r]) r--; T.at({ arr: A(a, { win: [0, l] }) }); T.n('Last index of the sorted prefix?', l, 'Extend while non-decreasing.'); T.n('First index of the sorted suffix?', r, 'Extend left while non-decreasing.'); let best = Math.min(n - l - 1, r), j = r; for (let i = 0; i <= l; i++) { while (j < n && a[j] < a[i]) j++; best = Math.min(best, j - i - 1); } return best; })(); T.n('Shortest subarray to remove?', res, 'Join the best prefix and suffix.'); return res; }
   });
 
   D('special-array-with-x-elements-greater-than-or-equal-x', {
-    t: 'Special Array With x Elements ≥ x',
-    r: 'Sort; for each x in 0..n, count elements ≥ x (binary search). Return x if the count equals x.',
+    t: 'Special Array With x Elements at least x',
+    r: 'Sort; for each x in 0 to n, count elements at least x (binary search). Return x if the count equals x.',
     g: R => ({ nums: R.ints(R.int(1, 6), 0, 7) }),
-    s(I, T) { const a = I.nums.slice().sort((x, y) => x - y), n = a.length; for (let x = 0; x <= n; x++) { const c = n - lowerBound(a, x); if (x <= 3) { T.at({ sorted: A(a), x }); T.n(`How many elements are ≥ ${x}?`, c, 'n − lowerBound(x).'); } if (c === x) return x; } return -1; }
+    s(I, T) { const a = I.nums.slice().sort((x, y) => x - y), n = a.length; for (let x = 0; x <= n; x++) { const c = n - lowerBound(a, x); if (x <= 3) { T.at({ sorted: A(a), x }); T.n(`How many elements are at least ${x}?`, c, 'n − lowerBound(x).'); } if (c === x) return x; } return -1; }
   });
 
   D('maximum-font-to-fit-a-sentence-in-a-screen', {
@@ -85,16 +85,16 @@
 
   D('sell-diminishing-valued-colored-balls', {
     t: 'Sell Diminishing-Valued Balls',
-    r: 'Binary search the threshold t such that selling every ball above t uses ≤ orders. Sell those (arithmetic series), then sell the remaining orders at price t.',
+    r: 'Binary search the threshold t such that selling every ball above t uses at most orders. Sell those (arithmetic series), then sell the remaining orders at price t.',
     g: R => { const inv = R.ints(R.int(1, 4), 1, 9); return { inventory: inv, orders: R.int(1, inv.reduce((a, b) => a + b, 0)) }; },
-    s(I, T) { const inv = I.inventory, above = t => inv.reduce((s, x) => s + Math.max(0, x - t), 0); const t = firstTrue(0, Math.max(...inv), t => above(t) <= I.orders, T, t => ({ inventory: A(inv), sold: above(t) }), t => `Selling everything above ${t}: is that ≤ ${I.orders} balls?`); let profit = 0, left = I.orders; for (const x of inv) if (x > t) { profit += (x + t + 1) * (x - t) / 2; left -= x - t; } profit += left * t; return profit % MOD; }
+    s(I, T) { const inv = I.inventory, above = t => inv.reduce((s, x) => s + Math.max(0, x - t), 0); const t = firstTrue(0, Math.max(...inv), t => above(t) <= I.orders, T, t => ({ inventory: A(inv), sold: above(t) }), t => `Selling everything above ${t}: is that at most ${I.orders} balls?`); let profit = 0, left = I.orders; for (const x of inv) if (x > t) { profit += (x + t + 1) * (x - t) / 2; left -= x - t; } profit += left * t; return profit % MOD; }
   });
 
   D('ways-to-split-array-into-three-subarrays', {
     t: 'Ways to Split Into Three Subarrays',
-    r: 'With prefix sums P, for each end i of left, mid end j must satisfy P[j] − P[i] ≥ P[i] and P[n] − P[j] ≥ P[j] − P[i]. Binary search the valid j range.',
+    r: 'With prefix sums P, for each end i of left, mid end j must satisfy P[j] − P[i] at least P[i] and P[n] − P[j] at least P[j] − P[i]. Binary search the valid j range.',
     g: R => ({ nums: R.ints(R.int(3, 7), 0, 5) }),
-    s(I, T) { const a = I.nums, n = a.length, P = [0]; for (const x of a) P.push(P[P.length - 1] + x); let tot = 0; for (let i = 1; i <= n - 2; i++) { let c = 0; for (let j = i + 1; j <= n - 1; j++) if (P[j] - P[i] >= P[i] && P[n] - P[j] >= P[j] - P[i]) c++; if (i <= 3) { T.at({ nums: A(a, { win: [0, i - 1] }), prefix: A(P) }); T.n(`Valid mid ends when left = first ${i}?`, c, 'left ≤ mid ≤ right.'); } tot += c; } return tot % MOD; }
+    s(I, T) { const a = I.nums, n = a.length, P = [0]; for (const x of a) P.push(P[P.length - 1] + x); let tot = 0; for (let i = 1; i <= n - 2; i++) { let c = 0; for (let j = i + 1; j <= n - 1; j++) if (P[j] - P[i] >= P[i] && P[n] - P[j] >= P[j] - P[i]) c++; if (i <= 3) { T.at({ nums: A(a, { win: [0, i - 1] }), prefix: A(P) }); T.n(`Valid mid ends when left = first ${i}?`, c, 'mid from left to right.'); } tot += c; } return tot % MOD; }
   });
 
   D('minimum-operations-to-make-a-subsequence', {
@@ -106,23 +106,23 @@
 
   D('building-boxes', {
     t: 'Building Boxes: full pyramids, then grow the floor',
-    r: 'Stack complete corner pyramids (layer i adds i(i+1)/2 boxes) while they fit. Then add floor boxes one by one: the j-th new floor box lets j boxes total be added.',
+    r: 'Stack complete corner pyramids (layer i adds i(i+1) divided by 2 boxes) while they fit. Then add floor boxes one by one: the j-th new floor box lets j boxes total be added.',
     g: R => ({ n: R.int(1, 60) }),
     s(I, T) { const res = (() => { let tot = 0, floor = 0, i = 1; while (tot + i * (i + 1) / 2 <= I.n) { tot += i * (i + 1) / 2; floor = i * (i + 1) / 2; i++; } T.at({ n: I.n, boxes: tot }); T.n('Layers in the largest full pyramid?', i - 1, 'Stop before the boxes run out.'); T.n('Floor boxes of the largest full pyramid?', floor, 'Triangular number of the last full layer.'); let j = 1; while (tot < I.n) { floor++; tot += j; j++; } return floor; })(); T.n('Fewest boxes touching the floor?', res, 'Add floor boxes one at a time for the rest.'); return res; }
   });
 
   D('minimum-limit-of-balls-in-a-bag', {
     t: 'Minimum Limit of Balls in a Bag',
-    r: 'Binary search penalty p: a bag of x needs ⌈x/p⌉ − 1 splits. p works if total splits ≤ maxOperations.',
+    r: 'Binary search penalty p: a bag of x needs (x divided by p, rounded up) − 1 splits. p works if total splits at most maxOperations.',
     g: R => ({ nums: R.ints(R.int(1, 5), 1, 20), maxOperations: R.int(1, 6) }),
-    s(I, T) { const ops = p => I.nums.reduce((s, x) => s + Math.ceil(x / p) - 1, 0); return firstTrue(1, Math.max(...I.nums), p => ops(p) <= I.maxOperations, T, p => ({ nums: A(I.nums), splits: ops(p) }), p => `Can every bag be ≤ ${p} with ≤ ${I.maxOperations} splits?`); }
+    s(I, T) { const ops = p => I.nums.reduce((s, x) => s + Math.ceil(x / p) - 1, 0); return firstTrue(1, Math.max(...I.nums), p => ops(p) <= I.maxOperations, T, p => ({ nums: A(I.nums), splits: ops(p) }), p => `Can every bag be at most ${p} with at most ${I.maxOperations} splits?`); }
   });
 
   D('maximum-value-at-a-given-index-in-a-bounded-array', {
     t: 'Maximum Value at an Index With Bounded Sum',
-    r: 'Binary search v at index. Each side decreases by 1 down to a floor of 1; compute its sum with arithmetic series. v works if the total ≤ maxSum.',
+    r: 'Binary search v at index. Each side decreases by 1 down to a floor of 1; compute its sum with arithmetic series. v works if the total at most maxSum.',
     g: R => { const n = R.int(1, 7); return { n, index: R.int(0, n - 1), maxSum: R.int(n, 30) }; },
-    s(I, T) { const side = (v, len) => len <= 0 ? 0 : v - 1 >= len ? (2 * (v - 1) - len + 1) * len / 2 : (v - 1) * v / 2 + (len - (v - 1)); const need = v => v + side(v, I.index) + side(v, I.n - I.index - 1); return lastTrue(1, I.maxSum, v => need(v) <= I.maxSum, T, v => ({ total: need(v) }), v => `Is the minimum sum with nums[${I.index}] = ${v} ≤ ${I.maxSum}?`); }
+    s(I, T) { const side = (v, len) => len <= 0 ? 0 : v - 1 >= len ? (2 * (v - 1) - len + 1) * len / 2 : (v - 1) * v / 2 + (len - (v - 1)); const need = v => v + side(v, I.index) + side(v, I.n - I.index - 1); return lastTrue(1, I.maxSum, v => need(v) <= I.maxSum, T, v => ({ total: need(v) }), v => `Is the minimum sum with nums[${I.index}] = ${v} at most ${I.maxSum}?`); }
   });
 
   D('minimum-absolute-sum-difference', {
@@ -134,28 +134,28 @@
 
   D('closest-room', {
     t: 'Closest Room: big-enough rooms, nearest id',
-    r: 'Sort queries by minSize descending and add rooms of at least that size into a sorted id list; binary search the nearest id (ties → smaller).',
+    r: 'Sort queries by minSize descending and add rooms of at least that size into a sorted id list; binary search the nearest id (ties to smaller).',
     g: R => { const n = R.int(1, 5), ids = R.distinct(n, 1, 12); return { rooms: ids.map(id => [id, R.int(1, 6)]), queries: Array.from({ length: R.int(1, 3) }, () => [R.int(1, 12), R.int(1, 6)]) }; },
-    s(I, T) { return I.queries.map(([p, ms]) => { const ids = I.rooms.filter(r => r[1] >= ms).map(r => r[0]).sort((a, b) => a - b); let best = -1; for (const id of ids) if (best < 0 || Math.abs(id - p) < Math.abs(best - p) || (Math.abs(id - p) === Math.abs(best - p) && id < best)) best = id; T.at({ eligibleIds: A(ids), preferred: p }); T.n(`Rooms with size ≥ ${ms}?`, ids.length, 'Filter by size.'); return best; }); }
+    s(I, T) { return I.queries.map(([p, ms]) => { const ids = I.rooms.filter(r => r[1] >= ms).map(r => r[0]).sort((a, b) => a - b); let best = -1; for (const id of ids) if (best < 0 || Math.abs(id - p) < Math.abs(best - p) || (Math.abs(id - p) === Math.abs(best - p) && id < best)) best = id; T.at({ eligibleIds: A(ids), preferred: p }); T.n(`Rooms with size at least ${ms}?`, ids.length, 'Filter by size.'); return best; }); }
   });
 
   D('maximum-distance-between-a-pair-of-values', {
     t: 'Maximum Distance Between a Pair of Values',
-    r: 'Both arrays are non-increasing. Two pointers: if nums1[i] ≤ nums2[j], record j − i and advance j; else advance i.',
+    r: 'Both arrays are non-increasing. Two pointers: if nums1[i] at most nums2[j], record j − i and advance j; else advance i.',
     g: R => ({ nums1: R.ints(R.int(1, 6), 1, 9).sort((a, b) => b - a), nums2: R.ints(R.int(1, 6), 1, 9).sort((a, b) => b - a) }),
     s(I, T) { let i = 0, j = 0, best = 0, asks = 0; while (i < I.nums1.length && j < I.nums2.length && asks++ < 10) { const ok = I.nums1[i] <= I.nums2[j]; T.at({ nums1: A(I.nums1, { hl: [i] }), nums2: A(I.nums2, { hl: [j] }) }); T.c(`nums1[${i}] = ${I.nums1[i]} vs nums2[${j}] = ${I.nums2[j]}: move?`, ['j++', 'i++'], ok ? 'j++' : 'i++', ok ? 'Valid pair: try a farther j.' : 'Too big: move i.'); if (ok) { if (j >= i) best = Math.max(best, j - i); j++; } else i++; } while (i < I.nums1.length && j < I.nums2.length) { if (I.nums1[i] <= I.nums2[j]) { if (j >= i) best = Math.max(best, j - i); j++; } else i++; } return best; }
   });
 
   D('sum-of-floored-pairs', {
     t: 'Sum of Floored Pairs',
-    r: 'Count values with a frequency prefix array. For each distinct d, numbers in [k·d, (k+1)·d) contribute k each: add cnt(d) · k · count in range. Mod 1e9+7.',
+    r: 'Count values with a frequency prefix array. For each distinct d, numbers in [k times d, (k+1) times d) contribute k each: add cnt(d) times k times count in range. Mod 1e9+7.',
     g: R => ({ nums: R.ints(R.int(1, 6), 1, 12) }),
-    s(I, T) { let tot = 0; const d = [...new Set(I.nums)].sort((a, b) => a - b); for (const x of d) { const c = I.nums.filter(v => v === x).length; let row = 0; for (const v of I.nums) row += Math.floor(v / x); T.at({ nums: A(I.nums), divisor: x }); T.n(`Σ ⌊v / ${x}⌋ over all v?`, row, 'Sum by multiples ranges.'); tot += c * row; } return tot % MOD; }
+    s(I, T) { let tot = 0; const d = [...new Set(I.nums)].sort((a, b) => a - b); for (const x of d) { const c = I.nums.filter(v => v === x).length; let row = 0; for (const v of I.nums) row += Math.floor(v / x); T.at({ nums: A(I.nums), divisor: x }); T.n(`the sum of v divided by ${x}, rounded down over all v?`, row, 'Sum by multiples ranges.'); tot += c * row; } return tot % MOD; }
   });
 
   D('minimum-speed-to-arrive-on-time', {
     t: 'Minimum Speed to Arrive on Time',
-    r: 'Each ride but the last waits until the next integer hour. Binary search speed s: time = Σ⌈d/s⌉ (all but last) + last/s; s works if time ≤ hour.',
+    r: 'Each ride but the last waits until the next integer hour. Binary search speed s: time = the sum of d divided by s, rounded up (all but last) + last divided by s; s works if time at most hour.',
     g: R => { const n = R.int(1, 4); return { dist: R.ints(n, 1, 9), hour: R.int(n - 1, n + 4) + R.pick([0, 0.5, 0.25]) || 1 }; },
     s(I, T) { const d = I.dist, n = d.length, H = Math.round(I.hour * 100); if (H <= (n - 1) * 100) { T.at({ dist: A(d), hour: I.hour }); T.yn(`Is ${I.hour} more than the ${n - 1} forced whole hours?`, false, 'Impossible.'); return -1; } const ok = s => { let t = 0; for (let i = 0; i < n - 1; i++) t += Math.ceil(d[i] / s); return t * 100 * s + d[n - 1] * 100 <= H * s; }; return firstTrue(1, 10000000, ok, T, null, s => `Can speed ${s} arrive on time?`); }
   });
@@ -169,14 +169,14 @@
 
   D('minimum-space-wasted-from-packaging', {
     t: 'Minimum Space Wasted From Packaging',
-    r: 'Sort packages with prefix sums. For each supplier (sorted boxes), each box takes the packages in (previous box, box] found by binary search: waste += box·count − their sum. Skip suppliers whose largest box is too small.',
+    r: 'Sort packages with prefix sums. For each supplier (sorted boxes), each box takes the packages in (previous box, box] found by binary search: waste += box times count − their sum. Skip suppliers whose largest box is too small.',
     g: R => ({ packages: R.ints(R.int(1, 5), 1, 9), boxes: Array.from({ length: R.int(1, 3) }, () => R.distinct(R.int(1, 3), 1, 10)) }),
     s(I, T) { const p = I.packages.slice().sort((a, b) => a - b), P = [0]; p.forEach(x => P.push(P[P.length - 1] + x)); let best = Infinity; I.boxes.forEach((bx, s) => { const b = bx.slice().sort((x, y) => x - y); const ok = b[b.length - 1] >= p[p.length - 1]; T.at({ packages: A(p), boxes: A(b) }); T.yn(`Can supplier ${s} fit every package?`, ok, 'Largest box vs largest package.'); if (!ok) return; let w = 0, prev = 0; for (const x of b) { const k = upperBound(p, x); w += x * (k - prev) - (P[k] - P[prev]); prev = k; } best = Math.min(best, w); }); return best === Infinity ? -1 : best % MOD; }
   });
 
   D('cutting-ribbons', {
     t: 'Cutting Ribbons',
-    r: 'Binary search length L: pieces = Σ ⌊r / L⌋. The largest L with pieces ≥ k is the answer (0 if none).',
+    r: 'Binary search length L: pieces = the sum of r divided by L, rounded down. The largest L with pieces at least k is the answer (0 if none).',
     g: R => ({ ribbons: R.ints(R.int(1, 4), 1, 15), k: R.int(1, 8) }),
     s(I, T) { const pc = L => I.ribbons.reduce((s, r) => s + Math.floor(r / L), 0); return lastTrue(0, Math.max(...I.ribbons), L => L === 0 || pc(L) >= I.k, T, L => ({ ribbons: A(I.ribbons), pieces: L ? pc(L) : '—' }), L => `Can we get ${I.k} pieces of length ${L}?`); }
   });
@@ -205,9 +205,9 @@
 
   D('kth-smallest-subarray-sum', {
     t: 'Kth Smallest Subarray Sum',
-    r: 'Binary search s: count subarrays with sum ≤ s using a sliding window (all values positive). The first s with count ≥ k.',
+    r: 'Binary search s: count subarrays with sum at most s using a sliding window (all values positive). The first s with count at least k.',
     g: R => { const n = R.int(1, 5); return { nums: R.ints(n, 1, 6), k: R.int(1, n * (n + 1) / 2) }; },
-    s(I, T) { const a = I.nums, cnt = s => { let c = 0, l = 0, w = 0; for (let r = 0; r < a.length; r++) { w += a[r]; while (w > s) w -= a[l++]; c += r - l + 1; } return c; }; return firstTrue(Math.min(...a), a.reduce((x, y) => x + y, 0), s => cnt(s) >= I.k, T, s => ({ nums: A(a), countLE: cnt(s) }), s => `Are at least ${I.k} subarray sums ≤ ${s}?`); }
+    s(I, T) { const a = I.nums, cnt = s => { let c = 0, l = 0, w = 0; for (let r = 0; r < a.length; r++) { w += a[r]; while (w > s) w -= a[l++]; c += r - l + 1; } return c; }; return firstTrue(Math.min(...a), a.reduce((x, y) => x + y, 0), s => cnt(s) >= I.k, T, s => ({ nums: A(a), countLE: cnt(s) }), s => `Are at least ${I.k} subarray sums at most ${s}?`); }
   });
 
   D('longest-common-subpath', {
@@ -221,7 +221,7 @@
     t: 'Minimum Garden Perimeter for Enough Apples',
     r: 'A square of half-side n holds 2n(n+1)(2n+1) apples. Binary search the smallest n reaching the target; perimeter = 8n.',
     g: R => ({ neededApples: R.int(1, 2000) }),
-    s(I, T) { const ap = n => 2 * n * (n + 1) * (2 * n + 1); const n = firstTrue(1, 100000, n => ap(n) >= I.neededApples, T, n => ({ apples: ap(n) }), n => `Does half-side ${n} give ≥ ${I.neededApples} apples?`); return 8 * n; }
+    s(I, T) { const ap = n => 2 * n * (n + 1) * (2 * n + 1); const n = firstTrue(1, 100000, n => ap(n) >= I.neededApples, T, n => ({ apples: ap(n) }), n => `Does half-side ${n} give at least ${I.neededApples} apples?`); return 8 * n; }
   });
 
   D('minimum-time-for-k-virus-variants-to-spread', {
@@ -233,7 +233,7 @@
 
   D('binary-searchable-numbers-in-an-unsorted-array', {
     t: 'Binary-Searchable Numbers',
-    r: 'A value is always found iff it is greater than everything to its left and smaller than everything to its right. Compute prefix maxima and suffix minima.',
+    r: 'A value is always found exactly when it is greater than everything to its left and smaller than everything to its right. Compute prefix maxima and suffix minima.',
     g: R => ({ nums: R.distinct(R.int(1, 7), -5, 9) }),
     s(I, T) { const a = I.nums, n = a.length, pm = [], sm = Array(n); let m = -Infinity; for (let i = 0; i < n; i++) { pm.push(m); m = Math.max(m, a[i]); } m = Infinity; for (let i = n - 1; i >= 0; i--) { sm[i] = m; m = Math.min(m, a[i]); } let c = 0; for (let i = 0; i < n; i++) { const ok = a[i] > pm[i] && a[i] < sm[i]; T.at({ nums: A(a, { hl: [i] }) }); T.yn(`Is ${a[i]} always found?`, ok, 'Bigger than all left, smaller than all right.'); if (ok) c++; } return c; }
   });
@@ -247,30 +247,30 @@
 
   D('kth-smallest-product-of-two-sorted-arrays', {
     t: 'Kth Smallest Product of Two Sorted Arrays',
-    r: 'Binary search product p; for each a in nums1 count b with a·b ≤ p (binary search, with direction depending on the sign of a). First p with count ≥ k.',
+    r: 'Binary search product p; for each a in nums1 count b with a times b at most p (binary search, with direction depending on the sign of a). First p with count at least k.',
     g: R => { const a = sorted(R, R.int(1, 4), -4, 5), b = sorted(R, R.int(1, 4), -4, 5); return { nums1: a, nums2: b, k: R.int(1, a.length * b.length) }; },
-    s(I, T) { const cnt = p => { let c = 0; for (const a of I.nums1) for (const b of I.nums2) if (a * b <= p) c++; return c; }; const all = []; for (const a of I.nums1) for (const b of I.nums2) all.push(a * b); return firstTrue(Math.min(...all), Math.max(...all), p => cnt(p) >= I.k, T, p => ({ countLE: cnt(p) }), p => `Are at least ${I.k} products ≤ ${p}?`); }
+    s(I, T) { const cnt = p => { let c = 0; for (const a of I.nums1) for (const b of I.nums2) if (a * b <= p) c++; return c; }; const all = []; for (const a of I.nums1) for (const b of I.nums2) all.push(a * b); return firstTrue(Math.min(...all), Math.max(...all), p => cnt(p) >= I.k, T, p => ({ countLE: cnt(p) }), p => `Are at least ${I.k} products at most ${p}?`); }
   });
 
   D('plates-between-candles', {
     t: 'Plates Between Candles',
     r: 'Precompute plate prefix counts, the nearest candle to the right of each index and to the left. A query counts plates between those two candles.',
     g: R => { const s = R.str(R.int(3, 10), '**|'); return { s, queries: Array.from({ length: R.int(1, 3) }, () => { const l = R.int(0, s.length - 1); return [l, R.int(l, s.length - 1)]; }) }; },
-    s(I, T) { const s = I.s, n = s.length, P = [0], L = Array(n), Rt = Array(n); for (const c of s) P.push(P[P.length - 1] + (c === '*' ? 1 : 0)); let x = -1; for (let i = 0; i < n; i++) { if (s[i] === '|') x = i; L[i] = x; } x = n; for (let i = n - 1; i >= 0; i--) { if (s[i] === '|') x = i; Rt[i] = x; } return I.queries.map(([l, r]) => { const a = Rt[l], b = L[r], v = a < b ? P[b] - P[a] : 0; T.at({ s: A([...s], { win: [l, r] }) }); T.n(`Plates between candles in [${l}, ${r}]?`, v, 'First candle ≥ l to last candle ≤ r.'); return v; }); }
+    s(I, T) { const s = I.s, n = s.length, P = [0], L = Array(n), Rt = Array(n); for (const c of s) P.push(P[P.length - 1] + (c === '*' ? 1 : 0)); let x = -1; for (let i = 0; i < n; i++) { if (s[i] === '|') x = i; L[i] = x; } x = n; for (let i = n - 1; i >= 0; i--) { if (s[i] === '|') x = i; Rt[i] = x; } return I.queries.map(([l, r]) => { const a = Rt[l], b = L[r], v = a < b ? P[b] - P[a] : 0; T.at({ s: A([...s], { win: [l, r] }) }); T.n(`Plates between candles in [${l}, ${r}]?`, v, 'First candle at least l to last candle at most r.'); return v; }); }
   });
 
   D('minimized-maximum-of-products-distributed-to-any-store', {
     t: 'Minimized Maximum Products per Store',
-    r: 'Binary search the cap x: product type q needs ⌈q/x⌉ stores. x works if the total ≤ n.',
+    r: 'Binary search the cap x: product type q needs q divided by x (rounded up) stores. x works if the total at most n.',
     g: R => { const m = R.int(1, 4); return { n: R.int(m, m + 6), quantities: R.ints(m, 1, 15) }; },
     s(I, T) { const need = x => I.quantities.reduce((s, q) => s + Math.ceil(q / x), 0); return firstTrue(1, Math.max(...I.quantities), x => need(x) <= I.n, T, x => ({ quantities: A(I.quantities), stores: need(x) }), x => `With at most ${x} per store, are ${I.n} stores enough?`); }
   });
 
   D('most-beautiful-item-for-each-query', {
     t: 'Most Beautiful Item for Each Query',
-    r: 'Sort items by price and keep a running max beauty. For each query, binary search the last price ≤ query and read the running max.',
+    r: 'Sort items by price and keep a running max beauty. For each query, binary search the last price at most query and read the running max.',
     g: R => ({ items: Array.from({ length: R.int(1, 5) }, () => [R.int(1, 8), R.int(1, 9)]), queries: R.ints(R.int(1, 4), 0, 9) }),
-    s(I, T) { const it = I.items.slice().sort((a, b) => a[0] - b[0]), pr = it.map(x => x[0]), mx = []; let m = 0; for (const x of it) mx.push(m = Math.max(m, x[1])); return I.queries.map(q => { const k = upperBound(pr, q), v = k ? mx[k - 1] : 0; T.at({ prices: A(pr, { hl: [k - 1] }), bestSoFar: A(mx) }); T.n(`Best beauty with price ≤ ${q}?`, v, 'Running max at the last affordable item.'); return v; }); }
+    s(I, T) { const it = I.items.slice().sort((a, b) => a[0] - b[0]), pr = it.map(x => x[0]), mx = []; let m = 0; for (const x of it) mx.push(m = Math.max(m, x[1])); return I.queries.map(q => { const k = upperBound(pr, q), v = k ? mx[k - 1] : 0; T.at({ prices: A(pr, { hl: [k - 1] }), bestSoFar: A(mx) }); T.n(`Best beauty with price at most ${q}?`, v, 'Running max at the last affordable item.'); return v; }); }
   });
 
   D('maximum-number-of-tasks-you-can-assign', {
@@ -282,7 +282,7 @@
 
   D('maximum-fruits-harvested-after-at-most-k-steps', {
     t: 'Maximum Fruits Within k Steps',
-    r: 'A reachable range [L, R] around start costs min(2·(s−L) + (R−s), 2·(R−s) + (s−L)) steps. Slide over ranges with prefix sums (binary search the matching end).',
+    r: 'A reachable range [L, R] around start costs min(2 times (s−L) + (R−s), 2 times (R−s) + (s−L)) steps. Slide over ranges with prefix sums (binary search the matching end).',
     g: R => { const ps = R.distinct(R.int(1, 5), 0, 12).sort((a, b) => a - b); return { fruits: ps.map(p => [p, R.int(1, 9)]), startPos: R.int(0, 12), k: R.int(0, 8) }; },
     s(I, T) { const res = (() => { const f = I.fruits, s = I.startPos; let best = 0; const pts = [...new Set([s, ...f.map(x => x[0])])]; for (const L of pts) for (const Rr of pts) { if (L > s || Rr < s) continue; const cost = Math.min(2 * (s - L) + (Rr - s), 2 * (Rr - s) + (s - L)); if (cost > I.k) continue; best = Math.max(best, f.filter(x => x[0] >= L && x[0] <= Rr).reduce((a, x) => a + x[1], 0)); } const here = f.filter(x => x[0] === s).reduce((a, x) => a + x[1], 0); T.at({ fruits: A(f.map(x => `${x[1]} at ${x[0]}`)), start: s, k: I.k }); T.n('Fruits available without moving?', here, 'Only the start position.'); T.n('Leftmost position you could reach?', s - I.k, 'Walk left the whole way.'); return best; })(); T.n('Most fruits?', res, 'Best range you can cover in k steps.'); return res; }
   });

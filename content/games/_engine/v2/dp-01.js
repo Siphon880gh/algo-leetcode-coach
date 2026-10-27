@@ -37,7 +37,7 @@
 
   D('regular-expression-matching', {
     t: 'Regular Expression Matching: a star means zero copies or one more',
-    r: 'dp[i][j]: does s[0..i) match p[0..j)? A letter or "." must match s[i−1] and inherit dp[i−1][j−1]. "x*" is either skipped (dp[i][j−2]) or eats one more matching letter (dp[i−1][j]).',
+    r: 'dp[i][j]: does s[0 to i) match p[0 to j)? A letter or "." must match s[i−1] and inherit dp[i−1][j−1]. "x*" is either skipped (dp[i][j−2]) or eats one more matching letter (dp[i−1][j]).',
     g: R => regexGen(R, false),
     s(I, T) {
       const { s, p } = I, m = s.length, n = p.length, dp = Array.from({ length: m + 1 }, () => Array(n + 1).fill(undefined));
@@ -46,8 +46,8 @@
       for (let j = 1; j <= n; j++) dp[0][j] = p[j - 1] === '*' && dp[0][j - 2];
       for (let i = 1; i <= m; i++) { dp[i][0] = false; for (let j = 1; j <= n; j++) {
         let v, why;
-        if (p[j - 1] === '*') { v = dp[i][j - 2] || (mt(i, j - 1) && dp[i - 1][j]); why = `"${p[j - 2]}*": skip it → dp[${i}][${j - 2}] = ${dp[i][j - 2]}; or eat s[${i - 1}]="${s[i - 1]}" (${mt(i, j - 1) ? 'matches' : 'no match'}) → dp[${i - 1}][${j}] = ${dp[i - 1][j]}.`; }
-        else { v = mt(i, j) && dp[i - 1][j - 1]; why = `"${p[j - 1]}" vs "${s[i - 1]}": ${mt(i, j) ? 'match, so copy dp[' + (i - 1) + '][' + (j - 1) + '] = ' + dp[i - 1][j - 1] : 'no match → false'}.`; }
+        if (p[j - 1] === '*') { v = dp[i][j - 2] || (mt(i, j - 1) && dp[i - 1][j]); why = `"${p[j - 2]}*": skip it, so dp[${i}][${j - 2}] = ${dp[i][j - 2]}; or eat s[${i - 1}]="${s[i - 1]}" (${mt(i, j - 1) ? 'matches' : 'no match'}): dp[${i - 1}][${j}] = ${dp[i - 1][j]}.`; }
+        else { v = mt(i, j) && dp[i - 1][j - 1]; why = `"${p[j - 1]}" vs "${s[i - 1]}": ${mt(i, j) ? 'match, so copy dp[' + (i - 1) + '][' + (j - 1) + '] = ' + dp[i - 1][j - 1] : 'no match: false'}.`; }
         T.at({ dp: dpView(dp, rh, ch, [i, j]) });
         T.yn(`dp[${i}][${j}]: does "${s.slice(0, i)}" match "${p.slice(0, j)}"?`, v, why);
         dp[i][j] = v;
@@ -59,7 +59,7 @@
 
   D('wildcard-matching', {
     t: 'Wildcard Matching: "*" eats nothing or one more letter',
-    r: 'dp[i][j]: does s[0..i) match p[0..j)? "?" or the same letter inherits dp[i−1][j−1]. "*" matches empty (dp[i][j−1]) or one more letter (dp[i−1][j]).',
+    r: 'dp[i][j]: does s[0 to i) match p[0 to j)? "?" or the same letter inherits dp[i−1][j−1]. "*" matches empty (dp[i][j−1]) or one more letter (dp[i−1][j]).',
     g: R => regexGen(R, true),
     s(I, T) {
       const { s, p } = I, m = s.length, n = p.length, dp = Array.from({ length: m + 1 }, () => Array(n + 1).fill(undefined));
@@ -68,8 +68,8 @@
       for (let j = 1; j <= n; j++) dp[0][j] = p[j - 1] === '*' && dp[0][j - 1];
       for (let i = 1; i <= m; i++) { dp[i][0] = false; for (let j = 1; j <= n; j++) {
         let v, why;
-        if (p[j - 1] === '*') { v = dp[i][j - 1] || dp[i - 1][j]; why = `"*" as empty → dp[${i}][${j - 1}] = ${dp[i][j - 1]}; or eat "${s[i - 1]}" → dp[${i - 1}][${j}] = ${dp[i - 1][j]}.`; }
-        else { const ok = p[j - 1] === '?' || p[j - 1] === s[i - 1]; v = ok && dp[i - 1][j - 1]; why = ok ? `"${p[j - 1]}" matches "${s[i - 1]}", so copy dp[${i - 1}][${j - 1}] = ${dp[i - 1][j - 1]}.` : `"${p[j - 1]}" ≠ "${s[i - 1]}".`; }
+        if (p[j - 1] === '*') { v = dp[i][j - 1] || dp[i - 1][j]; why = `"*" as empty: dp[${i}][${j - 1}] = ${dp[i][j - 1]}; or eat "${s[i - 1]}" using dp[${i - 1}][${j}] = ${dp[i - 1][j]}.`; }
+        else { const ok = p[j - 1] === '?' || p[j - 1] === s[i - 1]; v = ok && dp[i - 1][j - 1]; why = ok ? `"${p[j - 1]}" matches "${s[i - 1]}", so copy dp[${i - 1}][${j - 1}] = ${dp[i - 1][j - 1]}.` : `"${p[j - 1]}" not equal to "${s[i - 1]}".`; }
         T.at({ dp: dpView(dp, rh, ch, [i, j]) });
         T.yn(`dp[${i}][${j}]: does "${s.slice(0, i)}" match "${p.slice(0, j)}"?`, v, why);
         dp[i][j] = v;

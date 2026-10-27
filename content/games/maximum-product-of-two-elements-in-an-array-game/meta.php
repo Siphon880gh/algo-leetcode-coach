@@ -5,7 +5,7 @@ return [
     'title' => 'Maximum Product of Two Elements in an Array',
     'leetcode' => 1464,
     'difficulty' => 'Easy',
-    'summary' => 'Take the two largest values a ≥ b; the answer is (a − 1)(b − 1).',
+    'summary' => 'Take the two largest values a at least b; the answer is (a − 1)(b − 1).',
     'category' => 'LeetCode',
     'subcategory' => 'Arrays',
     'topic' => 'LeetCode · Arrays',

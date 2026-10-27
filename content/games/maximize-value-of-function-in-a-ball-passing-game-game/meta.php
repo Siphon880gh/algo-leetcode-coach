@@ -5,7 +5,7 @@ return [
     'title' => 'Ball Passing Game: sum the ids along k passes',
     'leetcode' => 2836,
     'difficulty' => 'Hard',
-    'summary' => 'f(x) = x + receiver[x] + receiver²[x] + … (k passes). Binary lifting stores the 2^j-th receiver and the sum along the way; here, simulate each start.',
+    'summary' => 'f(x) = x + receiver[x] + receiver²[x] + … (k passes). Binary lifting stores the 2 to the power j-th receiver and the sum along the way; here, simulate each start.',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

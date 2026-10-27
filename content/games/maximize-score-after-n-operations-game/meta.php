@@ -5,7 +5,7 @@ return [
     'title' => 'Maximize Score After N Operations: later operations weigh more',
     'leetcode' => 1799,
     'difficulty' => 'Hard',
-    'summary' => 'f(mask) = best score with the numbers in mask used; operation number = pairs used + 1. Try every free pair: op · gcd(a, b) + f(mask | pair).',
+    'summary' => 'f(mask) = best score with the numbers in mask used; operation number = pairs used + 1. Try every free pair: op times gcd(a, b) + f(mask | pair).',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

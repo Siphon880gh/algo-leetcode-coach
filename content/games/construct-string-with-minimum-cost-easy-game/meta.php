@@ -5,7 +5,7 @@ return [
     'title' => 'Construct String With Minimum Cost (Easy): DP over target prefixes',
     'leetcode' => 3253,
     'difficulty' => 'Med',
-    'summary' => 'dp[i] = cheapest way to build target[0..i). From each reachable i, try every word that matches target starting at i.',
+    'summary' => 'dp[i] = cheapest way to build target[0 to i). From each reachable i, try every word that matches target starting at i.',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

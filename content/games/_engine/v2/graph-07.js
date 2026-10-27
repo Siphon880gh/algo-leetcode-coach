@@ -43,9 +43,9 @@
 
   D('graph', {
     t: 'Graph Storage: List vs Matrix',
-    r: 'An undirected graph as an adjacency list stores each edge twice (once per end), using O(V + E) space. As an adjacency matrix it uses a V × V grid where M[u][v] = 1 if the edge exists: O(1) edge checks, O(V²) space.',
+    r: 'An undirected graph as an adjacency list stores each edge twice (once per end), using O(V + E) space. As an adjacency matrix it uses a V times V grid where M[u][v] = 1 if the edge exists: O(1) edge checks, O(V²) space.',
     exs: [{ in: { n: 4, edges: [[0, 1], [0, 2], [1, 3], [2, 3]] }, out: [[1, 2], [0, 3], [0, 3], [1, 2]] }],
     g: R => { const n = R.int(4, 6); return { n, edges: R.edges(n, R.int(n - 1, n + 2)) }; },
-    s(I, T) { const g = adjOf(I.n, I.edges), M = Array.from({ length: I.n }, (_, i) => Array.from({ length: I.n }, (_, j) => g[i].includes(j) ? 1 : 0)), big = g.reduce((m, l, i) => l.length > g[m].length ? i : m, 0), [p, q] = [0, I.n - 1]; T.v(GR(I.n, I.edges)); T.n(`Degree of vertex ${big}?`, g[big].length, 'Count its edges.'); T.n('Total entries across all adjacency lists?', 2 * I.edges.length, 'Each undirected edge is stored at both ends.'); T.v(GR(I.n, I.edges), G(M, { hl: [[p, q]], label: 'matrix' })); T.n(`M[${p}][${q}]?`, M[p][q], M[p][q] ? 'The edge exists.' : 'No such edge.'); T.n('How many cells does the matrix have?', I.n * I.n, 'V × V.'); return g; }
+    s(I, T) { const g = adjOf(I.n, I.edges), M = Array.from({ length: I.n }, (_, i) => Array.from({ length: I.n }, (_, j) => g[i].includes(j) ? 1 : 0)), big = g.reduce((m, l, i) => l.length > g[m].length ? i : m, 0), [p, q] = [0, I.n - 1]; T.v(GR(I.n, I.edges)); T.n(`Degree of vertex ${big}?`, g[big].length, 'Count its edges.'); T.n('Total entries across all adjacency lists?', 2 * I.edges.length, 'Each undirected edge is stored at both ends.'); T.v(GR(I.n, I.edges), G(M, { hl: [[p, q]], label: 'matrix' })); T.n(`M[${p}][${q}]?`, M[p][q], M[p][q] ? 'The edge exists.' : 'No such edge.'); T.n('How many cells does the matrix have?', I.n * I.n, 'V times V.'); return g; }
   });
 })();

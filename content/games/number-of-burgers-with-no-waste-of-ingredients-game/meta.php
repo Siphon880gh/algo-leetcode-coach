@@ -5,7 +5,7 @@ return [
     'title' => 'Burgers With No Waste: solve two linear equations',
     'leetcode' => 1276,
     'difficulty' => 'Med',
-    'summary' => '4J + 2S = tomato, J + S = cheese ⇒ J = (tomato − 2·cheese) / 2, S = cheese − J. Valid only if both are non-negative integers.',
+    'summary' => '4J + 2S = tomato, J + S = cheese: J = (tomato − 2 times cheese) divided by 2, S = cheese − J. Valid only if both are non-negative integers.',
     'category' => 'LeetCode',
     'subcategory' => 'Math',
     'topic' => 'LeetCode · Math',

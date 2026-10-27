@@ -5,7 +5,7 @@ return [
     'title' => 'Construct K Palindromes: odd counts bound it',
     'leetcode' => 1400,
     'difficulty' => 'Med',
-    'summary' => 'Each palindrome holds at most one odd-count letter in its middle. Possible exactly when (#letters with odd count) ≤ k ≤ length.',
+    'summary' => 'Each palindrome holds at most one odd-count letter in its middle. Possible exactly when (#letters with odd count) at most k at most length.',
     'category' => 'LeetCode',
     'subcategory' => 'Greedy',
     'topic' => 'LeetCode · Greedy',

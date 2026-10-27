@@ -5,7 +5,7 @@ return [
     'title' => 'Longest Uncommon Subsequence I: compare whole strings',
     'leetcode' => 521,
     'difficulty' => 'Easy',
-    'summary' => 'If a ≠ b, the longer whole string is not a subsequence of the other, so the answer is max length; if equal, −1.',
+    'summary' => 'If a not equal to b, the longer whole string is not a subsequence of the other, so the answer is max length; if equal, −1.',
     'category' => 'LeetCode',
     'subcategory' => 'Strings',
     'topic' => 'LeetCode · Strings',

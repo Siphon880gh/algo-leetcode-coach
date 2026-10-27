@@ -3,13 +3,13 @@
   'use strict';
   const { D, A, K, Q } = LCGame.H;
   const floats = (o, e) => Array.isArray(o) && o.length === e.length && o.every((v, i) => Math.abs(v - e[i]) < 1e-5);
-  const longestK = (I, T, k) => { const s = I.s, c = {}; let l = 0, best = 0, asks = 0; for (let r = 0; r < s.length; r++) { c[s[r]] = (c[s[r]] || 0) + 1; while (Object.keys(c).length > k) { if (!--c[s[l]]) delete c[s[l]]; l++; } best = Math.max(best, r - l + 1); if (asks++ < 8) { T.at({ s: A([...s], { win: [l, r] }), counts: K(c) }); T.n('Best length so far?', best, `Shrink until ≤ ${k} distinct.`); } } if (!s.length) { T.at({ s: '""' }); T.n('Length?', 0, 'Empty.'); } return best; };
+  const longestK = (I, T, k) => { const s = I.s, c = {}; let l = 0, best = 0, asks = 0; for (let r = 0; r < s.length; r++) { c[s[r]] = (c[s[r]] || 0) + 1; while (Object.keys(c).length > k) { if (!--c[s[l]]) delete c[s[l]]; l++; } best = Math.max(best, r - l + 1); if (asks++ < 8) { T.at({ s: A([...s], { win: [l, r] }), counts: K(c) }); T.n('Best length so far?', best, `Shrink until at most ${k} distinct.`); } } if (!s.length) { T.at({ s: '""' }); T.n('Length?', 0, 'Empty.'); } return best; };
   const atMost = (a, k, key) => { if (k < 0) return 0; const c = new Map(); let l = 0, tot = 0, d = 0; for (let r = 0; r < a.length; r++) { const x = key(a[r]); c.set(x, (c.get(x) || 0) + 1); if (c.get(x) === 1) d++; while (d > k) { const y = key(a[l]); c.set(y, c.get(y) - 1); if (!c.get(y)) d--; l++; } tot += r - l + 1; } return tot; };
   const atMostSum = (a, g) => { if (g < 0) return 0; let l = 0, s = 0, t = 0; for (let r = 0; r < a.length; r++) { s += a[r]; while (s > g) s -= a[l++]; t += r - l + 1; } return t; };
 
   D('substring-with-concatenation-of-all-words', {
     t: 'Substring with Concatenation of All Words',
-    r: 'All words have length w. For each offset 0..w−1, slide a window over word-sized chunks keeping chunk counts; shrink when a word is over-used, and record the start when the window holds exactly all words.',
+    r: 'All words have length w. For each offset 0 to w−1, slide a window over word-sized chunks keeping chunk counts; shrink when a word is over-used, and record the start when the window holds exactly all words.',
     g: R => { const w = R.int(1, 2), words = Array.from({ length: R.int(1, 3) }, () => R.str(w, 'ab')); let s = R.str(R.int(0, 4), 'ab') + R.shuffle(words).join('') + R.str(R.int(0, 4), 'ab'); return { s, words }; },
     cmp: 'set',
     s(I, T) { const w = I.words[0].length, n = I.words.length, need = {}; I.words.forEach(x => need[x] = (need[x] || 0) + 1); const out = []; let asks = 0; for (let i = 0; i + w * n <= I.s.length; i++) { const seen = {}; let ok = true; for (let j = 0; j < n; j++) { const x = I.s.substr(i + j * w, w); seen[x] = (seen[x] || 0) + 1; if (!need[x] || seen[x] > need[x]) { ok = false; break; } } if (asks++ < 7) { T.at({ s: A([...I.s], { win: [i, i + w * n - 1] }), words: A(I.words) }); T.yn(`Is the window at ${i} a concatenation of all words?`, ok, 'Chunk counts must match exactly.'); } if (ok) out.push(i); } return out; }
@@ -24,7 +24,7 @@
 
   D('repeated-dna-sequences', {
     t: 'Repeated DNA Sequences',
-    r: 'Slide a length-10 window (rolling hash / 2-bit encoding); record windows seen once in a set and output those seen a second time.',
+    r: 'Slide a length-10 window (rolling hash or 2-bit encoding); record windows seen once in a set and output those seen a second time.',
     g: R => { const unit = R.str(R.int(2, 5), 'ACGT'); return { s: (unit.repeat(R.int(2, 6)) + R.str(R.int(0, 6), 'ACGT')).slice(0, 30) }; },
     cmp: 'set',
     s(I, T) { const seen = new Set(), out = new Set(); let asks = 0; for (let i = 0; i + 10 <= I.s.length; i++) { const w = I.s.slice(i, i + 10), dup = seen.has(w); if (dup) out.add(w); seen.add(w); if (asks++ < 6 || (dup && asks < 10)) { T.at({ window: w, index: i }); T.yn('Seen this 10-letter window before?', dup, 'Set lookup.'); } } if (!asks) { T.at({ s: I.s }); T.n('Windows of length 10?', 0, 'String shorter than 10.'); } return [...out]; }
@@ -39,7 +39,7 @@
 
   D('contains-duplicate-iii', {
     t: 'Contains Duplicate III',
-    r: 'Bucket values by width valueDiff + 1 over a window of the last indexDiff elements: same bucket → hit; neighbor buckets need an explicit difference check.',
+    r: 'Bucket values by width valueDiff + 1 over a window of the last indexDiff elements: same bucket means a hit; neighbor buckets need an explicit difference check.',
     g: R => ({ nums: R.ints(R.int(1, 8), 0, 12), indexDiff: R.int(1, 3), valueDiff: R.int(0, 3) }),
     s(I, T) { const a = I.nums; for (let j = 0; j < a.length; j++) { let hit = false; for (let i = Math.max(0, j - I.indexDiff); i < j; i++) if (Math.abs(a[i] - a[j]) <= I.valueDiff) hit = true; if (j < 8) { T.at({ nums: A(a, { win: [Math.max(0, j - I.indexDiff), j] }), valueDiff: I.valueDiff }); T.yn(`Is some value in the window within ${I.valueDiff} of ${a[j]}?`, hit, 'Buckets of width valueDiff + 1.'); } if (hit) return true; } return false; }
   });
@@ -60,9 +60,9 @@
 
   D('longest-substring-with-at-least-k-repeating-characters', {
     t: 'Longest Substring with At Least K Repeating Characters',
-    r: 'For each target number of unique letters u = 1..26, slide a window that keeps at most u unique letters and track how many reach count k. Windows with unique == u == "at least k" are valid.',
+    r: 'For each target number of unique letters u = 1 to 26, slide a window that keeps at most u unique letters and track how many reach count k. Windows with unique == u == "at least k" are valid.',
     g: R => ({ s: R.str(R.int(1, 10), 'abc'), k: R.int(1, 3) }),
-    s(I, T) { const s = I.s; let best = 0; const U = new Set(s).size; for (let u = 1; u <= U; u++) { const c = {}; let l = 0, uniq = 0, ok = 0; for (let r = 0; r < s.length; r++) { c[s[r]] = (c[s[r]] || 0) + 1; if (c[s[r]] === 1) uniq++; if (c[s[r]] === I.k) ok++; while (uniq > u) { if (c[s[l]] === I.k) ok--; c[s[l]]--; if (!c[s[l]]) uniq--; l++; } if (uniq === u && ok === u) best = Math.max(best, r - l + 1); } T.at({ s: A([...s]), uniqueTarget: u, k: I.k }); T.n(`Best length so far (after trying ${u} unique)?`, best, 'Windows where every letter appears ≥ k times.'); } return best; }
+    s(I, T) { const s = I.s; let best = 0; const U = new Set(s).size; for (let u = 1; u <= U; u++) { const c = {}; let l = 0, uniq = 0, ok = 0; for (let r = 0; r < s.length; r++) { c[s[r]] = (c[s[r]] || 0) + 1; if (c[s[r]] === 1) uniq++; if (c[s[r]] === I.k) ok++; while (uniq > u) { if (c[s[l]] === I.k) ok--; c[s[l]]--; if (!c[s[l]]) uniq--; l++; } if (uniq === u && ok === u) best = Math.max(best, r - l + 1); } T.at({ s: A([...s]), uniqueTarget: u, k: I.k }); T.n(`Best length so far (after trying ${u} unique)?`, best, 'Windows where every letter appears at least k times.'); } return best; }
   });
 
   D('sliding-window-median', {
@@ -77,7 +77,7 @@
     t: 'Smallest Range Covering Elements from K Lists',
     r: 'Put the first element of each list in a min-heap and track the current max. The range [heap min, max] covers all lists; pop the min, push its successor, update; stop when a list runs out.',
     g: R => ({ nums: Array.from({ length: R.int(1, 3) }, () => R.sorted(R.int(1, 4), 0, 20)) }),
-    s(I, T) { const L = I.nums, idx = L.map(() => 0); let best = null, asks = 0; for (;;) { const vals = L.map((l, i) => l[idx[i]]), lo = Math.min(...vals), hi = Math.max(...vals); if (!best || hi - lo < best[1] - best[0] || (hi - lo === best[1] - best[0] && lo < best[0])) best = [lo, hi]; if (asks++ < 7) { T.at({ current: A(vals), best: best.join('–') }); T.n('Current range width (max − min)?', hi - lo, 'All lists are covered.'); } const k = vals.indexOf(lo); if (++idx[k] >= L[k].length) break; } return best; }
+    s(I, T) { const L = I.nums, idx = L.map(() => 0); let best = null, asks = 0; for (;;) { const vals = L.map((l, i) => l[idx[i]]), lo = Math.min(...vals), hi = Math.max(...vals); if (!best || hi - lo < best[1] - best[0] || (hi - lo === best[1] - best[0] && lo < best[0])) best = [lo, hi]; if (asks++ < 7) { T.at({ current: A(vals), best: best.join(' to ') }); T.n('Current range width (max − min)?', hi - lo, 'All lists are covered.'); } const k = vals.indexOf(lo); if (++idx[k] >= L[k].length) break; } return best; }
   });
 
   D('longest-continuous-increasing-subsequence', {
@@ -96,21 +96,21 @@
 
   D('subarray-product-less-than-k', {
     t: 'Subarray Product Less Than K',
-    r: 'Grow the window to the right multiplying the product; while product ≥ k, divide out from the left. Each right end adds r − l + 1 subarrays.',
+    r: 'Grow the window to the right multiplying the product; while product at least k, divide out from the left. Each right end adds r − l + 1 subarrays.',
     g: R => ({ nums: R.ints(R.int(1, 8), 1, 6), k: R.int(0, 30) }),
-    s(I, T) { if (I.k <= 1) { T.at({ k: I.k }); T.yn('Can any product of positive integers be < k?', false, 'k ≤ 1.'); return 0; } let l = 0, p = 1, c = 0; I.nums.forEach((x, r) => { p *= x; while (p >= I.k) p /= I.nums[l++]; c += r - l + 1; if (r < 8) { T.at({ nums: A(I.nums, { win: [l, r] }), product: p }); T.n('Total count so far?', c, 'Add r − l + 1.'); } }); return c; }
+    s(I, T) { if (I.k <= 1) { T.at({ k: I.k }); T.yn('Can any product of positive integers be < k?', false, 'k at most 1.'); return 0; } let l = 0, p = 1, c = 0; I.nums.forEach((x, r) => { p *= x; while (p >= I.k) p /= I.nums[l++]; c += r - l + 1; if (r < 8) { T.at({ nums: A(I.nums, { win: [l, r] }), product: p }); T.n('Total count so far?', c, 'Add r − l + 1.'); } }); return c; }
   });
 
   D('shortest-subarray-with-sum-at-least-k', {
     t: 'Shortest Subarray with Sum at Least K',
-    r: 'Prefix sums P with a deque of increasing P values. For each j, pop from the front while P[j] − P[front] ≥ k (record length); pop from the back while P[back] ≥ P[j]; push j.',
+    r: 'Prefix sums P with a deque of increasing P values. For each j, pop from the front while P[j] − P[front] at least k (record length); pop from the back while P[back] at least P[j]; push j.',
     g: R => ({ nums: R.ints(R.int(1, 8), -3, 6), k: R.int(1, 10) }),
     s(I, T) { const P = [0]; I.nums.forEach(x => P.push(P[P.length - 1] + x)); const dq = []; let best = Infinity, asks = 0; for (let j = 0; j < P.length; j++) { while (dq.length && P[j] - P[dq[0]] >= I.k) best = Math.min(best, j - dq.shift()); while (dq.length && P[dq[dq.length - 1]] >= P[j]) dq.pop(); dq.push(j); if (j && asks++ < 7) { T.at({ prefix: A(P, { j }), deque: Q(dq.slice()) }); T.n('Shortest length so far (0 if none)?', best === Infinity ? 0 : best, 'Pop fronts that reach k.'); } } return best === Infinity ? -1 : best; }
   });
 
   D('binary-subarrays-with-sum', {
     t: 'Binary Subarrays With Sum',
-    r: 'Count = atMost(goal) − atMost(goal − 1), where atMost(g) slides a window keeping the sum ≤ g and adds r − l + 1 per right end.',
+    r: 'Count = atMost(goal) − atMost(goal − 1), where atMost(g) slides a window keeping the sum at most g and adds r − l + 1 per right end.',
     g: R => ({ nums: R.ints(R.int(1, 9), 0, 1), goal: R.int(0, 3) }),
     s(I, T) { const res = (() => { const a = atMostSum(I.nums, I.goal), b = atMostSum(I.nums, I.goal - 1); T.at({ nums: A(I.nums), goal: I.goal }); T.n(`Subarrays with sum at most ${I.goal}?`, a, 'Sliding window count.'); T.n(`Subarrays with sum at most ${I.goal - 1}?`, b, 'Same with goal minus 1.'); return a - b; })(); T.n(`Subarrays with sum exactly ${I.goal}?`, res, 'Subtract the two counts.'); return res; }
   });
@@ -173,16 +173,16 @@
 
   D('get-equal-substrings-within-budget', {
     t: 'Get Equal Substrings Within Budget',
-    r: 'cost[i] = |s[i] − t[i]|. Find the longest window with total cost ≤ maxCost: extend right, shrink left while over budget.',
+    r: 'cost[i] = |s[i] − t[i]|. Find the longest window with total cost at most maxCost: extend right, shrink left while over budget.',
     g: R => { const n = R.int(1, 8); return { s: R.str(n, 'abcd'), t: R.str(n, 'abcd'), maxCost: R.int(0, 5) }; },
     s(I, T) { const c = [...I.s].map((x, i) => Math.abs(x.charCodeAt(0) - I.t.charCodeAt(i))); let l = 0, sum = 0, best = 0; c.forEach((x, r) => { sum += x; while (sum > I.maxCost) sum -= c[l++]; best = Math.max(best, r - l + 1); if (r < 8) { T.at({ cost: A(c, { win: [l, r] }), budget: I.maxCost }); T.n('Longest so far?', best, 'Shrink while over budget.'); } }); return best; }
   });
 
   D('replace-the-substring-for-balanced-string', {
     t: 'Replace the Substring for Balanced String',
-    r: 'Each letter should appear n/4 times. Find the shortest window such that the counts OUTSIDE it are all ≤ n/4 — replacing the window then fixes everything.',
+    r: 'Each letter should appear n divided by 4 times. Find the shortest window such that the counts OUTSIDE it are all at most n divided by 4 — replacing the window then fixes everything.',
     g: R => ({ s: R.str(4 * R.int(1, 3), 'QWER') }),
-    s(I, T) { const s = I.s, n = s.length, q = n / 4, c = { Q: 0, W: 0, E: 0, R: 0 }; for (const ch of s) c[ch]++; const ok = () => 'QWER'.split('').every(x => c[x] <= q); T.at({ counts: K(c), target: q }); T.yn('Already balanced?', ok(), 'Every letter ≤ n/4.'); if (ok()) return 0; let l = 0, best = n, asks = 0; for (let r = 0; r < n; r++) { c[s[r]]--; while (l < n && ok()) { best = Math.min(best, r - l + 1); if (asks++ < 6) { T.at({ s: A([...s], { win: [l, r] }), outside: K({ ...c }) }); T.n('Shortest valid window so far?', best, 'Outside counts all ≤ n/4.'); } c[s[l++]]++; } } return best; }
+    s(I, T) { const s = I.s, n = s.length, q = n / 4, c = { Q: 0, W: 0, E: 0, R: 0 }; for (const ch of s) c[ch]++; const ok = () => 'QWER'.split('').every(x => c[x] <= q); T.at({ counts: K(c), target: q }); T.yn('Already balanced?', ok(), 'Every letter at most n divided by 4.'); if (ok()) return 0; let l = 0, best = n, asks = 0; for (let r = 0; r < n; r++) { c[s[r]]--; while (l < n && ok()) { best = Math.min(best, r - l + 1); if (asks++ < 6) { T.at({ s: A([...s], { win: [l, r] }), outside: K({ ...c }) }); T.n('Shortest valid window so far?', best, 'Outside counts all at most n divided by 4.'); } c[s[l++]]++; } } return best; }
   });
 
   D('count-number-of-nice-subarrays', {
@@ -194,23 +194,23 @@
 
   D('maximum-number-of-occurrences-of-a-substring', {
     t: 'Maximum Number of Occurrences of a Substring',
-    r: 'A longer valid substring\'s occurrences contain those of its minSize prefix, so only length minSize matters. Count each window of length minSize with ≤ maxLetters distinct letters.',
+    r: 'A longer valid substring\'s occurrences contain those of its minSize prefix, so only length minSize matters. Count each window of length minSize with at most maxLetters distinct letters.',
     g: R => { const a = R.int(1, 3); return { s: R.str(R.int(2, 10), 'aab'), maxLetters: R.int(1, 3), minSize: a, maxSize: a + R.int(0, 2) }; },
-    s(I, T) { const c = new Map(); let asks = 0; for (let i = 0; i + I.minSize <= I.s.length; i++) { const w = I.s.substr(i, I.minSize), ok = new Set(w).size <= I.maxLetters; if (ok) c.set(w, (c.get(w) || 0) + 1); if (asks++ < 6) { T.at({ window: w, maxLetters: I.maxLetters }); T.yn('Valid substring?', ok, 'Distinct letters ≤ maxLetters.'); } } return Math.max(0, ...c.values()); }
+    s(I, T) { const c = new Map(); let asks = 0; for (let i = 0; i + I.minSize <= I.s.length; i++) { const w = I.s.substr(i, I.minSize), ok = new Set(w).size <= I.maxLetters; if (ok) c.set(w, (c.get(w) || 0) + 1); if (asks++ < 6) { T.at({ window: w, maxLetters: I.maxLetters }); T.yn('Valid substring?', ok, 'Distinct letters at most maxLetters.'); } } return Math.max(0, ...c.values()); }
   });
 
   D('number-of-sub-arrays-of-size-k-and-average-greater-than-or-equal-to-threshold', {
     t: 'Number of Sub-arrays of Size K and Average Greater than or Equal to Threshold',
-    r: 'Compare window sums with k × threshold (no division). Slide the fixed-size window and count qualifying sums.',
+    r: 'Compare window sums with k times threshold (no division). Slide the fixed-size window and count qualifying sums.',
     g: R => { const a = R.ints(R.int(1, 9), 1, 9); return { arr: a, k: R.int(1, a.length), threshold: R.int(2, 7) }; },
-    s(I, T) { let s = 0, c = 0, asks = 0; I.arr.forEach((x, i) => { s += x; if (i >= I.k) s -= I.arr[i - I.k]; if (i >= I.k - 1) { const ok = s >= I.k * I.threshold; if (ok) c++; if (asks++ < 6) { T.at({ arr: A(I.arr, { win: [i - I.k + 1, i] }), need: I.k * I.threshold }); T.yn('Window sum ≥ k × threshold?', ok, `Sum ${s}.`); } } }); return c; }
+    s(I, T) { let s = 0, c = 0, asks = 0; I.arr.forEach((x, i) => { s += x; if (i >= I.k) s -= I.arr[i - I.k]; if (i >= I.k - 1) { const ok = s >= I.k * I.threshold; if (ok) c++; if (asks++ < 6) { T.at({ arr: A(I.arr, { win: [i - I.k + 1, i] }), need: I.k * I.threshold }); T.yn('Window sum at least k times threshold?', ok, `Sum ${s}.`); } } }); return c; }
   });
 
   D('number-of-substrings-containing-all-three-characters', {
     t: 'Number of Substrings Containing All Three Characters',
     r: 'For each right end, shrink the left while the window still has a, b and c; then every start before l works — add l.',
     g: R => ({ s: R.str(R.int(3, 10), 'abc') }),
-    s(I, T) { const c = { a: 0, b: 0, c: 0 }; let l = 0, n = 0; [...I.s].forEach((ch, r) => { c[ch]++; while (c.a && c.b && c.c) c[I.s[l++]]--; n += l; if (r < 9) { T.at({ s: A([...I.s], { win: [l, r] }) }); T.n('Count so far?', n, 'Add l: starts 0..l−1 all contain a, b and c.'); } }); return n; }
+    s(I, T) { const c = { a: 0, b: 0, c: 0 }; let l = 0, n = 0; [...I.s].forEach((ch, r) => { c[ch]++; while (c.a && c.b && c.c) c[I.s[l++]]--; n += l; if (r < 9) { T.at({ s: A([...I.s], { win: [l, r] }) }); T.n('Count so far?', n, 'Add l: starts 0 to l−1 all contain a, b and c.'); } }); return n; }
   });
 
   D('maximum-points-you-can-obtain-from-cards', {
@@ -229,7 +229,7 @@
 
   D('check-if-a-string-contains-all-binary-codes-of-size-k', {
     t: 'Check If a String Contains All Binary Codes of Size K',
-    r: 'Slide a length-k window (rolling bitmask), adding each code to a set. All codes present iff the set size reaches 2^k.',
+    r: 'Slide a length-k window (rolling bitmask), adding each code to a set. All codes present exactly when the set size reaches 2 to the power k.',
     g: R => ({ s: R.str(R.int(1, 12), '01'), k: R.int(1, 3) }),
     s(I, T) { const res = (() => { const S = new Set(); for (let i = 0; i + I.k <= I.s.length; i++) S.add(I.s.substr(i, I.k)); T.at({ s: I.s, k: I.k }); T.n('Distinct codes seen?', S.size, 'Set of windows.'); T.n('Codes needed?', 1 << I.k, '2 to the power k.'); return S.size === 1 << I.k; })(); T.yn('Are all codes present?', res, 'Seen must equal needed.'); return res; }
   });
@@ -252,26 +252,26 @@
     t: 'Defuse the Bomb',
     r: 'Circular sliding window of size |k|: for k > 0 sum the next k values, for k < 0 the previous |k|, for k = 0 all zeros. Maintain the window sum as i moves.',
     g: R => { const n = R.int(1, 7); return { code: R.ints(n, 1, 9), k: R.int(-(n - 1), n - 1) }; },
-    s(I, T) { const c = I.code, n = c.length; return c.map((_, i) => { let s = 0; if (I.k > 0) for (let j = 1; j <= I.k; j++) s += c[(i + j) % n]; else for (let j = 1; j <= -I.k; j++) s += c[(i - j + n) % n]; if (i < 5) { T.at({ code: A(c, { i }), k: I.k }); T.n(`Decrypted value at ${i}?`, s, I.k > 0 ? 'Next k values.' : I.k < 0 ? 'Previous |k| values.' : 'k = 0 → 0.'); } return s; }); }
+    s(I, T) { const c = I.code, n = c.length; return c.map((_, i) => { let s = 0; if (I.k > 0) for (let j = 1; j <= I.k; j++) s += c[(i + j) % n]; else for (let j = 1; j <= -I.k; j++) s += c[(i - j + n) % n]; if (i < 5) { T.at({ code: A(c, { i }), k: I.k }); T.n(`Decrypted value at ${i}?`, s, I.k > 0 ? 'Next k values.' : I.k < 0 ? 'Previous |k| values.' : 'k = 0: 0.'); } return s; }); }
   });
 
   D('minimum-operations-to-reduce-x-to-zero', {
     t: 'Minimum Operations to Reduce X to Zero',
-    r: 'Removing from both ends leaves a middle subarray with sum total − x. Find the longest such window (all values positive → sliding window); answer = n − its length, or −1.',
+    r: 'Removing from both ends leaves a middle subarray with sum total − x. Find the longest such window (all values positive: sliding window); answer = n − its length, or −1.',
     g: R => ({ nums: R.ints(R.int(1, 8), 1, 5), x: R.int(1, 15) }),
     s(I, T) { const res = (() => { const a = I.nums, tgt = a.reduce((s, v) => s + v, 0) - I.x; T.at({ nums: A(a), x: I.x }); T.n('Total of nums?', a.reduce((s, v) => s + v, 0), 'Add every value.'); T.n('Target sum for the kept middle?', tgt, 'Total minus x.'); if (tgt < 0) return -1; let l = 0, s = 0, best = -1; for (let r = 0; r < a.length; r++) { s += a[r]; while (s > tgt && l <= r) s -= a[l++]; if (s === tgt) best = Math.max(best, r - l + 1); } if (tgt === 0) best = Math.max(best, 0); T.n('Longest middle window with that sum? (−1 if none)', best, 'Sliding window on positives.'); return best < 0 ? -1 : a.length - best; })(); T.n('Fewest operations? (−1 if impossible)', res, 'n minus the longest middle window.'); return res; }
   });
 
   D('minimum-adjacent-swaps-for-k-consecutive-ones', {
     t: 'Minimum Adjacent Swaps for K Consecutive Ones',
-    r: 'Take positions p of the ones and set q[i] = p[i] − i (gathering becomes "make q equal"). For each window of k consecutive q values, the cost is Σ|q − median|; slide with prefix sums and take the minimum.',
+    r: 'Take positions p of the ones and set q[i] = p[i] − i (gathering becomes "make q equal"). For each window of k consecutive q values, the cost is the sum of |q − median|; slide with prefix sums and take the minimum.',
     g: R => { const a = R.ints(R.int(2, 10), 0, 1); if (a.filter(x => x).length < 1) a[0] = 1; return { nums: a, k: R.int(1, a.filter(x => x).length) }; },
-    s(I, T) { const p = []; I.nums.forEach((v, i) => v && p.push(i)); const q = p.map((x, i) => x - i); T.at({ positions: A(p), shifted: A(q) }); T.n('Number of ones?', p.length, 'Positions list.'); let best = Infinity; for (let i = 0; i + I.k <= q.length; i++) { const w = q.slice(i, i + I.k), m = w[I.k >> 1], c = w.reduce((s, v) => s + Math.abs(v - m), 0); best = Math.min(best, c); if (i < 4) { T.at({ window: A(w), median: m }); T.n('Cost of this window?', c, 'Σ|q − median|.'); } } return best; }
+    s(I, T) { const p = []; I.nums.forEach((v, i) => v && p.push(i)); const q = p.map((x, i) => x - i); T.at({ positions: A(p), shifted: A(q) }); T.n('Number of ones?', p.length, 'Positions list.'); let best = Infinity; for (let i = 0; i + I.k <= q.length; i++) { const w = q.slice(i, i + I.k), m = w[I.k >> 1], c = w.reduce((s, v) => s + Math.abs(v - m), 0); best = Math.min(best, c); if (i < 4) { T.at({ window: A(w), median: m }); T.n('Cost of this window?', c, 'the sum of |q − median|.'); } } return best; }
   });
 
   D('frequency-of-the-most-frequent-element', {
     t: 'Frequency of the Most Frequent Element',
-    r: 'Sort. A window can be raised to its max a[r] at cost a[r]·len − sum. Slide: while cost > k, shrink from the left. The longest window is the answer.',
+    r: 'Sort. A window can be raised to its max a[r] at cost a[r] times len − sum. Slide: while cost > k, shrink from the left. The longest window is the answer.',
     g: R => ({ nums: R.ints(R.int(1, 8), 1, 9), k: R.int(0, 8) }),
     s(I, T) { const a = I.nums.slice().sort((x, y) => x - y); let l = 0, s = 0, best = 0; a.forEach((x, r) => { s += x; while (x * (r - l + 1) - s > I.k) s -= a[l++]; best = Math.max(best, r - l + 1); if (r < 8) { T.at({ sorted: A(a, { win: [l, r] }), k: I.k }); T.n('Best frequency so far?', best, 'Shrink while raising costs more than k.'); } }); return best; }
   });
@@ -320,16 +320,16 @@
 
   D('number-of-equal-count-substrings', {
     t: 'Number of Equal Count Substrings',
-    r: 'If u distinct letters each appear exactly count times, the length is u·count. For u = 1..26 slide a window of that fixed length and check every present letter has exactly count.',
+    r: 'If u distinct letters each appear exactly count times, the length is u times count. For u = 1 to 26 slide a window of that fixed length and check every present letter has exactly count.',
     g: R => ({ s: R.str(R.int(1, 10), 'abc'), count: R.int(1, 3) }),
     s(I, T) { let tot = 0; for (let u = 1; u <= 3; u++) { const L = u * I.count; let here = 0; for (let i = 0; i + L <= I.s.length; i++) { const c = {}; for (const ch of I.s.substr(i, L)) c[ch] = (c[ch] || 0) + 1; if (Object.values(c).every(v => v === I.count)) here++; } tot += here; T.at({ s: I.s, uniqueLetters: u, windowLength: L }); T.n('Equal-count windows of this length?', here, 'Every present letter appears exactly count times.'); } return tot; }
   });
 
   D('k-radius-subarray-averages', {
     t: 'K Radius Subarray Averages',
-    r: 'Slide a window of size 2k + 1 keeping the sum. Centers with a full window get ⌊sum / (2k + 1)⌋; others get −1.',
+    r: 'Slide a window of size 2k + 1 keeping the sum. Centers with a full window get sum divided by (2k + 1), rounded down; others get −1.',
     g: R => ({ nums: R.ints(R.int(1, 9), 0, 9), k: R.int(0, 3) }),
-    s(I, T) { const n = I.nums.length, w = 2 * I.k + 1, out = Array(n).fill(-1); let s = 0, asks = 0; for (let i = 0; i < n; i++) { s += I.nums[i]; if (i >= w) s -= I.nums[i - w]; if (i >= w - 1) { const c = i - I.k; out[c] = Math.floor(s / w); if (asks++ < 6) { T.at({ nums: A(I.nums, { win: [i - w + 1, i] }) }); T.n(`Average centered at ${c}?`, out[c], `⌊${s} / ${w}⌋.`); } } } if (!asks) { T.at({ n, windowSize: w }); T.yn('Does any full window fit?', false, 'All −1.'); } return out; }
+    s(I, T) { const n = I.nums.length, w = 2 * I.k + 1, out = Array(n).fill(-1); let s = 0, asks = 0; for (let i = 0; i < n; i++) { s += I.nums[i]; if (i >= w) s -= I.nums[i - w]; if (i >= w - 1) { const c = i - I.k; out[c] = Math.floor(s / w); if (asks++ < 6) { T.at({ nums: A(I.nums, { win: [i - w + 1, i] }) }); T.n(`Average centered at ${c}?`, out[c], `${s} divided by ${w}, rounded down.`); } } } if (!asks) { T.at({ n, windowSize: w }); T.yn('Does any full window fit?', false, 'All −1.'); } return out; }
   });
 
   D('number-of-unique-flavors-after-sharing-k-candies', {
@@ -348,9 +348,9 @@
 
   D('find-substring-with-given-hash-value', {
     t: 'Find Substring With Given Hash Value',
-    r: 'hash(s[i..i+k)) = Σ val(s[i+j]) · power^j mod m. Roll from the right end leftward (multiply by power, add the new char, drop the outgoing one times power^k); keep the leftmost match.',
+    r: 'hash(s[i to i+k)) = the sum of val(s[i+j]) times power to the power j mod m. Roll from the right end leftward (multiply by power, add the new char, drop the outgoing one times power to the power k); keep the leftmost match.',
     g: R => { const s = R.str(R.int(2, 9), 'abcd'), k = R.int(1, Math.min(3, s.length)), p = R.int(2, 9), m = R.int(5, 30), i = R.int(0, s.length - k), h = [...s.substr(i, k)].reduce((acc, ch, j) => (acc + (ch.charCodeAt(0) - 96) * p ** j) % m, 0); return { s, power: p, modulo: m, k, hashValue: h }; },
-    s(I, T) { const v = ch => BigInt(ch.charCodeAt(0) - 96), P = BigInt(I.power), M = BigInt(I.modulo); let asks = 0; for (let i = 0; i + I.k <= I.s.length; i++) { let h = 0n, pw = 1n; for (let j = 0; j < I.k; j++) { h = (h + v(I.s[i + j]) * pw) % M; pw = pw * P % M; } if (asks++ < 6) { T.at({ s: A([...I.s], { win: [i, i + I.k - 1] }), target: I.hashValue }); T.n('Hash of this window?', Number(h), 'Σ val · power^j mod m.'); } if (Number(h) === I.hashValue) return I.s.substr(i, I.k); } return ''; }
+    s(I, T) { const v = ch => BigInt(ch.charCodeAt(0) - 96), P = BigInt(I.power), M = BigInt(I.modulo); let asks = 0; for (let i = 0; i + I.k <= I.s.length; i++) { let h = 0n, pw = 1n; for (let j = 0; j < I.k; j++) { h = (h + v(I.s[i + j]) * pw) % M; pw = pw * P % M; } if (asks++ < 6) { T.at({ s: A([...I.s], { win: [i, i + I.k - 1] }), target: I.hashValue }); T.n('Hash of this window?', Number(h), 'the sum of val times power to the power j mod m.'); } if (Number(h) === I.hashValue) return I.s.substr(i, I.k); } return ''; }
   });
 
   D('minimum-consecutive-cards-to-pick-up', {

@@ -80,7 +80,7 @@
 
   D('labu-topic-767ecfc84dfe', {
     t: 'Backtracking Theory: The Decision Tree',
-    r: 'Fill a path of length k from the numbers 1 to m without reuse. Depth d has m − d choices, so the tree has m × (m − 1) × ... × (m − k + 1) leaves. Pruning a used number never drops a valid answer, because no extension of a repeated path can succeed.',
+    r: 'Fill a path of length k from the numbers 1 to m without reuse. Depth d has m − d choices, so the tree has m times (m − 1) times ... times (m − k + 1) leaves. Pruning a used number never drops a valid answer, because no extension of a repeated path can succeed.',
     exs: [{ in: { m: 2, k: 2 }, out: 2 }, { in: { m: 4, k: 2 }, out: 12 }],
     g: R => { const m = R.int(3, 5); return { m, k: R.int(2, m) }; },
     s(I, T) { const { m, k } = I; let leaves = 1, nodes = 1; T.at({ m, k }); for (let d = 0; d < k; d++) { if (d < 3) T.n(`How many choices at depth ${d}?`, m - d, `${d} numbers are already used.`); leaves *= m - d; nodes += leaves; } T.n('How many leaves (complete paths)?', leaves, 'Multiply the choices at each depth.'); T.yn('Is a path like [1, 1, ...] ever completed?', false, 'Reuse is pruned the moment it appears, and no extension could fix it.'); return leaves; }

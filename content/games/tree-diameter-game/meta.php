@@ -5,7 +5,7 @@ return [
     'title' => 'Tree Diameter (two BFS passes)',
     'leetcode' => 1245,
     'difficulty' => 'Med',
-    'summary' => 'BFS from any node to the farthest node A; BFS from A to the farthest node B. The distance A–B is the diameter.',
+    'summary' => 'BFS from any node to the farthest node A; BFS from A to the farthest node B. The distance A to B is the diameter.',
     'category' => 'LeetCode',
     'subcategory' => 'Graphs',
     'topic' => 'LeetCode · Graphs',

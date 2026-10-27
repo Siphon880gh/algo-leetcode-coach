@@ -64,7 +64,7 @@
 
   D('flip-equivalent-binary-trees', {
     t: 'Flip Equivalent Trees: match children either way',
-    r: 'Roots must match; then the children must match either straight (left–left, right–right) or flipped (left–right, right–left).',
+    r: 'Roots must match; then the children must match either straight (left-left, right-right) or flipped (left-right, right-left).',
     g: R => { const a = uniq(R, R.int(0, 7)); const flip = n => { if (!n) return null; const l = flip(n.left), r = flip(n.right); return R.chance(0.5) ? N(n.val, r, l) : N(n.val, l, r); }; let b = flip(a); if (b && R.chance(0.3)) { const x = R.pick(Tr.nodes(b)); x.val = 50; } return { root1: Tr.arr(a), root2: Tr.arr(b) }; },
     s(I, T) { const a = Tr.from(I.root1), b = Tr.from(I.root2); const v = x => x ? x.val : null; const go = (x, y) => { if (!x || !y) return x === y; if (x.val !== y.val) return false; const straight = v(x.left) === v(y.left) && v(x.right) === v(y.right); T.at({ root1: TR(a, { hit: x }), root2: TR(b, { hit: y }) }); T.c(`At ${x.val}, how do the children line up?`, ['straight', 'flipped'], straight ? 'straight' : 'flipped', 'Compare child values.'); return straight ? go(x.left, y.left) && go(x.right, y.right) : go(x.left, y.right) && go(x.right, y.left); }; return go(a, b); }
   });
@@ -142,7 +142,7 @@
 
   D('sum-of-root-to-leaf-binary-numbers', {
     t: 'Sum of Root-to-Leaf Binary Numbers: shift and add',
-    r: 'Carry cur = cur × 2 + bit down the tree; add cur at each leaf.',
+    r: 'Carry cur = cur times 2 + bit down the tree; add cur at each leaf.',
     g: R => ({ root: R.tree(R.int(1, 7), 0, 1) }),
     s(I, T) { const root = Tr.from(I.root); let s = 0; const go = (n, c) => { if (!n) return; c = c * 2 + n.val; if (leaf(n)) { T.at({ tree: TR(root, { hit: n }), total: s }); T.n('Number at this leaf?', c, 'Binary value of the path.'); s += c; } go(n.left, c); go(n.right, c); }; go(root, 0); return s; }
   });
@@ -170,14 +170,14 @@
 
   D('insufficient-nodes-in-root-to-leaf-paths', {
     t: 'Insufficient Nodes: prune bottom-up',
-    r: 'At a leaf, keep it if the path sum ≥ limit. At an internal node, prune the children first; if both are gone, this node is insufficient too.',
+    r: 'At a leaf, keep it if the path sum at least limit. At an internal node, prune the children first; if both are gone, this node is insufficient too.',
     g: R => ({ root: R.tree(R.int(1, 8), -4, 6), limit: R.int(-2, 10) }),
     s(I, T) { const root = Tr.from(I.root); const go = (n, s) => { s += n.val; if (leaf(n)) { T.at({ tree: TR(root, { hit: n }), pathSum: s }); T.yn(`Keep leaf ${n.val}?`, s >= I.limit, `${s} vs limit ${I.limit}.`); return s >= I.limit ? n : null; } if (n.left) n.left = go(n.left, s); if (n.right) n.right = go(n.right, s); return n.left || n.right ? n : null; }; return Tr.arr(go(root, 0)); }
   });
 
   D('path-in-zigzag-labelled-binary-tree', {
     t: 'Path in Zigzag Labelled Tree: mirror, then halve',
-    r: 'In a normal heap the parent is label / 2. Zigzag rows mirror labels within the row: parent = (2^level + 2^(level+1) − 1 − label) / 2.',
+    r: 'In a normal heap the parent is label divided by 2. Zigzag rows mirror labels within the row: parent = (2 to the power level + 2 to the power (level+1) − 1 − label) divided by 2.',
     g: R => ({ label: R.int(1, 100) }),
     s(I, T) { let l = I.label, lv = Math.floor(Math.log2(l)); const out = []; while (l >= 1) { out.push(l); if (l === 1) break; const p = Math.floor((2 ** lv + 2 ** (lv + 1) - 1 - l) / 2); T.at({ path: A(out.slice().reverse()), level: lv }); T.n(`Parent of ${l}?`, p, 'Mirror within the row, then halve.'); l = p; lv--; } return out.reverse(); }
   });
@@ -192,15 +192,15 @@
 
   D('maximum-average-subtree', {
     t: 'Maximum Average Subtree: (sum, count) bottom-up',
-    r: 'Each node returns its subtree sum and size; its average is sum / size. Track the best.',
+    r: 'Each node returns its subtree sum and size; its average is sum divided by size. Track the best.',
     g: R => ({ root: R.tree(R.int(1, 7), 0, 9) }),
     cmp: 'float',
-    s(I, T) { const root = Tr.from(I.root); let best = -Infinity; const go = n => { if (!n) return [0, 0]; const a = go(n.left), b = go(n.right), s = n.val + a[0] + b[0], c = 1 + a[1] + b[1]; T.at({ tree: TR(root, { hit: n }) }); T.n(`Subtree sum at ${n.val}?`, s, `${c} node(s).`); best = Math.max(best, s / c); return [s, c]; }; go(root); return best; }
+    s(I, T) { const root = Tr.from(I.root); let best = -Infinity; const go = n => { if (!n) return [0, 0]; const a = go(n.left), b = go(n.right), s = n.val + a[0] + b[0], c = 1 + a[1] + b[1]; T.at({ tree: TR(root, { hit: n }) }); T.n(`Subtree sum at ${n.val}?`, s, `${c} nodes.`); best = Math.max(best, s / c); return [s, c]; }; go(root); return best; }
   });
 
   D('binary-tree-coloring-game', {
     t: 'Binary Tree Coloring Game: take the biggest region',
-    r: 'Player 2 should color a neighbor of x: left child, right child or parent. Each choice claims that region; win if one region holds more than n / 2 nodes.',
+    r: 'Player 2 should color a neighbor of x: left child, right child or parent. Each choice claims that region; win if one region holds more than n divided by 2 nodes.',
     g: R => { let r; do r = uniq(R, R.int(1, 9)); while (Tr.size(r) % 2 === 0); return { root: Tr.arr(r), n: Tr.size(r), x: R.int(1, Tr.size(r)) }; },
     s(I, T) { const root = Tr.from(I.root), x = Tr.find(root, I.x), sz = Tr.size; const l = sz(x.left), r = sz(x.right), p = I.n - 1 - l - r; T.at({ tree: TR(root, { hit: x }) }); T.n('Nodes in x\'s left subtree?', l, 'Region if you take the left child.'); T.n('Nodes in x\'s right subtree?', r, 'Region if you take the right child.'); T.n('Nodes on the parent side?', p, 'n − 1 − left − right.'); return Math.max(l, r, p) > I.n / 2; }
   });
@@ -251,7 +251,7 @@
     t: 'Even-Valued Grandparent: pass parent and grandparent down',
     r: 'DFS carrying the parent and grandparent values; add a node when its grandparent is even.',
     g: R => ({ root: R.tree(R.int(1, 9), 1, 9) }),
-    s(I, T) { const root = Tr.from(I.root); let s = 0; const go = (n, p, g) => { if (!n) return; if (g !== null) { T.at({ tree: TR(root, { hit: n }), sum: s }); T.yn(`Is the grandparent of this ${n.val} (${g}) even?`, g % 2 === 0, 'Even grandparent → add.'); if (g % 2 === 0) s += n.val; } go(n.left, n.val, p); go(n.right, n.val, p); }; go(root, null, null); return s; }
+    s(I, T) { const root = Tr.from(I.root); let s = 0; const go = (n, p, g) => { if (!n) return; if (g !== null) { T.at({ tree: TR(root, { hit: n }), sum: s }); T.yn(`Is the grandparent of this ${n.val} (${g}) even?`, g % 2 === 0, 'Even grandparent: add.'); if (g % 2 === 0) s += n.val; } go(n.left, n.val, p); go(n.right, n.val, p); }; go(root, null, null); return s; }
   });
 
   D('delete-leaves-with-a-given-value', {
@@ -262,10 +262,10 @@
   });
 
   D('maximum-product-of-splitted-binary-tree', {
-    t: 'Maximum Product of Splitted Tree: s × (total − s)',
-    r: 'Compute the total, then every subtree sum s; cutting above that subtree gives s × (total − s). Take the max, then mod 1e9+7.',
+    t: 'Maximum Product of Splitted Tree: s times (total − s)',
+    r: 'Compute the total, then every subtree sum s; cutting above that subtree gives s times (total − s). Take the max, then mod 1e9+7.',
     g: R => ({ root: R.tree(R.int(2, 8), 1, 9) }),
-    s(I, T) { const root = Tr.from(I.root), sums = []; const go = n => { if (!n) return 0; const s = n.val + go(n.left) + go(n.right); sums.push([n, s]); return s; }; const tot = go(root); let best = 0n; for (const [n, s] of sums) { if (n === root) continue; const p = BigInt(s) * BigInt(tot - s); if (p > best) best = p; T.at({ tree: TR(root, { hit: n }), total: tot }); T.n(`Product if you cut above ${n.val}?`, Number(p), `${s} × ${tot - s}.`); } return Number(best % M); }
+    s(I, T) { const root = Tr.from(I.root), sums = []; const go = n => { if (!n) return 0; const s = n.val + go(n.left) + go(n.right); sums.push([n, s]); return s; }; const tot = go(root); let best = 0n; for (const [n, s] of sums) { if (n === root) continue; const p = BigInt(s) * BigInt(tot - s); if (p > best) best = p; T.at({ tree: TR(root, { hit: n }), total: tot }); T.n(`Product if you cut above ${n.val}?`, Number(p), `${s} times ${tot - s}.`); } return Number(best % M); }
   });
 
   D('linked-list-in-binary-tree', {

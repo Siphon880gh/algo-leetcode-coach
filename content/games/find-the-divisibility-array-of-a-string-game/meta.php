@@ -5,7 +5,7 @@ return [
     'title' => 'Divisibility Array: running remainder',
     'leetcode' => 2575,
     'difficulty' => 'Med',
-    'summary' => 'Keep r = (r·10 + digit) mod m for each prefix; div[i] = 1 exactly when r = 0.',
+    'summary' => 'Keep r = (r times 10 + digit) mod m for each prefix; div[i] = 1 exactly when r = 0.',
     'category' => 'LeetCode',
     'subcategory' => 'Math',
     'topic' => 'LeetCode · Math',

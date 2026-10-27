@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Clone Tree With Random Pointers: map old → new',
+    'title' => 'Clone Tree With Random Pointers: map old to new',
     'leetcode' => 1485,
     'difficulty' => 'Med',
     'summary' => 'First pass: copy every node into a map. Second pass: set left, right and random from the map.',

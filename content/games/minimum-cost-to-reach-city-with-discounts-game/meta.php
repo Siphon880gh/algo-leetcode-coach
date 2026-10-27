@@ -5,7 +5,7 @@ return [
     'title' => 'Min Cost to Reach City With Discounts',
     'leetcode' => 2093,
     'difficulty' => 'Med',
-    'summary' => 'Dijkstra on states (city, discounts used). Each highway costs toll, or ⌊toll/2⌋ if a discount remains.',
+    'summary' => 'Dijkstra on states (city, discounts used). Each highway costs toll, or half of toll, rounded down if a discount remains.',
     'category' => 'LeetCode',
     'subcategory' => 'Graphs',
     'topic' => 'LeetCode · Graphs',

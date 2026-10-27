@@ -5,7 +5,7 @@ return [
     'title' => 'Number of Sub-arrays of Size K and Average Greater than or Equal to Threshold',
     'leetcode' => 1343,
     'difficulty' => 'Med',
-    'summary' => 'Compare window sums with k × threshold (no division). Slide the fixed-size window and count qualifying sums.',
+    'summary' => 'Compare window sums with k times threshold (no division). Slide the fixed-size window and count qualifying sums.',
     'category' => 'LeetCode',
     'subcategory' => 'Sliding Window',
     'topic' => 'LeetCode · Sliding Window',

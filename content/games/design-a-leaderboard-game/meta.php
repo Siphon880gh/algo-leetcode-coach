@@ -5,7 +5,7 @@ return [
     'title' => 'Design A Leaderboard',
     'leetcode' => 1244,
     'difficulty' => 'Med',
-    'summary' => 'Map player → score. addScore adds (creating the player); top(K) sums the K largest scores; reset removes the player.',
+    'summary' => 'Map player to score. addScore adds (creating the player); top(K) sums the K largest scores; reset removes the player.',
     'category' => 'LeetCode',
     'subcategory' => 'Design',
     'topic' => 'LeetCode · Design',

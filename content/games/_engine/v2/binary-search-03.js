@@ -20,16 +20,16 @@
 
   D('maximum-running-time-of-n-computers', {
     t: 'Maximum Running Time of n Computers',
-    r: 'Binary search time t: each battery contributes at most t; t works if Σ min(b, t) ≥ n·t.',
+    r: 'Binary search time t: each battery contributes at most t; t works if the sum of min(b, t) at least n times t.',
     g: R => ({ n: R.int(1, 3), batteries: R.ints(R.int(3, 6), 1, 9) }),
     s(I, T) { const ok = t => I.batteries.reduce((s, b) => s + Math.min(b, t), 0) >= I.n * t; return lastTrue(0, Math.floor(I.batteries.reduce((a, b) => a + b, 0) / I.n), ok, T, t => ({ batteries: A(I.batteries), usable: I.batteries.reduce((s, b) => s + Math.min(b, t), 0) }), t => `Can ${I.n} computers run for ${t} minutes?`); }
   });
 
   D('minimum-time-to-complete-trips', {
     t: 'Minimum Time to Complete Trips',
-    r: 'Binary search t: trips = Σ ⌊t / time[i]⌋; the first t with trips ≥ total.',
+    r: 'Binary search t: trips = the sum of t divided by time[i], rounded down; the first t with trips at least total.',
     g: R => ({ time: R.ints(R.int(1, 4), 1, 6), totalTrips: R.int(1, 12) }),
-    s(I, T) { const tr = t => I.time.reduce((s, x) => s + Math.floor(t / x), 0); return firstTrue(1, Math.min(...I.time) * I.totalTrips, t => tr(t) >= I.totalTrips, T, t => ({ trips: tr(t) }), t => `By time ${t}, are there ≥ ${I.totalTrips} trips?`); }
+    s(I, T) { const tr = t => I.time.reduce((s, x) => s + Math.floor(t / x), 0); return firstTrue(1, Math.min(...I.time) * I.totalTrips, t => tr(t) >= I.totalTrips, T, t => ({ trips: tr(t) }), t => `By time ${t}, are there at least ${I.totalTrips} trips?`); }
   });
 
   D('sum-of-scores-of-built-strings', {
@@ -41,7 +41,7 @@
 
   D('maximum-candies-allocated-to-k-children', {
     t: 'Maximum Candies for k Children',
-    r: 'Binary search pile size x: Σ ⌊c / x⌋ piles; the largest x giving ≥ k piles (0 if none).',
+    r: 'Binary search pile size x: the sum of c divided by x (rounded down) piles; the largest x giving at least k piles (0 if none).',
     g: R => ({ candies: R.ints(R.int(1, 4), 1, 12), k: R.int(1, 12) }),
     s(I, T) { const piles = x => I.candies.reduce((s, c) => s + Math.floor(c / x), 0); return lastTrue(0, Math.max(...I.candies), x => x === 0 || piles(x) >= I.k, T, x => ({ candies: A(I.candies), piles: x ? piles(x) : '—' }), x => `Can ${I.k} children each get ${x}?`); }
   });
@@ -55,9 +55,9 @@
 
   D('number-of-flowers-in-full-bloom', {
     t: 'Flowers in Full Bloom: two sorted lists',
-    r: 'Sort starts and ends. Blooming at t = (#starts ≤ t) − (#ends < t), each found by binary search.',
+    r: 'Sort starts and ends. Blooming at t = (#starts at most t) − (#ends < t), each found by binary search.',
     g: R => ({ flowers: Array.from({ length: R.int(1, 5) }, () => { const s = R.int(1, 9); return [s, s + R.int(0, 4)]; }), people: R.ints(R.int(1, 4), 1, 12) }),
-    s(I, T) { const st = asc(I.flowers.map(f => f[0])), en = asc(I.flowers.map(f => f[1])); return I.people.map(t => { const a = upperBound(st, t), b = lowerBound(en, t); T.at({ starts: A(st), ends: A(en), time: t }); T.n(`Flowers started by ${t}?`, a, 'Starts ≤ t.'); return a - b; }); }
+    s(I, T) { const st = asc(I.flowers.map(f => f[0])), en = asc(I.flowers.map(f => f[1])); return I.people.map(t => { const a = upperBound(st, t), b = lowerBound(en, t); T.at({ starts: A(st), ends: A(en), time: t }); T.n(`Flowers started by ${t}?`, a, 'Starts at most t.'); return a - b; }); }
   });
 
   D('maximum-white-tiles-covered-by-a-carpet', {
@@ -69,14 +69,14 @@
 
   D('successful-pairs-of-spells-and-potions', {
     t: 'Successful Pairs of Spells and Potions',
-    r: 'Sort potions. For each spell s, binary search the first potion ≥ ⌈success / s⌉; everything after works.',
+    r: 'Sort potions. For each spell s, binary search the first potion at least (success divided by s, rounded up); everything after works.',
     g: R => ({ spells: R.ints(R.int(1, 4), 1, 6), potions: R.ints(R.int(1, 6), 1, 6), success: R.int(1, 30) }),
-    s(I, T) { const p = asc(I.potions); return I.spells.map(s => { const need = Math.ceil(I.success / s), k = lowerBound(p, need); T.at({ potions: A(p, { win: [k, p.length - 1] }), spell: s }); T.n(`Minimum potion strength for spell ${s}?`, need, `⌈${I.success}/${s}⌉.`); return p.length - k; }); }
+    s(I, T) { const p = asc(I.potions); return I.spells.map(s => { const need = Math.ceil(I.success / s), k = lowerBound(p, need); T.at({ potions: A(p, { win: [k, p.length - 1] }), spell: s }); T.n(`Minimum potion strength for spell ${s}?`, need, `${I.success} divided by ${s}, rounded up.`); return p.length - k; }); }
   });
 
   D('count-subarrays-with-score-less-than-k', {
     t: 'Subarrays With Score Less Than k',
-    r: 'Sliding window: extend right, shrink left while sum × length ≥ k; every window ending at r with start ≥ l counts.',
+    r: 'Sliding window: extend right, shrink left while sum times length at least k; every window ending at r with start at least l counts.',
     g: R => ({ nums: R.ints(R.int(1, 7), 1, 6), k: R.int(1, 40) }),
     s(I, T) { let l = 0, s = 0, c = 0; for (let r = 0; r < I.nums.length; r++) { s += I.nums[r]; while (l <= r && s * (r - l + 1) >= I.k) s -= I.nums[l++]; if (r < 6) { T.at({ nums: A(I.nums, { win: [l, r] }) }); T.n(`Valid subarrays ending at ${r}?`, r - l + 1, 'All starts from l to r.'); } c += r - l + 1; } return c; }
   });
@@ -90,58 +90,58 @@
 
   D('minimum-sum-of-squared-difference', {
     t: 'Minimum Sum of Squared Difference',
-    r: 'Only |d| matters and k = k1 + k2 unit moves. Binary search the cap L where cutting every difference to L costs ≤ k; spend the rest lowering capped ones by 1.',
+    r: 'Only |d| matters and k = k1 + k2 unit moves. Binary search the cap L where cutting every difference to L costs at most k; spend the rest lowering capped ones by 1.',
     g: R => { const n = R.int(1, 5); return { nums1: R.ints(n, 0, 9), nums2: R.ints(n, 0, 9), k1: R.int(0, 4), k2: R.int(0, 4) }; },
-    s(I, T) { const d = I.nums1.map((x, i) => Math.abs(x - I.nums2[i])), k = I.k1 + I.k2; T.at({ diffs: A(d), moves: k }); T.n('Total unit moves available?', k, 'k1 + k2 are interchangeable.'); if (d.reduce((a, b) => a + b, 0) <= k) return 0; const cost = L => d.reduce((s, x) => s + Math.max(0, x - L), 0); const L = firstTrue(0, Math.max(...d), L => cost(L) <= k, T, L => ({ cost: cost(L) }), L => `Can every difference be cut to ≤ ${L}?`); let r = k - cost(L); const e = d.map(x => Math.min(x, L)); for (let i = 0; i < e.length && r > 0; i++) if (e[i] === L && L > 0) { e[i]--; r--; } return e.reduce((s, x) => s + x * x, 0); }
+    s(I, T) { const d = I.nums1.map((x, i) => Math.abs(x - I.nums2[i])), k = I.k1 + I.k2; T.at({ diffs: A(d), moves: k }); T.n('Total unit moves available?', k, 'k1 + k2 are interchangeable.'); if (d.reduce((a, b) => a + b, 0) <= k) return 0; const cost = L => d.reduce((s, x) => s + Math.max(0, x - L), 0); const L = firstTrue(0, Math.max(...d), L => cost(L) <= k, T, L => ({ cost: cost(L) }), L => `Can every difference be cut to at most ${L}?`); let r = k - cost(L); const e = d.map(x => Math.min(x, L)); for (let i = 0; i < e.length && r > 0; i++) if (e[i] === L && L > 0) { e[i]--; r--; } return e.reduce((s, x) => s + x * x, 0); }
   });
 
   D('number-of-excellent-pairs', {
     t: 'Number of Excellent Pairs: popcount',
-    r: 'popcount(a OR b) + popcount(a AND b) = popcount(a) + popcount(b). Count distinct values by bit count; add cnt[i] · cnt[j] for every i + j ≥ k.',
+    r: 'popcount(a OR b) + popcount(a AND b) = popcount(a) + popcount(b). Count distinct values by bit count; add cnt[i] times cnt[j] for every i + j at least k.',
     g: R => ({ nums: R.ints(R.int(1, 6), 1, 15), k: R.int(1, 6) }),
     s(I, T) { const res = (() => { const u = [...new Set(I.nums)], c = Array(32).fill(0); u.forEach(x => c[pc(x)]++); T.at({ distinct: A(u), bitCounts: A(u.map(pc)) }); T.n('Distinct values?', u.length, 'Duplicates do not add pairs.'); T.n(`Bit count of ${u[0]}?`, pc(u[0]), 'Set bits.'); let t = 0; for (let i = 0; i < 32; i++) for (let j = 0; j < 32; j++) if (i + j >= I.k) t += c[i] * c[j]; return t; })(); T.n('Excellent pairs?', res, 'Pairs of bit counts adding to at least k.'); return res; }
   });
 
   D('maximum-number-of-groups-entering-a-competition', {
     t: 'Maximum Groups Entering a Competition',
-    r: 'Sorting makes later groups bigger in sum automatically; only sizes 1, 2, 3, … matter. The answer is the largest g with g(g + 1)/2 ≤ n.',
+    r: 'Sorting makes later groups bigger in sum automatically; only sizes 1, 2, 3, … matter. The answer is the largest g with g(g + 1) divided by 2 at most n.',
     g: R => ({ grades: R.ints(R.int(1, 20), 1, 20) }),
     s(I, T) { const n = I.grades.length; return lastTrue(1, n, g => g * (g + 1) / 2 <= n, T, g => ({ needed: g * (g + 1) / 2, n }), g => `Can we form ${g} groups (needs ${g * (g + 1) / 2} students)?`); }
   });
 
   D('median-of-a-row-wise-sorted-matrix', {
     t: 'Median of a Row-Wise Sorted Matrix',
-    r: 'Binary search value x: count entries ≤ x with a binary search per row. The first x with count > half is the median.',
+    r: 'Binary search value x: count entries at most x with a binary search per row. The first x with count > half is the median.',
     g: R => { const m = 2 * R.int(0, 2) + 1, n = 2 * R.int(0, 2) + 1; return { grid: Array.from({ length: m }, () => asc(R.ints(n, 1, 9))) }; },
-    s(I, T) { const g = I.grid, half = Math.floor(g.length * g[0].length / 2), cnt = x => g.reduce((s, r) => s + upperBound(r, x), 0); return firstTrue(1, 9, x => cnt(x) > half, T, x => ({ grid: G(g), countLE: cnt(x) }), x => `Are more than ${half} entries ≤ ${x}?`); }
+    s(I, T) { const g = I.grid, half = Math.floor(g.length * g[0].length / 2), cnt = x => g.reduce((s, r) => s + upperBound(r, x), 0); return firstTrue(1, 9, x => cnt(x) > half, T, x => ({ grid: G(g), countLE: cnt(x) }), x => `Are more than ${half} entries at most ${x}?`); }
   });
 
   D('longest-subsequence-with-limited-sum', {
     t: 'Longest Subsequence With Limited Sum',
     r: 'Take the smallest values first: sort, build prefix sums, and binary search how many fit under each query.',
     g: R => ({ nums: R.ints(R.int(1, 6), 1, 9), queries: R.ints(R.int(1, 3), 1, 25) }),
-    s(I, T) { const s = asc(I.nums), P = []; let x = 0; for (const v of s) P.push(x += v); return I.queries.map(q => { const k = upperBound(P, q); T.at({ prefix: A(P, { hl: [k - 1] }), query: q }); T.n(`Longest subsequence with sum ≤ ${q}?`, k, 'Prefix sums ≤ q.'); return k; }); }
+    s(I, T) { const s = asc(I.nums), P = []; let x = 0; for (const v of s) P.push(x += v); return I.queries.map(q => { const k = upperBound(P, q); T.at({ prefix: A(P, { hl: [k - 1] }), query: q }); T.n(`Longest subsequence with sum at most ${q}?`, k, 'Prefix sums at most q.'); return k; }); }
   });
 
   D('maximum-number-of-robots-within-budget', {
     t: 'Maximum Robots Within Budget',
-    r: 'Binary search window size k: slide a window with a monotonic deque for max(chargeTimes) and a running sum of costs; k works if some window costs ≤ budget.',
+    r: 'Binary search window size k: slide a window with a monotonic deque for max(chargeTimes) and a running sum of costs; k works if some window costs at most budget.',
     g: R => { const n = R.int(1, 6); return { chargeTimes: R.ints(n, 1, 9), runningCosts: R.ints(n, 1, 5), budget: R.int(1, 60) }; },
     s(I, T) { const c = I.chargeTimes, r = I.runningCosts, n = c.length; const ok = k => { for (let i = 0; i + k <= n; i++) { const mx = Math.max(...c.slice(i, i + k)), s = r.slice(i, i + k).reduce((a, b) => a + b, 0); if (mx + k * s <= I.budget) return true; } return false; }; return lastTrue(0, n, k => k === 0 || ok(k), T, () => ({ charge: A(c), cost: A(r) }), k => `Can ${k} consecutive robots fit in the budget?`); }
   });
 
   D('smallest-subarrays-with-maximum-bitwise-or', {
     t: 'Smallest Subarrays With Maximum OR',
-    r: 'Go right to left keeping, for each bit, the nearest index ≥ i where it is set. The answer for i reaches the farthest of those positions.',
+    r: 'Go right to left keeping, for each bit, the nearest index at least i where it is set. The answer for i reaches the farthest of those positions.',
     g: R => ({ nums: R.ints(R.int(1, 6), 0, 7) }),
     s(I, T) { const n = I.nums.length, last = Array(31).fill(-1), ans = Array(n); for (let i = n - 1; i >= 0; i--) { for (let b = 0; b < 31; b++) if (I.nums[i] >> b & 1) last[b] = i; let far = i; for (let b = 0; b < 31; b++) far = Math.max(far, last[b]); ans[i] = far - i + 1; T.at({ nums: A(I.nums, { win: [i, far] }) }); T.n(`Smallest length from index ${i}?`, ans[i], 'Reach the nearest holder of every bit.'); } return ans; }
   });
 
   D('minimum-cost-to-make-array-equal', {
     t: 'Minimum Cost to Make Array Equal',
-    r: 'cost(x) = Σ cost[i]·|nums[i] − x| is convex, minimized at the weighted median. Binary search where cost(x + 1) − cost(x) turns non-negative.',
+    r: 'cost(x) = the sum of cost[i] times |nums[i] − x| is convex, minimized at the weighted median. Binary search where cost(x + 1) − cost(x) turns non-negative.',
     g: R => { const n = R.int(1, 5); return { nums: R.ints(n, 1, 9), cost: R.ints(n, 1, 6) }; },
-    s(I, T) { const f = x => I.nums.reduce((s, v, i) => s + I.cost[i] * Math.abs(v - x), 0); const x = firstTrue(Math.min(...I.nums), Math.max(...I.nums), x => f(x + 1) >= f(x), T, x => ({ cost: f(x), next: f(x + 1) }), x => `Is cost(${x + 1}) ≥ cost(${x})?`); return f(x); }
+    s(I, T) { const f = x => I.nums.reduce((s, v, i) => s + I.cost[i] * Math.abs(v - x), 0); const x = firstTrue(Math.min(...I.nums), Math.max(...I.nums), x => f(x + 1) >= f(x), T, x => ({ cost: f(x), next: f(x + 1) }), x => `Is cost(${x + 1}) at least cost(${x})?`); return f(x); }
   });
 
   D('next-greater-element-iv', {
@@ -167,16 +167,16 @@
 
   D('minimize-the-maximum-of-two-arrays', {
     t: 'Minimize the Maximum of Two Arrays',
-    r: 'Binary search x: need x − ⌊x/d1⌋ ≥ c1, x − ⌊x/d2⌋ ≥ c2 and x − ⌊x/lcm⌋ ≥ c1 + c2.',
+    r: 'Binary search x: need x − (x divided by d1, rounded down) at least c1, x − (x divided by d2, rounded down) at least c2 and x − (x divided by lcm, rounded down) at least c1 + c2.',
     g: R => ({ divisor1: R.int(2, 6), divisor2: R.int(2, 6), uniqueCnt1: R.int(1, 6), uniqueCnt2: R.int(1, 6) }),
     s(I, T) { const l = I.divisor1 / gcd(I.divisor1, I.divisor2) * I.divisor2; const ok = x => x - Math.floor(x / I.divisor1) >= I.uniqueCnt1 && x - Math.floor(x / I.divisor2) >= I.uniqueCnt2 && x - Math.floor(x / l) >= I.uniqueCnt1 + I.uniqueCnt2; return firstTrue(1, 4 * (I.uniqueCnt1 + I.uniqueCnt2), ok, T, x => ({ notDiv1: x - Math.floor(x / I.divisor1), notDiv2: x - Math.floor(x / I.divisor2) }), x => `Is max value ${x} enough?`); }
   });
 
   D('maximum-tastiness-of-candy-basket', {
     t: 'Maximum Tastiness of a Candy Basket',
-    r: 'Sort prices. Binary search gap g: greedily pick candies at least g apart; g works if you pick ≥ k.',
+    r: 'Sort prices. Binary search gap g: greedily pick candies at least g apart; g works if you pick at least k.',
     g: R => { const n = R.int(2, 7); return { price: R.ints(n, 1, 20), k: R.int(2, n) }; },
-    s(I, T) { const p = asc(I.price), cnt = g => { let c = 1, last = p[0]; for (const x of p) if (x - last >= g) { c++; last = x; } return c; }; return lastTrue(0, p[p.length - 1] - p[0], g => cnt(g) >= I.k, T, g => ({ prices: A(p), picked: cnt(g) }), g => `Can ${I.k} candies be ≥ ${g} apart?`); }
+    s(I, T) { const p = asc(I.price), cnt = g => { let c = 1, last = p[0]; for (const x of p) if (x - last >= g) { c++; last = x; } return c; }; return lastTrue(0, p[p.length - 1] - p[0], g => cnt(g) >= I.k, T, g => ({ prices: A(p), picked: cnt(g) }), g => `Can ${I.k} candies be at least ${g} apart?`); }
   });
 
   D('maximize-the-minimum-powered-city', {
@@ -188,7 +188,7 @@
 
   D('maximum-count-of-positive-integer-and-negative-integer', {
     t: 'Max Count of Positives and Negatives',
-    r: 'Binary search the first index ≥ 0 (negatives before it) and the first index > 0 (positives after it).',
+    r: 'Binary search the first index at least 0 (negatives before it) and the first index > 0 (positives after it).',
     g: R => ({ nums: asc(R.ints(R.int(1, 8), -4, 4)) }),
     s(I, T) { const res = (() => { const a = I.nums, neg = lowerBound(a, 0), pos = a.length - upperBound(a, 0); T.at({ nums: A(a) }); T.n('How many negatives?', neg, 'First index with a value of at least 0.'); T.n('How many positives?', pos, 'After the last 0.'); return Math.max(neg, pos); })(); T.n('Larger of the two counts?', res, 'Compare them.'); return res; }
   });
@@ -202,9 +202,9 @@
 
   D('maximize-win-from-two-segments', {
     t: 'Maximize Win From Two Segments',
-    r: 'Slide a window [l, r] with positions[r] − positions[l] ≤ k. best[r + 1] = best prize count of one segment within the first r + 1 prizes; combine the current window with best[l].',
+    r: 'Slide a window [l, r] with positions[r] − positions[l] at most k. best[r + 1] = best prize count of one segment within the first r + 1 prizes; combine the current window with best[l].',
     g: R => ({ prizePositions: asc(R.ints(R.int(1, 8), 1, 9)), k: R.int(0, 3) }),
-    s(I, T) { const p = I.prizePositions, n = p.length, best = Array(n + 1).fill(0); let l = 0, ans = 0; for (let r = 0; r < n; r++) { while (p[r] - p[l] > I.k) l++; const w = r - l + 1; best[r + 1] = Math.max(best[r], w); ans = Math.max(ans, w + best[l]); if (r < 6) { T.at({ prizes: A(p, { win: [l, r] }) }); T.n(`Prizes in the window ending at ${r}?`, w, 'Shrink until it spans ≤ k.'); } } return ans; }
+    s(I, T) { const p = I.prizePositions, n = p.length, best = Array(n + 1).fill(0); let l = 0, ans = 0; for (let r = 0; r < n; r++) { while (p[r] - p[l] > I.k) l++; const w = r - l + 1; best[r + 1] = Math.max(best[r], w); ans = Math.max(ans, w + best[l]); if (r < 6) { T.at({ prizes: A(p, { win: [l, r] }) }); T.n(`Prizes in the window ending at ${r}?`, w, 'Shrink until it spans at most k.'); } } return ans; }
   });
 
   D('maximum-number-of-integers-to-choose-from-a-range-ii', {
@@ -216,30 +216,30 @@
 
   D('house-robber-iv', {
     t: 'House Robber IV: minimize the capability',
-    r: 'Binary search capability c: greedily rob any house ≤ c that is not adjacent to the last robbed. c works if you rob ≥ k houses.',
+    r: 'Binary search capability c: greedily rob any house at most c that is not adjacent to the last robbed. c works if you rob at least k houses.',
     g: R => { const n = R.int(1, 7); return { nums: R.ints(n, 1, 9), k: R.int(1, Math.floor((n + 1) / 2)) }; },
     s(I, T) { const cnt = c => { let k = 0, last = -2; I.nums.forEach((v, i) => { if (v <= c && i > last + 1) { k++; last = i; } }); return k; }; return firstTrue(Math.min(...I.nums), Math.max(...I.nums), c => cnt(c) >= I.k, T, c => ({ nums: A(I.nums), robbed: cnt(c) }), c => `With capability ${c}, can we rob ${I.k} houses?`); }
   });
 
   D('count-the-number-of-fair-pairs', {
     t: 'Count Fair Pairs',
-    r: 'Sort. For each i, binary search j > i with lower − a[i] ≤ a[j] ≤ upper − a[i].',
+    r: 'Sort. For each i, binary search j > i with lower − a[j] from a[i] to upper − a[i].',
     g: R => ({ nums: R.ints(R.int(1, 7), -3, 9), lower: R.int(0, 8), upper: R.int(8, 14) }),
     s(I, T) { const a = asc(I.nums); let c = 0; a.forEach((x, i) => { const rest = a.slice(i + 1), k = upperBound(rest, I.upper - x) - lowerBound(rest, I.lower - x); if (i < 4) { T.at({ sorted: A(a, { hl: [i] }) }); T.n(`Fair partners for ${x} to its right?`, k, `Values in [${I.lower - x}, ${I.upper - x}].`); } c += k; }); return c; }
   });
 
   D('subsequence-with-the-minimum-score', {
     t: 'Subsequence With the Minimum Score',
-    r: 'Remove one block t[i..j−1]. pre[i] = where in s the prefix t[0..i) ends (greedy); suf[j] = latest start of the suffix t[j..]. Valid if pre[i] ≤ suf[j]; minimize j − i.',
+    r: 'Remove one block t[i to j−1]. pre[i] = where in s the prefix t[0 to i) ends (greedy); suf[j] = latest start of the suffix t[j..]. Valid if pre[i] at most suf[j]; minimize j − i.',
     g: R => ({ s: R.str(R.int(1, 7), 'abc'), t: R.str(R.int(1, 5), 'abcz') }),
     s(I, T) { const res = (() => { const s = I.s, t = I.t, n = s.length, m = t.length, pre = [0], suf = Array(m + 1).fill(-1); suf[m] = n; for (let i = 0, p = 0; i < m; i++) { while (p < n && s[p] !== t[i]) p++; if (p >= n) break; pre.push(++p); } for (let j = m - 1, p = n - 1; j >= 0; j--) { while (p >= 0 && s[p] !== t[j]) p--; if (p < 0) break; suf[j] = p--; } T.at({ s: A([...s]), t: A([...t]) }); T.n('Longest prefix of t that is a subsequence of s?', pre.length - 1, 'Greedy left to right.'); T.n('Longest suffix of t that is a subsequence of s?', suf.slice(0, m).filter(v => v >= 0).length, 'Greedy right to left.'); let best = m; for (let i = 0; i < pre.length; i++) for (let j = i; j <= m; j++) if (suf[j] >= pre[i]) { best = Math.min(best, j - i); break; } return best; })(); T.n('Minimum score?', res, 'Smallest gap between a good prefix and a good suffix.'); return res; }
   });
 
   D('find-the-maximum-number-of-marked-indices', {
     t: 'Maximum Marked Indices',
-    r: 'Sort. Match the smallest half against the largest half with two pointers: pair a[i] with the next a[j] (from the middle) where 2·a[i] ≤ a[j].',
+    r: 'Sort. Match the smallest half against the largest half with two pointers: pair a[i] with the next a[j] (from the middle) where 2 times a[i] at most a[j].',
     g: R => ({ nums: R.ints(R.int(1, 8), 1, 12) }),
-    s(I, T) { const a = asc(I.nums), n = a.length; let i = 0, c = 0; for (let j = Math.ceil(n / 2); j < n && i < Math.floor(n / 2); j++) { const ok = 2 * a[i] <= a[j]; T.at({ sorted: A(a, { hl: [i, j] }) }); T.yn(`Can ${a[i]} pair with ${a[j]}?`, ok, '2·small ≤ big.'); if (ok) { c++; i++; } } if (n < 2) T.n('Pairs possible?', 0, 'Need two numbers.'); return 2 * c; }
+    s(I, T) { const a = asc(I.nums), n = a.length; let i = 0, c = 0; for (let j = Math.ceil(n / 2); j < n && i < Math.floor(n / 2); j++) { const ok = 2 * a[i] <= a[j]; T.at({ sorted: A(a, { hl: [i, j] }) }); T.yn(`Can ${a[i]} pair with ${a[j]}?`, ok, '2 times small at most big.'); if (ok) { c++; i++; } } if (n < 2) T.n('Pairs possible?', 0, 'Need two numbers.'); return 2 * c; }
   });
 
   D('minimum-time-to-complete-all-tasks', {
@@ -251,7 +251,7 @@
 
   D('minimum-time-to-repair-cars', {
     t: 'Minimum Time to Repair Cars',
-    r: 'A mechanic of rank r fixes ⌊√(t / r)⌋ cars in time t. Binary search the first t where the total ≥ cars.',
+    r: 'A mechanic of rank r fixes √(t divided by r) (rounded down) cars in time t. Binary search the first t where the total at least cars.',
     g: R => ({ ranks: R.ints(R.int(1, 4), 1, 5), cars: R.int(1, 12) }),
     s(I, T) { const fx = t => I.ranks.reduce((s, r) => s + Math.floor(Math.sqrt(t / r)), 0); return firstTrue(1, Math.min(...I.ranks) * I.cars * I.cars, t => fx(t) >= I.cars, T, t => ({ repaired: fx(t) }), t => `In time ${t}, can ${I.cars} cars be repaired?`); }
   });
@@ -265,29 +265,29 @@
 
   D('minimum-operations-to-make-all-array-elements-equal', {
     t: 'Operations to Make All Elements Equal to q',
-    r: 'Sort with prefix sums. For query q, binary search the split k: cost = q·k − P[k] + (P[n] − P[k]) − q·(n − k).',
+    r: 'Sort with prefix sums. For query q, binary search the split k: cost = q times k − P[k] + (P[n] − P[k]) − q times (n − k).',
     g: R => ({ nums: R.ints(R.int(1, 6), 1, 9), queries: R.ints(R.int(1, 3), 1, 10) }),
     s(I, T) { const a = asc(I.nums), n = a.length, P = [0]; a.forEach(x => P.push(P[P.length - 1] + x)); return I.queries.map(q => { const k = lowerBound(a, q); T.at({ sorted: A(a, { win: [0, k - 1] }), q }); T.n(`How many values are below ${q}?`, k, 'Binary search the split.'); return q * k - P[k] + P[n] - P[k] - q * (n - k); }); }
   });
 
   D('minimum-time-to-eat-all-grains', {
     t: 'Minimum Time to Eat All Grains',
-    r: 'Binary search time t. Greedily give each hen (left to right) the leftmost uneaten grain: if it is to the left at distance d ≤ t, the hen can still reach max(t − 2d, (t − d)/2) to the right.',
+    r: 'Binary search time t. Greedily give each hen (left to right) the leftmost uneaten grain: if it is to the left at distance d at most t, the hen can still reach max(t − 2d, (t − d) divided by 2) to the right.',
     g: R => ({ hens: R.ints(R.int(1, 3), 0, 12), grains: R.ints(R.int(1, 5), 0, 12) }),
     s(I, T) { const h = asc(I.hens), g = asc(I.grains); const ok = t => { let j = 0; for (const x of h) { if (j === g.length) break; let reach; if (g[j] < x) { const d = x - g[j]; if (d > t) return false; reach = x + Math.max(t - 2 * d, Math.floor((t - d) / 2)); } else reach = x + t; while (j < g.length && g[j] <= reach) j++; } return j === g.length; }; return firstTrue(0, 30, ok, T, () => ({ hens: A(h), grains: A(g) }), t => `Can all grains be eaten in ${t} seconds?`); }
   });
 
   D('minimum-operations-to-make-numbers-non-positive', {
     t: 'Make Numbers Non-Positive',
-    r: 'Binary search the operation count t: every element loses t·y; element v still needs ⌈(v − t·y) / (x − y)⌉ targeted operations. t works if that total ≤ t.',
+    r: 'Binary search the operation count t: every element loses t times y; element v still needs (v − t times y) divided by (x − y) (rounded up) targeted operations. t works if that total at most t.',
     g: R => { const y = R.int(1, 3); return { nums: R.ints(R.int(1, 5), 1, 12), x: y + R.int(1, 3), y }; },
     s(I, T) { const need = t => I.nums.reduce((s, v) => s + Math.max(0, Math.ceil((v - t * I.y) / (I.x - I.y))), 0); return firstTrue(0, Math.max(...I.nums), t => need(t) <= t, T, t => ({ nums: A(I.nums), targeted: need(t) }), t => `Are ${t} operations enough?`); }
   });
 
   D('maximum-beauty-of-an-array-after-applying-operation', {
     t: 'Maximum Beauty After Operations',
-    r: 'Each value can move within ±k, so equal values are possible iff max − min ≤ 2k. Sort and find the largest window with a[r] − a[l] ≤ 2k.',
+    r: 'Each value can move within ±k, so equal values are possible exactly when max − min at most 2k. Sort and find the largest window with a[r] − a[l] at most 2k.',
     g: R => ({ nums: R.ints(R.int(1, 7), 0, 12), k: R.int(0, 3) }),
-    s(I, T) { const a = asc(I.nums); let l = 0, best = 0; for (let r = 0; r < a.length; r++) { while (a[r] - a[l] > 2 * I.k) l++; if (r < 6) { T.at({ sorted: A(a, { win: [l, r] }), k: I.k }); T.n(`Window size ending at ${r}?`, r - l + 1, 'Span ≤ 2k.'); } best = Math.max(best, r - l + 1); } return best; }
+    s(I, T) { const a = asc(I.nums); let l = 0, best = 0; for (let r = 0; r < a.length; r++) { while (a[r] - a[l] > 2 * I.k) l++; if (r < 6) { T.at({ sorted: A(a, { win: [l, r] }), k: I.k }); T.n(`Window size ending at ${r}?`, r - l + 1, 'Span at most 2k.'); } best = Math.max(best, r - l + 1); } return best; }
   });
 })();

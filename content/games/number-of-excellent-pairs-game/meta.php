@@ -5,7 +5,7 @@ return [
     'title' => 'Number of Excellent Pairs: popcount',
     'leetcode' => 2354,
     'difficulty' => 'Hard',
-    'summary' => 'popcount(a OR b) + popcount(a AND b) = popcount(a) + popcount(b). Count distinct values by bit count; add cnt[i] · cnt[j] for every i + j ≥ k.',
+    'summary' => 'popcount(a OR b) + popcount(a AND b) = popcount(a) + popcount(b). Count distinct values by bit count; add cnt[i] times cnt[j] for every i + j at least k.',
     'category' => 'LeetCode',
     'subcategory' => 'Binary Search',
     'topic' => 'LeetCode · Binary Search',

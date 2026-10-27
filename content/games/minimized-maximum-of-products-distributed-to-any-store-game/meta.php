@@ -5,7 +5,7 @@ return [
     'title' => 'Minimized Maximum Products per Store',
     'leetcode' => 2064,
     'difficulty' => 'Med',
-    'summary' => 'Binary search the cap x: product type q needs ⌈q/x⌉ stores. x works if the total ≤ n.',
+    'summary' => 'Binary search the cap x: product type q needs q divided by x (rounded up) stores. x works if the total at most n.',
     'category' => 'LeetCode',
     'subcategory' => 'Binary Search',
     'topic' => 'LeetCode · Binary Search',

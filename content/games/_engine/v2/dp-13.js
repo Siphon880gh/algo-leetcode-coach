@@ -19,7 +19,7 @@
 
   D('minimum-substring-partition-of-equal-character-frequency', {
     t: 'Minimum Balanced Partition: every letter appears equally often',
-    r: 'dp[i] = fewest balanced pieces for s[0..i). Grow the last piece s[j..i−1] leftward, tracking counts; it is balanced if every present letter has the same count.',
+    r: 'dp[i] = fewest balanced pieces for s[0 to i). Grow the last piece s[j to i−1] leftward, tracking counts; it is balanced if every present letter has the same count.',
     g: R => ({ s: R.str(R.int(4, 7), 'abc') }),
     s(I, T) { const s = I.s, n = s.length, dp = [0]; for (let i = 1; i <= n; i++) { let b = Infinity; const c = {}; for (let j = i - 1; j >= 0; j--) { c[s[j]] = (c[s[j]] || 0) + 1; const v = Object.values(c); if (v.every(x => x === v[0])) b = Math.min(b, dp[j] + 1); } T.at({ s: A([...s], { hl: [i - 1] }), dp: A(dp.concat('?')) }); T.n(`dp[${i}]?`, b, 'Best balanced last piece.'); dp.push(b); } return dp[n]; }
   });
@@ -40,7 +40,7 @@
 
   D('find-the-minimum-cost-array-permutation', {
     t: 'Minimum Cost Array Permutation: a cycle starting at 0',
-    r: 'score = Σ |perm[i] − nums[perm[i+1]]| around the cycle. Rotation does not change it, so start at 0. Bitmask DP f(mask, last) = cheapest finish; build the lexicographically smallest optimal order greedily.',
+    r: 'score = the sum of |perm[i] − nums[perm[i+1]]| around the cycle. Rotation does not change it, so start at 0. Bitmask DP f(mask, last) = cheapest finish; build the lexicographically smallest optimal order greedily.',
     g: R => ({ nums: R.perm(R.int(3, 4)) }),
     s(I, T) {
       const a = I.nums, n = a.length, full = (1 << n) - 1, memo = new Map(), f = (m, l) => { if (m === full) return Math.abs(l - a[0]); const k = m * 16 + l; if (memo.has(k)) return memo.get(k); let b = Infinity; for (let j = 0; j < n; j++) if (!(m >> j & 1)) b = Math.min(b, Math.abs(l - a[j]) + f(m | 1 << j, j)); memo.set(k, b); return b; };
@@ -65,7 +65,7 @@
   D('maximum-total-reward-using-operations-ii', { t: 'Maximum Total Reward II: bitset of reachable totals', r: 'Same idea as part I with a bitset: for each sorted v, OR in (bits below v) shifted left by v.', g: R => ({ rewardValues: R.ints(R.int(4, 7), 1, 12) }), s: reward });
 
   D('the-number-of-ways-to-make-the-sum', {
-    t: 'The Number of Ways to Make the Sum: unlimited 1/2/6, at most two 4s',
+    t: 'The Number of Ways to Make the Sum: unlimited 1s, 2s and 6s, at most two 4s',
     r: 'Count combinations with coins 1, 2, 6 (coin-change DP, coin by coin). Then add the 4s: answer = dp[n] + dp[n − 4] + dp[n − 8].',
     g: R => ({ n: R.int(4, 14) }),
     s(I, T) { const dp = Array(I.n + 1).fill(0); dp[0] = 1; for (const c of [1, 2, 6]) { for (let s = c; s <= I.n; s++) dp[s] = (dp[s] + dp[s - c]) % MOD; T.at({ coins: `up to ${c}`, n: I.n }); T.n(`Ways to make ${I.n} with coins up to ${c}?`, dp[I.n], 'Coin-change, one coin type at a time.'); } const g = x => x >= 0 ? dp[x] : 0; return (g(I.n) + g(I.n - 4) + g(I.n - 8)) % MOD; }
@@ -73,23 +73,23 @@
 
   D('maximum-total-damage-with-spell-casting', {
     t: 'Maximum Total Damage: no damage within 2 of another',
-    r: 'Group by damage value: total[v] = v · count. Sorted distinct values: dp[i] = max(dp[i−1], total[i] + dp[j]) where j is the last value < v − 2.',
+    r: 'Group by damage value: total[v] = v times count. Sorted distinct values: dp[i] = max(dp[i−1], total[i] + dp[j]) where j is the last value < v − 2.',
     g: R => ({ power: R.ints(R.int(4, 7), 1, 9) }),
-    s(I, T) { const c = {}; I.power.forEach(x => c[x] = (c[x] || 0) + 1); const v = Object.keys(c).map(Number).sort((a, b) => a - b), dp = []; v.forEach((x, i) => { let j = i - 1; while (j >= 0 && v[j] >= x - 2) j--; const val = Math.max(i ? dp[i - 1] : 0, x * c[x] + (j >= 0 ? dp[j] : 0)); T.at({ values: A(v, { hl: [i] }), dp: A(dp.concat('?')) }); T.n(`Best damage using values up to ${x}?`, val, `Skip it, or take ${x}·${c[x]} plus the best below ${x - 2}.`); dp.push(val); }); return dp[v.length - 1]; }
+    s(I, T) { const c = {}; I.power.forEach(x => c[x] = (c[x] || 0) + 1); const v = Object.keys(c).map(Number).sort((a, b) => a - b), dp = []; v.forEach((x, i) => { let j = i - 1; while (j >= 0 && v[j] >= x - 2) j--; const val = Math.max(i ? dp[i - 1] : 0, x * c[x] + (j >= 0 ? dp[j] : 0)); T.at({ values: A(v, { hl: [i] }), dp: A(dp.concat('?')) }); T.n(`Best damage using values up to ${x}?`, val, `Skip it, or take ${x} times ${c[x]} plus the best below ${x - 2}.`); dp.push(val); }); return dp[v.length - 1]; }
   });
 
   D('minimum-operations-to-make-binary-array-elements-equal-to-one-ii', {
     t: 'Make Binary Array All Ones II: flip suffixes, track parity',
     r: 'Scan left to right with flips = suffix flips so far. The current value is nums[i] XOR (flips odd). If it is 0, flip the suffix here.',
     g: R => ({ nums: Array.from({ length: R.int(4, 7) }, () => R.int(0, 1)) }),
-    s(I, T) { let f = 0; I.nums.forEach((x, i) => { const cur = x ^ (f & 1); T.at({ nums: A(I.nums, { hl: [i] }), flips: f }); T.yn(`Flip the suffix at ${i}?`, cur === 0, `Current value ${x} after ${f} flip(s) is ${cur}.`); if (!cur) f++; }); return f; }
+    s(I, T) { let f = 0; I.nums.forEach((x, i) => { const cur = x ^ (f & 1); T.at({ nums: A(I.nums, { hl: [i] }), flips: f }); T.yn(`Flip the suffix at ${i}?`, cur === 0, `Current value ${x} after ${f} flips is ${cur}.`); if (!cur) f++; }); return f; }
   });
 
   D('count-the-number-of-inversions', {
     t: 'Count the Number of Inversions: insert the next element by rank',
-    r: 'dp[i][c] = permutations of the first i + 1 positions with c inversions. The new element can create 0..i inversions: dp[i][c] = Σ dp[i−1][c − t]. If a requirement exists for end i, keep only that c.',
+    r: 'dp[i][c] = permutations of the first i + 1 positions with c inversions. The new element can create 0 to i inversions: dp[i][c] = the sum of dp[i−1][c − t]. If a requirement exists for end i, keep only that c.',
     g: R => { const n = R.int(3, 4); return { n, requirements: [[n - 1, R.int(0, Math.min(4, n * (n - 1) / 2))], [0, 0]] }; },
-    s(I, T) { const req = new Map(I.requirements.map(([e, c]) => [e, c])), M = 400; let dp = Array(M + 1).fill(0); dp[0] = 1; for (let i = 1; i < I.n; i++) { const nx = Array(M + 1).fill(0); for (let c = 0; c <= M; c++) for (let t = 0; t <= i && t <= c; t++) nx[c] = (nx[c] + dp[c - t]) % MOD; if (req.has(i)) nx.forEach((_, c) => { if (c !== req.get(i)) nx[c] = 0; }); dp = nx; T.at({ prefix: i + 1, requirement: req.has(i) ? `exactly ${req.get(i)}` : 'none' }); T.n(`Valid arrangements of the first ${i + 1} positions?`, dp.reduce((a, b) => (a + b) % MOD, 0), 'The new element adds 0..i inversions; filter by the requirement.'); } return dp.reduce((a, b) => (a + b) % MOD, 0); }
+    s(I, T) { const req = new Map(I.requirements.map(([e, c]) => [e, c])), M = 400; let dp = Array(M + 1).fill(0); dp[0] = 1; for (let i = 1; i < I.n; i++) { const nx = Array(M + 1).fill(0); for (let c = 0; c <= M; c++) for (let t = 0; t <= i && t <= c; t++) nx[c] = (nx[c] + dp[c - t]) % MOD; if (req.has(i)) nx.forEach((_, c) => { if (c !== req.get(i)) nx[c] = 0; }); dp = nx; T.at({ prefix: i + 1, requirement: req.has(i) ? `exactly ${req.get(i)}` : 'none' }); T.n(`Valid arrangements of the first ${i + 1} positions?`, dp.reduce((a, b) => (a + b) % MOD, 0), 'The new element adds 0 to i inversions; filter by the requirement.'); } return dp.reduce((a, b) => (a + b) % MOD, 0); }
   });
 
   D('maximize-total-cost-of-alternating-subarrays', {
@@ -114,20 +114,20 @@
   });
 
   D('maximum-array-hopping-score-i', {
-    t: 'Maximum Array Hopping Score I: hop to j earns (j − i)·nums[j]',
-    r: 'dp[j] = max over i < j of dp[i] + (j − i)·nums[j]. (Greedy: always hop to the largest value to the right.)',
+    t: 'Maximum Array Hopping Score I: hop to j earns (j − i) times nums[j]',
+    r: 'dp[j] = max over i < j of dp[i] + (j − i) times nums[j]. (Greedy: always hop to the largest value to the right.)',
     g: R => ({ nums: R.ints(R.int(4, 6), 1, 9) }),
-    s(I, T) { const a = I.nums, dp = [0]; for (let j = 1; j < a.length; j++) { let b = -Infinity; for (let i = 0; i < j; i++) b = Math.max(b, dp[i] + (j - i) * a[j]); T.at({ nums: A(a, { hl: [j] }), dp: A(dp.concat('?')) }); T.n(`dp[${j}]?`, b, 'Best earlier landing plus (j − i)·nums[j].'); dp.push(b); } return dp[a.length - 1]; }
+    s(I, T) { const a = I.nums, dp = [0]; for (let j = 1; j < a.length; j++) { let b = -Infinity; for (let i = 0; i < j; i++) b = Math.max(b, dp[i] + (j - i) * a[j]); T.at({ nums: A(a, { hl: [j] }), dp: A(dp.concat('?')) }); T.n(`dp[${j}]?`, b, 'Best earlier landing plus (j − i) times nums[j].'); dp.push(b); } return dp[a.length - 1]; }
   });
 
-  D('construct-string-with-minimum-cost', { t: 'Construct String With Minimum Cost: DP over target prefixes', r: 'dp[i] = cheapest way to build target[0..i). From every reachable i, append each word that matches target at i (Aho–Corasick or hashing in the fast version).', g: genBuild, s: build });
-  D('construct-string-with-minimum-cost-easy', { t: 'Construct String With Minimum Cost (Easy): DP over target prefixes', r: 'dp[i] = cheapest way to build target[0..i). From each reachable i, try every word that matches target starting at i.', g: genBuild, s: build });
+  D('construct-string-with-minimum-cost', { t: 'Construct String With Minimum Cost: DP over target prefixes', r: 'dp[i] = cheapest way to build target[0 to i). From every reachable i, append each word that matches target at i (Aho-Corasick or hashing in the fast version).', g: genBuild, s: build });
+  D('construct-string-with-minimum-cost-easy', { t: 'Construct String With Minimum Cost (Easy): DP over target prefixes', r: 'dp[i] = cheapest way to build target[0 to i). From each reachable i, try every word that matches target starting at i.', g: genBuild, s: build });
 
   D('minimum-cost-for-cutting-cake-i', {
     t: 'Minimum Cost for Cutting Cake I: expensive cuts first',
     r: 'Sort both cut lists descending. Repeatedly make the more expensive next cut; it is paid once per piece across the other direction (pieces = cuts made in the other direction + 1).',
     g: R => { const m = R.int(2, 4), n = R.int(2, 4); return { m, n, horizontalCut: R.ints(m - 1, 1, 9), verticalCut: R.ints(n - 1, 1, 9) }; },
-    s(I, T) { const h = I.horizontalCut.slice().sort((a, b) => b - a), v = I.verticalCut.slice().sort((a, b) => b - a); let i = 0, j = 0, tot = 0; while (i < h.length || j < v.length) { const hor = j >= v.length || (i < h.length && h[i] >= v[j]); const c = hor ? h[i] * (j + 1) : v[j] * (i + 1); T.at({ horizontal: A(h, { i }), vertical: A(v, { i: j }), total: tot }); T.n(`Cost of the next ${hor ? 'horizontal' : 'vertical'} cut (${hor ? h[i] : v[j]})?`, c, `${hor ? h[i] : v[j]} × ${hor ? j + 1 : i + 1} pieces.`); tot += c; if (hor) i++; else j++; } return tot; }
+    s(I, T) { const h = I.horizontalCut.slice().sort((a, b) => b - a), v = I.verticalCut.slice().sort((a, b) => b - a); let i = 0, j = 0, tot = 0; while (i < h.length || j < v.length) { const hor = j >= v.length || (i < h.length && h[i] >= v[j]); const c = hor ? h[i] * (j + 1) : v[j] * (i + 1); T.at({ horizontal: A(h, { i }), vertical: A(v, { i: j }), total: tot }); T.n(`Cost of the next ${hor ? 'horizontal' : 'vertical'} cut (${hor ? h[i] : v[j]})?`, c, `${hor ? h[i] : v[j]} times ${hor ? j + 1 : i + 1} pieces.`); tot += c; if (hor) i++; else j++; } return tot; }
   });
 
   D('maximum-score-from-grid-operations', {
@@ -150,14 +150,14 @@
 
   D('number-of-subsequences-with-odd-sum', {
     t: 'Number of Subsequences With Odd Sum: even and odd counts',
-    r: 'odd / even = subsequences with odd / even sum so far. An odd x: odd\' = odd + even + 1, even\' = even + odd. An even x: odd\' = 2·odd, even\' = 2·even + 1.',
+    r: 'odd and even = subsequences with odd or even sum so far. An odd x: odd\' = odd + even + 1, even\' = even + odd. An even x: odd\' = 2 times odd, even\' = 2 times even + 1.',
     g: R => ({ nums: R.ints(R.int(3, 5), 1, 6) }),
     s(I, T) { let o = 0, e = 0; I.nums.forEach((x, i) => { const no = x % 2 ? (o + e + 1) % MOD : 2 * o % MOD, ne = x % 2 ? (e + o) % MOD : (2 * e + 1) % MOD; T.at({ nums: A(I.nums, { hl: [i] }), odd: o, even: e }); T.n(`After ${x}: odd-sum subsequences?`, no, x % 2 ? 'An odd number flips parity: odd + even + 1.' : 'An even number keeps parity: odd doubles.'); o = no; e = ne; }); return o; }
   });
 
-  const mono = (I, T) => { const a = I.nums; let dp = Array(a[0] + 1).fill(1); for (let i = 1; i < a.length; i++) { const d = Math.max(0, a[i] - a[i - 1]), pre = []; dp.reduce((s, v, k) => (pre[k] = (s + v) % MOD, pre[k]), 0); dp = [...Array(a[i] + 1).keys()].map(v => v - d >= 0 ? pre[Math.min(v - d, pre.length - 1)] : 0); T.at({ nums: A(a, { hl: [i] }), shift: d }); T.n(`Through index ${i}: monotonic pairs so far?`, dp.reduce((x, y) => (x + y) % MOD, 0), `arr1[${i}] = v takes every u ≤ v − ${d}.`); } return dp.reduce((x, y) => (x + y) % MOD, 0); };
-  D('find-the-count-of-monotonic-pairs-i', { t: 'Count of Monotonic Pairs I: arr1 rises, arr2 falls', r: 'Pick arr1[i] = v (arr2[i] = nums[i] − v). Need u ≤ v and nums[i−1] − u ≥ nums[i] − v, i.e. u ≤ v − max(0, nums[i] − nums[i−1]). dp with prefix sums over v.', g: R => ({ nums: R.ints(R.int(2, 4), 1, 5) }), s: mono });
-  D('find-the-count-of-monotonic-pairs-ii', { t: 'Count of Monotonic Pairs II: the same DP with prefix sums', r: 'dp[i][v] = Σ dp[i−1][u] for u ≤ v − max(0, nums[i] − nums[i−1]); prefix sums make each row O(max value).', g: R => ({ nums: R.ints(R.int(3, 4), 1, 6) }), s: mono });
+  const mono = (I, T) => { const a = I.nums; let dp = Array(a[0] + 1).fill(1); for (let i = 1; i < a.length; i++) { const d = Math.max(0, a[i] - a[i - 1]), pre = []; dp.reduce((s, v, k) => (pre[k] = (s + v) % MOD, pre[k]), 0); dp = [...Array(a[i] + 1).keys()].map(v => v - d >= 0 ? pre[Math.min(v - d, pre.length - 1)] : 0); T.at({ nums: A(a, { hl: [i] }), shift: d }); T.n(`Through index ${i}: monotonic pairs so far?`, dp.reduce((x, y) => (x + y) % MOD, 0), `arr1[${i}] = v takes every u at most v − ${d}.`); } return dp.reduce((x, y) => (x + y) % MOD, 0); };
+  D('find-the-count-of-monotonic-pairs-i', { t: 'Count of Monotonic Pairs I: arr1 rises, arr2 falls', r: 'Pick arr1[i] = v (arr2[i] = nums[i] − v). Need u at most v and nums[i−1] − u at least nums[i] − v, i.e. u at most v − max(0, nums[i] − nums[i−1]). dp with prefix sums over v.', g: R => ({ nums: R.ints(R.int(2, 4), 1, 5) }), s: mono });
+  D('find-the-count-of-monotonic-pairs-ii', { t: 'Count of Monotonic Pairs II: the same DP with prefix sums', r: 'dp[i][v] = the sum of dp[i−1][u] for u at most v − max(0, nums[i] − nums[i−1]); prefix sums make each row O(max value).', g: R => ({ nums: R.ints(R.int(3, 4), 1, 6) }), s: mono });
 
   D('maximum-value-sum-by-placing-three-rooks-i', { t: 'Three Rooks I: distinct rows and columns', r: 'Only the top 3 cells of each row can matter. Try triples of rows with their top-3 candidates, keeping columns distinct.', g: R => ({ board: R.grid(3, R.int(3, 4), -3, 6) }), s: rooks });
   D('maximum-value-sum-by-placing-three-rooks-ii', { t: 'Three Rooks II: prune to the top cells', r: 'Keep the top 3 cells per row (and per column), then search the few remaining candidates for three non-attacking rooks.', g: R => ({ board: R.grid(R.int(3, 4), 3, -3, 6) }), s: rooks });

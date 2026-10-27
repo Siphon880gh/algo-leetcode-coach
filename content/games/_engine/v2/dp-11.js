@@ -8,14 +8,14 @@
 
   D('number-of-subarrays-having-even-product', {
     t: 'Number of Subarrays Having Even Product: remember the last even number',
-    r: 'A subarray ending at i has an even product iff it contains an even number. If the last even index is e, there are e + 1 such subarrays ending at i.',
+    r: 'A subarray ending at i has an even product exactly when it contains an even number. If the last even index is e, there are e + 1 such subarrays ending at i.',
     g: R => ({ nums: R.ints(R.int(4, 7), 1, 9) }),
     s(I, T) { let e = -1, tot = 0; I.nums.forEach((x, i) => { if (x % 2 === 0) e = i; T.at({ nums: A(I.nums, { hl: [i] }), lastEven: e, total: tot }); T.n(`Even-product subarrays ending at ${i}?`, e + 1, `Any start up to the last even index ${e}.`); tot += e + 1; }); return tot; }
   });
 
   D('longest-square-streak-in-an-array', {
     t: 'Longest Square Streak: chain each value to its square root',
-    r: 'Sort the distinct values. streak[x] = streak[√x] + 1 if √x is an integer in the set, else 1. Answer: longest streak if ≥ 2, else −1.',
+    r: 'Sort the distinct values. streak[x] = streak[√x] + 1 if √x is an integer in the set, else 1. Answer: longest streak if at least 2, else −1.',
     g: R => ({ nums: R.shuffle([2, 4, 16, 3, 9, 5, 25, 6, 8, 7].slice(0, R.int(5, 8))) }),
     s(I, T) { const v = [...new Set(I.nums)].sort((a, b) => a - b), st = new Map(); let best = 0; for (const x of v) { const r = Math.round(Math.sqrt(x)), s = r * r === x && st.has(r) ? st.get(r) + 1 : 1; T.at({ sorted: A(v, { hl: [v.indexOf(x)] }), streaks: K([...st].map(([a, b]) => [String(a), b])) }); T.n(`Streak ending at ${x}?`, s, r * r === x && st.has(r) ? `${x} = ${r}²: extend ${r}'s streak.` : 'No square root in the set.'); st.set(x, s); best = Math.max(best, s); } return best >= 2 ? best : -1; }
   });
@@ -24,47 +24,47 @@
     t: 'Path With Equal 0s and 1s: min and max ones per cell',
     r: 'The path has m + n − 1 cells, which must be even. Track the fewest and most 1s on any path to each cell; every count in between is achievable. Check that half the length lies in [min, max] at the end.',
     g: R => ({ grid: R.grid(R.int(2, 3), R.int(2, 4), 0, 1) }),
-    s(I, T) { const g = I.grid, m = g.length, n = g[0].length, L = m + n - 1; T.at({ grid: G(g) }); T.yn(`Is the path length ${L} even?`, L % 2 === 0, 'Equal counts need an even length.'); if (L % 2) return false; const lo = mk(m, n, 0), hi = mk(m, n, 0); for (let r = 0; r < m; r++) for (let c = 0; c < n; c++) { const p = []; if (r) p.push([lo[r - 1][c], hi[r - 1][c]]); if (c) p.push([lo[r][c - 1], hi[r][c - 1]]); lo[r][c] = (p.length ? Math.min(...p.map(x => x[0])) : 0) + g[r][c]; hi[r][c] = (p.length ? Math.max(...p.map(x => x[1])) : 0) + g[r][c]; } T.n('Fewest 1s on a path to the end?', lo[m - 1][n - 1], 'Min from above/left plus this cell.'); T.n('Most 1s on a path to the end?', hi[m - 1][n - 1], 'Max from above/left plus this cell.'); return lo[m - 1][n - 1] <= L / 2 && L / 2 <= hi[m - 1][n - 1]; }
+    s(I, T) { const g = I.grid, m = g.length, n = g[0].length, L = m + n - 1; T.at({ grid: G(g) }); T.yn(`Is the path length ${L} even?`, L % 2 === 0, 'Equal counts need an even length.'); if (L % 2) return false; const lo = mk(m, n, 0), hi = mk(m, n, 0); for (let r = 0; r < m; r++) for (let c = 0; c < n; c++) { const p = []; if (r) p.push([lo[r - 1][c], hi[r - 1][c]]); if (c) p.push([lo[r][c - 1], hi[r][c - 1]]); lo[r][c] = (p.length ? Math.min(...p.map(x => x[0])) : 0) + g[r][c]; hi[r][c] = (p.length ? Math.max(...p.map(x => x[1])) : 0) + g[r][c]; } T.n('Fewest 1s on a path to the end?', lo[m - 1][n - 1], 'Min from above or left plus this cell.'); T.n('Most 1s on a path to the end?', hi[m - 1][n - 1], 'Max from above or left plus this cell.'); return lo[m - 1][n - 1] <= L / 2 && L / 2 <= hi[m - 1][n - 1]; }
   });
 
   D('number-of-great-partitions', {
     t: 'Number of Great Partitions: subtract the bad ones',
-    r: 'If total < 2k, nothing works. Otherwise a partition is bad if one group sums to < k. Count subsets with sum < k (knapsack); answer = 2^n − 2 · that count.',
+    r: 'If total < 2k, nothing works. Otherwise a partition is bad if one group sums to < k. Count subsets with sum < k (knapsack); answer = 2 to the power n − 2 times that count.',
     g: R => ({ nums: R.ints(R.int(3, 5), 1, 6), k: R.int(2, 6) }),
     s(I, T) { const S = I.nums.reduce((a, b) => a + b, 0); T.at({ nums: A(I.nums), k: I.k }); T.yn(`Is the total ${S} at least 2k = ${2 * I.k}?`, S >= 2 * I.k, 'Both groups need at least k.'); if (S < 2 * I.k) return 0; const dp = Array(I.k).fill(0); dp[0] = 1; I.nums.forEach((x, i) => { for (let s = I.k - 1; s >= x; s--) dp[s] = (dp[s] + dp[s - x]) % MOD; T.at({ nums: A(I.nums, { hl: [i] }), 'sums < k': A(dp) }); T.n(`After ${x}: subsets with sum < ${I.k}?`, dp.reduce((a, b) => (a + b) % MOD, 0), 'Knapsack counts below k.'); }); let p = 1; for (let i = 0; i < I.nums.length; i++) p = p * 2 % MOD; return ((p - 2 * dp.reduce((a, b) => (a + b) % MOD, 0)) % MOD + MOD) % MOD; }
   });
 
   D('partition-string-into-substrings-with-values-at-most-k', {
-    t: 'Partition String Into Values ≤ k: extend while it fits',
-    r: 'Greedy: keep appending digits to the current piece while its value stays ≤ k; otherwise start a new piece. A single digit > k makes it impossible.',
+    t: 'Partition String Into Values at most k: extend while it fits',
+    r: 'Greedy: keep appending digits to the current piece while its value stays at most k; otherwise start a new piece. A single digit > k makes it impossible.',
     g: R => ({ s: R.str(R.int(5, 7), '123456789'), k: R.int(5, 70) }),
-    s(I, T) { let cur = 0, cnt = 1; for (let i = 0; i < I.s.length; i++) { const d = +I.s[i]; if (d > I.k) { T.at({ s: A([...I.s], { hl: [i] }), k: I.k }); T.yn(`Digit ${d} alone exceeds k. Is a good partition possible?`, false, '−1.'); return -1; } const nv = cur * 10 + d, ext = nv <= I.k; T.at({ s: A([...I.s], { hl: [i] }), current: cur, k: I.k }); T.yn(`Append ${d} to the current piece (${cur})?`, ext, ext ? `${nv} ≤ ${I.k}.` : `${nv} > ${I.k}: start a new piece.`); if (ext) cur = nv; else { cur = d; cnt++; } } return cnt; }
+    s(I, T) { let cur = 0, cnt = 1; for (let i = 0; i < I.s.length; i++) { const d = +I.s[i]; if (d > I.k) { T.at({ s: A([...I.s], { hl: [i] }), k: I.k }); T.yn(`Digit ${d} alone exceeds k. Is a good partition possible?`, false, '−1.'); return -1; } const nv = cur * 10 + d, ext = nv <= I.k; T.at({ s: A([...I.s], { hl: [i] }), current: cur, k: I.k }); T.yn(`Append ${d} to the current piece (${cur})?`, ext, ext ? `${nv} at most ${I.k}.` : `${nv} > ${I.k}: start a new piece.`); if (ext) cur = nv; else { cur = d; cnt++; } } return cnt; }
   });
 
   D('number-of-good-binary-strings', {
     t: 'Number of Good Binary Strings: append a whole block',
-    r: 'Each block of 1s has a length multiple of oneGroup, each block of 0s a multiple of zeroGroup, so build by appending oneGroup ones or zeroGroup zeros: dp[l] = dp[l − oneGroup] + dp[l − zeroGroup]. Sum over min..max length.',
+    r: 'Each block of 1s has a length multiple of oneGroup, each block of 0s a multiple of zeroGroup, so build by appending oneGroup ones or zeroGroup zeros: dp[l] = dp[l − oneGroup] + dp[l − zeroGroup]. Sum over min to max length.',
     g: R => { const mn = R.int(2, 5); return { minLength: mn, maxLength: mn + R.int(0, 2), oneGroup: R.int(1, 2), zeroGroup: R.int(1, 3) }; },
     s(I, T) { const dp = [1]; let tot = 0; for (let l = 1; l <= I.maxLength; l++) { const v = ((l >= I.oneGroup ? dp[l - I.oneGroup] : 0) + (l >= I.zeroGroup ? dp[l - I.zeroGroup] : 0)) % MOD; T.at({ dp: A(dp.concat('?')), oneGroup: I.oneGroup, zeroGroup: I.zeroGroup }); T.n(`dp[${l}]?`, v, `dp[${l} − ${I.oneGroup}] + dp[${l} − ${I.zeroGroup}].`); dp.push(v); if (l >= I.minLength) tot = (tot + v) % MOD; } return tot; }
   });
 
   D('minimum-cost-to-split-an-array', {
     t: 'Minimum Cost to Split an Array: k plus the repeated elements',
-    r: 'importance(sub) = k + (number of elements whose value repeats in sub). dp[i] = min over j of dp[j] + importance(nums[j..i−1]), growing j leftward while counting repeats.',
+    r: 'importance(sub) = k + (number of elements whose value repeats in sub). dp[i] = min over j of dp[j] + importance(nums[j to i−1]), growing j leftward while counting repeats.',
     g: R => ({ nums: R.ints(R.int(4, 6), 0, 3), k: R.int(1, 4) }),
     s(I, T) { const a = I.nums, n = a.length, dp = [0]; for (let i = 1; i <= n; i++) { let b = Infinity; const cnt = {}; let tr = 0; for (let j = i - 1; j >= 0; j--) { cnt[a[j]] = (cnt[a[j]] || 0) + 1; if (cnt[a[j]] === 2) tr += 2; else if (cnt[a[j]] > 2) tr++; b = Math.min(b, dp[j] + I.k + tr); } T.at({ nums: A(a, { hl: [i - 1] }), dp: A(dp.concat('?')), k: I.k }); T.n(`dp[${i}]?`, b, 'Best last piece: dp[j] + k + repeated count.'); dp.push(b); } return dp[n]; }
   });
 
   D('count-increasing-quadruplets', {
     t: 'Count Increasing Quadruplets: fix the middle pair (j, k)',
-    r: 'For i < j < k < l we need nums[i] < nums[k] < nums[j] < nums[l]. For each j < k with nums[k] < nums[j]: (count of i < j with nums[i] < nums[k]) × (count of l > k with nums[l] > nums[j]).',
+    r: 'For i < j < k < l we need nums[i] < nums[k] < nums[j] < nums[l]. For each j < k with nums[k] < nums[j]: (count of i < j with nums[i] < nums[k]) times (count of l > k with nums[l] > nums[j]).',
     g: R => ({ nums: R.perm(R.int(5, 6)).map(x => x + 1) }),
-    s(I, T) { const a = I.nums, n = a.length; let tot = 0; for (let j = 1; j < n - 2; j++) for (let k = j + 1; k < n - 1; k++) if (a[k] < a[j]) { let L = 0, Rr = 0; for (let i = 0; i < j; i++) if (a[i] < a[k]) L++; for (let l = k + 1; l < n; l++) if (a[l] > a[j]) Rr++; T.at({ nums: A(a, { hl: [j, k] }), total: tot }); T.n(`Middle pair (j=${j}, k=${k}): quadruplets?`, L * Rr, `${L} valid i × ${Rr} valid l.`); tot += L * Rr; } return tot; }
+    s(I, T) { const a = I.nums, n = a.length; let tot = 0; for (let j = 1; j < n - 2; j++) for (let k = j + 1; k < n - 1; k++) if (a[k] < a[j]) { let L = 0, Rr = 0; for (let i = 0; i < j; i++) if (a[i] < a[k]) L++; for (let l = k + 1; l < n; l++) if (a[l] > a[j]) Rr++; T.at({ nums: A(a, { hl: [j, k] }), total: tot }); T.n(`Middle pair (j=${j}, k=${k}): quadruplets?`, L * Rr, `${L} valid i times ${Rr} valid l.`); tot += L * Rr; } return tot; }
   });
 
   D('minimum-operations-to-reduce-an-integer-to-0', {
     t: 'Minimum Operations to Reduce an Integer to 0: runs of ones',
-    r: 'Look at the low bits. If the lowest two bits are 11, add 1 (merges a run of ones); if only the lowest bit is 1, subtract 1. Each add/subtract is one operation; then shift right.',
+    r: 'Look at the low bits. If the lowest two bits are 11, add 1 (merges a run of ones); if only the lowest bit is 1, subtract 1. Each add or subtract is one operation; then shift right.',
     g: R => ({ n: R.int(5, 120) }),
     s(I, T) { let n = I.n, ops = 0; while (n > 0) { let act; if ((n & 3) === 3) act = 'add 1'; else if (n & 1) act = 'subtract 1'; else act = 'shift'; T.at({ n, binary: n.toString(2), ops }); T.c(`n = ${n} (${n.toString(2)}): next move?`, ['add 1', 'subtract 1', 'shift'], act, act === 'add 1' ? 'Low bits 11: adding carries through the run.' : act === 'subtract 1' ? 'A lone low 1: remove it.' : 'Low bit is 0: move on.'); if (act === 'add 1') { n++; ops++; } else if (act === 'subtract 1') { n--; ops++; } else n >>= 1; if (n === 1) { ops++; n = 0; } } return ops; }
   });
@@ -78,9 +78,9 @@
 
   D('number-of-ways-to-earn-points', {
     t: 'Number of Ways to Earn Points: bounded knapsack per type',
-    r: 'dp[s] = ways to score s with the types so far. For each type (count, marks), take 0..count questions: new[s] = Σ dp[s − t·marks].',
+    r: 'dp[s] = ways to score s with the types so far. For each type (count, marks), take 0 to count questions: new[s] = the sum of dp[s − t times marks].',
     g: R => ({ target: R.int(3, 8), types: Array.from({ length: R.int(2, 3) }, () => [R.int(1, 3), R.int(1, 3)]) }),
-    s(I, T) { let dp = Array(I.target + 1).fill(0); dp[0] = 1; I.types.forEach(([c, m], i) => { const nx = Array(I.target + 1).fill(0); for (let s = 0; s <= I.target; s++) for (let t = 0; t <= c && t * m <= s; t++) nx[s] = (nx[s] + dp[s - t * m]) % MOD; dp = nx; T.at({ type: `${c} questions × ${m} marks`, target: I.target }); T.n(`After type ${i}: ways to score exactly ${I.target}?`, dp[I.target], 'Take 0..count of this type.'); }); return dp[I.target]; }
+    s(I, T) { let dp = Array(I.target + 1).fill(0); dp[0] = 1; I.types.forEach(([c, m], i) => { const nx = Array(I.target + 1).fill(0); for (let s = 0; s <= I.target; s++) for (let t = 0; t <= c && t * m <= s; t++) nx[s] = (nx[s] + dp[s - t * m]) % MOD; dp = nx; T.at({ type: `${c} questions times ${m} marks`, target: I.target }); T.n(`After type ${i}: ways to score exactly ${I.target}?`, dp[I.target], 'Take 0 to count of this type.'); }); return dp[I.target]; }
   });
 
   D('find-the-substring-with-maximum-cost', {
@@ -92,9 +92,9 @@
 
   D('minimize-the-maximum-difference-of-pairs', {
     t: 'Minimize the Maximum Difference of Pairs: binary search + greedy pairing',
-    r: 'Sort. For a candidate d, greedily pair neighbors with difference ≤ d (skip both when paired). If you get ≥ p pairs, d works. Binary search the smallest d.',
+    r: 'Sort. For a candidate d, greedily pair neighbors with difference at most d (skip both when paired). If you get at least p pairs, d works. Binary search the smallest d.',
     g: R => { const nums = R.ints(R.int(4, 6), 0, 12); return { nums, p: R.int(1, Math.floor(nums.length / 2)) }; },
-    s(I, T) { const a = I.nums.slice().sort((x, y) => x - y), ok = d => { let c = 0; for (let i = 0; i + 1 < a.length; i++) if (a[i + 1] - a[i] <= d) { c++; i++; } return c >= I.p; }; let lo = 0, hi = a[a.length - 1] - a[0]; while (lo < hi) { const m = (lo + hi) >> 1; T.at({ sorted: A(a), lo, hi, p: I.p }); T.yn(`Can we form ${I.p} pairs with max difference ≤ ${m}?`, ok(m), 'Greedy: pair adjacent sorted values when close enough.'); if (ok(m)) hi = m; else lo = m + 1; } return lo; }
+    s(I, T) { const a = I.nums.slice().sort((x, y) => x - y), ok = d => { let c = 0; for (let i = 0; i + 1 < a.length; i++) if (a[i + 1] - a[i] <= d) { c++; i++; } return c >= I.p; }; let lo = 0, hi = a[a.length - 1] - a[0]; while (lo < hi) { const m = (lo + hi) >> 1; T.at({ sorted: A(a), lo, hi, p: I.p }); T.yn(`Can we form ${I.p} pairs with max difference at most ${m}?`, ok(m), 'Greedy: pair adjacent sorted values when close enough.'); if (ok(m)) hi = m; else lo = m + 1; } return lo; }
   });
 
   D('count-the-number-of-k-free-subsets', {
@@ -108,14 +108,14 @@
     t: 'Minimum Additions to Make a Valid String: count abc groups',
     r: 'A new "abc" group starts whenever a letter is not strictly after the previous one. With g groups, the final length is 3g: add 3g − length letters.',
     g: R => ({ word: R.str(R.int(3, 6), 'abc') }),
-    s(I, T) { let g = 1; for (let i = 1; i < I.word.length; i++) { const nw = I.word[i] <= I.word[i - 1]; T.at({ word: A([...I.word], { hl: [i - 1, i] }), groups: g }); T.yn(`Does "${I.word[i]}" start a new abc group?`, nw, nw ? 'It does not come after the previous letter.' : 'It continues the current group.'); if (nw) g++; } T.at({ word: I.word, groups: g }); T.n('Letters to insert?', 3 * g - I.word.length, `3·${g} − ${I.word.length}.`); return 3 * g - I.word.length; }
+    s(I, T) { let g = 1; for (let i = 1; i < I.word.length; i++) { const nw = I.word[i] <= I.word[i - 1]; T.at({ word: A([...I.word], { hl: [i - 1, i] }), groups: g }); T.yn(`Does "${I.word[i]}" start a new abc group?`, nw, nw ? 'It does not come after the previous letter.' : 'It continues the current group.'); if (nw) g++; } T.at({ word: I.word, groups: g }); T.n('Letters to insert?', 3 * g - I.word.length, `3 times ${g} − ${I.word.length}.`); return 3 * g - I.word.length; }
   });
 
   D('power-of-heroes', {
     t: 'Power of Heroes: each value as the maximum',
-    r: 'Sort. With x as the group maximum, the minimum ranges over earlier values: x² · (x + s), where s = Σ nums[j]·2^(i−j−1) over j < i, updated as s = 2s + previous value.',
+    r: 'Sort. With x as the group maximum, the minimum ranges over earlier values: x² times (x + s), where s = the sum of nums[j] times 2 to the power (i−j−1) over j < i, updated as s = 2s + previous value.',
     g: R => ({ nums: R.ints(R.int(2, 4), 1, 5) }),
-    s(I, T) { const a = I.nums.slice().sort((x, y) => x - y); let s = 0, tot = 0; a.forEach((x, i) => { const c = x * x * (x + s); T.at({ sorted: A(a, { hl: [i] }), s }); T.n(`Power from groups whose max is ${x} (index ${i})?`, c % MOD, `${x}² · (${x} + ${s}).`); tot = (tot + c) % MOD; s = 2 * s + x; }); return tot; }
+    s(I, T) { const a = I.nums.slice().sort((x, y) => x - y); let s = 0, tot = 0; a.forEach((x, i) => { const c = x * x * (x + s); T.at({ sorted: A(a, { hl: [i] }), s }); T.n(`Power from groups whose max is ${x} (index ${i})?`, c % MOD, `${x}² times (${x} + ${s}).`); tot = (tot + c) % MOD; s = 2 * s + x; }); return tot; }
   });
 
   D('maximum-number-of-moves-in-a-grid', {
@@ -127,21 +127,21 @@
 
   D('minimum-cost-to-make-all-characters-equal', {
     t: 'Minimum Cost to Make All Characters Equal: fix each boundary',
-    r: 'Every place where s[i] ≠ s[i−1] must be fixed once: flip the prefix (cost i) or the suffix (cost n − i). Sum min(i, n − i).',
+    r: 'Every place where s[i] not equal to s[i−1] must be fixed once: flip the prefix (cost i) or the suffix (cost n − i). Sum min(i, n − i).',
     g: R => ({ s: R.str(R.int(4, 7), '01') }),
     s(I, T) { const s = I.s, n = s.length; let tot = 0; for (let i = 1; i < n; i++) if (s[i] !== s[i - 1]) { T.at({ s: A([...s], { hl: [i - 1, i] }), total: tot }); T.n(`Boundary before index ${i}: cost to fix?`, Math.min(i, n - i), `min(prefix ${i}, suffix ${n - i}).`); tot += Math.min(i, n - i); } return tot; }
   });
 
   D('maximum-strictly-increasing-cells-in-a-matrix', {
     t: 'Max Strictly Increasing Cells: process values in order, best per row and column',
-    r: 'Sort cells by value. A cell\'s best path = 1 + max(bestRow[r], bestCol[c]) from strictly smaller values. Update rows/columns only after the whole group of equal values is computed.',
+    r: 'Sort cells by value. A cell\'s best path = 1 + max(bestRow[r], bestCol[c]) from strictly smaller values. Update rows or columns only after the whole group of equal values is computed.',
     g: R => ({ mat: R.grid(R.int(2, 3), R.int(2, 3), 1, 6) }),
     s(I, T) { const g = I.mat, cells = []; g.forEach((row, r) => row.forEach((v, c) => cells.push([v, r, c]))); cells.sort((a, b) => a[0] - b[0]); const rb = Array(g.length).fill(0), cb = Array(g[0].length).fill(0); let best = 0, i = 0; while (i < cells.length) { let j = i; while (j < cells.length && cells[j][0] === cells[i][0]) j++; const res = cells.slice(i, j).map(([v, r, c]) => 1 + Math.max(rb[r], cb[c])); cells.slice(i, j).forEach(([v, r, c], k) => { T.at({ mat: G(g, { hl: [[r, c]] }), rowBest: A(rb), colBest: A(cb) }); T.n(`Longest path ending at (${r},${c}) (value ${v})?`, res[k], '1 + best of its row and column among smaller values.'); }); cells.slice(i, j).forEach(([v, r, c], k) => { rb[r] = Math.max(rb[r], res[k]); cb[c] = Math.max(cb[c], res[k]); best = Math.max(best, res[k]); }); i = j; } return best; }
   });
 
   D('count-of-integers', {
     t: 'Count of Integers: digit DP with a digit-sum window',
-    r: 'count(N) = numbers in [0, N] with min_sum ≤ digit sum ≤ max_sum, by digit DP (position, sum, tight). Answer = count(num2) − count(num1) + (num1 is good).',
+    r: 'count(N) = numbers in [0, N] with min_sum at most digit sum at most max_sum, by digit DP (position, sum, tight). Answer = count(num2) − count(num1) + (num1 is good).',
     g: R => { const a = R.int(1, 30); return { num1: String(a), num2: String(a + R.int(5, 40)), min_sum: R.int(1, 4), max_sum: R.int(4, 9) }; },
     s(I, T) {
       const cnt = N => { const memo = new Map(), f = (i, s, t) => { if (s > I.max_sum) return 0; if (i === N.length) return s >= I.min_sum ? 1 : 0; const k = i * 1e4 + s * 2 + (t ? 1 : 0); if (memo.has(k)) return memo.get(k); let r = 0; const hi = t ? +N[i] : 9; for (let d = 0; d <= hi; d++) r = (r + f(i + 1, s + d, t && d === hi)) % MOD; memo.set(k, r); return r; }; return f(0, 0, true); };
@@ -160,14 +160,14 @@
 
   D('painting-the-walls', {
     t: 'Painting the Walls: the paid painter buys time',
-    r: 'While the paid painter spends time[i] on wall i, the free painter paints time[i] other walls. So paying for wall i covers time[i] + 1 walls. dp[j] = least cost to cover j walls (0/1 knapsack, capped at n).',
+    r: 'While the paid painter spends time[i] on wall i, the free painter paints time[i] other walls. So paying for wall i covers time[i] + 1 walls. dp[j] = least cost to cover j walls (0-1 knapsack, capped at n).',
     g: R => { const n = R.int(3, 5); return { cost: R.ints(n, 1, 9), time: R.ints(n, 1, 3) }; },
     s(I, T) { const n = I.cost.length, dp = Array(n + 1).fill(Infinity); dp[0] = 0; I.cost.forEach((c, i) => { for (let j = n; j >= 1; j--) dp[j] = Math.min(dp[j], dp[Math.max(0, j - I.time[i] - 1)] + c); T.at({ wall: `cost ${c}, covers ${I.time[i] + 1}`, dp: A(dp.map(v => v === Infinity ? '∞' : v)) }); T.n(`After wall ${i}: least cost to cover all ${n} walls (inf if not yet)?`, dp[n], 'Pay for it or not.'); }); return dp[n]; }
   });
 
   D('decremental-string-concatenation', {
     t: 'Decremental String Concatenation: only the ends matter',
-    r: 'State: (first letter, last letter) of the joined string → least length. Add each word on the right or the left; a matching boundary letter saves 1.',
+    r: 'State: (first letter, last letter) of the joined string, mapped to the least length. Add each word on the right or the left; a matching boundary letter saves 1.',
     g: R => ({ words: Array.from({ length: R.int(2, 4) }, () => R.str(R.int(1, 3), 'ab')) }),
     s(I, T) { const w = I.words; let dp = new Map([[w[0][0] + w[0].slice(-1), w[0].length]]); for (let i = 1; i < w.length; i++) { const x = w[i], nx = new Map(), up = (k, v) => { if (!nx.has(k) || nx.get(k) > v) nx.set(k, v); }; for (const [k, v] of dp) { up(k[0] + x.slice(-1), v + x.length - (k[1] === x[0] ? 1 : 0)); up(x[0] + k[1], v + x.length - (x.slice(-1) === k[0] ? 1 : 0)); } dp = nx; T.at({ words: A(w, { hl: [i] }), states: K([...dp]) }); T.n(`After word ${i}: shortest total length?`, Math.min(...dp.values()), 'Join on either side; a shared boundary letter saves 1.'); } return Math.min(...dp.values()); }
   });
@@ -181,16 +181,16 @@
 
   D('maximum-number-of-jumps-to-reach-the-last-index', {
     t: 'Maximum Number of Jumps: longest chain of allowed jumps',
-    r: 'dp[j] = most jumps to reach j = max over i < j with |nums[j] − nums[i]| ≤ target of dp[i] + 1 (unreachable stays −∞).',
+    r: 'dp[j] = most jumps to reach j = max over i < j with |nums[j] − nums[i]| at most target of dp[i] + 1 (unreachable stays −∞).',
     g: R => ({ nums: R.ints(R.int(4, 6), 1, 8), target: R.int(1, 3) }),
     s(I, T) { const a = I.nums, dp = [0]; for (let j = 1; j < a.length; j++) { let b = -1; for (let i = 0; i < j; i++) if (dp[i] >= 0 && Math.abs(a[j] - a[i]) <= I.target) b = Math.max(b, dp[i] + 1); T.at({ nums: A(a, { hl: [j] }), dp: A(dp.concat('?')), target: I.target }); T.n(`dp[${j}] (−1 if unreachable)?`, b, 'Best reachable i within the target difference, plus one.'); dp.push(b); } return dp[a.length - 1]; }
   });
 
   D('longest-non-decreasing-subarray-from-two-arrays', {
     t: 'Longest Non-Decreasing Subarray From Two Arrays: two run lengths',
-    r: 'd1 / d2 = longest run ending at i choosing nums1[i] / nums2[i]. Each extends from whichever previous choice is ≤ the current value.',
+    r: 'd1 divided by d2 = longest run ending at i choosing nums1[i] divided by nums2[i]. Each extends from whichever previous choice is at most the current value.',
     g: R => { const n = R.int(4, 6); return { nums1: R.ints(n, 1, 6), nums2: R.ints(n, 1, 6) }; },
-    s(I, T) { const a = I.nums1, b = I.nums2; let d1 = 1, d2 = 1, best = 1; for (let i = 1; i < a.length; i++) { const n1 = 1 + Math.max(a[i - 1] <= a[i] ? d1 : 0, b[i - 1] <= a[i] ? d2 : 0), n2 = 1 + Math.max(a[i - 1] <= b[i] ? d1 : 0, b[i - 1] <= b[i] ? d2 : 0); T.at({ nums1: A(a, { hl: [i] }), nums2: A(b, { hl: [i] }), d1, d2 }); T.n(`Longest run ending at ${i} if you pick nums1[${i}] = ${a[i]}?`, n1, 'Extend from a previous pick that is ≤ it.'); d1 = n1; d2 = n2; best = Math.max(best, d1, d2); } return best; }
+    s(I, T) { const a = I.nums1, b = I.nums2; let d1 = 1, d2 = 1, best = 1; for (let i = 1; i < a.length; i++) { const n1 = 1 + Math.max(a[i - 1] <= a[i] ? d1 : 0, b[i - 1] <= a[i] ? d2 : 0), n2 = 1 + Math.max(a[i - 1] <= b[i] ? d1 : 0, b[i - 1] <= b[i] ? d2 : 0); T.at({ nums1: A(a, { hl: [i] }), nums2: A(b, { hl: [i] }), d1, d2 }); T.n(`Longest run ending at ${i} if you pick nums1[${i}] = ${a[i]}?`, n1, 'Extend from a previous pick that is at most it.'); d1 = n1; d2 = n2; best = Math.max(best, d1, d2); } return best; }
   });
 
   D('visit-array-positions-to-maximize-score', {
@@ -201,10 +201,10 @@
   });
 
   D('ways-to-express-an-integer-as-sum-of-powers', {
-    t: 'Ways to Express as Sum of Powers: 0/1 knapsack over i^x',
-    r: 'Items are 1^x, 2^x, … ≤ n, each used at most once. dp[s] counts ways to make s; process items with s descending.',
+    t: 'Ways to Express as Sum of Powers: 0-1 knapsack over i to the power x',
+    r: 'Items are 1 to the power x, 2 to the power x, … at most n, each used at most once. dp[s] counts ways to make s; process items with s descending.',
     g: R => ({ n: R.int(4, 30), x: R.int(1, 2) }),
-    s(I, T) { const dp = Array(I.n + 1).fill(0); dp[0] = 1; for (let i = 1; i ** I.x <= I.n; i++) { const p = i ** I.x; for (let s = I.n; s >= p; s--) dp[s] = (dp[s] + dp[s - p]) % MOD; T.at({ item: `${i}^${I.x} = ${p}`, n: I.n }); T.n(`Using bases up to ${i}: ways to make ${I.n}?`, dp[I.n], '0/1 knapsack.'); } return dp[I.n]; }
+    s(I, T) { const dp = Array(I.n + 1).fill(0); dp[0] = 1; for (let i = 1; i ** I.x <= I.n; i++) { const p = i ** I.x; for (let s = I.n; s >= p; s--) dp[s] = (dp[s] + dp[s - p]) % MOD; T.at({ item: `${i} to the power ${I.x} = ${p}`, n: I.n }); T.n(`Using bases up to ${i}: ways to make ${I.n}?`, dp[I.n], '0-1 knapsack.'); } return dp[I.n]; }
   });
 
   D('count-stepping-numbers-in-range', {
@@ -220,22 +220,22 @@
   });
 
   D('minimum-time-to-make-array-sum-at-most-x', {
-    t: 'Minimum Time to Make Array Sum ≤ x: reset the slow growers first',
-    r: 'Sort by nums2. Resetting index i at second j saves nums1[i] + j·nums2[i]. dp[j] = most saved with j resets. At time t the sum is sum1 + t·sum2 − dp[t]; find the smallest t with that ≤ x.',
+    t: 'Minimum Time to Make Array Sum at most x: reset the slow growers first',
+    r: 'Sort by nums2. Resetting index i at second j saves nums1[i] + j times nums2[i]. dp[j] = most saved with j resets. At time t the sum is sum1 + t times sum2 − dp[t]; find the smallest t with that at most x.',
     g: R => { const n = R.int(2, 4); return { nums1: R.ints(n, 1, 6), nums2: R.ints(n, 0, 4), x: R.int(2, 12) }; },
-    s(I, T) { const P = I.nums1.map((v, i) => [v, I.nums2[i]]).sort((a, b) => a[1] - b[1]), n = P.length, dp = Array(n + 1).fill(0); for (const [a, b] of P) for (let j = n; j >= 1; j--) dp[j] = Math.max(dp[j], dp[j - 1] + a + j * b); const s1 = I.nums1.reduce((p, q) => p + q, 0), s2 = I.nums2.reduce((p, q) => p + q, 0); for (let t = 0; t <= n; t++) { const v = s1 + t * s2 - dp[t]; T.at({ nums1: A(I.nums1), nums2: A(I.nums2), x: I.x }); T.n(`Smallest possible sum after ${t} second(s)?`, v, `${s1} + ${t}·${s2} − best savings ${dp[t]}.`); if (v <= I.x) return t; } return -1; }
+    s(I, T) { const P = I.nums1.map((v, i) => [v, I.nums2[i]]).sort((a, b) => a[1] - b[1]), n = P.length, dp = Array(n + 1).fill(0); for (const [a, b] of P) for (let j = n; j >= 1; j--) dp[j] = Math.max(dp[j], dp[j - 1] + a + j * b); const s1 = I.nums1.reduce((p, q) => p + q, 0), s2 = I.nums2.reduce((p, q) => p + q, 0); for (let t = 0; t <= n; t++) { const v = s1 + t * s2 - dp[t]; T.at({ nums1: A(I.nums1), nums2: A(I.nums2), x: I.x }); T.n(`Smallest possible sum after ${t} seconds?`, v, `${s1} + ${t} times ${s2} − best savings ${dp[t]}.`); if (v <= I.x) return t; } return -1; }
   });
 
   D('sorting-three-groups', {
-    t: 'Sorting Three Groups: longest non-decreasing subsequence of 1/2/3',
-    r: 'keep[v] = longest non-decreasing subsequence ending with value ≤ v. For x: keep[x] = max(keep[1..x]) + 1. Removals = n − max keep.',
+    t: 'Sorting Three Groups: longest non-decreasing subsequence of 1s, 2s and 3s',
+    r: 'keep[v] = longest non-decreasing subsequence ending with value at most v. For x: keep[x] = max(keep[1 to x]) + 1. Removals = n − max keep.',
     g: R => ({ nums: Array.from({ length: R.int(5, 7) }, () => R.int(1, 3)) }),
-    s(I, T) { const k = [0, 0, 0, 0]; I.nums.forEach((x, i) => { const v = Math.max(...k.slice(1, x + 1)) + 1; T.at({ nums: A(I.nums, { hl: [i] }), keep: A(k.slice(1), { labels: ['1', '2', '3'] }) }); T.n(`Longest sorted subsequence ending with this ${x}?`, v, `1 + best ending in a value ≤ ${x}.`); k[x] = Math.max(k[x], v); }); return I.nums.length - Math.max(...k); }
+    s(I, T) { const k = [0, 0, 0, 0]; I.nums.forEach((x, i) => { const v = Math.max(...k.slice(1, x + 1)) + 1; T.at({ nums: A(I.nums, { hl: [i] }), keep: A(k.slice(1), { labels: ['1', '2', '3'] }) }); T.n(`Longest sorted subsequence ending with this ${x}?`, v, `1 + best ending in a value at most ${x}.`); k[x] = Math.max(k[x], v); }); return I.nums.length - Math.max(...k); }
   });
 
   D('number-of-beautiful-integers-in-the-range', {
     t: 'Number of Beautiful Integers: even count = odd count, divisible by k',
-    r: 'Digit DP over (position, even − odd balance, remainder mod k, tight, started). Here: check each number in the range — equal even/odd digit counts and divisible by k.',
+    r: 'Digit DP over (position, even − odd balance, remainder mod k, tight, started). Here: check each number in the range — equal even or odd digit counts and divisible by k.',
     g: R => { const lo = R.int(10, 60); return { low: lo, high: lo + R.int(4, 12), k: R.int(1, 5) }; },
     s(I, T) { let c = 0; for (let x = I.low; x <= I.high; x++) { const s = String(x), ev = [...s].filter(d => +d % 2 === 0).length, ok = ev * 2 === s.length && x % I.k === 0; T.at({ x, k: I.k }); T.yn(`Is ${x} beautiful?`, ok, `${ev} even, ${s.length - ev} odd digits; ${x} mod ${I.k} = ${x % I.k}.`); if (ok) c++; } return c; }
   });

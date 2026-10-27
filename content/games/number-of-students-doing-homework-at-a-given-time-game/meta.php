@@ -5,7 +5,7 @@ return [
     'title' => 'Number of Students Doing Homework at a Given Time',
     'leetcode' => 1450,
     'difficulty' => 'Easy',
-    'summary' => 'Count students with startTime[i] ≤ queryTime ≤ endTime[i].',
+    'summary' => 'Count students with queryTime from startTime[i] to endTime[i].',
     'category' => 'LeetCode',
     'subcategory' => 'Arrays',
     'topic' => 'LeetCode · Arrays',

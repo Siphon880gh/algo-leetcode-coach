@@ -5,7 +5,7 @@ return [
     'title' => 'Closest Divisors: search down from the square root',
     'leetcode' => 1362,
     'difficulty' => 'Med',
-    'summary' => 'For x = num + 1 and x = num + 2, the closest factor pair has its smaller factor the largest divisor ≤ √x. Compare the two pairs.',
+    'summary' => 'For x = num + 1 and x = num + 2, the closest factor pair has its smaller factor the largest divisor at most √x. Compare the two pairs.',
     'category' => 'LeetCode',
     'subcategory' => 'Math',
     'topic' => 'LeetCode · Math',

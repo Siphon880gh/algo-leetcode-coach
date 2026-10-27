@@ -5,7 +5,7 @@ return [
     'title' => 'Check If Array Can Be Split: one strong adjacent pair',
     'leetcode' => 2811,
     'difficulty' => 'Med',
-    'summary' => 'With n ≤ 2 it is always possible. Otherwise you need some adjacent pair with sum ≥ m: peel elements off around it.',
+    'summary' => 'With n at most 2 it is always possible. Otherwise you need some adjacent pair with sum at least m: peel elements off around it.',
     'category' => 'LeetCode',
     'subcategory' => 'Greedy',
     'topic' => 'LeetCode · Greedy',

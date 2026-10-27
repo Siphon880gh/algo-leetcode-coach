@@ -2,10 +2,10 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Construct the Rectangle: largest W ≤ √area',
+    'title' => 'Construct the Rectangle: largest W at most √area',
     'leetcode' => 492,
     'difficulty' => 'Easy',
-    'summary' => 'Start W at ⌊√area⌋ and step down until W divides area. Then L = area / W.',
+    'summary' => 'Start W at √area rounded down and step down until W divides area. Then L = area divided by W.',
     'category' => 'LeetCode',
     'subcategory' => 'Math',
     'topic' => 'LeetCode · Math',

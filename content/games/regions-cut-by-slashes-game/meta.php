@@ -5,7 +5,7 @@ return [
     'title' => 'Regions Cut By Slashes',
     'leetcode' => 959,
     'difficulty' => 'Med',
-    'summary' => 'Split each cell into 4 triangles (top, right, bottom, left). " " unions all four, "/" unions top–left and bottom–right, "\\" unions top–right and bottom–left; always union with neighboring cells\' facing triangles. Count components.',
+    'summary' => 'Split each cell into 4 triangles (top, right, bottom, left). " " unions all four, "/" unions top-left and bottom-right, "\\" unions top-right and bottom-left; always union with neighboring cells\' facing triangles. Count components.',
     'category' => 'LeetCode',
     'subcategory' => 'Union Find',
     'topic' => 'LeetCode · Union Find',

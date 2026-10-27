@@ -5,7 +5,7 @@ return [
     'title' => 'Reach End With Max Score: jump to bigger values',
     'leetcode' => 3282,
     'difficulty' => 'Med',
-    'summary' => 'Each step of distance pays the value you jumped from. Stay on the best value seen so far: the answer is Σ over i < n − 1 of the running maximum.',
+    'summary' => 'Each step of distance pays the value you jumped from. Stay on the best value seen so far: the answer is the sum over i < n − 1 of the running maximum.',
     'category' => 'LeetCode',
     'subcategory' => 'Greedy',
     'topic' => 'LeetCode · Greedy',

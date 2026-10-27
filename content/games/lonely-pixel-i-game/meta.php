@@ -5,7 +5,7 @@ return [
     'title' => 'Lonely Pixel I',
     'leetcode' => 531,
     'difficulty' => 'Med',
-    'summary' => 'Count black pixels per row and per column. A B at (r, c) is lonely iff rowCount[r] == 1 and colCount[c] == 1.',
+    'summary' => 'Count black pixels per row and per column. A B at (r, c) is lonely exactly when rowCount[r] == 1 and colCount[c] == 1.',
     'category' => 'LeetCode',
     'subcategory' => 'Graphs',
     'topic' => 'LeetCode · Graphs',

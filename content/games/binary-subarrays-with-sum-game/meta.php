@@ -5,7 +5,7 @@ return [
     'title' => 'Binary Subarrays With Sum',
     'leetcode' => 930,
     'difficulty' => 'Med',
-    'summary' => 'Count = atMost(goal) − atMost(goal − 1), where atMost(g) slides a window keeping the sum ≤ g and adds r − l + 1 per right end.',
+    'summary' => 'Count = atMost(goal) − atMost(goal − 1), where atMost(g) slides a window keeping the sum at most g and adds r − l + 1 per right end.',
     'category' => 'LeetCode',
     'subcategory' => 'Sliding Window',
     'topic' => 'LeetCode · Sliding Window',

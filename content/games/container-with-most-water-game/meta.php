@@ -5,7 +5,7 @@ return [
     'title' => 'Container With Most Water: move the shorter wall',
     'leetcode' => 11,
     'difficulty' => 'Med',
-    'summary' => 'Area = min(h[L], h[R]) × width. Always move the shorter wall: the width shrinks either way, and only a taller short wall can help.',
+    'summary' => 'Area = min(h[L], h[R]) times width. Always move the shorter wall: the width shrinks either way, and only a taller short wall can help.',
     'category' => 'LeetCode',
     'subcategory' => 'Two Pointers',
     'topic' => 'LeetCode · Two Pointers',

@@ -5,7 +5,7 @@ return [
     'title' => 'Count Good Integers on a Grid Path',
     'leetcode' => 3906,
     'difficulty' => 'Hard',
-    'summary' => 'Only the 7 cells on the path matter, and they must be non-decreasing. A digit DP over the 16 padded digits (tight flag, last path digit) counts good numbers ≤ N; answer f(r) − f(l − 1).',
+    'summary' => 'Only the 7 cells on the path matter, and they must be non-decreasing. A digit DP over the 16 padded digits (tight flag, last path digit) counts good numbers at most N; answer f(r) − f(l − 1).',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

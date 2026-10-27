@@ -5,7 +5,7 @@ return [
     'title' => 'Insufficient Nodes: prune bottom-up',
     'leetcode' => 1080,
     'difficulty' => 'Med',
-    'summary' => 'At a leaf, keep it if the path sum ≥ limit. At an internal node, prune the children first; if both are gone, this node is insufficient too.',
+    'summary' => 'At a leaf, keep it if the path sum at least limit. At an internal node, prune the children first; if both are gone, this node is insufficient too.',
     'category' => 'LeetCode',
     'subcategory' => 'Trees',
     'topic' => 'LeetCode · Trees',

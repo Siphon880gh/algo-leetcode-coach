@@ -36,7 +36,7 @@
         t.num(V(table(dp, [r, c], { deps: [[r - 1, c], [r, c - 1]] })), 'paths[' + r + '][' + c + '] = ?', v, { wrong: 'above (' + dp[r - 1][c] + ') + left (' + dp[r][c - 1] + ').', note: v + ' paths.' });
         dp[r][c] = v;
       }
-      t.done(V(table(dp, [R - 1, C - 1])), dp[R - 1][C - 1] + ' unique paths. O(m·n).');
+      t.done(V(table(dp, [R - 1, C - 1])), dp[R - 1][C - 1] + ' unique paths. O(m times n).');
       return t;
     }
   });
@@ -52,12 +52,12 @@
       var dp = filled(R, C, null); dp[0][0] = 1;
       var cc = ob.map(function (row) { return row.map(function (v) { return v ? 'dark' : ''; }); });
       var t = new LC.Trace();
-      t.setup = 'grid ' + R + '×' + C + ' (dark cells are obstacles)';
+      t.setup = 'grid ' + R + ' by ' + C + ' (dark cells are obstacles)';
       for (var r = 0; r < R; r++) for (var c = 0; c < C; c++) {
         if (r === 0 && c === 0) continue;
         var up = r > 0 ? dp[r - 1][c] : 0, left = c > 0 ? dp[r][c - 1] : 0, v = ob[r][c] ? 0 : up + left;
         var deps = []; if (r > 0) deps.push([r - 1, c]); if (c > 0) deps.push([r, c - 1]);
-        t.num(V(table(dp, [r, c], { deps: deps, cc: cc })), (ob[r][c] ? 'Obstacle! ' : '') + 'paths[' + r + '][' + c + '] = ?', v, { wrong: ob[r][c] ? 'No path can stand on an obstacle.' : (r > 0 ? 'above ' + up : 'no cell above (0)') + ' + ' + (c > 0 ? 'left ' + left : 'no cell to the left (0)') + '.', note: ob[r][c] ? 'Obstacle → 0.' : v + '.' });
+        t.num(V(table(dp, [r, c], { deps: deps, cc: cc })), (ob[r][c] ? 'Obstacle! ' : '') + 'paths[' + r + '][' + c + '] = ?', v, { wrong: ob[r][c] ? 'No path can stand on an obstacle.' : (r > 0 ? 'above ' + up : 'no cell above (0)') + ' + ' + (c > 0 ? 'left ' + left : 'no cell to the left (0)') + '.', note: ob[r][c] ? 'Obstacle: 0.' : v + '.' });
         dp[r][c] = v;
       }
       t.done(V(table(dp, [R - 1, C - 1], { cc: cc })), dp[R - 1][C - 1] + ' paths avoid the obstacles.');
@@ -152,7 +152,7 @@
 
   LC.register('house-robber-ii', {
     title: 'House Robber II: break the circle twice',
-    rule: 'The first and last houses touch, so never take both. Run House Robber on houses 0..n−2 and on houses 1..n−1, then take the better result.',
+    rule: 'The first and last houses touch, so never take both. Run House Robber on houses 0 to n−2 and on houses 1 to n−1, then take the better result.',
     make: function (rng, round) {
       var nums = rng.ints(5 + round, 1, 9), n = nums.length;
       var t = new LC.Trace();
@@ -215,7 +215,7 @@
       var R = 4, C = 4 + (round > 0 ? 1 : 0), m = filled(R, C, 0).map(function (row) { return row.map(function () { return rng.chance(0.72) ? 1 : 0; }); });
       var dp = m.map(function (row, r) { return row.map(function (v, c) { return r === 0 || c === 0 ? v : null; }); });
       var t = new LC.Trace();
-      t.setup = 'matrix ' + R + '×' + C + '   (first row and column are copied)';
+      t.setup = 'matrix ' + R + ' by ' + C + '   (first row and column are copied)';
       var best = 0; dp.forEach(function (row) { row.forEach(function (v) { if (v) best = 1; }); });
       for (var r = 1; r < R; r++) for (var c = 1; c < C; c++) {
         var v = m[r][c] ? 1 + Math.min(dp[r - 1][c], dp[r][c - 1], dp[r - 1][c - 1]) : 0;
@@ -232,7 +232,7 @@
 
   LC.register('longest-common-subsequence', {
     title: 'Longest Common Subsequence: diagonal on a match',
-    rule: 'Compare text1[i−1] and text2[j−1]. Match → dp[i−1][j−1] + 1 (take both). Mismatch → max(dp[i−1][j], dp[i][j−1]) (drop one char from either string).',
+    rule: 'Compare text1[i−1] and text2[j−1]. Match: dp[i−1][j−1] + 1 (take both). Mismatch: max(dp[i−1][j], dp[i][j−1]) (drop one char from either string).',
     make: function (rng, round) {
       var a = words(rng, 4, 'abcd'), b = words(rng, 3 + (round > 0 ? 1 : 0), 'abcd');
       var R = a.length + 1, C = b.length + 1, dp = filled(R, C, null);
@@ -246,14 +246,14 @@
           { wrong: match ? 'Match: diagonal + 1 = ' + dp[i - 1][j - 1] + ' + 1.' : 'Mismatch: max(up ' + dp[i - 1][j] + ', left ' + dp[i][j - 1] + ').', note: v + '.' });
         dp[i][j] = v;
       }
-      t.done(V(table(dp, [R - 1, C - 1], o)), 'LCS length ' + dp[R - 1][C - 1] + '. O(m·n).');
+      t.done(V(table(dp, [R - 1, C - 1], o)), 'LCS length ' + dp[R - 1][C - 1] + '. O(m times n).');
       return t;
     }
   });
 
   LC.register('edit-distance', {
     title: 'Edit Distance: free on a match, else 1 + cheapest edit',
-    rule: 'Match → copy the diagonal (no cost). Otherwise 1 + min(replace = diagonal, delete = up, insert = left). Row 0 and column 0 are just counts of inserts or deletes.',
+    rule: 'Match: copy the diagonal (no cost). Otherwise 1 + min(replace = diagonal, delete = up, insert = left). Row 0 and column 0 are just counts of inserts or deletes.',
     make: function (rng, round) {
       var a = words(rng, 3, 'abcr'), b = words(rng, 3 + (round > 0 ? 1 : 0), 'abcr');
       var R = a.length + 1, C = b.length + 1, dp = filled(R, C, null);
@@ -274,7 +274,7 @@
 
   LC.register('coin-change', {
     title: 'Coin Change: 1 + best smaller amount',
-    rule: 'dp[a] = 1 + min over coins c ≤ a of dp[a − c]. dp[0] = 0. If no coin leads to a reachable amount, dp[a] = ∞ (answer −1).',
+    rule: 'dp[a] = 1 + min over coins c at most a of dp[a − c]. dp[0] = 0. If no coin leads to a reachable amount, dp[a] = ∞ (answer −1).',
     make: function (rng, round) {
       var coins = rng.pick(round === 0 ? [[1, 2, 5], [1, 3, 4], [2, 3]] : [[2, 5], [3, 4], [1, 4, 5], [2, 3, 7]]), A = rng.int(6, 9 + round);
       var dp = [0]; for (var a = 1; a <= A; a++) dp.push(null);
@@ -287,14 +287,14 @@
         t.num(V(line(dp, a, deps, { label: 'fewest coins for amount' })), 'dp[' + a + '] = ?' + INF_HINT, v, { wrong: deps.length ? '1 + min(' + deps.map(function (d) { return 'dp[' + d + ']=' + f(dp[d]); }).join(', ') + ').' : 'No coin fits, so ∞.', note: f(v) + '.' });
         dp[a] = v;
       }
-      t.done(V(line(dp, A, [], { label: 'fewest coins' })), dp[A] === Infinity ? 'Unreachable: return −1.' : 'Fewest coins ' + dp[A] + '. O(amount · coins).');
+      t.done(V(line(dp, A, [], { label: 'fewest coins' })), dp[A] === Infinity ? 'Unreachable: return −1.' : 'Fewest coins ' + dp[A] + '. O(amount times coins).');
       return t;
     }
   });
 
   LC.register('coin-change-ii', {
     title: 'Coin Change II: coins in the outer loop',
-    rule: 'Process one coin at a time: for each amount a ≥ coin, ways[a] += ways[a − coin]. Coins outside the amount loop count combinations once (1+2 and 2+1 are the same).',
+    rule: 'Process one coin at a time: for each amount a at least coin, ways[a] += ways[a − coin]. Coins outside the amount loop count combinations once (1+2 and 2+1 are the same).',
     make: function (rng, round) {
       var coins = rng.pick([[1, 2], [1, 2, 5], [2, 3], [1, 3]]), A = rng.int(4, 5 + round);
       var ways = [1]; for (var a = 1; a <= A; a++) ways.push(0);
@@ -335,7 +335,7 @@
 
   LC.register('partition-equal-subset-sum', {
     title: 'Partition Equal Subset Sum: can we hit half?',
-    rule: 'Target = sum / 2. can[s] says some subset sums to s. For each number, go DOWN from target to num: can[s] = can[s] or can[s − num]. Going down keeps each number used once.',
+    rule: 'Target = sum divided by 2. can[s] says some subset sums to s. For each number, go DOWN from target to num: can[s] = can[s] or can[s − num]. Going down keeps each number used once.',
     minSteps: 6,
     make: function (rng, round) {
       var nums; do { nums = rng.ints(3 + (round > 0 ? 1 : 0), 1, 5); } while (nums.reduce(function (x, y) { return x + y; }, 0) % 2 || nums.reduce(function (x, y) { return x + y; }, 0) > 16);
@@ -359,7 +359,7 @@
 
   LC.register('perfect-squares', {
     title: 'Perfect Squares: 1 + best remainder',
-    rule: 'dp[n] = 1 + min over squares s ≤ n of dp[n − s]. It is Coin Change where the coins are 1, 4, 9, …',
+    rule: 'dp[n] = 1 + min over squares s at most n of dp[n − s]. It is Coin Change where the coins are 1, 4, 9, …',
     make: function (rng, round) {
       var N = rng.int(7, 10 + round * 2), dp = [0]; for (var i = 1; i <= N; i++) dp.push(null);
       var t = new LC.Trace();
@@ -377,7 +377,7 @@
 
   LC.register('decode-ways', {
     title: 'Decode Ways: one digit or two',
-    rule: 'dp[i] counts decodings of the first i digits. A valid single digit (1–9) adds dp[i−1]. A valid pair (10–26) adds dp[i−2]. A "0" alone adds nothing.',
+    rule: 'dp[i] counts decodings of the first i digits. A valid single digit (1 to 9) adds dp[i−1]. A valid pair (10 to 26) adds dp[i−2]. A "0" alone adds nothing.',
     make: function (rng, round) {
       var s; do { s = ''; for (var i = 0; i < 5 + round; i++) s += rng.pick(['1', '2', '2', '1', '6', '0', '3', '7']); } while (s[0] === '0' || /00/.test(s));
       var dp = [1, 1]; for (i = 2; i <= s.length; i++) dp.push(null);
@@ -388,7 +388,7 @@
         var v = (one ? dp[i - 1] : 0) + (two ? dp[i - 2] : 0), deps = []; if (one) deps.push(i - 1); if (two) deps.push(i - 2);
         var c = {}; c[i - 1] = 'hit'; if (two) c[i - 2] = 'warn';
         t.num(V(P.arr(s.split(''), { label: 's', cls: c }), line(dp, i, deps, { label: 'ways for prefix length' })), 'Prefix "' + s.slice(0, i) + '": dp[' + i + '] = ?', v,
-          { wrong: (one ? '"' + s[i - 1] + '" alone adds dp[' + (i - 1) + '] = ' + dp[i - 1] : '"0" cannot stand alone') + '; ' + (two ? '"' + s.slice(i - 2, i) + '" adds dp[' + (i - 2) + '] = ' + dp[i - 2] : '"' + s.slice(i - 2, i) + '" is not 10–26') + '.', note: v + '.' });
+          { wrong: (one ? '"' + s[i - 1] + '" alone adds dp[' + (i - 1) + '] = ' + dp[i - 1] : '"0" cannot stand alone') + '; ' + (two ? '"' + s.slice(i - 2, i) + '" adds dp[' + (i - 2) + '] = ' + dp[i - 2] : '"' + s.slice(i - 2, i) + '" is not 10 to 26') + '.', note: v + '.' });
         dp[i] = v;
       }
       t.done(V(line(dp, s.length, [], { label: 'ways' })), dp[s.length] + ' decodings.');

@@ -8,7 +8,7 @@
 
   D('word-subsets', {
     t: 'Word Subsets: merge requirements by max count',
-    r: 'Combine words2 into one requirement: for each letter, the max count over all b. A word in words1 is universal iff it meets that requirement.',
+    r: 'Combine words2 into one requirement: for each letter, the max count over all b. A word in words1 is universal exactly when it meets that requirement.',
     g: R => ({ words1: words(R, R.int(1, 5), 'abc', 1, 5), words2: words(R, R.int(1, 3), 'abc', 1, 2) }),
     s(I, T) { const res = (() => { const need = {}; for (const b of I.words2) { const c = cnt(b); for (const k in c) need[k] = Math.max(need[k] || 0, c[k]); } T.at({ words2: A(I.words2), need: K(need) }); T.n(`Merged requirement for '${Object.keys(need)[0]}'?`, need[Object.keys(need)[0]], 'Max count across words2.'); T.n('Different letters in the merged requirement?', Object.keys(need).length, 'Every letter that appears in some word of words2.'); return I.words1.filter(w => { const c = cnt(w); return Object.keys(need).every(k => (c[k] || 0) >= need[k]); }); })(); T.n('How many words in words1 are universal?', res.length, 'Each must meet the merged requirement.'); return res; }
   });
@@ -85,10 +85,10 @@
   });
 
   D('alphabet-board-path', {
-    t: 'Alphabet Board Path: up/left before down/right',
-    r: 'Letter c sits at (⌊c/5⌋, c mod 5). Move U and L first, then D and R, so you never step off the board around "z".',
+    t: 'Alphabet Board Path: up or left before down or right',
+    r: 'Letter c sits at ((c divided by 5, rounded down), c mod 5). Move U and L first, then D and R, so you never step off the board around "z".',
     g: R => ({ target: R.str(R.int(1, 4), 'abcelotz') }),
-    s(I, T) { let r = 0, c = 0, out = ''; for (const ch of I.target) { const k = ch.charCodeAt(0) - 97, nr = Math.floor(k / 5), nc = k % 5; T.at({ at: `(${r},${c})`, to: ch }); T.n(`Row of '${ch}'?`, nr, `⌊${k}/5⌋.`); if (nr < r) out += 'U'.repeat(r - nr); if (nc < c) out += 'L'.repeat(c - nc); if (nr > r) out += 'D'.repeat(nr - r); if (nc > c) out += 'R'.repeat(nc - c); out += '!'; r = nr; c = nc; } return out; }
+    s(I, T) { let r = 0, c = 0, out = ''; for (const ch of I.target) { const k = ch.charCodeAt(0) - 97, nr = Math.floor(k / 5), nc = k % 5; T.at({ at: `(${r},${c})`, to: ch }); T.n(`Row of '${ch}'?`, nr, `${k} divided by 5, rounded down.`); if (nr < r) out += 'U'.repeat(r - nr); if (nc < c) out += 'L'.repeat(c - nc); if (nr > r) out += 'D'.repeat(nr - r); if (nc > c) out += 'R'.repeat(nc - c); out += '!'; r = nr; c = nc; } return out; }
   });
 
   D('find-words-that-can-be-formed-by-characters', {
@@ -100,7 +100,7 @@
 
   D('single-row-keyboard', {
     t: 'Single-Row Keyboard: sum of finger moves',
-    r: 'Record each letter\'s position; total time = Σ |pos(next) − pos(current)| starting at 0.',
+    r: 'Record each letter\'s position; total time = the sum of |pos(next) − pos(current)| starting at 0.',
     g: R => ({ keyboard: R.shuffle([...'abcdefghijklmnopqrstuvwxyz']).join(''), word: R.str(R.int(1, 4), 'abcde') }),
     s(I, T) { let p = 0, t = 0; for (const c of I.word) { const q = I.keyboard.indexOf(c); T.at({ at: p, key: c }); T.n(`Move cost to '${c}'?`, Math.abs(q - p), `|${q} − ${p}|.`); t += Math.abs(q - p); p = q; } return t; }
   });
@@ -110,33 +110,33 @@
     r: 'A transaction is invalid if its amount > 1000, or another transaction with the same name in a different city is within 60 minutes.',
     cmp: 'set',
     g: R => ({ transactions: Array.from({ length: R.int(1, 4) }, () => `${R.pick(['alice', 'bob'])},${R.int(0, 120)},${R.pick([100, 800, 1200])},${R.pick(['mtv', 'nyc'])}`) }),
-    s(I, T) { const t = I.transactions.map(x => x.split(',')); return I.transactions.filter((x, i) => { const [n, tm, am, c] = t[i]; const bad = +am > 1000 || t.some(([n2, t2, , c2], j) => j !== i && n2 === n && c2 !== c && Math.abs(+t2 - +tm) <= 60); T.at({ tx: x }); T.yn(`Is "${x}" invalid?`, bad, 'Amount > 1000 or same name, other city, ≤ 60 min apart.'); return bad; }); }
+    s(I, T) { const t = I.transactions.map(x => x.split(',')); return I.transactions.filter((x, i) => { const [n, tm, am, c] = t[i]; const bad = +am > 1000 || t.some(([n2, t2, , c2], j) => j !== i && n2 === n && c2 !== c && Math.abs(+t2 - +tm) <= 60); T.at({ tx: x }); T.yn(`Is "${x}" invalid?`, bad, 'Amount > 1000 or same name, other city, at most 60 min apart.'); return bad; }); }
   });
 
   D('before-and-after-puzzle', {
     t: 'Before and After Puzzle: last word meets first word',
-    r: 'For every ordered pair i ≠ j where the last word of phrase i equals the first word of phrase j, join them sharing that word. Return distinct results sorted.',
+    r: 'For every ordered pair i not equal to j where the last word of phrase i equals the first word of phrase j, join them sharing that word. Return distinct results sorted.',
     g: R => ({ phrases: Array.from({ length: R.int(2, 4) }, () => Array.from({ length: R.int(1, 3) }, () => R.pick(['a', 'b', 'c'])).join(' ')) }),
     s(I, T) { const res = (() => { const set = new Set(), p = I.phrases; for (let i = 0; i < p.length; i++) for (let j = 0; j < p.length; j++) { if (i === j) continue; const a = p[i].split(' '), b = p[j].split(' '); if (a[a.length - 1] === b[0]) set.add([...a, ...b.slice(1)].join(' ')); } T.at({ phrases: A(p) }); T.n('Ordered pairs of phrases to try?', p.length * (p.length - 1), 'Every phrase with every other phrase, in both orders.'); T.n('How many distinct puzzles?', set.size, 'Pairs whose ends match.'); return [...set].sort(); })(); let m = 0; const p = I.phrases; for (let i = 0; i < p.length; i++) for (let j = 0; j < p.length; j++) if (i !== j && p[i].split(' ').pop() === p[j].split(' ')[0]) m++; T.n('Matching ordered pairs before removing duplicates?', m, 'Last word of one equals the first word of the other.'); return res; }
   });
 
   D('maximum-number-of-balloons', {
     t: 'Maximum Number of Balloons',
-    r: '"balloon" needs b, a, n once and l, o twice. The answer is the min of count(b), count(a), count(l)/2, count(o)/2, count(n).',
+    r: '"balloon" needs b, a, n once and l, o twice. The answer is the min of count(b), count(a), count(l) divided by 2, count(o) divided by 2, count(n).',
     g: R => ({ text: R.str(R.int(3, 14), 'balonx') }),
     s(I, T) { const res = (() => { const c = cnt(I.text), v = Math.min(c.b || 0, c.a || 0, Math.floor((c.l || 0) / 2), Math.floor((c.o || 0) / 2), c.n || 0); T.at({ counts: K(c) }); T.n('Copies available from l alone?', Math.floor((c.l || 0) / 2), 'Two l per balloon.'); T.n('Copies available from o alone?', Math.floor((c.o || 0) / 2), 'Two o per balloon.'); return v; })(); T.n('Most balloons you can make?', res, 'The smallest of all the letter limits.'); return res; }
   });
 
   D('decrypt-string-from-alphabet-to-integer-mapping', {
     t: 'Decrypt String: look ahead for #',
-    r: 'At index i, if s[i+2] is "#", read two digits (10–26 → j–z); else read one digit (1–9 → a–i).',
+    r: 'At index i, if s[i+2] is "#", read two digits (10 to 26 map to j to z); else read one digit (1 to 9 map to a to i).',
     g: R => ({ s: Array.from({ length: R.int(1, 4) }, () => { const v = R.int(1, 26); return v > 9 ? v + '#' : String(v); }).join('') }),
     s(I, T) { let i = 0, out = ''; while (i < I.s.length) { const two = I.s[i + 2] === '#', v = two ? +I.s.slice(i, i + 2) : +I.s[i]; T.at({ s: chars(I.s), at: i }); T.c('Letter here?', [...new Set([String.fromCharCode(96 + v), String.fromCharCode(96 + +I.s[i]), 'z'])], String.fromCharCode(96 + v), two ? 'Two digits then #.' : 'Single digit.'); out += String.fromCharCode(96 + v); i += two ? 3 : 1; } return out; }
   });
 
   D('distinct-echo-substrings', {
     t: 'Distinct Echo Substrings: a + a',
-    r: 'For each start and half-length L, the substring is an echo if text[i..i+L) equals text[i+L..i+2L). Count distinct ones (hashing makes the comparison O(1)).',
+    r: 'For each start and half-length L, the substring is an echo if text[i to i+L) equals text[i+L to i+2L). Count distinct ones (hashing makes the comparison O(1)).',
     g: R => ({ text: R.str(R.int(1, 9), 'ab') }),
     s(I, T) { const s = I.text, set = new Set(); for (let L = 1; 2 * L <= s.length; L++) { let k = 0; for (let i = 0; i + 2 * L <= s.length; i++) if (s.substr(i, L) === s.substr(i + L, L)) { set.add(s.substr(i, 2 * L)); k++; } if (L <= 3) { T.at({ text: chars(s), half: L }); T.n(`Echo positions with half-length ${L}?`, k, 'Compare the two halves.'); } } return set.size; }
   });
@@ -157,7 +157,7 @@
 
   D('increasing-decreasing-string', {
     t: 'Increasing Decreasing String: sweep counts up and down',
-    r: 'Using letter counts, repeatedly sweep a→z taking one of each available letter, then z→a, until all are used.',
+    r: 'Using letter counts, repeatedly sweep a to z taking one of each available letter, then z to a, until all are used.',
     g: R => ({ s: R.str(R.int(1, 8), 'abc') }),
     s(I, T) { const c = Array(26).fill(0); for (const x of I.s) c[x.charCodeAt(0) - 97]++; let out = '', pass = 0; while (out.length < I.s.length) { const ord = pass % 2 ? [...Array(26).keys()].reverse() : [...Array(26).keys()]; let piece = ''; for (const i of ord) if (c[i]) { c[i]--; piece += String.fromCharCode(97 + i); } T.at({ out, pass: pass % 2 ? 'down' : 'up' }); T.n('Letters taken in this sweep?', piece.length, 'One of each remaining letter.'); out += piece; pass++; } return out; }
   });
@@ -237,7 +237,7 @@
 
   D('making-file-names-unique', {
     t: 'Making File Names Unique: next free suffix',
-    r: 'Keep a map name → next k to try. If a name is taken, try name(k), name(k+1)… until free; record both the result and the updated k.',
+    r: 'Keep a map name to next k to try. If a name is taken, try name(k), name(k+1)… until free; record both the result and the updated k.',
     g: R => ({ names: Array.from({ length: R.int(1, 6) }, () => R.pick(['a', 'a', 'b', 'a(1)', 'a(2)'])) }),
     s(I, T) { const used = new Map(), out = []; for (const n of I.names) { let r = n; if (used.has(n)) { let k = used.get(n); while (used.has(`${n}(${k})`)) k++; r = `${n}(${k})`; used.set(n, k + 1); } used.set(r, used.get(r) || 1); T.at({ name: n, taken: A([...used.keys()]) }); T.c(`Final name for "${n}"?`, [...new Set([r, n, n + '(1)', n + '(2)'])], r, 'Smallest free suffix.'); out.push(r); } return out; }
   });
@@ -250,8 +250,8 @@
   });
 
   D('reformat-date', {
-    t: 'Reformat Date: Day Month Year → YYYY-MM-DD',
-    r: 'Strip the day suffix, map the month name to 01–12, pad, and reorder.',
+    t: 'Reformat Date: Day Month Year to YYYY-MM-DD',
+    r: 'Strip the day suffix, map the month name to 01 to 12, pad, and reorder.',
     g: R => ({ date: (d => d + (d % 10 === 1 && d !== 11 ? 'st' : d % 10 === 2 && d !== 12 ? 'nd' : d % 10 === 3 && d !== 13 ? 'rd' : 'th'))(R.int(1, 28)) + ' ' + R.pick(['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']) + ' ' + R.int(1900, 2100) }),
     s(I, T) { const [d, m, y] = I.date.split(' '), M = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'].indexOf(m) + 1; T.at({ date: I.date }); T.n('Day number?', parseInt(d), 'Drop the st, nd, rd or th.'); T.yn('Does the day need a leading zero?', parseInt(d) < 10, 'Days below 10 get a 0 in front.'); T.n(`Month number of ${m}?`, M, 'Jan = 1.'); return `${y}-${String(M).padStart(2, '0')}-${String(parseInt(d)).padStart(2, '0')}`; }
   });
@@ -265,14 +265,14 @@
 
   D('can-convert-string-in-k-moves', {
     t: 'Convert String in k Moves: shifts collide every 26',
-    r: 'Each position needs shift d = (t − s) mod 26. The j-th position needing the same d must use move d + 26·(j − 1). All must be ≤ k.',
+    r: 'Each position needs shift d = (t − s) mod 26. The j-th position needing the same d must use move d + 26 times (j − 1). All must be at most k.',
     g: R => { const n = R.int(1, 6); return { s: R.str(n, 'abc'), t: R.str(R.chance(0.9) ? n : n + 1, 'abc'), k: R.int(0, 40) }; },
     s(I, T) { if (I.s.length !== I.t.length) { T.at({ s: I.s, t: I.t }); T.yn('Same length?', false, 'Conversion keeps the length.'); return false; } const used = {}; for (let i = 0; i < I.s.length; i++) { const d = (I.t.charCodeAt(i) - I.s.charCodeAt(i) + 26) % 26; if (!d) continue; const mv = d + 26 * (used[d] || 0); used[d] = (used[d] || 0) + 1; T.at({ s: chars(I.s), t: chars(I.t), at: i }); T.n(`Move number needed for index ${i}?`, mv, `Shift ${d}, used ${used[d] - 1} times before.`); if (mv > I.k) return false; } return true; }
   });
 
   D('find-kth-bit-in-nth-binary-string', {
     t: 'Kth Bit in Nth Binary String: mirror recursion',
-    r: 'S_n has length 2^n − 1 with middle 1. If k is the middle, answer 1; left half recurses into S_{n−1}; right half mirrors to position 2^n − k and inverts.',
+    r: 'S_n has length 2 to the power n − 1 with middle 1. If k is the middle, answer 1; left half recurses into S_{n−1}; right half mirrors to position 2 to the power n − k and inverts.',
     g: R => { const n = R.int(1, 5); return { n, k: R.int(1, 2 ** n - 1) }; },
     s(I, T) { let n = I.n, k = I.k, inv = 0; while (n > 1) { const mid = 2 ** (n - 1); T.at({ n, k, inverted: inv }); T.c('Where is k?', ['middle', 'left', 'right'], k === mid ? 'middle' : k < mid ? 'left' : 'right', `Middle is ${mid}.`); if (k === mid) return String(1 ^ inv); if (k > mid) { k = 2 ** n - k; inv ^= 1; } n--; } return String(inv); }
   });

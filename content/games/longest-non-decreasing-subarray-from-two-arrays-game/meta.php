@@ -5,7 +5,7 @@ return [
     'title' => 'Longest Non-Decreasing Subarray From Two Arrays: two run lengths',
     'leetcode' => 2771,
     'difficulty' => 'Med',
-    'summary' => 'd1 / d2 = longest run ending at i choosing nums1[i] / nums2[i]. Each extends from whichever previous choice is ≤ the current value.',
+    'summary' => 'd1 divided by d2 = longest run ending at i choosing nums1[i] divided by nums2[i]. Each extends from whichever previous choice is at most the current value.',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

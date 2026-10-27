@@ -5,7 +5,7 @@ return [
     'title' => 'Minimum Limit of Balls in a Bag',
     'leetcode' => 1760,
     'difficulty' => 'Med',
-    'summary' => 'Binary search penalty p: a bag of x needs ⌈x/p⌉ − 1 splits. p works if total splits ≤ maxOperations.',
+    'summary' => 'Binary search penalty p: a bag of x needs (x divided by p, rounded up) − 1 splits. p works if total splits at most maxOperations.',
     'category' => 'LeetCode',
     'subcategory' => 'Binary Search',
     'topic' => 'LeetCode · Binary Search',

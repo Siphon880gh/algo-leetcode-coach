@@ -5,7 +5,7 @@ return [
     'title' => 'Remove Stones to Minimize the Total',
     'leetcode' => 1962,
     'difficulty' => 'Med',
-    'summary' => 'k times: pop the largest pile (max-heap), remove ⌊x/2⌋ stones, push it back. Sum what remains.',
+    'summary' => 'k times: pop the largest pile (max-heap), remove half of x (rounded down) stones, push it back. Sum what remains.',
     'category' => 'LeetCode',
     'subcategory' => 'Heap',
     'topic' => 'LeetCode · Heap',

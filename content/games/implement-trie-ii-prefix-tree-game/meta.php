@@ -5,7 +5,7 @@ return [
     'title' => 'Implement Trie II (Prefix Tree)',
     'leetcode' => 1804,
     'difficulty' => 'Med',
-    'summary' => 'Each trie node stores how many words pass through it and how many end there. insert/erase add/subtract 1 along the path; the two count queries read the final node\'s counters.',
+    'summary' => 'Each trie node stores how many words pass through it and how many end there. insert or erase add or subtract 1 along the path; the two count queries read the final node\'s counters.',
     'category' => 'LeetCode',
     'subcategory' => 'Design',
     'topic' => 'LeetCode · Design',

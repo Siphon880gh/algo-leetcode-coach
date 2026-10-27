@@ -5,7 +5,7 @@ return [
     'title' => 'Score of Parentheses',
     'leetcode' => 856,
     'difficulty' => 'Med',
-    'summary' => 'Only "()" pairs score: each contributes 2^depth, where depth is the number of enclosing pairs. Sum them.',
+    'summary' => 'Only "()" pairs score: each contributes 2 to the power depth, where depth is the number of enclosing pairs. Sum them.',
     'category' => 'LeetCode',
     'subcategory' => 'Stack',
     'topic' => 'LeetCode · Stack',

@@ -5,7 +5,7 @@ return [
     'title' => 'Reachable Nodes in Subdivided Graph',
     'leetcode' => 882,
     'difficulty' => 'Hard',
-    'summary' => 'Dijkstra on the original graph with edge weight cnt + 1. Count original nodes with dist ≤ maxMoves; on each edge, reach min(cnt, leftover from u + leftover from v) new nodes.',
+    'summary' => 'Dijkstra on the original graph with edge weight cnt + 1. Count original nodes with dist at most maxMoves; on each edge, reach min(cnt, leftover from u + leftover from v) new nodes.',
     'category' => 'LeetCode',
     'subcategory' => 'Graphs',
     'topic' => 'LeetCode · Graphs',

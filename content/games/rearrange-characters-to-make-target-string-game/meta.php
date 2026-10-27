@@ -5,7 +5,7 @@ return [
     'title' => 'Copies of Target From s',
     'leetcode' => 2287,
     'difficulty' => 'Easy',
-    'summary' => 'Answer = min over target letters of ⌊count_s(c) / count_target(c)⌋.',
+    'summary' => 'Answer = min over target letters of count_s(c) divided by count_target(c), rounded down.',
     'category' => 'LeetCode',
     'subcategory' => 'Strings',
     'topic' => 'LeetCode · Strings',

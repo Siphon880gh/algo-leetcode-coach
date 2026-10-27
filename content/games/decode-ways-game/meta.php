@@ -5,7 +5,7 @@ return [
     'title' => 'Decode Ways: one digit or two',
     'leetcode' => 91,
     'difficulty' => 'Med',
-    'summary' => 'dp[i] counts decodings of the first i digits. A valid single digit (1–9) adds dp[i−1]. A valid pair (10–26) adds dp[i−2]. A "0" alone adds nothing.',
+    'summary' => 'dp[i] counts decodings of the first i digits. A valid single digit (1 to 9) adds dp[i−1]. A valid pair (10 to 26) adds dp[i−2]. A "0" alone adds nothing.',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

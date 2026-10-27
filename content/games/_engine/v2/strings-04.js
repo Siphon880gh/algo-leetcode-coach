@@ -17,7 +17,7 @@
 
   D('minimize-result-by-adding-parentheses-to-expression', {
     t: 'Minimize Result With Parentheses',
-    r: 'Try every left split of num1 and right split of num2: value = (left prefix or 1) × (inner sum) × (right suffix or 1). Keep the smallest.',
+    r: 'Try every left split of num1 and right split of num2: value = (left prefix or 1) times (inner sum) times (right suffix or 1). Keep the smallest.',
     cmp: (o, e) => evalParen(o) === evalParen(e),
     g: R => ({ expression: R.str(R.int(1, 3), '123456789') + '+' + R.str(R.int(1, 3), '123456789') }),
     s(I, T) { const [a, b] = I.expression.split('+'); let best = Infinity, out = ''; for (let i = 0; i < a.length; i++) for (let j = 1; j <= b.length; j++) { const e = `${a.slice(0, i)}(${a.slice(i)}+${b.slice(0, j)})${b.slice(j)}`, v = evalParen(e); if (v < best) { best = v; out = e; } } T.at({ expression: I.expression }); T.n('How many placements are there to try?', a.length * b.length, 'Every left split of num1 times every right split of num2.'); T.n('Value with the parentheses around the whole sum?', +a + +b, 'Nothing is multiplied outside.'); T.n('Smallest possible value?', best, 'Try every placement.'); return out; }
@@ -46,7 +46,7 @@
 
   D('percentage-of-letter-in-string', {
     t: 'Percentage of Letter',
-    r: '⌊100 × count / length⌋.',
+    r: '100 times count divided by length, rounded down.',
     g: R => ({ s: R.str(R.int(1, 9), 'abo'), letter: R.pick(['a', 'o', 'k']) }),
     s(I, T) { const c = [...I.s].filter(x => x === I.letter).length; T.at({ s: chars(I.s), letter: I.letter }); T.n(`How many '${I.letter}'?`, c, 'Count.'); T.n('Length of s?', I.s.length, 'The denominator.'); T.n('Percentage, rounded down?', Math.floor(100 * c / I.s.length), '100 times count divided by length, rounded down.'); return Math.floor(100 * c / I.s.length); }
   });
@@ -67,21 +67,21 @@
 
   D('rearrange-characters-to-make-target-string', {
     t: 'Copies of Target From s',
-    r: 'Answer = min over target letters of ⌊count_s(c) / count_target(c)⌋.',
+    r: 'Answer = min over target letters of count_s(c) divided by count_target(c), rounded down.',
     g: R => ({ s: R.str(R.int(1, 12), 'abcdeo'), target: R.str(R.int(1, 3), 'abc') }),
     s(I, T) { const a = cnt(I.s), b = cnt(I.target); let r = Infinity; for (const k in b) { const v = Math.floor((a[k] || 0) / b[k]); T.at({ s: K(a), need: K(b) }); T.n(`Copies limited by '${k}'?`, v, `${a[k] || 0} divided by ${b[k]}, rounded down.`); r = Math.min(r, v); } T.n('Copies of target you can make?', r, 'The smallest limit over all letters.'); return r; }
   });
 
   D('apply-discount-to-prices', {
     t: 'Apply Discount to Prices',
-    r: 'A word is a price if it is "$" followed by digits only. Replace it with price × (100 − d)/100 to two decimals.',
+    r: 'A word is a price if it is "$" followed by digits only. Replace it with price times (100 − d) divided by 100 to two decimals.',
     g: R => ({ sentence: Array.from({ length: R.int(1, 5) }, () => R.pick(['$1', '$20', '5$', '$', '$1e', 'a', '$7'])).join(' '), discount: R.pick([0, 10, 50, 100]) }),
     s(I, T) { return I.sentence.split(' ').map(w => { const ok = /^\$\d+$/.test(w); T.at({ word: w }); T.yn(`Is "${w}" a price?`, ok, '$ then digits only.'); return ok ? '$' + (Number(w.slice(1)) * (100 - I.discount) / 100).toFixed(2) : w; }).join(' '); }
   });
 
   D('strong-password-checker-ii', {
     t: 'Strong Password Checker II',
-    r: 'Need length ≥ 8, a lower, an upper, a digit, a special from "!@#$%^&*()-+", and no two equal adjacent characters.',
+    r: 'Need length at least 8, a lower, an upper, a digit, a special from "!@#$%^&*()-+", and no two equal adjacent characters.',
     g: R => ({ password: R.str(R.int(4, 12), 'aAb1!-') }),
     s(I, T) { const p = I.password; T.at({ password: chars(p) }); T.yn('Two equal adjacent characters?', /(.)\1/.test(p), 'Scan neighbors.'); T.yn('At least 8 characters?', p.length >= 8, `Length ${p.length}.`); T.yn('Has a lower case letter, an upper case letter, a digit and a special character?', /[a-z]/.test(p) && /[A-Z]/.test(p) && /\d/.test(p) && /[!@#$%^&*()\-+]/.test(p), 'All four kinds are required.'); return p.length >= 8 && /[a-z]/.test(p) && /[A-Z]/.test(p) && /\d/.test(p) && /[!@#$%^&*()\-+]/.test(p) && !/(.)\1/.test(p); }
   });
@@ -109,7 +109,7 @@
 
   D('decode-the-message', {
     t: 'Decode the Message',
-    r: 'Build the substitution table from the first appearance of each letter in key (first → a, second → b, …); spaces stay.',
+    r: 'Build the substitution table from the first appearance of each letter in key (first to a, second to b, …); spaces stay.',
     g: R => ({ key: R.shuffle([...'abcdefghijklmnopqrstuvwxyz']).join(''), message: Array.from({ length: R.int(1, 3) }, () => R.str(R.int(1, 4), 'abcdef')).join(' ') }),
     s(I, T) { const m = {}; let k = 0; for (const c of I.key) if (c !== ' ' && !(c in m)) m[c] = String.fromCharCode(97 + k++); const f = I.message.replace(' ', '')[0]; T.at({ key: I.key }); T.c(`'${f}' decodes to?`, [...new Set([m[f], 'a', 'b', 'c'])], m[f], 'Its rank of first appearance in key.'); const first = [...I.key].find(c => c !== ' '); T.c('Which key letter decodes to a?', [...new Set([first, 'a', 'b', 'z'])], first, 'The first letter to appear in key.'); T.n('Spaces kept in the decoded message?', [...I.message].filter(c => c === ' ').length, 'Spaces are not substituted.'); return [...I.message].map(c => c === ' ' ? ' ' : m[c]).join(''); }
   });
@@ -144,14 +144,14 @@
 
   D('number-of-valid-clock-times', {
     t: 'Number of Valid Clock Times',
-    r: 'Count hours 00–23 matching the hh pattern and minutes 00–59 matching mm; multiply.',
+    r: 'Count hours 00 to 23 matching the hh pattern and minutes 00 to 59 matching mm; multiply.',
     g: R => ({ time: [R.pick(['0', '1', '2', '?']), R.pick(['0', '3', '5', '?']), ':', R.pick(['0', '4', '?']), R.pick(['0', '9', '?'])].join('') }),
     s(I, T) { const fit = (p, v) => [...p].every((c, i) => c === '?' || c === v[i]); let h = 0, m = 0; for (let x = 0; x < 24; x++) if (fit(I.time.slice(0, 2), String(x).padStart(2, '0'))) h++; for (let x = 0; x < 60; x++) if (fit(I.time.slice(3), String(x).padStart(2, '0'))) m++; T.at({ time: I.time }); T.n('Valid hours?', h, 'Match 00 to 23.'); T.n('Valid minutes?', m, 'Match 00 to 59.'); T.n('Valid times?', h * m, 'Hours times minutes.'); return h * m; }
   });
 
   D('determine-if-two-events-have-conflict', {
     t: 'Two Events Conflict',
-    r: 'Inclusive intervals overlap iff start1 ≤ end2 and start2 ≤ end1 (HH:MM strings compare correctly).',
+    r: 'Inclusive intervals overlap exactly when start1 at most end2 and start2 at most end1 (HH:MM strings compare correctly).',
     g: R => { const t = () => `${String(R.int(1, 4)).padStart(2, '0')}:${R.pick(['00', '30'])}`; const ev = () => [t(), t()].sort(); return { event1: ev(), event2: ev() }; },
     s(I, T) { T.at({ event1: A(I.event1), event2: A(I.event2) }); T.yn('Does event 1 start no later than event 2 ends?', I.event1[0] <= I.event2[1], 'First condition.'); T.yn('Does event 2 start no later than event 1 ends?', I.event2[0] <= I.event1[1], 'Second condition.'); T.yn('Do the events conflict?', I.event1[0] <= I.event2[1] && I.event2[0] <= I.event1[1], 'Both conditions must hold.'); return I.event1[0] <= I.event2[1] && I.event2[0] <= I.event1[1]; }
   });
@@ -174,7 +174,7 @@
     t: 'Maximum Value of a String',
     r: 'A digits-only string\'s value is its number; otherwise its length. Take the max.',
     g: R => ({ strs: words(R, R.int(1, 5), 'a0193', 1, 4) }),
-    s(I, T) { return Math.max(...I.strs.map(s => { const v = /^\d+$/.test(s) ? +s : s.length; T.at({ str: s }); T.n(`Value of "${s}"?`, v, /^\d+$/.test(s) ? 'Digits only → number.' : 'Has a letter → length.'); return v; })); }
+    s(I, T) { return Math.max(...I.strs.map(s => { const v = /^\d+$/.test(s) ? +s : s.length; T.at({ str: s }); T.n(`Value of "${s}"?`, v, /^\d+$/.test(s) ? 'Digits only: number.' : 'Has a letter: length.'); return v; })); }
   });
 
   D('shortest-distance-to-target-string-in-a-circular-array', {
@@ -186,7 +186,7 @@
 
   D('make-number-of-distinct-characters-equal', {
     t: 'Equalize Distinct Characters With One Swap',
-    r: 'Try all 26 × 26 letter pairs (x from word1, y from word2) that exist; simulate the swap on the counts and compare distinct counts.',
+    r: 'Try all 26 times 26 letter pairs (x from word1, y from word2) that exist; simulate the swap on the counts and compare distinct counts.',
     g: R => ({ word1: R.str(R.int(1, 5), 'abc'), word2: R.str(R.int(1, 5), 'abcd') }),
     s(I, T) { const a = cnt(I.word1), b = cnt(I.word2), d = m => Object.values(m).filter(v => v > 0).length; T.at({ counts1: K(a), counts2: K(b) }); T.n('Distinct letters in word1 now?', d(a), 'Before any swap.'); T.n('Distinct letters in word2 now?', d(b), 'Before any swap.'); for (const x in a) for (const y in b) { const A1 = { ...a }, B1 = { ...b }; A1[x]--; A1[y] = (A1[y] || 0) + 1; B1[y]--; B1[x] = (B1[x] || 0) + 1; if (d(A1) === d(B1)) { T.yn('Can one swap make the distinct counts equal?', true, 'A pair of letters works.'); return true; } } T.yn('Can one swap make the distinct counts equal?', false, 'No pair of letters works.'); return false; }
   });
@@ -200,16 +200,16 @@
 
   D('find-the-longest-balanced-substring-of-a-binary-string', {
     t: 'Longest Balanced Binary Substring',
-    r: 'For each block of zeros followed by a block of ones, the balanced length is 2 × min(zeros, ones).',
+    r: 'For each block of zeros followed by a block of ones, the balanced length is 2 times min(zeros, ones).',
     g: R => ({ s: R.str(R.int(1, 10), '01') }),
     s(I, T) { const runs = I.s.match(/0+|1+/g); let best = 0; T.at({ runs: A(runs) }); T.n('How many runs of equal digits?', runs.length, 'Split s wherever the digit changes.'); for (let i = 0; i + 1 < runs.length; i++) if (runs[i][0] === '0') { const v = 2 * Math.min(runs[i].length, runs[i + 1].length); T.at({ runs: A(runs, { hl: [i, i + 1] }) }); T.n('Balanced length here?', v, 'Twice the smaller of the two runs.'); best = Math.max(best, v); } if (!best) { T.at({ runs: A(runs) }); T.yn('Is there a 0-run followed by a 1-run?', false, 'Then the answer is 0.'); } T.n('Longest balanced length?', best, 'The best over every zeros-then-ones pair.'); return best; }
   });
 
   D('number-of-senior-citizens', {
     t: 'Number of Senior Citizens',
-    r: 'Age is characters 11–12; count ages > 60.',
+    r: 'Age is characters 11 to 12; count ages > 60.',
     g: R => ({ details: Array.from({ length: R.int(1, 4) }, () => R.str(10, '0123456789') + R.pick(['M', 'F', 'O']) + String(R.int(10, 99)) + R.str(2, '0123456789')) }),
-    s(I, T) { return I.details.filter(d => { const a = +d.slice(11, 13); T.at({ details: d }); T.n('Age?', a, 'Characters 11–12.'); return a > 60; }).length; }
+    s(I, T) { return I.details.filter(d => { const a = +d.slice(11, 13); T.at({ details: d }); T.n('Age?', a, 'Characters 11 to 12.'); return a > 60; }).length; }
   });
 
   D('remove-trailing-zeros-from-a-string', {

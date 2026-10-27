@@ -5,7 +5,7 @@ return [
     'title' => 'Maximum Fruits Within k Steps',
     'leetcode' => 2106,
     'difficulty' => 'Hard',
-    'summary' => 'A reachable range [L, R] around start costs min(2·(s−L) + (R−s), 2·(R−s) + (s−L)) steps. Slide over ranges with prefix sums (binary search the matching end).',
+    'summary' => 'A reachable range [L, R] around start costs min(2 times (s−L) + (R−s), 2 times (R−s) + (s−L)) steps. Slide over ranges with prefix sums (binary search the matching end).',
     'category' => 'LeetCode',
     'subcategory' => 'Binary Search',
     'topic' => 'LeetCode · Binary Search',

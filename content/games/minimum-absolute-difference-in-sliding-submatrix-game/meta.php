@@ -5,7 +5,7 @@ return [
     'title' => 'Minimum Absolute Difference in Sliding Submatrix',
     'leetcode' => 3567,
     'difficulty' => 'Med',
-    'summary' => 'For each k × k window, collect the distinct values and sort them: the closest pair of distinct values is always adjacent in sorted order. One distinct value → 0.',
+    'summary' => 'For each k times k window, collect the distinct values and sort them: the closest pair of distinct values is always adjacent in sorted order. One distinct value: 0.',
     'category' => 'LeetCode',
     'subcategory' => 'Sorting',
     'topic' => 'LeetCode · Sorting',

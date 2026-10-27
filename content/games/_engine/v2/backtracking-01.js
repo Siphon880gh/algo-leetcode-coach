@@ -13,12 +13,12 @@
     r: 'Backtrack digit by digit: for each letter mapped to the current digit, append it and recurse; a full-length path is one combination.',
     g: R => ({ digits: R.str(R.int(0, 3), '23456789') }),
     cmp: 'set',
-    s(I, T) { const M = { 2: 'abc', 3: 'def', 4: 'ghi', 5: 'jkl', 6: 'mno', 7: 'pqrs', 8: 'tuv', 9: 'wxyz' }; if (!I.digits) { T.at({ digits: '""' }); T.n('Combinations?', 0, 'Empty input → empty list.'); return []; } let out = ['']; [...I.digits].forEach(d => { out = out.flatMap(p => [...M[d]].map(c => p + c)); T.at({ digit: d, letters: M[d] }); T.n('Combinations so far?', out.length, `Each extends by ${M[d].length} letters.`); }); return out; }
+    s(I, T) { const M = { 2: 'abc', 3: 'def', 4: 'ghi', 5: 'jkl', 6: 'mno', 7: 'pqrs', 8: 'tuv', 9: 'wxyz' }; if (!I.digits) { T.at({ digits: '""' }); T.n('Combinations?', 0, 'Empty input-to-empty list.'); return []; } let out = ['']; [...I.digits].forEach(d => { out = out.flatMap(p => [...M[d]].map(c => p + c)); T.at({ digit: d, letters: M[d] }); T.n('Combinations so far?', out.length, `Each extends by ${M[d].length} letters.`); }); return out; }
   });
 
   D('sudoku-solver', {
     t: 'Sudoku Solver',
-    r: 'Find an empty cell, try digits 1–9 that do not clash with its row, column or 3×3 box, recurse, and undo on failure. Bitmasks per row/column/box make the checks O(1).',
+    r: 'Find an empty cell, try digits 1 to 9 that do not clash with its row, column or 3 by 3 box, recurse, and undo on failure. Bitmasks per row, column and box make the checks O(1).',
     g: R => { const d = R.shuffle([1, 2, 3, 4, 5, 6, 7, 8, 9]), b = Array.from({ length: 9 }, (_, r) => Array.from({ length: 9 }, (_, c) => String(d[(r * 3 + Math.floor(r / 3) + c) % 9]))); for (let k = 0; k < R.int(3, 14); k++) b[R.int(0, 8)][R.int(0, 8)] = '.'; return { board: b }; },
     s(I, T) { const b = I.board.map(r => r.slice()), ok = (r, c, v) => { for (let i = 0; i < 9; i++) if (b[r][i] === v || b[i][c] === v || b[3 * Math.floor(r / 3) + Math.floor(i / 3)][3 * Math.floor(c / 3) + i % 3] === v) return false; return true; }; let asks = 0; const solve = () => { for (let r = 0; r < 9; r++) for (let c = 0; c < 9; c++) if (b[r][c] === '.') { const cand = [...'123456789'].filter(v => ok(r, c, v)); if (asks < 6 && cand.length === 1) { asks++; T.at({ board: G(b.map(x => x.slice()), { hl: [[r, c]] }) }); T.n(`Only digit that fits at (${r}, ${c})?`, +cand[0], 'Row, column and box rule out the rest.'); } for (const v of cand) { b[r][c] = v; if (solve()) return true; b[r][c] = '.'; } return false; } return true; }; solve(); if (!asks) { T.at({ board: G(b) }); T.n('Digits in the first row summed?', b[0].reduce((s, v) => s + +v, 0), 'Always 45 when solved.'); } return b; }
   });
@@ -36,7 +36,7 @@
     r: 'Sort, then backtrack with a used[] array; skip nums[i] when it equals nums[i − 1] and nums[i − 1] is not used (so equal values are placed in a fixed order).',
     g: R => ({ nums: R.ints(R.int(1, 4), 1, 3) }),
     cmp: 'set',
-    s(I, T) { const a = I.nums.slice().sort((x, y) => x - y), used = Array(a.length).fill(false), out = [], path = []; const go = () => { if (path.length === a.length) { out.push(path.slice()); return; } for (let i = 0; i < a.length; i++) { const skip = used[i] || (i && a[i] === a[i - 1] && !used[i - 1]); if (!path.length) { T.at({ sorted: A(a, { hl: [i] }) }); T.yn(`Start a permutation with index ${i} (value ${a[i]})?`, !skip, 'Skip a value equal to the one before it when that one is unused.'); } if (skip) continue; used[i] = true; path.push(a[i]); go(); path.pop(); used[i] = false; } }; go(); T.at({ sorted: A(a), found: out.length }); T.n('Unique permutations?', out.length, 'n! / Π(count!)'); return out; }
+    s(I, T) { const a = I.nums.slice().sort((x, y) => x - y), used = Array(a.length).fill(false), out = [], path = []; const go = () => { if (path.length === a.length) { out.push(path.slice()); return; } for (let i = 0; i < a.length; i++) { const skip = used[i] || (i && a[i] === a[i - 1] && !used[i - 1]); if (!path.length) { T.at({ sorted: A(a, { hl: [i] }) }); T.yn(`Start a permutation with index ${i} (value ${a[i]})?`, !skip, 'Skip a value equal to the one before it when that one is unused.'); } if (skip) continue; used[i] = true; path.push(a[i]); go(); path.pop(); used[i] = false; } }; go(); T.at({ sorted: A(a), found: out.length }); T.n('Unique permutations?', out.length, 'n! divided by the product of (count!)'); return out; }
   });
 
   D('n-queens-ii', {
@@ -48,7 +48,7 @@
 
   D('combinations', {
     t: 'Combinations',
-    r: 'Backtrack choosing increasing numbers: from start..n add a number and recurse until k are chosen (prune when not enough numbers remain).',
+    r: 'Backtrack choosing increasing numbers: from start to n add a number and recurse until k are chosen (prune when not enough numbers remain).',
     g: R => { const n = R.int(1, 6); return { n, k: R.int(1, n) }; },
     cmp: 'set',
     s(I, T) { const out = [], path = []; const go = s => { if (path.length === I.k) { out.push(path.slice()); return; } for (let x = s; x <= I.n - (I.k - path.length) + 1; x++) { path.push(x); go(x + 1); path.pop(); } }; go(1); T.at({ n: I.n, k: I.k }); T.n('Largest number that can start a combination?', I.n - I.k + 1, 'Enough numbers must remain after it to finish.'); T.n('Combinations that start with 1?', out.filter(c => c[0] === 1).length, 'Choose the other k − 1 from 2 to n.'); T.n('How many combinations?', out.length, 'C(n, k).'); return out; }
@@ -59,12 +59,12 @@
     r: 'Sort, then backtrack: every node is a subset; at each depth skip a value equal to the previous sibling to avoid duplicate subsets.',
     g: R => ({ nums: R.ints(R.int(1, 5), 1, 3) }),
     cmp: 'sets',
-    s(I, T) { const a = I.nums.slice().sort((x, y) => x - y), out = [], path = []; const go = i => { out.push(path.slice()); for (let j = i; j < a.length; j++) { if (!path.length) { T.at({ sorted: A(a, { hl: [j] }) }); T.yn(`At the top level, use index ${j} (value ${a[j]})?`, !(j > i && a[j] === a[j - 1]), 'Skip a value equal to the previous sibling.'); } if (j > i && a[j] === a[j - 1]) continue; path.push(a[j]); go(j + 1); path.pop(); } }; go(0); const c = {}; a.forEach(x => c[x] = (c[x] || 0) + 1); T.at({ counts: K(c) }); T.n('How many distinct subsets?', out.length, 'Π(count + 1).'); return out; }
+    s(I, T) { const a = I.nums.slice().sort((x, y) => x - y), out = [], path = []; const go = i => { out.push(path.slice()); for (let j = i; j < a.length; j++) { if (!path.length) { T.at({ sorted: A(a, { hl: [j] }) }); T.yn(`At the top level, use index ${j} (value ${a[j]})?`, !(j > i && a[j] === a[j - 1]), 'Skip a value equal to the previous sibling.'); } if (j > i && a[j] === a[j - 1]) continue; path.push(a[j]); go(j + 1); path.pop(); } }; go(0); const c = {}; a.forEach(x => c[x] = (c[x] || 0) + 1); T.at({ counts: K(c) }); T.n('How many distinct subsets?', out.length, 'the product of (count + 1).'); return out; }
   });
 
   D('restore-ip-addresses', {
     t: 'Restore IP Addresses',
-    r: 'Backtrack over 4 parts: each takes 1–3 digits, must be ≤ 255, and cannot have a leading zero unless it is "0". Accept when 4 parts consume the whole string.',
+    r: 'Backtrack over 4 parts: each takes 1 to 3 digits, must be at most 255, and cannot have a leading zero unless it is "0". Accept when 4 parts consume the whole string.',
     g: R => ({ s: R.str(R.int(4, 9), '0125') }),
     cmp: 'set',
     s(I, T) { const out = [], parts = []; const go = i => { if (parts.length === 4) { if (i === I.s.length) out.push(parts.join('.')); return; } for (let L = 1; L <= 3 && i + L <= I.s.length; L++) { const p = I.s.substr(i, L); if ((p.length > 1 && p[0] === '0') || +p > 255) continue; parts.push(p); go(i + L); parts.pop(); } }; go(0); T.at({ s: I.s }); T.yn('Is the length between 4 and 12?', I.s.length >= 4 && I.s.length <= 12, 'Four parts of 1 to 3 digits each.'); T.n('How many lengths work for the first part?', [1, 2, 3].filter(L => L <= I.s.length && !(L > 1 && I.s[0] === '0') && +I.s.substr(0, L) <= 255).length, 'Up to 3 digits, at most 255, and no leading zero.'); T.n('Valid addresses?', out.length, 'Each part from 0 to 255, no leading zeros.'); return out; }
@@ -72,7 +72,7 @@
 
   D('palindrome-partitioning', {
     t: 'Palindrome Partitioning',
-    r: 'Backtrack over cut positions: from index i try every end j where s[i..j] is a palindrome (precompute a table), recurse from j + 1.',
+    r: 'Backtrack over cut positions: from index i try every end j where s[i to j] is a palindrome (precompute a table), recurse from j + 1.',
     g: R => ({ s: R.str(R.int(1, 6), 'ab') }),
     cmp: 'set',
     s(I, T) { const out = [], path = []; let asks = 0; const go = i => { if (i === I.s.length) { out.push(path.slice()); return; } for (let j = i; j < I.s.length; j++) { const p = I.s.slice(i, j + 1); if (asks < 6 && i === 0) { asks++; T.at({ s: A([...I.s], { win: [i, j] }) }); T.yn(`Is "${p}" a palindrome?`, isPal(p), 'Only palindromic pieces may be cut.'); } if (!isPal(p)) continue; path.push(p); go(j + 1); path.pop(); } }; go(0); return out; }
@@ -80,7 +80,7 @@
 
   D('combination-sum-iii', {
     t: 'Combination Sum III',
-    r: 'Backtrack over digits 1–9 in increasing order, using each at most once; accept paths with k numbers summing to n.',
+    r: 'Backtrack over digits 1 to 9 in increasing order, using each at most once; accept paths with k numbers summing to n.',
     g: R => ({ k: R.int(1, 4), n: R.int(1, 25) }),
     cmp: 'sets',
     s(I, T) { const out = [], path = []; const go = (s, rem) => { if (path.length === I.k) { if (!rem) out.push(path.slice()); return; } for (let d = s; d <= 9 && d <= rem; d++) { path.push(d); go(d + 1, rem - d); path.pop(); } }; go(1, I.n); T.at({ k: I.k, n: I.n }); T.n('Smallest sum k distinct digits can make?', I.k * (I.k + 1) / 2, '1 + 2 + … + k.'); T.n('Largest sum k distinct digits can make?', I.k * (19 - I.k) / 2, '9 + 8 + … down k digits.'); T.n('Combinations found?', out.length, 'Increasing digits, each once.'); return out; }
@@ -88,7 +88,7 @@
 
   D('strobogrammatic-number-ii', {
     t: 'Strobogrammatic Number II',
-    r: 'Build from the middle outward: length 0 → [""], length 1 → ["0","1","8"]; wrap each inner string with pairs 00, 11, 69, 88, 96 (no 00 on the outermost layer).',
+    r: 'Build from the middle outward: length 0 gives [""], length 1 gives ["0","1","8"]; wrap each inner string with pairs 00, 11, 69, 88, 96 (no 00 on the outermost layer).',
     g: R => ({ n: R.int(1, 4) }),
     cmp: 'set',
     s(I, T) { const go = (m, top) => { if (m === 0) return ['']; if (m === 1) return ['0', '1', '8']; const inner = go(m - 2, false), out = []; for (const s of inner) for (const [a, b] of [['0', '0'], ['1', '1'], ['6', '9'], ['8', '8'], ['9', '6']]) if (!(top && a === '0')) out.push(a + s + b); T.at({ length: m, innerCount: inner.length }); T.n(`Strobogrammatic strings of length ${m}${top ? ' (no leading 0)' : ''}?`, out.length, 'Wrap each inner string with a pair.'); return out; }; T.at({ n: I.n }); T.n('How many middle choices does this length start from?', I.n % 2 ? 3 : 1, 'An odd length needs 0, 1 or 8 in the middle. An even length starts from the empty string.'); T.n('How many layers of pairs wrap the middle?', Math.floor(I.n / 2), 'Each layer adds two digits.'); return go(I.n, true); }
@@ -96,7 +96,7 @@
 
   D('factor-combinations', {
     t: 'Factor Combinations',
-    r: 'Backtrack with non-decreasing factors: for f from start while f·f ≤ n, if f divides n, record path + [f, n/f] and recurse on n/f starting at f.',
+    r: 'Backtrack with non-decreasing factors: for f from start while f times f at most n, if f divides n, record path + [f, n divided by f] and recurse on n divided by f starting at f.',
     g: R => ({ n: R.pick([1, 8, 12, 16, 24, 30, 32, 36, 37]) }),
     cmp: 'sets',
     s(I, T) { const out = []; const go = (n, s, path) => { for (let f = s; f * f <= n; f++) if (n % f === 0) { out.push([...path, f, n / f]); go(n / f, f, [...path, f]); } }; go(I.n, 2, []); T.at({ n: I.n }); let d0 = 0; for (let f = 2; f * f <= I.n; f++) if (I.n % f === 0) { d0 = f; break; } T.yn('Is there a factor f above 1 with f times f at most n?', d0 > 0, 'Without one, n has no factor combinations.'); if (d0) T.n(`Combinations that start with ${d0}?`, out.filter(c => c[0] === d0).length, 'The smallest factor leads the most combinations.'); T.n('Factor combinations?', out.length, 'Non-decreasing factors > 1.'); return out; }
@@ -112,7 +112,7 @@
 
   D('expression-add-operators', {
     t: 'Expression Add Operators',
-    r: 'Backtrack over the next operand (no leading zeros) with value so far and the last multiplied term: + adds it, − subtracts it, * replaces last by last·x (value − last + last·x).',
+    r: 'Backtrack over the next operand (no leading zeros) with value so far and the last multiplied term: + adds it, − subtracts it, * replaces last by last times x (value − last + last times x).',
     g: R => ({ num: R.str(R.int(1, 5), '1203'), target: R.int(-3, 12) }),
     cmp: 'set',
     s(I, T) { const out = [], s = I.num; let asks = 0; const go = (i, expr, val, last) => { if (i === s.length) { if (val === I.target) { out.push(expr); if (asks++ < 4) { T.at({ expression: expr }); T.n('Expressions found so far?', out.length, `Evaluates to ${I.target}.`); } } return; } for (let j = i; j < s.length; j++) { if (j > i && s[i] === '0') break; const t = s.slice(i, j + 1), x = +t; if (i === 0) go(j + 1, t, x, x); else { go(j + 1, expr + '+' + t, val + x, x); go(j + 1, expr + '-' + t, val - x, -x); go(j + 1, expr + '*' + t, val - last + last * x, last * x); } } }; go(0, '', 0, 0); if (!out.length) { T.at({ num: s, target: I.target }); T.n('Expressions found?', 0, 'None hit the target.'); } return out; }
@@ -127,9 +127,9 @@
 
   D('flip-game-ii', {
     t: 'Flip Game II',
-    r: 'Memoized game search: a state is winning if some "++" → "--" flip leads to a losing state for the opponent.',
+    r: 'Memoized game search: a state is winning if some flip of "++" to "--" leads to a losing state for the opponent.',
     g: R => ({ currentState: R.str(R.int(1, 8), '++-') }),
-    s(I, T) { const memo = new Map(); const win = s => { if (memo.has(s)) return memo.get(s); let r = false; for (let i = 0; i + 1 < s.length && !r; i++) if (s[i] === '+' && s[i + 1] === '+' && !win(s.slice(0, i) + '--' + s.slice(i + 2))) r = true; memo.set(s, r); return r; }; const s = I.currentState; let asks = 0; for (let i = 0; i + 1 < s.length; i++) if (s[i] === '+' && s[i + 1] === '+' && asks++ < 4) { const nx = s.slice(0, i) + '--' + s.slice(i + 2); T.at({ state: s, afterFlip: nx }); T.yn('Does this flip leave the opponent losing?', !win(nx), 'Look for a move into a losing state.'); } if (!asks) { T.at({ state: s }); T.yn('Any move available?', false, 'No "++" → lose.'); } return win(s); }
+    s(I, T) { const memo = new Map(); const win = s => { if (memo.has(s)) return memo.get(s); let r = false; for (let i = 0; i + 1 < s.length && !r; i++) if (s[i] === '+' && s[i + 1] === '+' && !win(s.slice(0, i) + '--' + s.slice(i + 2))) r = true; memo.set(s, r); return r; }; const s = I.currentState; let asks = 0; for (let i = 0; i + 1 < s.length; i++) if (s[i] === '+' && s[i + 1] === '+' && asks++ < 4) { const nx = s.slice(0, i) + '--' + s.slice(i + 2); T.at({ state: s, afterFlip: nx }); T.yn('Does this flip leave the opponent losing?', !win(nx), 'Look for a move into a losing state.'); } if (!asks) { T.at({ state: s }); T.yn('Any move available?', false, 'No "++" left: lose.'); } return win(s); }
   });
 
   D('remove-invalid-parentheses', {
@@ -142,29 +142,29 @@
 
   D('additive-number', {
     t: 'Additive Number',
-    r: 'Choose the first two numbers (no leading zeros); then the rest is forced: repeatedly check the string continues with their sum. Try all first/second splits.',
+    r: 'Choose the first two numbers (no leading zeros); then the rest is forced: repeatedly check the string continues with their sum. Try all first or second splits.',
     g: R => { if (R.chance(0.5)) { let a = R.int(0, 9), b = R.int(0, 9), s = '' + a + b; for (let i = 0; i < R.int(1, 3); i++) { const c = a + b; s += c; a = b; b = c; } return { num: s }; } return { num: R.str(R.int(3, 8), '0123') }; },
     s(I, T) { const s = I.num, n = s.length; let asks = 0; for (let i = 1; i <= n / 2; i++) for (let j = 1; Math.max(i, j) <= n - i - j; j++) { if ((s[0] === '0' && i > 1) || (s[i] === '0' && j > 1)) continue; let a = BigInt(s.slice(0, i)), b = BigInt(s.slice(i, i + j)), k = i + j, ok = true; while (k < n) { const c = (a + b).toString(); if (!s.startsWith(c, k)) { ok = false; break; } k += c.length; a = b; b = BigInt(c); } if (asks++ < 4) { T.at({ num: s, first: s.slice(0, i), second: s.slice(i, i + j) }); T.yn('Does this start produce the whole string?', ok, 'Each next number is the sum of the previous two.'); } if (ok) return true; } return false; }
   });
 
   D('generalized-abbreviation', {
     t: 'Generalized Abbreviation',
-    r: 'Each letter is kept or abbreviated (2^n masks). Backtrack carrying the current run of abbreviated letters; flush the count before a kept letter and at the end.',
+    r: 'Each letter is kept or abbreviated (2 to the power n masks). Backtrack carrying the current run of abbreviated letters; flush the count before a kept letter and at the end.',
     g: R => ({ word: R.str(R.int(1, 4), 'abc') }),
     cmp: 'set',
-    s(I, T) { const n = I.word.length, out = []; for (let m = 0; m < 1 << n; m++) out.push(abbrOf(I.word, m)); T.at({ word: I.word }); T.n('How many abbreviations?', out.length, '2^n choices.'); T.at({ word: I.word, keep: 'first letter only' }); T.yn(`Is "${abbrOf(I.word, 1)}" one of them?`, true, 'Keep letter 0, abbreviate the rest.'); T.c('Abbreviation when every letter is abbreviated?', [String(I.word.length), I.word, '1'.repeat(I.word.length)], String(I.word.length), 'One run covers the whole word, so it becomes a single number.'); return out; }
+    s(I, T) { const n = I.word.length, out = []; for (let m = 0; m < 1 << n; m++) out.push(abbrOf(I.word, m)); T.at({ word: I.word }); T.n('How many abbreviations?', out.length, '2 to the power n choices.'); T.at({ word: I.word, keep: 'first letter only' }); T.yn(`Is "${abbrOf(I.word, 1)}" one of them?`, true, 'Keep letter 0, abbreviate the rest.'); T.c('Abbreviation when every letter is abbreviated?', [String(I.word.length), I.word, '1'.repeat(I.word.length)], String(I.word.length), 'One run covers the whole word, so it becomes a single number.'); return out; }
   });
 
   D('android-unlock-patterns', {
     t: 'Android Unlock Patterns',
-    r: 'DFS from each start key with a visited set; moving between two keys that have a key in between (e.g. 1→3 over 2) is allowed only if that middle key was visited. Use symmetry: corners × 4, edges × 4, center × 1.',
+    r: 'DFS from each start key with a visited set; moving between two keys that have a key in between (e.g. 1 to 3 over 2) is allowed only if that middle key was visited. Use symmetry: corners times 4, edges times 4, center times 1.',
     g: R => { const m = R.int(1, 3); return { m, n: R.int(m, 4) }; },
     s(I, T) { const skip = {}; const set = (a, b, c) => { skip[a + ',' + b] = c; skip[b + ',' + a] = c; }; set(1, 3, 2); set(4, 6, 5); set(7, 9, 8); set(1, 7, 4); set(2, 8, 5); set(3, 9, 6); set(1, 9, 5); set(3, 7, 5); const vis = Array(10).fill(false); const dfs = (cur, len) => { if (len > I.n) return 0; let c = len >= I.m ? 1 : 0; vis[cur] = true; for (let nx = 1; nx <= 9; nx++) { if (vis[nx]) continue; const mid = skip[cur + ',' + nx]; if (mid && !vis[mid]) continue; c += dfs(nx, len + 1); } vis[cur] = false; return c; }; const corner = dfs(1, 1), edge = dfs(2, 1), center = dfs(5, 1); T.at({ m: I.m, n: I.n, start: 'corner key 1' }); T.n('Patterns starting at a corner?', corner, 'DFS with the skip-over rule.'); T.at({ m: I.m, n: I.n, start: 'center key 5' }); T.n('Patterns starting at the center?', center, 'Same DFS.'); T.at({ m: I.m, n: I.n, start: 'edge key 2' }); T.n('Patterns starting at an edge key?', edge, 'Same DFS from key 2.'); T.n('Total patterns?', 4 * corner + 4 * edge + center, 'Four corners, four edges and one center.'); return 4 * corner + 4 * edge + center; }
   });
 
   D('binary-watch', {
     t: 'Binary Watch',
-    r: 'Enumerate hours 0–11 and minutes 0–59; keep times whose total set bits equals turnedOn, formatted h:mm.',
+    r: 'Enumerate hours 0 to 11 and minutes 0 to 59; keep times whose total set bits equals turnedOn, formatted h:mm.',
     g: R => ({ turnedOn: R.int(0, 9) }),
     cmp: 'set',
     s(I, T) { const pc = x => x.toString(2).split('').filter(c => c === '1').length, out = []; for (let h = 0; h < 12; h++) for (let m = 0; m < 60; m++) if (pc(h) + pc(m) === I.turnedOn) out.push(`${h}:${String(m).padStart(2, '0')}`); T.at({ turnedOn: I.turnedOn }); T.yn('Is turnedOn more than 8?', I.turnedOn > 8, 'At most 3 hour LEDs and 5 minute LEDs can be on at once.'); T.n('Times with hour 0?', out.filter(t => t.startsWith('0:')).length, 'Then every lit LED is a minute LED.'); T.n('How many times can the watch show?', out.length, 'Hour bits + minute bits = turnedOn.'); return out; }
@@ -172,7 +172,7 @@
 
   D('minimum-unique-word-abbreviation', {
     t: 'Minimum Unique Word Abbreviation',
-    r: 'Only dictionary words of the same length can conflict. Encode, for each such word, a mask of positions where it differs from target. An abbreviation (mask of kept letters) is unique iff it hits every difference mask. Search masks by increasing abbreviation length.',
+    r: 'Only dictionary words of the same length can conflict. Encode, for each such word, a mask of positions where it differs from target. An abbreviation (mask of kept letters) is unique exactly when it hits every difference mask. Search masks by increasing abbreviation length.',
     g: R => { const n = R.int(2, 5); return { target: R.str(n, 'ab'), dictionary: Array.from({ length: R.int(0, 3) }, () => R.str(R.chance(0.7) ? n : R.int(1, 5), 'ab')) }; },
     cmp: (o, e, I) => typeof o === 'string' && abbrOk(I.target, o) && abbrLen(o) === abbrLen(e) && !I.dictionary.some(w => w !== I.target && abbrOk(w, o)),
     s(I, T) { const n = I.target.length, diffs = I.dictionary.filter(w => w.length === n).map(w => [...w].reduce((m, c, i) => c !== I.target[i] ? m | 1 << i : m, 0)); T.at({ target: I.target, sameLength: A(I.dictionary.filter(w => w.length === n)) }); T.n('Dictionary words that could conflict?', diffs.length, 'Same length only.'); T.yn('Does the plain number (abbreviate every letter) work?', diffs.length === 0, 'It only works when no same-length word can conflict.'); let best = null, bl = Infinity; for (let m = 0; m < 1 << n; m++) { if (!diffs.every(d => d & m)) continue; const ab = abbrOf(I.target, m), L = abbrLen(ab); if (L < bl) { bl = L; best = ab; } } T.n('Length of the shortest unique abbreviation?', bl, 'Letters + number groups.'); return best; }
@@ -187,14 +187,14 @@
 
   D('matchsticks-to-square', {
     t: 'Matchsticks to Square',
-    r: 'Total must be divisible by 4. Sort descending and backtrack placing each stick on one of four sides without exceeding total/4 (skip sides with equal current length to avoid symmetric work).',
+    r: 'Total must be divisible by 4. Sort descending and backtrack placing each stick on one of four sides without exceeding total divided by 4 (skip sides with equal current length to avoid symmetric work).',
     g: R => { const a = R.ints(R.int(4, 8), 1, 5); if (R.chance(0.8)) { const r = a.reduce((x, y) => x + y, 0) % 4; if (r) a[a.length - 1] += 4 - r; } return { matchsticks: a }; },
-    s(I, T) { const tot = I.matchsticks.reduce((a, b) => a + b, 0); T.at({ sticks: A(I.matchsticks), total: tot }); T.yn('Is the total divisible by 4?', tot % 4 === 0, 'Each side gets total/4.'); if (tot % 4 || I.matchsticks.length < 4) return false; const side = tot / 4, a = I.matchsticks.slice().sort((x, y) => y - x), s = [0, 0, 0, 0]; T.n('Length of each side?', side, 'total / 4.'); if (a[0] > side) return false; const go = i => { if (i === a.length) return true; const tried = new Set(); for (let k = 0; k < 4; k++) { if (s[k] + a[i] > side || tried.has(s[k])) continue; tried.add(s[k]); s[k] += a[i]; if (go(i + 1)) return true; s[k] -= a[i]; } return false; }; const r = go(0); T.yn('Can every stick be placed on a side?', r, 'Backtracking tries each stick on each side.'); return r; }
+    s(I, T) { const tot = I.matchsticks.reduce((a, b) => a + b, 0); T.at({ sticks: A(I.matchsticks), total: tot }); T.yn('Is the total divisible by 4?', tot % 4 === 0, 'Each side gets total divided by 4.'); if (tot % 4 || I.matchsticks.length < 4) return false; const side = tot / 4, a = I.matchsticks.slice().sort((x, y) => y - x), s = [0, 0, 0, 0]; T.n('Length of each side?', side, 'total divided by 4.'); if (a[0] > side) return false; const go = i => { if (i === a.length) return true; const tried = new Set(); for (let k = 0; k < 4; k++) { if (s[k] + a[i] > side || tried.has(s[k])) continue; tried.add(s[k]); s[k] += a[i]; if (go(i + 1)) return true; s[k] -= a[i]; } return false; }; const r = go(0); T.yn('Can every stick be placed on a side?', r, 'Backtracking tries each stick on each side.'); return r; }
   });
 
   D('zuma-game', {
     t: 'Zuma Game',
-    r: 'BFS over (board, remaining hand) states: insert each distinct hand ball at each position, collapse runs of ≥ 3 repeatedly, and return the depth when the board empties (−1 if never).',
+    r: 'BFS over (board, remaining hand) states: insert each distinct hand ball at each position, collapse runs of at least 3 repeatedly, and return the depth when the board empties (−1 if never).',
     g: R => ({ board: R.str(R.int(1, 5), 'RGB'), hand: R.str(R.int(1, 3), 'RGB') }),
     s(I, T) { const collapse = b => { for (;;) { let i = 0, ch = false; while (i < b.length) { let j = i; while (j < b.length && b[j] === b[i]) j++; if (j - i >= 3) { b = b.slice(0, i) + b.slice(j); ch = true; break; } i = j; } if (!ch) return b; } }; const start = [I.board, [...I.hand].sort().join('')]; let fr = [start], seen = new Set([start.join('|')]), d = 0; while (fr.length) { if (fr.some(([b]) => !b)) return d; d++; const nf = []; for (const [b, h] of fr) for (let k = 0; k < h.length; k++) { if (k && h[k] === h[k - 1]) continue; const nh = h.slice(0, k) + h.slice(k + 1); for (let p = 0; p <= b.length; p++) { const nb = collapse(b.slice(0, p) + h[k] + b.slice(p)), key = nb + '|' + nh; if (!seen.has(key)) { seen.add(key); nf.push([nb, nh]); } } } fr = nf; if (d <= 3) { T.at({ step: d, states: fr.length }); T.yn('Can the board be cleared with this many balls?', fr.some(([b]) => !b), 'BFS level = balls used.'); } } return -1; }
   });
@@ -208,7 +208,7 @@
 
   D('non-decreasing-subsequences', {
     t: 'Non-decreasing Subsequences',
-    r: 'Backtrack from index i: at each level use a set so the same value is not chosen twice as the next element; extend only with values ≥ the last. Record paths of length ≥ 2.',
+    r: 'Backtrack from index i: at each level use a set so the same value is not chosen twice as the next element; extend only with values at least the last. Record paths of length at least 2.',
     g: R => ({ nums: R.ints(R.int(1, 6), 1, 4) }),
     cmp: 'set',
     s(I, T) { const out = [], path = []; const go = i => { if (path.length >= 2) out.push(path.slice()); const used = new Set(); for (let j = i; j < I.nums.length; j++) { const x = I.nums[j]; if (!path.length) { T.at({ nums: A(I.nums, { hl: [j] }) }); T.yn(`At the top level, start with index ${j} (value ${x})?`, !used.has(x), 'A value already used at this level would repeat the same subsequences.'); } if (used.has(x) || (path.length && x < path[path.length - 1])) continue; used.add(x); path.push(x); go(j + 1); path.pop(); } }; go(0); T.at({ nums: A(I.nums) }); T.n('How many distinct non-decreasing subsequences?', out.length, 'Length at least 2, with duplicates skipped at each level.'); return out; }
@@ -216,14 +216,14 @@
 
   D('target-sum', {
     t: 'Target Sum',
-    r: 'Let P be the + set: sum(P) = (total + target) / 2. Count subsets with that sum by 0/1 knapsack (or backtrack ± with memo).',
+    r: 'Let P be the + set: sum(P) = (total + target) divided by 2. Count subsets with that sum by 0-1 knapsack (or backtrack ± with memo).',
     g: R => ({ nums: R.ints(R.int(1, 6), 0, 4), target: R.int(-5, 5) }),
-    s(I, T) { const tot = I.nums.reduce((a, b) => a + b, 0); T.at({ nums: A(I.nums), target: I.target, total: tot }); const ok = (tot + I.target) % 2 === 0 && Math.abs(I.target) <= tot; T.n('Total of nums?', tot, 'Add every number.'); T.yn('Is (total + target) even and reachable?', ok, 'Needed for a + set to exist.'); if (!ok) return 0; const P = (tot + I.target) / 2; T.n('Sum needed for the plus set?', P, '(total + target) / 2.'); const dp = Array(P + 1).fill(0); dp[0] = 1; for (const x of I.nums) for (let s = P; s >= x; s--) dp[s] += dp[s - x]; T.n(`Subsets summing to ${P}?`, dp[P], 'Each is one sign assignment.'); return dp[P]; }
+    s(I, T) { const tot = I.nums.reduce((a, b) => a + b, 0); T.at({ nums: A(I.nums), target: I.target, total: tot }); const ok = (tot + I.target) % 2 === 0 && Math.abs(I.target) <= tot; T.n('Total of nums?', tot, 'Add every number.'); T.yn('Is (total + target) even and reachable?', ok, 'Needed for a + set to exist.'); if (!ok) return 0; const P = (tot + I.target) / 2; T.n('Sum needed for the plus set?', P, '(total + target) divided by 2.'); const dp = Array(P + 1).fill(0); dp[0] = 1; for (const x of I.nums) for (let s = P; s >= x; s--) dp[s] += dp[s - x]; T.n(`Subsets summing to ${P}?`, dp[P], 'Each is one sign assignment.'); return dp[P]; }
   });
 
   D('beautiful-arrangement', {
     t: 'Beautiful Arrangement',
-    r: 'Fill positions 1..n with unused numbers; place x at position i only if x % i == 0 or i % x == 0. Count complete placements (filling from the back prunes faster).',
+    r: 'Fill positions 1 to n with unused numbers; place x at position i only if x % i == 0 or i % x == 0. Count complete placements (filling from the back prunes faster).',
     g: R => ({ n: R.int(1, 8) }),
     s(I, T) { const used = Array(I.n + 1).fill(false); const go = i => { if (i > I.n) return 1; let c = 0; for (let x = 1; x <= I.n; x++) if (!used[x] && (x % i === 0 || i % x === 0)) { used[x] = true; c += go(i + 1); used[x] = false; } return c; }; T.at({ n: I.n, position: I.n }); T.n(`Numbers allowed at position ${I.n}?`, [...Array(I.n).keys()].map(x => x + 1).filter(x => x % I.n === 0 || I.n % x === 0).length, 'x % i == 0 or i % x == 0.'); if (I.n > 1) { const p = I.n - 1; T.at({ n: I.n, position: p }); T.n(`Numbers allowed at position ${p}?`, [...Array(I.n).keys()].map(x => x + 1).filter(x => x % p === 0 || p % x === 0).length, 'x % i == 0 or i % x == 0.'); } const r = go(1); T.n('Beautiful arrangements?', r, 'Count every complete placement.'); return r; }
   });
@@ -237,16 +237,16 @@
 
   D('24-game', {
     t: '24 Game',
-    r: 'Pick any two numbers, replace them with each result of +, −, ×, ÷ (both orders, skip ÷0), and recurse on the shorter list; succeed when one number ≈ 24.',
+    r: 'Pick any two numbers, replace them with each result of +, −, times , divided by (both orders, skip division by 0), and recurse on the shorter list; succeed when one number about 24.',
     g: R => ({ cards: R.ints(4, 1, 9) }),
     s(I, T) { const go = a => { if (a.length === 1) return Math.abs(a[0] - 24) < 1e-6; for (let i = 0; i < a.length; i++) for (let j = 0; j < a.length; j++) { if (i === j) continue; const rest = a.filter((_, k) => k !== i && k !== j), x = a[i], y = a[j], c = [x + y, x - y, x * y]; if (Math.abs(y) > 1e-9) c.push(x / y); for (const v of c) if (go([...rest, v])) return true; } return false; }; const r = go(I.cards); T.at({ cards: A(I.cards) }); const g2 = a => { if (a.length === 1) return Math.abs(a[0] - 24) < 1e-6; for (let i = 0; i < a.length; i++) for (let j = i + 1; j < a.length; j++) { const rest = a.filter((_, k) => k !== i && k !== j); if (g2([...rest, a[i] + a[j]]) || g2([...rest, a[i] * a[j]])) return true; } return false; }; T.yn('Does adding all four cards give 24?', I.cards.reduce((x, y) => x + y, 0) === 24, 'The simplest check first.'); T.yn('Can 24 be made using only addition and multiplication?', g2(I.cards), 'Try every pair with just those two operators.'); T.yn('Can these four cards make 24?', r, 'Try every pair and operator recursively.'); return r; }
   });
 
   D('partition-to-k-equal-sum-subsets', {
     t: 'Partition to K Equal Sum Subsets',
-    r: 'total % k must be 0. Sort descending and fill buckets of size total/k by backtracking (skip buckets with equal current sums; fail fast if the largest element is too big).',
+    r: 'total % k must be 0. Sort descending and fill buckets of size total divided by k by backtracking (skip buckets with equal current sums; fail fast if the largest element is too big).',
     g: R => { const a = R.ints(R.int(1, 7), 1, 6); return { nums: a, k: R.int(1, Math.min(4, a.length)) }; },
-    s(I, T) { const tot = I.nums.reduce((a, b) => a + b, 0); T.at({ nums: A(I.nums), k: I.k }); T.yn('Is the total divisible by k?', tot % I.k === 0, 'Each bucket gets total/k.'); if (tot % I.k) return false; const t = tot / I.k, a = I.nums.slice().sort((x, y) => y - x), b = Array(I.k).fill(0); T.n('Target sum per bucket?', t, 'total / k.'); if (a[0] > t) return false; const go = i => { if (i === a.length) return true; const tried = new Set(); for (let j = 0; j < I.k; j++) { if (b[j] + a[i] > t || tried.has(b[j])) continue; tried.add(b[j]); b[j] += a[i]; if (go(i + 1)) return true; b[j] -= a[i]; } return false; }; const r = go(0); T.yn('Does every number fit into a bucket?', r, 'Backtracking places each number, largest first.'); return r; }
+    s(I, T) { const tot = I.nums.reduce((a, b) => a + b, 0); T.at({ nums: A(I.nums), k: I.k }); T.yn('Is the total divisible by k?', tot % I.k === 0, 'Each bucket gets total divided by k.'); if (tot % I.k) return false; const t = tot / I.k, a = I.nums.slice().sort((x, y) => y - x), b = Array(I.k).fill(0); T.n('Target sum per bucket?', t, 'total divided by k.'); if (a[0] > t) return false; const go = i => { if (i === a.length) return true; const tried = new Set(); for (let j = 0; j < I.k; j++) { if (b[j] + a[i] > t || tried.has(b[j])) continue; tried.add(b[j]); b[j] += a[i]; if (go(i + 1)) return true; b[j] -= a[i]; } return false; }; const r = go(0); T.yn('Does every number fit into a bucket?', r, 'Backtracking places each number, largest first.'); return r; }
   });
 
   D('pyramid-transition-matrix', {
@@ -258,15 +258,15 @@
 
   D('letter-case-permutation', {
     t: 'Letter Case Permutation',
-    r: 'Backtrack over characters: digits stay, letters branch into lower and upper case. 2^(letters) results.',
+    r: 'Backtrack over characters: digits stay, letters branch into lower and upper case. 2 to the power (letters) results.',
     g: R => ({ s: R.str(R.int(1, 4), 'a1b2') }),
     cmp: 'set',
-    s(I, T) { let out = ['']; for (const c of I.s) out = /[a-z]/i.test(c) ? out.flatMap(p => [p + c.toLowerCase(), p + c.toUpperCase()]) : out.map(p => p + c); const L = [...I.s].filter(c => /[a-z]/i.test(c)).length; T.at({ s: I.s }); T.n('How many letters (each doubles the count)?', L, '2^letters strings.'); T.n('How many results?', out.length, '2 to the power of the number of letters.'); T.n('Results whose first letter is upper case?', L ? out.length / 2 : 0, 'Half of them, if there is any letter.'); return out; }
+    s(I, T) { let out = ['']; for (const c of I.s) out = /[a-z]/i.test(c) ? out.flatMap(p => [p + c.toLowerCase(), p + c.toUpperCase()]) : out.map(p => p + c); const L = [...I.s].filter(c => /[a-z]/i.test(c)).length; T.at({ s: I.s }); T.n('How many letters (each doubles the count)?', L, '2 to the power letters strings.'); T.n('How many results?', out.length, '2 to the power of the number of letters.'); T.n('Results whose first letter is upper case?', L ? out.length / 2 : 0, 'Half of them, if there is any letter.'); return out; }
   });
 
   D('split-array-into-fibonacci-sequence', {
     t: 'Split Array into Fibonacci Sequence',
-    r: 'Backtrack: choose the next piece (no leading zeros, < 2^31); once two pieces exist, the next must equal the sum of the previous two. Accept when the string is consumed with ≥ 3 pieces.',
+    r: 'Backtrack: choose the next piece (no leading zeros, < 2 to the power 31); once two pieces exist, the next must equal the sum of the previous two. Accept when the string is consumed with at least 3 pieces.',
     g: R => { if (R.chance(0.6)) { let a = R.int(0, 9), b = R.int(0, 9), s = '' + a + b; for (let i = 0; i < R.int(1, 3); i++) { const c = a + b; s += c; a = b; b = c; } return { num: s }; } return { num: R.str(R.int(3, 7), '0112') }; },
     cmp: (o, e, I) => { if (!e.length) return Array.isArray(o) && !o.length; return Array.isArray(o) && o.length >= 3 && o.map(String).join('') === I.num && o.every(x => x < 2 ** 31) && o.every((x, i) => i < 2 || o[i - 2] + o[i - 1] === x); },
     s(I, T) { const s = I.num, path = []; let asks = 0; const go = i => { if (i === s.length) return path.length >= 3; for (let j = i; j < s.length; j++) { if (j > i && s[i] === '0') break; const x = +s.slice(i, j + 1); if (x >= 2 ** 31) break; const L = path.length; if (L >= 2 && x !== path[L - 1] + path[L - 2]) { if (x > path[L - 1] + path[L - 2]) break; continue; } path.push(x); if (asks++ < 5) { T.at({ num: s, pieces: S(path.slice()) }); T.n('Pieces so far?', path.length, 'Each after the second is the sum of the two before.'); } if (go(j + 1)) return true; path.pop(); } return false; }; return go(0) ? path : []; }
@@ -274,7 +274,7 @@
 
   D('numbers-with-same-consecutive-differences', {
     t: 'Numbers With Same Consecutive Differences',
-    r: 'Grow numbers digit by digit from 1–9: the next digit is last ± k (staying 0–9; only one branch when k = 0).',
+    r: 'Grow numbers digit by digit from 1 to 9: the next digit is last ± k (staying 0 to 9; only one branch when k = 0).',
     g: R => ({ n: R.int(2, 4), k: R.int(0, 9) }),
     cmp: 'set',
     s(I, T) { let cur = [1, 2, 3, 4, 5, 6, 7, 8, 9]; for (let L = 2; L <= I.n; L++) { cur = cur.flatMap(x => { const d = x % 10, nx = new Set([d + I.k, d - I.k].filter(v => v >= 0 && v <= 9)); return [...nx].map(v => x * 10 + v); }); T.at({ length: L, k: I.k }); T.n(`Valid numbers of length ${L}?`, cur.length, 'Extend each by last ± k.'); } return cur; }

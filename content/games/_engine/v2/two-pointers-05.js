@@ -25,10 +25,10 @@
 
   D('max-capacity-problem', {
     t: 'Max Capacity (Container With Most Water)',
-    r: 'Start with L at the left end and R at the right end. Area = min(h[L], h[R]) × (R − L). Move the shorter side inward: the shorter wall caps every container that keeps it, so no pair using it can do better. Track the best area.',
+    r: 'Start with L at the left end and R at the right end. Area = min(h[L], h[R]) times (R − L). Move the shorter side inward: the shorter wall caps every container that keeps it, so no pair using it can do better. Track the best area.',
     exs: [{ in: { height: [1, 8, 6, 2, 5, 4, 8, 3, 7] }, out: 49 }],
     g: R => ({ height: R.ints(R.int(5, 8), 1, 9) }),
-    s(I, T) { const h = I.height; let L = 0, Rr = h.length - 1, best = 0; while (L < Rr) { const ar = Math.min(h[L], h[Rr]) * (Rr - L); T.at({ height: A(h, { L, R: Rr, bars: true }), best }); T.n(`Area with L = ${L}, R = ${Rr}?`, ar, `min(${h[L]}, ${h[Rr]}) × ${Rr - L}.`); best = Math.max(best, ar); const mv = h[L] < h[Rr] ? 'move L' : 'move R'; if (Rr - L > 1) T.c('Which pointer moves?', ['move L', 'move R'], mv, h[L] === h[Rr] ? 'Equal heights: either works; this solution moves R.' : 'Move the shorter wall.'); if (mv === 'move L') L++; else Rr--; } return best; }
+    s(I, T) { const h = I.height; let L = 0, Rr = h.length - 1, best = 0; while (L < Rr) { const ar = Math.min(h[L], h[Rr]) * (Rr - L); T.at({ height: A(h, { L, R: Rr, bars: true }), best }); T.n(`Area with L = ${L}, R = ${Rr}?`, ar, `min(${h[L]}, ${h[Rr]}) times ${Rr - L}.`); best = Math.max(best, ar); const mv = h[L] < h[Rr] ? 'move L' : 'move R'; if (Rr - L > 1) T.c('Which pointer moves?', ['move L', 'move R'], mv, h[L] === h[Rr] ? 'Equal heights: either works; this solution moves R.' : 'Move the shorter wall.'); if (mv === 'move L') L++; else Rr--; } return best; }
   });
 
   D('labu-topic-9f5ff4d1cb1f', {

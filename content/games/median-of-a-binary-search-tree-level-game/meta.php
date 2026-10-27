@@ -5,7 +5,7 @@ return [
     'title' => 'Median of a Binary Search Tree Level',
     'leetcode' => 3831,
     'difficulty' => 'Med',
-    'summary' => 'BFS to the requested level and collect its values (an in-order walk of a BST would already give them sorted). If the level is empty return −1; otherwise sort and take index ⌊len/2⌋, the upper median.',
+    'summary' => 'BFS to the requested level and collect its values (an in-order walk of a BST would already give them sorted). If the level is empty return −1; otherwise sort and take index half of len, rounded down, the upper median.',
     'category' => 'LeetCode',
     'subcategory' => 'Trees',
     'topic' => 'LeetCode · Trees',

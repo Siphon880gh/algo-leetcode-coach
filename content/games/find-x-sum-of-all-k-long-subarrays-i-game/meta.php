@@ -5,7 +5,7 @@ return [
     'title' => 'Find X-Sum of All K-Long Subarrays I',
     'leetcode' => 3318,
     'difficulty' => 'Easy',
-    'summary' => 'For each window of size k, count frequencies, keep the x most frequent values (ties → larger value), and sum value × frequency of the kept ones.',
+    'summary' => 'For each window of size k, count frequencies, keep the x most frequent values (ties go to the larger value), and sum value times frequency of the kept ones.',
     'category' => 'LeetCode',
     'subcategory' => 'Sliding Window',
     'topic' => 'LeetCode · Sliding Window',

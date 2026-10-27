@@ -5,7 +5,7 @@ return [
     'title' => 'Count Number of Rectangles Containing Each Point',
     'leetcode' => 2250,
     'difficulty' => 'Med',
-    'summary' => 'Heights are small (≤ 100): bucket rectangle lengths by height and sort each bucket. For point (x, y), sum over heights ≥ y the count of lengths ≥ x via binary search.',
+    'summary' => 'Heights are small (at most 100): bucket rectangle lengths by height and sort each bucket. For point (x, y), sum over heights at least y the count of lengths at least x via binary search.',
     'category' => 'LeetCode',
     'subcategory' => 'Segment Tree',
     'topic' => 'LeetCode · Segment Tree',

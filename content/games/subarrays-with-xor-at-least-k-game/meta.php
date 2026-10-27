@@ -5,7 +5,7 @@ return [
     'title' => 'Subarrays with XOR at Least K',
     'leetcode' => 3632,
     'difficulty' => 'Hard',
-    'summary' => 'With prefix XORs P, a subarray (j, i] has XOR P[i] ^ P[j]. Insert prefixes into a binary trie storing counts; for each P[i], walk the trie bit by bit against k to count earlier prefixes with P[i] ^ P[j] ≥ k.',
+    'summary' => 'With prefix XORs P, a subarray (j, i] has XOR P[i] ^ P[j]. Insert prefixes into a binary trie storing counts; for each P[i], walk the trie bit by bit against k to count earlier prefixes with P[i] ^ P[j] at least k.',
     'category' => 'LeetCode',
     'subcategory' => 'Trie',
     'topic' => 'LeetCode · Trie',

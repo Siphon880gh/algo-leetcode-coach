@@ -5,7 +5,7 @@ return [
     'title' => 'Find Edges in Shortest Paths',
     'leetcode' => 3123,
     'difficulty' => 'Hard',
-    'summary' => 'Dijkstra from 0 and from n − 1. Edge (a, b, w) lies on some shortest path iff d0[a] + w + dN[b] = d0[n − 1] (or with a and b swapped).',
+    'summary' => 'Dijkstra from 0 and from n − 1. Edge (a, b, w) lies on some shortest path exactly when d0[a] + w + dN[b] = d0[n − 1] (or with a and b swapped).',
     'category' => 'LeetCode',
     'subcategory' => 'Graphs',
     'topic' => 'LeetCode · Graphs',

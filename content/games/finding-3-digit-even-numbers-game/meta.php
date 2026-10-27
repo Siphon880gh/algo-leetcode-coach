@@ -5,7 +5,7 @@ return [
     'title' => 'Finding 3-Digit Even Numbers',
     'leetcode' => 2094,
     'difficulty' => 'Easy',
-    'summary' => 'Count available digits. For each even number 100..998, check its digits fit within the counts; collect in increasing order.',
+    'summary' => 'Count available digits. For each even number 100 to 998, check its digits fit within the counts; collect in increasing order.',
     'category' => 'LeetCode',
     'subcategory' => 'Hash Table',
     'topic' => 'LeetCode · Hash Table',

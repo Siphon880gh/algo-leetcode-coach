@@ -5,7 +5,7 @@ return [
     'title' => 'Steps to Make Anagrams II',
     'leetcode' => 2186,
     'difficulty' => 'Med',
-    'summary' => 'Appending can only add letters, so the answer is Σ |count_s − count_t| over all letters.',
+    'summary' => 'Appending can only add letters, so the answer is the sum of |count_s − count_t| over all letters.',
     'category' => 'LeetCode',
     'subcategory' => 'Strings',
     'topic' => 'LeetCode · Strings',

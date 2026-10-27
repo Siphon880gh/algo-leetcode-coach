@@ -5,7 +5,7 @@ return [
     'title' => 'Insert Delete GetRandom O(1): Duplicates',
     'leetcode' => 381,
     'difficulty' => 'Hard',
-    'summary' => 'Array of values plus value → set of indices. Remove takes any index of x, moves the last element into it and fixes that element\'s index set. getRandom picks a random slot (so duplicates weigh more).',
+    'summary' => 'Array of values plus a map from each value to its set of indices. Remove takes any index of x, moves the last element into it and fixes that element\'s index set. getRandom picks a random slot (so duplicates weigh more).',
     'category' => 'LeetCode',
     'subcategory' => 'Design',
     'topic' => 'LeetCode · Design',

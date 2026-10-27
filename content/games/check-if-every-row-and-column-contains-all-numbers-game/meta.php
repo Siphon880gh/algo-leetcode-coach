@@ -5,7 +5,7 @@ return [
     'title' => 'Check if Every Row and Column Contains All Numbers',
     'leetcode' => 2133,
     'difficulty' => 'Easy',
-    'summary' => 'For each row and each column, put values in a set; valid iff every set has size n (values are already in 1..n).',
+    'summary' => 'For each row and each column, put values in a set; valid exactly when every set has size n (values are already in 1 to n).',
     'category' => 'LeetCode',
     'subcategory' => 'Graphs',
     'topic' => 'LeetCode · Graphs',

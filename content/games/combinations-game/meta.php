@@ -5,7 +5,7 @@ return [
     'title' => 'Combinations',
     'leetcode' => 77,
     'difficulty' => 'Med',
-    'summary' => 'Backtrack choosing increasing numbers: from start..n add a number and recurse until k are chosen (prune when not enough numbers remain).',
+    'summary' => 'Backtrack choosing increasing numbers: from start to n add a number and recurse until k are chosen (prune when not enough numbers remain).',
     'category' => 'LeetCode',
     'subcategory' => 'Backtracking',
     'topic' => 'LeetCode · Backtracking',

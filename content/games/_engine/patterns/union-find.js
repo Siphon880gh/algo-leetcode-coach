@@ -14,7 +14,7 @@
     return V.apply(null, panels);
   }
   function randEdges(rng, n, m) { var e = [], seen = {}; while (e.length < m) { var a = rng.int(0, n - 1), b = rng.int(0, n - 1); var k = Math.min(a, b) + '-' + Math.max(a, b); if (a !== b && !seen[k]) { seen[k] = 1; e.push([Math.min(a, b), Math.max(a, b)]); } } return e; }
-  var ACTS = [['union', 'Different roots → union'], ['skip', 'Same root → skip']];
+  var ACTS = [['union', 'Different roots: union'], ['skip', 'Same root: skip']];
 
   function counting(slug, title, rule, label, setupFn) {
     LC.register(slug, {
@@ -26,8 +26,8 @@
         var par = Array.from({ length: n }, function (_, i) { return i; }), nodes = circle(n), done = [], comps = n;
         e.forEach(function (x, i) {
           var ra = find(par, x[0]), rb = find(par, x[1]), key = ra === rb ? 'skip' : 'union';
-          if (i < 2) t.num(view(par, nodes, done, x, { components: comps }), 'Edge ' + x[0] + '–' + x[1] + ': find(' + x[1] + ') = ?', rb, { wrong: 'Follow parent[] from ' + x[1] + ' until parent[x] = x.', note: 'Root of ' + x[1] + ' is ' + rb + '.' });
-          t.act(view(par, nodes, done, x, { components: comps }), 'Edge ' + x[0] + '–' + x[1] + '.', ACTS, key,
+          if (i < 2) t.num(view(par, nodes, done, x, { components: comps }), 'Edge ' + x[0] + '-' + x[1] + ': find(' + x[1] + ') = ?', rb, { wrong: 'Follow parent[] from ' + x[1] + ' until parent[x] = x.', note: 'Root of ' + x[1] + ' is ' + rb + '.' });
+          t.act(view(par, nodes, done, x, { components: comps }), 'Edge ' + x[0] + '-' + x[1] + '.', ACTS, key,
             key === 'union' ? 'find(' + x[0] + ') = ' + ra + ' and find(' + x[1] + ') = ' + rb + ': different groups, so merge them.' : 'Both have root ' + ra + ': already in the same group.',
             key === 'union' ? 'parent[' + rb + '] = ' + ra + '. ' + label + ' −1.' : 'No change.');
           if (key === 'union') { par[rb] = ra; comps--; }
@@ -41,7 +41,7 @@
     });
   }
   counting('number-of-provinces', 'Number of Provinces: count the roots', 'Each city starts as its own province. For every connection, find both roots; different roots means two provinces merge (count − 1). Same root: nothing changes.', 'Provinces',
-    function (n, e) { return n + ' cities   connections (isConnected[i][j] = 1): ' + e.map(function (x) { return x[0] + '–' + x[1]; }).join(', '); });
+    function (n, e) { return n + ' cities   connections (isConnected[i][j] = 1): ' + e.map(function (x) { return x[0] + '-' + x[1]; }).join(', '); });
   counting('number-of-connected-components-in-an-undirected-graph', 'Connected Components: every union removes one', 'Start with n components. For each edge, find both roots; if they differ, union them and subtract one. Same root means the edge adds nothing.', 'Components',
     function (n, e) { return 'n = ' + n + '   edges = ' + JSON.stringify(e); });
 
@@ -60,7 +60,7 @@
       var par = Array.from({ length: n }, function (_, i) { return i; }), nodes = circle(n), done = [], ans = null;
       for (i = 0; i < e.length; i++) {
         var x = e[i], ra = find(par, x[0]), rb = find(par, x[1]), same = ra === rb;
-        t.act(view(par, nodes, done, x), 'Edge ' + x[0] + '–' + x[1] + '.', [['union', 'Different roots → union'], ['red', 'Same root → redundant!']], same ? 'red' : 'union',
+        t.act(view(par, nodes, done, x), 'Edge ' + x[0] + '-' + x[1] + '.', [['union', 'Different roots: union'], ['red', 'Same root: redundant!']], same ? 'red' : 'union',
           same ? 'find(' + x[0] + ') = find(' + x[1] + ') = ' + ra + ': they are already connected, so this edge makes a cycle.' : 'Roots ' + ra + ' and ' + rb + ' differ: this edge joins two trees.',
           same ? 'Found it.' : 'parent[' + rb + '] = ' + ra + '.');
         if (same) { ans = x; break; }

@@ -5,7 +5,7 @@ return [
     'title' => 'Check If N and Its Double Exist',
     'leetcode' => 1346,
     'difficulty' => 'Easy',
-    'summary' => 'Scan with a set: for x, if 2x or x/2 (when even) was already seen, return true; otherwise add x.',
+    'summary' => 'Scan with a set: for x, if 2x or x divided by 2 (when even) was already seen, return true; otherwise add x.',
     'category' => 'LeetCode',
     'subcategory' => 'Hash Table',
     'topic' => 'LeetCode · Hash Table',

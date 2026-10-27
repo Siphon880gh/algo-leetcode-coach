@@ -5,7 +5,7 @@ return [
     'title' => 'Shortest Palindrome: KMP on s + # + reverse',
     'leetcode' => 214,
     'difficulty' => 'Hard',
-    'summary' => 'The longest palindromic prefix of s has length = the last prefix-function value of s + "#" + reverse(s). Prepend the reversed rest.',
+    'summary' => 'The longest palindromic prefix of s has length = the last prefix-function value of s + "#" + reverses. Prepend the reversed rest.',
     'category' => 'LeetCode',
     'subcategory' => 'Strings',
     'topic' => 'LeetCode · Strings',

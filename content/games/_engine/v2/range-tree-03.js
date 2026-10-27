@@ -45,12 +45,12 @@
     t: 'Number of Integers With Popcount-Depth Equal to K II',
     r: 'Depth is at most 5, so keep one Fenwick tree per depth over the positions. An update moves index i from its old depth\'s tree to the new one; a query [l, r, k] is a range count in tree k.',
     g: R => { const n = R.int(2, 6); return { nums: R.ints(n, 1, 40), queries: Array.from({ length: R.int(3, 5) }, () => { if (R.chance(0.35)) return [2, R.int(0, n - 1), R.int(1, 40)]; const l = R.int(0, n - 1); return [1, l, R.int(l, n - 1), R.int(0, 3)]; }) }; },
-    s(I, T) { const dep = x => x === 1 ? 0 : 1 + dep(popc(x)), a = I.nums.slice(), out = []; T.at({ nums: A(a), depth: A(a.map(dep)) }); T.n(`Popcount-depth of nums[0] = ${a[0]}?`, dep(a[0]), 'Apply popcount until reaching 1, counting steps.'); I.queries.forEach(q => { if (q[0] === 2) { a[q[1]] = q[2]; T.at({ nums: A(a.slice(), { i: q[1] }), depth: A(a.map(dep)) }); T.n(`New depth at index ${q[1]} (value ${q[2]})?`, dep(q[2]), `${q[2]} → ${popc(q[2])} → … → 1.`); } else { const [, l, r, k] = q, c = a.slice(l, r + 1).filter(x => dep(x) === k).length; T.at({ nums: A(a.slice(), { win: [l, r] }), depth: A(a.map(dep), { win: [l, r] }) }); T.n(`How many in [${l}, ${r}] have depth ${k}?`, c, 'Range count in the depth-k tree.'); out.push(c); } }); return out; }
+    s(I, T) { const dep = x => x === 1 ? 0 : 1 + dep(popc(x)), a = I.nums.slice(), out = []; T.at({ nums: A(a), depth: A(a.map(dep)) }); T.n(`Popcount-depth of nums[0] = ${a[0]}?`, dep(a[0]), 'Apply popcount until reaching 1, counting steps.'); I.queries.forEach(q => { if (q[0] === 2) { a[q[1]] = q[2]; T.at({ nums: A(a.slice(), { i: q[1] }), depth: A(a.map(dep)) }); T.n(`New depth at index ${q[1]} (value ${q[2]})?`, dep(q[2]), `${q[2]}, then ${popc(q[2])}, then …, then 1.`); } else { const [, l, r, k] = q, c = a.slice(l, r + 1).filter(x => dep(x) === k).length; T.at({ nums: A(a.slice(), { win: [l, r] }), depth: A(a.map(dep), { win: [l, r] }) }); T.n(`How many in [${l}, ${r}] have depth ${k}?`, c, 'Range count in the depth-k tree.'); out.push(c); } }); return out; }
   });
 
   D('minimum-operations-to-equalize-subarrays', {
     t: 'Minimum Operations to Equalize Subarrays',
-    r: 'Moves change a value by ±k, so every value in the range must share the same remainder mod k (check with a prefix count of remainder changes). Then the cost is Σ|x − median| / k; a merge-sort or persistent segment tree finds the median and the sums on each side.',
+    r: 'Moves change a value by ±k, so every value in the range must share the same remainder mod k (check with a prefix count of remainder changes). Then the cost is the sum of |x − median| divided by k; a merge-sort or persistent segment tree finds the median and the sums on each side.',
     g: R => { const n = R.int(1, 6), k = R.int(1, 3), r = R.int(0, k - 1); return { nums: Array.from({ length: n }, () => R.chance(0.8) ? r + k * R.int(0, 4) : R.int(1, 9)), k, queries: Array.from({ length: R.int(1, 3) }, () => { const l = R.int(0, n - 1); return [l, R.int(l, n - 1)]; }) }; },
     s(I, T) { return I.queries.map(([l, r]) => { const seg = I.nums.slice(l, r + 1), ok = seg.every(x => (x - seg[0]) % I.k === 0); T.at({ nums: A(I.nums, { win: [l, r] }), k: I.k }); T.yn(`Do all values in [${l}, ${r}] share a remainder mod ${I.k}?`, ok, ok ? 'Equalizing is possible.' : 'Some value can never meet the others: −1.'); if (!ok) return -1; const s = seg.slice().sort((a, b) => a - b), med = s[(s.length - 1) >> 1], ops = sum(s.map(x => Math.abs(x - med))) / I.k; T.n('Operations needed?', ops, `Move everyone to the median ${med}, ${I.k} per operation.`); return ops; }); }
   });
@@ -64,14 +64,14 @@
 
   D('minimum-deletions-to-make-alternating-substring', {
     t: 'Minimum Deletions to Make Alternating Substring',
-    r: 'Each pair of equal neighbours inside [l, r] forces exactly one deletion. Store bad[i] = (s[i] = s[i+1]) in a Fenwick tree; a flip at j updates bad[j−1] and bad[j]; a query sums bad over l..r−1.',
+    r: 'Each pair of equal neighbours inside [l, r] forces exactly one deletion. Store bad[i] = (s[i] = s[i+1]) in a Fenwick tree; a flip at j updates bad[j−1] and bad[j]; a query sums bad over l to r−1.',
     g: R => { const n = R.int(2, 6), q = []; for (let i = 0; i < R.int(2, 4); i++) { if (R.chance(0.4)) q.push([1, R.int(0, n - 1)]); else { const l = R.int(0, n - 1); q.push([2, l, R.int(l, n - 1)]); } } q.push([2, 0, n - 1]); return { s: R.str(n, 'AB'), queries: q }; },
     s(I, T) { const s = I.s.split(''), out = []; I.queries.forEach(q => { if (q[0] === 1) { s[q[1]] = s[q[1]] === 'A' ? 'B' : 'A'; return; } const [, l, r] = q; let c = 0; for (let i = l; i < r; i++) if (s[i] === s[i + 1]) c++; T.at({ s: A(s.slice(), { win: [l, r] }) }); T.n(`Deletions for s[${l}..${r}]?`, c, 'Count equal adjacent pairs inside the range.'); out.push(c); }); return out; }
   });
 
   D('good-subsequence-queries', {
     t: 'Good Subsequence Queries',
-    r: 'Only multiples of p can be used. If some but not all elements are multiples and their gcd is p, the answer is yes. If all n are multiples, a proper subset with gcd p exists iff dropping one element leaves gcd p (prefix/suffix gcds; a segment tree keeps them under updates).',
+    r: 'Only multiples of p can be used. If some but not all elements are multiples and their gcd is p, the answer is yes. If all n are multiples, a proper subset with gcd p exists exactly when dropping one element leaves gcd p (prefix or suffix gcds; a segment tree keeps them under updates).',
     g: R => { const n = R.int(2, 4), p = R.int(2, 3); return { nums: Array.from({ length: n }, () => p * R.int(1, 4) + (R.chance(0.25) ? 1 : 0)), p, queries: Array.from({ length: R.int(1, 3) }, () => [R.int(0, n - 1), p * R.int(1, 4) + (R.chance(0.2) ? 1 : 0)]) }; },
     s(I, T) { const a = I.nums.slice(), p = I.p, n = a.length; let c = 0; I.queries.forEach(([i, v], q) => { a[i] = v; const mult = a.filter(x => x % p === 0); let ok; if (!mult.length) ok = false; else if (mult.length < n) ok = mult.reduce(gcd) === p; else ok = range(0, n).some(j => a.filter((_, t) => t !== j).reduce(gcd) === p); if (ok) c++; T.at({ nums: A(a.slice(), { i }), p }); T.yn(`After query ${q}, is there a good subsequence?`, ok, !mult.length ? `No multiple of ${p}.` : mult.length < n ? `gcd of the multiples is ${mult.reduce(gcd)}.` : 'All are multiples: try leaving one out.'); }); return c; }
   });
@@ -85,14 +85,14 @@
 
   D('power-update-after-k-th-largest-insertion-ii', {
     t: 'Power Update After K-th Largest Insertion II',
-    r: 'Insert each value into an order-statistics structure (a Fenwick tree over compressed values, or a segment tree) and walk it for the k-th largest x. Then p = p^x mod 1e9+7 by fast exponentiation.',
+    r: 'Insert each value into an order-statistics structure (a Fenwick tree over compressed values, or a segment tree) and walk it for the k-th largest x. Then p = p to the power x mod 1e9+7 by fast exponentiation.',
     g: R => ({ nums: R.ints(R.int(1, 3), 1, 6), p: R.int(2, 5), queries: Array.from({ length: R.int(1, 3) }, (_, i) => [R.int(1, 6), R.int(1, i + 2)]) }),
     s(I, T) { const a = I.nums.slice(); let p = BigInt(I.p); const M = BigInt(MOD), pw = (b, e) => { let r = 1n; b %= M; while (e > 0n) { if (e & 1n) r = r * b % M; b = b * b % M; e >>= 1n; } return r; }; return I.queries.map(([v, k0], i) => { a.push(v); const k = k0, s = a.slice().sort((x, y) => y - x), x = s[k - 1]; T.at({ sorted: A(s, { i: k - 1 }), k }); T.n(`The ${k}-th largest element after inserting ${v}?`, x, 'Order-statistics lookup.'); p = pw(p, BigInt(x)); return Number(p); }); }
   });
 
   D('power-update-after-k-th-largest-insertion-i', {
     t: 'Power Update After K-th Largest Insertion I',
-    r: 'Consecutive k values differ by less than 10, so keep the elements in a sorted structure (or a two-heap split around the k-th largest) and shift the boundary a few steps per query. Then p = p^x mod 1e9+7 by fast exponentiation.',
+    r: 'Consecutive k values differ by less than 10, so keep the elements in a sorted structure (or a two-heap split around the k-th largest) and shift the boundary a few steps per query. Then p = p to the power x mod 1e9+7 by fast exponentiation.',
     g: R => ({ nums: R.ints(R.int(1, 3), 1, 6), p: R.int(2, 5), queries: Array.from({ length: R.int(1, 3) }, (_, i) => [R.int(1, 6), R.int(1, i + 2)]) }),
     s(I, T) { const a = I.nums.slice(); let p = BigInt(I.p); const M = BigInt(MOD), pw = (b, e) => { let r = 1n; b %= M; while (e > 0n) { if (e & 1n) r = r * b % M; b = b * b % M; e >>= 1n; } return r; }; return I.queries.map(([v, k]) => { a.push(v); const s = a.slice().sort((x, y) => y - x), x = s[k - 1]; T.at({ sorted: A(s, { i: k - 1 }), k, p: String(p) }); T.n(`The ${k}-th largest element after inserting ${v}?`, x, 'Move the k boundary a few steps in the sorted structure.'); p = pw(p, BigInt(x)); return Number(p); }); }
   });
@@ -106,7 +106,7 @@
 
   D('peaks-in-array-ii', {
     t: 'Peaks in Array II',
-    r: 'A subarray is a peak subarray if it holds some peak strictly inside. Count the complement instead: subarrays of length ≥ 3 with no inner peak. A segment tree node stores its length, the positions of its first and last peaks and the gaps between them; merging fixes up the peaks at the boundary, and point updates touch only three positions.',
+    r: 'A subarray is a peak subarray if it holds some peak strictly inside. Count the complement instead: subarrays of length at least 3 with no inner peak. A segment tree node stores its length, the positions of its first and last peaks and the gaps between them; merging fixes up the peaks at the boundary, and point updates touch only three positions.',
     g: R => ({ nums: R.ints(R.int(3, 6), 0, 5), queries: Array.from({ length: R.int(2, 4) }, (_, i) => i % 2 ? [2, R.int(0, 2), R.int(0, 5)] : (() => { const l = R.int(0, 1); return [1, l, l + R.int(2, 3)]; })()) }),
     s(I, T) { const a = I.nums.slice(), out = []; I.queries.forEach(q => { if (q[0] === 2) { if (q[1] < a.length) a[q[1]] = q[2]; T.at({ nums: A(a, { i: q[1] }) }); T.n(`How many peaks after setting nums[${q[1]}] = ${q[2]}?`, range(1, a.length - 1).filter(k => a[k] > a[k - 1] && a[k] > a[k + 1]).length, 'Only positions next to the update can change.'); return; } const r = Math.min(q[2], a.length - 1); let c = 0; for (let i = q[1]; i <= r; i++) for (let j = i + 2; j <= r; j++) { for (let k = i + 1; k < j; k++) if (a[k] > a[k - 1] && a[k] > a[k + 1]) { c++; break; } } T.at({ nums: A(a, { win: [q[1], r] }) }); T.n(`Peak subarrays inside [${q[1]}, ${q[2]}]?`, c, 'Subarrays containing a peak strictly inside them.'); out.push(c); }); return out; }
   });

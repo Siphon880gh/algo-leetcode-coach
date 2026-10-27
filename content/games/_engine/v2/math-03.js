@@ -11,14 +11,14 @@
 
   D('convert-to-base-2', {
     t: 'Convert to Base −2: low bit, then divide by −2',
-    r: 'Take the low bit b = n & 1, write it, and continue with n = −(n − b) / 2. Stop at 0 ("0" if n started at 0).',
+    r: 'Take the low bit b = n & 1, write it, and continue with n = −(n − b) divided by 2. Stop at 0 ("0" if n started at 0).',
     g: R => ({ n: R.int(0, 60) }),
     s(I, T) { let n = I.n, out = ''; if (!n) return '0'; while (n) { const b = n & 1; T.at({ n, bits: out || '—' }); T.n('Next bit (from the right)?', b, 'n & 1.'); out = b + out; n = -(n - b) / 2; } return out; }
   });
 
   D('valid-boomerang', {
     t: 'Valid Boomerang: non-zero cross product',
-    r: 'Three points form a boomerang when they are not collinear (which also rules out duplicates): (p2 − p1) × (p3 − p1) ≠ 0.',
+    r: 'Three points form a boomerang when they are not collinear (which also rules out duplicates): (p2 − p1) times (p3 − p1) not equal to 0.',
     g: R => ({ points: Array.from({ length: 3 }, () => [R.int(0, 4), R.int(0, 4)]) }),
     s(I, T) { const res = (() => { const [a, b, c] = I.points, cr = (b[0] - a[0]) * (c[1] - a[1]) - (b[1] - a[1]) * (c[0] - a[0]); T.at({ points: A(I.points.map(p => `(${p})`)) }); T.yn('Are any two points the same?', I.points.some((p, i) => I.points.some((q, j) => i < j && p[0] === q[0] && p[1] === q[1])), 'Repeated points never make a boomerang.'); T.n('Cross product of (p2 minus p1) and (p3 minus p1)?', cr, 'Zero means the points are on one line, or repeated.'); return cr !== 0; })(); T.yn('Is it a boomerang?', res, 'The cross product is not zero.'); return res; }
   });
@@ -32,7 +32,7 @@
 
   D('confusing-number', {
     t: 'Confusing Number: rotate each digit',
-    r: 'Every digit must be rotatable (0→0, 1→1, 6→9, 8→8, 9→6). Build the rotated number by reading digits from the right. It is confusing when that differs from n.',
+    r: 'Every digit must be rotatable (0 to 0, 1 to 1, 6 to 9, 8 to 8, 9 to 6). Build the rotated number by reading digits from the right. It is confusing when that differs from n.',
     g: R => ({ n: R.pick([R.int(0, 999), +R.str(R.int(1, 4), '01689').replace(/^0+(?=.)/, '')]) }),
     s(I, T) { const res = (() => { const M = { 0: 0, 1: 1, 6: 9, 8: 8, 9: 6 }, s = String(I.n); const ok = [...s].every(c => c in M); T.at({ n: I.n }); T.yn('Are all digits rotatable?', ok, 'Only 0, 1, 6, 8, 9 rotate into digits.'); if (!ok) return false; let r = 0; for (let i = s.length - 1; i >= 0; i--) r = r * 10 + M[s[i]]; T.n('Rotated number?', r, 'Rotate each digit, reading from the right.'); return r !== I.n; })(); T.yn('Is n a confusing number?', res, 'It rotates into a different valid number.'); return res; }
   });
@@ -60,9 +60,9 @@
 
   D('statistics-from-a-large-sample', {
     t: 'Statistics From a Large Sample: work on the counts',
-    r: 'min/max: first and last value with a non-zero count. mean: Σ k·count[k] / total. mode: largest count. median: walk the cumulative counts to positions ⌊(total−1)/2⌋ and ⌊total/2⌋ and average them.',
+    r: 'min or max: first and last value with a non-zero count. mean: the sum of k times count[k] divided by total. mode: largest count. median: walk the cumulative counts to positions half of (total−1), rounded down and half of total, rounded down and average them.',
     g: R => { const c = Array(256).fill(0); for (let i = 0; i < R.int(2, 4); i++) c[R.int(0, 8)] += R.int(1, 4); const m = c.indexOf(Math.max(...c)); c[m] += 5; return { count: c }; },
-    s(I, T) { const c = I.count, nz = c.map((v, k) => [k, v]).filter(x => x[1]); const tot = nz.reduce((a, x) => a + x[1], 0), sum = nz.reduce((a, x) => a + x[0] * x[1], 0), mn = nz[0][0], mx = nz[nz.length - 1][0]; let mode = nz[0]; nz.forEach(x => { if (x[1] > mode[1]) mode = x; }); const at = p => { let acc = 0; for (const [k, v] of nz) { acc += v; if (acc > p) return k; } }; const med = (at(Math.floor((tot - 1) / 2)) + at(Math.floor(tot / 2))) / 2; T.at({ counts: K(nz) }); T.n('Total number of samples?', tot, 'Add the counts.'); T.n('Mean?', sum / tot, 'Σ value·count / total.'); T.n('Median?', med, 'Average the two middle positions.'); T.n('Mode?', mode[0], 'The value with the largest count.'); return [mn, mx, sum / tot, med, mode[0]]; }
+    s(I, T) { const c = I.count, nz = c.map((v, k) => [k, v]).filter(x => x[1]); const tot = nz.reduce((a, x) => a + x[1], 0), sum = nz.reduce((a, x) => a + x[0] * x[1], 0), mn = nz[0][0], mx = nz[nz.length - 1][0]; let mode = nz[0]; nz.forEach(x => { if (x[1] > mode[1]) mode = x; }); const at = p => { let acc = 0; for (const [k, v] of nz) { acc += v; if (acc > p) return k; } }; const med = (at(Math.floor((tot - 1) / 2)) + at(Math.floor(tot / 2))) / 2; T.at({ counts: K(nz) }); T.n('Total number of samples?', tot, 'Add the counts.'); T.n('Mean?', sum / tot, 'the sum of value times count divided by total.'); T.n('Median?', med, 'Average the two middle positions.'); T.n('Mode?', mode[0], 'The value with the largest count.'); return [mn, mx, sum / tot, med, mode[0]]; }
   });
 
   D('distribute-candies-to-people', {
@@ -81,9 +81,9 @@
 
   D('maximum-of-absolute-value-expression', {
     t: 'Maximum of Absolute Value Expression: four sign patterns',
-    r: 'Each |·| becomes ± inside a maximum. For each sign pair (p, q), compute v = p·arr1[i] + q·arr2[i] + i; the answer is the largest (max v − min v).',
+    r: 'Each | times | becomes ± inside a maximum. For each sign pair (p, q), compute v = p times arr1[i] + q times arr2[i] + i; the answer is the largest (max v − min v).',
     g: R => { const n = R.int(2, 5); return { arr1: R.ints(n, -5, 9), arr2: R.ints(n, -5, 9) }; },
-    s(I, T) { let best = 0; for (const [p, q] of [[1, 1], [1, -1], [-1, 1], [-1, -1]]) { const v = I.arr1.map((x, i) => p * x + q * I.arr2[i] + i), d = Math.max(...v) - Math.min(...v); T.at({ arr1: A(I.arr1), arr2: A(I.arr2), values: A(v) }); T.n(`Signs (${p > 0 ? '+' : '−'}, ${q > 0 ? '+' : '−'}): max − min?`, d, 'Spread of p·a + q·b + i.'); best = Math.max(best, d); } return best; }
+    s(I, T) { let best = 0; for (const [p, q] of [[1, 1], [1, -1], [-1, 1], [-1, -1]]) { const v = I.arr1.map((x, i) => p * x + q * I.arr2[i] + i), d = Math.max(...v) - Math.min(...v); T.at({ arr1: A(I.arr1), arr2: A(I.arr2), values: A(v) }); T.n(`Signs (${p > 0 ? '+' : '−'}, ${q > 0 ? '+' : '−'}): max − min?`, d, 'Spread of p times a + q times b + i.'); best = Math.max(best, d); } return best; }
   });
 
   D('armstrong-number', {
@@ -101,17 +101,17 @@
   });
 
   D('prime-arrangements', {
-    t: 'Prime Arrangements: p! · (n − p)!',
-    r: 'Count the primes p ≤ n. Primes can be permuted among the p prime positions and the rest among the others: p! · (n − p)! mod 10^9 + 7.',
+    t: 'Prime Arrangements: p! times (n − p)!',
+    r: 'Count the primes p at most n. Primes can be permuted among the p prime positions and the rest among the others: p! times (n − p)! mod 10 to the power 9 + 7.',
     g: R => ({ n: R.int(1, 30) }),
     s(I, T) { const res = (() => { let p = 0; for (let i = 2; i <= I.n; i++) if (isPrime(i)) p++; T.at({ n: I.n }); T.n(`Primes up to ${I.n}?`, p, 'Count them.'); T.n(`Non-prime numbers up to ${I.n}?`, I.n - p, 'They fill the other positions.'); const M = 1000000007n; let r = 1n; for (let i = 2n; i <= BigInt(p); i++) r = r * i % M; for (let i = 2n; i <= BigInt(I.n - p); i++) r = r * i % M; return Number(r); })(); T.n('Arrangements, mod 1000000007?', res, 'Primes factorial times non-primes factorial.'); return res; }
   });
 
   D('count-substrings-with-only-one-distinct-letter', {
-    t: 'Count Single-Letter Substrings: L·(L+1)/2 per run',
-    r: 'Split s into runs of the same letter. A run of length L contains L·(L + 1)/2 such substrings.',
+    t: 'Count Single-Letter Substrings: L times (L+1) divided by 2 per run',
+    r: 'Split s into runs of the same letter. A run of length L contains L times (L + 1) divided by 2 such substrings.',
     g: R => ({ s: R.str(R.int(3, 8), 'aab') }),
-    s(I, T) { const runs = I.s.match(/(.)\1*/g); let t = 0; for (const r of runs) { const v = r.length * (r.length + 1) / 2; T.at({ runs: A(runs), total: t }); T.n(`Substrings inside the run "${r}"?`, v, `${r.length}·${r.length + 1}/2.`); t += v; } return t; }
+    s(I, T) { const runs = I.s.match(/(.)\1*/g); let t = 0; for (const r of runs) { const v = r.length * (r.length + 1) / 2; T.at({ runs: A(runs), total: t }); T.n(`Substrings inside the run "${r}"?`, v, `${r.length} times ${r.length + 1} divided by 2.`); t += v; } return t; }
   });
 
   D('day-of-the-week', {
@@ -123,7 +123,7 @@
 
   D('check-if-it-is-a-straight-line', {
     t: 'Check If It Is a Straight Line: cross products against the first two',
-    r: 'Use the first two points as the direction. Every other point p must give (p1 − p0) × (p − p0) = 0 (no division, so vertical lines work).',
+    r: 'Use the first two points as the direction. Every other point p must give (p1 − p0) times (p − p0) = 0 (no division, so vertical lines work).',
     g: R => { const a = R.int(-2, 2), b = R.int(-2, 2), x0 = R.int(-2, 2), y0 = R.int(-2, 2); const pts = Array.from({ length: R.int(2, 5) }, (_, i) => [x0 + i * (a || 1), y0 + i * b]); if (R.chance(0.4)) pts[pts.length - 1][1] += 1; return { coordinates: pts }; },
     s(I, T) { const p = I.coordinates, [a, b] = p; for (let i = 2; i < p.length; i++) { const cr = (b[0] - a[0]) * (p[i][1] - a[1]) - (b[1] - a[1]) * (p[i][0] - a[0]); T.at({ points: A(p.map(q => `(${q})`), { hl: [0, 1, i] }) }); T.n(`Cross product for (${p[i]})?`, cr, 'Zero means it is on the line.'); if (cr) return false; } return true; }
   });
@@ -137,7 +137,7 @@
 
   D('cells-with-odd-values-in-a-matrix', {
     t: 'Cells With Odd Values: count odd rows and odd columns',
-    r: 'A cell is odd when exactly one of its row and column was incremented an odd number of times. With ro odd rows and co odd columns: ro·(n − co) + (m − ro)·co.',
+    r: 'A cell is odd when exactly one of its row and column was incremented an odd number of times. With ro odd rows and co odd columns: ro times (n − co) + (m − ro) times co.',
     g: R => { const m = R.int(1, 4), n = R.int(1, 4); return { m, n, indices: Array.from({ length: R.int(1, 4) }, () => [R.int(0, m - 1), R.int(0, n - 1)]) }; },
     s(I, T) { const res = (() => { const r = Array(I.m).fill(0), c = Array(I.n).fill(0); I.indices.forEach(([a, b]) => { r[a] ^= 1; c[b] ^= 1; }); const ro = r.reduce((s, v) => s + v, 0), co = c.reduce((s, v) => s + v, 0); T.at({ rowParity: A(r), colParity: A(c) }); T.n('Rows incremented an odd number of times?', ro, 'Toggle a parity bit per operation.'); T.n('Odd columns?', co, 'Same for columns.'); return ro * (I.n - co) + (I.m - ro) * co; })(); T.n('Cells with odd values?', res, 'Odd row with even column, or even row with odd column.'); return res; }
   });
@@ -151,14 +151,14 @@
 
   D('hexspeak', {
     t: 'Hexspeak: hex digits must all be letters, 0 or 1',
-    r: 'Convert to uppercase hex, map 0 → O and 1 → I. If any digit 2–9 remains, return "ERROR".',
+    r: 'Convert to uppercase hex, map 0 to O and 1 to I. If any digit 2 to 9 remains, return "ERROR".',
     g: R => ({ num: String(R.chance(0.5) ? parseInt(R.str(R.int(1, 4), '01ABCDEF'), 16) || 10 : R.int(1, 5000)) }),
-    s(I, T) { const h = Number(I.num).toString(16).toUpperCase(); T.at({ num: I.num }); T.n('How many hex digits does it have?', h.length, `Hex: ${h}`); for (const ch of h) { const bad = /[2-9]/.test(ch); T.at({ hex: h, digit: ch }); T.yn(`Is "${ch}" invalid in Hexspeak?`, bad, bad ? 'Digits 2–9 have no letter form.' : 'Letters, 0 (O) and 1 (I) are fine.'); if (bad) return 'ERROR'; } return h.replace(/0/g, 'O').replace(/1/g, 'I'); }
+    s(I, T) { const h = Number(I.num).toString(16).toUpperCase(); T.at({ num: I.num }); T.n('How many hex digits does it have?', h.length, `Hex: ${h}`); for (const ch of h) { const bad = /[2-9]/.test(ch); T.at({ hex: h, digit: ch }); T.yn(`Is "${ch}" invalid in Hexspeak?`, bad, bad ? 'Digits 2 to 9 have no letter form.' : 'Letters, 0 (O) and 1 (I) are fine.'); if (bad) return 'ERROR'; } return h.replace(/0/g, 'O').replace(/1/g, 'I'); }
   });
 
   D('number-of-burgers-with-no-waste-of-ingredients', {
     t: 'Burgers With No Waste: solve two linear equations',
-    r: '4J + 2S = tomato, J + S = cheese ⇒ J = (tomato − 2·cheese) / 2, S = cheese − J. Valid only if both are non-negative integers.',
+    r: '4J + 2S = tomato, J + S = cheese: J = (tomato − 2 times cheese) divided by 2, S = cheese − J. Valid only if both are non-negative integers.',
     g: R => { const j = R.int(0, 6), s = R.int(0, 6); return R.chance(0.7) ? { tomatoSlices: 4 * j + 2 * s, cheeseSlices: j + s } : { tomatoSlices: R.int(0, 30), cheeseSlices: R.int(0, 10) }; },
     s(I, T) { const res = (() => { const d = I.tomatoSlices - 2 * I.cheeseSlices; T.at({ tomato: I.tomatoSlices, cheese: I.cheeseSlices }); T.n('Tomato slices minus twice the cheese slices?', d, 'Twice the jumbo count.'); if (d < 0 || d % 2) return []; const j = d / 2, s = I.cheeseSlices - j; T.n('Jumbo burgers?', j, 'Half of that.'); return s < 0 ? [] : [j, s]; })(); T.yn('Is a plan with no waste possible?', res.length > 0, 'Both counts must be whole and not negative.'); return res; }
   });
@@ -174,12 +174,12 @@
     t: 'Find Numbers With an Even Number of Digits',
     r: 'Count the digits of each number (divide by 10 or use its string length) and count those with an even length.',
     g: R => ({ nums: R.ints(R.int(2, 6), 1, 100000) }),
-    s(I, T) { let c = 0; for (const x of I.nums) { const e = String(x).length % 2 === 0; T.at({ nums: A(I.nums), count: c }); T.yn(`Does ${x} have an even number of digits?`, e, `${String(x).length} digit(s).`); if (e) c++; } return c; }
+    s(I, T) { let c = 0; for (const x of I.nums) { const e = String(x).length % 2 === 0; T.at({ nums: A(I.nums), count: c }); T.yn(`Does ${x} have an even number of digits?`, e, `${String(x).length} digits.`); if (e) c++; } return c; }
   });
 
   D('find-n-unique-integers-sum-up-to-zero', {
     t: 'N Unique Integers Summing to Zero: pairs ±i',
-    r: 'Add pairs i and −i for i = 1 … ⌊n/2⌋, and a 0 when n is odd.',
+    r: 'Add pairs i and −i for i = 1 … half of n, rounded down, and a 0 when n is odd.',
     g: R => ({ n: R.int(1, 8) }),
     cmp: (out, exp, I) => out.length === I.n && new Set(out).size === I.n && out.reduce((a, b) => a + b, 0) === 0,
     s(I, T) { T.at({ n: I.n }); T.yn('Does the answer need a 0?', I.n % 2 === 1, 'Odd n: pairs cover n − 1 slots.'); T.n('How many pairs of i and −i?', Math.floor(I.n / 2), 'Half of n, rounded down.'); T.n('Smallest value in the answer?', -Math.floor(I.n / 2), 'The negative side of the largest pair.'); const out = []; for (let i = 1; i <= I.n / 2; i++) out.push(i, -i); if (I.n % 2) out.push(0); return out; }
@@ -195,7 +195,7 @@
 
   D('angle-between-hands-of-a-clock', {
     t: 'Angle Between Clock Hands: 6° per minute, 0.5° drift per minute',
-    r: 'Minute hand: 6·m. Hour hand: 30·(h mod 12) + 0.5·m. Take the difference d and return min(d, 360 − d).',
+    r: 'Minute hand: 6 times m. Hour hand: 30 times (h mod 12) + 0.5 times m. Take the difference d and return min(d, 360 − d).',
     g: R => ({ hour: R.int(1, 12), minutes: R.int(0, 59) }), cmp: 'float',
     s(I, T) { const res = (() => { const m = 6 * I.minutes, h = 30 * (I.hour % 12) + 0.5 * I.minutes, d = Math.abs(m - h); T.at({ time: `${I.hour}:${String(I.minutes).padStart(2, '0')}` }); T.n('Minute hand angle?', m, '6° per minute.'); T.n('Hour hand angle?', h, '30° per hour plus 0.5° per minute.'); return Math.min(d, 360 - d); })(); T.n('Smaller angle between the hands?', res, 'The gap, or 360 minus the gap.'); return res; }
   });
@@ -209,14 +209,14 @@
 
   D('closest-divisors', {
     t: 'Closest Divisors: search down from the square root',
-    r: 'For x = num + 1 and x = num + 2, the closest factor pair has its smaller factor the largest divisor ≤ √x. Compare the two pairs.',
+    r: 'For x = num + 1 and x = num + 2, the closest factor pair has its smaller factor the largest divisor at most √x. Compare the two pairs.',
     g: R => ({ num: R.int(1, 300) }), cmp: 'set',
     s(I, T) { const best = x => { for (let d = Math.floor(Math.sqrt(x)); d >= 1; d--) if (x % d === 0) return [d, x / d]; }; const a = best(I.num + 1), b = best(I.num + 2); T.at({ num: I.num }); T.n(`Largest divisor of ${I.num + 1} that is at most its square root?`, a[0], 'Walk down from the square root, rounded down.'); T.n(`Largest divisor of ${I.num + 2} that is at most its square root?`, b[0], 'Walk down from the square root, rounded down.'); T.n('Smallest difference between the two divisors?', Math.min(a[1] - a[0], b[1] - b[0]), 'Keep the closer pair.'); return a[1] - a[0] <= b[1] - b[0] ? a : b; }
   });
 
   D('four-divisors', {
     t: 'Four Divisors: enumerate divisor pairs to √n',
-    r: 'For each number, collect divisors in pairs (d, n/d) up to √n, stopping once there are more than 4. If exactly 4, add their sum.',
+    r: 'For each number, collect divisors in pairs (d, n divided by d) up to √n, stopping once there are more than 4. If exactly 4, add their sum.',
     g: R => ({ nums: R.ints(R.int(1, 5), 1, 50) }),
     s(I, T) { let t = 0; for (const x of I.nums) { const ds = new Set(); for (let d = 1; d * d <= x && ds.size <= 4; d++) if (x % d === 0) { ds.add(d); ds.add(x / d); } const ok = ds.size === 4; T.at({ nums: A(I.nums), total: t }); T.yn(`Does ${x} have exactly four divisors?`, ok, `Divisors: ${[...ds].sort((a, b) => a - b).join(', ')}${ds.size > 4 ? ', …' : ''}.`); if (ok) t += [...ds].reduce((a, b) => a + b, 0); } return t; }
   });
@@ -237,7 +237,7 @@
 
   D('simplified-fractions', {
     t: 'Simplified Fractions: numerators coprime to the denominator',
-    r: 'For each denominator d from 2 to n, include every numerator 1 ≤ k < d with gcd(k, d) = 1.',
+    r: 'For each denominator d from 2 to n, include every numerator 1 at most k < d with gcd(k, d) = 1.',
     g: R => ({ n: R.int(1, 7) }), cmp: 'set',
     s(I, T) { const out = []; for (let d = 2; d <= I.n; d++) { let c = 0; for (let k = 1; k < d; k++) if (gcd(k, d) === 1) { out.push(`${k}/${d}`); c++; } T.at({ n: I.n, denominator: d }); T.n(`How many simplified fractions with denominator ${d}?`, c, 'Numerators coprime to d (Euler φ).'); } return out; }
   });
@@ -251,7 +251,7 @@
 
   D('check-if-array-pairs-are-divisible-by-k', {
     t: 'Array Pairs Divisible by k: match remainders',
-    r: 'Count remainders ((x mod k) + k) mod k. Remainder r must pair with k − r, so their counts must match; remainder 0 (and k/2) must have even counts.',
+    r: 'Count remainders ((x mod k) + k) mod k. Remainder r must pair with k − r, so their counts must match; remainder 0 (and k divided by 2) must have even counts.',
     g: R => { const k = R.int(2, 6), n = 2 * R.int(1, 3), a = []; for (let i = 0; i < n / 2; i++) { const x = R.int(-9, 9); a.push(x, R.chance(0.8) ? R.int(-2, 2) * k - x : R.int(-9, 9)); } return { arr: R.shuffle(a), k }; },
     s(I, T) { const k = I.k, c = Array(k).fill(0); I.arr.forEach(x => c[((x % k) + k) % k]++); for (let r = 0; r <= k / 2; r++) { const ok = r === 0 || 2 * r === k ? c[r] % 2 === 0 : c[r] === c[k - r]; T.at({ remainders: A(c, { hl: [r, (k - r) % k] }) }); T.yn(r === 0 || 2 * r === k ? `Is the count of remainder ${r} even?` : `Do remainders ${r} and ${k - r} have equal counts?`, ok, 'Each must find a partner.'); if (!ok) return false; } return true; }
   });

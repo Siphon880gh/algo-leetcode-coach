@@ -12,7 +12,7 @@
     t: 'Graph Valid Tree',
     r: 'A tree on n nodes has exactly n − 1 edges and no cycle. Union the endpoints of each edge; if they are already connected, there is a cycle.',
     g: R => { const n = R.int(1, 6); return { n, edges: R.edges(n, R.chance(0.5) ? n - 1 : R.int(0, n), { conn: R.chance(0.6) }) }; },
-    s(I, T) { T.at({ graph: GR(I.n, I.edges) }); T.yn('Exactly n − 1 edges?', I.edges.length === I.n - 1, 'Necessary for a tree.'); if (I.edges.length !== I.n - 1) return false; const d = DSU(I.n); for (const [a, b] of I.edges) { const ok = d.u(a, b); T.at({ edge: `${a}–${b}` }); T.yn('Does this edge join two different components?', ok, 'Otherwise it closes a cycle.'); if (!ok) return false; } return true; }
+    s(I, T) { T.at({ graph: GR(I.n, I.edges) }); T.yn('Exactly n − 1 edges?', I.edges.length === I.n - 1, 'Necessary for a tree.'); if (I.edges.length !== I.n - 1) return false; const d = DSU(I.n); for (const [a, b] of I.edges) { const ok = d.u(a, b); T.at({ edge: `${a} to ${b}` }); T.yn('Does this edge join two different components?', ok, 'Otherwise it closes a cycle.'); if (!ok) return false; } return true; }
   });
 
   D('number-of-islands-ii', {
@@ -24,10 +24,10 @@
 
   D('evaluate-division', {
     t: 'Evaluate Division',
-    r: 'Weighted union-find: store each variable\'s ratio to its root. a / b is known only if they share a root, and equals ratio(a) / ratio(b).',
+    r: 'Weighted union-find: store each variable\'s ratio to its root. a divided by b is known only if they share a root, and equals ratio(a) divided by ratio(b).',
     g: R => { const vs = ['a', 'b', 'c', 'd', 'e'], eq = [], val = []; for (let i = 0; i < R.int(1, 3); i++) { const x = R.pick(vs), y = R.pick(vs.filter(v => v !== x)); eq.push([x, y]); val.push(R.int(1, 6)); } const known = new Set(eq.flat()); const consistent = (() => { const w = {}; const p = {}; const f = x => { if (p[x] === undefined) { p[x] = x; w[x] = 1; } if (p[x] === x) return x; const r = f(p[x]); w[x] *= w[p[x]]; p[x] = r; return r; }; return eq.every(([x, y], i) => { const a = f(x), b = f(y); if (a === b) return Math.abs(w[x] / w[y] - val[i]) < 1e-9; p[a] = b; w[a] = val[i] * w[y] / w[x]; return true; }); })(); if (!consistent) return { equations: [eq[0]], values: [val[0]], queries: [[eq[0][1], eq[0][0]], ['a', 'z']] }; return { equations: eq, values: val, queries: Array.from({ length: R.int(1, 4) }, () => [R.pick([...known, 'z']), R.pick([...known])]) }; },
     cmp: (o, e) => Array.isArray(o) && o.length === e.length && o.every((v, i) => Math.abs(v - e[i]) <= 1e-5 * Math.max(1, Math.abs(e[i]))),
-    s(I, T) { const p = {}, w = {}; const f = x => { if (p[x] === x) return x; const r = f(p[x]); w[x] *= w[p[x]]; p[x] = r; return r; }; I.equations.forEach(([a, b], i) => { [a, b].forEach(x => { if (p[x] === undefined) { p[x] = x; w[x] = 1; } }); const ra = f(a), rb = f(b); if (ra !== rb) { p[ra] = rb; w[ra] = I.values[i] * w[b] / w[a]; } }); return I.queries.map(([a, b], i) => { const ok = p[a] !== undefined && p[b] !== undefined && f(a) === f(b), v = ok ? w[a] / w[b] : -1; if (i < 4) { T.at({ query: `${a} / ${b}` }); T.yn('Are both variables known and in the same group?', ok, 'Otherwise the answer is −1.'); } return v; }); }
+    s(I, T) { const p = {}, w = {}; const f = x => { if (p[x] === x) return x; const r = f(p[x]); w[x] *= w[p[x]]; p[x] = r; return r; }; I.equations.forEach(([a, b], i) => { [a, b].forEach(x => { if (p[x] === undefined) { p[x] = x; w[x] = 1; } }); const ra = f(a), rb = f(b); if (ra !== rb) { p[ra] = rb; w[ra] = I.values[i] * w[b] / w[a]; } }); return I.queries.map(([a, b], i) => { const ok = p[a] !== undefined && p[b] !== undefined && f(a) === f(b), v = ok ? w[a] / w[b] : -1; if (i < 4) { T.at({ query: `${a} divided by ${b}` }); T.yn('Are both variables known and in the same group?', ok, 'Otherwise the answer is −1.'); } return v; }); }
   });
 
   D('redundant-connection-ii', {
@@ -131,7 +131,7 @@
 
   D('regions-cut-by-slashes', {
     t: 'Regions Cut By Slashes',
-    r: 'Split each cell into 4 triangles (top, right, bottom, left). " " unions all four, "/" unions top–left and bottom–right, "\\" unions top–right and bottom–left; always union with neighboring cells\' facing triangles. Count components.',
+    r: 'Split each cell into 4 triangles (top, right, bottom, left). " " unions all four, "/" unions top-left and bottom-right, "\\" unions top-right and bottom-left; always union with neighboring cells\' facing triangles. Count components.',
     g: R => { const n = R.int(1, 3); return { grid: Array.from({ length: n }, () => R.str(n, ' /\\')) }; },
     s(I, T) { const res = (() => { const n = I.grid.length, d = DSU(4 * n * n), id = (i, j, k) => 4 * (i * n + j) + k; for (let i = 0; i < n; i++) for (let j = 0; j < n; j++) { const c = I.grid[i][j]; if (c === ' ') { d.u(id(i, j, 0), id(i, j, 1)); d.u(id(i, j, 1), id(i, j, 2)); d.u(id(i, j, 2), id(i, j, 3)); } else if (c === '/') { d.u(id(i, j, 0), id(i, j, 3)); d.u(id(i, j, 1), id(i, j, 2)); } else { d.u(id(i, j, 0), id(i, j, 1)); d.u(id(i, j, 2), id(i, j, 3)); } if (i + 1 < n) d.u(id(i, j, 2), id(i + 1, j, 0)); if (j + 1 < n) d.u(id(i, j, 1), id(i, j + 1, 3)); } T.at({ grid: G(I.grid.map(r => [...r].map(c => c === ' ' ? '·' : c))) }); T.n('Triangles in total?', 4 * n * n, '4 per cell.'); T.n('Slashes in the grid?', I.grid.join('').replace(/ /g, '').length, 'Each one splits a cell in two.'); return d.comps(); })(); T.n('Regions?', res, 'Connected groups of triangles.'); return res; }
   });
@@ -154,28 +154,28 @@
     t: 'The Earliest Moment When Everyone Become Friends',
     r: 'Sort logs by time and union friends; the moment the number of components reaches 1 is the answer (−1 if never).',
     g: R => { const n = R.int(2, 5), t = R.distinct(R.int(1, 7), 0, 20); return { logs: R.shuffle(t.map(x => { const a = R.int(0, n - 1); let b = R.int(0, n - 2); if (b >= a) b++; return [x, a, b]; })), n }; },
-    s(I, T) { const d = DSU(I.n); let c = I.n; for (const [t, a, b] of I.logs.slice().sort((x, y) => x[0] - y[0])) { if (d.u(a, b)) c--; T.at({ time: t, pair: `${a}–${b}` }); T.n('Friend groups now?', c, 'Merged if they were apart.'); if (c === 1) return t; } return -1; }
+    s(I, T) { const d = DSU(I.n); let c = I.n; for (const [t, a, b] of I.logs.slice().sort((x, y) => x[0] - y[0])) { if (d.u(a, b)) c--; T.at({ time: t, pair: `${a} to ${b}` }); T.n('Friend groups now?', c, 'Merged if they were apart.'); if (c === 1) return t; } return -1; }
   });
 
   D('path-with-maximum-minimum-value', {
     t: 'Path With Maximum Minimum Value',
     r: 'Add cells from highest to lowest value, unioning with added neighbors; when start and end connect, the current value is the answer.',
     g: R => ({ grid: R.grid(R.int(1, 3), R.int(1, 3), 0, 9) }),
-    s(I, T) { const g = I.grid, m = g.length, n = g[0].length, d = DSU(m * n), on = new Set(), cells = []; g.forEach((r, i) => r.forEach((v, j) => cells.push([v, i, j]))); cells.sort((a, b) => b[0] - a[0]); let k = 0; for (const [v, i, j] of cells) { on.add(i * n + j); for (const [a, b] of D4) { const x = i + a, y = j + b; if (x >= 0 && y >= 0 && x < m && y < n && on.has(x * n + y)) d.u(i * n + j, x * n + y); } const ok = on.has(0) && on.has(m * n - 1) && d.f(0) === d.f(m * n - 1); if (k++ < 5 || ok) { T.at({ grid: G(g, { hl: [[i, j]] }), value: v }); T.yn('Start and end connected?', ok, 'Using only cells ≥ value.'); } if (ok) return v; } }
+    s(I, T) { const g = I.grid, m = g.length, n = g[0].length, d = DSU(m * n), on = new Set(), cells = []; g.forEach((r, i) => r.forEach((v, j) => cells.push([v, i, j]))); cells.sort((a, b) => b[0] - a[0]); let k = 0; for (const [v, i, j] of cells) { on.add(i * n + j); for (const [a, b] of D4) { const x = i + a, y = j + b; if (x >= 0 && y >= 0 && x < m && y < n && on.has(x * n + y)) d.u(i * n + j, x * n + y); } const ok = on.has(0) && on.has(m * n - 1) && d.f(0) === d.f(m * n - 1); if (k++ < 5 || ok) { T.at({ grid: G(g, { hl: [[i, j]] }), value: v }); T.yn('Start and end connected?', ok, 'Using only cells at least value.'); } if (ok) return v; } }
   });
 
   D('connecting-cities-with-minimum-cost', {
     t: 'Connecting Cities With Minimum Cost',
     r: 'Kruskal: sort connections by cost and take each one that joins two different components; if fewer than n − 1 edges get used, return −1.',
     g: R => { const n = R.int(1, 5); return { n, connections: R.edges(n, R.int(1, 6), { base: 1, w: [0, 9], conn: R.chance(0.7) }) }; },
-    s(I, T) { const d = DSU(I.n + 1); let w = 0, c = 0; I.connections.slice().sort((a, b) => a[2] - b[2]).forEach(([a, b, x]) => { const ok = d.u(a, b); if (ok) { w += x; c++; } T.at({ edge: `${a}–${b} ($${x})`, total: w }); T.yn('Take this edge?', ok, 'Only if it joins two components.'); }); return c === I.n - 1 ? w : -1; }
+    s(I, T) { const d = DSU(I.n + 1); let w = 0, c = 0; I.connections.slice().sort((a, b) => a[2] - b[2]).forEach(([a, b, x]) => { const ok = d.u(a, b); if (ok) { w += x; c++; } T.at({ edge: `${a} to ${b} ($${x})`, total: w }); T.yn('Take this edge?', ok, 'Only if it joins two components.'); }); return c === I.n - 1 ? w : -1; }
   });
 
   D('optimize-water-distribution-in-a-village', {
     t: 'Optimize Water Distribution in a Village',
     r: 'Add a virtual node 0 with an edge of cost wells[i] to every house i. The answer is the MST weight of this graph (Kruskal).',
     g: R => { const n = R.int(2, 4); return { n, wells: R.ints(n, 0, 6), pipes: R.edges(n, R.int(1, 4), { base: 1, w: [0, 6] }) }; },
-    s(I, T) { const e = [...I.wells.map((w, i) => [0, i + 1, w]), ...I.pipes].sort((a, b) => a[2] - b[2]), d = DSU(I.n + 1); let tot = 0, k = 0; e.forEach(([a, b, w]) => { const ok = d.u(a, b); if (ok) tot += w; if (k++ < 6) { T.at({ edge: a === 0 ? `well @ ${b} ($${w})` : `pipe ${a}–${b} ($${w})` }); T.yn('Take it?', ok, 'Kruskal on the graph with a virtual node.'); } }); return tot; }
+    s(I, T) { const e = [...I.wells.map((w, i) => [0, i + 1, w]), ...I.pipes].sort((a, b) => a[2] - b[2]), d = DSU(I.n + 1); let tot = 0, k = 0; e.forEach(([a, b, w]) => { const ok = d.u(a, b); if (ok) tot += w; if (k++ < 6) { T.at({ edge: a === 0 ? `well @ ${b} ($${w})` : `pipe ${a} to ${b} ($${w})` }); T.yn('Take it?', ok, 'Kruskal on the graph with a virtual node.'); } }); return tot; }
   });
 
   D('smallest-string-with-swaps', {
@@ -204,7 +204,7 @@
     r: 'Compute the MST weight W. An edge is critical if the MST without it is heavier (or impossible). Otherwise it is pseudo-critical if forcing it into the MST still gives W.',
     g: R => { const n = R.int(2, 5); return { n, edges: R.edges(n, R.int(n - 1, n + 2), { conn: true, w: [1, 4] }).map(([a, b, w]) => a < b ? [a, b, w] : [b, a, w]) }; },
     cmp: (o, e) => Array.isArray(o) && o.length === 2 && JSON.stringify(o.map(x => x.slice().sort((a, b) => a - b))) === JSON.stringify(e.map(x => x.slice().sort((a, b) => a - b))),
-    s(I, T) { const W = kruskal(I.n, I.edges), cr = [], ps = []; T.at({ graph: GR(I.n, I.edges) }); T.n('MST weight?', W, 'Kruskal.'); I.edges.forEach((e, i) => { const wo = kruskal(I.n, I.edges, i); if (wo > W) cr.push(i); else if (kruskal(I.n, I.edges, -1, i) === W) ps.push(i); if (i < 4) { T.at({ edge: `${e[0]}–${e[1]} (${e[2]})` }); T.c('Kind of edge?', ['critical', 'pseudo-critical', 'neither'], cr.includes(i) ? 'critical' : ps.includes(i) ? 'pseudo-critical' : 'neither', 'Remove it, then force it.'); } }); return [cr, ps]; }
+    s(I, T) { const W = kruskal(I.n, I.edges), cr = [], ps = []; T.at({ graph: GR(I.n, I.edges) }); T.n('MST weight?', W, 'Kruskal.'); I.edges.forEach((e, i) => { const wo = kruskal(I.n, I.edges, i); if (wo > W) cr.push(i); else if (kruskal(I.n, I.edges, -1, i) === W) ps.push(i); if (i < 4) { T.at({ edge: `${e[0]} to ${e[1]} (${e[2]})` }); T.c('Kind of edge?', ['critical', 'pseudo-critical', 'neither'], cr.includes(i) ? 'critical' : ps.includes(i) ? 'pseudo-critical' : 'neither', 'Remove it, then force it.'); } }); return [cr, ps]; }
   });
 
   D('detect-cycles-in-2d-grid', {
@@ -230,9 +230,9 @@
 
   D('graph-connectivity-with-threshold', {
     t: 'Graph Connectivity With Threshold',
-    r: 'For each divisor z > threshold, union all its multiples (z, 2z, 3z, …). Two cities are connected iff they share a root.',
+    r: 'For each divisor z > threshold, union all its multiples (z, 2z, 3z, …). Two cities are connected exactly when they share a root.',
     g: R => { const n = R.int(2, 12); return { n, threshold: R.int(0, 4), queries: Array.from({ length: R.int(1, 4) }, () => { const a = R.int(1, n); let b = R.int(1, n - 1); if (b >= a) b++; return [a, b]; }) }; },
-    s(I, T) { const d = DSU(I.n + 1); for (let z = I.threshold + 1; z <= I.n; z++) for (let m = 2 * z; m <= I.n; m += z) d.u(z, m); return I.queries.map(([a, b], i) => { const ok = d.f(a) === d.f(b); if (i < 4) { T.at({ query: `${a} ↔ ${b}`, gcd: gcd(a, b), threshold: I.threshold }); T.yn('Connected?', ok, 'Via a chain of shared divisors > threshold.'); } return ok; }); }
+    s(I, T) { const d = DSU(I.n + 1); for (let z = I.threshold + 1; z <= I.n; z++) for (let m = 2 * z; m <= I.n; m += z) d.u(z, m); return I.queries.map(([a, b], i) => { const ok = d.f(a) === d.f(b); if (i < 4) { T.at({ query: `${a} and ${b}`, gcd: gcd(a, b), threshold: I.threshold }); T.yn('Connected?', ok, 'Via a chain of shared divisors > threshold.'); } return ok; }); }
   });
 
   D('path-with-minimum-effort', {
@@ -244,16 +244,16 @@
 
   D('rank-transform-of-a-matrix', {
     t: 'Rank Transform of a Matrix',
-    r: 'Process values in increasing order. Equal values sharing a row or column must share a rank, so union them. Each group\'s rank = 1 + max of the current row/column maxima over its cells; then update those maxima.',
+    r: 'Process values in increasing order. Equal values sharing a row or column must share a rank, so union them. Each group\'s rank = 1 + max of the current row or column maxima over its cells; then update those maxima.',
     g: R => ({ matrix: R.grid(R.int(1, 3), R.int(1, 3), 1, 5) }),
-    s(I, T) { const M = I.matrix, m = M.length, n = M[0].length, rowMax = Array(m).fill(0), colMax = Array(n).fill(0), out = M.map(r => r.map(() => 0)), byV = {}; M.forEach((r, i) => r.forEach((v, j) => (byV[v] = byV[v] || []).push([i, j]))); let k = 0; Object.keys(byV).map(Number).sort((a, b) => a - b).forEach(v => { const cells = byV[v], d = MapDSU(); cells.forEach(([i, j]) => d.u('r' + i, 'c' + j)); const grp = {}; cells.forEach(c => (grp[d.f('r' + c[0])] = grp[d.f('r' + c[0])] || []).push(c)); Object.values(grp).forEach(cs => { const rk = 1 + Math.max(...cs.map(([i, j]) => Math.max(rowMax[i], colMax[j]))); cs.forEach(([i, j]) => { out[i][j] = rk; }); cs.forEach(([i, j]) => { rowMax[i] = Math.max(rowMax[i], rk); colMax[j] = Math.max(colMax[j], rk); }); if (k++ < 5) { T.at({ matrix: G(M, { hl: cs }) }); T.n(`Rank of this group of ${v}s?`, rk, '1 + max rank already in their rows/cols.'); } }); }); return out; }
+    s(I, T) { const M = I.matrix, m = M.length, n = M[0].length, rowMax = Array(m).fill(0), colMax = Array(n).fill(0), out = M.map(r => r.map(() => 0)), byV = {}; M.forEach((r, i) => r.forEach((v, j) => (byV[v] = byV[v] || []).push([i, j]))); let k = 0; Object.keys(byV).map(Number).sort((a, b) => a - b).forEach(v => { const cells = byV[v], d = MapDSU(); cells.forEach(([i, j]) => d.u('r' + i, 'c' + j)); const grp = {}; cells.forEach(c => (grp[d.f('r' + c[0])] = grp[d.f('r' + c[0])] || []).push(c)); Object.values(grp).forEach(cs => { const rk = 1 + Math.max(...cs.map(([i, j]) => Math.max(rowMax[i], colMax[j]))); cs.forEach(([i, j]) => { out[i][j] = rk; }); cs.forEach(([i, j]) => { rowMax[i] = Math.max(rowMax[i], rk); colMax[j] = Math.max(colMax[j], rk); }); if (k++ < 5) { T.at({ matrix: G(M, { hl: cs }) }); T.n(`Rank of this group of ${v}s?`, rk, '1 + max rank already in their rows or cols.'); } }); }); return out; }
   });
 
   D('checking-existence-of-edge-length-limited-paths', {
     t: 'Checking Existence of Edge Length Limited Paths',
     r: 'Offline: sort queries by limit and edges by length. For each query, union all edges shorter than its limit, then check whether p and q share a root.',
     g: R => { const n = R.int(2, 5); return { n, edgeList: Array.from({ length: R.int(1, 5) }, () => { const a = R.int(0, n - 1); let b = R.int(0, n - 2); if (b >= a) b++; return [a, b, R.int(1, 9)]; }), queries: Array.from({ length: R.int(1, 3) }, () => { const a = R.int(0, n - 1); let b = R.int(0, n - 2); if (b >= a) b++; return [a, b, R.int(1, 10)]; }) }; },
-    s(I, T) { const e = I.edgeList.slice().sort((a, b) => a[2] - b[2]), ord = I.queries.map((q, i) => i).sort((a, b) => I.queries[a][2] - I.queries[b][2]), d = DSU(I.n), out = []; let p = 0; ord.forEach((qi, k) => { const [a, b, lim] = I.queries[qi]; while (p < e.length && e[p][2] < lim) { d.u(e[p][0], e[p][1]); p++; } out[qi] = d.f(a) === d.f(b); if (k < 4) { T.at({ query: `${a} → ${b}, limit ${lim}` }); T.n('Edges added so far?', p, 'All with length < limit.'); } }); return out; }
+    s(I, T) { const e = I.edgeList.slice().sort((a, b) => a[2] - b[2]), ord = I.queries.map((q, i) => i).sort((a, b) => I.queries[a][2] - I.queries[b][2]), d = DSU(I.n), out = []; let p = 0; ord.forEach((qi, k) => { const [a, b, lim] = I.queries[qi]; while (p < e.length && e[p][2] < lim) { d.u(e[p][0], e[p][1]); p++; } out[qi] = d.f(a) === d.f(b); if (k < 4) { T.at({ query: `${a} to ${b}, limit ${lim}` }); T.n('Edges added so far?', p, 'All with length < limit.'); } }); return out; }
   });
 
   D('minimize-hamming-distance-after-swap-operations', {
@@ -272,7 +272,7 @@
 
   D('gcd-sort-of-an-array', {
     t: 'GCD Sort of an Array',
-    r: 'Union each number with its prime factors; numbers in the same group can be permuted. The array is sortable iff each nums[i] is in the same group as sorted[i].',
+    r: 'Union each number with its prime factors; numbers in the same group can be permuted. The array is sortable exactly when each nums[i] is in the same group as sorted[i].',
     g: R => ({ nums: R.ints(R.int(1, 6), 2, 20) }),
     s(I, T) { const d = MapDSU(); I.nums.forEach(x => { let v = x; for (let p = 2; p * p <= v; p++) if (v % p === 0) { d.u('n' + x, 'p' + p); while (v % p === 0) v /= p; } if (v > 1) d.u('n' + x, 'p' + v); }); const s = I.nums.slice().sort((a, b) => a - b); for (let i = 0; i < s.length; i++) { const ok = s[i] === I.nums[i] || d.f('n' + s[i]) === d.f('n' + I.nums[i]); T.at({ nums: A(I.nums, { i }), sorted: A(s, { i }) }); T.yn('Can these two values trade places?', ok, 'Same factor group.'); if (!ok) return false; } return true; }
   });
@@ -281,7 +281,7 @@
     t: 'Process Restricted Friend Requests',
     r: 'For each request, find the roots of u and v. Accept it unless some restriction (x, y) has {root(x), root(y)} = {root(u), root(v)}; on acceptance, union them.',
     g: R => { const n = R.int(2, 5), pr = () => { const a = R.int(0, n - 1); let b = R.int(0, n - 2); if (b >= a) b++; return [a, b]; }; return { n, restrictions: Array.from({ length: R.int(0, 2) }, pr), requests: Array.from({ length: R.int(1, 5) }, pr) }; },
-    s(I, T) { const d = DSU(I.n); return I.requests.map(([u, v], i) => { const a = d.f(u), b = d.f(v), ok = a === b || !I.restrictions.some(([x, y]) => { const p = d.f(x), q = d.f(y); return (p === a && q === b) || (p === b && q === a); }); if (ok) d.u(u, v); if (i < 5) { T.at({ request: `${u} – ${v}`, restrictions: A(I.restrictions.map(r => r.join('✕'))) }); T.yn('Accept?', ok, 'Merging must not join a restricted pair.'); } return ok; }); }
+    s(I, T) { const d = DSU(I.n); return I.requests.map(([u, v], i) => { const a = d.f(u), b = d.f(v), ok = a === b || !I.restrictions.some(([x, y]) => { const p = d.f(x), q = d.f(y); return (p === a && q === b) || (p === b && q === a); }); if (ok) d.u(u, v); if (i < 5) { T.at({ request: `${u}, ${v}`, restrictions: A(I.restrictions.map(r => r.join('✕'))) }); T.yn('Accept?', ok, 'Merging must not join a restricted pair.'); } return ok; }); }
   });
 
   D('find-all-people-with-secret', {
@@ -289,6 +289,6 @@
     r: 'Process meetings grouped by time. Union the participants within the group; afterwards reset everyone in the group who is not connected to person 0, so the secret does not leak across time.',
     g: R => { const n = R.int(2, 6), pr = () => { const a = R.int(0, n - 1); let b = R.int(0, n - 2); if (b >= a) b++; return [a, b]; }; return { n, meetings: Array.from({ length: R.int(1, 5) }, () => [...pr(), R.int(1, 4)]), firstPerson: R.int(1, n - 1) }; },
     cmp: 'set',
-    s(I, T) { const d = DSU(I.n); d.u(0, I.firstPerson); const by = {}; I.meetings.forEach(([x, y, t]) => (by[t] = by[t] || []).push([x, y])); Object.keys(by).map(Number).sort((a, b) => a - b).forEach(t => { const ms = by[t]; ms.forEach(([x, y]) => d.u(x, y)); ms.flat().forEach(p => { if (d.f(p) !== d.f(0)) { d.p[p] = p; d.sz[p] = 1; } }); T.at({ time: t, meetings: A(ms.map(m => m.join('–'))) }); T.n('People who know the secret now?', Array.from({ length: I.n }, (_, i) => i).filter(i => d.f(i) === d.f(0)).length, 'Only groups touching person 0 keep it.'); }); return Array.from({ length: I.n }, (_, i) => i).filter(i => d.f(i) === d.f(0)); }
+    s(I, T) { const d = DSU(I.n); d.u(0, I.firstPerson); const by = {}; I.meetings.forEach(([x, y, t]) => (by[t] = by[t] || []).push([x, y])); Object.keys(by).map(Number).sort((a, b) => a - b).forEach(t => { const ms = by[t]; ms.forEach(([x, y]) => d.u(x, y)); ms.flat().forEach(p => { if (d.f(p) !== d.f(0)) { d.p[p] = p; d.sz[p] = 1; } }); T.at({ time: t, meetings: A(ms.map(m => `${m[0]} and ${m[1]} at ${m[2]}`)) }); T.n('People who know the secret now?', Array.from({ length: I.n }, (_, i) => i).filter(i => d.f(i) === d.f(0)).length, 'Only groups touching person 0 keep it.'); }); return Array.from({ length: I.n }, (_, i) => i).filter(i => d.f(i) === d.f(0)); }
   });
 })();

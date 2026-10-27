@@ -2,10 +2,10 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Split Array With Same Average: a size-k subset with sum S·k/n',
+    'title' => 'Split Array With Same Average: a size-k subset with sum S times k divided by n',
     'leetcode' => 805,
     'difficulty' => 'Hard',
-    'summary' => 'Both halves have the overall average, so some subset of size k (1 ≤ k ≤ n/2) must sum to S·k/n, which must be an integer. Build reachable sums by subset size.',
+    'summary' => 'Both halves have the overall average, so some subset of size k (k from 1 to n divided by 2) must sum to S times k divided by n, which must be an integer. Build reachable sums by subset size.',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

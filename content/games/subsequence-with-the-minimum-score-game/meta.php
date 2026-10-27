@@ -5,7 +5,7 @@ return [
     'title' => 'Subsequence With the Minimum Score',
     'leetcode' => 2565,
     'difficulty' => 'Hard',
-    'summary' => 'Remove one block t[i..j−1]. pre[i] = where in s the prefix t[0..i) ends (greedy); suf[j] = latest start of the suffix t[j..]. Valid if pre[i] ≤ suf[j]; minimize j − i.',
+    'summary' => 'Remove one block t[i to j−1]. pre[i] = where in s the prefix t[0 to i) ends (greedy); suf[j] = latest start of the suffix t[j..]. Valid if pre[i] at most suf[j]; minimize j − i.',
     'category' => 'LeetCode',
     'subcategory' => 'Binary Search',
     'topic' => 'LeetCode · Binary Search',

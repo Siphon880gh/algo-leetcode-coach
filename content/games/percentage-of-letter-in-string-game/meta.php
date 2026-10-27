@@ -5,7 +5,7 @@ return [
     'title' => 'Percentage of Letter',
     'leetcode' => 2278,
     'difficulty' => 'Easy',
-    'summary' => '⌊100 × count / length⌋.',
+    'summary' => '100 times count divided by length, rounded down.',
     'category' => 'LeetCode',
     'subcategory' => 'Strings',
     'topic' => 'LeetCode · Strings',

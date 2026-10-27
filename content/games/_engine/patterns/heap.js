@@ -10,7 +10,7 @@
     var key = heap.length < k ? 'push' : x > Math.min.apply(null, heap) ? 'replace' : 'skip';
     var top = heap.length ? Math.min.apply(null, heap) : null;
     t.act(view, x + ' arrives. Heap size ' + heap.length + ' / ' + k + (top !== null ? ', top ' + top : '') + '.', ACTS, key,
-      { push: 'The heap already holds k = ' + k + ' values.', replace: heap.length < k ? 'The heap is not full yet; just push.' : x + ' ≤ top ' + top + ', so it cannot be among the k largest.', skip: heap.length < k ? 'The heap is not full yet; every value gets in.' : x + ' > top ' + top + ', so it beats the current k-th largest.' },
+      { push: 'The heap already holds k = ' + k + ' values.', replace: heap.length < k ? 'The heap is not full yet; just push.' : x + ' at most top ' + top + ', so it cannot be among the k largest.', skip: heap.length < k ? 'The heap is not full yet; every value gets in.' : x + ' > top ' + top + ', so it beats the current k-th largest.' },
       key === 'replace' ? 'Evict ' + top + '.' : key === 'push' ? 'Pushed.' : 'Ignored.');
     if (key === 'push') heap.push(x);
     else if (key === 'replace') { heap.splice(heap.indexOf(top), 1); heap.push(x); }
@@ -71,7 +71,7 @@
         var far = heap.length ? heap.reduce(function (a, b) { return d[a] >= d[b] ? a : b; }) : null;
         var key = heap.length < k ? 'push' : d[i] < d[far] ? 'replace' : 'skip';
         t.act(view(i), 'Point #' + i + ' (' + pts[i][0] + ', ' + pts[i][1] + '), dist² ' + d[i] + '.', acts, key,
-          { push: 'The heap already holds k points.', replace: heap.length < k ? 'Not full yet; just push.' : d[i] + ' ≥ farthest kept ' + d[far] + '.', skip: heap.length < k ? 'Not full yet; every point gets in.' : d[i] + ' < farthest kept ' + d[far] + ', so it is closer.' },
+          { push: 'The heap already holds k points.', replace: heap.length < k ? 'Not full yet; just push.' : d[i] + ' at least farthest kept ' + d[far] + '.', skip: heap.length < k ? 'Not full yet; every point gets in.' : d[i] + ' < farthest kept ' + d[far] + ', so it is closer.' },
           key === 'replace' ? 'Evict #' + far + '.' : key === 'push' ? 'Pushed.' : 'Skipped.');
         if (key === 'push') heap.push(i); else if (key === 'replace') { heap.splice(heap.indexOf(far), 1); heap.push(i); }
       }

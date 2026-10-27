@@ -2,10 +2,10 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Fixed Point: first arr[i] ≥ i',
+    'title' => 'Fixed Point: first arr[i] at least i',
     'leetcode' => 1064,
     'difficulty' => 'Easy',
-    'summary' => 'arr[i] − i is non-decreasing for distinct sorted integers. Binary search the first i with arr[i] ≥ i; check equality.',
+    'summary' => 'arr[i] − i is non-decreasing for distinct sorted integers. Binary search the first i with arr[i] at least i; check equality.',
     'category' => 'LeetCode',
     'subcategory' => 'Binary Search',
     'topic' => 'LeetCode · Binary Search',

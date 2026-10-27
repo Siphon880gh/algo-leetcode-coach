@@ -5,7 +5,7 @@ return [
     'title' => 'Mirror Frequency Distance',
     'leetcode' => 3889,
     'difficulty' => 'Med',
-    'summary' => 'Count every character. Pair each letter with its mirror (a↔z, b↔y, …) and each digit with its mirror (0↔9, …). For each pair where at least one side appears, add |freq(c) − freq(mirror)| once.',
+    'summary' => 'Count every character. Pair each letter with its mirror (a and z, b and y, …) and each digit with its mirror (0 and 9, …). For each pair where at least one side appears, add |freq(c) − freq(mirror)| once.',
     'category' => 'LeetCode',
     'subcategory' => 'Hash Table',
     'topic' => 'LeetCode · Hash Table',

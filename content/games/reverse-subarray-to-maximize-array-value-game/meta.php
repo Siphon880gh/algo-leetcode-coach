@@ -5,7 +5,7 @@ return [
     'title' => 'Reverse Subarray to Maximize Value: two kinds of gain',
     'leetcode' => 1330,
     'difficulty' => 'Hard',
-    'summary' => 'Base = Σ |a[i] − a[i+1]|. Reversing a prefix or suffix changes one edge: try every edge. Reversing a middle part gains 2·(max of min(pair) − min of max(pair)) over adjacent pairs.',
+    'summary' => 'Base = the sum of |a[i] − a[i+1]|. Reversing a prefix or suffix changes one edge: try every edge. Reversing a middle part gains 2 times (max of min(pair) − min of max(pair)) over adjacent pairs.',
     'category' => 'LeetCode',
     'subcategory' => 'Greedy',
     'topic' => 'LeetCode · Greedy',

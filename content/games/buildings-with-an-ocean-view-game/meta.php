@@ -5,7 +5,7 @@ return [
     'title' => 'Buildings With an Ocean View',
     'leetcode' => 1762,
     'difficulty' => 'Med',
-    'summary' => 'Scan from the right tracking the tallest building seen; a building has a view iff it is strictly taller than all to its right.',
+    'summary' => 'Scan from the right tracking the tallest building seen; a building has a view exactly when it is strictly taller than all to its right.',
     'category' => 'LeetCode',
     'subcategory' => 'Monotonic Stack',
     'topic' => 'LeetCode · Monotonic Stack',

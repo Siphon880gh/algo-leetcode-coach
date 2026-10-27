@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Slowest Key: longest press, ties → larger letter',
+    'title' => 'Slowest Key: longest press, ties go to the larger letter',
     'leetcode' => 1629,
     'difficulty' => 'Easy',
     'summary' => 'Duration i = release[i] − release[i − 1] (first is release[0]). Keep the longest; on ties keep the lexicographically larger key.',

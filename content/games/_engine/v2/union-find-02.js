@@ -10,7 +10,7 @@
 
   D('groups-of-strings', {
     t: 'Groups of Strings',
-    r: 'Encode each word as a 26-bit mask. Two words connect if their masks are equal, differ by one bit (add/delete), or differ by two bits with equal size (replace). Union connected words; report [groups, largest group].',
+    r: 'Encode each word as a 26-bit mask. Two words connect if their masks are equal, differ by one bit (add or delete), or differ by two bits with equal size (replace). Union connected words; report [groups, largest group].',
     g: R => ({ words: Array.from({ length: R.int(1, 6) }, () => [...new Set(R.str(R.int(1, 3), 'abcd'))].join('')) }),
     s(I, T) { const m = I.words.map(w => [...w].reduce((x, c) => x | 1 << (c.charCodeAt(0) - 97), 0)), d = DSU(m.length); let k = 0; for (let i = 0; i < m.length; i++) for (let j = i + 1; j < m.length; j++) { const x = pc(m[i] ^ m[j]), ok = x <= 1 || (x === 2 && pc(m[i]) === pc(m[j])); if (ok) d.u(i, j); if (k++ < 5) { T.at({ a: I.words[i], b: I.words[j] }); T.yn('Connected?', ok, 'One add, delete, or replace apart.'); } } const g = {}; for (let i = 0; i < m.length; i++) g[d.f(i)] = (g[d.f(i)] || 0) + 1; return [Object.keys(g).length, Math.max(...Object.values(g))]; }
   });
@@ -31,24 +31,24 @@
 
   D('check-for-contradictions-in-equations', {
     t: 'Check for Contradictions in Equations',
-    r: 'Weighted union-find storing each variable\'s ratio to its root. When both sides already share a root, compare ratio(a) / ratio(b) with the given value (tolerance 1e-5); a mismatch is a contradiction.',
+    r: 'Weighted union-find storing each variable\'s ratio to its root. When both sides already share a root, compare ratio(a) divided by ratio(b) with the given value (tolerance 1e-5); a mismatch is a contradiction.',
     g: R => { const vs = ['a', 'b', 'c', 'd'], hid = { a: R.int(1, 4), b: R.int(1, 4), c: R.int(1, 4), d: R.int(1, 4) }, eq = [], val = []; for (let i = 0; i < R.int(1, 4); i++) { const x = R.pick(vs), y = R.pick(vs.filter(v => v !== x)); eq.push([x, y]); val.push(R.chance(0.8) ? hid[x] / hid[y] : hid[x] / hid[y] + 1); } return { equations: eq, values: val }; },
-    s(I, T) { const p = {}, w = {}, f = x => { if (p[x] === undefined) { p[x] = x; w[x] = 1; } if (p[x] === x) return x; const r = f(p[x]); w[x] *= w[p[x]]; p[x] = r; return r; }; for (const [i, [a, b]] of I.equations.entries()) { const ra = f(a), rb = f(b); if (ra !== rb) { p[ra] = rb; w[ra] = I.values[i] * w[b] / w[a]; T.at({ equation: `${a} / ${b} = ${+I.values[i].toFixed(4)}` }); T.yn('Already related?', false, 'Merge with the right weight.'); continue; } const bad = Math.abs(w[a] / w[b] - I.values[i]) > 1e-5; T.at({ equation: `${a} / ${b} = ${+I.values[i].toFixed(4)}`, known: +(w[a] / w[b]).toFixed(4) }); T.yn('Contradiction?', bad, 'Known ratio vs given value.'); if (bad) return true; } return false; }
+    s(I, T) { const p = {}, w = {}, f = x => { if (p[x] === undefined) { p[x] = x; w[x] = 1; } if (p[x] === x) return x; const r = f(p[x]); w[x] *= w[p[x]]; p[x] = r; return r; }; for (const [i, [a, b]] of I.equations.entries()) { const ra = f(a), rb = f(b); if (ra !== rb) { p[ra] = rb; w[ra] = I.values[i] * w[b] / w[a]; T.at({ equation: `${a} divided by ${b} = ${+I.values[i].toFixed(4)}` }); T.yn('Already related?', false, 'Merge with the right weight.'); continue; } const bad = Math.abs(w[a] / w[b] - I.values[i]) > 1e-5; T.at({ equation: `${a} divided by ${b} = ${+I.values[i].toFixed(4)}`, known: +(w[a] / w[b]).toFixed(4) }); T.yn('Contradiction?', bad, 'Known ratio vs given value.'); if (bad) return true; } return false; }
   });
 
   D('count-unreachable-pairs-of-nodes-in-an-undirected-graph', {
     t: 'Count Unreachable Pairs of Nodes in an Undirected Graph',
-    r: 'Union all edges to get component sizes. Each node pairs with every node outside its component: Σ s·(n − s) / 2.',
+    r: 'Union all edges to get component sizes. Each node pairs with every node outside its component: the sum of s times (n − s) divided by 2.',
     g: R => { const n = R.int(1, 7); return { n, edges: R.edges(n, R.int(0, 6)) }; },
     s(I, T) { const res = (() => { const d = DSU(I.n); I.edges.forEach(([a, b]) => d.u(a, b)); const sizes = []; for (let i = 0; i < I.n; i++) if (d.f(i) === i) sizes.push(d.sz[i]); T.at({ graph: GR(I.n, I.edges) }); T.n('Number of components?', sizes.length, 'Union every edge.'); T.n('Largest component size?', Math.max(...sizes), 'Its nodes cannot reach anyone outside it.'); return sum(sizes.map(s => s * (I.n - s))) / 2; })(); T.n('Unreachable pairs?', res, 'Each node pairs with everyone outside its component, halved.'); return res; }
   });
 
   D('subarray-with-elements-greater-than-varying-threshold', {
     t: 'Subarray With Elements Greater Than Varying Threshold',
-    r: 'Add elements from largest to smallest, merging with already-added neighbors. When value v joins a segment of length k, every element in it is ≥ v; if v > threshold / k, k is a valid answer.',
+    r: 'Add elements from largest to smallest, merging with already-added neighbors. When value v joins a segment of length k, every element in it is at least v; if v > threshold divided by k, k is a valid answer.',
     g: R => ({ nums: R.ints(R.int(1, 6), 1, 9), threshold: R.int(1, 20) }),
     cmp: (o, e, I) => { if (e === -1) return o === -1; if (!Number.isInteger(o) || o < 1 || o > I.nums.length) return false; for (let i = 0; i + o <= I.nums.length; i++) if (I.nums.slice(i, i + o).every(x => x > I.threshold / o)) return true; return false; },
-    s(I, T) { const n = I.nums.length, d = DSU(n), on = Array(n).fill(false), ord = I.nums.map((v, i) => i).sort((a, b) => I.nums[b] - I.nums[a]); let k2 = 0; for (const i of ord) { on[i] = true; if (i > 0 && on[i - 1]) d.u(i, i - 1); if (i + 1 < n && on[i + 1]) d.u(i, i + 1); const k = d.sz[d.f(i)], ok = I.nums[i] > I.threshold / k; if (k2++ < 5 || ok) { T.at({ nums: A(I.nums, { i }), segmentLength: k }); T.yn('Does min > threshold / length here?', ok, `${I.nums[i]} vs ${I.threshold}/${k}.`); } if (ok) return k; } return -1; }
+    s(I, T) { const n = I.nums.length, d = DSU(n), on = Array(n).fill(false), ord = I.nums.map((v, i) => i).sort((a, b) => I.nums[b] - I.nums[a]); let k2 = 0; for (const i of ord) { on[i] = true; if (i > 0 && on[i - 1]) d.u(i, i - 1); if (i + 1 < n && on[i + 1]) d.u(i, i + 1); const k = d.sz[d.f(i)], ok = I.nums[i] > I.threshold / k; if (k2++ < 5 || ok) { T.at({ nums: A(I.nums, { i }), segmentLength: k }); T.yn('Does min > threshold divided by length here?', ok, `${I.nums[i]} vs ${I.threshold}/${k}.`); } if (ok) return k; } return -1; }
   });
 
   D('reachable-nodes-with-restrictions', {
@@ -60,7 +60,7 @@
 
   D('minimize-maximum-value-in-a-grid', {
     t: 'Minimize Maximum Value in a Grid',
-    r: 'Process cells by increasing value; each gets 1 + max(largest value assigned so far in its row, in its column). This preserves every row/column order with the smallest possible maximum.',
+    r: 'Process cells by increasing value; each gets 1 + max(largest value assigned so far in its row, in its column). This preserves every row or column order with the smallest possible maximum.',
     g: R => { const m = R.int(1, 3), n = R.int(1, 3), v = R.distinct(m * n, 1, 20); return { grid: Array.from({ length: m }, (_, i) => v.slice(i * n, i * n + n)) }; },
     cmp: (o, e, I) => { const g = I.grid; if (!Array.isArray(o) || o.length !== g.length) return false; const mx = a => Math.max(...a.flat()); if (mx(o) !== mx(e)) return false; for (let i = 0; i < g.length; i++) for (let j = 0; j < g[0].length; j++) { if (!(o[i][j] >= 1)) return false; for (let k = 0; k < g[0].length; k++) if (g[i][j] < g[i][k] && !(o[i][j] < o[i][k])) return false; for (let k = 0; k < g.length; k++) if (g[i][j] < g[k][j] && !(o[i][j] < o[k][j])) return false; } return true; },
     s(I, T) { const g = I.grid, m = g.length, n = g[0].length, rm = Array(m).fill(0), cm = Array(n).fill(0), out = g.map(r => r.map(() => 0)), cells = []; g.forEach((r, i) => r.forEach((v, j) => cells.push([v, i, j]))); cells.sort((a, b) => a[0] - b[0]).forEach(([v, i, j], k) => { const x = Math.max(rm[i], cm[j]) + 1; out[i][j] = rm[i] = cm[j] = x; if (k < 5) { T.at({ grid: G(g, { hl: [[i, j]] }) }); T.n(`New value for ${v}?`, x, '1 + max so far in its row and column.'); } }); return out; }
@@ -75,16 +75,16 @@
 
   D('number-of-good-paths', {
     t: 'Number of Good Paths',
-    r: 'Process nodes by value. Union each node with neighbors of value ≤ its own. Within each new component, nodes of the current value can pair up: add c·(c+1)/2 for each root with c such nodes.',
+    r: 'Process nodes by value. Union each node with neighbors of value at most its own. Within each new component, nodes of the current value can pair up: add c times (c+1) divided by 2 for each root with c such nodes.',
     g: R => { const n = R.int(1, 7); return { vals: R.ints(n, 1, 3), edges: R.edges(n, n - 1, { conn: true }) }; },
-    s(I, T) { const n = I.vals.length, adj = Array.from({ length: n }, () => []), d = DSU(n); I.edges.forEach(([a, b]) => { adj[a].push(b); adj[b].push(a); }); let tot = 0; [...new Set(I.vals)].sort((a, b) => a - b).forEach(v => { const nodes = I.vals.map((x, i) => i).filter(i => I.vals[i] === v); nodes.forEach(u => adj[u].forEach(w => { if (I.vals[w] <= v) d.u(u, w); })); const c = {}; nodes.forEach(u => c[d.f(u)] = (c[d.f(u)] || 0) + 1); const add = sum(Object.values(c).map(x => x * (x + 1) / 2)); tot += add; T.at({ value: v, tree: GR(n, I.edges) }); T.n(`Good paths whose top value is ${v}?`, add, 'c·(c+1)/2 per component.'); }); return tot; }
+    s(I, T) { const n = I.vals.length, adj = Array.from({ length: n }, () => []), d = DSU(n); I.edges.forEach(([a, b]) => { adj[a].push(b); adj[b].push(a); }); let tot = 0; [...new Set(I.vals)].sort((a, b) => a - b).forEach(v => { const nodes = I.vals.map((x, i) => i).filter(i => I.vals[i] === v); nodes.forEach(u => adj[u].forEach(w => { if (I.vals[w] <= v) d.u(u, w); })); const c = {}; nodes.forEach(u => c[d.f(u)] = (c[d.f(u)] || 0) + 1); const add = sum(Object.values(c).map(x => x * (x + 1) / 2)); tot += add; T.at({ value: v, tree: GR(n, I.edges) }); T.n(`Good paths whose top value is ${v}?`, add, 'c times (c+1) divided by 2 per component.'); }); return tot; }
   });
 
   D('minimum-score-of-a-path-between-two-cities', {
     t: 'Minimum Score of a Path between Two Cities',
     r: 'Paths may revisit roads, so any road in city 1\'s component can be used. Union all roads; the answer is the smallest distance among roads in that component.',
     g: R => { const n = R.int(2, 5); return { n, roads: R.edges(n, R.int(n - 1, n + 2), { conn: true, base: 1, w: [1, 9] }) }; },
-    s(I, T) { const d = DSU(I.n + 1); I.roads.forEach(([a, b]) => d.u(a, b)); let best = Infinity; I.roads.forEach(([a, b, w], i) => { const inC = d.f(a) === d.f(1); if (inC) best = Math.min(best, w); if (i < 5) { T.at({ road: `${a}–${b} (${w})` }); T.yn('In city 1\'s component?', inC, 'Then usable.'); } }); return best; }
+    s(I, T) { const d = DSU(I.n + 1); I.roads.forEach(([a, b]) => d.u(a, b)); let best = Infinity; I.roads.forEach(([a, b, w], i) => { const inC = d.f(a) === d.f(1); if (inC) best = Math.min(best, w); if (i < 5) { T.at({ road: `${a} to ${b} (${w})` }); T.yn('In city 1\'s component?', inC, 'Then usable.'); } }); return best; }
   });
 
   D('divide-nodes-into-the-maximum-number-of-groups', {
@@ -131,14 +131,14 @@
 
   D('count-the-number-of-complete-components', {
     t: 'Count the Number of Complete Components',
-    r: 'Union edges, then count vertices and edges per component. A component with s vertices is complete iff it has s·(s−1)/2 edges.',
+    r: 'Union edges, then count vertices and edges per component. A component with s vertices is complete exactly when it has s times (s−1) divided by 2 edges.',
     g: R => { const n = R.int(1, 6); return { n, edges: R.edges(n, R.int(0, 7)) }; },
-    s(I, T) { const d = DSU(I.n); I.edges.forEach(([a, b]) => d.u(a, b)); const ec = {}; I.edges.forEach(([a]) => ec[d.f(a)] = (ec[d.f(a)] || 0) + 1); let c = 0, k = 0; for (let i = 0; i < I.n; i++) if (d.f(i) === i) { const s = d.sz[i], ok = (ec[i] || 0) === s * (s - 1) / 2; if (ok) c++; if (k++ < 4) { T.at({ graph: GR(I.n, I.edges), component: `size ${s}, ${ec[i] || 0} edges` }); T.yn('Complete?', ok, 's·(s−1)/2 edges.'); } } return c; }
+    s(I, T) { const d = DSU(I.n); I.edges.forEach(([a, b]) => d.u(a, b)); const ec = {}; I.edges.forEach(([a]) => ec[d.f(a)] = (ec[d.f(a)] || 0) + 1); let c = 0, k = 0; for (let i = 0; i < I.n; i++) if (d.f(i) === i) { const s = d.sz[i], ok = (ec[i] || 0) === s * (s - 1) / 2; if (ok) c++; if (k++ < 4) { T.at({ graph: GR(I.n, I.edges), component: `size ${s}, ${ec[i] || 0} edges` }); T.yn('Complete?', ok, 's times (s−1) divided by 2 edges.'); } } return c; }
   });
 
   D('greatest-common-divisor-traversal', {
     t: 'Greatest Common Divisor Traversal',
-    r: 'Union each index with hub nodes for its prime factors. Every pair is traversable iff all indices end in one component (a single element is trivially fine; a 1 among several is isolated).',
+    r: 'Union each index with hub nodes for its prime factors. Every pair is traversable exactly when all indices end in one component (a single element is trivially fine; a 1 among several is isolated).',
     g: R => ({ nums: R.ints(R.int(1, 5), 1, 20) }),
     s(I, T) { const res = (() => { const n = I.nums.length; if (n === 1) { T.at({ nums: A(I.nums) }); T.yn('Any pair to check?', false, 'One index.'); T.n('Indices?', 1, 'Only one.'); return true; } const hub = {}, d = DSU(n + 30); let next = n; I.nums.forEach((x, i) => { let v = x; for (let p = 2; p * p <= v; p++) if (v % p === 0) { hub[p] = hub[p] ?? next++; d.u(i, hub[p]); while (v % p === 0) v /= p; } if (v > 1) { hub[v] = hub[v] ?? next++; d.u(i, hub[v]); } }); const roots = new Set(I.nums.map((_, i) => d.f(i))); T.at({ nums: A(I.nums) }); T.n('Components among indices?', roots.size, 'Joined through shared primes.'); T.n('Distinct prime factors found?', Object.keys(hub).length, 'Each prime is a hub node.'); return roots.size === 1; })(); T.yn('Can every pair be traversed?', res, 'All indices in one component.'); return res; }
   });
@@ -160,7 +160,7 @@
 
   D('sum-of-remoteness-of-all-cells', {
     t: 'Sum of Remoteness of All Cells',
-    r: 'Union adjacent open cells. A component with c cells and value sum s contributes c · (total − s): each of its cells is remote from everything outside it.',
+    r: 'Union adjacent open cells. A component with c cells and value sum s contributes c times (total − s): each of its cells is remote from everything outside it.',
     g: R => { const n = R.int(1, 4); return { grid: R.grid(n, n, 0, 0).map(r => r.map(() => R.chance(0.4) ? -1 : R.int(1, 6))) }; },
     s(I, T) { const res = (() => { const g = I.grid, n = g.length, d = DSU(n * n); for (let i = 0; i < n; i++) for (let j = 0; j < n; j++) if (g[i][j] > 0) { if (i + 1 < n && g[i + 1][j] > 0) d.u(i * n + j, (i + 1) * n + j); if (j + 1 < n && g[i][j + 1] > 0) d.u(i * n + j, i * n + j + 1); } const s = {}, c = {}; let tot = 0; g.forEach((r, i) => r.forEach((v, j) => { if (v > 0) { const k = d.f(i * n + j); s[k] = (s[k] || 0) + v; c[k] = (c[k] || 0) + 1; tot += v; } })); T.at({ grid: G(g) }); T.n('Total of all open cells?', tot, 'Sum of positive values.'); T.n('Open regions?', Object.keys(s).length, 'Union open neighbours.'); return sum(Object.keys(s).map(k => c[k] * (tot - s[k]))); })(); T.n('Sum of remoteness?', res, 'Each region: its cell count times the total outside it.'); return res; }
   });
@@ -169,27 +169,27 @@
     t: 'Make Lexicographically Smallest Array by Swapping Elements',
     r: 'Sort values; consecutive sorted values within `limit` belong to one swappable group. For each group, place its sorted values into its sorted original indices.',
     g: R => ({ nums: R.ints(R.int(1, 7), 1, 20), limit: R.int(1, 4) }),
-    s(I, T) { const ord = I.nums.map((v, i) => [v, i]).sort((a, b) => a[0] - b[0]), out = []; let k = 0; for (let s = 0; s < ord.length;) { let e = s + 1; while (e < ord.length && ord[e][0] - ord[e - 1][0] <= I.limit) e++; const grp = ord.slice(s, e), idx = grp.map(x => x[1]).sort((a, b) => a - b); idx.forEach((ix, t) => out[ix] = grp[t][0]); if (k++ < 4) { T.at({ sorted: A(ord.map(x => x[0]), { i: s, j: e - 1 }) }); T.n('Values in this swappable group?', e - s, 'Chain while gaps ≤ limit.'); } s = e; } return out; }
+    s(I, T) { const ord = I.nums.map((v, i) => [v, i]).sort((a, b) => a[0] - b[0]), out = []; let k = 0; for (let s = 0; s < ord.length;) { let e = s + 1; while (e < ord.length && ord[e][0] - ord[e - 1][0] <= I.limit) e++; const grp = ord.slice(s, e), idx = grp.map(x => x[1]).sort((a, b) => a - b); idx.forEach((ix, t) => out[ix] = grp[t][0]); if (k++ < 4) { T.at({ sorted: A(ord.map(x => x[0]), { i: s, j: e - 1 }) }); T.n('Values in this swappable group?', e - s, 'Chain while gaps at most limit.'); } s = e; } return out; }
   });
 
   D('minimum-cost-walk-in-weighted-graph', {
     t: 'Minimum Cost Walk in Weighted Graph',
     r: 'A walk may reuse edges, and AND only shrinks, so the best walk uses every edge of the component. Union edges and AND their weights per component; queries in different components get −1.',
     g: R => { const n = R.int(2, 5); return { n, edges: Array.from({ length: R.int(1, 5) }, () => { const [a, b] = pairs(n, 1, R)[0]; return [a, b, R.int(0, 15)]; }), query: pairs(n, R.int(1, 3), R) }; },
-    s(I, T) { const d = DSU(I.n); I.edges.forEach(([a, b]) => d.u(a, b)); const and = {}; I.edges.forEach(([a, , w]) => { const r = d.f(a); and[r] = (and[r] ?? -1) & w; }); return I.query.map(([s, t], i) => { const ok = d.f(s) === d.f(t), v = ok ? and[d.f(s)] : -1; if (i < 4) { T.at({ query: `${s} → ${t}` }); T.yn('Same component?', ok, 'Otherwise −1.'); } return v; }); }
+    s(I, T) { const d = DSU(I.n); I.edges.forEach(([a, b]) => d.u(a, b)); const and = {}; I.edges.forEach(([a, , w]) => { const r = d.f(a); and[r] = (and[r] ?? -1) & w; }); return I.query.map(([s, t], i) => { const ok = d.f(s) === d.f(t), v = ok ? and[d.f(s)] : -1; if (i < 4) { T.at({ query: `${s} to ${t}` }); T.yn('Same component?', ok, 'Otherwise −1.'); } return v; }); }
   });
 
   D('check-if-the-rectangle-corner-is-reachable', {
     t: 'Check if the Rectangle Corner Is Reachable',
-    r: 'Fail if a circle covers either corner. Otherwise union circles that overlap inside the rectangle; the path is blocked iff some group touches the left/top edges and also the right/bottom edges.',
+    r: 'Fail if a circle covers either corner. Otherwise union circles that overlap inside the rectangle; the path is blocked exactly when some group touches the left or top edges and also the right or bottom edges.',
     g: R => { const X = R.int(2, 6), Y = R.int(2, 6); return { xCorner: X, yCorner: Y, circles: Array.from({ length: R.int(1, 4) }, () => [R.int(1, X), R.int(1, Y), R.int(1, 2)]) }; },
     s(I, T) { const res = (() => { const X = I.xCorner, Y = I.yCorner, C = I.circles, n = C.length, inC = (x, y, r, a, b) => (x - a) ** 2 + (y - b) ** 2 <= r * r; const lt = ([x, y, r]) => (Math.abs(x) <= r && y >= 0 && y <= Y) || (Math.abs(y - Y) <= r && x >= 0 && x <= X), rb = ([x, y, r]) => (Math.abs(x - X) <= r && y >= 0 && y <= Y) || (Math.abs(y) <= r && x >= 0 && x <= X); for (const [x, y, r] of C) if (inC(x, y, r, 0, 0) || inC(x, y, r, X, Y)) { T.at({ circle: `(${x}, ${y}) r=${r}` }); T.yn('Does it cover a corner?', true, 'Then no path exists.'); T.n('Circles?', n, 'One was enough to block.'); return false; } T.at({ circles: A(C.map(c => c.join(', '))) }); T.n('Circles?', n, 'Each one is a node, plus two edge nodes.'); const d = DSU(n + 2); C.forEach((c, i) => { if (lt(c)) d.u(i, n); if (rb(c)) d.u(i, n + 1); }); for (let i = 0; i < n; i++) for (let j = i + 1; j < n; j++) { const [x1, y1, r1] = C[i], [x2, y2, r2] = C[j]; if ((x1 - x2) ** 2 + (y1 - y2) ** 2 <= (r1 + r2) ** 2 && x1 * r2 + x2 * r1 < (r1 + r2) * X && y1 * r2 + y2 * r1 < (r1 + r2) * Y) d.u(i, j); } const blocked = d.f(n) === d.f(n + 1); T.yn('Does a chain of circles wall off the corner?', blocked, 'The left or top edge joins the right or bottom edge.'); return !blocked; })(); T.yn('Can you reach the corner?', res, 'Only if no wall of circles exists.'); return res; }
   });
 
   D('count-connected-components-in-lcm-graph', {
     t: 'Count Connected Components in LCM Graph',
-    r: 'Two numbers connect if lcm ≤ threshold, i.e. they share a common multiple ≤ threshold. Union each num ≤ threshold with all its multiples up to threshold (value space); numbers above threshold stay alone.',
+    r: 'Two numbers connect if lcm at most threshold, i.e. they share a common multiple at most threshold. Union each num at most threshold with all its multiples up to threshold (value space); numbers above threshold stay alone.',
     g: R => ({ nums: R.distinct(R.int(1, 6), 1, 15), threshold: R.int(1, 15) }),
-    s(I, T) { const t = I.threshold, d = DSU(t + 1); I.nums.forEach(x => { if (x <= t) for (let m = 2 * x; m <= t; m += x) d.u(x, m); }); const roots = new Set(); let alone = 0; I.nums.forEach((x, i) => { if (x > t) alone++; else roots.add(d.f(x)); if (i < 5) { T.at({ num: x, threshold: t }); T.yn('Can it connect to anything?', x <= t, 'Only if it is ≤ threshold.'); } }); return roots.size + alone; }
+    s(I, T) { const t = I.threshold, d = DSU(t + 1); I.nums.forEach(x => { if (x <= t) for (let m = 2 * x; m <= t; m += x) d.u(x, m); }); const roots = new Set(); let alone = 0; I.nums.forEach((x, i) => { if (x > t) alone++; else roots.add(d.f(x)); if (i < 5) { T.at({ num: x, threshold: t }); T.yn('Can it connect to anything?', x <= t, 'Only if it is at most threshold.'); } }); return roots.size + alone; }
   });
 })();

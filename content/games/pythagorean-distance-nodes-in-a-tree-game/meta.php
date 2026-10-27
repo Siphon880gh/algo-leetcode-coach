@@ -5,7 +5,7 @@ return [
     'title' => 'Pythagorean Distance Nodes in a Tree',
     'leetcode' => 3820,
     'difficulty' => 'Med',
-    'summary' => 'Three BFS runs give every node\'s distance to x, y and z. Sort each node\'s three distances (a ≤ b ≤ c) and count the nodes with a² + b² = c².',
+    'summary' => 'Three BFS runs give every node\'s distance to x, y and z. Sort each node\'s three distances (b from a to c) and count the nodes with a² + b² = c².',
     'category' => 'LeetCode',
     'subcategory' => 'Trees',
     'topic' => 'LeetCode · Trees',

@@ -5,7 +5,7 @@ return [
     'title' => 'Minimum Time to Repair Cars',
     'leetcode' => 2594,
     'difficulty' => 'Med',
-    'summary' => 'A mechanic of rank r fixes ⌊√(t / r)⌋ cars in time t. Binary search the first t where the total ≥ cars.',
+    'summary' => 'A mechanic of rank r fixes √(t divided by r) (rounded down) cars in time t. Binary search the first t where the total at least cars.',
     'category' => 'LeetCode',
     'subcategory' => 'Binary Search',
     'topic' => 'LeetCode · Binary Search',

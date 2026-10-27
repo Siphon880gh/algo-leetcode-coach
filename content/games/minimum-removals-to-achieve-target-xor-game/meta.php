@@ -5,7 +5,7 @@ return [
     'title' => 'Minimum Removals to Achieve Target XOR',
     'leetcode' => 3877,
     'difficulty' => 'Med',
-    'summary' => 'DP over XOR values: best[x] = most elements we can keep with XOR x (−∞ if unreachable). Each element either is removed or keeps x → x ⊕ v with one more kept. Answer n − best[target], or −1.',
+    'summary' => 'DP over XOR values: best[x] = most elements we can keep with XOR x (−∞ if unreachable). Each element either is removed or keeps x to x ⊕ v with one more kept. Answer n − best[target], or −1.',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

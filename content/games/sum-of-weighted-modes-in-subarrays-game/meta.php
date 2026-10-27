@@ -5,7 +5,7 @@ return [
     'title' => 'Sum of Weighted Modes in Subarrays',
     'leetcode' => 3672,
     'difficulty' => 'Med',
-    'summary' => 'Slide a window of size k with a count map (plus an ordered set of (count, value) to find the mode). The mode is the most frequent value, smallest on ties; its weight is value × count.',
+    'summary' => 'Slide a window of size k with a count map (plus an ordered set of (count, value) to find the mode). The mode is the most frequent value, smallest on ties; its weight is value times count.',
     'category' => 'LeetCode',
     'subcategory' => 'Sliding Window',
     'topic' => 'LeetCode · Sliding Window',

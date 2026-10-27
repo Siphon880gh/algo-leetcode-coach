@@ -5,7 +5,7 @@ return [
     'title' => 'Cycle Length Queries: climb the larger label',
     'leetcode' => 2509,
     'difficulty' => 'Hard',
-    'summary' => 'In a heap-numbered tree the parent of v is ⌊v/2⌋. Repeatedly move the larger of a, b up until they meet; the cycle length is the steps + 1 (the new edge).',
+    'summary' => 'In a heap-numbered tree the parent of v is half of v, rounded down. Repeatedly move the larger of a, b up until they meet; the cycle length is the steps + 1 (the new edge).',
     'category' => 'LeetCode',
     'subcategory' => 'Trees',
     'topic' => 'LeetCode · Trees',

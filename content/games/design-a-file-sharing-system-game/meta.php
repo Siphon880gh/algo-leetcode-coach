@@ -5,7 +5,7 @@ return [
     'title' => 'Design a File Sharing System',
     'leetcode' => 1500,
     'difficulty' => 'Med',
-    'summary' => 'Give joining users the smallest free id (a min-heap of released ids, else the next counter). Map chunk → owners. request returns the sorted owners of a chunk; if any, the requester also gets it.',
+    'summary' => 'Give joining users the smallest free id (a min-heap of released ids, else the next counter). Map chunk to owners. request returns the sorted owners of a chunk; if any, the requester also gets it.',
     'category' => 'LeetCode',
     'subcategory' => 'Design',
     'topic' => 'LeetCode · Design',

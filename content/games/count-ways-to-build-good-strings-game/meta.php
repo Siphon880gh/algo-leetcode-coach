@@ -5,7 +5,7 @@ return [
     'title' => 'Count Ways to Build Good Strings: append a zero-block or a one-block',
     'leetcode' => 2466,
     'difficulty' => 'Med',
-    'summary' => 'dp[len] = strings of exactly that length = dp[len − zero] + dp[len − one]. Sum dp over low..high.',
+    'summary' => 'dp[len] = strings of exactly that length = dp[len − zero] + dp[len − one]. Sum dp over low to high.',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

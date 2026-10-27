@@ -5,7 +5,7 @@ return [
     'title' => 'Count Subarrays of Length Three With a Condition',
     'leetcode' => 3392,
     'difficulty' => 'Easy',
-    'summary' => 'Check every window [a, b, c]: count it if 2·(a + c) == b.',
+    'summary' => 'Check every window [a, b, c]: count it if 2 times (a + c) == b.',
     'category' => 'LeetCode',
     'subcategory' => 'Arrays',
     'topic' => 'LeetCode · Arrays',

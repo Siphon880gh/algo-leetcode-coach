@@ -5,7 +5,7 @@ return [
     'title' => 'Permutation Sequence: factorial number system',
     'leetcode' => 60,
     'difficulty' => 'Hard',
-    'summary' => 'With k − 1 (0-based), the first digit is the ⌊k/(n−1)!⌋-th remaining number; continue with k mod (n−1)! and fewer numbers.',
+    'summary' => 'With k − 1 (0-based), the first digit is the (k divided by (n−1)!, rounded down)-th remaining number; continue with k mod (n−1)! and fewer numbers.',
     'category' => 'LeetCode',
     'subcategory' => 'Math',
     'topic' => 'LeetCode · Math',

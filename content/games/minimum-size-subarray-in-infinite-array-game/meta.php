@@ -5,7 +5,7 @@ return [
     'title' => 'Minimum Size Subarray in Infinite Array',
     'leetcode' => 2875,
     'difficulty' => 'Med',
-    'summary' => 'Take q = ⌊target / total⌋ full copies (q·n elements), then find the shortest window with sum target mod total in nums + nums (sliding window on positives). −1 if none.',
+    'summary' => 'Take q = (target divided by total, rounded down) full copies (q times n elements), then find the shortest window with sum target mod total in nums + nums (sliding window on positives). −1 if none.',
     'category' => 'LeetCode',
     'subcategory' => 'Sliding Window',
     'topic' => 'LeetCode · Sliding Window',

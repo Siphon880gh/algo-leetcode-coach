@@ -5,7 +5,7 @@ return [
     'title' => 'Key-Card Alerts: three uses within an hour',
     'leetcode' => 1604,
     'difficulty' => 'Med',
-    'summary' => 'Group times by name and sort them. Alert if some t[i + 2] − t[i] ≤ 60 minutes. Return alerted names sorted.',
+    'summary' => 'Group times by name and sort them. Alert if some t[i + 2] − t[i] at most 60 minutes. Return alerted names sorted.',
     'category' => 'LeetCode',
     'subcategory' => 'Strings',
     'topic' => 'LeetCode · Strings',

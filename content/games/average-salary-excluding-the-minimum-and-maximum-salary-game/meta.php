@@ -5,7 +5,7 @@ return [
     'title' => 'Average Salary Excluding the Minimum and Maximum Salary',
     'leetcode' => 1491,
     'difficulty' => 'Easy',
-    'summary' => '(sum − min − max) / (n − 2).',
+    'summary' => '(sum − min − max) divided by (n − 2).',
     'category' => 'LeetCode',
     'subcategory' => 'Arrays',
     'topic' => 'LeetCode · Arrays',

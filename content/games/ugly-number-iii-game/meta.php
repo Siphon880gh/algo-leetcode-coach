@@ -5,7 +5,7 @@ return [
     'title' => 'Ugly Number III: inclusion-exclusion count',
     'leetcode' => 1201,
     'difficulty' => 'Med',
-    'summary' => 'Count numbers ≤ x divisible by a, b or c with inclusion-exclusion over the lcms; binary search the first x with count ≥ n.',
+    'summary' => 'Count numbers at most x divisible by a, b or c with inclusion-exclusion over the lcms; binary search the first x with count at least n.',
     'category' => 'LeetCode',
     'subcategory' => 'Binary Search',
     'topic' => 'LeetCode · Binary Search',

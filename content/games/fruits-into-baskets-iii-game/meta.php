@@ -5,7 +5,7 @@ return [
     'title' => 'Fruits Into Baskets III',
     'leetcode' => 3479,
     'difficulty' => 'Med',
-    'summary' => 'Segment tree of basket capacities (range max). For each fruit, descend to the leftmost basket with capacity ≥ fruit, then set it to 0. Count unplaced fruits.',
+    'summary' => 'Segment tree of basket capacities (range max). For each fruit, descend to the leftmost basket with capacity at least fruit, then set it to 0. Count unplaced fruits.',
     'category' => 'LeetCode',
     'subcategory' => 'Segment Tree',
     'topic' => 'LeetCode · Segment Tree',

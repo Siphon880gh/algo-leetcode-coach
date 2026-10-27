@@ -31,9 +31,9 @@
 
   D('lexicographical-numbers', {
     t: 'Lexicographical Numbers',
-    r: 'Preorder walk of the implicit digit trie: from x go to x·10 if ≤ n; otherwise step to x + 1, first stripping trailing 9s / overflow by dividing by 10.',
+    r: 'Preorder walk of the implicit digit trie: from x go to x times 10 if at most n; otherwise step to x + 1, first stripping trailing 9s or overflow by dividing by 10.',
     g: R => ({ n: R.int(1, 130) }),
-    s(I, T) { const out = []; let x = 1; for (let i = 0; i < I.n; i++) { out.push(x); if (x * 10 <= I.n) x *= 10; else { while (x % 10 === 9 || x + 1 > I.n) x = Math.floor(x / 10); x++; } if (i < 6 && i + 1 < I.n) { T.at({ sofar: A(out.slice()) }); T.n('Next number?', x, 'Go deeper (×10) if possible, else to the next sibling.'); } } return out; }
+    s(I, T) { const out = []; let x = 1; for (let i = 0; i < I.n; i++) { out.push(x); if (x * 10 <= I.n) x *= 10; else { while (x % 10 === 9 || x + 1 > I.n) x = Math.floor(x / 10); x++; } if (i < 6 && i + 1 < I.n) { T.at({ sofar: A(out.slice()) }); T.n('Next number?', x, 'Go deeper ( times 10) if possible, else to the next sibling.'); } } return out; }
   });
 
   D('maximum-xor-of-two-numbers-in-an-array', {
@@ -45,7 +45,7 @@
 
   D('word-squares', {
     t: 'Word Squares',
-    r: 'Backtrack row by row: row k must start with the prefix formed by column k of rows 0..k−1. A trie (or prefix map) lists candidate words for that prefix instantly.',
+    r: 'Backtrack row by row: row k must start with the prefix formed by column k of rows 0 to k−1. A trie (or prefix map) lists candidate words for that prefix instantly.',
     cmp: 'set',
     g: R => { const L = R.int(1, 3); return { words: uniq(Array.from({ length: R.int(1, 5) }, () => R.str(L, 'ab'))) }; },
     s(I, T) { const W = I.words, L = W[0].length, out = [], rows = []; let k = 0; const go = () => { if (rows.length === L) { out.push(rows.slice()); return; } const p = rows.map(r => r[rows.length]).join(''), cand = W.filter(w => w.startsWith(p)); if (k++ < 4) { T.at({ rows: A(rows.slice()), prefix: p || '∅' }); T.n('Candidate words for the next row?', cand.length, 'Words starting with the column prefix.'); } cand.forEach(w => { rows.push(w); go(); rows.pop(); }); }; go(); return out; }
@@ -53,17 +53,17 @@
 
   D('k-th-smallest-in-lexicographical-order', {
     t: 'K-th Smallest in Lexicographical Order',
-    r: 'Count how many numbers ≤ n live under prefix p (level by level in the digit trie). If that count < k, skip the subtree (p + 1); otherwise descend (p × 10).',
+    r: 'Count how many numbers at most n live under prefix p (level by level in the digit trie). If that count < k, skip the subtree (p + 1); otherwise descend (p times 10).',
     g: R => { const n = R.int(1, 200); return { n, k: R.int(1, n) }; },
     s(I, T) { const n = I.n, cnt = p => { let c = 0, a = p, b = p + 1; while (a <= n) { c += Math.min(n + 1, b) - a; a *= 10; b *= 10; } return c; }; let p = 1, k = I.k - 1, st = 0; while (k > 0) { const c = cnt(p); if (st++ < 5) { T.at({ prefix: p, kLeft: k }); T.n('Numbers under this prefix?', c, 'Sum the range sizes level by level.'); } if (c <= k) { k -= c; p++; } else { k--; p *= 10; } } return p; }
   });
 
   D('concatenated-words', {
     t: 'Concatenated Words',
-    r: 'Sort by length; for each word, word-break it using a trie of the shorter words already inserted (needs ≥ 2 pieces), then insert it.',
+    r: 'Sort by length; for each word, word-break it using a trie of the shorter words already inserted (needs at least 2 pieces), then insert it.',
     cmp: 'set',
     g: R => { const base = uniq(Array.from({ length: R.int(1, 3) }, () => R.str(R.int(1, 2), 'ab'))); const w = base.slice(); for (let i = R.int(0, 3); i > 0; i--) w.push(R.pick(base) + R.pick(base) + (R.chance(0.3) ? R.pick(base) : '')); if (R.chance(0.3)) w.push(R.str(3, 'ab')); return { words: uniq(w) }; },
-    s(I, T) { const set = new Set(I.words); const ok = w => { const dp = Array(w.length + 1).fill(0); dp[0] = 1; for (let i = 0; i < w.length; i++) if (dp[i]) for (let j = i + 1; j <= w.length; j++) { const p = w.slice(i, j); if (p !== w && set.has(p)) dp[j] = 1; } return !!dp[w.length]; }; return I.words.filter((w, i) => { const r = ok(w); if (i < 5) { T.at({ word: w, dict: A(I.words) }); T.yn('Built from ≥ 2 other words?', r, 'Word-break over shorter words.'); } return r; }); }
+    s(I, T) { const set = new Set(I.words); const ok = w => { const dp = Array(w.length + 1).fill(0); dp[0] = 1; for (let i = 0; i < w.length; i++) if (dp[i]) for (let j = i + 1; j <= w.length; j++) { const p = w.slice(i, j); if (p !== w && set.has(p)) dp[j] = 1; } return !!dp[w.length]; }; return I.words.filter((w, i) => { const r = ok(w); if (i < 5) { T.at({ word: w, dict: A(I.words) }); T.yn('Built from at least 2 other words?', r, 'Word-break over shorter words.'); } return r; }); }
   });
 
   D('word-abbreviation', {
@@ -96,7 +96,7 @@
 
   D('short-encoding-of-words', {
     t: 'Short Encoding of Words',
-    r: 'Insert reversed words into a trie; only leaves need their own "word#" segment. Answer = Σ (length + 1) over words that are not a suffix of another word.',
+    r: 'Insert reversed words into a trie; only leaves need their own "word#" segment. Answer = the sum of (length + 1) over words that are not a suffix of another word.',
     g: R => ({ words: Array.from({ length: R.int(1, 5) }, () => R.str(R.int(1, 4), 'ab')) }),
     s(I, T) { const W = uniq(I.words); let tot = 0; W.forEach((w, i) => { const covered = W.some(o => o !== w && o.endsWith(w)); if (!covered) tot += w.length + 1; if (i < 5) { T.at({ word: w, words: A(W) }); T.yn('Hidden as a suffix of another word?', covered, 'Then it costs nothing extra.'); } }); return tot; }
   });
@@ -117,7 +117,7 @@
 
   D('remove-sub-folders-from-the-filesystem', {
     t: 'Remove Sub-Folders from the Filesystem',
-    r: 'Sort paths; a path is a sub-folder iff it starts with the last kept folder + "/". (Equivalently, insert into a trie and stop at the first folder-end node.)',
+    r: 'Sort paths; a path is a sub-folder exactly when it starts with the last kept folder + "/". (Equivalently, insert into a trie and stop at the first folder-end node.)',
     cmp: 'set',
     g: R => ({ folder: uniq(Array.from({ length: R.int(1, 6) }, () => '/' + Array.from({ length: R.int(1, 3) }, () => R.pick(['a', 'b', 'c'])).join('/'))) }),
     s(I, T) { const f = I.folder.slice().sort(), out = []; f.forEach((p, i) => { const sub = out.length > 0 && p.startsWith(out[out.length - 1] + '/'); if (i < 5) { T.at({ sorted: A(f, { i }), kept: A(out.slice()) }); T.yn('Is it a sub-folder of a kept folder?', sub, 'Prefix check with a trailing "/".'); } if (!sub) out.push(p); }); return out; }
@@ -132,7 +132,7 @@
 
   D('number-of-distinct-substrings-in-a-string', {
     t: 'Number of Distinct Substrings in a String',
-    r: 'Insert every suffix into a trie; each newly created node is a new distinct substring. (A suffix array/automaton does it faster.)',
+    r: 'Insert every suffix into a trie; each newly created node is a new distinct substring. (A suffix array or automaton does it faster.)',
     g: R => ({ s: R.str(R.int(1, 7), 'ab') }),
     s(I, T) { const seen = new Set(); for (let i = 0; i < I.s.length; i++) { let fresh = 0; for (let j = i + 1; j <= I.s.length; j++) { const t = I.s.slice(i, j); if (!seen.has(t)) { seen.add(t); fresh++; } } if (i < 5) { T.at({ s: A([...I.s], { i }) }); T.n('New trie nodes when inserting this suffix?', fresh, 'Prefixes of the suffix not seen before.'); } } return seen.size; }
   });

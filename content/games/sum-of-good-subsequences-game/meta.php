@@ -5,7 +5,7 @@ return [
     'title' => 'Sum of Good Subsequences: neighbors differ by exactly 1',
     'leetcode' => 3351,
     'difficulty' => 'Hard',
-    'summary' => 'cnt[v] / sum[v] = number / total sum of good subsequences ending in value v. For x: c = 1 + cnt[x−1] + cnt[x+1]; s = x·c + sum[x−1] + sum[x+1]. Add them into cnt[x], sum[x].',
+    'summary' => 'cnt[v] divided by sum[v] = number divided by total sum of good subsequences ending in value v. For x: c = 1 + cnt[x−1] + cnt[x+1]; s = x times c + sum[x−1] + sum[x+1]. Add them into cnt[x], sum[x].',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

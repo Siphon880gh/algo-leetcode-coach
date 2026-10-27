@@ -2,10 +2,10 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Maximum Array Hopping Score I: hop to j earns (j − i)·nums[j]',
+    'title' => 'Maximum Array Hopping Score I: hop to j earns (j − i) times nums[j]',
     'leetcode' => 3205,
     'difficulty' => 'Med',
-    'summary' => 'dp[j] = max over i < j of dp[i] + (j − i)·nums[j]. (Greedy: always hop to the largest value to the right.)',
+    'summary' => 'dp[j] = max over i < j of dp[i] + (j − i) times nums[j]. (Greedy: always hop to the largest value to the right.)',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

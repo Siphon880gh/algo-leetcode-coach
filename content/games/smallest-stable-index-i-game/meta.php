@@ -5,7 +5,7 @@ return [
     'title' => 'Smallest Stable Index I',
     'leetcode' => 3903,
     'difficulty' => 'Easy',
-    'summary' => 'Precompute suffix minimums, then sweep from the left with a running maximum. The first index where max − suffixMin ≤ k is the answer.',
+    'summary' => 'Precompute suffix minimums, then sweep from the left with a running maximum. The first index where max − suffixMin at most k is the answer.',
     'category' => 'LeetCode',
     'subcategory' => 'Prefix Sum',
     'topic' => 'LeetCode · Prefix Sum',

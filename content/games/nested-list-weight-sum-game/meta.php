@@ -5,7 +5,7 @@ return [
     'title' => 'Nested List Weight Sum',
     'leetcode' => 339,
     'difficulty' => 'Med',
-    'summary' => 'DFS with depth (top level = 1): each integer contributes value × depth.',
+    'summary' => 'DFS with depth (top level = 1): each integer contributes value times depth.',
     'category' => 'LeetCode',
     'subcategory' => 'Graphs',
     'topic' => 'LeetCode · Graphs',

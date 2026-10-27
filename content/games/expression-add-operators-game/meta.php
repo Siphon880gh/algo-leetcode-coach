@@ -5,7 +5,7 @@ return [
     'title' => 'Expression Add Operators',
     'leetcode' => 282,
     'difficulty' => 'Hard',
-    'summary' => 'Backtrack over the next operand (no leading zeros) with value so far and the last multiplied term: + adds it, − subtracts it, * replaces last by last·x (value − last + last·x).',
+    'summary' => 'Backtrack over the next operand (no leading zeros) with value so far and the last multiplied term: + adds it, − subtracts it, * replaces last by last times x (value − last + last times x).',
     'category' => 'LeetCode',
     'subcategory' => 'Backtracking',
     'topic' => 'LeetCode · Backtracking',

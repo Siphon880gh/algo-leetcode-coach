@@ -5,7 +5,7 @@ return [
     'title' => 'Replace the Substring for Balanced String',
     'leetcode' => 1234,
     'difficulty' => 'Med',
-    'summary' => 'Each letter should appear n/4 times. Find the shortest window such that the counts OUTSIDE it are all ≤ n/4 — replacing the window then fixes everything.',
+    'summary' => 'Each letter should appear n divided by 4 times. Find the shortest window such that the counts OUTSIDE it are all at most n divided by 4 — replacing the window then fixes everything.',
     'category' => 'LeetCode',
     'subcategory' => 'Sliding Window',
     'topic' => 'LeetCode · Sliding Window',

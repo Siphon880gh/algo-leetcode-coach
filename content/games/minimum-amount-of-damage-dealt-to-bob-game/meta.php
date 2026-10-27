@@ -5,7 +5,7 @@ return [
     'title' => 'Minimum Damage to Bob: exchange argument',
     'leetcode' => 3273,
     'difficulty' => 'Hard',
-    'summary' => 'Enemy i needs t_i = ⌈health / power⌉ seconds. Kill i before j when damage_i · t_j > damage_j · t_i. Each enemy deals damage × (its finish time).',
+    'summary' => 'Enemy i needs t_i = (health divided by power, rounded up) seconds. Kill i before j when damage_i times t_j > damage_j times t_i. Each enemy deals damage times (its finish time).',
     'category' => 'LeetCode',
     'subcategory' => 'Greedy',
     'topic' => 'LeetCode · Greedy',

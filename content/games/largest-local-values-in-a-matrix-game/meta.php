@@ -5,7 +5,7 @@ return [
     'title' => 'Largest Local Values in a Matrix',
     'leetcode' => 2373,
     'difficulty' => 'Easy',
-    'summary' => 'The output is (n − 2) × (n − 2); entry (i, j) is the max of the 3×3 window whose top-left is (i, j).',
+    'summary' => 'The output is (n − 2) times (n − 2); entry (i, j) is the max of the 3 by 3 window whose top-left is (i, j).',
     'category' => 'LeetCode',
     'subcategory' => 'Graphs',
     'topic' => 'LeetCode · Graphs',

@@ -5,7 +5,7 @@ return [
     'title' => 'Statistics From a Large Sample: work on the counts',
     'leetcode' => 1093,
     'difficulty' => 'Med',
-    'summary' => 'min/max: first and last value with a non-zero count. mean: Σ k·count[k] / total. mode: largest count. median: walk the cumulative counts to positions ⌊(total−1)/2⌋ and ⌊total/2⌋ and average them.',
+    'summary' => 'min or max: first and last value with a non-zero count. mean: the sum of k times count[k] divided by total. mode: largest count. median: walk the cumulative counts to positions half of (total−1), rounded down and half of total, rounded down and average them.',
     'category' => 'LeetCode',
     'subcategory' => 'Math',
     'topic' => 'LeetCode · Math',

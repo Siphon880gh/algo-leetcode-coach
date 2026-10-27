@@ -5,7 +5,7 @@ return [
     'title' => 'Count Unique Characters of All Substrings: count by contribution',
     'leetcode' => 828,
     'difficulty' => 'Hard',
-    'summary' => 'Letter s[i] is unique in every substring that starts after the previous same letter and ends before the next one: (i − prev) · (next − i).',
+    'summary' => 'Letter s[i] is unique in every substring that starts after the previous same letter and ends before the next one: (i − prev) times (next − i).',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

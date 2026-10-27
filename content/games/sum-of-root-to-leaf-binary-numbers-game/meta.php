@@ -5,7 +5,7 @@ return [
     'title' => 'Sum of Root-to-Leaf Binary Numbers: shift and add',
     'leetcode' => 1022,
     'difficulty' => 'Easy',
-    'summary' => 'Carry cur = cur × 2 + bit down the tree; add cur at each leaf.',
+    'summary' => 'Carry cur = cur times 2 + bit down the tree; add cur at each leaf.',
     'category' => 'LeetCode',
     'subcategory' => 'Trees',
     'topic' => 'LeetCode · Trees',

@@ -5,7 +5,7 @@ return [
     'title' => 'Destroy Sequential Targets',
     'leetcode' => 2453,
     'difficulty' => 'Med',
-    'summary' => 'Seeding nums[i] destroys every target with the same remainder mod space (and ≥ it). Count remainders; among values in the largest class, return the minimum.',
+    'summary' => 'Seeding nums[i] destroys every target with the same remainder mod space (and at least it). Count remainders; among values in the largest class, return the minimum.',
     'category' => 'LeetCode',
     'subcategory' => 'Hash Table',
     'topic' => 'LeetCode · Hash Table',

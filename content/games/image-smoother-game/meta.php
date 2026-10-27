@@ -5,7 +5,7 @@ return [
     'title' => 'Image Smoother',
     'leetcode' => 661,
     'difficulty' => 'Easy',
-    'summary' => 'Each output cell is the floor of the average of the cell and its existing neighbors (the 3×3 window clipped to the image).',
+    'summary' => 'Each output cell is the floor of the average of the cell and its existing neighbors (the 3 by 3 window clipped to the image).',
     'category' => 'LeetCode',
     'subcategory' => 'Graphs',
     'topic' => 'LeetCode · Graphs',

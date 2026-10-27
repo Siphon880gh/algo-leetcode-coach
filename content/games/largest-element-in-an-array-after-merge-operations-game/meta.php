@@ -5,7 +5,7 @@ return [
     'title' => 'Largest Element After Merge Operations: merge from the right',
     'leetcode' => 2789,
     'difficulty' => 'Med',
-    'summary' => 'From the right, keep a running value; if the next element is ≤ it, absorb it, otherwise restart from that element.',
+    'summary' => 'From the right, keep a running value; if the next element is at most it, absorb it, otherwise restart from that element.',
     'category' => 'LeetCode',
     'subcategory' => 'Greedy',
     'topic' => 'LeetCode · Greedy',

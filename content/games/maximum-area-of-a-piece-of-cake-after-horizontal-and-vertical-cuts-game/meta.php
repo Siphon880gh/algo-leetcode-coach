@@ -5,7 +5,7 @@ return [
     'title' => 'Maximum Cake Piece: widest gap in each direction',
     'leetcode' => 1465,
     'difficulty' => 'Med',
-    'summary' => 'Sort each cut list and add the edges. The biggest piece is (largest horizontal gap) × (largest vertical gap), mod 10^9 + 7.',
+    'summary' => 'Sort each cut list and add the edges. The biggest piece is (largest horizontal gap) times (largest vertical gap), mod 10 to the power 9 + 7.',
     'category' => 'LeetCode',
     'subcategory' => 'Greedy',
     'topic' => 'LeetCode · Greedy',

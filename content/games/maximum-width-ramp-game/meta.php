@@ -5,7 +5,7 @@ return [
     'title' => 'Maximum Width Ramp',
     'leetcode' => 962,
     'difficulty' => 'Med',
-    'summary' => 'Build a stack of indices with strictly decreasing values (candidate left ends). Scan j from the right; while nums[stack top] ≤ nums[j], pop and update width j − top.',
+    'summary' => 'Build a stack of indices with strictly decreasing values (candidate left ends). Scan j from the right; while nums[stack top] at most nums[j], pop and update width j − top.',
     'category' => 'LeetCode',
     'subcategory' => 'Two Pointers',
     'topic' => 'LeetCode · Two Pointers',

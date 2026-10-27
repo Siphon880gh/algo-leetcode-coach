@@ -5,7 +5,7 @@ return [
     'title' => 'Generate Random Point in a Circle',
     'leetcode' => 478,
     'difficulty' => 'Med',
-    'summary' => 'Pick an angle uniformly and a radius r = R·√u (u uniform in [0, 1]). The square root spreads points evenly by area; a plain uniform radius would crowd the center.',
+    'summary' => 'Pick an angle uniformly and a radius r = R times √u (u uniform in [0, 1]). The square root spreads points evenly by area; a plain uniform radius would crowd the center.',
     'category' => 'LeetCode',
     'subcategory' => 'Design',
     'topic' => 'LeetCode · Design',

@@ -5,7 +5,7 @@ return [
     'title' => 'Find Good Days to Rob the Bank: non-increasing before, non-decreasing after',
     'leetcode' => 2100,
     'difficulty' => 'Med',
-    'summary' => 'before[i] = days of non-increasing guards ending at i; after[i] = non-decreasing days starting at i. Day i is good if both ≥ time.',
+    'summary' => 'before[i] = days of non-increasing guards ending at i; after[i] = non-decreasing days starting at i. Day i is good if both at least time.',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

@@ -5,7 +5,7 @@ return [
     'title' => 'Unit Conversion I',
     'leetcode' => 3528,
     'difficulty' => 'Med',
-    'summary' => 'The conversions form a tree rooted at unit 0. Walk it with BFS: base[target] = base[source] × factor, starting from base[0] = 1 (mod 1e9+7).',
+    'summary' => 'The conversions form a tree rooted at unit 0. Walk it with BFS: base[target] = base[source] times factor, starting from base[0] = 1 (mod 1e9+7).',
     'category' => 'LeetCode',
     'subcategory' => 'Graphs',
     'topic' => 'LeetCode · Graphs',

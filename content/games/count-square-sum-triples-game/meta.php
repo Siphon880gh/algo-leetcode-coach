@@ -5,7 +5,7 @@ return [
     'title' => 'Count Square Sum Triples: check every (a, b)',
     'leetcode' => 1925,
     'difficulty' => 'Easy',
-    'summary' => 'For each a, b ≤ n, c = √(a² + b²) must be an integer ≤ n. Ordered pairs count separately.',
+    'summary' => 'For each a, b at most n, c = √(a² + b²) must be an integer at most n. Ordered pairs count separately.',
     'category' => 'LeetCode',
     'subcategory' => 'Math',
     'topic' => 'LeetCode · Math',

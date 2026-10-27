@@ -5,7 +5,7 @@ return [
     'title' => 'Minimum Diameter After Merging Two Trees',
     'leetcode' => 3203,
     'difficulty' => 'Hard',
-    'summary' => 'Connect the two tree centers. The new diameter is max(d1, d2, ⌈d1/2⌉ + ⌈d2/2⌉ + 1).',
+    'summary' => 'Connect the two tree centers. The new diameter is max(d1, d2, (half of d1, rounded up) + (half of d2, rounded up) + 1).',
     'category' => 'LeetCode',
     'subcategory' => 'Graphs',
     'topic' => 'LeetCode · Graphs',

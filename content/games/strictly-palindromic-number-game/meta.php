@@ -5,7 +5,7 @@ return [
     'title' => 'Strictly Palindromic Number',
     'leetcode' => 2396,
     'difficulty' => 'Med',
-    'summary' => 'In base n − 2, n is written "12" for every n ≥ 5 (and n = 4 is "100" in base 2), which is never a palindrome. So the answer is always false.',
+    'summary' => 'In base n − 2, n is written "12" for every n at least 5 (and n = 4 is "100" in base 2), which is never a palindrome. So the answer is always false.',
     'category' => 'LeetCode',
     'subcategory' => 'Two Pointers',
     'topic' => 'LeetCode · Two Pointers',

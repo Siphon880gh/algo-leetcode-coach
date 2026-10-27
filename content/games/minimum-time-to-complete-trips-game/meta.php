@@ -5,7 +5,7 @@ return [
     'title' => 'Minimum Time to Complete Trips',
     'leetcode' => 2187,
     'difficulty' => 'Med',
-    'summary' => 'Binary search t: trips = Σ ⌊t / time[i]⌋; the first t with trips ≥ total.',
+    'summary' => 'Binary search t: trips = the sum of t divided by time[i], rounded down; the first t with trips at least total.',
     'category' => 'LeetCode',
     'subcategory' => 'Binary Search',
     'topic' => 'LeetCode · Binary Search',

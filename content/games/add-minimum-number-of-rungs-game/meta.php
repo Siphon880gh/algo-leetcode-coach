@@ -5,7 +5,7 @@ return [
     'title' => 'Add Minimum Number of Rungs: fill each gap',
     'leetcode' => 1936,
     'difficulty' => 'Med',
-    'summary' => 'For each gap g between consecutive heights (starting from the floor at 0), add ⌊(g − 1) / dist⌋ rungs.',
+    'summary' => 'For each gap g between consecutive heights (starting from the floor at 0), add (g − 1) divided by dist (rounded down) rungs.',
     'category' => 'LeetCode',
     'subcategory' => 'Greedy',
     'topic' => 'LeetCode · Greedy',

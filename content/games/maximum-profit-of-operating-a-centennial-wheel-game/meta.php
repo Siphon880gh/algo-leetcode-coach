@@ -5,7 +5,7 @@ return [
     'title' => 'Maximum Profit of Operating a Centennial Wheel',
     'leetcode' => 1599,
     'difficulty' => 'Med',
-    'summary' => 'Each rotation: add the arriving customers to the queue, board up to 4, and update profit (boarded × boardingCost − runningCost). Continue while customers wait; return the rotation count with the best positive profit (−1 if never positive).',
+    'summary' => 'Each rotation: add the arriving customers to the queue, board up to 4, and update profit (boarded times boardingCost − runningCost). Continue while customers wait; return the rotation count with the best positive profit (−1 if never positive).',
     'category' => 'LeetCode',
     'subcategory' => 'Simulation',
     'topic' => 'LeetCode · Simulation',

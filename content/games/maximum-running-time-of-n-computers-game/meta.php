@@ -5,7 +5,7 @@ return [
     'title' => 'Maximum Running Time of n Computers',
     'leetcode' => 2141,
     'difficulty' => 'Hard',
-    'summary' => 'Binary search time t: each battery contributes at most t; t works if Σ min(b, t) ≥ n·t.',
+    'summary' => 'Binary search time t: each battery contributes at most t; t works if the sum of min(b, t) at least n times t.',
     'category' => 'LeetCode',
     'subcategory' => 'Binary Search',
     'topic' => 'LeetCode · Binary Search',

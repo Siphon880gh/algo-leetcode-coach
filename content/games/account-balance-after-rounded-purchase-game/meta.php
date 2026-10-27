@@ -5,7 +5,7 @@ return [
     'title' => 'Account Balance After a Rounded Purchase',
     'leetcode' => 2806,
     'difficulty' => 'Easy',
-    'summary' => 'Round the price to the nearest multiple of 10, with 5 rounding up: ⌊(p + 5) / 10⌋ · 10. Subtract from 100.',
+    'summary' => 'Round the price to the nearest multiple of 10, with 5 rounding up: ((p + 5) divided by 10, rounded down) times 10. Subtract from 100.',
     'category' => 'LeetCode',
     'subcategory' => 'Math',
     'topic' => 'LeetCode · Math',

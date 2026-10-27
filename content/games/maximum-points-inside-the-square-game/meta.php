@@ -5,7 +5,7 @@ return [
     'title' => 'Maximum Points Inside the Square',
     'leetcode' => 3143,
     'difficulty' => 'Med',
-    'summary' => 'A point is inside half-side h iff max(|x|, |y|) ≤ h. For each tag, the second-closest point sets a limit: h must be smaller. Count points strictly below the tightest limit.',
+    'summary' => 'A point is inside half-side h exactly when max(|x|, |y|) at most h. For each tag, the second-closest point sets a limit: h must be smaller. Count points strictly below the tightest limit.',
     'category' => 'LeetCode',
     'subcategory' => 'Binary Search',
     'topic' => 'LeetCode · Binary Search',

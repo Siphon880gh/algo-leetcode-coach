@@ -5,7 +5,7 @@ return [
     'title' => 'Nodes Equal to Average of Subtree: (sum, count) upward',
     'leetcode' => 2265,
     'difficulty' => 'Med',
-    'summary' => 'Post-order returns subtree sum and size; a node counts if ⌊sum / size⌋ equals its value.',
+    'summary' => 'Post-order returns subtree sum and size; a node counts if sum divided by size, rounded down equals its value.',
     'category' => 'LeetCode',
     'subcategory' => 'Trees',
     'topic' => 'LeetCode · Trees',

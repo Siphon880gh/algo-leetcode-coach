@@ -5,7 +5,7 @@ return [
     'title' => 'Two Sum II: squeeze the sorted array',
     'leetcode' => 167,
     'difficulty' => 'Med',
-    'summary' => 'Sum too big → move R left. Sum too small → move L right. Sorted order makes the other move useless.',
+    'summary' => 'Sum too big: move R left. Sum too small: move L right. Sorted order makes the other move useless.',
     'category' => 'LeetCode',
     'subcategory' => 'Two Pointers',
     'topic' => 'LeetCode · Two Pointers',

@@ -5,7 +5,7 @@ return [
     'title' => 'Minimum Length After Pair Removals',
     'leetcode' => 2856,
     'difficulty' => 'Med',
-    'summary' => 'Any two different values can be removed together. If the most frequent value appears f > n/2 times, 2f − n remain; otherwise n mod 2.',
+    'summary' => 'Any two different values can be removed together. If the most frequent value appears f > n divided by 2 times, 2f − n remain; otherwise n mod 2.',
     'category' => 'LeetCode',
     'subcategory' => 'Binary Search',
     'topic' => 'LeetCode · Binary Search',

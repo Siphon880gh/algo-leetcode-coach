@@ -5,7 +5,7 @@ return [
     'title' => 'Find the Number of Good Pairs I',
     'leetcode' => 3162,
     'difficulty' => 'Easy',
-    'summary' => 'Count nums2 values. For each nums1 value x, if x is divisible by k, enumerate the divisors d of x / k and add count[d] (pairs need nums1[i] % (nums2[j]·k) == 0).',
+    'summary' => 'Count nums2 values. For each nums1 value x, if x is divisible by k, enumerate the divisors d of x divided by k and add count[d] (pairs need nums1[i] % (nums2[j] times k) == 0).',
     'category' => 'LeetCode',
     'subcategory' => 'Hash Table',
     'topic' => 'LeetCode · Hash Table',

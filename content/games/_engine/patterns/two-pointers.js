@@ -5,7 +5,7 @@
 
   LC.register('two-sum-ii-input-array-is-sorted', {
     title: 'Two Sum II: squeeze the sorted array',
-    rule: 'Sum too big → move R left. Sum too small → move L right. Sorted order makes the other move useless.',
+    rule: 'Sum too big: move R left. Sum too small: move L right. Sorted order makes the other move useless.',
     make: function (rng, round) {
       var n = 7 + round, a, i, j, target;
       do {
@@ -17,7 +17,7 @@
       var t = new LC.Trace();
       t.setup = 'numbers = ' + LC.fmt(a) + '   target = ' + target + '   (sorted, exactly one answer)';
       var l = 0, r = n - 1;
-      var acts = [['L', 'Move L →'], ['R', 'Move R ←'], ['F', 'Found it']];
+      var acts = [['L', 'Move L right'], ['R', 'Move R left'], ['F', 'Found it']];
       while (l < r) {
         var sum = a[l] + a[r];
         var view = V(P.arr(a, { ptr: { L: l, R: r }, cls: (function () { var c = {}; c[l] = 'hit'; c[r] = 'hit'; return c; })() }),
@@ -37,25 +37,25 @@
 
   LC.register('container-with-most-water', {
     title: 'Container With Most Water: move the shorter wall',
-    rule: 'Area = min(h[L], h[R]) × width. Always move the shorter wall: the width shrinks either way, and only a taller short wall can help.',
+    rule: 'Area = min(h[L], h[R]) times width. Always move the shorter wall: the width shrinks either way, and only a taller short wall can help.',
     make: function (rng, round) {
       var n = 7 + round, h = rng.ints(n, 1, 9);
       var t = new LC.Trace();
       t.setup = 'height = ' + LC.fmt(h);
       var l = 0, r = n - 1, best = 0, first = true;
-      var acts = [['L', 'Move L →'], ['R', 'Move R ←']];
+      var acts = [['L', 'Move L right'], ['R', 'Move R left']];
       while (l < r) {
         var area = Math.min(h[l], h[r]) * (r - l);
         var c = {}; c[l] = 'hit'; c[r] = 'hit';
         var view = V(P.arr(h, { bars: true, ptr: { L: l, R: r }, cls: c }),
           P.vars([['width', r - l], ['min height', Math.min(h[l], h[r])], ['best', best]]));
-        if (first) { t.num(view, 'Area of this container?', area, { wrong: 'Area = min(' + h[l] + ', ' + h[r] + ') × ' + (r - l) + '.', note: 'Area ' + area + '.' }); first = false; }
+        if (first) { t.num(view, 'Area of this container?', area, { wrong: 'Area = min(' + h[l] + ', ' + h[r] + ') times ' + (r - l) + '.', note: 'Area ' + area + '.' }); first = false; }
         best = Math.max(best, area);
         view.panels[1].v[2][1] = best;
         view.panels[1].v.push(['area', area]);
         if (h[l] === h[r]) t.act(view, 'Walls are equal (' + h[l] + '). Which pointer moves?', acts, ['L', 'R'], '', 'Equal walls: either move is safe; neither wall can do better with a narrower partner.');
-        else if (h[l] < h[r]) t.act(view, 'Area ' + area + '. Which wall moves?', acts, 'L', 'R is the taller wall. Moving it keeps min ≤ h[L] = ' + h[l] + ' while the width shrinks, so the area cannot grow.', 'L = ' + h[l] + ' is the bottleneck. It has had its best partner already.');
-        else t.act(view, 'Area ' + area + '. Which wall moves?', acts, 'R', 'L is the taller wall. Moving it keeps min ≤ h[R] = ' + h[r] + ' while the width shrinks, so the area cannot grow.', 'R = ' + h[r] + ' is the bottleneck. It has had its best partner already.');
+        else if (h[l] < h[r]) t.act(view, 'Area ' + area + '. Which wall moves?', acts, 'L', 'R is the taller wall. Moving it keeps min at most h[L] = ' + h[l] + ' while the width shrinks, so the area cannot grow.', 'L = ' + h[l] + ' is the bottleneck. It has had its best partner already.');
+        else t.act(view, 'Area ' + area + '. Which wall moves?', acts, 'R', 'L is the taller wall. Moving it keeps min at most h[R] = ' + h[r] + ' while the width shrinks, so the area cannot grow.', 'R = ' + h[r] + ' is the bottleneck. It has had its best partner already.');
         if (h[l] < h[r]) l++; else r--;
       }
       t.done(V(P.arr(h, { bars: true }), P.vars([['max area', best]])), 'Max area = ' + best + '. One pass, O(n).');
@@ -82,7 +82,7 @@
       if (rng.chance(0.5)) s.push(rng.pick(['!', '.', ' ']));
       var t = new LC.Trace();
       t.setup = 's = "' + s.join('') + '"';
-      var acts = [['sl', 'Skip L'], ['sr', 'Skip R'], ['m', 'Match → move both in'], ['x', 'Mismatch → false']];
+      var acts = [['sl', 'Skip L'], ['sr', 'Skip R'], ['m', 'Match: move both in'], ['x', 'Mismatch: false']];
       var l = 0, r = s.length - 1, result = true;
       while (l < r) {
         var c = {}; c[l] = 'hit'; c[r] = 'hit';
@@ -98,7 +98,7 @@
           t.act(view, '"' + s[l] + '" vs "' + s[r] + '"?', acts, 'm', { sl: 'Both are letters or digits.', sr: 'Both are letters or digits.', x: 'Compare in lowercase: ' + s[l].toLowerCase() + ' == ' + s[r].toLowerCase() + '.' }, 'Same letter ignoring case.');
           l++; r--;
         } else {
-          t.act(view, '"' + s[l] + '" vs "' + s[r] + '"?', acts, 'x', { sl: 'Both are letters or digits.', sr: 'Both are letters or digits.', m: s[l].toLowerCase() + ' ≠ ' + s[r].toLowerCase() + '.' }, 'One mismatch is enough to say it is not a palindrome.');
+          t.act(view, '"' + s[l] + '" vs "' + s[r] + '"?', acts, 'x', { sl: 'Both are letters or digits.', sr: 'Both are letters or digits.', m: s[l].toLowerCase() + ' is not ' + s[r].toLowerCase() + '.' }, 'One mismatch is enough to say it is not a palindrome.');
           result = false; break;
         }
       }
@@ -181,10 +181,10 @@
       t.setup = 'nums (sorted) = ' + LC.fmt(a);
       var found = [];
       var outer = [['run', 'Squeeze with this i'], ['skip', 'Skip i (same value as i−1)'], ['stop', 'Stop: nums[i] > 0']];
-      var inner = [['L', 'Move L →'], ['R', 'Move R ←'], ['rec', 'Record, move both']];
+      var inner = [['L', 'Move L right'], ['R', 'Move R left'], ['rec', 'Record, move both']];
       for (var i = 0; i < n - 2; i++) {
         var vo = V(P.arr(a, { ptr: { i: i }, cls: (function () { var c = {}; c[i] = 'warn'; return c; })() }), P.vars([['found', found.length ? found.map(LC.fmt).join(' ') : 'none']]));
-        if (a[i] > 0) { t.act(vo, 'nums[i] = ' + a[i] + '. What do you do with this i?', outer, 'stop', 'Everything to the right is ≥ ' + a[i] + ' > 0, so no triplet can sum to 0.', 'Three positives can never sum to 0.'); break; }
+        if (a[i] > 0) { t.act(vo, 'nums[i] = ' + a[i] + '. What do you do with this i?', outer, 'stop', 'Everything to the right is at least ' + a[i] + ' > 0, so no triplet can sum to 0.', 'Three positives can never sum to 0.'); break; }
         if (i > 0 && a[i] === a[i - 1]) { t.act(vo, 'nums[i] = ' + a[i] + ' again. What do you do with this i?', outer, 'skip', 'i−1 had the same value and already found every triplet starting with ' + a[i] + '.', 'Duplicate first value: skip it.'); continue; }
         t.act(vo, 'nums[i] = ' + a[i] + '. What do you do with this i?', outer, 'run', a[i] > 0 ? '' : (i > 0 && a[i] === a[i - 1] ? '' : 'This is a new value, so search for pairs summing to ' + (-a[i]) + '.'), 'Look for L + R = ' + (-a[i]) + '.');
         var l = i + 1, r = n - 1;
@@ -209,13 +209,13 @@
 
   LC.register('3sum-closest', {
     title: '3Sum Closest: squeeze toward the target',
-    rule: 'Fix i and squeeze L/R like 3Sum. Too small → L moves right, too big → R moves left, and keep the closest sum seen. An exact hit ends the search.',
+    rule: 'Fix i and squeeze L or R like 3Sum. Too small: L moves right; too big: R moves left. Keep the closest sum seen. An exact hit ends the search.',
     make: function (rng, round) {
       var n = 6, a = rng.sorted(n, -6, 9), target = rng.int(-4, 12);
       var t = new LC.Trace();
       t.setup = 'nums (sorted) = ' + LC.fmt(a) + '   target = ' + target;
       var best = null;
-      var acts = [['L', 'Move L →'], ['R', 'Move R ←'], ['X', 'Exact: return it']];
+      var acts = [['L', 'Move L right'], ['R', 'Move R left'], ['X', 'Exact: return it']];
       outer:
       for (var i = 0; i < n - 2; i++) {
         var l = i + 1, r = n - 1;
@@ -264,13 +264,13 @@
 
   LC.register('max-number-of-k-sum-pairs', {
     title: 'Max Number of K-Sum Pairs: sort and squeeze',
-    rule: 'Sort, then squeeze: sum == k → count the pair and move both; too small → L right; too big → R left.',
+    rule: 'Sort, then squeeze: sum == k, so count the pair and move both; too small: L right; too big: R left.',
     make: function (rng, round) {
       var n = 8 + round, k = rng.int(5, 9), a = rng.sorted(n, 1, k - 1);
       var t = new LC.Trace();
       t.setup = 'nums (sorted) = ' + LC.fmt(a) + '   k = ' + k;
       var l = 0, r = n - 1, ops = 0, cls = {};
-      var acts = [['L', 'Move L →'], ['R', 'Move R ←'], ['C', 'Count pair, move both']];
+      var acts = [['L', 'Move L right'], ['R', 'Move R left'], ['C', 'Count pair, move both']];
       while (l < r) {
         var sum = a[l] + a[r], c = LC.clone(cls); c[l] = 'hit'; c[r] = 'hit';
         var v = V(P.arr(a, { ptr: { L: l, R: r }, cls: c }), P.vars([['sum', sum], ['k', k], ['ops', ops]]));
@@ -298,7 +298,7 @@
       var t = new LC.Trace();
       t.setup = 's = "' + s.join('') + '"';
       var l = 0, r = s.length - 1, result = true, end = null;
-      var acts = [['m', 'Match → move both in'], ['dl', 'Delete s[L]'], ['dr', 'Delete s[R]'], ['x', 'Return false']];
+      var acts = [['m', 'Match: move both in'], ['dl', 'Delete s[L]'], ['dr', 'Delete s[R]'], ['x', 'Return false']];
       while (l < r) {
         var c = {}; c[l] = 'hit'; c[r] = 'hit';
         var v = V(P.arr(s, { ptr: { L: l, R: r }, cls: c }));
@@ -360,7 +360,7 @@
       return { a: a, k0: 0, i0: 0, val: val, writeLabel: 'Write at k', setup: 'nums = ' + LC.fmt(a) + '   val = ' + val, vars: [['val', val]] };
     },
     function (a, i, k, g) { return a[i] !== g.val; },
-    function (a, i, k, g) { return a[i] + ' ≠ ' + g.val + ', so it stays.'; },
+    function (a, i, k, g) { return a[i] + ' is not ' + g.val + ', so it stays.'; },
     function (a, i, k, g) { return a[i] + ' is val; it gets removed.'; },
     function (k) { return k + ' values remain. Order of the keepers is preserved.'; });
 
@@ -379,7 +379,7 @@
 
   LC.register('sort-colors', {
     title: 'Sort Colors: Dutch national flag',
-    rule: '0 → swap with low, low++ and mid++. 1 → mid++. 2 → swap with high and high--, but do NOT move mid: the value that came from high is unchecked.',
+    rule: '0: swap with low, low++ and mid++. 1: mid++. 2: swap with high and high--, but do NOT move mid: the value that came from high is unchecked.',
     make: function (rng, round) {
       var n = 8 + round, a = rng.ints(n, 0, 2);
       var t = new LC.Trace();

@@ -5,7 +5,7 @@ return [
     'title' => 'Design Circular Deque',
     'leetcode' => 641,
     'difficulty' => 'Med',
-    'summary' => 'A fixed array with head index and size. insertFront moves head back one (mod k); insertLast writes at head + size. getFront/getRear read the ends; −1 when empty.',
+    'summary' => 'A fixed array with head index and size. insertFront moves head back one (mod k); insertLast writes at head + size. getFront or getRear read the ends; −1 when empty.',
     'category' => 'LeetCode',
     'subcategory' => 'Design',
     'topic' => 'LeetCode · Design',

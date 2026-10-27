@@ -5,7 +5,7 @@ return [
     'title' => 'Delete Operation for Two Strings: keep the longest common subsequence',
     'leetcode' => 583,
     'difficulty' => 'Med',
-    'summary' => 'Fill the LCS table: equal letters extend the diagonal, otherwise take the larger of up/left. Deletions = len1 + len2 − 2·LCS.',
+    'summary' => 'Fill the LCS table: equal letters extend the diagonal, otherwise take the larger of up or left. Deletions = len1 + len2 − 2 times LCS.',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

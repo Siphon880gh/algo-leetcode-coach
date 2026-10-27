@@ -5,7 +5,7 @@ return [
     'title' => 'Maximum Average Subtree: (sum, count) bottom-up',
     'leetcode' => 1120,
     'difficulty' => 'Med',
-    'summary' => 'Each node returns its subtree sum and size; its average is sum / size. Track the best.',
+    'summary' => 'Each node returns its subtree sum and size; its average is sum divided by size. Track the best.',
     'category' => 'LeetCode',
     'subcategory' => 'Trees',
     'topic' => 'LeetCode · Trees',

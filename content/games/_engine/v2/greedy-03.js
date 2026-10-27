@@ -14,14 +14,14 @@
 
   D('minimum-numbers-of-function-calls-to-make-target-array', {
     t: 'Function Calls to Make Target Array: popcounts plus doublings',
-    r: 'Each 1 bit needs its own +1 call; doublings are shared by all numbers, so you need (highest bit position) of them. Answer = Σ popcount + (max bit length − 1).',
+    r: 'Each 1 bit needs its own +1 call; doublings are shared by all numbers, so you need (highest bit position) of them. Answer = the sum of popcount + (max bit length − 1).',
     g: R => ({ nums: R.ints(R.int(1, 4), 0, 20) }),
     s(I, T) { const res = (() => { const ones = I.nums.reduce((a, x) => a + pc(x), 0), mx = Math.max(...I.nums); T.at({ nums: A(I.nums), binary: A(I.nums.map(x => x.toString(2))) }); T.n('Total 1 bits (increment calls)?', ones, 'Add up the 1 bits of every number.'); const dbl = mx ? mx.toString(2).length - 1 : 0; T.n('Doubling calls?', dbl, 'Bit length of the largest, minus 1.'); return ones + dbl; })(); T.n('Total function calls?', res, 'Increments plus shared doublings.'); return res; }
   });
 
   D('maximum-number-of-coins-you-can-get', {
     t: 'Maximum Coins You Can Get: second largest of each triple',
-    r: 'Sort. Each round pair the two largest remaining piles with the smallest: Alice takes the largest, you take the second, Bob the smallest. You collect a[n−2], a[n−4], … (n/3 times).',
+    r: 'Sort. Each round pair the two largest remaining piles with the smallest: Alice takes the largest, you take the second, Bob the smallest. You collect a[n−2], a[n−4], … (n divided by 3 times).',
     g: R => ({ piles: R.ints(3 * R.int(1, 3), 1, 12) }),
     s(I, T) { const a = sorted(I.piles), n = a.length; let t = 0; for (let r = 0; r < n / 3; r++) { const i = n - 2 - 2 * r; T.at({ sorted: A(a, { hl: [i] }), total: t }); T.n(`Your pile in round ${r + 1}?`, a[i], 'Second largest remaining.'); t += a[i]; } return t; }
   });
@@ -108,7 +108,7 @@
     t: 'Maximum Units on a Truck: densest boxes first',
     r: 'Sort box types by units per box, descending, and load as many as fit.',
     g: R => ({ boxTypes: Array.from({ length: R.int(1, 4) }, () => [R.int(1, 5), R.int(1, 9)]), truckSize: R.int(1, 10) }),
-    s(I, T) { const b = I.boxTypes.slice().sort((x, y) => y[1] - x[1]); let left = I.truckSize, u = 0; for (const [n, per] of b) { if (!left) break; const take = Math.min(n, left); T.at({ types: A(b.map(x => `${x[0]}×${x[1]}`)), space: left, units: u }); T.n(`Boxes taken of the ${per}-unit type?`, take, 'As many as fit.'); u += take * per; left -= take; } return u; }
+    s(I, T) { const b = I.boxTypes.slice().sort((x, y) => y[1] - x[1]); let left = I.truckSize, u = 0; for (const [n, per] of b) { if (!left) break; const take = Math.min(n, left); T.at({ types: A(b.map(x => `${x[0]} boxes of ${x[1]}`)), space: left, units: u }); T.n(`Boxes taken of the ${per}-unit type?`, take, 'As many as fit.'); u += take * per; left -= take; } return u; }
   });
 
   D('minimum-number-of-people-to-teach', {
@@ -120,28 +120,28 @@
 
   D('latest-time-by-replacing-hidden-digits', {
     t: 'Latest Time by Replacing Hidden Digits',
-    r: 'Hour tens: 2 if the ones digit is ? or ≤ 3, else 1. Hour ones: 3 if the tens is 2, else 9. Minute tens: 5. Minute ones: 9.',
+    r: 'Hour tens: 2 if the ones digit is ? or at most 3, else 1. Hour ones: 3 if the tens is 2, else 9. Minute tens: 5. Minute ones: 9.',
     g: R => { const h = R.int(0, 23), m = R.int(0, 59); return { time: [...(String(h).padStart(2, '0') + ':' + String(m).padStart(2, '0'))].map((c, i) => i !== 2 && R.chance(0.5) ? '?' : c).join('') }; },
     s(I, T) { const t = [...I.time]; if (t[0] === '?') { t[0] = t[1] === '?' || t[1] <= '3' ? '2' : '1'; T.at({ time: t.join('') }); T.n('Hour tens digit?', +t[0], '2 unless the ones digit is above 3.'); } if (t[1] === '?') { t[1] = t[0] === '2' ? '3' : '9'; T.at({ time: t.join('') }); T.n('Hour ones digit?', +t[1], '3 after a 2, else 9.'); } if (t[3] === '?') t[3] = '5'; if (t[4] === '?') t[4] = '9'; T.at({ time: t.join('') }); T.n('Latest minutes value?', +(t[3] + t[4]), 'Fill ? with 5 and 9.'); return t.join(''); }
   });
 
   D('maximum-score-from-removing-stones', {
     t: 'Maximum Score From Removing Stones: the biggest pile caps it',
-    r: 'If the largest pile ≥ the other two combined, the score is the sum of the other two. Otherwise every pair can be used: ⌊total / 2⌋.',
+    r: 'If the largest pile at least the other two combined, the score is the sum of the other two. Otherwise every pair can be used: half of total, rounded down.',
     g: R => ({ a: R.int(1, 12), b: R.int(1, 12), c: R.int(1, 12) }),
     s(I, T) { const res = (() => { const p = sorted([I.a, I.b, I.c]); T.at({ piles: A(p) }); T.n('Total stones?', p[0] + p[1] + p[2], 'Each move removes two.'); T.yn('Is the largest pile at least the other two combined?', p[2] >= p[0] + p[1], `${p[2]} against ${p[0] + p[1]}.`); return p[2] >= p[0] + p[1] ? p[0] + p[1] : Math.floor((p[0] + p[1] + p[2]) / 2); })(); T.n('Maximum score?', res, 'The two small piles, or half the total.'); return res; }
   });
 
   D('equal-sum-arrays-with-minimum-number-of-operations', {
     t: 'Equal Sum Arrays: biggest single-change gains first',
-    r: 'Let the smaller-sum array be A. Raising an element of A to 6 gains 6 − x; lowering an element of B to 1 gains x − 1. Use the largest gains until the gap closes (impossible if 6·shorter < longer).',
+    r: 'Let the smaller-sum array be A. Raising an element of A to 6 gains 6 − x; lowering an element of B to 1 gains x − 1. Use the largest gains until the gap closes (impossible if 6 times shorter < longer).',
     g: R => ({ nums1: R.ints(R.int(1, 5), 1, 6), nums2: R.ints(R.int(1, 5), 1, 6) }),
     s(I, T) { let a = I.nums1, b = I.nums2; if (6 * Math.min(a.length, b.length) < Math.max(a.length, b.length)) return -1; let sa = a.reduce((x, y) => x + y, 0), sb = b.reduce((x, y) => x + y, 0); if (sa > sb) { [a, b] = [b, a]; [sa, sb] = [sb, sa]; } let d = sb - sa; const g = [...a.map(x => 6 - x), ...b.map(x => x - 1)].sort((x, y) => y - x); let c = 0; T.at({ gap: d, gains: A(g) }); T.n('Gap to close?', d, 'Larger sum − smaller sum.'); while (d > 0) { d -= g[c++]; T.at({ gap: Math.max(d, 0), gains: A(g, { dim: [...Array(c).keys()] }) }); T.n('Operations so far?', c, 'Use the largest remaining gain.'); } return c; }
   });
 
   D('minimum-elements-to-add-to-form-a-given-sum', {
     t: 'Minimum Elements to Add: chunks of size limit',
-    r: 'The gap is |goal − Σ nums|; each added element covers at most limit of it: ⌈gap / limit⌉.',
+    r: 'The gap is |goal − the sum of nums|; each added element covers at most limit of it: gap divided by limit, rounded up.',
     g: R => { const L = R.int(1, 6); return { nums: R.ints(R.int(1, 4), -L, L), limit: L, goal: R.int(-20, 20) }; },
     s(I, T) { const res = (() => { const gap = Math.abs(I.goal - I.nums.reduce((a, b) => a + b, 0)); T.at({ nums: A(I.nums), goal: I.goal, limit: I.limit }); T.n('Sum of nums?', I.nums.reduce((a, b) => a + b, 0), 'Add them up.'); T.n('Gap between goal and sum (absolute)?', gap, 'Distance to cover.'); return Math.ceil(gap / I.limit); })(); T.n('Fewest elements to add?', res, 'Gap divided by limit, rounded up.'); return res; }
   });
@@ -155,9 +155,9 @@
 
   D('maximum-number-of-consecutive-values-you-can-make', {
     t: 'Maximum Consecutive Values: extend the reachable range',
-    r: 'Sort. If you can make 0 … reach − 1 and the next coin ≤ reach, you can now make up to reach + coin − 1. Otherwise there is a gap at reach.',
+    r: 'Sort. If you can make 0 … reach − 1 and the next coin at most reach, you can now make up to reach + coin − 1. Otherwise there is a gap at reach.',
     g: R => ({ coins: R.ints(R.int(1, 6), 1, 6) }),
-    s(I, T) { let reach = 1; for (const c of sorted(I.coins)) { const ok = c <= reach; T.at({ coins: A(sorted(I.coins)), reach }); T.yn(`Can coin ${c} extend the range?`, ok, ok ? `${c} ≤ ${reach}.` : `Gap at ${reach}.`); if (!ok) break; reach += c; } return reach; }
+    s(I, T) { let reach = 1; for (const c of sorted(I.coins)) { const ok = c <= reach; T.at({ coins: A(sorted(I.coins)), reach }); T.yn(`Can coin ${c} extend the range?`, ok, ok ? `${c} at most ${reach}.` : `Gap at ${reach}.`); if (!ok) break; reach += c; } return reach; }
   });
 
   D('minimum-operations-to-make-the-array-increasing', {
@@ -176,9 +176,9 @@
 
   D('maximum-building-height', {
     t: 'Maximum Building Height: tighten restrictions both ways',
-    r: 'Add [1, 0], sort by id. Pass left to right: limit ≤ previous limit + distance; then right to left the same. Between neighbors with limits h1, h2 at distance d, the peak is ⌊(h1 + h2 + d) / 2⌋; past the last one, last + (n − id).',
+    r: 'Add [1, 0], sort by id. Pass left to right: limit at most previous limit + distance; then right to left the same. Between neighbors with limits h1, h2 at distance d, the peak is half of (h1 + h2 + d), rounded down; past the last one, last + (n − id).',
     g: R => { const n = R.int(2, 12), k = R.int(0, Math.min(3, n - 1)); const ids = R.distinct(k, 2, n); return { n, restrictions: ids.map(i => [i, R.int(0, 4)]) }; },
-    s(I, T) { const r = [[1, 0], ...I.restrictions.map(x => x.slice())].sort((a, b) => a[0] - b[0]); for (let i = 1; i < r.length; i++) r[i][1] = Math.min(r[i][1], r[i - 1][1] + r[i][0] - r[i - 1][0]); for (let i = r.length - 2; i >= 0; i--) r[i][1] = Math.min(r[i][1], r[i + 1][1] + r[i + 1][0] - r[i][0]); T.at({ limits: A(r.map(x => `#${x[0]}≤${x[1]}`)) }); T.n('Tightest limit of the last restricted building?', r[r.length - 1][1], 'After both passes.'); let best = 0; for (let i = 1; i < r.length; i++) { const p = Math.floor((r[i - 1][1] + r[i][1] + r[i][0] - r[i - 1][0]) / 2); T.n(`Peak between #${r[i - 1][0]} and #${r[i][0]}?`, p, '⌊(h1 + h2 + d) / 2⌋.'); best = Math.max(best, p); } return Math.max(best, r[r.length - 1][1] + I.n - r[r.length - 1][0]); }
+    s(I, T) { const r = [[1, 0], ...I.restrictions.map(x => x.slice())].sort((a, b) => a[0] - b[0]); for (let i = 1; i < r.length; i++) r[i][1] = Math.min(r[i][1], r[i - 1][1] + r[i][0] - r[i - 1][0]); for (let i = r.length - 2; i >= 0; i--) r[i][1] = Math.min(r[i][1], r[i + 1][1] + r[i + 1][0] - r[i][0]); T.at({ limits: A(r.map(x => `#${x[0]} at most ${x[1]}`)) }); T.n('Tightest limit of the last restricted building?', r[r.length - 1][1], 'After both passes.'); let best = 0; for (let i = 1; i < r.length; i++) { const p = Math.floor((r[i - 1][1] + r[i][1] + r[i][0] - r[i - 1][0]) / 2); T.n(`Peak between #${r[i - 1][0]} and #${r[i][0]}?`, p, 'half of (h1 + h2 + d), rounded down.'); best = Math.max(best, p); } return Math.max(best, r[r.length - 1][1] + I.n - r[r.length - 1][0]); }
   });
 
   D('maximum-element-after-decreasing-and-rearranging', {
@@ -190,7 +190,7 @@
 
   D('minimum-number-of-swaps-to-make-the-binary-string-alternating', {
     t: 'Swaps to Make Binary String Alternating: count mismatches',
-    r: 'Counts of 0s and 1s may differ by at most 1. For each feasible pattern (starting with 0 or 1), mismatched positions / 2 is the swap count; take the smaller.',
+    r: 'Counts of 0s and 1s may differ by at most 1. For each feasible pattern (starting with 0 or 1), mismatched positions divided by 2 is the swap count; take the smaller.',
     g: R => ({ s: R.str(R.int(1, 8), '01') }),
     s(I, T) { const res = (() => { const s = I.s, z = [...s].filter(c => c === '0').length, o = s.length - z; T.at({ s }); T.n('Zeros minus ones?', z - o, 'Must be −1, 0 or 1.'); T.n('How many zeros?', z, 'Count the 0 characters.'); if (Math.abs(z - o) > 1) return -1; const mis = st => [...s].filter((c, i) => c !== String((st + i) % 2)).length; let best = Infinity; if (z >= o) best = Math.min(best, mis(0) / 2); if (o >= z) best = Math.min(best, mis(1) / 2); return best; })(); T.n('Fewest swaps? (−1 if impossible)', res, 'Half the mismatches against the best pattern.'); return res; }
   });
@@ -199,7 +199,7 @@
     t: 'Minimize Product Sum: largest with smallest',
     r: 'Sort one array ascending and the other descending, then pair them (rearrangement inequality).',
     g: R => { const n = R.int(1, 5); return { nums1: R.ints(n, 1, 9), nums2: R.ints(n, 1, 9) }; },
-    s(I, T) { const a = sorted(I.nums1), b = sorted(I.nums2).reverse(); let s = 0; a.forEach((x, i) => { T.at({ a: A(a, { hl: [i] }), b: A(b, { hl: [i] }), sum: s }); T.n(`Product at position ${i}?`, x * b[i], 'Smallest × largest remaining.'); s += x * b[i]; }); return s; }
+    s(I, T) { const a = sorted(I.nums1), b = sorted(I.nums2).reverse(); let s = 0; a.forEach((x, i) => { T.at({ a: A(a, { hl: [i] }), b: A(b, { hl: [i] }), sum: s }); T.n(`Product at position ${i}?`, x * b[i], 'Smallest times largest remaining.'); s += x * b[i]; }); return s; }
   });
 
   D('maximum-value-after-insertion', {
@@ -232,14 +232,14 @@
 
   D('remove-one-element-to-make-the-array-strictly-increasing', {
     t: 'Remove One Element to Be Strictly Increasing',
-    r: 'At the first drop nums[i] ≤ nums[i−1], try removing nums[i−1] or nums[i] and check the rest. More than one drop needing removal means false.',
+    r: 'At the first drop nums[i] at most nums[i−1], try removing nums[i−1] or nums[i] and check the rest. More than one drop needing removal means false.',
     g: R => ({ nums: R.ints(R.int(2, 6), 1, 9) }),
     s(I, T) { const res = (() => { const a = I.nums, inc = b => b.every((v, i) => !i || v > b[i - 1]); const i = a.findIndex((v, k) => k && v <= a[k - 1]); T.at({ nums: A(a) }); T.n('Index of the first drop (−1 if none)?', i, 'First place where a value is not bigger than the one before it.'); if (i < 0) { T.n('Drops in the array?', 0, 'Already strictly increasing.'); return true; } T.n('Drops in the array?', a.filter((v, k) => k && v <= a[k - 1]).length, 'More than one means it is impossible.'); return inc(a.filter((_, k) => k !== i - 1)) || inc(a.filter((_, k) => k !== i)); })(); T.yn('Can one removal fix it?', res, 'Try removing either side of the first drop.'); return res; }
   });
 
   D('eliminate-maximum-number-of-monsters', {
     t: 'Eliminate Maximum Monsters: sort by arrival time',
-    r: 'Monster i arrives at ⌈dist / speed⌉. Sort arrivals; you shoot one per minute starting at minute 0, so the k-th shot (minute k) needs arrival > k.',
+    r: 'Monster i arrives at dist divided by speed, rounded up. Sort arrivals; you shoot one per minute starting at minute 0, so the k-th shot (minute k) needs arrival > k.',
     g: R => { const n = R.int(1, 6); return { dist: R.ints(n, 1, 9), speed: R.ints(n, 1, 3) }; },
     s(I, T) { const t = sorted(I.dist.map((d, i) => Math.ceil(d / I.speed[i]))); for (let k = 0; k < t.length; k++) { T.at({ arrivals: A(t, { hl: [k] }), minute: k }); T.yn(`Can you shoot monster ${k} at minute ${k}?`, t[k] > k, `It arrives at ${t[k]}.`); if (t[k] <= k) return k; } return t.length; }
   });

@@ -5,7 +5,7 @@ return [
     'title' => 'Maximum Total Subarray Value II',
     'leetcode' => 3691,
     'difficulty' => 'Hard',
-    'summary' => 'For a fixed l, max − min of nums[l..r] only shrinks as r shrinks. Push (l, n−1) for every l into a max-heap (range max/min from a sparse table); pop the best k times, each time pushing (l, r−1).',
+    'summary' => 'For a fixed l, max − min of nums[l to r] only shrinks as r shrinks. Push (l, n−1) for every l into a max-heap (range max or min from a sparse table); pop the best k times, each time pushing (l, r−1).',
     'category' => 'LeetCode',
     'subcategory' => 'Greedy',
     'topic' => 'LeetCode · Greedy',

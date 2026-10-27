@@ -23,7 +23,7 @@
     t: 'Minimum Time to Visit All Houses',
     r: 'For each leg pick the shorter of the two directions: clockwise uses forward[i] from house i, counter-clockwise uses backward[i] from house i. Prefix sums over each array give any arc in O(1).',
     g: R => { const n = R.int(3, 6), queries = []; let c = 0; for (let i = 0; i < R.int(2, 5); i++) { let x; do x = R.int(0, n - 1); while (x === c); queries.push(x); c = x; } return { forward: R.ints(n, 1, 6), backward: R.ints(n, 1, 6), queries }; },
-    s(I, T) { const n = I.forward.length; let cur = 0, tot = 0; I.queries.forEach(q => { let cw = 0, ccw = 0; for (let i = cur; i !== q; i = (i + 1) % n) cw += I.forward[i]; for (let i = cur; i !== q; i = (i - 1 + n) % n) ccw += I.backward[i]; const d = Math.min(cw, ccw); T.at({ forward: A(I.forward, { i: cur }), backward: A(I.backward, { i: cur }), leg: `${cur} → ${q}` }); T.n(`Shortest time from house ${cur} to house ${q}?`, d, `Clockwise ${cw}, counter-clockwise ${ccw}.`); tot += d; cur = q; }); return tot; }
+    s(I, T) { const n = I.forward.length; let cur = 0, tot = 0; I.queries.forEach(q => { let cw = 0, ccw = 0; for (let i = cur; i !== q; i = (i + 1) % n) cw += I.forward[i]; for (let i = cur; i !== q; i = (i - 1 + n) % n) ccw += I.backward[i]; const d = Math.min(cw, ccw); T.at({ forward: A(I.forward, { i: cur }), backward: A(I.backward, { i: cur }), leg: `${cur} to ${q}` }); T.n(`Shortest time from house ${cur} to house ${q}?`, d, `Clockwise ${cw}, counter-clockwise ${ccw}.`); tot += d; cur = q; }); return tot; }
   });
 
   D('equal-sum-grid-partition-i', {
@@ -42,9 +42,9 @@
 
   D('maximum-number-of-subsequences-after-one-inserting', {
     t: 'Maximum Number of Subsequences After One Inserting',
-    r: 'Three candidates: an L at the front adds every "CT"; a T at the end adds every "LC"; a C at position i adds (L before i) × (T after i), best i. Add the best gain to the current "LCT" count.',
+    r: 'Three candidates: an L at the front adds every "CT"; a T at the end adds every "LC"; a C at position i adds (L before i) times (T after i), best i. Add the best gain to the current "LCT" count.',
     g: R => ({ s: R.str(R.int(2, 8), 'LCTX') }),
-    s(I, T) { const s = I.s; let l = 0, lc = 0, lct = 0; for (const c of s) { if (c === 'L') l++; else if (c === 'C') lc += l; else if (c === 'T') lct += lc; } let ct = 0, t = 0; for (let i = s.length - 1; i >= 0; i--) { if (s[i] === 'T') t++; else if (s[i] === 'C') ct += t; } let bestC = 0, L = 0, Tr2 = s.split('').filter(c => c === 'T').length; for (let i = 0; i <= s.length; i++) { bestC = Math.max(bestC, L * Tr2); if (i < s.length) { if (s[i] === 'L') L++; if (s[i] === 'T') Tr2--; } } T.at({ s: A(s.split('')) }); T.n('"LCT" subsequences now?', lct, 'Count L, then LC, then LCT in one pass.'); T.n('Gain from inserting L at the front (number of "CT")?', ct, 'Every CT pair gains this L.'); T.n('Gain from inserting T at the end (number of "LC")?', lc, 'Every LC pair gains this T.'); T.n('Best gain from inserting one C?', bestC, 'max over positions of (L before) × (T after).'); return lct + Math.max(ct, lc, bestC); }
+    s(I, T) { const s = I.s; let l = 0, lc = 0, lct = 0; for (const c of s) { if (c === 'L') l++; else if (c === 'C') lc += l; else if (c === 'T') lct += lc; } let ct = 0, t = 0; for (let i = s.length - 1; i >= 0; i--) { if (s[i] === 'T') t++; else if (s[i] === 'C') ct += t; } let bestC = 0, L = 0, Tr2 = s.split('').filter(c => c === 'T').length; for (let i = 0; i <= s.length; i++) { bestC = Math.max(bestC, L * Tr2); if (i < s.length) { if (s[i] === 'L') L++; if (s[i] === 'T') Tr2--; } } T.at({ s: A(s.split('')) }); T.n('"LCT" subsequences now?', lct, 'Count L, then LC, then LCT in one pass.'); T.n('Gain from inserting L at the front (number of "CT")?', ct, 'Every CT pair gains this L.'); T.n('Gain from inserting T at the end (number of "LC")?', lc, 'Every LC pair gains this T.'); T.n('Best gain from inserting one C?', bestC, 'max over positions of (L before) times (T after).'); return lct + Math.max(ct, lc, bestC); }
   });
 
   D('minimum-sum-after-divisible-sum-deletions', {
@@ -58,19 +58,19 @@
     t: 'XOR After Range Multiplication Queries II',
     r: 'Square-root split: a query with a big step k touches few indices, so apply it directly. Small-k queries go into a per-k multiplicative difference array (multiply at l, multiply by v⁻¹ just past the last touched index), swept with stride k at the end.',
     g: R => { const n = R.int(3, 7); return { nums: R.ints(n, 1, 5), queries: Array.from({ length: R.int(1, 3) }, () => { const l = R.int(0, n - 1); return [l, R.int(l, n - 1), R.int(1, 3), R.int(2, 3)]; }) }; },
-    s(I, T) { const a = I.nums.slice(); I.queries.forEach(([l, r, k, v]) => { const cnt = Math.floor((r - l) / k) + 1, last = l + (cnt - 1) * k; T.at({ nums: A(a.slice(), { win: [l, r] }), query: `l=${l} r=${r} k=${k} v=${v}` }); T.n('How many indices does this query touch?', cnt, '⌊(r − l) / k⌋ + 1.'); T.n('Last index it touches?', last, 'l + (count − 1) × k: the difference array cancels just after it.'); for (let i = l; i <= r; i += k) a[i] = a[i] * v % MOD; }); return a.reduce((p, q) => p ^ q, 0); }
+    s(I, T) { const a = I.nums.slice(); I.queries.forEach(([l, r, k, v]) => { const cnt = Math.floor((r - l) / k) + 1, last = l + (cnt - 1) * k; T.at({ nums: A(a.slice(), { win: [l, r] }), query: `l=${l} r=${r} k=${k} v=${v}` }); T.n('How many indices does this query touch?', cnt, '((r − l) divided by k, rounded down) + 1.'); T.n('Last index it touches?', last, 'l + (count − 1) times k: the difference array cancels just after it.'); for (let i = l; i <= r; i += k) a[i] = a[i] * v % MOD; }); return a.reduce((p, q) => p ^ q, 0); }
   });
 
   D('distinct-points-reachable-after-substring-removal', {
     t: 'Distinct Points Reachable After Substring Removal',
-    r: 'The final point is the full walk\'s end minus the displacement of the removed window. Take prefix positions P; each window i..i+k−1 removes P[i+k] − P[i]. Count distinct results in a set.',
+    r: 'The final point is the full walk\'s end minus the displacement of the removed window. Take prefix positions P; each window i to i+k−1 removes P[i+k] − P[i]. Count distinct results in a set.',
     g: R => { const n = R.int(1, 7); return { s: R.str(n, 'UDLR'), k: R.int(1, n) }; },
     s(I, T) { const P = [[0, 0]], mv = { U: [0, 1], D: [0, -1], L: [-1, 0], R: [1, 0] }; for (const ch of I.s) { const [x, y] = P[P.length - 1]; P.push([x + mv[ch][0], y + mv[ch][1]]); } const n = I.s.length, E = P[n], seen = new Set(); for (let i = 0; i + I.k <= n; i++) { const pt = [E[0] - (P[i + I.k][0] - P[i][0]), E[1] - (P[i + I.k][1] - P[i][1])], key = pt.join(','), nw = !seen.has(key); seen.add(key); if (i < 5) { T.at({ s: A(I.s.split(''), { win: [i, i + I.k - 1] }), end: `(${E})`, points: A([...seen].map(p => `(${p})`)) }); T.yn(`Removing s[${i}..${i + I.k - 1}] ends at (${pt}). Is that a new point?`, nw, nw ? 'Add it to the set.' : 'Already counted.'); } } return seen.size; }
   });
 
   D('split-array-with-minimum-difference', {
     t: 'Split Array With Minimum Difference',
-    r: 'Precompute where the strictly increasing prefix stops and where the strictly decreasing suffix starts. Every split point i where both nums[0..i] is increasing and nums[i+1..] is decreasing is valid; compare |prefix − suffix| with prefix sums.',
+    r: 'Precompute where the strictly increasing prefix stops and where the strictly decreasing suffix starts. Every split point i where both nums[0 to i] is increasing and nums[i+1..] is decreasing is valid; compare |prefix − suffix| with prefix sums.',
     g: R => ({ nums: R.ints(R.int(2, 6), 1, 9) }),
     s(I, T) { const a = I.nums, n = a.length, tot = sum(a); let best = -1, pre = 0; for (let i = 0; i < n - 1; i++) { pre += a[i]; const inc = a.slice(0, i + 1).every((v, j) => !j || v > a[j - 1]), dec = a.slice(i + 1).every((v, j, s) => !j || v < s[j - 1]), ok = inc && dec; T.at({ nums: A(a, { win: [0, i] }), left: pre, right: tot - pre }); T.yn(`Is the split after index ${i} valid?`, ok, ok ? 'Left strictly increasing and right strictly decreasing.' : !inc ? 'Left part is not strictly increasing.' : 'Right part is not strictly decreasing.'); if (ok) { const d = Math.abs(2 * pre - tot); if (best < 0 || d < best) best = d; } } return best; }
   });
@@ -84,30 +84,30 @@
 
   D('longest-balanced-subarray-i', {
     t: 'Longest Balanced Subarray I',
-    r: 'n ≤ 1500: fix the start, extend the end, and track distinct evens and distinct odds with two sets. Balanced when the two counts match.',
+    r: 'n at most 1500: fix the start, extend the end, and track distinct evens and distinct odds with two sets. Balanced when the two counts match.',
     g: R => ({ nums: R.ints(R.int(1, 7), 1, 6) }),
     s(I, T) { let best = 0; for (let i = 0; i < I.nums.length; i++) { const e = new Set(), o = new Set(); let b = 0; for (let j = i; j < I.nums.length; j++) { (I.nums[j] % 2 ? o : e).add(I.nums[j]); if (e.size === o.size) b = j - i + 1; } best = Math.max(best, b); if (i < 5) { T.at({ nums: A(I.nums, { i }), best }); T.n(`Longest balanced subarray starting at ${i}? (0 if none)`, b, 'Distinct evens must equal distinct odds.'); } } return best; }
   });
 
   D('longest-balanced-subarray-ii', {
     t: 'Longest Balanced Subarray II',
-    r: 'Sweep the right end. Give each value +1 (odd) or −1 (even) counted only at its latest occurrence; then balance of [l..r] is a suffix sum. A segment tree over l with range add (when a value moves) and "leftmost l with sum 0" finds the longest balanced subarray ending at r.',
+    r: 'Sweep the right end. Give each value +1 (odd) or −1 (even) counted only at its latest occurrence; then balance of [l to r] is a suffix sum. A segment tree over l with range add (when a value moves) and "leftmost l with sum 0" finds the longest balanced subarray ending at r.',
     g: R => ({ nums: R.ints(R.int(1, 7), 1, 6) }),
     s(I, T) { const a = I.nums; let best = 0; for (let r = 0; r < a.length; r++) { let b = 0; for (let l = r; l >= 0; l--) { const e = new Set(), o = new Set(); for (let j = l; j <= r; j++) (a[j] % 2 ? o : e).add(a[j]); if (e.size === o.size) b = r - l + 1; } best = Math.max(best, b); if (r < 6) { T.at({ nums: A(a, { i: r }), best }); T.n(`Longest balanced subarray ending at ${r}? (0 if none)`, b, 'Leftmost l where distinct odds − distinct evens is 0.'); } } return best; }
   });
 
   D('stable-subarrays-with-equal-boundary-and-interior-sum', {
     t: 'Stable Subarrays With Equal Boundary and Interior Sum',
-    r: 'With prefix sums P, [l..r] is stable when cap[l] = cap[r] and P[r] − P[l+1] = cap[r]. Sweep r, and before handling r add the pair (cap[r−2], P[r−1]) to a hash map; then count entries equal to (cap[r], P[r] − cap[r]).',
+    r: 'With prefix sums P, [l to r] is stable when cap[l] = cap[r] and P[r] − P[l+1] = cap[r]. Sweep r, and before handling r add the pair (cap[r−2], P[r−1]) to a hash map; then count entries equal to (cap[r], P[r] − cap[r]).',
     g: R => ({ capacity: R.ints(R.int(3, 8), 0, 4) }),
     s(I, T) { const c = I.capacity, P = [0]; c.forEach(x => P.push(P[P.length - 1] + x)); const m = new Map(); let tot = 0; for (let r = 2; r < c.length; r++) { const k1 = c[r - 2] + ',' + P[r - 1]; m.set(k1, (m.get(k1) || 0) + 1); const add = m.get(c[r] + ',' + (P[r] - c[r])) || 0; tot += add; if (r < 8) { T.at({ capacity: A(c, { i: r }), prefix: A(P) }); T.n(`Stable subarrays ending at index ${r}?`, add, 'Left ends with the same value whose interior sum matches.'); } } return tot; }
   });
 
   D('count-subarrays-with-majority-element-i', {
     t: 'Count Subarrays With Majority Element I',
-    r: 'n ≤ 1000: fix the start and extend, keeping a balance of +1 for target and −1 for anything else. target is the majority exactly when the balance is positive.',
+    r: 'n at most 1000: fix the start and extend, keeping a balance of +1 for target and −1 for anything else. target is the majority exactly when the balance is positive.',
     g: R => ({ nums: R.ints(R.int(1, 6), 1, 3), target: R.int(1, 3) }),
-    s(I, T) { let tot = 0; for (let i = 0; i < I.nums.length; i++) { let b = 0, c = 0; for (let j = i; j < I.nums.length; j++) { b += I.nums[j] === I.target ? 1 : -1; if (b > 0) c++; } tot += c; if (i < 5) { T.at({ nums: A(I.nums, { i }), target: I.target }); T.n(`Subarrays starting at ${i} where ${I.target} is the majority?`, c, 'Count ends where the +1/−1 balance is positive.'); } } return tot; }
+    s(I, T) { let tot = 0; for (let i = 0; i < I.nums.length; i++) { let b = 0, c = 0; for (let j = i; j < I.nums.length; j++) { b += I.nums[j] === I.target ? 1 : -1; if (b > 0) c++; } tot += c; if (i < 5) { T.at({ nums: A(I.nums, { i }), target: I.target }); T.n(`Subarrays starting at ${i} where ${I.target} is the majority?`, c, 'Count ends where the +1 and −1 balance is positive.'); } } return tot; }
   });
 
   D('count-subarrays-with-majority-element-ii', {
@@ -133,7 +133,7 @@
 
   D('concatenate-non-zero-digits-and-multiply-by-sum-ii', {
     t: 'Concatenate Non-Zero Digits and Multiply by Sum II',
-    r: 'Prefix arrays over s: X[i] = concatenation of non-zero digits (mod p), C[i] = how many there are, S[i] = digit sum. For [l, r]: x = X[r+1] − X[l]·10^(C[r+1] − C[l]) and sum = S[r+1] − S[l].',
+    r: 'Prefix arrays over s: X[i] = concatenation of non-zero digits (mod p), C[i] = how many there are, S[i] = digit sum. For [l, r]: x = X[r+1] − X[l] times 10 to the power (C[r+1] − C[l]) and sum = S[r+1] − S[l].',
     g: R => { const s = R.str(R.int(1, 7), '0012345'); return { s, queries: Array.from({ length: R.int(1, 3) }, () => { const l = R.int(0, s.length - 1); return [l, R.int(l, s.length - 1)]; }) }; },
     s(I, T) { return I.queries.map(([l, r]) => { const sub = I.s.slice(l, r + 1), nz = sub.split('').filter(c => c !== '0'), x = nz.length ? BigInt(nz.join('')) : 0n, sm = sum(nz.map(Number)); T.at({ s: A(I.s.split(''), { win: [l, r] }) }); T.n(`Digit sum of s[${l}..${r}]?`, sm, 'S[r+1] − S[l].'); T.n(`x for s[${l}..${r}] (mod 1e9+7)?`, Number(x % BigInt(MOD)), 'Concatenate the non-zero digits.'); return Number(x * BigInt(sm) % BigInt(MOD)); }); }
   });
@@ -147,7 +147,7 @@
 
   D('number-of-centered-subarrays', {
     t: 'Number of Centered Subarrays',
-    r: 'n ≤ 500: fix the start, extend the end with a running sum and a set of the values inside. The subarray is centered when the set contains the sum.',
+    r: 'n at most 500: fix the start, extend the end with a running sum and a set of the values inside. The subarray is centered when the set contains the sum.',
     g: R => ({ nums: R.ints(R.int(1, 6), -3, 3) }),
     s(I, T) { let tot = 0; for (let i = 0; i < I.nums.length; i++) { const set = new Set(); let s = 0, c = 0; for (let j = i; j < I.nums.length; j++) { s += I.nums[j]; set.add(I.nums[j]); if (set.has(s)) c++; } tot += c; if (i < 5) { T.at({ nums: A(I.nums, { i }) }); T.n(`Centered subarrays starting at ${i}?`, c, 'Ends where the running sum equals some element inside.'); } } return tot; }
   });
@@ -168,14 +168,14 @@
 
   D('smallest-stable-index-i', {
     t: 'Smallest Stable Index I',
-    r: 'Precompute suffix minimums, then sweep from the left with a running maximum. The first index where max − suffixMin ≤ k is the answer.',
+    r: 'Precompute suffix minimums, then sweep from the left with a running maximum. The first index where max − suffixMin at most k is the answer.',
     g: R => ({ nums: R.ints(R.int(1, 6), 0, 9), k: R.int(0, 5) }),
     s(I, T) { const a = I.nums, n = a.length, sm = Array(n); for (let i = n - 1; i >= 0; i--) sm[i] = Math.min(a[i], i < n - 1 ? sm[i + 1] : Infinity); let mx = -Infinity; for (let i = 0; i < n; i++) { mx = Math.max(mx, a[i]); const ok = mx - sm[i] <= I.k; T.at({ nums: A(a, { i }), suffixMin: A(sm), k: I.k }); T.yn(`Is index ${i} stable?`, ok, `${mx} − ${sm[i]} = ${mx - sm[i]}.`); if (ok) return i; } return -1; }
   });
 
   D('smallest-stable-index-ii', {
     t: 'Smallest Stable Index II',
-    r: 'Same rule with n up to 1e5: one right-to-left pass for suffix minimums, one left-to-right pass with a running maximum, stopping at the first index whose score is ≤ k. O(n).',
+    r: 'Same rule with n up to 1e5: one right-to-left pass for suffix minimums, one left-to-right pass with a running maximum, stopping at the first index whose score is at most k. O(n).',
     g: R => ({ nums: R.ints(R.int(1, 7), 0, 9), k: R.int(0, 5) }),
     s(I, T) { const a = I.nums, n = a.length, sm = Array(n); for (let i = n - 1; i >= 0; i--) sm[i] = Math.min(a[i], i < n - 1 ? sm[i + 1] : Infinity); T.at({ nums: A(a), suffixMin: A(sm) }); T.n('Suffix minimum at index 0?', sm[0], 'The global minimum.'); let mx = -Infinity; for (let i = 0; i < n; i++) { mx = Math.max(mx, a[i]); const sc = mx - sm[i]; if (i < 5) { T.at({ nums: A(a, { i }), runningMax: mx, suffixMin: A(sm, { i }) }); T.n(`Instability score at index ${i}?`, sc, 'Prefix max minus suffix min.'); } if (sc <= I.k) return i; } return -1; }
   });
@@ -189,9 +189,9 @@
 
   D('count-subarrays-with-even-odd-ratio-i', {
     t: 'Count Subarrays With Even Odd Ratio I',
-    r: 'x/y ≤ a/b ⇔ b·x − a·y ≤ 0. Score evens as +b and odds as −a; a subarray is valid when its sum is ≤ 0 (that forces y > 0). So count pairs l < r with P[l] ≥ P[r], using a Fenwick tree over compressed prefix sums or merge sort.',
+    r: 'x divided by y at most a divided by b exactly when b times x − a times y at most 0. Score evens as +b and odds as −a; a subarray is valid when its sum is at most 0 (that forces y > 0). So count pairs l < r with P[l] at least P[r], using a Fenwick tree over compressed prefix sums or merge sort.',
     g: R => ({ nums: R.ints(R.int(1, 6), 1, 9), a: R.int(1, 3), b: R.int(1, 3) }),
-    s(I, T) { const v = I.nums.map(x => x % 2 ? -I.a : I.b), P = [0]; v.forEach(x => P.push(P[P.length - 1] + x)); T.at({ nums: A(I.nums), score: A(v) }); T.n('Prefix sum of the whole array?', P[P.length - 1], 'Evens +b, odds −a.'); let c = 0; for (let r = 1; r < P.length; r++) { const here = P.slice(0, r).filter(p => p >= P[r]).length; c += here; if (r <= 4) { T.at({ prefix: A(P, { i: r }) }); T.n(`Valid subarrays ending at index ${r - 1}?`, here, `Earlier prefix sums ≥ ${P[r]}.`); } } return c; }
+    s(I, T) { const v = I.nums.map(x => x % 2 ? -I.a : I.b), P = [0]; v.forEach(x => P.push(P[P.length - 1] + x)); T.at({ nums: A(I.nums), score: A(v) }); T.n('Prefix sum of the whole array?', P[P.length - 1], 'Evens +b, odds −a.'); let c = 0; for (let r = 1; r < P.length; r++) { const here = P.slice(0, r).filter(p => p >= P[r]).length; c += here; if (r <= 4) { T.at({ prefix: A(P, { i: r }) }); T.n(`Valid subarrays ending at index ${r - 1}?`, here, `Earlier prefix sums at least ${P[r]}.`); } } return c; }
   });
 
   D('count-of-unfinished-tasks-after-each-shift', {
@@ -203,8 +203,8 @@
 
   D('count-subarrays-with-even-odd-ratio-ii', {
     t: 'Count Subarrays With Even Odd Ratio II',
-    r: 'Score evens +b and odds −a; a subarray is valid exactly when its score is ≤ 0. Now n is 10^5 and a, b up to 10^9, so count pairs l < r with P[l] ≥ P[r] using coordinate-compressed prefix sums in a Fenwick tree (or merge-sort counting).',
+    r: 'Score evens +b and odds −a; a subarray is valid exactly when its score is at most 0. Now n is 10 to the power 5 and a, b up to 10 to the power 9, so count pairs l < r with P[l] at least P[r] using coordinate-compressed prefix sums in a Fenwick tree (or merge-sort counting).',
     g: R => ({ nums: R.ints(R.int(1, 6), 1, 9), a: R.int(1, 3), b: R.int(1, 3) }),
-    s(I, T) { const v = I.nums.map(x => x % 2 ? -I.a : I.b), P = [0]; v.forEach(x => P.push(P[P.length - 1] + x)); const sorted = [...new Set(P)].sort((x, y) => x - y); T.at({ prefix: A(P) }); T.n('How many distinct prefix values to compress?', sorted.length, 'Each gets a Fenwick slot.'); let c = 0; for (let r = 1; r < P.length; r++) { const here = P.slice(0, r).filter(p => p >= P[r]).length; c += here; if (r <= 3) { T.at({ prefix: A(P, { i: r }), rank: sorted.indexOf(P[r]) }); T.n(`Fenwick count of earlier prefixes ≥ ${P[r]}?`, here, 'Query the suffix of ranks at or above this value.'); } } return c; }
+    s(I, T) { const v = I.nums.map(x => x % 2 ? -I.a : I.b), P = [0]; v.forEach(x => P.push(P[P.length - 1] + x)); const sorted = [...new Set(P)].sort((x, y) => x - y); T.at({ prefix: A(P) }); T.n('How many distinct prefix values to compress?', sorted.length, 'Each gets a Fenwick slot.'); let c = 0; for (let r = 1; r < P.length; r++) { const here = P.slice(0, r).filter(p => p >= P[r]).length; c += here; if (r <= 3) { T.at({ prefix: A(P, { i: r }), rank: sorted.indexOf(P[r]) }); T.n(`Fenwick count of earlier prefixes at least ${P[r]}?`, here, 'Query the suffix of ranks at or above this value.'); } } return c; }
   });
 })();

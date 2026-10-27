@@ -5,7 +5,7 @@ return [
     'title' => 'Special Array II: bad-pair prefix counts',
     'leetcode' => 3152,
     'difficulty' => 'Med',
-    'summary' => 'Mark positions i where nums[i] and nums[i − 1] have the same parity; a query [l, r] is special iff no mark lies in (l, r] (prefix sums).',
+    'summary' => 'Mark positions i where nums[i] and nums[i − 1] have the same parity; a query [l, r] is special exactly when no mark lies in (l, r] (prefix sums).',
     'category' => 'LeetCode',
     'subcategory' => 'Binary Search',
     'topic' => 'LeetCode · Binary Search',

@@ -5,7 +5,7 @@ return [
     'title' => 'Maximum Weight in Two Bags',
     'leetcode' => 3647,
     'difficulty' => 'Med',
-    'summary' => 'Two-dimensional 0/1 knapsack: can[a][b] = can bag 1 hold exactly a and bag 2 exactly b. Each item either skips, goes to bag 1, or goes to bag 2; loop capacities downward so it is used once. Answer = max a + b reachable.',
+    'summary' => 'Two-dimensional 0-1 knapsack: can[a][b] = can bag 1 hold exactly a and bag 2 exactly b. Each item either skips, goes to bag 1, or goes to bag 2; loop capacities downward so it is used once. Answer = max a + b reachable.',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

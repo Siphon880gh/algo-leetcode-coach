@@ -5,7 +5,7 @@ return [
     'title' => 'Make Arrays Similar: match by parity',
     'leetcode' => 2449,
     'difficulty' => 'Hard',
-    'summary' => 'Each operation moves 2 up and 2 down without changing parity. Sort odds and evens separately in both arrays, pair them, and the answer is Σ|a − b| / 4.',
+    'summary' => 'Each operation moves 2 up and 2 down without changing parity. Sort odds and evens separately in both arrays, pair them, and the answer is the sum of |a − b| divided by 4.',
     'category' => 'LeetCode',
     'subcategory' => 'Greedy',
     'topic' => 'LeetCode · Greedy',

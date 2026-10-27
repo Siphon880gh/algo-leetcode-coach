@@ -5,7 +5,7 @@ return [
     'title' => 'Maximum Distinct Elements After ±k',
     'leetcode' => 3397,
     'difficulty' => 'Med',
-    'summary' => 'Sort. Give each element the smallest value ≥ previous + 1 within [x − k, x + k]; if none, it duplicates something.',
+    'summary' => 'Sort. Give each element the smallest value at least previous + 1 within [x − k, x + k]; if none, it duplicates something.',
     'category' => 'LeetCode',
     'subcategory' => 'Greedy',
     'topic' => 'LeetCode · Greedy',

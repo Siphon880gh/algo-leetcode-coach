@@ -5,7 +5,7 @@ return [
     'title' => 'Minimum Array Sum: halve, subtract, both, or neither',
     'leetcode' => 3366,
     'difficulty' => 'Med',
-    'summary' => 'dp[a][b] = least sum so far using a halvings and b subtractions. For each number try the four combos (when both, pick the better order). Answer: min over a ≤ op1, b ≤ op2.',
+    'summary' => 'dp[a][b] = least sum so far using a halvings and b subtractions. For each number try the four combos (when both, pick the better order). Answer: min over a at most op1, b at most op2.',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

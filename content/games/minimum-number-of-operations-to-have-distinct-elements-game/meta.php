@@ -5,7 +5,7 @@ return [
     'title' => 'Minimum Number of Operations to Have Distinct Elements',
     'leetcode' => 3779,
     'difficulty' => 'Med',
-    'summary' => 'Scan from the right with a set. The first value seen twice, at index i, must be removed, so the prefix 0..i has to go: ⌈(i + 1) / 3⌉ operations. No repeat means 0.',
+    'summary' => 'Scan from the right with a set. The first value seen twice, at index i, must be removed, so the prefix 0 to i has to go: (i + 1) divided by 3 (rounded up) operations. No repeat means 0.',
     'category' => 'LeetCode',
     'subcategory' => 'Hash Table',
     'topic' => 'LeetCode · Hash Table',

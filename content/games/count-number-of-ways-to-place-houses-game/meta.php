@@ -5,7 +5,7 @@ return [
     'title' => 'Count Number of Ways to Place Houses: one side, squared',
     'leetcode' => 2320,
     'difficulty' => 'Med',
-    'summary' => 'The two sides are independent. One side: no two adjacent houses, so ways follow Fibonacci (empty/house states). Answer = (ways for one side)².',
+    'summary' => 'The two sides are independent. One side: no two adjacent houses, so ways follow Fibonacci (empty or house states). Answer = (ways for one side)².',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

@@ -5,7 +5,7 @@ return [
     'title' => 'Min Difference After Three Moves: drop 3 from the ends',
     'leetcode' => 1509,
     'difficulty' => 'Med',
-    'summary' => 'With n ≤ 4 the answer is 0. Otherwise sort and try removing i from the bottom and 3 − i from the top: min over a[n−4+i] − a[i].',
+    'summary' => 'With n at most 4 the answer is 0. Otherwise sort and try removing i from the bottom and 3 − i from the top: min over a[n−4+i] − a[i].',
     'category' => 'LeetCode',
     'subcategory' => 'Greedy',
     'topic' => 'LeetCode · Greedy',

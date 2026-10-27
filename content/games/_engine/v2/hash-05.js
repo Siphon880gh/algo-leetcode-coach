@@ -24,7 +24,7 @@
 
   D('valid-k-unique-subarrays-ii', {
     t: 'Valid K-Unique Subarrays II',
-    r: 'Each query needs two checks: every count in nums[l..r] is even (random codes with prefix XOR cancel exactly then), and exactly k values are distinct (indices whose previous copy is before l). The answer decides how the next query is built, so answer them in order.',
+    r: 'Each query needs two checks: every count in nums[l to r] is even (random codes with prefix XOR cancel exactly then), and exactly k values are distinct (indices whose previous copy is before l). The answer decides how the next query is built, so answer them in order.',
     g: R => { const n = R.int(4, 7), l0 = R.int(0, n - 2); return { nums: R.ints(n, 1, 3), k: R.int(1, 2), l0, r0: R.int(l0 + 1, n - 1), q: R.int(2, 4) }; },
     s(I, T) { const a = I.nums, n = a.length; let l = I.l0, r = I.r0; const out = []; for (let i = 0; i < I.q; i++) { const cnt = new Map(); for (let x = l; x <= r; x++) cnt.set(a[x], (cnt.get(a[x]) || 0) + 1); const d = cnt.size, even = [...cnt.values()].every(c => c % 2 === 0), ok = d === I.k && even; if (i < 4) { T.at({ nums: A(a, { l, r, win: [l, r] }), k: I.k, query: i }); T.n(`How many distinct values are in nums[${l}..${r}]?`, d, 'Count each value once: an index counts when its previous copy is before l.'); T.yn('Does every value appear an even number of times?', even, even ? 'The prefix XOR codes cancel: H[r + 1] = H[l].' : 'Some value has an odd count, so its code does not cancel.'); T.yn(`So is query ${i} valid?`, ok, ok ? `Exactly ${I.k} distinct and all even.` : d !== I.k ? `It needs exactly ${I.k} distinct values, not ${d}.` : 'Every count must be even.'); } out.push(ok); const g = ok ? l + r : r - l; let nl = (l ^ g) % n, nr = (r ^ g) % n; if (nl > nr) [nl, nr] = [nr, nl]; l = nl; r = nr; } return out; }
   });
@@ -47,7 +47,7 @@
     t: 'Rearrange Array by Removing Distinct Values',
     r: 'Count every value. Round t takes one copy of each value whose count is at least t, in ascending order, so the answer is the rounds glued together.',
     g: R => ({ nums: R.ints(R.int(2, 8), 1, 4) }),
-    s(I, T) { const cnt = new Map(); I.nums.forEach(x => cnt.set(x, (cnt.get(x) || 0) + 1)); const keys = [...cnt.keys()].sort((a, b) => a - b), mx = Math.max(...cnt.values()), ans = []; T.at({ nums: A(I.nums), counts: cnt }); T.n('How many rounds will there be?', mx, 'The most frequent value lasts the longest.'); for (let t = 1; t <= mx; t++) { const row = keys.filter(k => cnt.get(k) >= t); T.at({ counts: cnt, round: t, ans: A(ans.slice()) }); T.n(`How many values does round ${t} append?`, row.length, `The values with count ≥ ${t}.`); T.n(`Smallest value appended in round ${t}?`, row[0], 'Each round appends in ascending order.'); ans.push(...row); } return ans; }
+    s(I, T) { const cnt = new Map(); I.nums.forEach(x => cnt.set(x, (cnt.get(x) || 0) + 1)); const keys = [...cnt.keys()].sort((a, b) => a - b), mx = Math.max(...cnt.values()), ans = []; T.at({ nums: A(I.nums), counts: cnt }); T.n('How many rounds will there be?', mx, 'The most frequent value lasts the longest.'); for (let t = 1; t <= mx; t++) { const row = keys.filter(k => cnt.get(k) >= t); T.at({ counts: cnt, round: t, ans: A(ans.slice()) }); T.n(`How many values does round ${t} append?`, row.length, `The values with count at least ${t}.`); T.n(`Smallest value appended in round ${t}?`, row[0], 'Each round appends in ascending order.'); ans.push(...row); } return ans; }
   });
 
   D('maximum-equal-adjacent-pairs-after-at-most-one-replacement', {

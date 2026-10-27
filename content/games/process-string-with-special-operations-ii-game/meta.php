@@ -5,7 +5,7 @@ return [
     'title' => 'Process String with Special Operations II',
     'leetcode' => 3614,
     'difficulty' => 'Hard',
-    'summary' => 'Never build the string. Track only its length forward, then walk backwards: undo # by folding k into the first half (k − len/2), undo % by mirroring (len − 1 − k), and when a letter sits at position k, that letter is the answer.',
+    'summary' => 'Never build the string. Track only its length forward, then walk backwards: undo # by folding k into the first half (k − len divided by 2), undo % by mirroring (len − 1 − k), and when a letter sits at position k, that letter is the answer.',
     'category' => 'LeetCode',
     'subcategory' => 'Simulation',
     'topic' => 'LeetCode · Simulation',

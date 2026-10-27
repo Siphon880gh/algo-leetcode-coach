@@ -5,7 +5,7 @@ return [
     'title' => 'Smallest Subarrays With Maximum OR',
     'leetcode' => 2411,
     'difficulty' => 'Med',
-    'summary' => 'Go right to left keeping, for each bit, the nearest index ≥ i where it is set. The answer for i reaches the farthest of those positions.',
+    'summary' => 'Go right to left keeping, for each bit, the nearest index at least i where it is set. The answer for i reaches the farthest of those positions.',
     'category' => 'LeetCode',
     'subcategory' => 'Binary Search',
     'topic' => 'LeetCode · Binary Search',

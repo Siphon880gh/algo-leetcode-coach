@@ -5,7 +5,7 @@ return [
     'title' => 'Bulls and Cows: exact matches, then shared counts',
     'leetcode' => 299,
     'difficulty' => 'Med',
-    'summary' => 'Bulls are positions with equal digits. Among the rest, cows = Σ min(count in secret, count in guess) per digit.',
+    'summary' => 'Bulls are positions with equal digits. Among the rest, cows = the sum of min(count in secret, count in guess) per digit.',
     'category' => 'LeetCode',
     'subcategory' => 'Strings',
     'topic' => 'LeetCode · Strings',

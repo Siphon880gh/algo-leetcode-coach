@@ -38,7 +38,7 @@
       for (var i = 0; i < n; i++) {
         var right = total - left - a[i], hit = left === right;
         t.act(view(i), 'i = ' + i + ': left ' + left + ', right ' + right + '.', [['piv', 'Pivot! return ' + i], ['next', 'Not equal: leftSum += ' + a[i]]], hit ? 'piv' : 'next',
-          hit ? 'left == right (' + left + '): this is the leftmost pivot.' : left + ' ≠ ' + right + '.', hit ? 'Pivot ' + i + '.' : 'leftSum = ' + (left + a[i]) + '.');
+          hit ? 'left == right (' + left + '): this is the leftmost pivot.' : left + ' is not ' + right + '.', hit ? 'Pivot ' + i + '.' : 'leftSum = ' + (left + a[i]) + '.');
         if (hit) { ans = i; break; }
         left += a[i];
       }

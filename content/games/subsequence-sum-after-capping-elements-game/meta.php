@@ -5,7 +5,7 @@ return [
     'title' => 'Subsequence Sum After Capping Elements',
     'leetcode' => 3685,
     'difficulty' => 'Med',
-    'summary' => 'Sort. For cap x, elements below x keep their value (a subset-sum bitset you grow as x rises), and the c elements ≥ x all become x. Sum k is possible if some j ≤ c has k − j·x reachable by the small elements.',
+    'summary' => 'Sort. For cap x, elements below x keep their value (a subset-sum bitset you grow as x rises), and the c elements at least x all become x. Sum k is possible if some j at most c has k − j times x reachable by the small elements.',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

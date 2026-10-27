@@ -5,7 +5,7 @@ return [
     'title' => 'Ways to Buy Pens and Pencils: loop over pens',
     'leetcode' => 2240,
     'difficulty' => 'Med',
-    'summary' => 'For each number of pens i, the leftover money buys 0 … ⌊(total − i·cost1) / cost2⌋ pencils. Add those counts.',
+    'summary' => 'For each number of pens i, the leftover money buys 0 … (total − i times cost1) divided by cost2 (rounded down) pencils. Add those counts.',
     'category' => 'LeetCode',
     'subcategory' => 'Math',
     'topic' => 'LeetCode · Math',

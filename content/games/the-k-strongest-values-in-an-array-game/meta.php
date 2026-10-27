@@ -5,7 +5,7 @@ return [
     'title' => 'The k Strongest Values in an Array',
     'leetcode' => 1471,
     'difficulty' => 'Med',
-    'summary' => 'Sort; the median is a[(n − 1) / 2]. Two pointers at the ends: take whichever end is stronger (|x − m| larger, ties to the larger value) k times.',
+    'summary' => 'Sort; the median is a[(n − 1) divided by 2]. Two pointers at the ends: take whichever end is stronger (|x − m| larger, ties to the larger value) k times.',
     'category' => 'LeetCode',
     'subcategory' => 'Two Pointers',
     'topic' => 'LeetCode · Two Pointers',

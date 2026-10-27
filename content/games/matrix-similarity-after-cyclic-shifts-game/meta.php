@@ -5,7 +5,7 @@ return [
     'title' => 'Matrix Similarity After Cyclic Shifts',
     'leetcode' => 2946,
     'difficulty' => 'Easy',
-    'summary' => 'A row returns to itself after shifting k (left or right) iff row[j] == row[(j + k) mod n] for all j. Check every row.',
+    'summary' => 'A row returns to itself after shifting k (left or right) exactly when row[j] == row[(j + k) mod n] for all j. Check every row.',
     'category' => 'LeetCode',
     'subcategory' => 'Graphs',
     'topic' => 'LeetCode · Graphs',

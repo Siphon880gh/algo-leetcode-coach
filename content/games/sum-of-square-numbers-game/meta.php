@@ -5,7 +5,7 @@ return [
     'title' => 'Sum of Square Numbers: two pointers',
     'leetcode' => 633,
     'difficulty' => 'Med',
-    'summary' => 'a = 0, b = ⌊√c⌋. If a² + b² is too small, a++; too big, b−−; equal → true.',
+    'summary' => 'a = 0, b = (√c rounded down). If a² + b² is too small, a++; too big, b−−; equal: true.',
     'category' => 'LeetCode',
     'subcategory' => 'Binary Search',
     'topic' => 'LeetCode · Binary Search',

@@ -5,7 +5,7 @@ return [
     'title' => 'Find Building Where Alice and Bob Can Meet',
     'leetcode' => 2940,
     'difficulty' => 'Hard',
-    'summary' => 'With a ≤ b: if a = b or heights[a] < heights[b], answer b. Otherwise find the leftmost j > b with heights[j] > max(heights[a], heights[b]) — offline with a monotonic stack or a segment-tree descent.',
+    'summary' => 'With a at most b: if a = b or heights[a] < heights[b], answer b. Otherwise find the leftmost j > b with heights[j] > max(heights[a], heights[b]) — offline with a monotonic stack or a segment-tree descent.',
     'category' => 'LeetCode',
     'subcategory' => 'Segment Tree',
     'topic' => 'LeetCode · Segment Tree',

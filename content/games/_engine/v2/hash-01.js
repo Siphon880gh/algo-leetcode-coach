@@ -7,7 +7,7 @@
 
   D('first-missing-positive', {
     t: 'First Missing Positive',
-    r: 'Cyclic placement: swap each value v in 1..n into slot v − 1 until it is there (or a duplicate). Then the first index i with nums[i] ≠ i + 1 gives i + 1; otherwise n + 1.',
+    r: 'Cyclic placement: swap each value v in 1 to n into slot v − 1 until it is there (or a duplicate). Then the first index i with nums[i] not equal to i + 1 gives i + 1; otherwise n + 1.',
     g: R => ({ nums: R.ints(R.int(1, 7), -2, 8) }),
     s(I, T) { const a = I.nums.slice(), n = a.length; for (let i = 0; i < n; i++) while (a[i] > 0 && a[i] <= n && a[a[i] - 1] !== a[i]) { const j = a[i] - 1; [a[i], a[j]] = [a[j], a[i]]; } T.at({ placed: A(a) }); T.n('Values between 1 and n?', I.nums.filter(v => v >= 1 && v <= n).length, 'Only these can be placed.'); T.n('How many slots i hold i + 1?', a.filter((v, i) => v === i + 1).length, 'After cyclic placement.'); for (let i = 0; i < n; i++) if (a[i] !== i + 1) { T.at({ placed: A(a, { i }) }); T.n('First missing positive?', i + 1, 'First slot without its value.'); return i + 1; } T.at({ placed: A(a) }); T.n('First missing positive?', n + 1, 'Every value from 1 to n is present.'); return n + 1; }
   });
@@ -36,7 +36,7 @@
 
   D('find-all-duplicates-in-an-array', {
     t: 'Find All Duplicates in an Array',
-    r: 'Values are 1..n, so use the sign of nums[|x| − 1] as a seen flag: if it is already negative, x is a duplicate; otherwise negate it.',
+    r: 'Values are 1 to n, so use the sign of nums[|x| − 1] as a seen flag: if it is already negative, x is a duplicate; otherwise negate it.',
     g: R => { const n = R.int(1, 8); const a = Array.from({ length: n }, () => R.int(1, n)); const c = cnt(a); for (const [v, k] of c) if (k > 2) { let extra = k - 2; for (let i = 0; i < n && extra; i++) if (a[i] === v) { a[i] = -1; extra--; } } const missing = [...Array(n).keys()].map(x => x + 1).filter(x => !a.includes(x)); return { nums: a.map(x => x === -1 ? missing.pop() : x) }; },
     cmp: 'set',
     s(I, T) { const a = I.nums.slice(), out = []; a.forEach((_, i) => { const x = Math.abs(a[i]), dup = a[x - 1] < 0; if (dup) out.push(x); else a[x - 1] *= -1; if (i < 7) { T.at({ nums: A(a.slice(), { i }) }); T.yn(`Is ${x} a duplicate?`, dup, `nums[${x - 1}] was already negative.`); } }); return out; }
@@ -52,7 +52,7 @@
 
   D('4sum-ii', {
     t: '4Sum II',
-    r: 'Meet in the middle: count all sums a + b from nums1 × nums2 in a map, then for each c + d add count[−(c + d)].',
+    r: 'Meet in the middle: count all sums a + b from nums1 times nums2 in a map, then for each c + d add count[−(c + d)].',
     g: R => { const n = R.int(1, 3); return { nums1: R.ints(n, -2, 2), nums2: R.ints(n, -2, 2), nums3: R.ints(n, -2, 2), nums4: R.ints(n, -2, 2) }; },
     s(I, T) { const m = new Map(); for (const a of I.nums1) for (const b of I.nums2) m.set(a + b, (m.get(a + b) || 0) + 1); T.at({ pairSums: K(obj(m)) }); T.n('Distinct sums from nums1 + nums2?', m.size, 'Keys in the map.'); let t = 0, asks = 0; for (const c of I.nums3) for (const d of I.nums4) { const add = m.get(-(c + d)) || 0; t += add; if (asks++ < 5) { T.at({ c, d, need: -(c + d) }); T.n('Tuples completed by this pair?', add, 'Count of the needed sum.'); } } return t; }
   });
@@ -151,9 +151,9 @@
 
   D('check-if-n-and-its-double-exist', {
     t: 'Check If N and Its Double Exist',
-    r: 'Scan with a set: for x, if 2x or x/2 (when even) was already seen, return true; otherwise add x.',
+    r: 'Scan with a set: for x, if 2x or x divided by 2 (when even) was already seen, return true; otherwise add x.',
     g: R => ({ arr: R.ints(R.int(2, 7), -6, 10) }),
-    s(I, T) { const S = new Set(); for (const [i, x] of I.arr.entries()) { const hit = S.has(2 * x) || (x % 2 === 0 && S.has(x / 2)); T.at({ arr: A(I.arr, { i }), seen: A([...S]) }); T.yn(`Does ${x} pair with something seen?`, hit, 'Look for 2x or x/2.'); if (hit) return true; S.add(x); } return false; }
+    s(I, T) { const S = new Set(); for (const [i, x] of I.arr.entries()) { const hit = S.has(2 * x) || (x % 2 === 0 && S.has(x / 2)); T.at({ arr: A(I.arr, { i }), seen: A([...S]) }); T.yn(`Does ${x} pair with something seen?`, hit, 'Look for 2x or x divided by 2.'); if (hit) return true; S.add(x); } return false; }
   });
 
   D('rank-teams-by-votes', {
@@ -172,14 +172,14 @@
 
   D('count-number-of-teams', {
     t: 'Count Number of Teams',
-    r: 'For each middle soldier j, count smaller/larger ratings on the left and right. Teams through j = leftLess·rightMore + leftMore·rightLess.',
+    r: 'For each middle soldier j, count smaller or larger ratings on the left and right. Teams through j = leftLess times rightMore + leftMore times rightLess.',
     g: R => ({ rating: R.distinct(R.int(3, 8), 1, 20) }),
-    s(I, T) { const a = I.rating; let t = 0; for (let j = 1; j < a.length - 1; j++) { let ll = 0, lm = 0, rl = 0, rm = 0; for (let i = 0; i < j; i++) a[i] < a[j] ? ll++ : lm++; for (let k = j + 1; k < a.length; k++) a[k] < a[j] ? rl++ : rm++; const here = ll * rm + lm * rl; t += here; if (j < 6) { T.at({ rating: A(a, { j }), counts: K({ leftLess: ll, leftMore: lm, rightLess: rl, rightMore: rm }) }); T.n('Teams with this soldier in the middle?', here, 'll·rm + lm·rl.'); } } return t; }
+    s(I, T) { const a = I.rating; let t = 0; for (let j = 1; j < a.length - 1; j++) { let ll = 0, lm = 0, rl = 0, rm = 0; for (let i = 0; i < j; i++) a[i] < a[j] ? ll++ : lm++; for (let k = j + 1; k < a.length; k++) a[k] < a[j] ? rl++ : rm++; const here = ll * rm + lm * rl; t += here; if (j < 6) { T.at({ rating: A(a, { j }), counts: K({ leftLess: ll, leftMore: lm, rightLess: rl, rightMore: rm }) }); T.n('Teams with this soldier in the middle?', here, 'll times rm + lm times rl.'); } } return t; }
   });
 
   D('display-table-of-food-orders-in-a-restaurant', {
     t: 'Display Table of Food Orders in a Restaurant',
-    r: 'Build a map table → food → count and a set of foods. Header = "Table" + foods sorted; rows sorted numerically by table, each with counts as strings.',
+    r: 'Build a map table to food to count and a set of foods. Header = "Table" + foods sorted; rows sorted numerically by table, each with counts as strings.',
     g: R => ({ orders: Array.from({ length: R.int(1, 6) }, () => [R.pick(['Ann', 'Bo', 'Cy']), String(R.int(1, 12)), R.pick(['Soda', 'Taco', 'Pie'])]) }),
     s(I, T) { const foods = [...new Set(I.orders.map(o => o[2]))].sort(), tbl = {}; I.orders.forEach(([, t, f]) => { tbl[t] = tbl[t] || {}; tbl[t][f] = (tbl[t][f] || 0) + 1; }); T.at({ orders: A(I.orders.map(o => `${o[1]}:${o[2]}`)) }); T.n('How many food columns?', foods.length, 'Distinct foods.'); T.n('How many table rows?', Object.keys(tbl).length, 'Distinct tables.'); const t0 = Object.keys(tbl).sort((a, b) => a - b)[0]; T.n(`Orders at table ${t0}?`, Object.values(tbl[t0]).reduce((a, b) => a + b, 0), 'Add its food counts.'); return [['Table', ...foods], ...Object.keys(tbl).sort((a, b) => a - b).map(t => [t, ...foods.map(f => String(tbl[t][f] || 0))])]; }
   });
@@ -200,7 +200,7 @@
 
   D('arithmetic-subarrays', {
     t: 'Arithmetic Subarrays',
-    r: 'For each query take min and max: d = (max − min)/(len − 1) must be an integer, and every min + k·d must appear exactly once (hash set), unless d = 0 (all equal).',
+    r: 'For each query take min and max: d = (max − min) divided by (len − 1) must be an integer, and every min + k times d must appear exactly once (hash set), unless d = 0 (all equal).',
     g: R => { const a = R.ints(R.int(2, 7), 1, 9), m = R.int(1, 3), l = [], r = []; for (let q = 0; q < m; q++) { const x = R.int(0, a.length - 2); l.push(x); r.push(R.int(x + 1, a.length - 1)); } return { nums: a, l, r }; },
     s(I, T) { return I.l.map((lo, q) => { const w = I.nums.slice(lo, I.r[q] + 1).sort((a, b) => a - b); let ok = true; for (let i = 2; i < w.length; i++) if (w[i] - w[i - 1] !== w[1] - w[0]) ok = false; if (q < 4) { T.at({ nums: A(I.nums, { win: [lo, I.r[q]] }), sorted: A(w) }); T.yn('Can it be rearranged into an arithmetic sequence?', ok, 'Equal gaps when sorted.'); } return ok; }); }
   });
@@ -230,7 +230,7 @@
     t: 'Number Of Rectangles That Can Form The Largest Square',
     r: 'Each rectangle gives a square of side min(l, w). Track the largest side and how many reach it.',
     g: R => ({ rectangles: Array.from({ length: R.int(1, 6) }, () => [R.int(1, 6), R.int(1, 6)]) }),
-    s(I, T) { let mx = 0, c = 0; I.rectangles.forEach(([l, w], i) => { const s = Math.min(l, w); if (s > mx) { mx = s; c = 1; } else if (s === mx) c++; if (i < 6) { T.at({ rect: `${l}×${w}`, best: mx }); T.n('Square side from this rectangle?', s, 'min(l, w).'); } }); return c; }
+    s(I, T) { let mx = 0, c = 0; I.rectangles.forEach(([l, w], i) => { const s = Math.min(l, w); if (s > mx) { mx = s; c = 1; } else if (s === mx) c++; if (i < 6) { T.at({ rect: `${l} by ${w}`, best: mx }); T.n('Square side from this rectangle?', s, 'min(l, w).'); } }); return c; }
   });
 
   D('restore-the-array-from-adjacent-pairs', {
@@ -257,7 +257,7 @@
 
   D('longest-common-subsequence-between-sorted-arrays', {
     t: 'Longest Common Subsequence Between Sorted Arrays',
-    r: 'Each array is strictly increasing, so a value is common iff it appears in all arrays. Count occurrences across arrays; output values with count = number of arrays, in order.',
+    r: 'Each array is strictly increasing, so a value is common exactly when it appears in all arrays. Count occurrences across arrays; output values with count = number of arrays, in order.',
     g: R => ({ arrays: Array.from({ length: R.int(2, 3) }, () => R.distinct(R.int(1, 6), 1, 9).sort((a, b) => a - b)) }),
     s(I, T) { const c = cnt(I.arrays.flat()); T.at({ counts: K(obj(c)), arrays: I.arrays.length }); const out = [...c].filter(([, k]) => k === I.arrays.length).map(([v]) => v).sort((a, b) => a - b); T.n('How many values are in every array?', out.length, 'Count equals the number of arrays.'); T.n('Distinct values across all arrays?', c.size, 'Keys of the count map.'); T.n('Largest common value (−1 if none)?', out.length ? out[out.length - 1] : -1, 'The answer is sorted.'); return out; }
   });
@@ -285,7 +285,7 @@
 
   D('finding-3-digit-even-numbers', {
     t: 'Finding 3-Digit Even Numbers',
-    r: 'Count available digits. For each even number 100..998, check its digits fit within the counts; collect in increasing order.',
+    r: 'Count available digits. For each even number 100 to 998, check its digits fit within the counts; collect in increasing order.',
     g: R => ({ digits: R.ints(R.int(3, 6), 0, 5) }),
     s(I, T) { const c = Array(10).fill(0); I.digits.forEach(d => c[d]++); const out = []; for (let x = 100; x < 1000; x += 2) { const need = Array(10).fill(0); String(x).split('').forEach(d => need[+d]++); if (need.every((k, d) => k <= c[d])) out.push(x); } T.at({ digitCounts: A(c) }); T.n('Distinct even digits available?', [0, 2, 4, 6, 8].filter(d => c[d] > 0).length, 'One of them must be last.'); T.n('How many valid numbers?', out.length, 'Even, no leading zero, digits available.'); T.n('Smallest valid number (−1 if none)?', out.length ? out[0] : -1, 'Scan upward from 100.'); return out; }
   });

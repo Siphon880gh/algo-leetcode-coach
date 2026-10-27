@@ -5,7 +5,7 @@ return [
     'title' => 'Closest Room: big-enough rooms, nearest id',
     'leetcode' => 1847,
     'difficulty' => 'Hard',
-    'summary' => 'Sort queries by minSize descending and add rooms of at least that size into a sorted id list; binary search the nearest id (ties → smaller).',
+    'summary' => 'Sort queries by minSize descending and add rooms of at least that size into a sorted id list; binary search the nearest id (ties to smaller).',
     'category' => 'LeetCode',
     'subcategory' => 'Binary Search',
     'topic' => 'LeetCode · Binary Search',

@@ -5,7 +5,7 @@ return [
     'title' => 'Intersection of Two Arrays II',
     'leetcode' => 350,
     'difficulty' => 'Easy',
-    'summary' => 'Sort both and walk two pointers: equal → output and advance both; otherwise advance the smaller. (Or count one array in a hash map.)',
+    'summary' => 'Sort both and walk two pointers: equal, so output and advance both; otherwise advance the smaller. (Or count one array in a hash map.)',
     'category' => 'LeetCode',
     'subcategory' => 'Two Pointers',
     'topic' => 'LeetCode · Two Pointers',

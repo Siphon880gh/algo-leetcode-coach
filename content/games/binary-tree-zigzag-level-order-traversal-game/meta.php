@@ -5,7 +5,7 @@ return [
     'title' => 'Zigzag Level Order: flip direction every level',
     'leetcode' => 103,
     'difficulty' => 'Med',
-    'summary' => 'Do a normal BFS level by level, but read level 0 left→right, level 1 right→left, level 2 left→right, and so on.',
+    'summary' => 'Do a normal BFS level by level, but read level 0 left to right, level 1 right to left, level 2 left to right, and so on.',
     'category' => 'LeetCode',
     'subcategory' => 'Trees',
     'topic' => 'LeetCode · Trees',

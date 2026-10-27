@@ -5,7 +5,7 @@ return [
     'title' => 'Maximal Score After Applying K Operations',
     'leetcode' => 2530,
     'difficulty' => 'Med',
-    'summary' => 'k times: take the largest value from a max-heap, add it to the score, push back ⌈x/3⌉.',
+    'summary' => 'k times: take the largest value from a max-heap, add it to the score, push back x divided by 3, rounded up.',
     'category' => 'LeetCode',
     'subcategory' => 'Heap',
     'topic' => 'LeetCode · Heap',

@@ -5,7 +5,7 @@ return [
     'title' => 'Maximum Number of Balloons',
     'leetcode' => 1189,
     'difficulty' => 'Easy',
-    'summary' => '"balloon" needs b, a, n once and l, o twice. The answer is the min of count(b), count(a), count(l)/2, count(o)/2, count(n).',
+    'summary' => '"balloon" needs b, a, n once and l, o twice. The answer is the min of count(b), count(a), count(l) divided by 2, count(o) divided by 2, count(n).',
     'category' => 'LeetCode',
     'subcategory' => 'Strings',
     'topic' => 'LeetCode · Strings',

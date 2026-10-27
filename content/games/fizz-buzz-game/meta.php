@@ -5,7 +5,7 @@ return [
     'title' => 'Fizz Buzz: check 15 first',
     'leetcode' => 412,
     'difficulty' => 'Easy',
-    'summary' => 'For each i: divisible by 15 → "FizzBuzz", by 3 → "Fizz", by 5 → "Buzz", otherwise the number.',
+    'summary' => 'For each i: divisible by 15 gives "FizzBuzz", by 3 gives "Fizz", by 5 gives "Buzz", otherwise the number.',
     'category' => 'LeetCode',
     'subcategory' => 'Math',
     'topic' => 'LeetCode · Math',

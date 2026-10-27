@@ -5,7 +5,7 @@ return [
     'title' => 'At Most One Segment of Ones',
     'leetcode' => 1784,
     'difficulty' => 'Easy',
-    'summary' => 'Since s starts with 1, a second segment exists iff "01" appears.',
+    'summary' => 'Since s starts with 1, a second segment exists exactly when "01" appears.',
     'category' => 'LeetCode',
     'subcategory' => 'Strings',
     'topic' => 'LeetCode · Strings',

@@ -2,10 +2,10 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Special Array With x Elements ≥ x',
+    'title' => 'Special Array With x Elements at least x',
     'leetcode' => 1608,
     'difficulty' => 'Easy',
-    'summary' => 'Sort; for each x in 0..n, count elements ≥ x (binary search). Return x if the count equals x.',
+    'summary' => 'Sort; for each x in 0 to n, count elements at least x (binary search). Return x if the count equals x.',
     'category' => 'LeetCode',
     'subcategory' => 'Binary Search',
     'topic' => 'LeetCode · Binary Search',

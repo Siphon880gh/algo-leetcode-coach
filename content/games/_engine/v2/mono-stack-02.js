@@ -15,16 +15,16 @@
 
   D('sum-of-subarray-ranges', {
     t: 'Sum of Subarray Ranges',
-    r: 'Σ max − Σ min over all subarrays. Each element contributes value × (#subarrays where it is the max) — computed from previous/next greater via monotonic stacks — and likewise for min.',
+    r: 'the sum of max − the sum of min over all subarrays. Each element contributes value times (#subarrays where it is the max) — computed from previous or next greater via monotonic stacks — and likewise for min.',
     g: R => ({ nums: R.ints(R.int(1, 7), -3, 6) }),
-    s(I, T) { const a = I.nums; let tot = 0; a.forEach((x, i) => { const [l1, r1] = span(a, i, false, true, (p, q) => p < q), [l2, r2] = span(a, i, false, true, (p, q) => p > q), cmax = (i - l1 + 1) * (r1 - i + 1), cmin = (i - l2 + 1) * (r2 - i + 1); tot += x * (cmax - cmin); if (i < 5) { T.at({ nums: A(a, { i }) }); T.n('Subarrays where this element is the (leftmost-tied) maximum?', cmax, 'Left span × right span.'); } }); return tot; }
+    s(I, T) { const a = I.nums; let tot = 0; a.forEach((x, i) => { const [l1, r1] = span(a, i, false, true, (p, q) => p < q), [l2, r2] = span(a, i, false, true, (p, q) => p > q), cmax = (i - l1 + 1) * (r1 - i + 1), cmin = (i - l2 + 1) * (r2 - i + 1); tot += x * (cmax - cmin); if (i < 5) { T.at({ nums: A(a, { i }) }); T.n('Subarrays where this element is the (leftmost-tied) maximum?', cmax, 'Left span times right span.'); } }); return tot; }
   });
 
   D('sum-of-total-strength-of-wizards', {
     t: 'Sum of Total Strength of Wizards',
     r: 'For each wizard as the minimum (monotonic stacks for spans), sum the subarray sums over that span using prefix-of-prefix sums. Multiply by the min and add, mod 1e9+7.',
     g: R => ({ strength: R.ints(R.int(1, 6), 1, 6) }),
-    s(I, T) { const a = I.strength; let tot = 0n; a.forEach((x, i) => { const [l, r] = span(a, i, false, true, (p, q) => p > q); let s = 0; for (let L = l; L <= i; L++) for (let Rr = i; Rr <= r; Rr++) for (let k = L; k <= Rr; k++) s += a[k]; tot += BigInt(x) * BigInt(s); if (i < 5) { T.at({ strength: A(a, { i, l, r }) }); T.n('Subarrays where this wizard is the (leftmost) minimum?', (i - l + 1) * (r - i + 1), 'Left span × right span.'); } }); return Number(tot % MOD); }
+    s(I, T) { const a = I.strength; let tot = 0n; a.forEach((x, i) => { const [l, r] = span(a, i, false, true, (p, q) => p > q); let s = 0; for (let L = l; L <= i; L++) for (let Rr = i; Rr <= r; Rr++) for (let k = L; k <= Rr; k++) s += a[k]; tot += BigInt(x) * BigInt(s); if (i < 5) { T.at({ strength: A(a, { i, l, r }) }); T.n('Subarrays where this wizard is the (leftmost) minimum?', (i - l + 1) * (r - i + 1), 'Left span times right span.'); } }); return Number(tot % MOD); }
   });
 
   D('number-of-people-that-can-be-seen-in-a-grid', {
@@ -80,12 +80,12 @@
     t: 'Find the Number of Subarrays Where Boundary Elements Are Maximum',
     r: 'Decreasing stack of [value, count]: pop smaller values; if the top equals x, increment its count, else push [x, 1]. Add the count each time (x pairs with every equal value still visible, itself included).',
     g: R => ({ nums: R.ints(R.int(1, 7), 1, 4) }),
-    s(I, T) { const st = []; let c = 0; I.nums.forEach((x, i) => { while (st.length && st[st.length - 1][0] < x) st.pop(); if (st.length && st[st.length - 1][0] === x) st[st.length - 1][1]++; else st.push([x, 1]); const add = st[st.length - 1][1]; c += add; if (i < 6) { T.at({ nums: A(I.nums, { i }), stack: S(st.map(p => p.join('×'))) }); T.n('Valid subarrays ending here?', add, 'Equal values not blocked by anything larger.'); } }); return c; }
+    s(I, T) { const st = []; let c = 0; I.nums.forEach((x, i) => { while (st.length && st[st.length - 1][0] < x) st.pop(); if (st.length && st[st.length - 1][0] === x) st[st.length - 1][1]++; else st.push([x, 1]); const add = st[st.length - 1][1]; c += add; if (i < 6) { T.at({ nums: A(I.nums, { i }), stack: S(st.map(p => `${p[0]}, count ${p[1]}`)) }); T.n('Valid subarrays ending here?', add, 'Equal values not blocked by anything larger.'); } }); return c; }
   });
 
   D('maximum-array-hopping-score-ii', {
     t: 'Maximum Array Hopping Score II',
-    r: 'From any index, it is best to hop to the largest value ahead. So each step scores (j − i) × suffix max: equivalently Σ over positions i ≥ 1 of the maximum of nums[i..]. A decreasing stack yields those maxima.',
+    r: 'From any index, it is best to hop to the largest value ahead. So each step scores (j − i) times suffix max: equivalently the sum over positions i at least 1 of the maximum of nums[i..]. A decreasing stack yields those maxima.',
     g: R => ({ nums: R.ints(R.int(2, 7), 1, 9) }),
     s(I, T) { const a = I.nums, n = a.length, dp = Array(n).fill(-Infinity); dp[0] = 0; for (let j = 1; j < n; j++) for (let i = 0; i < j; i++) dp[j] = Math.max(dp[j], dp[i] + (j - i) * a[j]); for (let i = 1; i < Math.min(n, 6); i++) { T.at({ nums: A(a, { i }) }); T.n('Suffix max that this position pays at?', Math.max(...a.slice(i)), 'Every unit of distance is paid at the next hop target.'); } return dp[n - 1]; }
   });
@@ -99,7 +99,7 @@
 
   D('maximum-and-minimum-sums-of-at-most-size-k-subarrays', {
     t: 'Maximum and Minimum Sums of at Most Size K Subarrays',
-    r: 'For each element, monotonic stacks give its span as max (and as min). Count subarrays inside the span that contain it and have length ≤ k (a closed-form count), and add value × count.',
+    r: 'For each element, monotonic stacks give its span as max (and as min). Count subarrays inside the span that contain it and have length at most k (a closed-form count), and add value times count.',
     g: R => ({ nums: R.ints(R.int(1, 7), -3, 6), k: R.int(1, 4) }),
     s(I, T) { const a = I.nums; let tot = 0; for (let i = 0; i < a.length; i++) { let s = 0; for (let j = i; j < a.length && j - i < I.k; j++) { const w = a.slice(i, j + 1); s += Math.max(...w) + Math.min(...w); } tot += s; if (i < 5) { T.at({ nums: A(a, { i }) }); T.n('Sum of (max + min) over short subarrays starting here?', s, `Lengths 1..${I.k}.`); } } return tot; }
   });

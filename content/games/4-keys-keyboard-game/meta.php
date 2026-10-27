@@ -5,7 +5,7 @@ return [
     'title' => '4 Keys Keyboard: type, or finish with select-copy-paste runs',
     'leetcode' => 651,
     'difficulty' => 'Med',
-    'summary' => 'dp[i] = most A\'s with i presses: either dp[i−1] + 1 (press A), or for a break point j: dp[j] · (i − j − 1) (Ctrl-A, Ctrl-C at j, then i − j − 2 pastes).',
+    'summary' => 'dp[i] = most A\'s with i presses: either dp[i−1] + 1 (press A), or for a break point j: dp[j] times (i − j − 1) (Ctrl-A, Ctrl-C at j, then i − j − 2 pastes).',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

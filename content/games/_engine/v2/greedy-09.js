@@ -34,7 +34,7 @@
     r: 'To fit the most primes under s, take the smallest ones first. Walk the primes up to n in increasing order and stop at the first one that no longer fits; every later prime is bigger.',
     cmp: (o, e, I) => { if (!Array.isArray(o) || o.length !== e.length) return false; const ps = new Set(primesTo(I.n)); let t = 0; for (let i = 0; i < o.length; i++) { if (!ps.has(o[i]) || (i && o[i] <= o[i - 1])) return false; t += o[i]; } return t <= I.s; },
     g: R => ({ n: R.int(5, 30), s: R.int(1, 60) }),
-    s(I, T) { const ps = primesTo(I.n), out = []; let left = I.s; T.at({ primes: A(ps), budget: left }); T.n(`How many primes are ≤ ${I.n}?`, ps.length, 'Sieve them.'); for (let i = 0; i < ps.length; i++) { const p = ps[i], fit = p <= left; T.at({ primes: A(ps, { i }), picked: A(out.slice()), budget: left }); T.yn(`Does ${p} fit in the remaining budget ${left}?`, fit, fit ? `${p} ≤ ${left}: take it.` : `${p} > ${left}: stop, every later prime is bigger.`); if (!fit) break; out.push(p); left -= p; } return out; }
+    s(I, T) { const ps = primesTo(I.n), out = []; let left = I.s; T.at({ primes: A(ps), budget: left }); T.n(`How many primes are at most ${I.n}?`, ps.length, 'Sieve them.'); for (let i = 0; i < ps.length; i++) { const p = ps[i], fit = p <= left; T.at({ primes: A(ps, { i }), picked: A(out.slice()), budget: left }); T.yn(`Does ${p} fit in the remaining budget ${left}?`, fit, fit ? `${p} at most ${left}: take it.` : `${p} > ${left}: stop, every later prime is bigger.`); if (!fit) break; out.push(p); left -= p; } return out; }
   });
 
   D('minimum-deletions-to-make-array-sharp', {

@@ -10,7 +10,7 @@
 
   D('make-three-strings-equal', {
     t: 'Make Three Strings Equal',
-    r: 'Only deletions from the right, so all three must keep their common prefix. If it is empty → −1; else delete everything beyond it.',
+    r: 'Only deletions from the right, so all three must keep their common prefix. If it is empty: −1; else delete everything beyond it.',
     g: R => { const p = R.str(R.int(0, 2), 'ab'); return { s1: p + R.str(R.int(1, 3), 'abc'), s2: p + R.str(R.int(0, 3), 'abc'), s3: p + R.str(R.int(0, 2), 'abc') }; },
     s(I, T) { const res = (() => { const a = [I.s1, I.s2, I.s3]; let L = 0; while (L < Math.min(...a.map(x => x.length)) && a.every(x => x[L] === a[0][L])) L++; T.at({ strings: A(a) }); T.n('Common prefix length?', L, 'Scan columns.'); T.yn('Is there a common prefix at all?', L > 0, 'Otherwise they can never be equal.'); return L ? a.reduce((s, x) => s + x.length - L, 0) : -1; })(); T.n('Fewest operations (−1 if impossible)?', res, 'Delete everything after the common prefix.'); return res; }
   });
@@ -31,7 +31,7 @@
 
   D('minimum-time-to-revert-word-to-initial-state-i', {
     t: 'Revert Word to Initial State I',
-    r: 'After t seconds the first t·k characters are gone and we may append anything. The word can be restored iff word[t·k..] is a prefix of word (or everything was removed).',
+    r: 'After t seconds the first t times k characters are gone and we may append anything. The word can be restored exactly when word[t times k..] is a prefix of word (or everything was removed).',
     g: R => { const b = R.str(R.int(1, 3), 'ab'); return { word: (b.repeat(R.int(1, 3)) + R.str(R.int(0, 2), 'ab')), k: R.int(1, 3) }; },
     exIn: I => ({ word: I.word, k: Math.min(I.k, I.word.length) }),
     s(I, T) { return revert({ word: I.word, k: Math.min(I.k, I.word.length) }, T); }
@@ -39,7 +39,7 @@
 
   D('minimum-time-to-revert-word-to-initial-state-ii', {
     t: 'Revert Word to Initial State II: Z-function',
-    r: 'Same idea with n up to 10^6: compute the Z-array; the first t with t·k ≥ n or z[t·k] ≥ n − t·k is the answer.',
+    r: 'Same idea with n up to 10 to the power 6: compute the Z-array; the first t with t times k at least n or z[t times k] at least n − t times k is the answer.',
     g: R => { const b = R.str(R.int(1, 3), 'ab'); return { word: b.repeat(R.int(1, 4)) + R.str(R.int(0, 2), 'ab'), k: R.int(1, 3) }; },
     exIn: I => ({ word: I.word, k: Math.min(I.k, I.word.length) }),
     s(I, T) { return revert({ word: I.word, k: Math.min(I.k, I.word.length) }, T); }
@@ -53,7 +53,7 @@
   });
 
   D('number-of-subarrays-that-match-a-pattern-ii', {
-    t: 'Subarrays Matching a Pattern II: Z / KMP',
+    t: 'Subarrays Matching a Pattern II: Z divided by KMP',
     r: 'Build the neighbor sign sequence, then count pattern occurrences in linear time with Z on pattern + separator + signs.',
     g: R => ({ nums: R.ints(R.int(3, 9), 1, 4), pattern: Array.from({ length: R.int(1, 3) }, () => R.int(-1, 1)) }),
     s(I, T) { return patCount(I, T); }
@@ -103,14 +103,14 @@
 
   D('valid-word', {
     t: 'Valid Word',
-    r: 'At least 3 characters, only letters/digits, at least one vowel and one consonant.',
+    r: 'At least 3 characters, only letters or digits, at least one vowel and one consonant.',
     g: R => ({ word: R.str(R.int(1, 6), 'aB3$k') }),
     s(I, T) { const res = (() => { const w = I.word; T.at({ word: chars(w) }); T.yn('Only letters and digits?', /^[a-zA-Z0-9]+$/.test(w), 'No @, # or $.'); T.yn('Has a vowel?', /[aeiouAEIOU]/.test(w), 'At least one is needed.'); T.yn('Has a consonant?', /[b-df-hj-np-tv-zB-DF-HJ-NP-TV-Z]/.test(w), 'At least one is needed.'); return w.length >= 3 && /^[a-zA-Z0-9]+$/.test(w) && /[aeiouAEIOU]/.test(w) && /[b-df-hj-np-tv-zB-DF-HJ-NP-TV-Z]/.test(w); })(); T.yn('Is the word valid?', res, 'Length 3 or more, and every rule holds.'); return res; }
   });
 
   D('minimum-number-of-operations-to-make-word-k-periodic', {
     t: 'Make a Word k-Periodic',
-    r: 'Split into n / k blocks; keep the most frequent block and overwrite the rest: answer = blocks − max frequency.',
+    r: 'Split into n divided by k blocks; keep the most frequent block and overwrite the rest: answer = blocks − max frequency.',
     g: R => { const k = R.int(1, 3); return { word: words(R, R.int(1, 4), 'ab', k, k).join(''), k }; },
     s(I, T) { const res = (() => { const b = []; for (let i = 0; i < I.word.length; i += I.k) b.push(I.word.substr(i, I.k)); const c = cnt(b), mx = Math.max(...Object.values(c)); T.at({ blocks: A(b), counts: K(c) }); T.n('How many blocks of length k?', b.length, 'Length divided by k.'); T.n('Most frequent block count?', mx, 'Keep that block.'); return b.length - mx; })(); T.n('Fewest operations?', res, 'Replace every other block.'); return res; }
   });
@@ -159,9 +159,9 @@
 
   D('count-the-number-of-substrings-with-dominant-ones', {
     t: 'Substrings With Dominant Ones',
-    r: 'A substring is dominant if ones ≥ zeros². Since zeros ≤ √n in any dominant substring, enumerate start and zero count; here we check every substring.',
+    r: 'A substring is dominant if ones at least zeros². Since zeros at most √n in any dominant substring, enumerate start and zero count; here we check every substring.',
     g: R => ({ s: R.str(R.int(1, 7), '0111') }),
-    s(I, T) { let tot = 0; for (let i = 0; i < I.s.length; i++) { let o = 0, z = 0, row = 0; for (let j = i; j < I.s.length; j++) { if (I.s[j] === '1') o++; else z++; if (o >= z * z) row++; } if (i < 5) { T.at({ s: chars(I.s), start: i }); T.n(`Dominant substrings starting at ${i}?`, row, 'ones ≥ zeros².'); } tot += row; } return tot; }
+    s(I, T) { let tot = 0; for (let i = 0; i < I.s.length; i++) { let o = 0, z = 0, row = 0; for (let j = i; j < I.s.length; j++) { if (I.s[j] === '1') o++; else z++; if (o >= z * z) row++; } if (i < 5) { T.at({ s: chars(I.s), start: i }); T.n(`Dominant substrings starting at ${i}?`, row, 'ones at least zeros².'); } tot += row; } return tot; }
   });
 
   D('report-spam-message', {
@@ -173,14 +173,14 @@
 
   D('find-the-occurrence-of-first-almost-equal-substring', {
     t: 'First Almost-Equal Substring',
-    r: 'Return the smallest i where s[i..i+m) differs from pattern in at most one place. Z-functions on pattern+s and on the reverses make each check O(1).',
+    r: 'Return the smallest i where s[i to i+m) differs from pattern in at most one place. Z-functions on pattern+s and on the reverses make each check O(1).',
     g: R => { const s = R.str(R.int(3, 9), 'ab'); return { s, pattern: R.str(R.int(1, s.length - 1), 'ab') }; },
     s(I, T) { const res = (() => { const m = I.pattern.length; for (let i = 0; i + m <= I.s.length; i++) { let d = 0; for (let j = 0; j < m && d < 2; j++) if (I.s[i + j] !== I.pattern[j]) d++; T.at({ s: chars(I.s), at: i, pattern: I.pattern }); T.yn(`At most one mismatch at index ${i}?`, d <= 1, 'Count differences.'); if (d <= 1) return i; } return -1; })(); T.n('Answer (−1 if none)?', res, 'The first window that works.'); return res; }
   });
 
   D('find-the-original-typed-string-i', {
     t: 'Original Typed String I',
-    r: 'At most one key was held too long. The original is word itself, or any run shortened: 1 + Σ (run length − 1).',
+    r: 'At most one key was held too long. The original is word itself, or any run shortened: 1 + the sum of (run length − 1).',
     g: R => ({ word: R.str(R.int(1, 8), 'aab') }),
     s(I, T) { const res = (() => { let extra = 0; for (let i = 1; i < I.word.length; i++) if (I.word[i] === I.word[i - 1]) extra++; T.at({ word: chars(I.word) }); T.n('Runs of equal letters?', I.word.length - extra, 'Each run starts with a new letter.'); T.n('Positions equal to their predecessor?', extra, 'Each could be the last of a shortened run.'); return 1 + extra; })(); T.n('Possible original strings?', res, 'The word itself, plus one per extra position.'); return res; }
   });
@@ -194,7 +194,7 @@
 
   D('rearrange-k-substrings-to-form-target-string', {
     t: 'Rearrange k Substrings',
-    r: 'Split both strings into k blocks of length n / k; possible iff the multisets of blocks match.',
+    r: 'Split both strings into k blocks of length n divided by k; possible exactly when the multisets of blocks match.',
     g: R => { const k = R.int(1, 4), L = R.int(1, 2); const b = words(R, k, 'ab', L, L); return { s: b.join(''), t: (R.chance(0.6) ? R.shuffle(b) : [...b.join('')].reverse().join('').match(new RegExp(`.{${L}}`, 'g'))).join(''), k }; },
     s(I, T) { const res = (() => { const L = I.s.length / I.k, sp = x => x.match(new RegExp(`.{${L}}`, 'g')), a = cnt(sp(I.s)), b = cnt(sp(I.t)); T.at({ sBlocks: K(a), tBlocks: K(b) }); T.n('Block length?', L, 'Length of s divided by k.'); T.n('Distinct blocks in s?', Object.keys(a).length, 'Compare the block counts.'); return Object.keys(a).length === Object.keys(b).length && Object.keys(a).every(x => a[x] === b[x]); })(); T.yn('Can the blocks be rearranged into t?', res, 'Same blocks, same counts.'); return res; }
   });

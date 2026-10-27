@@ -5,7 +5,7 @@ return [
     'title' => 'Number of Distinct Averages',
     'leetcode' => 2465,
     'difficulty' => 'Easy',
-    'summary' => 'Sort; repeatedly pair the min and max (two pointers from the ends) and put min + max into a set (same sum ⇔ same average). Answer = set size.',
+    'summary' => 'Sort; repeatedly pair the min and max (two pointers from the ends) and put min + max into a set (same sum exactly when same average). Answer = set size.',
     'category' => 'LeetCode',
     'subcategory' => 'Two Pointers',
     'topic' => 'LeetCode · Two Pointers',

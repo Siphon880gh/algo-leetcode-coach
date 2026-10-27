@@ -5,7 +5,7 @@ return [
     'title' => 'Minimum Pushes to Type Word II: frequent letters first',
     'leetcode' => 3016,
     'difficulty' => 'Med',
-    'summary' => 'Sort letter counts descending; the i-th letter costs ⌊i / 8⌋ + 1 pushes per use.',
+    'summary' => 'Sort letter counts descending; the i-th letter costs (i divided by 8, rounded down) + 1 pushes per use.',
     'category' => 'LeetCode',
     'subcategory' => 'Greedy',
     'topic' => 'LeetCode · Greedy',

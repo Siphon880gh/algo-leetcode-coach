@@ -5,7 +5,7 @@ return [
     'title' => 'All O`one Data Structure',
     'leetcode' => 432,
     'difficulty' => 'Hard',
-    'summary' => 'Buckets of keys by count in a doubly linked list ordered by count. inc/dec move a key to the neighboring bucket (creating/removing buckets). Max key is in the last bucket, min key in the first.',
+    'summary' => 'Buckets of keys by count in a doubly linked list ordered by count. inc or dec move a key to the neighboring bucket (creating or removing buckets). Max key is in the last bucket, min key in the first.',
     'category' => 'LeetCode',
     'subcategory' => 'Design',
     'topic' => 'LeetCode · Design',

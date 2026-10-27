@@ -5,7 +5,7 @@ return [
     'title' => 'Number of Ways to Build House of Cards: distinct row sizes',
     'leetcode' => 2189,
     'difficulty' => 'Med',
-    'summary' => 'A row with k triangles uses 3k − 1 cards, and each row must have fewer triangles than the one below. So count ways to write n as a sum of distinct values 3k − 1 (0/1 knapsack over k).',
+    'summary' => 'A row with k triangles uses 3k − 1 cards, and each row must have fewer triangles than the one below. So count ways to write n as a sum of distinct values 3k − 1 (0-1 knapsack over k).',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

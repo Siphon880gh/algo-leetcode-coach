@@ -15,35 +15,35 @@
 
   D('numbers-at-most-n-given-digit-set', {
     t: 'Numbers At Most N Given Digit Set: shorter numbers, then digit by digit',
-    r: 'Every number with fewer digits than n works: D^L for each shorter length L. For n\'s own length, walk its digits: digits smaller than n[i] give D^(rest) each; if n[i] itself is in the set, continue, else stop. Reaching the end adds 1 (n itself).',
+    r: 'Every number with fewer digits than n works: D to the power L for each shorter length L. For n\'s own length, walk its digits: digits smaller than n[i] give D to the power (rest) each; if n[i] itself is in the set, continue, else stop. Reaching the end adds 1 (n itself).',
     g: R => ({ digits: R.distinct(R.int(2, 4), 1, 9).sort((a, b) => a - b).map(String), n: R.int(10, 999) }),
     s(I, T) {
       const ds = I.digits, s = String(I.n), L = s.length, D_ = ds.length; let res = 0;
-      for (let l = 1; l < L; l++) { T.at({ digits: A(ds), n: s, total: res }); T.n(`How many ${l}-digit numbers can you write?`, D_ ** l, `${D_}^${l}.`); res += D_ ** l; }
-      for (let i = 0; i < L; i++) { const less = ds.filter(d => d < s[i]).length, add = less * D_ ** (L - i - 1); T.at({ digits: A(ds), n: A([...s], { hl: [i] }), total: res }); T.n(`Position ${i} (n has ${s[i]}): how many numbers branch off here with a smaller digit?`, add, `${less} smaller digits × ${D_}^${L - i - 1}.`); res += add; if (!ds.includes(s[i])) return res; }
+      for (let l = 1; l < L; l++) { T.at({ digits: A(ds), n: s, total: res }); T.n(`How many ${l}-digit numbers can you write?`, D_ ** l, `${D_} to the power ${l}.`); res += D_ ** l; }
+      for (let i = 0; i < L; i++) { const less = ds.filter(d => d < s[i]).length, add = less * D_ ** (L - i - 1); T.at({ digits: A(ds), n: A([...s], { hl: [i] }), total: res }); T.n(`Position ${i} (n has ${s[i]}): how many numbers branch off here with a smaller digit?`, add, `${less} smaller digits times ${D_} to the power ${L - i - 1}.`); res += add; if (!ds.includes(s[i])) return res; }
       return res + 1;
     }
   });
 
   D('valid-permutations-for-di-sequence', {
     t: 'Valid Permutations for DI Sequence: rank of the last number',
-    r: 'dp[i][j] = ways to arrange the first i+1 numbers so the last one is the j-th smallest. After "I": sum dp[i−1][k] for k < j. After "D": sum dp[i−1][k] for k ≥ j.',
+    r: 'dp[i][j] = ways to arrange the first i+1 numbers so the last one is the j-th smallest. After "I": sum dp[i−1][k] for k < j. After "D": sum dp[i−1][k] for k at least j.',
     g: R => ({ s: R.str(R.int(2, 4), 'DI') }),
     s(I, T) { let dp = [1]; [...I.s].forEach((c, i) => { const nx = []; for (let j = 0; j <= i + 1; j++) { let v = 0; if (c === 'I') for (let k = 0; k < j; k++) v += dp[k]; else for (let k = j; k <= i; k++) v += dp[k]; nx.push(v % MOD); } T.at({ s: A([...I.s], { hl: [i] }), prev: A(dp) }); T.n(`After "${c}" (step ${i + 1}): how many ways end with the largest so far (j = ${i + 1})?`, nx[i + 1], c === 'I' ? 'Sum of every previous entry.' : '"D" means the last cannot be the largest: 0.'); T.n(`…and with the smallest so far (j = 0)?`, nx[0], c === 'D' ? 'Sum of every previous entry.' : '"I" means the last cannot be the smallest: 0.'); dp = nx; }); return dp.reduce((a, b) => (a + b) % MOD, 0); }
   });
 
   D('sum-of-subarray-minimums', {
     t: 'Sum of Subarray Minimums: how many subarrays does each value rule?',
-    r: 'arr[i] is the minimum of (i − left) · (right − i) subarrays, where left = previous index with a smaller value and right = next index with a smaller-or-equal value. Add arr[i] times that count.',
+    r: 'arr[i] is the minimum of (i − left) times (right − i) subarrays, where left = previous index with a smaller value and right = next index with a smaller-or-equal value. Add arr[i] times that count.',
     g: R => ({ arr: R.ints(R.int(4, 6), 1, 9) }),
-    s(I, T) { const a = I.arr, n = a.length; let tot = 0; for (let i = 0; i < n; i++) { let l = i - 1, r = i + 1; while (l >= 0 && a[l] >= a[i]) l--; while (r < n && a[r] > a[i]) r++; const c = (i - l) * (r - i); T.at({ arr: A(a, { hl: [i], win: [l + 1, r - 1] }), total: tot }); T.n(`In how many subarrays is arr[${i}] = ${a[i]} the minimum?`, c, `(${i} − ${l}) · (${r} − ${i}).`); tot = (tot + c * a[i]) % MOD; } return tot; }
+    s(I, T) { const a = I.arr, n = a.length; let tot = 0; for (let i = 0; i < n; i++) { let l = i - 1, r = i + 1; while (l >= 0 && a[l] >= a[i]) l--; while (r < n && a[r] > a[i]) r++; const c = (i - l) * (r - i); T.at({ arr: A(a, { hl: [i], win: [l + 1, r - 1] }), total: tot }); T.n(`In how many subarrays is arr[${i}] = ${a[i]} the minimum?`, c, `(${i} − ${l}) times (${r} − ${i}).`); tot = (tot + c * a[i]) % MOD; } return tot; }
   });
 
   D('number-of-music-playlists', {
     t: 'Number of Music Playlists: new song or replay',
-    r: 'dp[i][j] = playlists of length i using exactly j distinct songs. New song: dp[i−1][j−1] · (n − j + 1). Replay: dp[i−1][j] · max(j − k, 0).',
+    r: 'dp[i][j] = playlists of length i using exactly j distinct songs. New song: dp[i−1][j−1] times (n − j + 1). Replay: dp[i−1][j] times max(j − k, 0).',
     g: R => { const n = R.int(2, 3); return { n, goal: n + R.int(0, 2), k: R.int(0, n - 1) }; },
-    s(I, T) { const { n, goal, k } = I, dp = mk(goal + 1, n + 1, 0); dp[0][0] = 1; for (let i = 1; i <= goal; i++) for (let j = 1; j <= n; j++) { dp[i][j] = (dp[i - 1][j - 1] * (n - j + 1) + dp[i - 1][j] * Math.max(j - k, 0)) % MOD; if (j <= i) { T.at({ dp: G(dp, { rh: dp.map((_, x) => 'len ' + x), ch: dp[0].map((_, x) => x + ' songs'), hl: [[i, j]] }) }); T.n(`dp[${i}][${j}]?`, dp[i][j], `${dp[i - 1][j - 1]}·${n - j + 1} + ${dp[i - 1][j]}·${Math.max(j - k, 0)}.`); } } return dp[goal][n]; }
+    s(I, T) { const { n, goal, k } = I, dp = mk(goal + 1, n + 1, 0); dp[0][0] = 1; for (let i = 1; i <= goal; i++) for (let j = 1; j <= n; j++) { dp[i][j] = (dp[i - 1][j - 1] * (n - j + 1) + dp[i - 1][j] * Math.max(j - k, 0)) % MOD; if (j <= i) { T.at({ dp: G(dp, { rh: dp.map((_, x) => 'len ' + x), ch: dp[0].map((_, x) => x + ' songs'), hl: [[i, j]] }) }); T.n(`dp[${i}][${j}]?`, dp[i][j], `${dp[i - 1][j - 1]} times ${n - j + 1} + ${dp[i - 1][j]} times ${Math.max(j - k, 0)}.`); } } return dp[goal][n]; }
   });
 
   D('flip-string-to-monotone-increasing', {
@@ -69,7 +69,7 @@
       let W = I.words; W = W.filter((w, i) => !W.some((v, j) => j !== i && v.includes(w))); const n = W.length;
       const ov = (a, b) => { for (let l = Math.min(a.length, b.length); l > 0; l--) if (a.endsWith(b.slice(0, l))) return l; return 0; };
       const O = W.map(a => W.map(b => ov(a, b)));
-      for (let i = 0; i < n && i < 2; i++) for (let j = 0; j < n; j++) if (i !== j) { T.at({ words: A(W, { hl: [i, j] }) }); T.n(`overlap("${W[i]}" → "${W[j]}")?`, O[i][j], 'Longest suffix of the first that starts the second.'); }
+      for (let i = 0; i < n && i < 2; i++) for (let j = 0; j < n; j++) if (i !== j) { T.at({ words: A(W, { hl: [i, j] }) }); T.n(`overlap of "${W[i]}" followed by "${W[j]}"?`, O[i][j], 'Longest suffix of the first that starts the second.'); }
       const F = 1 << n, dp = mk(F, n, -1), par = mk(F, n, -1); for (let i = 0; i < n; i++) dp[1 << i][i] = 0;
       for (let m = 1; m < F; m++) for (let i = 0; i < n; i++) if (dp[m][i] >= 0) for (let j = 0; j < n; j++) if (!(m >> j & 1)) { const v = dp[m][i] + O[i][j]; if (v > dp[m | 1 << j][j]) { dp[m | 1 << j][j] = v; par[m | 1 << j][j] = i; } }
       let last = 0; for (let i = 1; i < n; i++) if (dp[F - 1][i] > dp[F - 1][last]) last = i;
@@ -88,14 +88,14 @@
 
   D('delete-columns-to-make-sorted-iii', {
     t: 'Delete Columns to Make Sorted III: LIS over columns',
-    r: 'Keep a set of columns where every row is non-decreasing. dp[j] = longest kept chain ending at column j, built from columns i < j where every row has s[i] ≤ s[j]. Delete m − max dp.',
+    r: 'Keep a set of columns where every row is non-decreasing. dp[j] = longest kept chain ending at column j, built from columns i < j where every row has s[i] at most s[j]. Delete m − max dp.',
     g: R => ({ strs: Array.from({ length: R.int(1, 2) }, (_, __, L = 5) => R.str(5, 'abcd')) }),
     s(I, T) { const S = I.strs, m = S[0].length, dp = []; for (let j = 0; j < m; j++) { let b = 1; for (let i = 0; i < j; i++) if (S.every(s => s[i] <= s[j])) b = Math.max(b, dp[i] + 1); T.at({ strs: G(S.map(s => [...s]), { hl: S.map((_, r) => [r, j]) }), dp: A(dp.concat('?')) }); T.n(`dp[${j}]?`, b, 'Longest chain from earlier columns that every row allows.'); dp.push(b); } return m - Math.max(...dp); }
   });
 
   D('least-operators-to-express-number', {
     t: 'Least Operators to Express Number: base-x digits, add up or borrow',
-    r: 'Write target in base x. For each digit c at power k: either add c copies of x^k (pos) or subtract (x − c) after borrowing one more (neg). x^0 costs 2 ops (x/x), x^k costs k. Answer: min(pos, k + neg) − 1.',
+    r: 'Write target in base x. For each digit c at power k: either add c copies of x to the power k (pos) or subtract (x − c) after borrowing one more (neg). x to the power 0 costs 2 ops (x divided by x), x to the power k costs k. Answer: min(pos, k + neg) − 1.',
     g: R => ({ x: R.int(2, 5), target: R.int(5, 60) }),
     s(I, T) {
       let t = I.target, pos = 0, neg = 0, k = 0;
@@ -108,12 +108,12 @@
 
   D('odd-even-jump', {
     t: 'Odd Even Jump: precompute next jumps, then go backwards',
-    r: 'Odd jump from i: the smallest value ≥ arr[i] to the right (smallest index on ties). Even jump: the largest value ≤ arr[i]. odd[i] = even[next], even[i] = odd[next], last index good. Count starts with odd[i] true.',
+    r: 'Odd jump from i: the smallest value at least arr[i] to the right (smallest index on ties). Even jump: the largest value at most arr[i]. odd[i] = even[next], even[i] = odd[next], last index good. Count starts with odd[i] true.',
     g: R => ({ arr: R.ints(R.int(5, 6), 1, 6) }),
     s(I, T) {
       const a = I.arr, n = a.length, nx = (i, odd) => { let b = -1; for (let j = i + 1; j < n; j++) if (odd ? a[j] >= a[i] && (b < 0 || a[j] < a[b]) : a[j] <= a[i] && (b < 0 || a[j] > a[b])) b = j; return b; };
       const odd = Array(n).fill(false), even = Array(n).fill(false); odd[n - 1] = even[n - 1] = true;
-      for (let i = n - 2; i >= 0; i--) { const o = nx(i, true), e = nx(i, false); T.at({ arr: A(a, { hl: [i] }), odd: A(odd.map((v, j) => j > i ? v : '?')), even: A(even.map((v, j) => j > i ? v : '?')) }); T.n(`Odd jump from ${i} lands where (−1 if none)?`, o, 'Smallest value ≥ arr[i] to the right, leftmost on ties.'); odd[i] = o >= 0 && even[o]; even[i] = e >= 0 && odd[e]; T.yn(`Is start ${i} good (odd[${i}])?`, odd[i], o < 0 ? 'No odd jump.' : `It depends on even[${o}].`); }
+      for (let i = n - 2; i >= 0; i--) { const o = nx(i, true), e = nx(i, false); T.at({ arr: A(a, { hl: [i] }), odd: A(odd.map((v, j) => j > i ? v : '?')), even: A(even.map((v, j) => j > i ? v : '?')) }); T.n(`Odd jump from ${i} lands where (−1 if none)?`, o, 'Smallest value at least arr[i] to the right, leftmost on ties.'); odd[i] = o >= 0 && even[o]; even[i] = e >= 0 && odd[e]; T.yn(`Is start ${i} good (odd[${i}])?`, odd[i], o < 0 ? 'No odd jump.' : `It depends on even[${o}].`); }
       return odd.filter(Boolean).length;
     }
   });
@@ -134,7 +134,7 @@
 
   D('minimum-cost-to-merge-stones', {
     t: 'Minimum Cost to Merge Stones: interval DP in steps of k−1',
-    r: 'Possible only if (n − 1) % (k − 1) == 0. dp[i][j] = cheapest way to reduce stones[i..j] as far as possible: min over mid (stepping by k−1) of dp[i][mid] + dp[mid+1][j]; when (j − i) % (k − 1) == 0 it can become one pile: add sum(i..j).',
+    r: 'Possible only if (n − 1) % (k − 1) == 0. dp[i][j] = cheapest way to reduce stones[i to j] as far as possible: min over mid (stepping by k−1) of dp[i][mid] + dp[mid+1][j]; when (j − i) % (k − 1) == 0 it can become one pile: add sum(i to j).',
     g: R => ({ stones: R.ints(R.int(3, 5), 1, 6), k: R.int(2, 3) }),
     s(I, T) {
       const s = I.stones, n = s.length, k = I.k, ok = (n - 1) % (k - 1) === 0; T.at({ stones: A(s), k }); T.yn(`Can ${n} piles be merged into one with k = ${k}?`, ok, `(${n} − 1) % (${k} − 1) must be 0.`); if (!ok) return -1;
@@ -146,13 +146,13 @@
 
   D('numbers-with-repeated-digits', {
     t: 'Numbers With Repeated Digits: count the all-distinct ones instead',
-    r: 'Answer = n − (numbers ≤ n with all digits distinct). Shorter lengths L: 9 · 9 · 8 · … (L factors). Same length: walk n\'s digits, counting smaller unused choices times permutations of the rest; stop if a digit repeats.',
+    r: 'Answer = n − (numbers at most n with all digits distinct). Shorter lengths L: 9 times 9 times 8 times … (L factors). Same length: walk n\'s digits, counting smaller unused choices times permutations of the rest; stop if a digit repeats.',
     g: R => ({ n: R.int(20, 999) }),
     s(I, T) {
       const s = String(I.n), L = s.length, P = (m, r) => { let v = 1; for (let i = 0; i < r; i++) v *= m - i; return v; }; let cnt = 0;
-      for (let l = 1; l < L; l++) { const v = 9 * P(9, l - 1); T.at({ n: s, distinct: cnt }); T.n(`How many ${l}-digit numbers have all distinct digits?`, v, `9 · P(9, ${l - 1}).`); cnt += v; }
+      for (let l = 1; l < L; l++) { const v = 9 * P(9, l - 1); T.at({ n: s, distinct: cnt }); T.n(`How many ${l}-digit numbers have all distinct digits?`, v, `9 times P(9, ${l - 1}).`); cnt += v; }
       const used = new Set(); let full = true;
-      for (let i = 0; i < L; i++) { const d = +s[i]; let c = 0; for (let x = i ? 0 : 1; x < d; x++) if (!used.has(x)) c++; const v = c * P(9 - i, L - i - 1); T.at({ n: A([...s], { hl: [i] }), used: A([...used]), distinct: cnt }); T.n(`Position ${i}: distinct numbers branching off with a smaller digit?`, v, `${c} unused smaller digits × P(${9 - i}, ${L - i - 1}).`); cnt += v; if (used.has(d)) { full = false; break; } used.add(d); }
+      for (let i = 0; i < L; i++) { const d = +s[i]; let c = 0; for (let x = i ? 0 : 1; x < d; x++) if (!used.has(x)) c++; const v = c * P(9 - i, L - i - 1); T.at({ n: A([...s], { hl: [i] }), used: A([...used]), distinct: cnt }); T.n(`Position ${i}: distinct numbers branching off with a smaller digit?`, v, `${c} unused smaller digits times P(${9 - i}, ${L - i - 1}).`); cnt += v; if (used.has(d)) { full = false; break; } used.add(d); }
       if (full) cnt++; return I.n - cnt;
     }
   });
@@ -203,16 +203,16 @@
 
   D('minimum-score-triangulation-of-polygon', {
     t: 'Minimum Score Triangulation: pick the third vertex of edge (i, j)',
-    r: 'dp[i][j] = cheapest triangulation of vertices i..j. Edge (i, j) belongs to one triangle (i, m, j): dp[i][m] + dp[m][j] + v[i]·v[m]·v[j].',
+    r: 'dp[i][j] = cheapest triangulation of vertices i to j. Edge (i, j) belongs to one triangle (i, m, j): dp[i][m] + dp[m][j] + v[i] times v[m] times v[j].',
     g: R => ({ values: R.ints(R.int(4, 5), 1, 5) }),
     s(I, T) { const v = I.values, n = v.length, dp = mk(n, n, 0); for (let len = 3; len <= n; len++) for (let i = 0; i + len <= n; i++) { const j = i + len - 1; let b = Infinity; for (let m = i + 1; m < j; m++) b = Math.min(b, dp[i][m] + dp[m][j] + v[i] * v[m] * v[j]); T.at({ values: A(v, { win: [i, j] }) }); T.n(`dp[${i}][${j}]?`, b, 'Min over the third vertex m.'); dp[i][j] = b; } return dp[0][n - 1]; }
   });
 
   D('partition-array-for-maximum-sum', {
     t: 'Partition Array for Maximum Sum: try every last-block length',
-    r: 'dp[i] = best sum for the first i numbers = max over len ≤ k of dp[i − len] + len · max(last len numbers).',
+    r: 'dp[i] = best sum for the first i numbers = max over len at most k of dp[i − len] + len times max(last len numbers).',
     g: R => ({ arr: R.ints(R.int(5, 7), 1, 9), k: R.int(2, 3) }),
-    s(I, T) { const a = I.arr, dp = [0]; for (let i = 1; i <= a.length; i++) { let b = 0, m = 0; for (let l = 1; l <= I.k && l <= i; l++) { m = Math.max(m, a[i - l]); b = Math.max(b, dp[i - l] + l * m); } T.at({ arr: A(a, { hl: [i - 1] }), dp: A(dp.concat('?')) }); T.n(`dp[${i}]?`, b, `Best of dp[i − len] + len·max, len ≤ ${I.k}.`); dp.push(b); } return dp[a.length]; }
+    s(I, T) { const a = I.arr, dp = [0]; for (let i = 1; i <= a.length; i++) { let b = 0, m = 0; for (let l = 1; l <= I.k && l <= i; l++) { m = Math.max(m, a[i - l]); b = Math.max(b, dp[i - l] + l * m); } T.at({ arr: A(a, { hl: [i - 1] }), dp: A(dp.concat('?')) }); T.n(`dp[${i}]?`, b, `Best of dp[i − len] + len times max, len at most ${I.k}.`); dp.push(b); } return dp[a.length]; }
   });
 
   D('longest-string-chain', {
@@ -224,9 +224,9 @@
 
   D('last-stone-weight-ii', {
     t: 'Last Stone Weight II: split into two piles as evenly as possible',
-    r: 'The result is |pile A − pile B|. Find the reachable subset sum closest to (but not above) total / 2: answer = total − 2·best.',
+    r: 'The result is |pile A − pile B|. Find the reachable subset sum closest to (but not above) total divided by 2: answer = total − 2 times best.',
     g: R => ({ stones: R.ints(R.int(4, 6), 1, 9) }),
-    s(I, T) { const S = I.stones.reduce((a, b) => a + b, 0), half = Math.floor(S / 2); let can = new Set([0]); I.stones.forEach((x, i) => { can = new Set([...can, ...[...can].map(v => v + x).filter(v => v <= half)]); T.at({ stones: A(I.stones, { hl: [i] }), half }); T.n(`After stone ${x}: largest reachable sum ≤ ${half}?`, Math.max(...can), 'Add the stone to every reachable sum.'); }); return S - 2 * Math.max(...can); }
+    s(I, T) { const S = I.stones.reduce((a, b) => a + b, 0), half = Math.floor(S / 2); let can = new Set([0]); I.stones.forEach((x, i) => { can = new Set([...can, ...[...can].map(v => v + x).filter(v => v <= half)]); T.at({ stones: A(I.stones, { hl: [i] }), half }); T.n(`After stone ${x}: largest reachable sum at most ${half}?`, Math.max(...can), 'Add the stone to every reachable sum.'); }); return S - 2 * Math.max(...can); }
   });
 
   D('longest-repeating-substring', {
@@ -251,10 +251,10 @@
 
   D('digit-count-in-range', {
     t: 'Digit Count in Range: count by position, then subtract',
-    r: 'count(n) = occurrences of d in 1..n, summed per position p: high · p plus a partial block from the current digit. Answer = count(high) − count(low − 1).',
+    r: 'count(n) = occurrences of d in 1 to n, summed per position p: high times p plus a partial block from the current digit. Answer = count(high) − count(low − 1).',
     g: R => { const lo = R.int(1, 60); return { d: R.int(0, 9), low: lo, high: lo + R.int(5, 120) }; },
     s(I, T) {
-      const d = I.d, cnt = (n, nm) => { let c = 0; for (let p = 1; p <= n; p *= 10) { const hi = Math.floor(n / (p * 10)), cur = Math.floor(n / p) % 10, lo = n % p; let v; if (d) v = hi * p + (cur > d ? p : cur === d ? lo + 1 : 0); else { if (hi === 0) continue; v = (hi - 1) * p + (cur > 0 ? p : lo + 1); } T.at({ n, d, place: p }); T.n(`Times ${d} appears in the ${p}s place across 1..${n}?`, v, d ? `${hi}·${p} full blocks plus the partial block.` : `Zero cannot lead: (${hi} − 1)·${p} plus the partial block.`); c += v; } return c; };
+      const d = I.d, cnt = (n, nm) => { let c = 0; for (let p = 1; p <= n; p *= 10) { const hi = Math.floor(n / (p * 10)), cur = Math.floor(n / p) % 10, lo = n % p; let v; if (d) v = hi * p + (cur > d ? p : cur === d ? lo + 1 : 0); else { if (hi === 0) continue; v = (hi - 1) * p + (cur > 0 ? p : lo + 1); } T.at({ n, d, place: p }); T.n(`Times ${d} appears in the ${p}s place across 1..${n}?`, v, d ? `${hi} times ${p} full blocks plus the partial block.` : `Zero cannot lead: (${hi} − 1) times ${p} plus the partial block.`); c += v; } return c; };
       return cnt(I.high) - cnt(I.low - 1);
     }
   });
@@ -274,9 +274,9 @@
 
   D('filling-bookcase-shelves', {
     t: 'Filling Bookcase Shelves: which books share the last shelf?',
-    r: 'dp[i] = least height for the first i books. The last shelf holds books j..i−1 while their thickness fits: dp[j] + max height among them.',
+    r: 'dp[i] = least height for the first i books. The last shelf holds books j to i−1 while their thickness fits: dp[j] + max height among them.',
     g: R => ({ books: Array.from({ length: R.int(4, 6) }, () => [R.int(1, 3), R.int(1, 5)]), shelfWidth: R.int(3, 5) }),
-    s(I, T) { const b = I.books, dp = [0]; for (let i = 1; i <= b.length; i++) { let w = 0, h = 0, best = Infinity; for (let j = i - 1; j >= 0; j--) { w += b[j][0]; if (w > I.shelfWidth) break; h = Math.max(h, b[j][1]); best = Math.min(best, dp[j] + h); } T.at({ books: A(b.map(x => x.join('×')), { hl: [i - 1] }), dp: A(dp.concat('?')), width: I.shelfWidth }); T.n(`dp[${i}]?`, best, 'Try every last shelf that fits.'); dp.push(best); } return dp[b.length]; }
+    s(I, T) { const b = I.books, dp = [0]; for (let i = 1; i <= b.length; i++) { let w = 0, h = 0, best = Infinity; for (let j = i - 1; j >= 0; j--) { w += b[j][0]; if (w > I.shelfWidth) break; h = Math.max(h, b[j][1]); best = Math.min(best, dp[j] + h); } T.at({ books: A(b.map(x => x.join(' by ')), { hl: [i - 1] }), dp: A(dp.concat('?')), width: I.shelfWidth }); T.n(`dp[${i}]?`, best, 'Try every last shelf that fits.'); dp.push(best); } return dp[b.length]; }
   });
 
   D('smallest-sufficient-team', {
@@ -294,8 +294,8 @@
 
   D('minimum-cost-tree-from-leaf-values', {
     t: 'Minimum Cost Tree From Leaf Values: remove the smallest leaf first',
-    r: 'Greedy: the smallest leaf should be combined with its smaller neighbor, costing leaf · min(left, right). Remove it and repeat until one leaf remains.',
+    r: 'Greedy: the smallest leaf should be combined with its smaller neighbor, costing leaf times min(left, right). Remove it and repeat until one leaf remains.',
     g: R => ({ arr: R.ints(R.int(3, 5), 1, 9) }),
-    s(I, T) { const a = I.arr.slice(); let tot = 0; while (a.length > 1) { let i = a.indexOf(Math.min(...a)); const nb = Math.min(i > 0 ? a[i - 1] : Infinity, i + 1 < a.length ? a[i + 1] : Infinity); T.at({ leaves: A(a, { hl: [i] }), cost: tot }); T.n(`Remove the smallest leaf ${a[i]}: cost of this node?`, a[i] * nb, `${a[i]} · min neighbor ${nb}.`); tot += a[i] * nb; a.splice(i, 1); } return tot; }
+    s(I, T) { const a = I.arr.slice(); let tot = 0; while (a.length > 1) { let i = a.indexOf(Math.min(...a)); const nb = Math.min(i > 0 ? a[i - 1] : Infinity, i + 1 < a.length ? a[i + 1] : Infinity); T.at({ leaves: A(a, { hl: [i] }), cost: tot }); T.n(`Remove the smallest leaf ${a[i]}: cost of this node?`, a[i] * nb, `${a[i]} times min neighbor ${nb}.`); tot += a[i] * nb; a.splice(i, 1); } return tot; }
   });
 })();

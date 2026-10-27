@@ -5,7 +5,7 @@ return [
     'title' => 'Longest Equal Subarray After k Deletions',
     'leetcode' => 2831,
     'difficulty' => 'Med',
-    'summary' => 'For each value, take its positions. A window of positions [i..j] needs (pos[j] − pos[i] + 1) − (j − i + 1) deletions; slide while ≤ k.',
+    'summary' => 'For each value, take its positions. A window of positions [i to j] needs (pos[j] − pos[i] + 1) − (j − i + 1) deletions; slide while at most k.',
     'category' => 'LeetCode',
     'subcategory' => 'Binary Search',
     'topic' => 'LeetCode · Binary Search',

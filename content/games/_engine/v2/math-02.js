@@ -17,7 +17,7 @@
 
   D('optimal-division', {
     t: 'Optimal Division: divide by as little as possible',
-    r: 'a / b / c / … is largest when everything after a is divided as much as possible: a / (b / c / … / z) divides a only by b and multiplies by the rest. With 1 or 2 numbers no parentheses are needed.',
+    r: 'Dividing a by b, then by c, and so on is largest when everything after a is grouped together: a / (b / c / … / z) divides a only by b and multiplies by the rest. With 1 or 2 numbers no parentheses are needed.',
     g: R => ({ nums: R.ints(R.int(1, 5), 2, 20) }),
     s(I, T) { const a = I.nums; T.at({ nums: A(a) }); T.c('Best shape?', ['a', 'a/b', 'a/(b/c/…)'], a.length === 1 ? 'a' : a.length === 2 ? 'a/b' : 'a/(b/c/…)', 'Divide a by b only, and multiply back everything after b.'); T.n('How many numbers end up multiplying the result?', a.length <= 2 ? 1 : a.length - 1, 'a, plus everything after b.'); T.yn('Are parentheses needed?', a.length > 2, 'Only with three or more numbers.'); return a.length === 1 ? String(a[0]) : a.length === 2 ? a.join('/') : `${a[0]}/(${a.slice(1).join('/')})`; }
   });
@@ -44,14 +44,14 @@
 
   D('fraction-addition-and-subtraction', {
     t: 'Fraction Addition and Subtraction: running fraction, reduced',
-    r: 'Parse each ±a/b. Keep a running fraction n/d: n = n·b + a·d, d = d·b, then divide both by their gcd. An integer result is written over 1.',
+    r: 'Parse each ±a divided by b. Keep a running fraction n divided by d: n = n times b + a times d, d = d times b, then divide both by their gcd. An integer result is written over 1.',
     g: R => ({ expression: Array.from({ length: R.int(2, 4) }, (_, i) => (R.chance(0.5) ? '-' : i ? '+' : '') + R.int(1, 5) + '/' + R.int(1, 6)).join('') }),
     s(I, T) { let n = 0, d = 1; for (const m of I.expression.matchAll(/[+-]?\d+\/\d+/g)) { const [a, b] = m[0].split('/').map(Number); n = n * b + a * d; d *= b; const g = gcd(n, d) || 1; n /= g; d /= g; T.at({ expression: I.expression, added: m[0], denominator: d }); T.n(`Numerator after adding ${m[0]} (reduced, over ${d})?`, n, 'Cross-multiply, then reduce by the gcd.'); } return `${n}/${d}`; }
   });
 
   D('valid-square', {
     t: 'Valid Square: six distances, two values',
-    r: 'Compute all 6 squared distances and sort. A square has 4 equal positive sides and 2 equal diagonals, each diagonal² = 2 · side².',
+    r: 'Compute all 6 squared distances and sort. A square has 4 equal positive sides and 2 equal diagonals, each diagonal² = 2 times side².',
     g: R => { if (R.chance(0.5)) { const x = R.int(-3, 3), y = R.int(-3, 3), a = R.int(0, 3), b = R.int(1, 3); return { p1: [x, y], p2: [x + a, y + b], p3: [x + a - b, y + b + a], p4: [x - b, y + a] }; } return { p1: [R.int(0, 3), R.int(0, 3)], p2: [R.int(0, 3), R.int(0, 3)], p3: [R.int(0, 3), R.int(0, 3)], p4: [R.int(0, 3), R.int(0, 3)] }; },
     s(I, T) { const res = (() => { const p = [I.p1, I.p2, I.p3, I.p4], d = []; for (let i = 0; i < 4; i++) for (let j = i + 1; j < 4; j++) d.push((p[i][0] - p[j][0]) ** 2 + (p[i][1] - p[j][1]) ** 2); d.sort((a, b) => a - b); T.at({ points: A(p.map(q => `(${q})`)) }); T.n('Smallest squared distance?', d[0], 'Should be the side squared, and positive.'); T.n('Largest squared distance?', d[5], 'Should be the diagonal squared, twice the side squared.'); return d[0] > 0 && d[0] === d[3] && d[4] === d[5] && d[4] === 2 * d[0]; })(); T.yn('Is it a valid square?', res, 'Four equal sides and two equal diagonals.'); return res; }
   });
@@ -65,7 +65,7 @@
 
   D('solve-the-equation', {
     t: 'Solve the Equation: collect x terms and constants',
-    r: 'Parse both sides into (x coefficient, constant). Move x to the left and numbers to the right: a·x = b. a = 0: infinite if b = 0, else none; otherwise x = b / a.',
+    r: 'Parse both sides into (x coefficient, constant). Move x to the left and numbers to the right: a times x = b. a = 0: infinite if b = 0, else none; otherwise x = b divided by a.',
     g: R => { const side = () => Array.from({ length: R.int(1, 3) }, (_, i) => { const c = R.int(0, 4), t = R.chance(0.5) ? (c === 1 ? '' : c) + 'x' : String(c); return (i ? R.pick(['+', '-']) : R.chance(0.3) ? '-' : '') + t; }).join(''); return { equation: side() + '=' + side() }; },
     s(I, T) { const res = (() => { const parse = s => { let x = 0, c = 0; for (const m of s.matchAll(/[+-]?\d*x|[+-]?\d+/g)) { const t = m[0]; if (t.endsWith('x')) { const k = t.slice(0, -1); x += k === '' || k === '+' ? 1 : k === '-' ? -1 : +k; } else c += +t; } return [x, c]; }; const [l, r] = I.equation.split('='), [a1, c1] = parse(l), [a2, c2] = parse(r), a = a1 - a2, b = c2 - c1; T.at({ equation: I.equation }); T.n('x coefficient after moving x to the left?', a, 'Left x terms minus right x terms.'); T.n('Constant after moving numbers to the right?', b, 'Right numbers minus left numbers.'); if (a === 0) return b === 0 ? 'Infinite solutions' : 'No solution'; return 'x=' + b / a; })(); T.c('Result?', [...new Set([res, 'No solution', 'Infinite solutions'])], res, 'Divide, unless the x coefficient is 0.'); return res; }
   });
@@ -94,7 +94,7 @@
 
   D('reach-a-number', {
     t: 'Reach a Number: overshoot by an even amount',
-    r: 'Use |target|. Keep taking steps 1, 2, 3, … until the sum reaches the target and (sum − target) is even; flipping one step of size (sum − target)/2 then lands exactly.',
+    r: 'Use |target|. Keep taking steps 1, 2, 3, … until the sum reaches the target and (sum − target) is even; flipping one step of size (sum − target) divided by 2 then lands exactly.',
     g: R => ({ target: R.pick([-1, 1]) * R.int(1, 30) }),
     s(I, T) { const t = Math.abs(I.target); let k = 0, s = 0; while (s < t || (s - t) % 2) { k++; s += k; T.at({ target: t, step: k }); T.n(`Sum after step ${k}?`, s, 'Add the step size.'); } return k; }
   });
@@ -119,7 +119,7 @@
 
   D('global-and-local-inversions', {
     t: 'Global and Local Inversions: nothing may move more than one place',
-    r: 'Every local inversion is global. They are equal exactly when no element sits more than one position away from its value: |nums[i] − i| ≤ 1 for all i.',
+    r: 'Every local inversion is global. They are equal exactly when no element sits more than one position away from its value: |nums[i] − i| at most 1 for all i.',
     g: R => { const n = R.int(3, 6), a = [...Array(n).keys()]; if (R.chance(0.5)) { for (let i = 0; i + 1 < n; i++) if (R.chance(0.4)) { [a[i], a[i + 1]] = [a[i + 1], a[i]]; i++; } return { nums: a }; } return { nums: R.shuffle(a) }; },
     s(I, T) { for (let i = 0; i < I.nums.length; i++) { const bad = Math.abs(I.nums[i] - i) > 1; T.at({ nums: A(I.nums, { hl: [i] }) }); T.yn(`Is ${I.nums[i]} more than one place from index ${i}?`, bad, bad ? 'That creates a non-local global inversion.' : 'Within one place.'); if (bad) return false; } return true; }
   });
@@ -140,30 +140,30 @@
 
   D('similar-rgb-color', {
     t: 'Similar RGB Color: round each channel to a multiple of 17',
-    r: 'Shorthand channels are 0x00, 0x11, …, 0xff (multiples of 17). Each channel independently goes to the nearest multiple: round(v / 17) · 17.',
+    r: 'Shorthand channels are 0x00, 0x11, …, 0xff (multiples of 17). Each channel independently goes to the nearest multiple: round(v divided by 17) times 17.',
     g: R => ({ color: '#' + Array.from({ length: 6 }, () => '0123456789abcdef'[R.int(0, 15)]).join('') }),
-    s(I, T) { let out = '#'; for (let i = 1; i < 7; i += 2) { const v = parseInt(I.color.slice(i, i + 2), 16), r = Math.round(v / 17) * 17; T.at({ color: I.color, channel: I.color.slice(i, i + 2) + ` = ${v}` }); T.n(`Nearest shorthand value for ${v}?`, r, `round(${v} / 17) · 17.`); out += r.toString(16).padStart(2, '0'); } return out; }
+    s(I, T) { let out = '#'; for (let i = 1; i < 7; i += 2) { const v = parseInt(I.color.slice(i, i + 2), 16), r = Math.round(v / 17) * 17; T.at({ color: I.color, channel: I.color.slice(i, i + 2) + ` = ${v}` }); T.n(`Nearest shorthand value for ${v}?`, r, `round(${v} divided by 17) times 17.`); out += r.toString(16).padStart(2, '0'); } return out; }
   });
 
   D('largest-triangle-area', {
     t: 'Largest Triangle Area: shoelace over every triple',
-    r: 'Try every triple; area = |x1(y2 − y3) + x2(y3 − y1) + x3(y1 − y2)| / 2. Keep the maximum.',
+    r: 'Try every triple; area = |x1(y2 − y3) + x2(y3 − y1) + x3(y1 − y2)| divided by 2. Keep the maximum.',
     g: R => ({ points: ptSet(R, R.int(3, 5), 3) }), cmp: 'float',
     s(I, T) { const p = I.points, n = p.length; let best = 0; for (let i = 0; i < n; i++) for (let j = i + 1; j < n; j++) for (let k = j + 1; k < n; k++) { const [a, b, c] = [p[i], p[j], p[k]], ar = Math.abs(a[0] * (b[1] - c[1]) + b[0] * (c[1] - a[1]) + c[0] * (a[1] - b[1])) / 2; T.at({ triangle: `(${a}) (${b}) (${c})`, best }); T.n('Area of this triangle?', ar, 'Shoelace formula, halved.'); best = Math.max(best, ar); } return best; }
   });
 
   D('friends-of-appropriate-ages', {
     t: 'Friends of Appropriate Ages: count by age',
-    r: 'Count people per age. x sends to y unless age[y] ≤ 0.5·age[x] + 7, age[y] > age[x], or (age[y] > 100 and age[x] < 100). Pairs of ages a, b give cnt[a] · (cnt[b] − [a = b]) requests.',
+    r: 'Count people per age. x sends to y unless age[y] at most 0.5 times age[x] + 7, age[y] > age[x], or (age[y] > 100 and age[x] < 100). Pairs of ages a, b give cnt[a] times (cnt[b] − [a = b]) requests.',
     g: R => ({ ages: R.ints(R.int(2, 6), 14, 30) }),
-    s(I, T) { const c = {}; I.ages.forEach(a => c[a] = (c[a] || 0) + 1); const ok = (x, y) => !(y <= 0.5 * x + 7 || y > x || (y > 100 && x < 100)); let tot = 0; for (const a of Object.keys(c).map(Number).sort((x, y) => x - y)) { let s = 0; for (const b of Object.keys(c).map(Number)) if (ok(a, b)) s += c[a] * (c[b] - (a === b ? 1 : 0)); T.at({ counts: K(c), total: tot }); T.n(`Requests sent by everyone aged ${a}?`, s, `Targets need age > ${0.5 * a + 7} and ≤ ${a}.`); tot += s; } return tot; }
+    s(I, T) { const c = {}; I.ages.forEach(a => c[a] = (c[a] || 0) + 1); const ok = (x, y) => !(y <= 0.5 * x + 7 || y > x || (y > 100 && x < 100)); let tot = 0; for (const a of Object.keys(c).map(Number).sort((x, y) => x - y)) { let s = 0; for (const b of Object.keys(c).map(Number)) if (ok(a, b)) s += c[a] * (c[b] - (a === b ? 1 : 0)); T.at({ counts: K(c), total: tot }); T.n(`Requests sent by everyone aged ${a}?`, s, `Targets need age > ${0.5 * a + 7} and at most ${a}.`); tot += s; } return tot; }
   });
 
   D('consecutive-numbers-sum', {
     t: 'Consecutive Numbers Sum: try each length k',
-    r: 'k consecutive numbers from x sum to k·x + k(k − 1)/2. For each k with k(k − 1)/2 < n, it works when (n − k(k − 1)/2) is divisible by k.',
+    r: 'k consecutive numbers from x sum to k times x + k(k − 1) divided by 2. For each k with k(k − 1) divided by 2 < n, it works when (n − k(k − 1) divided by 2) is divisible by k.',
     g: R => ({ n: R.int(1, 60) }),
-    s(I, T) { let c = 0; for (let k = 1; k * (k - 1) / 2 < I.n; k++) { const r = I.n - k * (k - 1) / 2, ok = r % k === 0; T.at({ n: I.n, k, ways: c }); T.yn(`Can ${I.n} be ${k} consecutive numbers?`, ok, `${I.n} − ${k * (k - 1) / 2} = ${r}${ok ? ` = ${k}·${r / k}` : ` is not divisible by ${k}`}.`); if (ok) c++; } return c; }
+    s(I, T) { let c = 0; for (let k = 1; k * (k - 1) / 2 < I.n; k++) { const r = I.n - k * (k - 1) / 2, ok = r % k === 0; T.at({ n: I.n, k, ways: c }); T.yn(`Can ${I.n} be ${k} consecutive numbers?`, ok, `${I.n} − ${k * (k - 1) / 2} = ${r}${ok ? ` = ${k} times ${r / k}` : ` is not divisible by ${k}`}.`); if (ok) c++; } return c; }
   });
 
   D('rectangle-overlap', {
@@ -188,7 +188,7 @@
   });
 
   D('fair-candy-swap', {
-    t: 'Fair Candy Swap: b = a + (sumB − sumA) / 2',
+    t: 'Fair Candy Swap: b = a + (sumB − sumA) divided by 2',
     r: 'Swapping a for b changes Alice\'s total by b − a; it must be half the difference. Put Bob\'s boxes in a set and look for a + delta.',
     g: R => { const a = R.ints(R.int(1, 3), 1, 6), b = R.ints(R.int(1, 3), 1, 6), x = R.pick(a), y = R.pick(b); const sa = a.reduce((s, v) => s + v, 0), sb = b.reduce((s, v) => s + v, 0); const fix = (sb - sa) - 2 * (y - x); if (fix % 2 === 0 && fix !== 0 && b.length) { b.push(Math.abs(fix) + 1); } return { aliceSizes: a, bobSizes: b }; },
     cmp: (out, exp, I) => { if (!Array.isArray(out) || out.length !== 2) return false; const sa = I.aliceSizes.reduce((s, v) => s + v, 0), sb = I.bobSizes.reduce((s, v) => s + v, 0); return I.aliceSizes.includes(out[0]) && I.bobSizes.includes(out[1]) && sa - out[0] + out[1] === sb - out[1] + out[0]; },
@@ -197,14 +197,14 @@
 
   D('sum-of-subsequence-widths', {
     t: 'Sum of Subsequence Widths: count max and min roles',
-    r: 'Sort. a[i] is the maximum of 2^i subsequences and the minimum of 2^(n−1−i). Its contribution is a[i] · (2^i − 2^(n−1−i)).',
+    r: 'Sort. a[i] is the maximum of 2 to the power i subsequences and the minimum of 2 to the power (n−1−i). Its contribution is a[i] times (2 to the power i − 2 to the power (n−1−i)).',
     g: R => ({ nums: R.ints(R.int(1, 5), 1, 9) }),
-    s(I, T) { const a = I.nums.slice().sort((x, y) => x - y), n = a.length; let tot = 0; a.forEach((x, i) => { const c = x * (2 ** i - 2 ** (n - 1 - i)); T.at({ sorted: A(a, { hl: [i] }), total: tot }); T.n(`Contribution of index ${i}?`, c, `${x} · (2^${i} − 2^${n - 1 - i}).`); tot += c; }); return ((tot % MOD) + MOD) % MOD; }
+    s(I, T) { const a = I.nums.slice().sort((x, y) => x - y), n = a.length; let tot = 0; a.forEach((x, i) => { const c = x * (2 ** i - 2 ** (n - 1 - i)); T.at({ sorted: A(a, { hl: [i] }), total: tot }); T.n(`Contribution of index ${i}?`, c, `${x} times (2 to the power ${i} − 2 to the power ${n - 1 - i}).`); tot += c; }); return ((tot % MOD) + MOD) % MOD; }
   });
 
   D('orderly-queue', {
     t: 'Orderly Queue: rotations for k = 1, sorting otherwise',
-    r: 'With k = 1 you can only rotate, so take the smallest rotation. With k ≥ 2 you can swap any adjacent pair, so any order is reachable: return the sorted string.',
+    r: 'With k = 1 you can only rotate, so take the smallest rotation. With k at least 2 you can swap any adjacent pair, so any order is reachable: return the sorted string.',
     g: R => ({ s: R.str(R.int(3, 6), 'abc'), k: R.int(1, 3) }),
     s(I, T) { const res = (() => { const s = I.s; T.at({ s, k: I.k }); T.n('Distinct letters in s?', new Set(s).size, 'Sorting them gives the best possible string.'); T.yn('Can every ordering be reached?', I.k > 1, I.k > 1 ? 'Two front choices let you swap neighbors.' : 'Only rotations are possible.'); if (I.k > 1) return [...s].sort().join(''); let best = s, bi = 0; for (let i = 1; i < s.length; i++) { const r = s.slice(i) + s.slice(0, i); if (r < best) { best = r; bi = i; } } T.n('Start index of the smallest rotation?', bi, 'Compare every rotation.'); return best; })(); T.c('First letter of the result?', [...new Set([res[0], ...I.s])], res[0], 'The smallest string you can reach.'); return res; }
   });
@@ -225,17 +225,17 @@
 
   D('x-of-a-kind-in-a-deck-of-cards', {
     t: 'X of a Kind in a Deck: gcd of the counts',
-    r: 'A group size X must divide every value\'s count. Such an X ≥ 2 exists exactly when the gcd of all counts is at least 2.',
+    r: 'A group size X must divide every value\'s count. Such an X at least 2 exists exactly when the gcd of all counts is at least 2.',
     g: R => ({ deck: R.shuffle(Array.from({ length: R.int(1, 3) }, () => Array(R.pick([1, 2, 2, 3, 4, 6])).fill(R.int(0, 9))).flat()) }),
     s(I, T) { const res = (() => { const c = {}; I.deck.forEach(x => c[x] = (c[x] || 0) + 1); const g = Object.values(c).reduce(gcd, 0); T.at({ counts: K(c) }); T.n('Distinct values?', Object.keys(c).length, 'One count each.'); T.n('Greatest common divisor of the counts?', g, 'The largest group size that fits every value.'); return g >= 2; })(); T.yn('Can the deck be split into groups of 2 or more?', res, 'The divisor must be at least 2.'); return res; }
   });
 
   D('beautiful-array', {
     t: 'Beautiful Array: odds then evens, recursively',
-    r: 'If A is beautiful, so are 2·A − 1 (odd) and 2·A (even), and odd + even can never be twice anything between them. Build f(n) = odds from f(⌈n/2⌉) followed by evens from f(⌊n/2⌋).',
+    r: 'If A is beautiful, so are 2 times A − 1 (odd) and 2 times A (even), and odd + even can never be twice anything between them. Build f(n) = odds from f((half of n, rounded up)) followed by evens from f((half of n, rounded down)).',
     g: R => ({ n: R.int(1, 10) }),
     cmp: (out, exp, I) => { const n = I.n; if (out.length !== n || new Set(out).size !== n || out.some(v => v < 1 || v > n)) return false; for (let i = 0; i < n; i++) for (let k = i + 1; k < n; k++) for (let j = k + 1; j < n; j++) if (2 * out[k] === out[i] + out[j]) return false; return true; },
-    s(I, T) { const f = n => { if (n === 1) return [1]; T.at({ n }); T.n(`For n = ${n}: how many odd numbers go first?`, Math.ceil(n / 2), 'All odd values 1, 3, … ≤ n.'); return [...f(Math.ceil(n / 2)).map(x => 2 * x - 1), ...f(Math.floor(n / 2)).map(x => 2 * x)]; }; return f(I.n); }
+    s(I, T) { const f = n => { if (n === 1) return [1]; T.at({ n }); T.n(`For n = ${n}: how many odd numbers go first?`, Math.ceil(n / 2), 'All odd values 1, 3, … at most n.'); return [...f(Math.ceil(n / 2)).map(x => 2 * x - 1), ...f(Math.floor(n / 2)).map(x => 2 * x)]; }; return f(I.n); }
   });
 
   D('minimum-area-rectangle', {
@@ -247,21 +247,21 @@
 
   D('minimum-area-rectangle-ii', {
     t: 'Minimum Area Rectangle II: right angle plus the fourth corner',
-    r: 'For each corner p and two others q, r with (q − p)·(r − p) = 0, the fourth corner is q + r − p. If it exists, the area is |pq| · |pr|. (Faster: group diagonals by midpoint and length.)',
+    r: 'For each corner p and two others q, r with (q − p) times (r − p) = 0, the fourth corner is q + r − p. If it exists, the area is |pq| times |pr|. (Faster: group diagonals by midpoint and length.)',
     g: R => R.pick([{ points: [[1, 2], [2, 1], [1, 0], [0, 1]] }, { points: [[0, 1], [2, 1], [1, 1], [1, 0], [2, 0]] }, { points: [[0, 0], [2, 1], [1, 3], [-1, 2], [3, 3], [5, 5]] }, { points: ptSet(R, 5, 3) }]), cmp: 'float',
     s(I, T) { const res = (() => { const p = I.points, S = new Set(p.map(q => q.join())), seen = new Set(); T.at({ points: A(p.map(q => `(${q})`)) }); T.n('Corner and two-neighbour choices to try?', p.length * (p.length - 1) * (p.length - 2), 'Every ordered choice of three different points.'); let best = Infinity; for (const a of p) for (const b of p) for (const c of p) { if (a === b || a === c || b === c) continue; if ((b[0] - a[0]) * (c[0] - a[0]) + (b[1] - a[1]) * (c[1] - a[1]) !== 0) continue; const d = [b[0] + c[0] - a[0], b[1] + c[1] - a[1]]; if (!S.has(d.join())) continue; const key = [a, b, c, d].map(q => q.join()).sort().join('|'); const ar = Math.hypot(b[0] - a[0], b[1] - a[1]) * Math.hypot(c[0] - a[0], c[1] - a[1]); if (!seen.has(key)) { seen.add(key); T.at({ corners: A([a, b, c, d].map(q => `(${q})`)) }); T.n('Area of this rectangle?', ar, 'Length of one side times the other.'); } best = Math.min(best, ar); } return best === Infinity ? 0 : best; })(); T.n('Minimum area (0 if none)?', res, 'Smallest area found.'); return res; }
   });
 
   D('powerful-integers', {
     t: 'Powerful Integers: two small power loops',
-    r: 'Loop over powers of x and of y (stop a loop at once if its base is 1) and collect every sum ≤ bound in a set.',
+    r: 'Loop over powers of x and of y (stop a loop at once if its base is 1) and collect every sum at most bound in a set.',
     g: R => ({ x: R.int(1, 4), y: R.int(1, 4), bound: R.int(0, 40) }), cmp: 'set',
     s(I, T) { const res = (() => { const out = new Set(); for (let a = 1; a <= I.bound; a *= I.x) { for (let b = 1; a + b <= I.bound; b *= I.y) { out.add(a + b); if (I.y === 1) break; } if (I.x === 1) break; } T.at({ x: I.x, y: I.y, bound: I.bound }); let px = 0; for (let a = 1; a <= I.bound; a *= I.x) { px++; if (I.x === 1) break; } T.n('Powers of x up to bound?', px, 'Including x to the power 0.'); T.n('How many distinct powerful integers?', out.size, 'Collect every x to the power i plus y to the power j that is at most bound, in a set.'); return [...out]; })(); T.n('Largest powerful integer (−1 if none)?', res.length ? Math.max(...res) : -1, 'Biggest value in the set.'); return res; }
   });
 
   D('equal-rational-numbers', {
     t: 'Equal Rational Numbers: compare exact fractions',
-    r: 'Value = I + N/10^n + R/(10^n·(10^r − 1)) for integer part I, non-repeating N (n digits) and repeating R (r digits). Compare the two fractions exactly (note 0.(9) = 1).',
+    r: 'Value = I + N divided by 10 to the power n + R divided by (10 to the power n times (10 to the power r − 1)) for integer part I, non-repeating N (n digits) and repeating R (r digits). Compare the two fractions exactly (note 0.(9) = 1).',
     g: R => R.pick([{ s: '0.(52)', t: '0.5(25)' }, { s: '0.1666(6)', t: '0.166(66)' }, { s: '0.9(9)', t: '1.' }, { s: `${R.int(0, 2)}.${R.int(0, 9)}(${R.int(0, 9)})`, t: `${R.int(0, 2)}.${R.int(0, 9)}${R.int(0, 9)}(${R.int(0, 9)})` }, { s: '1.(0)', t: '1' }]),
     s(I, T) {
       const parse = s => { const m = s.match(/^(\d+)(?:\.(\d*)(?:\((\d+)\))?)?$/), ip = BigInt(m[1]), N = m[2] || '', Rp = m[3] || ''; const tn = 10n ** BigInt(N.length); let num = ip * tn + BigInt(N || '0'), den = tn; if (Rp) { const rr = 10n ** BigInt(Rp.length) - 1n; num = num * rr + BigInt(Rp); den = den * rr; } return [num, den, N + (Rp ? Rp.repeat(8) : '')]; };
@@ -272,15 +272,15 @@
 
   D('add-to-array-form-of-integer', {
     t: 'Add to Array-Form: fold k into the digits',
-    r: 'From the last digit, set cur = digit + k; write cur mod 10 and continue with k = ⌊cur / 10⌋. Keep going while digits or k remain.',
+    r: 'From the last digit, set cur = digit + k; write cur mod 10 and continue with k = (cur divided by 10, rounded down). Keep going while digits or k remain.',
     g: R => ({ num: [R.int(1, 9), ...R.ints(R.int(0, 3), 0, 9)], k: R.int(1, 999) }),
     s(I, T) { const out = []; let k = I.k; for (let i = I.num.length - 1; i >= 0 || k > 0; i--) { const cur = (i >= 0 ? I.num[i] : 0) + k; T.at({ num: A(I.num, { hl: i >= 0 ? [i] : [] }), k, result: A(out.slice().reverse()) }); T.n('Digit written here?', cur % 10, `(${i >= 0 ? I.num[i] : 0} + ${k}) mod 10.`); out.push(cur % 10); k = Math.floor(cur / 10); } return out.reverse(); }
   });
 
   D('smallest-integer-divisible-by-k', {
     t: 'Smallest Repunit Divisible by K: track the remainder',
-    r: 'If k is divisible by 2 or 5, no number of 1s works. Otherwise update r = (r · 10 + 1) mod k; within k steps r hits 0 (pigeonhole). The step count is the length.',
+    r: 'If k is divisible by 2 or 5, no number of 1s works. Otherwise update r = (r times 10 + 1) mod k; within k steps r hits 0 (pigeonhole). The step count is the length.',
     g: R => ({ k: R.int(1, 50) }),
-    s(I, T) { const k = I.k; T.at({ k }); T.yn('Impossible because k is divisible by 2 or 5?', k % 2 === 0 || k % 5 === 0, 'A number of only 1s ends in 1.'); if (k % 2 === 0 || k % 5 === 0) return -1; let r = 0; for (let len = 1; len <= k; len++) { r = (r * 10 + 1) % k; T.at({ k, length: len }); T.n(`Remainder of the ${len}-digit repunit?`, r, '(previous · 10 + 1) mod k.'); if (!r) return len; } return -1; }
+    s(I, T) { const k = I.k; T.at({ k }); T.yn('Impossible because k is divisible by 2 or 5?', k % 2 === 0 || k % 5 === 0, 'A number of only 1s ends in 1.'); if (k % 2 === 0 || k % 5 === 0) return -1; let r = 0; for (let len = 1; len <= k; len++) { r = (r * 10 + 1) % k; T.at({ k, length: len }); T.n(`Remainder of the ${len}-digit repunit?`, r, '(previous times 10 + 1) mod k.'); if (!r) return len; } return -1; }
   });
 })();

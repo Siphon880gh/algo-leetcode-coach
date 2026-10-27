@@ -5,7 +5,7 @@ return [
     'title' => '4Sum II',
     'leetcode' => 454,
     'difficulty' => 'Med',
-    'summary' => 'Meet in the middle: count all sums a + b from nums1 × nums2 in a map, then for each c + d add count[−(c + d)].',
+    'summary' => 'Meet in the middle: count all sums a + b from nums1 times nums2 in a map, then for each c + d add count[−(c + d)].',
     'category' => 'LeetCode',
     'subcategory' => 'Hash Table',
     'topic' => 'LeetCode · Hash Table',

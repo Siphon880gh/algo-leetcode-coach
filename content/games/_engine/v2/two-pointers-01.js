@@ -23,7 +23,7 @@
 
   D('next-permutation', {
     t: 'Next Permutation',
-    r: 'From the right, find the first i with a[i] < a[i + 1] (the pivot). Swap it with the rightmost element larger than it, then reverse the suffix after i. No pivot → reverse everything.',
+    r: 'From the right, find the first i with a[i] < a[i + 1] (the pivot). Swap it with the rightmost element larger than it, then reverse the suffix after i. No pivot: reverse everything.',
     g: R => ({ nums: R.ints(R.int(1, 6), 1, 4) }),
     s(I, T) { const [res, i] = nextPerm(I.nums); T.at({ nums: A(I.nums) }); T.n('Pivot index (−1 if none)?', i, 'Rightmost i with nums[i] < nums[i+1].'); if (i >= 0) { let j = I.nums.length - 1; while (I.nums[j] <= I.nums[i]) j--; T.n('Index swapped with the pivot?', j, 'Rightmost value larger than the pivot.'); } T.at({ result: A(res) }); T.n('First element of the result?', res[0], 'Swap, then reverse the suffix.'); return res; }
   });
@@ -44,14 +44,14 @@
 
   D('one-edit-distance', {
     t: 'One Edit Distance',
-    r: 'If lengths differ by more than 1 → false. Walk both strings to the first mismatch; then the rests must match after skipping one char in the longer (insert/delete) or one in each (replace). No mismatch → true only if lengths differ by exactly 1.',
+    r: 'If lengths differ by more than 1: false. Walk both strings to the first mismatch; then the rests must match after skipping one char in the longer (insert or delete) or one in each (replace). No mismatch: true only if lengths differ by exactly 1.',
     g: R => { const s = R.str(R.int(0, 4), 'ab'); let t = s; const k = R.int(0, 3); if (k === 1) t = s.slice(0, 1) + R.pick('abc') + s.slice(1); else if (k === 2 && s) { const i = R.int(0, s.length - 1); t = s.slice(0, i) + s.slice(i + 1); } else if (k === 3) t = R.str(R.int(0, 4), 'ab'); return { s, t }; },
-    s(I, T) { const { s, t } = I; T.at({ s, t }); T.n('Length difference?', Math.abs(s.length - t.length), 'More than 1 → false immediately.'); if (Math.abs(s.length - t.length) > 1) return false; let i = 0; while (i < s.length && i < t.length && s[i] === t[i]) i++; T.n('First mismatch index (or the shorter length)?', i, 'Walk while equal.'); let r; if (i === Math.min(s.length, t.length)) r = s.length !== t.length; else if (s.length === t.length) r = s.slice(i + 1) === t.slice(i + 1); else r = s.length > t.length ? s.slice(i + 1) === t.slice(i) : s.slice(i) === t.slice(i + 1); T.yn('Exactly one edit apart?', r, 'Compare the remainders.'); return r; }
+    s(I, T) { const { s, t } = I; T.at({ s, t }); T.n('Length difference?', Math.abs(s.length - t.length), 'More than 1: false immediately.'); if (Math.abs(s.length - t.length) > 1) return false; let i = 0; while (i < s.length && i < t.length && s[i] === t[i]) i++; T.n('First mismatch index (or the shorter length)?', i, 'Walk while equal.'); let r; if (i === Math.min(s.length, t.length)) r = s.length !== t.length; else if (s.length === t.length) r = s.slice(i + 1) === t.slice(i + 1); else r = s.length > t.length ? s.slice(i + 1) === t.slice(i) : s.slice(i) === t.slice(i + 1); T.yn('Exactly one edit apart?', r, 'Compare the remainders.'); return r; }
   });
 
   D('compare-version-numbers', {
     t: 'Compare Version Numbers',
-    r: 'Split on dots and compare revisions as integers left to right, treating missing revisions as 0. The first difference decides (−1 / 1); otherwise 0.',
+    r: 'Split on dots and compare revisions as integers left to right, treating missing revisions as 0. The first difference decides (−1 or 1); otherwise 0.',
     g: R => { const v = () => Array.from({ length: R.int(1, 3) }, () => (R.chance(0.3) ? '0' : '') + R.int(0, 3)).join('.'); return { version1: v(), version2: v() }; },
     s(I, T) { const res = (() => { const a = I.version1.split('.').map(Number), b = I.version2.split('.').map(Number); T.at({ v1: A(a), v2: A(b) }); T.n('Revisions to compare at most?', Math.max(a.length, b.length), 'The longer version decides.'); for (let i = 0; i < Math.max(a.length, b.length); i++) { const x = a[i] || 0, y = b[i] || 0; T.at({ v1: A(a, { i }), v2: A(b, { i }) }); T.c(`Revision ${i}: ${x} vs ${y}?`, ['equal', 'v1 bigger', 'v2 bigger'], x === y ? 'equal' : x > y ? 'v1 bigger' : 'v2 bigger', 'Leading zeros are ignored, and a missing revision counts as 0.'); if (x !== y) return x > y ? 1 : -1; } return 0; })(); T.n('Result? (1, −1 or 0)', res, 'The first unequal revision decides.'); return res; }
   });
@@ -79,7 +79,7 @@
 
   D('strobogrammatic-number', {
     t: 'Strobogrammatic Number',
-    r: 'Two pointers from both ends: each pair must be a rotation pair — 0↔0, 1↔1, 8↔8, 6↔9, 9↔6.',
+    r: 'Two pointers from both ends: each pair must be a rotation pair — 0 and 0, 1 and 1, 8 and 8, 6 and 9, 9 and 6.',
     g: R => { const P = [['0', '0'], ['1', '1'], ['8', '8'], ['6', '9'], ['9', '6']], h = R.int(0, 2), L = [], Rr = []; for (let i = 0; i < h; i++) { const p = R.pick(P); L.push(p[0]); Rr.unshift(p[1]); } let s = L.join('') + (R.chance(0.5) ? R.pick(['0', '1', '8']) : '') + Rr.join(''); if (!s || R.chance(0.3)) s = String(R.int(1, 999)); return { num: s }; },
     s(I, T) { const res = (() => { const M = { 0: '0', 1: '1', 8: '8', 6: '9', 9: '6' }, s = I.num; let l = 0, r = s.length - 1; while (l <= r) { const ok = M[s[l]] === s[r]; T.at({ num: A([...s], { l, r }) }); T.yn(`Do ${s[l]} and ${s[r]} form a valid rotated pair?`, ok, 'Valid pairs: 0 and 0, 1 and 1, 8 and 8, 6 and 9, 9 and 6.'); if (!ok) return false; l++; r--; } return true; })(); T.yn('Is the number strobogrammatic?', res, 'Every pair must be valid.'); return res; }
   });
@@ -107,7 +107,7 @@
 
   D('intersection-of-two-arrays-ii', {
     t: 'Intersection of Two Arrays II',
-    r: 'Sort both and walk two pointers: equal → output and advance both; otherwise advance the smaller. (Or count one array in a hash map.)',
+    r: 'Sort both and walk two pointers: equal, so output and advance both; otherwise advance the smaller. (Or count one array in a hash map.)',
     g: R => ({ nums1: R.ints(R.int(1, 6), 1, 5), nums2: R.ints(R.int(1, 6), 1, 5) }),
     cmp: 'set',
     s(I, T) { const a = I.nums1.slice().sort((x, y) => x - y), b = I.nums2.slice().sort((x, y) => x - y), out = []; let i = 0, j = 0, asks = 0; while (i < a.length && j < b.length) { if (asks++ < 8) { T.at({ a: A(a, { i }), b: A(b, { j }), out: A(out.slice()) }); T.c(`${a[i]} vs ${b[j]}?`, ['take both', 'advance a', 'advance b'], a[i] === b[j] ? 'take both' : a[i] < b[j] ? 'advance a' : 'advance b', 'Advance the smaller side.'); } if (a[i] === b[j]) { out.push(a[i]); i++; j++; } else if (a[i] < b[j]) i++; else j++; } return out; }
@@ -115,9 +115,9 @@
 
   D('sort-transformed-array', {
     t: 'Sort Transformed Array',
-    r: 'f is a parabola, so the extremes of f are at the array ends. If a ≥ 0, fill the result from the back with the larger of f(left), f(right); if a < 0, fill from the front with the smaller.',
+    r: 'f is a parabola, so the extremes of f are at the array ends. If a at least 0, fill the result from the back with the larger of f(left), f(right); if a < 0, fill from the front with the smaller.',
     g: R => ({ nums: R.sorted(R.int(1, 6), -4, 4), a: R.int(-2, 2), b: R.int(-3, 3), c: R.int(-3, 3) }),
-    s(I, T) { const f = x => I.a * x * x + I.b * x + I.c, n = I.nums.length, out = Array(n); let l = 0, r = n - 1, k = I.a >= 0 ? n - 1 : 0, asks = 0; T.at({ a: I.a }); T.c('Fill the result from…', ['the back (largest first)', 'the front (smallest first)'], I.a >= 0 ? 'the back (largest first)' : 'the front (smallest first)', 'Opening up → ends are largest.'); while (l <= r) { const x = f(I.nums[l]), y = f(I.nums[r]); let v; if (I.a >= 0) { if (x >= y) { v = x; l++; } else { v = y; r--; } out[k--] = v; } else { if (x <= y) { v = x; l++; } else { v = y; r--; } out[k++] = v; } if (asks++ < 6) { T.at({ nums: A(I.nums, { l: Math.min(l, n - 1), r: Math.max(r, 0) }), out: A(out.map(z => z === undefined ? '·' : z)) }); T.n('Value just placed?', v, 'Compare f at both ends.'); } } return out; }
+    s(I, T) { const f = x => I.a * x * x + I.b * x + I.c, n = I.nums.length, out = Array(n); let l = 0, r = n - 1, k = I.a >= 0 ? n - 1 : 0, asks = 0; T.at({ a: I.a }); T.c('Fill the result from…', ['the back (largest first)', 'the front (smallest first)'], I.a >= 0 ? 'the back (largest first)' : 'the front (smallest first)', 'Opening up: ends are largest.'); while (l <= r) { const x = f(I.nums[l]), y = f(I.nums[r]); let v; if (I.a >= 0) { if (x >= y) { v = x; l++; } else { v = y; r--; } out[k--] = v; } else { if (x <= y) { v = x; l++; } else { v = y; r--; } out[k++] = v; } if (asks++ < 6) { T.at({ nums: A(I.nums, { l: Math.min(l, n - 1), r: Math.max(r, 0) }), out: A(out.map(z => z === undefined ? '·' : z)) }); T.n('Value just placed?', v, 'Compare f at both ends.'); } } return out; }
   });
 
   D('find-k-pairs-with-smallest-sums', {
@@ -130,14 +130,14 @@
 
   D('is-subsequence', {
     t: 'Is Subsequence',
-    r: 'Pointer i into s, scan t: whenever t[j] equals s[i], advance i. s is a subsequence iff i reaches the end of s.',
+    r: 'Pointer i into s, scan t: whenever t[j] equals s[i], advance i. s is a subsequence exactly when i reaches the end of s.',
     g: R => { const t = R.str(R.int(0, 8), 'abc'); return { s: R.chance(0.5) ? [...t].filter(() => R.chance(0.5)).join('') : R.str(R.int(0, 3), 'abc'), t }; },
     s(I, T) { let i = 0, asks = 0; for (let j = 0; j < I.t.length; j++) { const m = i < I.s.length && I.s[i] === I.t[j]; if (asks++ < 8) { T.at({ s: A([...I.s], { i }), t: A([...I.t], { j }) }); T.yn(`Does t[${j}] match s[${i}]?`, m, 'Advance i on a match.'); } if (m) i++; } T.at({ matched: i, need: I.s.length }); T.yn('Is s a subsequence?', i === I.s.length, 'All of s matched.'); return i === I.s.length; }
   });
 
   D('valid-word-abbreviation', {
     t: 'Valid Word Abbreviation',
-    r: 'Walk the abbreviation: a letter must match word[i]; a number (no leading zero) skips that many characters. Valid iff both end together.',
+    r: 'Walk the abbreviation: a letter must match word[i]; a number (no leading zero) skips that many characters. Valid exactly when both end together.',
     g: R => { const w = R.str(R.int(1, 8), 'ab'); let ab = '', i = 0; while (i < w.length) { if (R.chance(0.5)) { const k = R.int(1, w.length - i); ab += k; i += k; if (i < w.length) { ab += w[i]; i++; } } else { ab += w[i]; i++; } } if (R.chance(0.3)) ab = R.pick([ab + '1', ab.replace(/\d+/, m => '0' + m), 'a' + ab]); return { word: w, abbr: ab }; },
     s(I, T) { const w = I.word, a = I.abbr; let i = 0, j = 0, asks = 0; while (j < a.length) { if (/\d/.test(a[j])) { if (a[j] === '0') { T.at({ abbr: A([...a], { j }) }); T.yn('Is a leading zero allowed?', false, 'Numbers cannot start with 0.'); return false; } let k = 0; while (/\d/.test(a[j])) k = k * 10 + +a[j++]; i += k; if (asks++ < 6) { T.at({ word: A([...w], { i: Math.min(i, w.length) }), abbr: A([...a]) }); T.n(`After skipping ${k}, where is the word pointer?`, i, 'Jump ahead.'); } } else { const ok = i < w.length && w[i] === a[j]; if (asks++ < 6) { T.at({ word: A([...w], { i }), abbr: A([...a], { j }) }); T.yn('Do the letters match?', ok, 'Letter must equal word[i].'); } if (!ok) return false; i++; j++; } } return i === w.length; }
   });
@@ -151,14 +151,14 @@
 
   D('circular-array-loop', {
     t: 'Circular Array Loop',
-    r: 'From each start, move with slow/fast pointers while the direction stays the same. A meeting point means a cycle — reject it if it is a self-loop (length 1). Mark explored paths dead.',
+    r: 'From each start, move with slow or fast pointers while the direction stays the same. A meeting point means a cycle — reject it if it is a self-loop (length 1). Mark explored paths dead.',
     g: R => ({ nums: Array.from({ length: R.int(1, 6) }, () => R.pick([-1, 1]) * R.int(1, 3)) }),
     s(I, T) { const a = I.nums, n = a.length, nx = i => (((i + a[i]) % n) + n) % n; let asks = 0; for (let s = 0; s < n; s++) { const seen = new Set(); let i = s, ok = true; while (!seen.has(i)) { seen.add(i); const j = nx(i); if (Math.sign(a[j]) !== Math.sign(a[s]) || j === i) { ok = false; break; } i = j; } let found = false; if (ok) { const c = i; let len = 0, k = c; do { k = nx(k); len++; } while (k !== c); found = len > 1; } if (asks++ < 6) { T.at({ nums: A(a, { i: s }) }); T.yn(`Does walking from ${s} reach a valid one-direction cycle?`, found, 'Same sign all the way, length > 1.'); } if (found) return true; } return false; }
   });
 
   D('magical-string', {
     t: 'Magical String',
-    r: 'Generate the string with a read pointer: s[i] says how many copies of the next symbol (alternating 1/2) to append. Count 1s among the first n.',
+    r: 'Generate the string with a read pointer: s[i] says how many copies of the next symbol (alternating 1 and 2) to append. Count 1s among the first n.',
     g: R => ({ n: R.int(1, 25) }),
     s(I, T) { const s = [1, 2, 2]; let i = 2; while (s.length < I.n) { const v = s[s.length - 1] === 1 ? 2 : 1; for (let k = 0; k < s[i]; k++) s.push(v); i++; } const f = s.slice(0, I.n), c = f.filter(x => x === 1).length; T.at({ s: A(f) }); T.n(`Value at index ${Math.min(I.n, 6) - 1}?`, f[Math.min(I.n, 6) - 1], 'Group sizes read from the string itself.'); T.n('How many 1s in the first n?', c, 'Count them.'); T.n('How many 2s in the first n?', I.n - c, 'The rest of the first n.'); return c; }
   });
@@ -193,7 +193,7 @@
 
   D('next-greater-element-iii', {
     t: 'Next Greater Element III',
-    r: 'Apply next permutation to the digits: find the pivot from the right, swap with the rightmost larger digit, reverse the suffix. No pivot or a result above 2^31 − 1 → −1.',
+    r: 'Apply next permutation to the digits: find the pivot from the right, swap with the rightmost larger digit, reverse the suffix. No pivot or a result above 2 to the power 31 − 1: −1.',
     g: R => ({ n: R.int(1, 99999) }),
     s(I, T) { const d = [...String(I.n)].map(Number), [res, i] = nextPerm(d); T.at({ digits: A(d) }); T.n('How many digits?', d.length, 'Only rearrange these.'); T.n('Pivot index (−1 if none)?', i, 'Rightmost digit smaller than its right neighbor.'); if (i < 0) { T.n('Answer?', -1, 'Digits already descend.'); return -1; } const v = +res.join(''); T.n('Next greater number?', v, 'Swap, reverse suffix.'); return v > 2147483647 ? -1 : v; }
   });
@@ -228,16 +228,16 @@
 
   D('candy-crush', {
     t: 'Candy Crush',
-    r: 'Repeat: mark every cell in a horizontal or vertical line of ≥ 3 equal non-zero candies (mark first, crush together), set them to 0, then let each column fall with a write pointer from the bottom. Stop when nothing is marked.',
+    r: 'Repeat: mark every cell in a horizontal or vertical line of at least 3 equal non-zero candies (mark first, crush together), set them to 0, then let each column fall with a write pointer from the bottom. Stop when nothing is marked.',
     g: R => ({ board: Array.from({ length: R.int(3, 5) }, () => R.ints(3, 1, 3)) }),
     s(I, T) { const res = (() => { const b = I.board.map(r => r.slice()), m = b.length, n = b[0].length; let round = 0; for (;;) { const mk = b.map(r => r.map(() => false)); let any = false; for (let i = 0; i < m; i++) for (let j = 0; j < n; j++) { const v = b[i][j]; if (!v) continue; if (j + 2 < n && b[i][j + 1] === v && b[i][j + 2] === v) mk[i][j] = mk[i][j + 1] = mk[i][j + 2] = any = true; if (i + 2 < m && b[i + 1][j] === v && b[i + 2][j] === v) mk[i][j] = mk[i + 1][j] = mk[i + 2][j] = any = true; } const cnt = mk.flat().filter(Boolean).length; if (round < 4) { T.at({ board: G(b.map(r => r.slice())) }); T.n('How many cells get crushed this round?', cnt, 'Mark all lines of 3+ first.'); } round++; if (!any) break; for (let j = 0; j < n; j++) { let w = m - 1; for (let i = m - 1; i >= 0; i--) if (!mk[i][j] && b[i][j]) b[w--][j] = b[i][j]; while (w >= 0) b[w--][j] = 0; } } return b; })(); T.n('Empty cells at the end?', res.flat().filter(v => !v).length, 'Crushed cells fill from the top.'); return res; }
   });
 
   D('swap-adjacent-in-lr-string', {
     t: 'Swap Adjacent in LR String',
-    r: '"XL"→"LX" moves L left; "RX"→"XR" moves R right; they never cross. So the strings without X must match, each L may only move left (start index ≥ end index) and each R only right.',
+    r: '"XL" becomes "LX" moves L left; "RX" becomes "XR" moves R right; they never cross. So the strings without X must match, each L may only move left (start index at least end index) and each R only right.',
     g: R => { const s = R.str(R.int(1, 7), 'LRXX'); let t = s; if (R.chance(0.6)) { const a = [...s]; for (let k = 0; k < 4; k++) { const i = R.int(0, a.length - 2); if (a[i] === 'X' && a[i + 1] === 'L') [a[i], a[i + 1]] = ['L', 'X']; else if (a[i] === 'R' && a[i + 1] === 'X') [a[i], a[i + 1]] = ['X', 'R']; } t = a.join(''); } else t = R.shuffle([...s]).join(''); return { start: s, result: t }; },
-    s(I, T) { const p = [...I.start].map((c, i) => [c, i]).filter(x => x[0] !== 'X'), q = [...I.result].map((c, i) => [c, i]).filter(x => x[0] !== 'X'); const same = p.map(x => x[0]).join('') === q.map(x => x[0]).join(''); T.at({ start: I.start, result: I.result }); T.yn('Same L/R sequence after removing X?', same, 'Pieces never pass each other.'); if (!same) return false; for (let k = 0; k < p.length; k++) { const ok = p[k][0] === 'L' ? p[k][1] >= q[k][1] : p[k][1] <= q[k][1]; if (k < 6) { T.at({ piece: p[k][0], from: p[k][1], to: q[k][1] }); T.yn('Can it move there?', ok, 'L only left, R only right.'); } if (!ok) return false; } return true; }
+    s(I, T) { const p = [...I.start].map((c, i) => [c, i]).filter(x => x[0] !== 'X'), q = [...I.result].map((c, i) => [c, i]).filter(x => x[0] !== 'X'); const same = p.map(x => x[0]).join('') === q.map(x => x[0]).join(''); T.at({ start: I.start, result: I.result }); T.yn('Same L or R sequence after removing X?', same, 'Pieces never pass each other.'); if (!same) return false; for (let k = 0; k < p.length; k++) { const ok = p[k][0] === 'L' ? p[k][1] >= q[k][1] : p[k][1] <= q[k][1]; if (k < 6) { T.at({ piece: p[k][0], from: p[k][1], to: q[k][1] }); T.yn('Can it move there?', ok, 'L only left, R only right.'); } if (!ok) return false; } return true; }
   });
 
   D('number-of-subarrays-with-bounded-maximum', {
@@ -249,8 +249,8 @@
 
   D('expressive-words', {
     t: 'Expressive Words',
-    r: 'Compare run-length encodings of s and each word: same characters in order, and each run either has equal length, or s\'s run is ≥ 3 and at least the word\'s run.',
+    r: 'Compare run-length encodings of s and each word: same characters in order, and each run either has equal length, or s\'s run is at least 3 and at least the word\'s run.',
     g: R => { const base = R.str(R.int(1, 4), 'abc'), s = [...base].map(c => c.repeat(R.int(1, 4))).join(''); return { s, words: [base, ...words(R, R.int(0, 3), 'abc', 1, 4)] }; },
-    s(I, T) { const enc = w => { const r = []; for (const c of w) { if (r.length && r[r.length - 1][0] === c) r[r.length - 1][1]++; else r.push([c, 1]); } return r; }; const S = enc(I.s); let c = 0; I.words.forEach((w, k) => { const W = enc(w), ok = S.length === W.length && S.every(([ch, n], i) => ch === W[i][0] && (n === W[i][1] || (n >= 3 && n >= W[i][1]))); if (k < 6) { T.at({ s: A(S.map(([ch, n]) => ch + n)), word: A(W.map(([ch, n]) => ch + n)) }); T.yn(`Is "${w}" stretchy?`, ok, 'Runs equal, or s\'s run ≥ 3 and ≥ the word\'s.'); } if (ok) c++; }); return c; }
+    s(I, T) { const enc = w => { const r = []; for (const c of w) { if (r.length && r[r.length - 1][0] === c) r[r.length - 1][1]++; else r.push([c, 1]); } return r; }; const S = enc(I.s); let c = 0; I.words.forEach((w, k) => { const W = enc(w), ok = S.length === W.length && S.every(([ch, n], i) => ch === W[i][0] && (n === W[i][1] || (n >= 3 && n >= W[i][1]))); if (k < 6) { T.at({ s: A(S.map(([ch, n]) => ch + n)), word: A(W.map(([ch, n]) => ch + n)) }); T.yn(`Is "${w}" stretchy?`, ok, 'Runs equal, or s\'s run at least 3 and at least the word\'s.'); } if (ok) c++; }); return c; }
   });
 })();

@@ -5,7 +5,7 @@ return [
     'title' => 'Maximum Score Keeping the Tree Healthy',
     'leetcode' => 2925,
     'difficulty' => 'Med',
-    'summary' => 'Take everything except what must stay. keep(u) = values[u] for a leaf, else min(values[u], Σ keep(children)). Answer = total − keep(root).',
+    'summary' => 'Take everything except what must stay. keep(u) = values[u] for a leaf, else min(values[u], the sum of keep(children)). Answer = total − keep(root).',
     'category' => 'LeetCode',
     'subcategory' => 'Trees',
     'topic' => 'LeetCode · Trees',

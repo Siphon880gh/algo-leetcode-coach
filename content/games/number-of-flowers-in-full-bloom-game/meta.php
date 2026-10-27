@@ -5,7 +5,7 @@ return [
     'title' => 'Flowers in Full Bloom: two sorted lists',
     'leetcode' => 2251,
     'difficulty' => 'Hard',
-    'summary' => 'Sort starts and ends. Blooming at t = (#starts ≤ t) − (#ends < t), each found by binary search.',
+    'summary' => 'Sort starts and ends. Blooming at t = (#starts at most t) − (#ends < t), each found by binary search.',
     'category' => 'LeetCode',
     'subcategory' => 'Binary Search',
     'topic' => 'LeetCode · Binary Search',

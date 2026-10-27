@@ -5,7 +5,7 @@ return [
     'title' => 'Minimize Max Distance to Gas Station',
     'leetcode' => 774,
     'difficulty' => 'Hard',
-    'summary' => 'Binary search the distance D (real numbers). A gap g needs ⌈g / D⌉ − 1 new stations; D works if the total ≤ k.',
+    'summary' => 'Binary search the distance D (real numbers). A gap g needs (g divided by D, rounded up) − 1 new stations; D works if the total at most k.',
     'category' => 'LeetCode',
     'subcategory' => 'Binary Search',
     'topic' => 'LeetCode · Binary Search',

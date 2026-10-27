@@ -5,7 +5,7 @@ return [
     'title' => 'Palindrome Permutation',
     'leetcode' => 266,
     'difficulty' => 'Easy',
-    'summary' => 'Toggle a bit per character; a permutation can be a palindrome iff at most one bit remains set.',
+    'summary' => 'Toggle a bit per character; a permutation can be a palindrome exactly when at most one bit remains set.',
     'category' => 'LeetCode',
     'subcategory' => 'Bit Manipulation',
     'topic' => 'LeetCode · Bit Manipulation',

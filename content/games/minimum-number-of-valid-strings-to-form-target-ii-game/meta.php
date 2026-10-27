@@ -5,7 +5,7 @@ return [
     'title' => 'Minimum Number of Valid Strings to Form Target II',
     'leetcode' => 3292,
     'difficulty' => 'Hard',
-    'summary' => 'For each position i, compute the longest prefix of any word matching target[i..] (Z-function / hashing). Then it is a jump game: greedy over reach intervals gives the min pieces, or −1.',
+    'summary' => 'For each position i, compute the longest prefix of any word matching target[i..] (Z-function or hashing). Then it is a jump game: greedy over reach intervals gives the min pieces, or −1.',
     'category' => 'LeetCode',
     'subcategory' => 'Segment Tree',
     'topic' => 'LeetCode · Segment Tree',

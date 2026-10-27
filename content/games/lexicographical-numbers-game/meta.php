@@ -5,7 +5,7 @@ return [
     'title' => 'Lexicographical Numbers',
     'leetcode' => 386,
     'difficulty' => 'Med',
-    'summary' => 'Preorder walk of the implicit digit trie: from x go to x·10 if ≤ n; otherwise step to x + 1, first stripping trailing 9s / overflow by dividing by 10.',
+    'summary' => 'Preorder walk of the implicit digit trie: from x go to x times 10 if at most n; otherwise step to x + 1, first stripping trailing 9s or overflow by dividing by 10.',
     'category' => 'LeetCode',
     'subcategory' => 'Trie',
     'topic' => 'LeetCode · Trie',

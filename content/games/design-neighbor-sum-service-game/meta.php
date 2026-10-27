@@ -5,7 +5,7 @@ return [
     'title' => 'Design Neighbor Sum Service',
     'leetcode' => 3242,
     'difficulty' => 'Easy',
-    'summary' => 'Values are distinct, so precompute value → (row, col). adjacentSum adds the up/down/left/right neighbors; diagonalSum adds the four diagonal neighbors (skipping out-of-grid cells).',
+    'summary' => 'Values are distinct, so precompute a map from each value to (row, col). adjacentSum adds the up, down, left and right neighbors; diagonalSum adds the four diagonal neighbors (skipping out-of-grid cells).',
     'category' => 'LeetCode',
     'subcategory' => 'Design',
     'topic' => 'LeetCode · Design',

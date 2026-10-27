@@ -5,7 +5,7 @@ return [
     'title' => 'Substrings With Dominant Ones',
     'leetcode' => 3234,
     'difficulty' => 'Med',
-    'summary' => 'A substring is dominant if ones ≥ zeros². Since zeros ≤ √n in any dominant substring, enumerate start and zero count; here we check every substring.',
+    'summary' => 'A substring is dominant if ones at least zeros². Since zeros at most √n in any dominant substring, enumerate start and zero count; here we check every substring.',
     'category' => 'LeetCode',
     'subcategory' => 'Strings',
     'topic' => 'LeetCode · Strings',

@@ -5,7 +5,7 @@ return [
     'title' => 'First Almost-Equal Substring',
     'leetcode' => 3303,
     'difficulty' => 'Hard',
-    'summary' => 'Return the smallest i where s[i..i+m) differs from pattern in at most one place. Z-functions on pattern+s and on the reverses make each check O(1).',
+    'summary' => 'Return the smallest i where s[i to i+m) differs from pattern in at most one place. Z-functions on pattern+s and on the reverses make each check O(1).',
     'category' => 'LeetCode',
     'subcategory' => 'Strings',
     'topic' => 'LeetCode · Strings',

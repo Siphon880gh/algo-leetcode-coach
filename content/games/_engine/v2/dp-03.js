@@ -29,7 +29,7 @@
       const a = I.nums; let up = 1, down = 1;
       for (let i = 1; i < a.length; i++) { const d = a[i] - a[i - 1];
         T.at({ nums: A(a, { hl: [i - 1, i] }), up, down });
-        T.c(`${a[i - 1]} → ${a[i]}: which length changes?`, ['up = down + 1', 'down = up + 1', 'neither'], d > 0 ? 'up = down + 1' : d < 0 ? 'down = up + 1' : 'neither', d > 0 ? 'A rise extends a sequence that ended on a fall.' : d < 0 ? 'A fall extends a sequence that ended on a rise.' : 'Equal neighbours never help a wiggle.');
+        T.c(`From ${a[i - 1]} to ${a[i]}: which length changes?`, ['up = down + 1', 'down = up + 1', 'neither'], d > 0 ? 'up = down + 1' : d < 0 ? 'down = up + 1' : 'neither', d > 0 ? 'A rise extends a sequence that ended on a fall.' : d < 0 ? 'A fall extends a sequence that ended on a rise.' : 'Equal neighbours never help a wiggle.');
         if (d > 0) up = down + 1; else if (d < 0) down = up + 1; }
       return a.length ? Math.max(up, down) : 0;
     }
@@ -37,21 +37,21 @@
 
   D('combination-sum-iv', {
     t: 'Combination Sum IV: count by the last number used',
-    r: 'dp[t] = number of ordered sequences summing to t. dp[0] = 1, and dp[t] = Σ dp[t − x] over every x ≤ t (x is the last number).',
+    r: 'dp[t] = number of ordered sequences summing to t. dp[0] = 1, and dp[t] = the sum of dp[t − x] over every x at most t (x is the last number).',
     g: R => ({ nums: R.distinct(R.int(2, 3), 1, 4).sort((a, b) => a - b), target: R.int(4, 7) }),
     s(I, T) { const dp = [1]; for (let t = 1; t <= I.target; t++) { const v = I.nums.reduce((s, x) => s + (x <= t ? dp[t - x] : 0), 0); T.at({ nums: A(I.nums), dp: A(dp.concat('?')) }); T.n(`dp[${t}]?`, v, I.nums.filter(x => x <= t).map(x => `dp[${t - x}]`).join(' + ') + ` = ${v}.`); dp.push(v); } return dp[I.target]; }
   });
 
   D('rotate-function', {
     t: 'Rotate Function: slide F(k) from F(k−1)',
-    r: 'F(k) = F(k−1) + sum(nums) − n · (the element that moves from the end to the front). No need to recompute the whole sum.',
+    r: 'F(k) = F(k−1) + sum(nums) − n times (the element that moves from the end to the front). No need to recompute the whole sum.',
     g: R => ({ nums: R.ints(R.int(4, 5), -3, 9) }),
     s(I, T) {
       const a = I.nums, n = a.length, sum = a.reduce((x, y) => x + y, 0); let F = a.reduce((s, x, i) => s + i * x, 0), best = F;
       T.at({ nums: A(a), sum, 'F(0)': F });
       for (let k = 1; k < n; k++) { const nf = F + sum - n * a[n - k];
         T.at({ nums: A(a, { hl: [n - k] }), sum, ['F(' + (k - 1) + ')']: F, best });
-        T.n(`F(${k}) = F(${k - 1}) + sum − n·nums[${n - k}] = ?`, nf, `${F} + ${sum} − ${n}·${a[n - k]}.`); F = nf; best = Math.max(best, F); }
+        T.n(`F(${k}) = F(${k - 1}) + sum − n times nums[${n - k}] = ?`, nf, `${F} + ${sum} − ${n} times ${a[n - k]}.`); F = nf; best = Math.max(best, F); }
       return best;
     }
   });
@@ -92,13 +92,13 @@
 
   D('arithmetic-slices-ii-subsequence', {
     t: 'Arithmetic Slices II: count by (end, difference)',
-    r: 'dp[i][d] = arithmetic subsequences of length ≥ 2 ending at i with difference d. For each j < i: d = a[i] − a[j]; dp[j][d] of them become length ≥ 3 (count them), and dp[i][d] += dp[j][d] + 1.',
+    r: 'dp[i][d] = arithmetic subsequences of length at least 2 ending at i with difference d. For each j < i: d = a[i] − a[j]; dp[j][d] of them become length at least 3 (count them), and dp[i][d] += dp[j][d] + 1.',
     g: R => ({ nums: R.ints(5, 1, 6) }),
     s(I, T) {
       const a = I.nums, dp = a.map(() => new Map()); let total = 0;
       for (let i = 0; i < a.length; i++) { let add = 0;
         for (let j = 0; j < i; j++) { const d = a[i] - a[j], c = dp[j].get(d) || 0; add += c; dp[i].set(d, (dp[i].get(d) || 0) + c + 1); }
-        if (i >= 2) { T.at({ nums: A(a, { hl: [i] }), total }); T.n(`New subsequences of length ≥ 3 ending at index ${i}?`, add, 'Σ dp[j][a[i] − a[j]] over j < i.'); }
+        if (i >= 2) { T.at({ nums: A(a, { hl: [i] }), total }); T.n(`New subsequences of length at least 3 ending at index ${i}?`, add, 'the sum of dp[j][a[i] − a[j]] over j < i.'); }
         total += add; }
       return total;
     }
@@ -119,7 +119,7 @@
 
   D('count-the-repetitions', {
     t: 'Count the Repetitions: scan s1 copies, count finished s2',
-    r: 'Walk through n1 copies of s1, advancing a pointer in s2 on every match. Each time the pointer wraps, one more s2 is done. The answer is s2 count / n2.',
+    r: 'Walk through n1 copies of s1, advancing a pointer in s2 on every match. Each time the pointer wraps, one more s2 is done. The answer is s2 count divided by n2.',
     g: R => ({ s1: R.str(3, 'abc'), n1: R.int(3, 4), s2: R.str(2, 'abc'), n2: R.int(1, 2) }),
     s(I, T) {
       let j = 0, cnt = 0;
@@ -145,7 +145,7 @@
   const decode = e => { let out = '', i = 0; while (i < e.length) { if (/\d/.test(e[i])) { let k = 0; while (/\d/.test(e[i])) k = k * 10 + +e[i++]; i++; let d = 1, j = i; while (d) { if (e[j] === '[') d++; if (e[j] === ']') d--; j++; } out += decode(e.slice(i, j - 1)).repeat(k); i = j; } else out += e[i++]; } return out; };
   D('encode-string-with-shortest-length', {
     t: 'Encode String with Shortest Length: best of split or repeat',
-    r: 'dp[i][j] = shortest encoding of s[i..j]. Either split it into two encoded parts, or, if it is a repeated pattern, write k[pattern] with the pattern encoded.',
+    r: 'dp[i][j] = shortest encoding of s[i to j]. Either split it into two encoded parts, or, if it is a repeated pattern, write k[pattern] with the pattern encoded.',
     g: R => { const u = R.str(R.int(1, 2), 'ab'); return { s: R.chance(0.7) ? u.repeat(R.int(3, 5)) + R.str(R.int(0, 1), 'ab') : R.str(6, 'ab') }; },
     s(I, T) {
       const s = I.s, n = s.length, dp = mk(n, n, '');
@@ -160,7 +160,7 @@
   });
 
   D('ones-and-zeroes', {
-    t: 'Ones and Zeroes: 0/1 knapsack with two budgets',
+    t: 'Ones and Zeroes: 0-1 knapsack with two budgets',
     r: 'dp[z][o] = most strings using at most z zeros and o ones. For each string (zeros c0, ones c1), go backwards: dp[z][o] = max(dp[z][o], dp[z−c0][o−c1] + 1).',
     g: R => ({ strs: Array.from({ length: R.int(4, 5) }, () => R.str(R.int(1, 3), '01')), m: R.int(2, 3), n: R.int(2, 3) }),
     s(I, T) {
@@ -174,7 +174,7 @@
 
   D('predict-the-winner', {
     t: 'Predict the Winner: best lead the mover can force',
-    r: 'dp[l][r] = the lead the player to move can force on nums[l..r]: max(nums[l] − dp[l+1][r], nums[r] − dp[l][r−1]). Player 1 wins if dp[0][n−1] ≥ 0.',
+    r: 'dp[l][r] = the lead the player to move can force on nums[l to r]: max(nums[l] − dp[l+1][r], nums[r] − dp[l][r−1]). Player 1 wins if dp[0][n−1] at least 0.',
     g: R => ({ nums: R.ints(R.int(4, 5), 1, 9) }),
     s(I, T) {
       const a = I.nums, n = a.length, dp = mk(n, n, 0); for (let i = 0; i < n; i++) dp[i][i] = a[i];
@@ -200,7 +200,7 @@
 
   D('freedom-trail', {
     t: 'Freedom Trail: cheapest ring position for each key letter',
-    r: 'dp[i][p] = fewest rotations to spell key[0..i] with ring position p (holding key[i]) at 12 o\'clock. Moving from q to p costs min(|p−q|, n − |p−q|). Add one press per letter.',
+    r: 'dp[i][p] = fewest rotations to spell key[0 to i] with ring position p (holding key[i]) at 12 o\'clock. Moving from q to p costs min(|p−q|, n − |p−q|). Add one press per letter.',
     g: R => { const ring = R.str(6, 'abcd'); return { ring, key: Array.from({ length: R.int(2, 3) }, () => R.pick([...ring])).join('') }; },
     s(I, T) {
       const { ring, key } = I, n = ring.length, dist = (a, b) => Math.min(Math.abs(a - b), n - Math.abs(a - b)); let prev = new Map([[0, 0]]);
@@ -226,7 +226,7 @@
 
   D('remove-boxes', {
     t: 'Remove Boxes: carry the same-color boxes waiting on the left',
-    r: 'f(l, r, k) = best for boxes[l..r] with k boxes equal to boxes[l] glued in front. Either remove boxes[l] with its k friends now ((k+1)² + f(l+1, r, 0)), or save it for a later equal box m: f(l+1, m−1, 0) + f(m, r, k+1).',
+    r: 'f(l, r, k) = best for boxes[l to r] with k boxes equal to boxes[l] glued in front. Either remove boxes[l] with its k friends now ((k+1)² + f(l+1, r, 0)), or save it for a later equal box m: f(l+1, m−1, 0) + f(m, r, k+1).',
     g: R => ({ boxes: R.ints(R.int(4, 6), 1, 3) }),
     s(I, T) {
       const b = I.boxes, memo = new Map();
@@ -239,7 +239,7 @@
 
   D('student-attendance-record-ii', {
     t: 'Student Attendance Record II: states by absences and trailing lates',
-    r: 'State (a, l): a absences so far (0 or 1), l late days at the end (0..2). Each day: P resets l, L adds one (only if l < 2), A needs a = 0 and resets l.',
+    r: 'State (a, l): a absences so far (0 or 1), l late days at the end (0 to 2). Each day: P resets l, L adds one (only if l < 2), A needs a = 0 and resets l.',
     g: R => ({ n: R.int(2, 5) }),
     s(I, T) {
       let st = [[1, 0, 0], [0, 0, 0]];
@@ -279,7 +279,7 @@
 
   D('delete-operation-for-two-strings', {
     t: 'Delete Operation for Two Strings: keep the longest common subsequence',
-    r: 'Fill the LCS table: equal letters extend the diagonal, otherwise take the larger of up/left. Deletions = len1 + len2 − 2·LCS.',
+    r: 'Fill the LCS table: equal letters extend the diagonal, otherwise take the larger of up or left. Deletions = len1 + len2 − 2 times LCS.',
     g: R => ({ word1: R.str(R.int(3, 4), 'abc'), word2: R.str(R.int(3, 4), 'abc') }),
     s(I, T) {
       const a = I.word1, b = I.word2, dp = mk(a.length + 1, b.length + 1, 0);
@@ -304,12 +304,12 @@
 
   D('k-inverse-pairs-array', {
     t: 'K Inverse Pairs Array: where the largest number goes',
-    r: 'Placing n in an array of n−1 numbers creates 0..n−1 new inverse pairs (by how far from the end it sits). dp[n][k] = Σ dp[n−1][k−j] for j = 0..min(k, n−1).',
+    r: 'Placing n in an array of n−1 numbers creates 0 to n−1 new inverse pairs (by how far from the end it sits). dp[n][k] = the sum of dp[n−1][k−j] for j = 0 to min(k, n−1).',
     g: R => ({ n: R.int(3, 4), k: R.int(1, 3) }),
     s(I, T) {
       const dp = mk(I.n + 1, I.k + 1, 0); dp[0][0] = 1;
       for (let i = 1; i <= I.n; i++) for (let k = 0; k <= I.k; k++) { let v = 0; for (let j = 0; j <= Math.min(k, i - 1); j++) v = (v + dp[i - 1][k - j]) % MOD;
-        if (i >= 2) { T.at({ dp: G(dp, { rh: [...Array(I.n + 1).keys()].map(x => 'n=' + x), ch: [...Array(I.k + 1).keys()].map(x => 'k=' + x), hl: [[i, k]] }) }); T.n(`dp[${i}][${k}]?`, v, `Σ dp[${i - 1}][${k} − j] for j = 0..${Math.min(k, i - 1)}.`); }
+        if (i >= 2) { T.at({ dp: G(dp, { rh: [...Array(I.n + 1).keys()].map(x => 'n=' + x), ch: [...Array(I.k + 1).keys()].map(x => 'k=' + x), hl: [[i, k]] }) }); T.n(`dp[${i}][${k}]?`, v, `the sum of dp[${i - 1}][${k} − j] for j = 0 to ${Math.min(k, i - 1)}.`); }
         dp[i][k] = v; }
       return dp[I.n][I.k];
     }
@@ -317,22 +317,22 @@
 
   D('find-the-derangement-of-an-array', {
     t: 'Derangements: where does element 1 go?',
-    r: 'd(n) = (n − 1) · (d(n−1) + d(n−2)). Element 1 goes to one of n−1 spots; the displaced element either swaps back (d(n−2)) or does not (d(n−1)).',
+    r: 'd(n) = (n − 1) times (d(n−1) + d(n−2)). Element 1 goes to one of n−1 spots; the displaced element either swaps back (d(n−2)) or does not (d(n−1)).',
     g: R => ({ n: R.int(4, 8) }),
-    s(I, T) { if (I.n === 1) return 0; let a = 0, b = 1; for (let i = 3; i <= I.n; i++) { const c = (i - 1) * (a + b) % MOD; T.at({ 'd(i−2)': a, 'd(i−1)': b }); T.n(`d(${i})?`, c, `(${i} − 1)·(${b} + ${a}).`); [a, b] = [b, c]; } return b; }
+    s(I, T) { if (I.n === 1) return 0; let a = 0, b = 1; for (let i = 3; i <= I.n; i++) { const c = (i - 1) * (a + b) % MOD; T.at({ 'd(i−2)': a, 'd(i−1)': b }); T.n(`d(${i})?`, c, `(${i} − 1) times (${b} + ${a}).`); [a, b] = [b, c]; } return b; }
   });
 
   D('decode-ways-ii', {
     t: 'Decode Ways II: count what a star can stand for',
-    r: 'dp[i] = ways for the first i characters. One character: "*" gives 9 · dp[i−1], a nonzero digit 1 · dp[i−1]. Two characters: count valid pairs 10..26 (a star covers 1..9) times dp[i−2].',
+    r: 'dp[i] = ways for the first i characters. One character: "*" gives 9 times dp[i−1], a nonzero digit 1 times dp[i−1]. Two characters: count valid pairs 10 to 26 (a star covers 1 to 9) times dp[i−2].',
     g: R => ({ s: R.str(R.int(3, 4), '12**3906') }),
     s(I, T) {
       const s = I.s, one = c => c === '*' ? 9 : c === '0' ? 0 : 1;
       const two = (a, b) => { if (a === '*' && b === '*') return 15; if (a === '*') return b <= '6' ? 2 : 1; if (b === '*') return a === '1' ? 9 : a === '2' ? 6 : 0; const v = +(a + b); return v >= 10 && v <= 26 ? 1 : 0; };
       let p2 = 1, p1 = one(s[0]);
-      T.at({ s: A([...s], { hl: [0] }) }); T.n('Ways to decode the first character?', p1, `"${s[0]}" stands for ${one(s[0])} letter(s).`);
+      T.at({ s: A([...s], { hl: [0] }) }); T.n('Ways to decode the first character?', p1, `"${s[0]}" stands for ${one(s[0])} letters.`);
       for (let i = 1; i < s.length; i++) { const v = (one(s[i]) * p1 + two(s[i - 1], s[i]) * p2) % MOD;
-        T.at({ s: A([...s], { hl: [i - 1, i] }), 'dp[i−1]': p1, 'dp[i−2]': p2 }); T.n(`Ways for the first ${i + 1} characters?`, v, `${one(s[i])}·${p1} + ${two(s[i - 1], s[i])}·${p2}.`); p2 = p1; p1 = v; }
+        T.at({ s: A([...s], { hl: [i - 1, i] }), 'dp[i−1]': p1, 'dp[i−2]': p2 }); T.n(`Ways for the first ${i + 1} characters?`, v, `${one(s[i])} times ${p1} + ${two(s[i - 1], s[i])} times ${p2}.`); p2 = p1; p1 = v; }
       return p1;
     }
   });
@@ -341,7 +341,7 @@
     t: 'Maximum Length of Pair Chain: sort by end, take greedily',
     r: 'Sort pairs by their right end. Take a pair whenever its left end is greater than the end of the last pair taken.',
     g: R => ({ pairs: Array.from({ length: R.int(5, 6) }, () => { const a = R.int(0, 10); return [a, a + R.int(1, 4)]; }) }),
-    s(I, T) { const p = I.pairs.slice().sort((a, b) => a[1] - b[1]); let end = -Infinity, c = 0; p.forEach((x, i) => { T.at({ sorted: X(p.map(q => '[' + q + ']').join(' '), 'sorted by end'), 'last end': end, chain: c }); T.yn(`Take [${x}]?`, x[0] > end, x[0] > end ? `${x[0]} > last end ${end}.` : `${x[0]} ≤ last end ${end}: it would overlap.`); if (x[0] > end) { end = x[1]; c++; } }); return c; }
+    s(I, T) { const p = I.pairs.slice().sort((a, b) => a[1] - b[1]); let end = -Infinity, c = 0; p.forEach((x, i) => { T.at({ sorted: X(p.map(q => '[' + q + ']').join(' '), 'sorted by end'), 'last end': end, chain: c }); T.yn(`Take [${x}]?`, x[0] > end, x[0] > end ? `${x[0]} > last end ${end}.` : `${x[0]} at most last end ${end}: it would overlap.`); if (x[0] > end) { end = x[1]; c++; } }); return c; }
   });
 
   D('palindromic-substrings', {
@@ -353,7 +353,7 @@
 
   D('2-keys-keyboard', {
     t: '2 Keys Keyboard: build i from a divisor',
-    r: 'To reach i copies, reach some divisor d, Copy All once, then paste i/d − 1 times: dp[i] = min over d | i of dp[d] + i/d.',
+    r: 'To reach i copies, reach some divisor d, Copy All once, then paste i divided by d − 1 times: dp[i] = min over d | i of dp[d] + i divided by d.',
     g: R => ({ n: R.int(6, 12) }),
     s(I, T) { const dp = [0, 0]; for (let i = 2; i <= I.n; i++) { let b = i, bd = 1; for (let d = 2; d < i; d++) if (i % d === 0 && dp[d] + i / d < b) { b = dp[d] + i / d; bd = d; } T.at({ dp: A(dp.concat('?')) }); T.n(`dp[${i}]?`, b, bd === 1 ? `Prime: copy once, paste ${i - 1} times = ${i}.` : `From ${bd}: dp[${bd}] + ${i / bd}.`); dp.push(b); } return dp[I.n]; }
   });

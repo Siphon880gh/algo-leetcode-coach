@@ -5,7 +5,7 @@ return [
     'title' => 'Maximum Good People Based on Statements',
     'leetcode' => 2151,
     'difficulty' => 'Hard',
-    'summary' => 'Try every subset of people as "good". It is consistent if every good person\'s statements (0 bad / 1 good) match the subset. Maximize the subset size.',
+    'summary' => 'Try every subset of people as "good". It is consistent if every good person\'s statements (0 bad or 1 good) match the subset. Maximize the subset size.',
     'category' => 'LeetCode',
     'subcategory' => 'Backtracking',
     'topic' => 'LeetCode · Backtracking',

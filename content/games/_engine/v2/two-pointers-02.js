@@ -51,14 +51,14 @@
     t: 'Most Profit Assigning Work',
     r: 'Sort jobs by difficulty and workers by ability. Sweep a pointer over jobs a worker can do, tracking the best profit so far; each worker earns that best.',
     g: R => { const n = R.int(1, 5); return { difficulty: R.ints(n, 1, 9), profit: R.ints(n, 1, 9), worker: R.ints(R.int(1, 5), 1, 9) }; },
-    s(I, T) { const J = I.difficulty.map((d, i) => [d, I.profit[i]]).sort((a, b) => a[0] - b[0]), W = I.worker.slice().sort((a, b) => a - b); let j = 0, best = 0, tot = 0; for (const w of W) { while (j < J.length && J[j][0] <= w) best = Math.max(best, J[j++][1]); tot += best; T.at({ jobs: A(J.map(([d, p]) => `d${d}:$${p}`), { j: Math.min(j, J.length - 1) }), worker: w }); T.n('Profit for this worker?', best, 'Best profit among jobs ≤ ability.'); } return tot; }
+    s(I, T) { const J = I.difficulty.map((d, i) => [d, I.profit[i]]).sort((a, b) => a[0] - b[0]), W = I.worker.slice().sort((a, b) => a - b); let j = 0, best = 0, tot = 0; for (const w of W) { while (j < J.length && J[j][0] <= w) best = Math.max(best, J[j++][1]); tot += best; T.at({ jobs: A(J.map(([d, p]) => `d${d}:$${p}`), { j: Math.min(j, J.length - 1) }), worker: w }); T.n('Profit for this worker?', best, 'Best profit among jobs at most ability.'); } return tot; }
   });
 
   D('positions-of-large-groups', {
     t: 'Positions of Large Groups',
-    r: 'Walk groups with a start pointer i and scan j to the end of the run; record [i, j − 1] when the group has length ≥ 3.',
+    r: 'Walk groups with a start pointer i and scan j to the end of the run; record [i, j − 1] when the group has length at least 3.',
     g: R => ({ s: Array.from({ length: R.int(1, 5) }, () => R.pick('abc').repeat(R.int(1, 4))).join('') }),
-    s(I, T) { const s = I.s, out = []; let i = 0; while (i < s.length) { let j = i; while (j < s.length && s[j] === s[i]) j++; T.at({ s: A([...s], { win: [i, j - 1] }) }); T.yn('Is this a large group (≥ 3)?', j - i >= 3, `Length ${j - i}.`); if (j - i >= 3) out.push([i, j - 1]); i = j; } return out; }
+    s(I, T) { const s = I.s, out = []; let i = 0; while (i < s.length) { let j = i; while (j < s.length && s[j] === s[i]) j++; T.at({ s: A([...s], { win: [i, j - 1] }) }); T.yn('Is this a large group (at least 3)?', j - i >= 3, `Length ${j - i}.`); if (j - i >= 3) out.push([i, j - 1]); i = j; } return out; }
   });
 
   D('flipping-an-image', {
@@ -70,7 +70,7 @@
 
   D('maximize-distance-to-closest-person', {
     t: 'Maximize Distance to Closest Person',
-    r: 'Look at gaps of empty seats: a leading or trailing gap gives its full length; an inner gap of length g gives ⌈g / 2⌉. Take the maximum.',
+    r: 'Look at gaps of empty seats: a leading or trailing gap gives its full length; an inner gap of length g gives half of g, rounded up. Take the maximum.',
     g: R => { const s = R.ints(R.int(2, 10), 0, 1); s[R.int(0, s.length - 1)] = 1; if (!s.includes(0)) s[0] = 0; return { seats: s }; },
     s(I, T) { const s = I.seats, n = s.length; let best = 0, prev = -1; for (let i = 0; i <= n; i++) { if (i < n && !s[i]) continue; const g = prev < 0 ? i : i === n ? n - 1 - prev : Math.floor((i - prev) / 2); if (prev >= 0 || i < n) { best = Math.max(best, g); T.at({ seats: A(s, { win: [prev + 1, i - 1] }) }); T.n('Distance this gap offers?', g, prev < 0 || i === n ? 'Edge gap: its full length.' : 'Inner gap: half.'); } prev = i; } return best; }
   });
@@ -110,7 +110,7 @@
     t: '3Sum With Multiplicity',
     r: 'For each middle j, combine a count map of values left of j with each k > j: add left[target − a[j] − a[k]]. Take the result mod 1e9+7.',
     g: R => ({ arr: R.ints(R.int(3, 9), 0, 4), target: R.int(2, 9) }),
-    s(I, T) { const a = I.arr, left = {}; let c = 0, asks = 0; for (let j = 0; j < a.length; j++) { for (let k = j + 1; k < a.length; k++) c += left[I.target - a[j] - a[k]] || 0; if (asks++ < 8 && j) { T.at({ arr: A(a, { j }), left: K(left) }); T.n(`Triples with middle index ${j} counted so far (total)?`, c, 'Σ left[target − a[j] − a[k]].'); } left[a[j]] = (left[a[j]] || 0) + 1; } return c % 1000000007; }
+    s(I, T) { const a = I.arr, left = {}; let c = 0, asks = 0; for (let j = 0; j < a.length; j++) { for (let k = j + 1; k < a.length; k++) c += left[I.target - a[j] - a[k]] || 0; if (asks++ < 8 && j) { T.at({ arr: A(a, { j }), left: K(left) }); T.n(`Triples with middle index ${j} counted so far (total)?`, c, 'the sum of left[target − a[j] − a[k]].'); } left[a[j]] = (left[a[j]] || 0) + 1; } return c % 1000000007; }
   });
 
   D('long-pressed-name', {
@@ -130,7 +130,7 @@
 
   D('valid-mountain-array', {
     t: 'Valid Mountain Array',
-    r: 'Climb while strictly increasing, then descend while strictly decreasing. Valid iff the peak is not at either end and the walk reaches the end.',
+    r: 'Climb while strictly increasing, then descend while strictly decreasing. Valid exactly when the peak is not at either end and the walk reaches the end.',
     g: R => { const n = R.int(1, 7); if (R.chance(0.5)) { const p = R.int(0, n - 1), a = []; for (let i = 0; i < n; i++) a.push(10 - Math.abs(i - p) * R.int(1, 2)); return { arr: a }; } return { arr: R.ints(n, 0, 5) }; },
     s(I, T) { const res = (() => { const a = I.arr, n = a.length; let i = 0; while (i + 1 < n && a[i] < a[i + 1]) i++; T.at({ arr: A(a, { i }) }); T.n('Peak index after climbing?', i, 'Climb while strictly increasing.'); if (i === 0 || i === n - 1) return false; while (i + 1 < n && a[i] > a[i + 1]) i++; T.at({ arr: A(a, { i }) }); T.yn('Did the descent reach the end?', i === n - 1, 'Strictly decreasing to the end.'); return i === n - 1; })(); T.yn('Is it a valid mountain?', res, 'Strictly up, then strictly down, with both sides present.'); return res; }
   });
@@ -152,14 +152,14 @@
 
   D('maximum-width-ramp', {
     t: 'Maximum Width Ramp',
-    r: 'Build a stack of indices with strictly decreasing values (candidate left ends). Scan j from the right; while nums[stack top] ≤ nums[j], pop and update width j − top.',
+    r: 'Build a stack of indices with strictly decreasing values (candidate left ends). Scan j from the right; while nums[stack top] at most nums[j], pop and update width j − top.',
     g: R => ({ nums: R.ints(R.int(2, 9), 0, 9) }),
     s(I, T) { const a = I.nums, st = []; a.forEach((x, i) => { if (!st.length || a[st[st.length - 1]] > x) st.push(i); }); T.at({ nums: A(a) }); T.n('How many candidate left ends?', st.length, 'Prefix minima (strictly decreasing).'); let best = 0, asks = 0; for (let j = a.length - 1; j >= 0 && st.length; j--) while (st.length && a[st[st.length - 1]] <= a[j]) { const i = st.pop(); best = Math.max(best, j - i); if (asks++ < 6) { T.at({ nums: A(a, { i, j }) }); T.n('Best width so far?', best, 'j − i.'); } } return best; }
   });
 
   D('shortest-way-to-form-string', {
     t: 'Shortest Way to Form String',
-    r: 'Greedy: each pass over source matches as many target characters as possible (as a subsequence). Count passes; a target character missing from source → −1.',
+    r: 'Greedy: each pass over source matches as many target characters as possible (as a subsequence). Count passes; a target character missing from source gives −1.',
     g: R => ({ source: R.str(R.int(1, 4), 'abc'), target: R.str(R.int(1, 7), 'abcd') }),
     s(I, T) { const res = (() => { const S = I.source; T.at({ source: S, target: I.target }); T.n('Distinct letters in target?', new Set(I.target).size, 'Each must appear in source.'); if ([...I.target].some(c => !S.includes(c))) { T.at({ source: S, target: I.target }); T.yn('Does source contain every target letter?', false, 'Otherwise −1.'); return -1; } let i = 0, n = 0; while (i < I.target.length) { const st = i; for (const c of S) if (i < I.target.length && I.target[i] === c) i++; n++; if (n < 7) { T.at({ target: A([...I.target], { win: [st, i - 1] }) }); T.n(`Target characters covered after pass ${n}?`, i, 'Match greedily as a subsequence.'); } } return n; })(); T.n('Fewest subsequences (−1 if impossible)?', res, 'One per greedy pass.'); return res; }
   });
@@ -182,7 +182,7 @@
     t: 'Longest Chunked Palindrome Decomposition',
     r: 'Greedy from both ends: grow a prefix and a suffix together; as soon as they are equal, cut both off (+2 chunks). Whatever remains in the middle is one more chunk.',
     g: R => { const p = Array.from({ length: R.int(1, 3) }, () => R.str(R.int(1, 2), 'ab')); return { text: p.join('') + (R.chance(0.5) ? R.str(R.int(1, 2), 'abc') : '') + p.slice().reverse().join('') }; },
-    s(I, T) { const s = I.text; let l = 0, r = s.length, c = 0, asks = 0; while (l < r) { let k = 1, cut = false; while (l + k <= r - k) { if (s.slice(l, l + k) === s.slice(r - k, r)) { cut = true; break; } k++; } if (!cut) { c++; break; } if (asks++ < 6) { T.at({ text: A([...s], { l, r: r - 1 }) }); T.c('Matching chunk peeled from both ends?', [...new Set([s.slice(l, l + k), s.slice(l, l + k + 1), s.slice(r - k - 1, r)])], s.slice(l, l + k), 'Shortest equal prefix/suffix.'); } c += 2; l += k; r -= k; } return c; }
+    s(I, T) { const s = I.text; let l = 0, r = s.length, c = 0, asks = 0; while (l < r) { let k = 1, cut = false; while (l + k <= r - k) { if (s.slice(l, l + k) === s.slice(r - k, r)) { cut = true; break; } k++; } if (!cut) { c++; break; } if (asks++ < 6) { T.at({ text: A([...s], { l, r: r - 1 }) }); T.c('Matching chunk peeled from both ends?', [...new Set([s.slice(l, l + k), s.slice(l, l + k + 1), s.slice(r - k - 1, r)])], s.slice(l, l + k), 'Shortest equal prefix or suffix.'); } c += 2; l += k; r -= k; } return c; }
   });
 
   D('last-substring-in-lexicographical-order', {
@@ -196,14 +196,14 @@
     t: 'Intersection of Three Sorted Arrays',
     r: 'Three pointers: if all three values are equal, output and advance all; otherwise advance the pointer at the smallest value.',
     g: R => ({ arr1: R.distinct(R.int(1, 5), 1, 9).sort((a, b) => a - b), arr2: R.distinct(R.int(1, 5), 1, 9).sort((a, b) => a - b), arr3: R.distinct(R.int(1, 5), 1, 9).sort((a, b) => a - b) }),
-    s(I, T) { const a = I.arr1, b = I.arr2, c = I.arr3, out = []; let i = 0, j = 0, k = 0, asks = 0; while (i < a.length && j < b.length && k < c.length) { const m = Math.min(a[i], b[j], c[k]), eq = a[i] === b[j] && b[j] === c[k]; if (asks++ < 8) { T.at({ a: A(a, { i }), b: A(b, { j }), c: A(c, { k }) }); T.yn('All three equal?', eq, eq ? 'Output it.' : `Advance the pointer(s) at ${m}.`); } if (eq) { out.push(a[i]); i++; j++; k++; } else { if (a[i] === m) i++; else if (b[j] === m) j++; else k++; } } return out; }
+    s(I, T) { const a = I.arr1, b = I.arr2, c = I.arr3, out = []; let i = 0, j = 0, k = 0, asks = 0; while (i < a.length && j < b.length && k < c.length) { const m = Math.min(a[i], b[j], c[k]), eq = a[i] === b[j] && b[j] === c[k]; if (asks++ < 8) { T.at({ a: A(a, { i }), b: A(b, { j }), c: A(c, { k }) }); T.yn('All three equal?', eq, eq ? 'Output it.' : `Advance the pointers at ${m}.`); } if (eq) { out.push(a[i]); i++; j++; k++; } else { if (a[i] === m) i++; else if (b[j] === m) j++; else k++; } } return out; }
   });
 
   D('meeting-scheduler', {
     t: 'Meeting Scheduler',
     r: 'Sort both slot lists by start. Two pointers: the overlap is [max(starts), min(ends)]; if it fits the duration, return its start + duration. Advance whichever slot ends first.',
     g: R => { const sl = () => { const a = []; let t = R.int(0, 5); for (let i = 0; i < R.int(1, 3); i++) { const s = t + R.int(0, 5), e = s + R.int(2, 10); a.push([s, e]); t = e + 1; } return R.shuffle(a); }; return { slots1: sl(), slots2: sl(), duration: R.int(1, 6) }; },
-    s(I, T) { const a = I.slots1.slice().sort((x, y) => x[0] - y[0]), b = I.slots2.slice().sort((x, y) => x[0] - y[0]); let i = 0, j = 0, asks = 0; while (i < a.length && j < b.length) { const s = Math.max(a[i][0], b[j][0]), e = Math.min(a[i][1], b[j][1]); if (asks++ < 8) { T.at({ slot1: a[i].join('–'), slot2: b[j].join('–'), duration: I.duration }); T.n('Overlap length (0 if none)?', Math.max(0, e - s), 'min(ends) − max(starts).'); } if (e - s >= I.duration) return [s, s + I.duration]; if (a[i][1] < b[j][1]) i++; else j++; } return []; }
+    s(I, T) { const a = I.slots1.slice().sort((x, y) => x[0] - y[0]), b = I.slots2.slice().sort((x, y) => x[0] - y[0]); let i = 0, j = 0, asks = 0; while (i < a.length && j < b.length) { const s = Math.max(a[i][0], b[j][0]), e = Math.min(a[i][1], b[j][1]); if (asks++ < 8) { T.at({ slot1: a[i].join(' to '), slot2: b[j].join(' to '), duration: I.duration }); T.n('Overlap length (0 if none)?', Math.max(0, e - s), 'min(ends) − max(starts).'); } if (e - s >= I.duration) return [s, s + I.duration]; if (a[i][1] < b[j][1]) i++; else j++; } return []; }
   });
 
   D('remove-palindromic-subsequences', {
@@ -222,22 +222,22 @@
 
   D('the-k-strongest-values-in-an-array', {
     t: 'The k Strongest Values in an Array',
-    r: 'Sort; the median is a[(n − 1) / 2]. Two pointers at the ends: take whichever end is stronger (|x − m| larger, ties to the larger value) k times.',
+    r: 'Sort; the median is a[(n − 1) divided by 2]. Two pointers at the ends: take whichever end is stronger (|x − m| larger, ties to the larger value) k times.',
     g: R => { const a = R.ints(R.int(1, 7), 1, 9); return { arr: a, k: R.int(1, a.length) }; },
     cmp: 'set',
-    s(I, T) { const a = I.arr.slice().sort((x, y) => x - y), m = a[(a.length - 1) >> 1], out = []; T.at({ sorted: A(a) }); T.n('Median?', m, 'a[(n − 1) / 2].'); let l = 0, r = a.length - 1; while (out.length < I.k) { const takeR = Math.abs(a[r] - m) >= Math.abs(a[l] - m); if (out.length < 6) { T.at({ sorted: A(a, { l, r }) }); T.c('Take which end?', ['right', 'left'], takeR ? 'right' : 'left', 'Stronger; ties go to the larger value.'); } out.push(takeR ? a[r--] : a[l++]); } return out; }
+    s(I, T) { const a = I.arr.slice().sort((x, y) => x - y), m = a[(a.length - 1) >> 1], out = []; T.at({ sorted: A(a) }); T.n('Median?', m, 'a[(n − 1) divided by 2].'); let l = 0, r = a.length - 1; while (out.length < I.k) { const takeR = Math.abs(a[r] - m) >= Math.abs(a[l] - m); if (out.length < 6) { T.at({ sorted: A(a, { l, r }) }); T.c('Take which end?', ['right', 'left'], takeR ? 'right' : 'left', 'Stronger; ties go to the larger value.'); } out.push(takeR ? a[r--] : a[l++]); } return out; }
   });
 
   D('number-of-subsequences-that-satisfy-the-given-sum-condition', {
     t: 'Number of Subsequences That Satisfy the Given Sum Condition',
-    r: 'Sort. For each left end l (the minimum), shrink r while a[l] + a[r] > target; then any subset of (l, r] can join: add 2^(r − l). Mod 1e9+7.',
+    r: 'Sort. For each left end l (the minimum), shrink r while a[l] + a[r] > target; then any subset of (l, r] can join: add 2 to the power (r − l). Mod 1e9+7.',
     g: R => ({ nums: R.ints(R.int(1, 7), 1, 9), target: R.int(1, 15) }),
-    s(I, T) { const a = I.nums.slice().sort((x, y) => x - y), M = 1000000007n; let r = a.length - 1, c = 0n, asks = 0; for (let l = 0; l <= r; l++) { while (l <= r && a[l] + a[r] > I.target) r--; if (l > r) break; c = (c + (1n << BigInt(r - l))) % M; if (asks++ < 8) { T.at({ sorted: A(a, { l, r }), target: I.target }); T.n('Total so far?', Number(c), 'Add 2^(r − l).'); } } if (!asks) { T.at({ sorted: A(a) }); T.n('Valid subsequences?', 0, 'Even the minimum doubled exceeds target.'); } return Number(c); }
+    s(I, T) { const a = I.nums.slice().sort((x, y) => x - y), M = 1000000007n; let r = a.length - 1, c = 0n, asks = 0; for (let l = 0; l <= r; l++) { while (l <= r && a[l] + a[r] > I.target) r--; if (l > r) break; c = (c + (1n << BigInt(r - l))) % M; if (asks++ < 8) { T.at({ sorted: A(a, { l, r }), target: I.target }); T.n('Total so far?', Number(c), 'Add 2 to the power (r − l).'); } } if (!asks) { T.at({ sorted: A(a) }); T.n('Valid subsequences?', 0, 'Even the minimum doubled exceeds target.'); } return Number(c); }
   });
 
   D('number-of-ways-where-square-of-number-is-equal-to-product-of-two-numbers', {
     t: 'Number of Ways Where Square of Number Is Equal to Product of Two Numbers',
-    r: 'For each x in one array, count pairs j < k in the other with product x² — a count map of the other array checks x² / y for each y. Do both directions.',
+    r: 'For each x in one array, count pairs j < k in the other with product x² — a count map of the other array checks x² divided by y for each y. Do both directions.',
     g: R => ({ nums1: R.ints(R.int(1, 5), 1, 6), nums2: R.ints(R.int(1, 5), 1, 6) }),
     s(I, T) { const res = (() => { const f = (A1, B) => { let c = 0; for (const x of A1) for (let j = 0; j < B.length; j++) for (let k = j + 1; k < B.length; k++) if (x * x === B[j] * B[k]) c++; return c; }; const t1 = f(I.nums1, I.nums2), t2 = f(I.nums2, I.nums1); T.at({ nums1: A(I.nums1), nums2: A(I.nums2) }); T.n('Type 1 triplets (square from nums1)?', t1, 'Pairs in nums2 with product x².'); T.n('Type 2 triplets (square from nums2)?', t2, 'Pairs in nums1.'); return t1 + t2; })(); T.n('Total triplets?', res, 'Type 1 plus type 2.'); return res; }
   });
@@ -272,7 +272,7 @@
 
   D('form-array-by-concatenating-subarrays-of-another-array', {
     t: 'Form Array by Concatenating Subarrays of Another Array',
-    r: 'Greedy left to right: for each group in order, find its earliest match in nums at or after the pointer, then move the pointer past it. All groups placed → true.',
+    r: 'Greedy left to right: for each group in order, find its earliest match in nums at or after the pointer, then move the pointer past it. All groups placed: true.',
     g: R => { const nums = R.ints(R.int(1, 9), 1, 3), g = []; let i = 0; while (i < nums.length && g.length < 3) { i += R.int(0, 2); const k = R.int(1, 2); if (i + k <= nums.length) g.push(nums.slice(i, i + k)); i += k; } if (!g.length || R.chance(0.3)) g.push(R.ints(R.int(1, 2), 1, 3)); return { groups: g, nums }; },
     s(I, T) { let p = 0; for (const [gi, g] of I.groups.entries()) { let f = -1; for (let i = p; i + g.length <= I.nums.length; i++) if (g.every((x, k) => I.nums[i + k] === x)) { f = i; break; } T.at({ nums: A(I.nums, { p: Math.min(p, I.nums.length - 1) }), group: A(g) }); T.n(`Earliest start for group ${gi} (−1 if none)?`, f, 'Search from the pointer.'); if (f < 0) return false; p = f + g.length; } return true; }
   });

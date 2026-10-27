@@ -5,7 +5,7 @@ return [
     'title' => 'Block Placement Queries',
     'leetcode' => 3161,
     'difficulty' => 'Hard',
-    'summary' => 'Maintain obstacles in a sorted set and a segment tree storing, at each obstacle, the gap to the previous one. For [2, x, sz]: max(range-max gap up to x, x − last obstacle ≤ x) ≥ sz.',
+    'summary' => 'Maintain obstacles in a sorted set and a segment tree storing, at each obstacle, the gap to the previous one. For [2, x, sz]: max(range-max gap up to x, x − last obstacle at most x) at least sz.',
     'category' => 'LeetCode',
     'subcategory' => 'Segment Tree',
     'topic' => 'LeetCode · Segment Tree',

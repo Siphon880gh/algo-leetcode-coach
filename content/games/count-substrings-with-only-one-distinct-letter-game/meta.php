@@ -2,10 +2,10 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Count Single-Letter Substrings: L·(L+1)/2 per run',
+    'title' => 'Count Single-Letter Substrings: L times (L+1) divided by 2 per run',
     'leetcode' => 1180,
     'difficulty' => 'Easy',
-    'summary' => 'Split s into runs of the same letter. A run of length L contains L·(L + 1)/2 such substrings.',
+    'summary' => 'Split s into runs of the same letter. A run of length L contains L times (L + 1) divided by 2 such substrings.',
     'category' => 'LeetCode',
     'subcategory' => 'Math',
     'topic' => 'LeetCode · Math',

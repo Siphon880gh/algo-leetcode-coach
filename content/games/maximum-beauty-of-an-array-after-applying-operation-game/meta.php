@@ -5,7 +5,7 @@ return [
     'title' => 'Maximum Beauty After Operations',
     'leetcode' => 2779,
     'difficulty' => 'Med',
-    'summary' => 'Each value can move within ±k, so equal values are possible iff max − min ≤ 2k. Sort and find the largest window with a[r] − a[l] ≤ 2k.',
+    'summary' => 'Each value can move within ±k, so equal values are possible exactly when max − min at most 2k. Sort and find the largest window with a[r] − a[l] at most 2k.',
     'category' => 'LeetCode',
     'subcategory' => 'Binary Search',
     'topic' => 'LeetCode · Binary Search',

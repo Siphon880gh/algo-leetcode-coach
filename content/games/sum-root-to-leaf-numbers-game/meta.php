@@ -2,10 +2,10 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Sum Root-to-Leaf Numbers: carry ×10 + digit',
+    'title' => 'Sum Root-to-Leaf Numbers: carry times 10 + digit',
     'leetcode' => 129,
     'difficulty' => 'Med',
-    'summary' => 'Pass the number so far down: cur = cur × 10 + val. Add it at each leaf.',
+    'summary' => 'Pass the number so far down: cur = cur times 10 + val. Add it at each leaf.',
     'category' => 'LeetCode',
     'subcategory' => 'Trees',
     'topic' => 'LeetCode · Trees',

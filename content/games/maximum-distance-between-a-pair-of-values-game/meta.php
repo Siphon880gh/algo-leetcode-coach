@@ -5,7 +5,7 @@ return [
     'title' => 'Maximum Distance Between a Pair of Values',
     'leetcode' => 1855,
     'difficulty' => 'Med',
-    'summary' => 'Both arrays are non-increasing. Two pointers: if nums1[i] ≤ nums2[j], record j − i and advance j; else advance i.',
+    'summary' => 'Both arrays are non-increasing. Two pointers: if nums1[i] at most nums2[j], record j − i and advance j; else advance i.',
     'category' => 'LeetCode',
     'subcategory' => 'Binary Search',
     'topic' => 'LeetCode · Binary Search',

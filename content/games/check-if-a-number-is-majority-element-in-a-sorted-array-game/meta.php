@@ -5,7 +5,7 @@ return [
     'title' => 'Majority Element in a Sorted Array',
     'leetcode' => 1150,
     'difficulty' => 'Easy',
-    'summary' => 'Binary search the first index of target; it is a majority iff nums[first + ⌊n/2⌋] is still target.',
+    'summary' => 'Binary search the first index of target; it is a majority exactly when nums[first + (half of n, rounded down)] is still target.',
     'category' => 'LeetCode',
     'subcategory' => 'Binary Search',
     'topic' => 'LeetCode · Binary Search',

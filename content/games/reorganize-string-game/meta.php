@@ -5,7 +5,7 @@ return [
     'title' => 'Reorganize String',
     'leetcode' => 767,
     'difficulty' => 'Med',
-    'summary' => 'If some letter appears more than ⌈n/2⌉ times it is impossible. Otherwise repeatedly pop the two most frequent letters from a max-heap, append both, and push them back with decremented counts.',
+    'summary' => 'If some letter appears more than half of n, rounded up times it is impossible. Otherwise repeatedly pop the two most frequent letters from a max-heap, append both, and push them back with decremented counts.',
     'category' => 'LeetCode',
     'subcategory' => 'Heap',
     'topic' => 'LeetCode · Heap',

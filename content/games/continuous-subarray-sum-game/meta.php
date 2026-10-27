@@ -5,7 +5,7 @@ return [
     'title' => 'Continuous Subarray Sum',
     'leetcode' => 523,
     'difficulty' => 'Med',
-    'summary' => 'Two prefixes with the same remainder mod k bound a subarray whose sum is a multiple of k. Store the first index of each remainder and require length ≥ 2.',
+    'summary' => 'Two prefixes with the same remainder mod k bound a subarray whose sum is a multiple of k. Store the first index of each remainder and require length at least 2.',
     'category' => 'LeetCode',
     'subcategory' => 'Prefix Sum',
     'topic' => 'LeetCode · Prefix Sum',

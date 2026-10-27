@@ -5,7 +5,7 @@ return [
     'title' => 'Minimum Value to Get Positive Step by Step Sum',
     'leetcode' => 1413,
     'difficulty' => 'Easy',
-    'summary' => 'The running sum must stay ≥ 1, so startValue = max(1, 1 − minPrefix).',
+    'summary' => 'The running sum must stay at least 1, so startValue = max(1, 1 − minPrefix).',
     'category' => 'LeetCode',
     'subcategory' => 'Prefix Sum',
     'topic' => 'LeetCode · Prefix Sum',

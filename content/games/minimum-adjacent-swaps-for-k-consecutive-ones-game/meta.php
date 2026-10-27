@@ -5,7 +5,7 @@ return [
     'title' => 'Minimum Adjacent Swaps for K Consecutive Ones',
     'leetcode' => 1703,
     'difficulty' => 'Hard',
-    'summary' => 'Take positions p of the ones and set q[i] = p[i] − i (gathering becomes "make q equal"). For each window of k consecutive q values, the cost is Σ|q − median|; slide with prefix sums and take the minimum.',
+    'summary' => 'Take positions p of the ones and set q[i] = p[i] − i (gathering becomes "make q equal"). For each window of k consecutive q values, the cost is the sum of |q − median|; slide with prefix sums and take the minimum.',
     'category' => 'LeetCode',
     'subcategory' => 'Sliding Window',
     'topic' => 'LeetCode · Sliding Window',

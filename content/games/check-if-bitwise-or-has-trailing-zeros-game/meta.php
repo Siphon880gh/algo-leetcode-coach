@@ -5,7 +5,7 @@ return [
     'title' => 'Check if Bitwise OR Has Trailing Zeros',
     'leetcode' => 2980,
     'difficulty' => 'Easy',
-    'summary' => 'An OR has a trailing zero iff every chosen number is even. So we need at least two even numbers.',
+    'summary' => 'An OR has a trailing zero exactly when every chosen number is even. So we need at least two even numbers.',
     'category' => 'LeetCode',
     'subcategory' => 'Bit Manipulation',
     'topic' => 'LeetCode · Bit Manipulation',

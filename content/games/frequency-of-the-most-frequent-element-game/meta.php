@@ -5,7 +5,7 @@ return [
     'title' => 'Frequency of the Most Frequent Element',
     'leetcode' => 1838,
     'difficulty' => 'Med',
-    'summary' => 'Sort. A window can be raised to its max a[r] at cost a[r]·len − sum. Slide: while cost > k, shrink from the left. The longest window is the answer.',
+    'summary' => 'Sort. A window can be raised to its max a[r] at cost a[r] times len − sum. Slide: while cost > k, shrink from the left. The longest window is the answer.',
     'category' => 'LeetCode',
     'subcategory' => 'Sliding Window',
     'topic' => 'LeetCode · Sliding Window',

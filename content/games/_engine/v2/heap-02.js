@@ -33,7 +33,7 @@
 
   D('minimum-amount-of-time-to-fill-cups', {
     t: 'Minimum Amount of Time to Fill Cups',
-    r: 'Fill the two largest counts together each second. The answer is max(largest, ⌈total/2⌉).',
+    r: 'Fill the two largest counts together each second. The answer is max(largest, (half of total, rounded up)).',
     g: R => ({ amount: R.ints(3, 0, 8) }),
     s(I, T) { const res = (() => { const m = Math.max(...I.amount), s = sum(I.amount); T.at({ amount: A(I.amount) }); T.n('Largest single count?', m, 'Only one of that type per second.'); T.n('Half the total, rounded up?', Math.ceil(s / 2), 'At most two cups per second.'); return Math.max(m, Math.ceil(s / 2)); })(); T.n('Fewest seconds?', res, 'The larger of the two limits.'); return res; }
   });
@@ -54,7 +54,7 @@
 
   D('minimum-deletions-to-make-array-divisible', {
     t: 'Minimum Deletions to Make Array Divisible',
-    r: 'An element divides every numsDivide value iff it divides their gcd. Sort nums; the answer is the index of the first element dividing the gcd (−1 if none).',
+    r: 'An element divides every numsDivide value exactly when it divides their gcd. Sort nums; the answer is the index of the first element dividing the gcd (−1 if none).',
     g: R => ({ nums: R.ints(R.int(1, 6), 1, 8), numsDivide: (m => R.ints(R.int(1, 4), 1, 4).map(x => x * m))(R.int(1, 6)) }),
     s(I, T) { const res = (() => { const g = I.numsDivide.reduce(gcd), s = I.nums.slice().sort((a, b) => a - b); T.at({ numsDivide: A(I.numsDivide) }); T.n('gcd of numsDivide?', g, 'The new minimum must divide it.'); T.n('Smallest value in nums?', s[0], 'Sort nums and try values in order.'); const i = s.findIndex(x => g % x === 0); return i; })(); T.n('Fewest deletions? (−1 if impossible)', res, 'Index of the first value that divides the gcd.'); return res; }
   });
@@ -75,7 +75,7 @@
 
   D('meeting-rooms-iii', {
     t: 'Meeting Rooms III',
-    r: 'Process meetings by start. Free rooms in a min-heap by index; busy rooms by (end, index). Release rooms ending ≤ start; if none free, delay the meeting into the earliest-ending room. Return the room used most (smallest index on ties).',
+    r: 'Process meetings by start. Free rooms in a min-heap by index; busy rooms by (end, index). Release rooms ending at most start; if none free, delay the meeting into the earliest-ending room. Return the room used most (smallest index on ties).',
     g: R => { const n = R.int(1, 3), s = R.distinct(R.int(1, 6), 0, 12); return { n, meetings: s.map(x => [x, x + R.int(1, 5)]) }; },
     s(I, T) { const ms = I.meetings.slice().sort((a, b) => a[0] - b[0]), end = Array(I.n).fill(0), c = Array(I.n).fill(0); ms.forEach(([s, e], k) => { let r = end.findIndex(t => t <= s), st = s; if (r < 0) { r = 0; end.forEach((t, i) => { if (t < end[r]) r = i; }); st = end[r]; } end[r] = st + e - s; c[r]++; if (k < 6) { T.at({ meeting: `[${s}, ${e})`, roomFreeAt: A(end.slice(), { i: r }) }); T.n('Room used?', r, 'Lowest free room, else the earliest to free up.'); } }); return c.indexOf(Math.max(...c)); }
   });
@@ -104,23 +104,23 @@
 
   D('maximal-score-after-applying-k-operations', {
     t: 'Maximal Score After Applying K Operations',
-    r: 'k times: take the largest value from a max-heap, add it to the score, push back ⌈x/3⌉.',
+    r: 'k times: take the largest value from a max-heap, add it to the score, push back x divided by 3, rounded up.',
     g: R => ({ nums: R.ints(R.int(1, 5), 1, 30), k: R.int(1, 5) }),
-    s(I, T) { const h = PQ((a, b) => b - a); I.nums.forEach(x => h.push(x)); let s = 0; for (let i = 0; i < I.k; i++) { const x = h.pop(); s += x; h.push(Math.ceil(x / 3)); T.at({ heap: A(h.items()) }); T.n('Score so far?', s, `Took ${x}, pushed back ⌈${x}/3⌉.`); } return s; }
+    s(I, T) { const h = PQ((a, b) => b - a); I.nums.forEach(x => h.push(x)); let s = 0; for (let i = 0; i < I.k; i++) { const x = h.pop(); s += x; h.push(Math.ceil(x / 3)); T.at({ heap: A(h.items()) }); T.n('Score so far?', s, `Took ${x}, pushed back ${x} divided by 3, rounded up.`); } return s; }
   });
 
   D('time-to-cross-a-bridge', {
     t: 'Time to Cross a Bridge',
     r: 'Simulate with four heaps: waiting on each side (least efficient first: larger left+right, then larger index) and working on each side (by finish time). Right-side waiters cross first; left-side waiters cross only while boxes remain unassigned. When idle, jump to the next finish time.',
     g: R => { const k = R.int(1, 3); return { n: R.int(1, 3), k, time: Array.from({ length: k }, () => R.ints(4, 1, 5)) }; },
-    s(I, T) { const tm = I.time, worse = (a, b) => (tm[b][0] + tm[b][2]) - (tm[a][0] + tm[a][2]) || b - a; const wL = PQ(worse), wR = PQ(worse), kL = PQ((a, b) => a[0] - b[0]), kR = PQ((a, b) => a[0] - b[0]); for (let i = 0; i < I.k; i++) wL.push(i); let n = I.n, cur = 0, asks = 0; for (;;) { while (kL.size && kL.peek()[0] <= cur) wL.push(kL.pop()[1]); while (kR.size && kR.peek()[0] <= cur) wR.push(kR.pop()[1]); if (wR.size) { const i = wR.pop(); cur += tm[i][2]; if (asks++ < 5) { T.at({ time: cur - tm[i][2], waitingRight: A(wR.items()) }); T.n('Which worker crosses right → left?', i, 'Right side has priority; least efficient first.'); } if (!n && !wR.size && !kR.size) return cur; kL.push([cur + tm[i][3], i]); } else if (n && wL.size) { const i = wL.pop(); cur += tm[i][0]; n--; if (asks++ < 5) { T.at({ time: cur - tm[i][0], boxesLeft: n + 1 }); T.n('Which worker crosses left → right?', i, 'Least efficient waiting worker.'); } kR.push([cur + tm[i][1], i]); } else { let nx = Infinity; if (kR.size) nx = kR.peek()[0]; if (n && kL.size) nx = Math.min(nx, kL.peek()[0]); cur = nx; } } }
+    s(I, T) { const tm = I.time, worse = (a, b) => (tm[b][0] + tm[b][2]) - (tm[a][0] + tm[a][2]) || b - a; const wL = PQ(worse), wR = PQ(worse), kL = PQ((a, b) => a[0] - b[0]), kR = PQ((a, b) => a[0] - b[0]); for (let i = 0; i < I.k; i++) wL.push(i); let n = I.n, cur = 0, asks = 0; for (;;) { while (kL.size && kL.peek()[0] <= cur) wL.push(kL.pop()[1]); while (kR.size && kR.peek()[0] <= cur) wR.push(kR.pop()[1]); if (wR.size) { const i = wR.pop(); cur += tm[i][2]; if (asks++ < 5) { T.at({ time: cur - tm[i][2], waitingRight: A(wR.items()) }); T.n('Which worker crosses right to left?', i, 'Right side has priority; least efficient first.'); } if (!n && !wR.size && !kR.size) return cur; kL.push([cur + tm[i][3], i]); } else if (n && wL.size) { const i = wL.pop(); cur += tm[i][0]; n--; if (asks++ < 5) { T.at({ time: cur - tm[i][0], boxesLeft: n + 1 }); T.n('Which worker crosses left to right?', i, 'Least efficient waiting worker.'); } kR.push([cur + tm[i][1], i]); } else { let nx = Infinity; if (kR.size) nx = kR.peek()[0]; if (n && kL.size) nx = Math.min(nx, kL.peek()[0]); cur = nx; } } }
   });
 
   D('maximum-subsequence-score', {
     t: 'Maximum Subsequence Score',
-    r: 'Sort pairs by nums2 descending: the current nums2 is the minimum. Keep a min-heap of the k largest nums1 values; score = sum × current nums2.',
+    r: 'Sort pairs by nums2 descending: the current nums2 is the minimum. Keep a min-heap of the k largest nums1 values; score = sum times current nums2.',
     g: R => { const n = R.int(1, 5); return { nums1: R.ints(n, 0, 9), nums2: R.ints(n, 0, 9), k: R.int(1, n) }; },
-    s(I, T) { const p = I.nums1.map((v, i) => [v, I.nums2[i]]).sort((a, b) => b[1] - a[1]), h = PQ((a, b) => a - b); let s = 0, best = 0; p.forEach(([v, m], i) => { h.push(v); s += v; if (h.size > I.k) s -= h.pop(); if (h.size === I.k) { best = Math.max(best, s * m); if (i < 5) { T.at({ min2: m, picked1: A(h.items()) }); T.n('Score with this as the minimum?', s * m, 'sum(nums1) × min(nums2).'); } } }); return best; }
+    s(I, T) { const p = I.nums1.map((v, i) => [v, I.nums2[i]]).sort((a, b) => b[1] - a[1]), h = PQ((a, b) => a - b); let s = 0, best = 0; p.forEach(([v, m], i) => { h.push(v); s += v; if (h.size > I.k) s -= h.pop(); if (h.size === I.k) { best = Math.max(best, s * m); if (i < 5) { T.at({ min2: m, picked1: A(h.items()) }); T.n('Score with this as the minimum?', s * m, 'sum(nums1) times min(nums2).'); } } }); return best; }
   });
 
   D('put-marbles-in-bags', {
@@ -132,9 +132,9 @@
 
   D('take-gifts-from-the-richest-pile', {
     t: 'Take Gifts From the Richest Pile',
-    r: 'k times: pop the largest pile and push back ⌊√x⌋. Sum the piles at the end.',
+    r: 'k times: pop the largest pile and push back √x rounded down. Sum the piles at the end.',
     g: R => ({ gifts: R.ints(R.int(1, 5), 1, 100), k: R.int(1, 4) }),
-    s(I, T) { const h = PQ((a, b) => b - a); I.gifts.forEach(x => h.push(x)); for (let i = 0; i < I.k; i++) { const x = h.pop(); h.push(Math.floor(Math.sqrt(x))); T.at({ piles: A(h.items()) }); T.n('Pile left after taking from the richest?', Math.floor(Math.sqrt(x)), `⌊√${x}⌋.`); } return sum(h.items()); }
+    s(I, T) { const h = PQ((a, b) => b - a); I.gifts.forEach(x => h.push(x)); for (let i = 0; i < I.k; i++) { const x = h.pop(); h.push(Math.floor(Math.sqrt(x))); T.at({ piles: A(h.items()) }); T.n('Pile left after taking from the richest?', Math.floor(Math.sqrt(x)), `√${x} rounded down.`); } return sum(h.items()); }
   });
 
   D('find-score-of-an-array-after-marking-all-elements', {
@@ -188,9 +188,9 @@
 
   D('minimum-operations-to-exceed-threshold-value-ii', {
     t: 'Minimum Operations to Exceed Threshold Value II',
-    r: 'While the smallest is below k: pop the two smallest x ≤ y and push 2x + y (min-heap). Count operations.',
+    r: 'While the smallest is below k: pop the two smallest x at most y and push 2x + y (min-heap). Count operations.',
     g: R => { for (;;) { const a = R.ints(R.int(2, 6), 1, 12), k = R.int(1, 25), h = a.slice().sort((x, y) => x - y); while (h.length >= 2 && h[0] < k) { const x = h.shift(), y = h.shift(); h.push(2 * x + y); h.sort((p, q) => p - q); } if (h[0] >= k) return { nums: a, k }; } },
-    s(I, T) { const h = PQ((a, b) => a - b); I.nums.forEach(x => h.push(x)); let c = 0; while (h.peek() < I.k) { const x = h.pop(), y = h.pop(); h.push(2 * x + y); c++; if (c <= 5) { T.at({ heap: A(h.items()), k: I.k }); T.n('New value pushed?', 2 * x + y, `min(${x}, ${y})·2 + max.`); } } return c; }
+    s(I, T) { const h = PQ((a, b) => a - b); I.nums.forEach(x => h.push(x)); let c = 0; while (h.peek() < I.k) { const x = h.pop(), y = h.pop(); h.push(2 * x + y); c++; if (c <= 5) { T.at({ heap: A(h.items()), k: I.k }); T.n('New value pushed?', 2 * x + y, `min(${x}, ${y}) times 2 + max.`); } } return c; }
   });
 
   D('mark-elements-on-array-by-performing-queries', {
@@ -223,7 +223,7 @@
 
   D('final-array-state-after-k-multiplication-operations-ii', {
     t: 'Final Array State After K Multiplication Operations II',
-    r: 'Simulate with a heap only until the minimum times the multiplier exceeds the maximum. After that the operations cycle: with q = ⌊k/n⌋ and r = k mod n, every element gets q multiplications and the r smallest (by value, index) get one more — use fast power mod 1e9+7.',
+    r: 'Simulate with a heap only until the minimum times the multiplier exceeds the maximum. After that the operations cycle: with q = (k divided by n, rounded down) and r = k mod n, every element gets q multiplications and the r smallest (by value, index) get one more — use fast power mod 1e9+7.',
     g: R => ({ nums: R.ints(R.int(1, 4), 1, 9), k: R.int(1, 12), multiplier: R.int(1, 3) }),
     s(I, T) { const n = I.nums.length, m = I.multiplier; if (m === 1) { T.at({ multiplier: 1 }); T.yn('Does anything change?', false, 'Multiplying by 1.'); T.n('Value at index 0 at the end?', I.nums[0], 'Unchanged.'); T.n('Operations that change a value?', 0, 'None of them do.'); return I.nums.slice(); } const a = I.nums.slice(); let k = I.k, steps = 0; for (; k > 0; k--) { let mi = 0; a.forEach((v, i) => { if (v < a[mi]) mi = i; }); if (a[mi] * m > Math.max(...a)) break; a[mi] *= m; steps++; } T.at({ nums: A(a.slice()), opsLeft: k }); T.n('Operations done before the cycle starts?', steps, 'Until the min times the multiplier passes the max.'); T.n('Full rounds over every element after that?', Math.floor(k / n), 'Each round multiplies every value once.'); T.n('Extra operations after the full rounds?', k % n, 'They go to the smallest values.'); const ord = a.map((v, i) => [v, i]).sort((x, y) => x[0] - y[0] || x[1] - y[1]), q = Math.floor(k / n), r = k % n, out = []; ord.forEach(([v, i], p) => { out[i] = Number(BigInt(v) % MOD * powMod(BigInt(m), BigInt(q + (p < r ? 1 : 0))) % MOD); }); return out; }
   });

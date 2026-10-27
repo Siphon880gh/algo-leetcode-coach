@@ -42,7 +42,7 @@
     t: 'Decode String',
     r: 'Stack of (previous string, repeat count). On "[", push and start a new string; on "]", pop and set cur = prev + cur repeated k times.',
     g: R => { const gen = d => Array.from({ length: R.int(1, 2) }, () => d > 0 && R.chance(0.5) ? R.int(1, 3) + '[' + gen(d - 1) + ']' : R.str(R.int(1, 2), 'abc')).join(''); return { s: gen(2) }; },
-    s(I, T) { const st = []; let cur = '', k = 0, t = 0; for (const c of I.s) { if (c >= '0' && c <= '9') k = k * 10 + +c; else if (c === '[') { st.push([cur, k]); cur = ''; k = 0; } else if (c === ']') { const [p, n] = st.pop(); cur = p + cur.repeat(n); if (t++ < 4) { T.at({ s: X(I.s), stack: S(st.map(x => `${x[0] || '""'}×${x[1]}`)) }); T.n('Length of the string after this "]"?', cur.length, 'prev + inner × k.'); } } else cur += c; } return cur; }
+    s(I, T) { const st = []; let cur = '', k = 0, t = 0; for (const c of I.s) { if (c >= '0' && c <= '9') k = k * 10 + +c; else if (c === '[') { st.push([cur, k]); cur = ''; k = 0; } else if (c === ']') { const [p, n] = st.pop(); cur = p + cur.repeat(n); if (t++ < 4) { T.at({ s: X(I.s), stack: S(st.map(x => `${x[0] || '""'}, ${x[1]} times`)) }); T.n('Length of the string after this "]"?', cur.length, 'prev + inner times k.'); } } else cur += c; } return cur; }
   });
 
   D('ternary-expression-parser', {
@@ -54,16 +54,16 @@
 
   D('find-permutation', {
     t: 'Find Permutation',
-    r: 'Start from [1..n] and reverse every maximal run covered by consecutive "D"s (the block of positions i..j where s[i..j−1] are all "D"). This gives the lexicographically smallest permutation.',
+    r: 'Start from [1 to n] and reverse every maximal run covered by consecutive "D"s (the block of positions i to j where s[i to j−1] are all "D"). This gives the lexicographically smallest permutation.',
     g: R => ({ s: R.str(R.int(1, 7), 'ID') }),
     s(I, T) { const res = (() => { const n = I.s.length + 1, p = Array.from({ length: n }, (_, i) => i + 1); T.at({ s: A([...I.s]) }); T.n('Length of the permutation?', n, 'One more than s.'); for (let i = 0; i < I.s.length;) { if (I.s[i] !== 'D') { i++; continue; } let j = i; while (j < I.s.length && I.s[j] === 'D') j++; p.splice(i, j - i + 1, ...p.slice(i, j + 1).reverse()); T.at({ s: A([...I.s], { i, j: j - 1 }), perm: A(p.slice()) }); T.n('Length of the reversed block?', j - i + 1, 'D-run length, plus 1.'); i = j; } return p; })(); T.n('First value of the permutation?', res[0], 'Reversed runs start with their largest value.'); return res; }
   });
 
   D('tag-validator', {
     t: 'Tag Validator',
-    r: 'Parse with a stack of open tag names. The code must be inside one closed tag. CDATA (only inside a tag) is skipped to "]]>"; a start tag name must be 1–9 uppercase letters; an end tag must match the top. Anything left over, or content outside the root tag, is invalid.',
+    r: 'Parse with a stack of open tag names. The code must be inside one closed tag. CDATA (only inside a tag) is skipped to "]]>"; a start tag name must be 1 to 9 uppercase letters; an end tag must match the top. Anything left over, or content outside the root tag, is invalid.',
     g: R => { const name = () => R.str(R.int(1, R.chance(0.1) ? 10 : 4), R.chance(0.1) ? 'ABa' : 'ABC'); const body = d => Array.from({ length: R.int(0, 3) }, () => { const r = R.int(0, 3); if (r === 0 && d > 0) { const nm = name(); return '<' + nm + '>' + body(d - 1) + '</' + (R.chance(0.9) ? nm : name()) + '>'; } if (r === 1) return '<![CDATA[' + R.pick(['<div>', 'x', ']>']) + ']]>'; return R.pick(['text', ' ', '>>', '!']); }).join(''); const nm = name(); let c = '<' + nm + '>' + body(2) + '</' + nm + '>'; if (R.chance(0.2)) c = R.pick([c + 'x', c.slice(0, -1), 'x' + c]); return { code: c }; },
-    s(I, T) { const c = I.code, st = []; let i = 0, k = 0; const say = (msg, v, why) => { if (k++ < 5) { T.at({ code: X(c), at: i, stack: S(st.slice()) }); T.yn(msg, v, why); } }; while (i < c.length) { if (i > 0 && !st.length) { say('Is there content outside the root tag?', true, 'Invalid.'); return false; } if (c.startsWith('<![CDATA[', i)) { if (!st.length) return false; const j = c.indexOf(']]>', i + 9); if (j < 0) return false; i = j + 3; } else if (c.startsWith('</', i)) { const j = c.indexOf('>', i + 2); if (j < 0) return false; const nm = c.slice(i + 2, j), ok = st.length && st[st.length - 1] === nm; say(`Does </${nm}> match the open tag?`, !!ok, 'Must close the top tag.'); if (!ok) return false; st.pop(); i = j + 1; } else if (c[i] === '<') { const j = c.indexOf('>', i + 1); if (j < 0) return false; const nm = c.slice(i + 1, j), ok = /^[A-Z]{1,9}$/.test(nm); say(`Is <${nm}> a valid start tag?`, ok, '1–9 uppercase letters.'); if (!ok) return false; st.push(nm); i = j + 1; } else { if (!st.length) return false; i++; } } return st.length === 0; }
+    s(I, T) { const c = I.code, st = []; let i = 0, k = 0; const say = (msg, v, why) => { if (k++ < 5) { T.at({ code: X(c), at: i, stack: S(st.slice()) }); T.yn(msg, v, why); } }; while (i < c.length) { if (i > 0 && !st.length) { say('Is there content outside the root tag?', true, 'Invalid.'); return false; } if (c.startsWith('<![CDATA[', i)) { if (!st.length) return false; const j = c.indexOf(']]>', i + 9); if (j < 0) return false; i = j + 3; } else if (c.startsWith('</', i)) { const j = c.indexOf('>', i + 2); if (j < 0) return false; const nm = c.slice(i + 2, j), ok = st.length && st[st.length - 1] === nm; say(`Does </${nm}> match the open tag?`, !!ok, 'Must close the top tag.'); if (!ok) return false; st.pop(); i = j + 1; } else if (c[i] === '<') { const j = c.indexOf('>', i + 1); if (j < 0) return false; const nm = c.slice(i + 1, j), ok = /^[A-Z]{1,9}$/.test(nm); say(`Is <${nm}> a valid start tag?`, ok, '1 to 9 uppercase letters.'); if (!ok) return false; st.push(nm); i = j + 1; } else { if (!st.length) return false; i++; } } return st.length === 0; }
   });
 
   D('exclusive-time-of-functions', {
@@ -96,23 +96,23 @@
 
   D('parse-lisp-expression', {
     t: 'Parse Lisp Expression',
-    r: 'Recursive evaluation with a stack of scopes. A number evaluates to itself, a variable to the innermost binding; "add"/"mult" evaluate both operands; "let" pushes a scope, assigns pairs in order, evaluates the final expression, then pops.',
+    r: 'Recursive evaluation with a stack of scopes. A number evaluates to itself, a variable to the innermost binding; "add" and "mult" evaluate both operands; "let" pushes a scope, assigns pairs in order, evaluates the final expression, then pops.',
     g: R => { const names = ['x', 'y', 'a1']; const gen = (scope, d) => { if (d === 0 || R.chance(0.3)) return scope.length && R.chance(0.6) ? R.pick(scope) : String(R.int(-3, 5)); const k = R.int(0, 2); if (k < 2) return `(${k ? 'mult' : 'add'} ${gen(scope, d - 1)} ${gen(scope, d - 1)})`; const parts = [], sc = scope.slice(); for (let i = 0; i < R.int(1, 2); i++) { const v = R.pick(names); parts.push(v, gen(sc, d - 1)); if (!sc.includes(v)) sc.push(v); } return `(let ${parts.join(' ')} ${gen(sc, d - 1)})`; }; let e; do e = gen([], 3); while (e[0] !== '('); return { expression: e }; },
     s(I, T) { const tok = I.expression.replace(/\(/g, ' ( ').replace(/\)/g, ' ) ').trim().split(/\s+/); let p = 0, k = 0; const scopes = [{}]; const look = v => { for (let i = scopes.length - 1; i >= 0; i--) if (v in scopes[i]) return scopes[i][v]; }; const ev = () => { const t = tok[p++]; if (t !== '(') return /^-?\d/.test(t) ? +t : look(t); const op = tok[p++]; let v; if (op === 'add' || op === 'mult') { const a = ev(), b = ev(); v = op === 'add' ? a + b : a * b; if (k++ < 5) { T.at({ expr: X(I.expression) }); T.n(`${op} ${a} ${b} = ?`, v, op === 'add' ? 'Sum.' : 'Product.'); } } else { scopes.push({}); for (;;) { if (tok[p] !== '(' && tok[p + 1] !== ')' && !/^-?\d/.test(tok[p]) && tok[p] !== ')') { const nm = tok[p++]; scopes[scopes.length - 1][nm] = ev(); } else { v = ev(); break; } } scopes.pop(); } p++; return v; }; return ev(); }
   });
 
   D('basic-calculator-iii', {
     t: 'Basic Calculator III',
-    r: 'Recursive descent / stack: evaluate each parenthesized group as a number, and inside a level use the Calculator II stack rule (+/− push, */÷ combine with the top, truncating).',
+    r: 'Recursive descent with a stack: evaluate each parenthesized group as a number, and inside a level use the Calculator II stack rule (+ and − push, multiply and divide combine with the top, truncating).',
     g: R => ({ s: genArith(R, 2, true).replace(/ /g, '') }),
     s(I, T) { let i = 0, k = 0; const s = I.s; const level = () => { const st = []; let n = 0, op = '+'; while (i <= s.length) { const c = s[i++]; if (c >= '0' && c <= '9') { n = n * 10 + +c; continue; } if (c === '(') { n = level(); continue; } if (op === '+') st.push(n); else if (op === '-') st.push(-n); else if (op === '*') st.push(st.pop() * n); else st.push(Math.trunc(st.pop() / n)); if (c === ')' || c === undefined) { const v = st.reduce((a, b) => a + b, 0); if (k++ < 4) { T.at({ s: X(s), at: i }); T.n('Value of the group just closed?', v, 'Sum of its stack.'); } return v; } op = c; n = 0; } }; return level(); }
   });
 
   D('score-of-parentheses', {
     t: 'Score of Parentheses',
-    r: 'Only "()" pairs score: each contributes 2^depth, where depth is the number of enclosing pairs. Sum them.',
+    r: 'Only "()" pairs score: each contributes 2 to the power depth, where depth is the number of enclosing pairs. Sum them.',
     g: R => ({ s: genParens(R, R.int(1, 5)) }),
-    s(I, T) { let d = 0, sc = 0, k = 0; [...I.s].forEach((c, i) => { if (c === '(') d++; else { d--; if (I.s[i - 1] === '(') { sc += 2 ** d; if (k++ < 5) { T.at({ s: A([...I.s], { i }) }); T.n('Points from this "()"?', 2 ** d, '2^depth.'); } } } }); return sc; }
+    s(I, T) { let d = 0, sc = 0, k = 0; [...I.s].forEach((c, i) => { if (c === '(') d++; else { d--; if (I.s[i - 1] === '(') { sc += 2 ** d; if (k++ < 5) { T.at({ s: A([...I.s], { i }) }); T.n('Points from this "()"?', 2 ** d, '2 to the power depth.'); } } } }); return sc; }
   });
 
   D('decoded-string-at-index', {
@@ -132,7 +132,7 @@
 
   D('validate-stack-sequences', {
     t: 'Validate Stack Sequences',
-    r: 'Push in order; after each push, pop while the top equals the next value of popped. Valid iff the stack ends empty.',
+    r: 'Push in order; after each push, pop while the top equals the next value of popped. Valid exactly when the stack ends empty.',
     g: R => { const n = R.int(1, 6), pushed = R.perm(n).map(x => x + 1); return { pushed, popped: R.chance(0.5) ? R.shuffle(pushed.slice()) : (() => { const st = [], out = []; let i = 0; while (out.length < n) { if (i < n && (!st.length || R.chance(0.5))) st.push(pushed[i++]); else out.push(st.pop()); } return out; })() }; },
     s(I, T) { const st = []; let j = 0; I.pushed.forEach((x, i) => { st.push(x); while (st.length && st[st.length - 1] === I.popped[j]) { st.pop(); j++; } if (i < 6) { T.at({ pushed: A(I.pushed, { i }), stack: S(st.slice()) }); T.n('Values popped so far?', j, 'Pop while the top matches.'); } }); return st.length === 0; }
   });
@@ -146,16 +146,16 @@
 
   D('check-if-word-is-valid-after-substitutions', {
     t: 'Check If Word Is Valid After Substitutions',
-    r: 'Push characters; whenever the top three are "a", "b", "c", pop them. Valid iff the stack ends empty.',
+    r: 'Push characters; whenever the top three are "a", "b", "c", pop them. Valid exactly when the stack ends empty.',
     g: R => { let s = ''; for (let i = 0; i < R.int(1, 3); i++) { const p = R.int(0, s.length); s = s.slice(0, p) + 'abc' + s.slice(p); } if (R.chance(0.3)) s = R.shuffle([...s]).join(''); return { s }; },
     s(I, T) { const st = []; [...I.s].forEach((c, i) => { st.push(c); const hit = st.length >= 3 && st.slice(-3).join('') === 'abc'; if (hit) st.length -= 3; if (i < 7) { T.at({ s: A([...I.s], { i }), stack: S(st.slice()) }); T.yn('Did "abc" just complete?', hit, 'Then remove it.'); } }); return st.length === 0; }
   });
 
   D('clumsy-factorial', {
     t: 'Clumsy Factorial',
-    r: 'Apply * / + − in rotation with a stack: * and / combine with the top (floor division of positives), + pushes, − pushes the negation. Sum the stack.',
+    r: 'Apply *, /, + and − in rotation with a stack: * and / combine with the top (floor division of positives), + pushes, − pushes the negation. Sum the stack.',
     g: R => ({ n: R.int(1, 12) }),
-    s(I, T) { const st = [I.n]; let k = 0; for (let x = I.n - 1; x >= 1; x--, k++) { const op = k % 4; if (op === 0) st.push(st.pop() * x); else if (op === 1) { const t = st.pop(); st.push(t < 0 ? -Math.floor(-t / x) : Math.floor(t / x)); } else if (op === 2) st.push(x); else st.push(-x); if (k < 5) { T.at({ op: '*/+-'[op], x, stack: S(st.slice()) }); T.n('Top of the stack?', st[st.length - 1], 'Multiply/divide combine; +/− push.'); } } return st.reduce((a, b) => a + b, 0); }
+    s(I, T) { const st = [I.n]; let k = 0; for (let x = I.n - 1; x >= 1; x--, k++) { const op = k % 4; if (op === 0) st.push(st.pop() * x); else if (op === 1) { const t = st.pop(); st.push(t < 0 ? -Math.floor(-t / x) : Math.floor(t / x)); } else if (op === 2) st.push(x); else st.push(-x); if (k < 5) { T.at({ op: '*/+-'[op], x, stack: S(st.slice()) }); T.n('Top of the stack?', st[st.length - 1], 'Multiply or divide combine; + and − push.'); } } return st.reduce((a, b) => a + b, 0); }
   });
 
   D('remove-outermost-parentheses', {
@@ -174,7 +174,7 @@
 
   D('maximum-nesting-depth-of-two-valid-parentheses-strings', {
     t: 'Maximum Nesting Depth of Two Valid Parentheses Strings',
-    r: 'Alternate nesting levels between A and B: give "(" at depth d (after opening) to group d % 2, and its matching ")" the same group. Each half then has depth ⌈depth/2⌉.',
+    r: 'Alternate nesting levels between A and B: give "(" at depth d (after opening) to group d % 2, and its matching ")" the same group. Each half then has depth half of depth, rounded up.',
     g: R => ({ seq: genParens(R, R.int(1, 5)) }),
     cmp: (o, e, I) => { if (!Array.isArray(o) || o.length !== I.seq.length) return false; const a = [...I.seq].filter((_, i) => o[i] === 0).join(''), b = [...I.seq].filter((_, i) => o[i] === 1).join(''); if (!o.every(x => x === 0 || x === 1) || !vps(a) || !vps(b)) return false; return Math.max(depth(a), depth(b)) === Math.ceil(depth(I.seq) / 2); },
     s(I, T) { let d = 0; return [...I.seq].map((c, i) => { let g; if (c === '(') { d++; g = d % 2; } else { g = d % 2; d--; } if (i < 6) { T.at({ seq: A([...I.seq], { i }) }); T.n('Group for this character?', g, 'Depth parity.'); } return g; }); }

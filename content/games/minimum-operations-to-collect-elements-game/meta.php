@@ -5,7 +5,7 @@ return [
     'title' => 'Minimum Operations to Collect Elements',
     'leetcode' => 2869,
     'difficulty' => 'Easy',
-    'summary' => 'Pop from the end, setting bits for values ≤ k; stop when the mask covers 1..k.',
+    'summary' => 'Pop from the end, setting bits for values at most k; stop when the mask covers 1 to k.',
     'category' => 'LeetCode',
     'subcategory' => 'Bit Manipulation',
     'topic' => 'LeetCode · Bit Manipulation',

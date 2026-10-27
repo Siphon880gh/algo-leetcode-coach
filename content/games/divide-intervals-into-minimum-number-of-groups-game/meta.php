@@ -5,7 +5,7 @@ return [
     'title' => 'Divide Intervals Into Minimum Number of Groups',
     'leetcode' => 2406,
     'difficulty' => 'Med',
-    'summary' => 'The answer is the maximum number of intervals overlapping at a point (ends inclusive). Sort starts and ends; two pointers: a start ≤ the current smallest end opens a new group, otherwise reuse (advance the end pointer).',
+    'summary' => 'The answer is the maximum number of intervals overlapping at a point (ends inclusive). Sort starts and ends; two pointers: a start at most the current smallest end opens a new group, otherwise reuse (advance the end pointer).',
     'category' => 'LeetCode',
     'subcategory' => 'Two Pointers',
     'topic' => 'LeetCode · Two Pointers',

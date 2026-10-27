@@ -11,7 +11,7 @@
     t: 'The Skyline Problem',
     r: 'Sweep the x-coordinates of all edges. Keep a max-heap of active building heights (removing those that ended). Whenever the current max height changes, emit [x, height].',
     g: R => ({ buildings: Array.from({ length: R.int(1, 4) }, () => { const l = R.int(0, 8); return [l, l + R.int(1, 5), R.int(1, 9)]; }).sort((a, b) => a[0] - b[0]) }),
-    s(I, T) { const xs = [...new Set(I.buildings.flatMap(b => [b[0], b[1]]))].sort((a, b) => a - b), out = []; let prev = 0; xs.forEach((x, i) => { const h = Math.max(0, ...I.buildings.filter(b => b[0] <= x && x < b[1]).map(b => b[2])); if (i < 6) { T.at({ x, active: A(I.buildings.filter(b => b[0] <= x && x < b[1]).map(b => b[2])) }); T.n('Max active height at this x?', h, 'Top of the max-heap after adding/removing.'); } if (h !== prev) { out.push([x, h]); prev = h; } }); return out; }
+    s(I, T) { const xs = [...new Set(I.buildings.flatMap(b => [b[0], b[1]]))].sort((a, b) => a - b), out = []; let prev = 0; xs.forEach((x, i) => { const h = Math.max(0, ...I.buildings.filter(b => b[0] <= x && x < b[1]).map(b => b[2])); if (i < 6) { T.at({ x, active: A(I.buildings.filter(b => b[0] <= x && x < b[1]).map(b => b[2])) }); T.n('Max active height at this x?', h, 'Top of the max-heap after adding or removing.'); } if (h !== prev) { out.push([x, h]); prev = h; } }); return out; }
   });
 
   D('top-k-frequent-elements', {
@@ -27,7 +27,7 @@
     r: 'Greedy with a max-heap by remaining count: take the most frequent available letter, then park it in a cooldown queue for k steps before it can return. If the heap empties early, it is impossible.',
     g: R => ({ s: R.str(R.int(1, 7), 'aabc'), k: R.int(0, 3) }),
     cmp: (o, e, I) => { if (e === '') return o === ''; if (typeof o !== 'string' || !sameMultiset(o, I.s)) return false; for (let i = 0; i < o.length; i++) for (let j = i + 1; j < Math.min(o.length, i + I.k); j++) if (o[i] === o[j]) return false; return true; },
-    s(I, T) { if (I.k <= 1) { T.at({ k: I.k }); T.yn('Is any arrangement fine?', true, 'k ≤ 1 imposes no gap.'); return I.s; } const c = cnt(I.s), h = PQ((a, b) => b[1] - a[1] || (a[0] < b[0] ? -1 : 1)); Object.entries(c).forEach(e => h.push(e)); const wait = []; let out = ''; while (out.length < I.s.length) { if (!h.size) { T.at({ built: out }); T.yn('Is any letter available now?', false, 'All are cooling down → impossible.'); return ''; } const [ch, f] = h.pop(); out += ch; if (out.length <= 5) { T.at({ built: out, cooling: Q(wait.map(w => w[0])) }); T.n('Letters placed?', out.length, `Use "${ch}", the most frequent available.`); } wait.push([ch, f - 1]); if (wait.length >= I.k) { const [c2, f2] = wait.shift(); if (f2) h.push([c2, f2]); } } return out; }
+    s(I, T) { if (I.k <= 1) { T.at({ k: I.k }); T.yn('Is any arrangement fine?', true, 'k at most 1 imposes no gap.'); return I.s; } const c = cnt(I.s), h = PQ((a, b) => b[1] - a[1] || (a[0] < b[0] ? -1 : 1)); Object.entries(c).forEach(e => h.push(e)); const wait = []; let out = ''; while (out.length < I.s.length) { if (!h.size) { T.at({ built: out }); T.yn('Is any letter available now?', false, 'All are cooling down: impossible.'); return ''; } const [ch, f] = h.pop(); out += ch; if (out.length <= 5) { T.at({ built: out, cooling: Q(wait.map(w => w[0])) }); T.n('Letters placed?', out.length, `Use "${ch}", the most frequent available.`); } wait.push([ch, f - 1]); if (wait.length >= I.k) { const [c2, f2] = wait.shift(); if (f2) h.push([c2, f2]); } } return out; }
   });
 
   D('trapping-rain-water-ii', {
@@ -39,7 +39,7 @@
 
   D('strong-password-checker', {
     t: 'Strong Password Checker',
-    r: 'Count missing types (lower/upper/digit) and runs of ≥ 3. Short: max(6 − n, missing). Medium: max(missing, Σ⌊run/3⌋). Long: spend n − 20 deletions first on runs with len % 3 == 0, then % 3 == 1 (2 each), then 3 per replacement; answer = deletions + max(missing, replacements left).',
+    r: 'Count missing types (lower or upper divided by digit) and runs of at least 3. Short: max(6 − n, missing). Medium: max(missing, the sum of (run divided by 3, rounded down)). Long: spend n − 20 deletions first on runs with len % 3 == 0, then % 3 == 1 (2 each), then 3 per replacement; answer = deletions + max(missing, replacements left).',
     g: R => ({ password: R.str(R.int(1, 24), 'aaB1.') }),
     s(I, T) { const res = (() => { const p = I.password, n = p.length, missing = (/[a-z]/.test(p) ? 0 : 1) + (/[A-Z]/.test(p) ? 0 : 1) + (/\d/.test(p) ? 0 : 1); let rep = 0, one = 0, two = 0; for (let i = 0; i < n;) { let j = i; while (j < n && p[j] === p[i]) j++; const L = j - i; if (L >= 3) { rep += Math.floor(L / 3); if (L % 3 === 0) one++; else if (L % 3 === 1) two++; } i = j; } T.at({ password: p, length: n }); T.yn('Is the length between 6 and 20?', n >= 6 && n <= 20, 'Otherwise insert or delete characters.'); T.n('Missing character types?', missing, 'Lowercase, uppercase, digit.'); if (n < 6) return Math.max(6 - n, missing); T.n('Replacements needed to break runs?', rep, 'A run of length L needs L divided by 3, rounded down.'); if (n <= 20) return Math.max(missing, rep); const d = n - 20; rep -= Math.min(d, one); rep -= Math.floor(Math.min(Math.max(d - one, 0), two * 2) / 2); rep -= Math.floor(Math.max(d - one - 2 * two, 0) / 3); return d + Math.max(missing, rep); })(); T.n('Minimum steps?', res, 'Combine length fixes, missing types and run breaks.'); return res; }
   });
@@ -53,7 +53,7 @@
 
   D('relative-ranks', {
     t: 'Relative Ranks',
-    r: 'Sort indices by score descending (a max-heap works too). Places 1–3 get medals, the rest get their place number.',
+    r: 'Sort indices by score descending (a max-heap works too). Places 1 to 3 get medals, the rest get their place number.',
     g: R => ({ score: R.distinct(R.int(1, 6), 1, 30) }),
     s(I, T) { const idx = I.score.map((_, i) => i).sort((a, b) => I.score[b] - I.score[a]), out = []; idx.forEach((i, p) => { out[i] = p === 0 ? 'Gold Medal' : p === 1 ? 'Silver Medal' : p === 2 ? 'Bronze Medal' : String(p + 1); }); I.score.slice(0, 4).forEach((s, i) => { T.at({ score: A(I.score, { i }) }); T.n(`Place of athlete ${i}?`, idx.indexOf(i) + 1, 'Rank by score.'); }); return out; }
   });
@@ -95,7 +95,7 @@
 
   D('reorganize-string', {
     t: 'Reorganize String',
-    r: 'If some letter appears more than ⌈n/2⌉ times it is impossible. Otherwise repeatedly pop the two most frequent letters from a max-heap, append both, and push them back with decremented counts.',
+    r: 'If some letter appears more than half of n, rounded up times it is impossible. Otherwise repeatedly pop the two most frequent letters from a max-heap, append both, and push them back with decremented counts.',
     g: R => ({ s: R.str(R.int(1, 7), 'aabc') }),
     cmp: (o, e, I) => e === '' ? o === '' : typeof o === 'string' && sameMultiset(o, I.s) && [...o].every((ch, i) => !i || o[i - 1] !== ch),
     s(I, T) { const res = (() => { const c = cnt(I.s), mx = Math.max(...Object.values(c)); T.at({ counts: K(c) }); T.n('Highest letter count?', mx, 'The hardest letter to spread out.'); T.yn('Is that more than half of n, rounded up?', mx > Math.ceil(I.s.length / 2), 'Then no arrangement works.'); if (mx > Math.ceil(I.s.length / 2)) return ''; const h = PQ((a, b) => b[1] - a[1] || (a[0] < b[0] ? -1 : 1)); Object.entries(c).forEach(e => h.push(e)); let out = ''; while (h.size >= 2) { const a = h.pop(), b = h.pop(); out += a[0] + b[0]; if (--a[1]) h.push(a); if (--b[1]) h.push(b); } if (h.size) out += h.pop()[0]; return out; })(); T.n('Length of the answer? (0 if impossible)', res.length, 'All letters, or the empty string.'); return res; }
@@ -103,7 +103,7 @@
 
   D('minimum-cost-to-hire-k-workers', {
     t: 'Minimum Cost to Hire K Workers',
-    r: 'Sort workers by wage/quality ratio. The highest ratio in the group sets the pay rate, so scan in ratio order keeping a max-heap of the k smallest qualities; cost = ratio × quality sum.',
+    r: 'Sort workers by wage or quality ratio. The highest ratio in the group sets the pay rate, so scan in ratio order keeping a max-heap of the k smallest qualities; cost = ratio times quality sum.',
     g: R => { const n = R.int(1, 5); return { quality: R.ints(n, 1, 10), wage: R.ints(n, 5, 40), k: R.int(1, n) }; },
     cmp: 'float',
     s(I, T) { const w = I.quality.map((q, i) => [I.wage[i] / q, q]).sort((a, b) => a[0] - b[0]), h = PQ((a, b) => b - a); let sum = 0, best = Infinity; w.forEach(([r, q], i) => { h.push(q); sum += q; if (h.size > I.k) sum -= h.pop(); if (h.size === I.k) { best = Math.min(best, r * sum); if (i < 5) { T.at({ ratio: +r.toFixed(3), qualities: A(h.items()) }); T.n('Quality sum of the cheapest k so far?', sum, 'Drop the largest quality.'); } } }); return best; }
@@ -132,7 +132,7 @@
 
   D('minimum-time-to-build-blocks', {
     t: 'Minimum Time to Build Blocks',
-    r: 'Think backwards (Huffman): pop the two smallest blocks a ≤ b and push split + b (one worker splits, then both build). The last value is the answer.',
+    r: 'Think backwards (Huffman): pop the two smallest blocks a at most b and push split + b (one worker splits, then both build). The last value is the answer.',
     g: R => ({ blocks: R.ints(R.int(1, 5), 1, 9), split: R.int(1, 4) }),
     s(I, T) { const h = PQ((a, b) => a - b); I.blocks.forEach(x => h.push(x)); while (h.size > 1) { h.pop(); const b = h.pop(); h.push(I.split + b); T.at({ heap: A(h.items()) }); T.n('Value pushed back?', I.split + b, 'split + the larger of the two.'); } if (I.blocks.length === 1) { T.at({ blocks: A(I.blocks) }); T.n('Time?', I.blocks[0], 'One worker builds it.'); } return h.pop(); }
   });
@@ -146,16 +146,16 @@
 
   D('construct-target-array-with-multiple-sums', {
     t: 'Construct Target Array With Multiple Sums',
-    r: 'Work backwards with a max-heap: the largest value x was last set to the sum of the array, so its previous value is x mod (rest sum). Fail if rest ≥ x or the value hits 0 (unless rest is 1).',
+    r: 'Work backwards with a max-heap: the largest value x was last set to the sum of the array, so its previous value is x mod (rest sum). Fail if rest at least x or the value hits 0 (unless rest is 1).',
     g: R => { if (R.chance(0.6)) { const a = Array(R.int(1, 4)).fill(1); for (let s = 0; s < R.int(1, 4); s++) { const i = R.int(0, a.length - 1); a[i] = a.reduce((x, y) => x + y, 0); } return { target: a }; } return { target: R.ints(R.int(1, 4), 1, 12) }; },
     s(I, T) { const res = (() => { const a = I.target.slice(); let sum = a.reduce((x, y) => x + y, 0), k = 0; T.at({ target: A(a) }); T.n('Sum of the target?', sum, 'Work backwards from it.'); for (;;) { let mi = 0; a.forEach((v, i) => { if (v > a[mi]) mi = i; }); const x = a[mi], rest = sum - x; if (x === 1 || rest === 1) return true; if (rest === 0 || rest >= x || x % rest === 0) { T.at({ array: A(a, { i: mi }) }); T.yn('Can the largest value be undone?', false, 'Rest must be smaller and not divide it.'); return false; } a[mi] = x % rest; sum = rest + a[mi]; if (k++ < 4) { T.at({ array: A(a.slice(), { i: mi }) }); T.n('Previous value of the largest element?', a[mi], 'The remainder of x divided by the sum of the others.'); } } })(); T.yn('Can the target be built?', res, 'Undo until every value is 1.'); return res; }
   });
 
   D('maximum-performance-of-a-team', {
     t: 'Maximum Performance of a Team',
-    r: 'Sort engineers by efficiency descending; each is the minimum efficiency of a team built from those so far. Keep a min-heap of the k largest speeds and maximize sumSpeed × efficiency (mod 1e9+7 at the end).',
+    r: 'Sort engineers by efficiency descending; each is the minimum efficiency of a team built from those so far. Keep a min-heap of the k largest speeds and maximize sumSpeed times efficiency (mod 1e9+7 at the end).',
     g: R => { const n = R.int(1, 6); return { n, speed: R.ints(n, 1, 10), efficiency: R.ints(n, 1, 10), k: R.int(1, n) }; },
-    s(I, T) { const e = I.speed.map((s, i) => [I.efficiency[i], s]).sort((a, b) => b[0] - a[0]), h = PQ((a, b) => a - b); let sum = 0, best = 0; e.forEach(([ef, sp], i) => { h.push(sp); sum += sp; if (h.size > I.k) sum -= h.pop(); best = Math.max(best, sum * ef); if (i < 5) { T.at({ efficiency: ef, speeds: A(h.items()) }); T.n('Performance with this as the minimum efficiency?', sum * ef, 'speed sum × efficiency.'); } }); return best % 1000000007; }
+    s(I, T) { const e = I.speed.map((s, i) => [I.efficiency[i], s]).sort((a, b) => b[0] - a[0]), h = PQ((a, b) => a - b); let sum = 0, best = 0; e.forEach(([ef, sp], i) => { h.push(sp); sum += sp; if (h.size > I.k) sum -= h.pop(); best = Math.max(best, sum * ef); if (i < 5) { T.at({ efficiency: ef, speeds: A(h.items()) }); T.n('Performance with this as the minimum efficiency?', sum * ef, 'speed sum times efficiency.'); } }); return best % 1000000007; }
   });
 
   D('longest-happy-string', {
@@ -170,12 +170,12 @@
     t: 'Find the Kth Smallest Sum of a Matrix With Sorted Rows',
     r: 'Fold the rows: keep the k smallest sums so far; combine them with the next row (all pairs, or a heap of candidates) and keep the k smallest again.',
     g: R => { const m = R.int(1, 3), n = R.int(1, 3); return { mat: Array.from({ length: m }, () => R.sorted(n, 1, 9)), k: R.int(1, Math.min(6, n ** m)) }; },
-    s(I, T) { let cur = [0]; I.mat.forEach((row, i) => { cur = cur.flatMap(s => row.map(v => s + v)).sort((a, b) => a - b).slice(0, I.k); T.at({ row: A(row), kept: A(cur) }); T.n(`Smallest sum after ${i + 1} row(s)?`, cur[0], 'Keep only the k best.'); }); return cur[I.k - 1]; }
+    s(I, T) { let cur = [0]; I.mat.forEach((row, i) => { cur = cur.flatMap(s => row.map(v => s + v)).sort((a, b) => a - b).slice(0, I.k); T.at({ row: A(row), kept: A(cur) }); T.n(`Smallest sum after ${i + 1} rows?`, cur[0], 'Keep only the k best.'); }); return cur[I.k - 1]; }
   });
 
   D('find-servers-that-handled-most-number-of-requests', {
     t: 'Find Servers That Handled Most Number of Requests',
-    r: 'Keep busy servers in a min-heap by finish time and free servers in an ordered set. For request i, free servers whose time passed, then pick the first free index ≥ i mod k (wrapping); drop the request if none.',
+    r: 'Keep busy servers in a min-heap by finish time and free servers in an ordered set. For request i, free servers whose time passed, then pick the first free index at least i mod k (wrapping); drop the request if none.',
     g: R => { const n = R.int(1, 7); let t = 0; return { k: R.int(1, 3), arrival: Array.from({ length: n }, () => t += R.int(1, 2)), load: R.ints(n, 1, 4) }; },
     cmp: 'set',
     s(I, T) { const busy = Array(I.k).fill(0), c = Array(I.k).fill(0); I.arrival.forEach((t, i) => { let pick = -1; for (let d = 0; d < I.k; d++) { const s = (i + d) % I.k; if (busy[s] <= t) { pick = s; break; } } if (i < 6) { T.at({ request: i, time: t, busyUntil: A(busy.slice()) }); T.n('Server chosen (−1 if dropped)?', pick, `First free from ${i % I.k}, wrapping.`); } if (pick >= 0) { busy[pick] = t + I.load[i]; c[pick]++; } }); const mx = Math.max(...c); return c.map((v, i) => v === mx ? i : -1).filter(i => i >= 0); }
@@ -204,7 +204,7 @@
 
   D('maximum-average-pass-ratio', {
     t: 'Maximum Average Pass Ratio',
-    r: 'Give each extra student to the class with the largest gain (p+1)/(t+1) − p/t, using a max-heap keyed by that gain; then average the ratios.',
+    r: 'Give each extra student to the class with the largest gain (p+1) divided by (t+1) − p divided by t, using a max-heap keyed by that gain; then average the ratios.',
     g: R => ({ classes: Array.from({ length: R.int(1, 4) }, () => { const t = R.int(1, 6); return [R.int(0, t), t]; }), extraStudents: R.int(1, 4) }),
     cmp: 'float',
     s(I, T) { const c = I.classes.map(x => x.slice()), gain = ([p, t]) => (p + 1) / (t + 1) - p / t; for (let e = 0; e < I.extraStudents; e++) { let bi = 0; c.forEach((x, i) => { if (gain(x) > gain(c[bi])) bi = i; }); if (e < 4) { T.at({ classes: A(c.map(x => x.join('/'))), student: e + 1 }); T.n('Class index that gets this student?', bi, 'Largest ratio gain.'); } c[bi][0]++; c[bi][1]++; } return c.reduce((s, [p, t]) => s + p / t, 0) / c.length; }
@@ -212,9 +212,9 @@
 
   D('number-of-orders-in-the-backlog', {
     t: 'Number of Orders in the Backlog',
-    r: 'Keep buy orders in a max-heap and sell orders in a min-heap by price. A buy matches the cheapest sells ≤ its price; a sell matches the highest buys ≥ its price. Leftovers go into the backlog; sum remaining amounts mod 1e9+7.',
+    r: 'Keep buy orders in a max-heap and sell orders in a min-heap by price. A buy matches the cheapest sells at most its price; a sell matches the highest buys at least its price. Leftovers go into the backlog; sum remaining amounts mod 1e9+7.',
     g: R => ({ orders: Array.from({ length: R.int(1, 5) }, () => [R.int(1, 30), R.int(1, 5), R.int(0, 1)]) }),
-    s(I, T) { const buy = PQ((a, b) => b[0] - a[0]), sell = PQ((a, b) => a[0] - b[0]); I.orders.forEach(([p, amt, ty], i) => { let a = amt; if (ty === 0) { while (a && sell.size && sell.peek()[0] <= p) { const m = Math.min(a, sell.peek()[1]); a -= m; sell.peek()[1] -= m; if (!sell.peek()[1]) sell.pop(); } if (a) buy.push([p, a]); } else { while (a && buy.size && buy.peek()[0] >= p) { const m = Math.min(a, buy.peek()[1]); a -= m; buy.peek()[1] -= m; if (!buy.peek()[1]) buy.pop(); } if (a) sell.push([p, a]); } if (i < 5) { T.at({ order: `${ty ? 'sell' : 'buy'} ${amt} @ ${p}`, buys: A(buy.items().map(x => x.join('×'))), sells: A(sell.items().map(x => x.join('×'))) }); T.n('Amount of this order left in the backlog?', a, 'After matching the best opposite orders.'); } }); return [...buy.items(), ...sell.items()].reduce((s, x) => s + x[1], 0) % 1000000007; }
+    s(I, T) { const buy = PQ((a, b) => b[0] - a[0]), sell = PQ((a, b) => a[0] - b[0]); I.orders.forEach(([p, amt, ty], i) => { let a = amt; if (ty === 0) { while (a && sell.size && sell.peek()[0] <= p) { const m = Math.min(a, sell.peek()[1]); a -= m; sell.peek()[1] -= m; if (!sell.peek()[1]) sell.pop(); } if (a) buy.push([p, a]); } else { while (a && buy.size && buy.peek()[0] >= p) { const m = Math.min(a, buy.peek()[1]); a -= m; buy.peek()[1] -= m; if (!buy.peek()[1]) buy.pop(); } if (a) sell.push([p, a]); } if (i < 5) { T.at({ order: `${ty ? 'sell' : 'buy'} ${amt} at ${p}`, buys: A(buy.items().map(x => `${x[1]} at ${x[0]}`)), sells: A(sell.items().map(x => `${x[1]} at ${x[0]}`)) }); T.n('Amount of this order left in the backlog?', a, 'After matching the best opposite orders.'); } }); return [...buy.items(), ...sell.items()].reduce((s, x) => s + x[1], 0) % 1000000007; }
   });
 
   D('single-threaded-cpu', {
@@ -226,7 +226,7 @@
 
   D('minimum-interval-to-include-each-query', {
     t: 'Minimum Interval to Include Each Query',
-    r: 'Sort intervals by left and queries ascending. For each query push intervals starting ≤ q into a min-heap by size, pop those ending before q; the top is the answer (−1 if empty).',
+    r: 'Sort intervals by left and queries ascending. For each query push intervals starting at most q into a min-heap by size, pop those ending before q; the top is the answer (−1 if empty).',
     g: R => ({ intervals: Array.from({ length: R.int(1, 5) }, () => { const l = R.int(1, 8); return [l, l + R.int(0, 4)]; }), queries: R.ints(R.int(1, 4), 1, 12) }),
     s(I, T) { return I.queries.map((q, i) => { const c = I.intervals.filter(([l, r]) => l <= q && q <= r).map(([l, r]) => r - l + 1), v = c.length ? Math.min(...c) : -1; if (i < 5) { T.at({ query: q, containing: A(c) }); T.n('Smallest interval size containing it (−1 if none)?', v, 'Heap top after cleanup.'); } return v; }); }
   });
@@ -247,9 +247,9 @@
 
   D('remove-stones-to-minimize-the-total', {
     t: 'Remove Stones to Minimize the Total',
-    r: 'k times: pop the largest pile (max-heap), remove ⌊x/2⌋ stones, push it back. Sum what remains.',
+    r: 'k times: pop the largest pile (max-heap), remove half of x (rounded down) stones, push it back. Sum what remains.',
     g: R => ({ piles: R.ints(R.int(1, 5), 1, 20), k: R.int(1, 4) }),
-    s(I, T) { const h = PQ((a, b) => b - a); I.piles.forEach(x => h.push(x)); for (let i = 0; i < I.k; i++) { const x = h.pop(); h.push(x - Math.floor(x / 2)); if (i < 4) { T.at({ piles: A(h.items()) }); T.n('Pile size after halving the largest?', x - Math.floor(x / 2), `${x} − ⌊${x}/2⌋.`); } } return h.items().reduce((a, b) => a + b, 0); }
+    s(I, T) { const h = PQ((a, b) => b - a); I.piles.forEach(x => h.push(x)); for (let i = 0; i < I.k; i++) { const x = h.pop(); h.push(x - Math.floor(x / 2)); if (i < 4) { T.at({ piles: A(h.items()) }); T.n('Pile size after halving the largest?', x - Math.floor(x / 2), `${x} − (half of ${x}, rounded down).`); } } return h.items().reduce((a, b) => a + b, 0); }
   });
 
   D('find-the-kth-largest-integer-in-the-array', {

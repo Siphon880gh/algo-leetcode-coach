@@ -13,7 +13,7 @@
 
   D('find-missing-observations', {
     t: 'Find Missing Observations: spread the missing total',
-    r: 'Missing total = mean·(n + m) − Σ rolls. It must lie in [n, 6n]. Give every missing roll ⌊total/n⌋ and add 1 to the first (total mod n) of them.',
+    r: 'Missing total = mean times (n + m) − the sum of rolls. It must lie in [n, 6n]. Give every missing roll total divided by n, rounded down and add 1 to the first (total mod n) of them.',
     g: R => { const rolls = R.ints(R.int(1, 4), 1, 6), n = R.int(1, 4); return { rolls, mean: R.int(1, 6), n }; },
     cmp: (out, exp, I) => { if (!exp.length) return Array.isArray(out) && !out.length; return out.length === I.n && out.every(v => v >= 1 && v <= 6) && out.reduce((a, b) => a + b, 0) + I.rolls.reduce((a, b) => a + b, 0) === I.mean * (I.n + I.rolls.length); },
     s(I, T) { const res = (() => { const tot = I.mean * (I.n + I.rolls.length) - I.rolls.reduce((a, b) => a + b, 0); T.at({ rolls: A(I.rolls), mean: I.mean, missing: I.n }); T.n('Total of the missing rolls?', tot, 'Mean times all rolls, minus the known rolls.'); T.yn(`Is it between ${I.n} and ${6 * I.n}?`, tot >= I.n && tot <= 6 * I.n, 'Each die shows 1 to 6.'); if (tot < I.n || tot > 6 * I.n) return []; const b = Math.floor(tot / I.n); return Array.from({ length: I.n }, (_, i) => b + (i < tot % I.n ? 1 : 0)); })(); if (res.length) T.n('Largest missing roll?', Math.max(...res), 'Spread the total as evenly as possible.'); else T.n('How many rolls are returned?', 0, 'The total is impossible.'); return res; }
@@ -21,16 +21,16 @@
 
   D('minimum-operations-to-make-a-uni-value-grid', {
     t: 'Uni-Value Grid: same remainder, then the median',
-    r: 'Every value must share the same remainder mod x, or it is impossible. Then flatten, sort, and move everything to the median: Σ |v − median| / x.',
+    r: 'Every value must share the same remainder mod x, or it is impossible. Then flatten, sort, and move everything to the median: the sum of |v − median| divided by x.',
     g: R => { const x = R.int(1, 3), r = R.int(0, x - 1), m = R.int(1, 3), n = R.int(1, 3); return { grid: Array.from({ length: m }, () => Array.from({ length: n }, () => r + x * R.int(0, 5) + (R.chance(0.1) ? 1 : 0))), x }; },
     s(I, T) { const res = (() => { const v = I.grid.flat().sort((a, b) => a - b), r = v[0] % I.x; const ok = v.every(a => a % I.x === r); T.at({ values: A(v), x: I.x }); T.yn(`Do all values leave the same remainder when divided by ${I.x}?`, ok, 'Steps of x never change the remainder.'); if (!ok) { T.n(`Remainder of the smallest value when divided by ${I.x}?`, r, 'Some other value leaves a different one.'); T.n('Answer?', -1, 'No common value can be reached.'); return -1; } const med = v[v.length >> 1]; T.n('Median?', med, 'Middle of the sorted values.'); return v.reduce((s, a) => s + Math.abs(a - med) / I.x, 0); })(); if (res >= 0) T.n('Fewest operations?', res, 'Sum of distances to the median, divided by x.'); return res; }
   });
 
   D('vowels-of-all-substrings', {
     t: 'Vowels of All Substrings: count substrings through each vowel',
-    r: 'A vowel at index i lies in (i + 1)·(n − i) substrings (choices of start × choices of end). Sum over the vowels.',
+    r: 'A vowel at index i lies in (i + 1) times (n − i) substrings (choices of start times choices of end). Sum over the vowels.',
     g: R => ({ word: R.str(R.int(2, 7), 'abeiu') }),
-    s(I, T) { const n = I.word.length; let t = 0; [...I.word].forEach((c, i) => { if (!'aeiou'.includes(c)) return; T.at({ word: A([...I.word], { hl: [i] }), total: t }); T.n(`Substrings containing index ${i}?`, (i + 1) * (n - i), `${i + 1} starts × ${n - i} ends.`); t += (i + 1) * (n - i); }); return t; }
+    s(I, T) { const n = I.word.length; let t = 0; [...I.word].forEach((c, i) => { if (!'aeiou'.includes(c)) return; T.at({ word: A([...I.word], { hl: [i] }), total: t }); T.n(`Substrings containing index ${i}?`, (i + 1) * (n - i), `${i + 1} starts times ${n - i} ends.`); t += (i + 1) * (n - i); }); return t; }
   });
 
   D('substrings-that-begin-and-end-with-the-same-letter', {
@@ -56,7 +56,7 @@
 
   D('minimum-cost-to-set-cooking-time', {
     t: 'Minimum Cost to Set Cooking Time: two ways to write the time',
-    r: 'targetSeconds is m·60 + s with s < 60, or (m − 1)·60 + (s + 60) when s + 60 ≤ 99. Each valid (m ≤ 99) pair is pushed as digits without leading zeros: moving the finger costs moveCost, each push costs pushCost.',
+    r: 'targetSeconds is m times 60 + s with s < 60, or (m − 1) times 60 + (s + 60) when s + 60 at most 99. Each valid (m at most 99) pair is pushed as digits without leading zeros: moving the finger costs moveCost, each push costs pushCost.',
     g: R => ({ startAt: R.int(0, 9), moveCost: R.int(1, 4), pushCost: R.int(1, 4), targetSeconds: R.int(1, 6039) }),
     s(I, T) { const res = (() => { const cost = (m, s) => { const d = (String(m).padStart(2, '0') + String(s).padStart(2, '0')).replace(/^0+/, ''); let cur = I.startAt, c = 0; for (const ch of d) { if (+ch !== cur) { c += I.moveCost; cur = +ch; } c += I.pushCost; } return c; }; const m = Math.floor(I.targetSeconds / 60), s = I.targetSeconds % 60; let best = Infinity; if (m <= 99) { const c = cost(m, s); T.at({ target: I.targetSeconds, start: I.startAt, move: I.moveCost, push: I.pushCost }); T.n(`Cost to enter ${m} min ${s} s?`, c, 'Strip leading zeros; pay moves and pushes.'); best = c; } if (m >= 1 && s + 60 <= 99) { const c = cost(m - 1, s + 60); T.at({ target: I.targetSeconds }); T.n(`Cost to enter ${m - 1} min ${s + 60} s?`, c, 'The other option, with 60 or more seconds.'); best = Math.min(best, c); } return best; })(); T.n('Cheapest cost?', res, 'The better of the two ways to type it.'); return res; }
   });
@@ -70,63 +70,63 @@
 
   D('count-operations-to-obtain-zero', {
     t: 'Count Operations to Obtain Zero: subtract in bulk',
-    r: 'This is Euclid with subtraction. Each phase does ⌊a / b⌋ subtractions at once, then continue with (b, a mod b) until one is 0.',
+    r: 'This is Euclid with subtraction. Each phase does a divided by b (rounded down) subtractions at once, then continue with (b, a mod b) until one is 0.',
     g: R => ({ num1: R.int(0, 40), num2: R.int(0, 40) }),
-    s(I, T) { let a = Math.max(I.num1, I.num2), b = Math.min(I.num1, I.num2), c = 0; while (b) { T.at({ larger: a, smaller: b, ops: c }); T.n(`Subtractions of ${b} from ${a} in this phase?`, Math.floor(a / b), `⌊${a} / ${b}⌋.`); c += Math.floor(a / b); [a, b] = [b, a % b]; } return c; }
+    s(I, T) { let a = Math.max(I.num1, I.num2), b = Math.min(I.num1, I.num2), c = 0; while (b) { T.at({ larger: a, smaller: b, ops: c }); T.n(`Subtractions of ${b} from ${a} in this phase?`, Math.floor(a / b), `${a} divided by ${b}, rounded down.`); c += Math.floor(a / b); [a, b] = [b, a % b]; } return c; }
   });
 
   D('count-integers-with-even-digit-sum', {
     t: 'Count Integers With Even Digit Sum',
-    r: 'num ≤ 1000, so check every x from 1 to num: add its digits and count the even sums. (Shortcut: about half of them, adjusted by num\'s own digit sum.)',
+    r: 'num at most 1000, so check every x from 1 to num: add its digits and count the even sums. (Shortcut: about half of them, adjusted by num\'s own digit sum.)',
     g: R => ({ num: R.int(1, 40) }),
     s(I, T) { let c = 0; for (let x = Math.max(1, I.num - 5); x <= I.num; x++) { const e = [...String(x)].reduce((a, d) => a + +d, 0) % 2 === 0; T.at({ x }); T.yn(`Is the digit sum of ${x} even?`, e, 'Add its digits.'); } for (let x = 1; x <= I.num; x++) if ([...String(x)].reduce((a, d) => a + +d, 0) % 2 === 0) c++; return c; }
   });
 
   D('count-array-pairs-divisible-by-k', {
     t: 'Count Array Pairs Divisible by K: gcd buckets',
-    r: 'Only gcd(x, k) matters. Count numbers per gcd value g; two buckets g1, g2 pair up when g1·g2 is divisible by k (same bucket: C(c, 2)).',
+    r: 'Only gcd(x, k) matters. Count numbers per gcd value g; two buckets g1, g2 pair up when g1 times g2 is divisible by k (same bucket: C(c, 2)).',
     g: R => ({ nums: R.ints(R.int(2, 6), 1, 12), k: R.int(1, 8) }),
-    s(I, T) { const c = {}; I.nums.forEach(x => { const g = gcd(x, I.k); c[g] = (c[g] || 0) + 1; }); const ks = Object.keys(c).map(Number); let t = 0; T.at({ nums: A(I.nums), k: I.k }); T.n('How many different gcd(x, k) values?', ks.length, 'Bucket by gcd.'); for (let i = 0; i < ks.length; i++) for (let j = i; j < ks.length; j++) if (ks[i] * ks[j] % I.k === 0) { const v = i === j ? c[ks[i]] * (c[ks[i]] - 1) / 2 : c[ks[i]] * c[ks[j]]; T.at({ buckets: K(c), k: I.k }); T.n(`Pairs from buckets ${ks[i]} and ${ks[j]}?`, v, i === j ? 'C(count, 2).' : 'count × count.'); t += v; } return t; }
+    s(I, T) { const c = {}; I.nums.forEach(x => { const g = gcd(x, I.k); c[g] = (c[g] || 0) + 1; }); const ks = Object.keys(c).map(Number); let t = 0; T.at({ nums: A(I.nums), k: I.k }); T.n('How many different gcd(x, k) values?', ks.length, 'Bucket by gcd.'); for (let i = 0; i < ks.length; i++) for (let j = i; j < ks.length; j++) if (ks[i] * ks[j] % I.k === 0) { const v = i === j ? c[ks[i]] * (c[ks[i]] - 1) / 2 : c[ks[i]] * c[ks[j]]; T.at({ buckets: K(c), k: I.k }); T.n(`Pairs from buckets ${ks[i]} and ${ks[j]}?`, v, i === j ? 'C(count, 2).' : 'count times count.'); t += v; } return t; }
   });
 
   D('number-of-single-divisor-triplets', {
     t: 'Single Divisor Triplets: work on values',
-    r: 'Values are ≤ 100, so loop over value triples with multiplicities. A triple counts when exactly one of the three divides the sum; ordered index triples multiply the counts (permutations included).',
+    r: 'Values are at most 100, so loop over value triples with multiplicities. A triple counts when exactly one of the three divides the sum; ordered index triples multiply the counts (permutations included).',
     g: R => ({ nums: R.ints(R.int(3, 5), 1, 7) }),
     s(I, T) { const a = I.nums, n = a.length; let t = 0; for (let i = 0; i < n; i++) for (let j = i + 1; j < n; j++) for (let k = j + 1; k < n; k++) { const s = a[i] + a[j] + a[k], d = [a[i], a[j], a[k]].filter(x => s % x === 0).length; T.at({ nums: A(a, { hl: [i, j, k] }), sum: s }); T.n(`How many of ${a[i]}, ${a[j]}, ${a[k]} divide ${s}?`, d, 'Exactly one makes it a single divisor triplet.'); if (d === 1) t += 6; } return t; }
   });
 
   D('find-palindrome-with-fixed-length', {
     t: 'Palindrome With Fixed Length: the q-th first half',
-    r: 'A palindrome of length L is fixed by its first h = ⌈L/2⌉ digits, which run from 10^(h−1). The q-th is half = 10^(h−1) + q − 1 (−1 if it has more than h digits), mirrored.',
+    r: 'A palindrome of length L is fixed by its first h = (half of L, rounded up) digits, which run from 10 to the power (h−1). The q-th is half = 10 to the power (h−1) + q − 1 (−1 if it has more than h digits), mirrored.',
     g: R => ({ queries: R.ints(R.int(1, 4), 1, 95), intLength: R.int(1, 5) }),
-    s(I, T) { const L = I.intLength, h = Math.ceil(L / 2), st = 10 ** (h - 1); return I.queries.map(q => { const half = st + q - 1; T.at({ length: L, query: q }); T.n('First half of the answer (before checking it fits)?', half, `10^${h - 1} + ${q} − 1.`); if (half >= 10 ** h) return -1; const s = String(half); return +(s + [...s.slice(0, L - h)].reverse().join('')); }); }
+    s(I, T) { const L = I.intLength, h = Math.ceil(L / 2), st = 10 ** (h - 1); return I.queries.map(q => { const half = st + q - 1; T.at({ length: L, query: q }); T.n('First half of the answer (before checking it fits)?', half, `10 to the power ${h - 1} + ${q} − 1.`); if (half >= 10 ** h) return -1; const s = String(half); return +(s + [...s.slice(0, L - h)].reverse().join('')); }); }
   });
 
   D('find-triangular-sum-of-an-array', {
     t: 'Find Triangular Sum: add neighbors mod 10',
-    r: 'Replace the array by (a[i] + a[i+1]) mod 10 until one value is left. (Closed form: Σ C(n−1, i)·a[i] mod 10.)',
+    r: 'Replace the array by (a[i] + a[i+1]) mod 10 until one value is left. (Closed form: the sum of C(n−1, i) times a[i] mod 10.)',
     g: R => ({ nums: R.ints(R.int(1, 5), 0, 9) }),
     s(I, T) { let a = I.nums.slice(); while (a.length > 1) { const b = a.slice(1).map((v, i) => (a[i] + v) % 10); T.at({ row: A(a) }); T.n('First value of the next row?', b[0], `(${a[0]} + ${a[1]}) mod 10.`); a = b; } return a[0]; }
   });
 
   D('number-of-ways-to-buy-pens-and-pencils', {
     t: 'Ways to Buy Pens and Pencils: loop over pens',
-    r: 'For each number of pens i, the leftover money buys 0 … ⌊(total − i·cost1) / cost2⌋ pencils. Add those counts.',
+    r: 'For each number of pens i, the leftover money buys 0 … (total − i times cost1) divided by cost2 (rounded down) pencils. Add those counts.',
     g: R => ({ total: R.int(1, 30), cost1: R.int(1, 10), cost2: R.int(1, 10) }),
-    s(I, T) { let t = 0; for (let i = 0; i * I.cost1 <= I.total; i++) { const w = Math.floor((I.total - i * I.cost1) / I.cost2) + 1; T.at({ total: I.total, pens: i, pencilCost: I.cost2 }); T.n(`Ways with ${i} pen(s)?`, w, 'Pencil counts 0 … ⌊rest / cost2⌋.'); t += w; } return t; }
+    s(I, T) { let t = 0; for (let i = 0; i * I.cost1 <= I.total; i++) { const w = Math.floor((I.total - i * I.cost1) / I.cost2) + 1; T.at({ total: I.total, pens: i, pencilCost: I.cost2 }); T.n(`Ways with ${i} pens?`, w, 'Pencil counts 0 … rest divided by cost2, rounded down.'); t += w; } return t; }
   });
 
   D('count-lattice-points-inside-a-circle', {
     t: 'Count Lattice Points Inside Circles: union of point sets',
-    r: 'For each circle, scan its bounding square and add every (x, y) with dx² + dy² ≤ r² to one set. The answer is the set size.',
+    r: 'For each circle, scan its bounding square and add every (x, y) with dx² + dy² at most r² to one set. The answer is the set size.',
     g: R => ({ circles: Array.from({ length: R.int(1, 3) }, () => { const r = R.int(1, 2); return [R.int(r, 5), R.int(r, 5), r]; }) }),
     s(I, T) { const S = new Set(); for (const [x, y, r] of I.circles) { let c = 0; for (let a = x - r; a <= x + r; a++) for (let b = y - r; b <= y + r; b++) if ((a - x) ** 2 + (b - y) ** 2 <= r * r) { c++; S.add(a + ',' + b); } T.at({ circle: `(${x},${y}) r ${r}`, union: S.size }); T.n(`Lattice points in this circle alone?`, c, 'Check every point in its bounding square.'); } return S.size; }
   });
 
   D('minimum-lines-to-represent-a-line-chart', {
     t: 'Minimum Lines for a Line Chart: count slope changes',
-    r: 'Sort by day. A new line starts whenever the slope changes; compare slopes exactly with cross-multiplication (dy1·dx2 vs dy2·dx1), no floating point.',
+    r: 'Sort by day. A new line starts whenever the slope changes; compare slopes exactly with cross-multiplication (dy1 times dx2 vs dy2 times dx1), no floating point.',
     g: R => { const n = R.int(1, 6), days = R.distinct(n, 1, 10).sort((a, b) => a - b); let p = R.int(1, 5); const out = days.map(d => [d, p += R.int(-2, 2)]); return { stockPrices: R.shuffle(out) }; },
     s(I, T) { const p = I.stockPrices.slice().sort((a, b) => a[0] - b[0]); if (p.length < 2) return 0; let lines = 1; for (let i = 2; i < p.length; i++) { const same = BigInt(p[i - 1][1] - p[i - 2][1]) * BigInt(p[i][0] - p[i - 1][0]) === BigInt(p[i][1] - p[i - 1][1]) * BigInt(p[i - 1][0] - p[i - 2][0]); T.at({ points: A(p.map(q => `(${q})`), { hl: [i - 2, i - 1, i] }), lines }); T.yn(`Does the line bend at (${p[i - 1]})?`, !same, 'Compare the two slopes by cross-multiplying.'); if (!same) lines++; } return lines; }
   });
@@ -174,8 +174,8 @@
   });
 
   D('sum-of-number-and-its-reverse', {
-    t: 'Sum of a Number and Its Reverse: try every k ≤ num',
-    r: 'num ≤ 10^5, so try every k from 0 to num and check k + rev(k) = num.',
+    t: 'Sum of a Number and Its Reverse: try every k at most num',
+    r: 'num at most 10 to the power 5, so try every k from 0 to num and check k + rev(k) = num.',
     g: R => ({ num: R.pick([R.int(0, 200), 443, 63, 181]) }),
     s(I, T) { const res = (() => { let f = -1; for (let k = 0; k <= I.num; k++) if (k + rev(k) === I.num) { f = k; break; } T.at({ num: I.num }); T.n('Largest k worth trying?', I.num, 'k cannot exceed num.'); T.n('Smallest k with k + rev(k) = num (−1 if none)?', f, 'Try each k.'); return f >= 0; })(); T.yn('Can num be written that way?', res, 'True when some k works.'); return res; }
   });
@@ -188,8 +188,8 @@
   });
 
   D('number-of-distinct-binary-strings-after-applying-operations', {
-    t: 'Distinct Strings After Flips: 2^(n − k + 1)',
-    r: 'Each of the n − k + 1 windows is flipped or not, and different choices give different strings. Answer 2^(n − k + 1) mod 10^9 + 7.',
+    t: 'Distinct Strings After Flips: 2 to the power (n − k + 1)',
+    r: 'Each of the n − k + 1 windows is flipped or not, and different choices give different strings. Answer 2 to the power (n − k + 1) mod 10 to the power 9 + 7.',
     g: R => { const s = R.str(R.int(1, 8), '01'); return { s, k: R.int(1, s.length) }; },
     s(I, T) { const res = (() => { const e = I.s.length - I.k + 1; T.at({ s: I.s, k: I.k }); T.n('How many windows of size k?', e, 'n minus k, plus 1.'); T.yn('Can each window be flipped on its own?', true, 'Each window is an independent choice: flip or not.'); return Number(pw(2, e)); })(); T.n('Distinct strings (mod 1e9+7)?', res, '2 to the power of the window count.'); return res; }
   });
@@ -217,9 +217,9 @@
 
   D('count-anagrams', {
     t: 'Count Anagrams: multiply each word\'s arrangements',
-    r: 'Words are permuted independently. A word of length L with letter counts c has L! / Π c! arrangements; multiply over words (mod 10^9 + 7, inverses for the division).',
+    r: 'Words are permuted independently. A word of length L with letter counts c has L! divided by the product of c! arrangements; multiply over words (mod 10 to the power 9 + 7, inverses for the division).',
     g: R => ({ s: Array.from({ length: R.int(1, 3) }, () => R.str(R.int(1, 4), 'aabt')).join(' ') }),
-    s(I, T) { let r = 1n; for (const w of I.s.split(' ')) { const c = {}; for (const ch of w) c[ch] = (c[ch] || 0) + 1; let v = fact(w.length); for (const k of Object.values(c)) v = v * pw(fact(k), M - 2n) % M; T.at({ s: I.s, word: w }); T.n(`Arrangements of "${w}"?`, Number(v), `${w.length}! / Π(letter counts)!.`); r = r * v % M; } return Number(r); }
+    s(I, T) { let r = 1n; for (const w of I.s.split(' ')) { const c = {}; for (const ch of w) c[ch] = (c[ch] || 0) + 1; let v = fact(w.length); for (const k of Object.values(c)) v = v * pw(fact(k), M - 2n) % M; T.at({ s: I.s, word: w }); T.n(`Arrangements of "${w}"?`, Number(v), `${w.length}! divided by the product of (letter counts)!.`); r = r * v % M; } return Number(r); }
   });
 
   D('count-the-digits-that-divide-a-number', {
@@ -245,9 +245,9 @@
 
   D('categorize-box-according-to-criteria', {
     t: 'Categorize Box According to Criteria',
-    r: 'Bulky: any dimension ≥ 10^4 or volume ≥ 10^9. Heavy: mass ≥ 100. Return "Both", "Bulky", "Heavy" or "Neither".',
+    r: 'Bulky: any dimension at least 10 to the power 4 or volume at least 10 to the power 9. Heavy: mass at least 100. Return "Both", "Bulky", "Heavy" or "Neither".',
     g: R => ({ length: R.pick([R.int(1, 2000), 10000, R.int(500, 1500)]), width: R.int(1, 2000), height: R.int(1, 2000), mass: R.int(1, 200) }),
-    s(I, T) { const res = (() => { const v = I.length * I.width * I.height, bulky = [I.length, I.width, I.height].some(x => x >= 1e4) || v >= 1e9, heavy = I.mass >= 100; T.at({ dims: `${I.length} by ${I.width} by ${I.height}`, mass: I.mass }); T.yn('Is it bulky?', bulky, `A side of at least 10^4, or volume ${v} of at least 10^9.`); T.yn('Is it heavy?', heavy, 'Mass of at least 100.'); return bulky && heavy ? 'Both' : bulky ? 'Bulky' : heavy ? 'Heavy' : 'Neither'; })(); T.c('Category?', ['Both', 'Bulky', 'Heavy', 'Neither'], res, 'Combine the two answers.'); return res; }
+    s(I, T) { const res = (() => { const v = I.length * I.width * I.height, bulky = [I.length, I.width, I.height].some(x => x >= 1e4) || v >= 1e9, heavy = I.mass >= 100; T.at({ dims: `${I.length} by ${I.width} by ${I.height}`, mass: I.mass }); T.yn('Is it bulky?', bulky, `A side of at least 10 to the power 4, or volume ${v} of at least 10 to the power 9.`); T.yn('Is it heavy?', heavy, 'Mass of at least 100.'); return bulky && heavy ? 'Both' : bulky ? 'Bulky' : heavy ? 'Heavy' : 'Neither'; })(); T.c('Category?', ['Both', 'Bulky', 'Heavy', 'Neither'], res, 'Combine the two answers.'); return res; }
   });
 
   D('difference-between-element-sum-and-digit-sum-of-an-array', {
@@ -259,8 +259,8 @@
 
   D('count-the-number-of-good-subsequences', {
     t: 'Count Good Subsequences: fix the common frequency',
-    r: 'For each frequency f, every letter either is absent or appears exactly f times: Π (1 + C(cnt_c, f)) − 1 (the −1 drops the empty choice). Sum over f.',
+    r: 'For each frequency f, every letter either is absent or appears exactly f times: the product of (1 + C(cnt_c, f)) − 1 (the −1 drops the empty choice). Sum over f.',
     g: R => ({ s: R.str(R.int(2, 6), 'aabce') }),
-    s(I, T) { const c = {}; for (const ch of I.s) c[ch] = (c[ch] || 0) + 1; const mx = Math.max(...Object.values(c)); let t = 0n; for (let f = 1; f <= mx; f++) { let p = 1n; for (const v of Object.values(c)) p = p * (1n + binom(v, f)) % M; p = (p - 1n + M) % M; T.at({ counts: K(c), f }); T.n(`Good subsequences where each letter appears ${f} time(s)?`, Number(p), 'Π (1 + C(count, f)) − 1.'); t = (t + p) % M; } return Number(t); }
+    s(I, T) { const c = {}; for (const ch of I.s) c[ch] = (c[ch] || 0) + 1; const mx = Math.max(...Object.values(c)); let t = 0n; for (let f = 1; f <= mx; f++) { let p = 1n; for (const v of Object.values(c)) p = p * (1n + binom(v, f)) % M; p = (p - 1n + M) % M; T.at({ counts: K(c), f }); T.n(`Good subsequences where each letter appears ${f} times?`, Number(p), 'the product of (1 + C(count, f)) − 1.'); t = (t + p) % M; } return Number(t); }
   });
 })();

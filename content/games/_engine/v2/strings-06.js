@@ -28,7 +28,7 @@
 
   D('maximize-active-section-with-trade-ii', {
     t: 'Maximize Active Section with Trade II',
-    r: 'The trade happens inside s[l..r] only, so the result is all 1s in s plus the best sum of two consecutive 0-blocks inside the substring (cut at the query edges). The full solution answers this with a sparse table over block pairs.',
+    r: 'The trade happens inside s[l to r] only, so the result is all 1s in s plus the best sum of two consecutive 0-blocks inside the substring (cut at the query edges). The full solution answers this with a sparse table over block pairs.',
     g: R => { const s = R.str(R.int(4, 9), '01'); return { s, queries: Array.from({ length: R.int(2, 4) }, () => { const l = R.int(0, s.length - 1); return [l, R.int(l, s.length - 1)]; }) }; },
     s(I, T) { const ones = I.s.split('').filter(c => c === '1').length; return I.queries.map(([l, r]) => { const t = I.s.slice(l, r + 1), z = []; for (let i = 0; i < t.length;) { let j = i; while (j < t.length && t[j] === t[i]) j++; if (t[i] === '0') z.push(j - i); i = j; } let g = 0; for (let i = 0; i + 1 < z.length; i++) g = Math.max(g, z[i] + z[i + 1]); T.at({ s: A(I.s.split(''), { win: [l, r] }), zeroBlocks: A(z.length ? z : ['none']), ones }); T.n(`Best gain inside s[${l}..${r}]?`, g, z.length < 2 ? 'Fewer than two zero blocks: no trade helps.' : 'Largest sum of two consecutive zero blocks.'); return ones + g; }); }
   });
@@ -108,7 +108,7 @@
     t: 'Reverse Words With Same Vowel Count',
     r: 'Count the vowels of the first word. For every later word, count its vowels and reverse it in place (two pointers) only when the count matches.',
     g: R => ({ s: Array.from({ length: R.int(1, 5) }, () => R.str(R.int(1, 5), 'abeiost')).join(' ') }),
-    s(I, T) { const v = w => w.split('').filter(c => 'aeiou'.includes(c)).length, ws = I.s.split(' '), k = v(ws[0]); T.at({ words: A(ws, { i: 0 }) }); T.n('Vowels in the first word?', k, 'The count every later word is compared with.'); const out = ws.map((w, i) => { if (!i) return w; const r = v(w) === k; if (i < 6) { T.at({ words: A(ws, { i }), target: k }); T.yn(`Reverse "${w}"?`, r, `It has ${v(w)} vowel(s).`); } return r ? w.split('').reverse().join('') : w; }); return out.join(' '); }
+    s(I, T) { const v = w => w.split('').filter(c => 'aeiou'.includes(c)).length, ws = I.s.split(' '), k = v(ws[0]); T.at({ words: A(ws, { i: 0 }) }); T.n('Vowels in the first word?', k, 'The count every later word is compared with.'); const out = ws.map((w, i) => { if (!i) return w; const r = v(w) === k; if (i < 6) { T.at({ words: A(ws, { i }), target: k }); T.yn(`Reverse "${w}"?`, r, `It has ${v(w)} vowels.`); } return r ? w.split('').reverse().join('') : w; }); return out.join(' '); }
   });
 
   D('good-indices-in-a-digit-string', {
@@ -134,7 +134,7 @@
 
   D('merge-close-characters', {
     t: 'Merge Close Characters',
-    r: 'Simulate (n ≤ 100): find the smallest left index i that has an equal character within k to its right, merge the nearest such one into it (delete it), and repeat on the updated string.',
+    r: 'Simulate (n at most 100): find the smallest left index i that has an equal character within k to its right, merge the nearest such one into it (delete it), and repeat on the updated string.',
     g: R => ({ s: R.str(R.int(1, 8), 'aby'), k: R.int(1, 3) }),
     s(I, T) { let s = I.s.split(''), asks = 0; for (;;) { let hit = null; for (let i = 0; i < s.length && !hit; i++) for (let j = i + 1; j <= Math.min(s.length - 1, i + I.k); j++) if (s[j] === s[i]) { hit = [i, j]; break; } if (asks < 5) { T.at({ s: A(s.slice(), hit ? { i: hit[0], j: hit[1] } : {}), k: I.k }); T.yn('Is any merge still possible?', !!hit, hit ? `"${s[hit[1]]}" at ${hit[1]} merges into index ${hit[0]}.` : 'No equal pair within distance k.'); asks++; } if (!hit) break; s.splice(hit[1], 1); } return s.join(''); }
   });
@@ -143,7 +143,7 @@
     t: 'Unique Email Groups',
     r: 'Normalize each address: in the local part drop everything from the first "+", remove dots and lowercase it; lowercase the domain. Put the normalized forms in a set and count it.',
     g: R => ({ emails: Array.from({ length: R.int(1, 5) }, () => `${R.pick(['a.b', 'ab', 'A.b+x', 'ab+y.z', 'b'])}@${R.pick(['d.com', 'D.com', 'e.com'])}`) }),
-    s(I, T) { const set = new Set(); I.emails.forEach((e, i) => { const [l, d] = e.split('@'), n = l.split('+')[0].replace(/\./g, '').toLowerCase() + '@' + d.toLowerCase(), nw = !set.has(n); set.add(n); if (i < 6) { T.at({ email: e, groups: A([...set]) }); T.yn(`Does "${e}" (→ ${n}) start a new group?`, nw, nw ? 'First time this normalized address appears.' : 'Same as an earlier address.'); } }); return set.size; }
+    s(I, T) { const set = new Set(); I.emails.forEach((e, i) => { const [l, d] = e.split('@'), n = l.split('+')[0].replace(/\./g, '').toLowerCase() + '@' + d.toLowerCase(), nw = !set.has(n); set.add(n); if (i < 6) { T.at({ email: e, groups: A([...set]) }); T.yn(`Does "${e}" (normalized to ${n}) start a new group?`, nw, nw ? 'First time this normalized address appears.' : 'Same as an earlier address.'); } }); return set.size; }
   });
 
   D('minimum-operations-to-sort-a-string', {
@@ -206,7 +206,7 @@
     t: 'Count Valid Prefixes',
     r: 'A binary string can be rearranged to alternate exactly when its zero and one counts differ by at most 1. Grow the prefix one character at a time and count the prefixes that pass.',
     g: R => ({ s: R.str(R.int(1, 8), '01') }),
-    s(I, T) { let z = 0, o = 0, c = 0; I.s.split('').forEach((ch, i) => { ch === '0' ? z++ : o++; const ok = Math.abs(z - o) <= 1; if (ok) c++; if (i < 6) { T.at({ s: A(I.s.split(''), { i }), zeros: z, ones: o }); T.yn(`Is the prefix of length ${i + 1} valid?`, ok, `|${z} − ${o}| ${ok ? '≤' : '>'} 1.`); } }); return c; }
+    s(I, T) { let z = 0, o = 0, c = 0; I.s.split('').forEach((ch, i) => { ch === '0' ? z++ : o++; const ok = Math.abs(z - o) <= 1; if (ok) c++; if (i < 6) { T.at({ s: A(I.s.split(''), { i }), zeros: z, ones: o }); T.yn(`Is the prefix of length ${i + 1} valid?`, ok, `|${z} − ${o}| ${ok ? 'is at most' : 'is more than'} 1.`); } }); return c; }
   });
 
   D('merge-close-characters-ii', {
@@ -225,7 +225,7 @@
 
   D('minimum-operations-to-make-a-rotated-palindrome-ii', {
     t: 'Minimum Operations to Make a Rotated Palindrome II',
-    r: 'n is now 5·10^4, so you cannot re-price all n rotations pair by pair. Treat the string as cyclic: rotation r pairs position r + i with r − 1 − i. Group the pair costs by i + j mod n (the "anti-diagonal" each rotation uses), computed with 26 convolutions or an FFT over letter indicators, then add r.',
+    r: 'n is now 5 times 10 to the power 4, so you cannot re-price all n rotations pair by pair. Treat the string as cyclic: rotation r pairs position r + i with r − 1 − i. Group the pair costs by i + j mod n (the "anti-diagonal" each rotation uses), computed with 26 convolutions or an FFT over letter indicators, then add r.',
     g: R => ({ s: R.str(R.int(2, 5), 'abcyz') }),
     s(I, T) { const s = I.s, n = s.length, pc = t => { let c = 0; for (let i = 0; i < n >> 1; i++) { const d = ((t.charCodeAt(i) - t.charCodeAt(n - 1 - i)) % 26 + 26) % 26; c += Math.min(d, 26 - d); } return c; }; const cost = range(0, n).map(r => pc(s.slice(r) + s.slice(0, r))); T.at({ s: A(s.split('')) }); T.n('Pair cost with no rotation?', cost[0], 'Sum of cyclic distances of mirrored letters.'); if (n > 1) T.n('Pair cost after one rotation?', cost[1], 'The mirror pairs shift by one.'); const best = Math.min(...cost.map((c, r) => c + r)); T.n('Best total including rotation cost?', best, 'Minimise pair cost + r.'); return best; }
   });

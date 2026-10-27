@@ -5,7 +5,7 @@ return [
     'title' => 'Last Stone Weight II: split into two piles as evenly as possible',
     'leetcode' => 1049,
     'difficulty' => 'Med',
-    'summary' => 'The result is |pile A − pile B|. Find the reachable subset sum closest to (but not above) total / 2: answer = total − 2·best.',
+    'summary' => 'The result is |pile A − pile B|. Find the reachable subset sum closest to (but not above) total divided by 2: answer = total − 2 times best.',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

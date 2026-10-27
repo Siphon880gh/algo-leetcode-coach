@@ -5,7 +5,7 @@ return [
     'title' => 'Numbers With Repeated Digits: count the all-distinct ones instead',
     'leetcode' => 1012,
     'difficulty' => 'Hard',
-    'summary' => 'Answer = n − (numbers ≤ n with all digits distinct). Shorter lengths L: 9 · 9 · 8 · … (L factors). Same length: walk n\'s digits, counting smaller unused choices times permutations of the rest; stop if a digit repeats.',
+    'summary' => 'Answer = n − (numbers at most n with all digits distinct). Shorter lengths L: 9 times 9 times 8 times … (L factors). Same length: walk n\'s digits, counting smaller unused choices times permutations of the rest; stop if a digit repeats.',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

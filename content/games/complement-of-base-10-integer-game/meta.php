@@ -5,7 +5,7 @@ return [
     'title' => 'Complement of Base 10 Integer',
     'leetcode' => 1009,
     'difficulty' => 'Easy',
-    'summary' => 'Mask of all 1s as wide as n (at least one bit, so 0 → 1), then n ^ mask.',
+    'summary' => 'Mask of all 1s as wide as n (at least one bit, so 0 becomes 1), then n ^ mask.',
     'category' => 'LeetCode',
     'subcategory' => 'Bit Manipulation',
     'topic' => 'LeetCode · Bit Manipulation',

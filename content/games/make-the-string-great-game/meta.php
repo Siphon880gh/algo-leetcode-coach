@@ -5,7 +5,7 @@ return [
     'title' => 'Make The String Great: same letter, opposite case cancels',
     'leetcode' => 1544,
     'difficulty' => 'Easy',
-    'summary' => 'Compare each char to the top. Same letter in the opposite case (a/A) → pop both. Otherwise push.',
+    'summary' => 'Compare each char to the top. Same letter in the opposite case (a or A): pop both. Otherwise push.',
     'category' => 'LeetCode',
     'subcategory' => 'Stack',
     'topic' => 'LeetCode · Stack',

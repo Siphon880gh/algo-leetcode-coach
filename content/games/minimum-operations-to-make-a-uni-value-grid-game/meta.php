@@ -5,7 +5,7 @@ return [
     'title' => 'Uni-Value Grid: same remainder, then the median',
     'leetcode' => 2033,
     'difficulty' => 'Med',
-    'summary' => 'Every value must share the same remainder mod x, or it is impossible. Then flatten, sort, and move everything to the median: Σ |v − median| / x.',
+    'summary' => 'Every value must share the same remainder mod x, or it is impossible. Then flatten, sort, and move everything to the median: the sum of |v − median| divided by x.',
     'category' => 'LeetCode',
     'subcategory' => 'Math',
     'topic' => 'LeetCode · Math',

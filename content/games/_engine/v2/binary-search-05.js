@@ -7,7 +7,7 @@
 
   D('maximize-the-minimum-game-score', {
     t: 'Maximize the Minimum Game Score',
-    r: 'Binary search the target v. Index i needs ⌈v / points[i]⌉ visits. Walk left to right: enter i once, then bounce i → i + 1 → i for each extra visit (2 moves each), which also pre-pays visits to i + 1. Feasible if the moves stay ≤ m.',
+    r: 'Binary search the target v. Index i needs v divided by points[i] (rounded up) visits. Walk left to right: enter i once, then bounce from i to i + 1 and back to i for each extra visit (2 moves each), which also pre-pays visits to i + 1. Feasible if the moves stay at most m.',
     g: R => ({ points: R.ints(R.int(2, 4), 1, 5), m: R.int(1, 12) }),
     s(I, T) { const p = I.points, n = p.length; const moves = v => { let mv = 0, prev = 0; for (let i = 0; i < n; i++) { let k = Math.ceil(v / p[i]) - prev; if (i === n - 1 && k <= 0) break; k = Math.max(k, 1); mv += 2 * k - 1; prev = k - 1; if (mv > I.m) return mv; } return mv; }; return lastTrue(0, Math.min(...p) * I.m, v => moves(v) <= I.m, T, v => ({ points: A(p), movesNeeded: moves(v) }), v => `Can every game reach score ${v} within ${I.m} moves?`); }
   });
@@ -17,7 +17,7 @@
     r: 'Area below a line y grows continuously with y (overlaps count twice). Binary search on real y for the lowest line where area below reaches half the total.',
     g: R => ({ squares: Array.from({ length: R.int(1, 4) }, () => [R.int(0, 5), R.int(0, 6), R.int(1, 4)]) }),
     cmp: 'float',
-    s(I, T) { const below = y => I.squares.reduce((s, [, y0, l]) => s + l * Math.min(l, Math.max(0, y - y0)), 0), tot = I.squares.reduce((s, [, , l]) => s + l * l, 0); T.at({ squares: A(I.squares.map(q => q.join('/'))) }); T.n('Total area?', tot, 'Σ l², overlaps counted separately.'); let lo = Math.min(...I.squares.map(q => q[1])), hi = Math.max(...I.squares.map(q => q[1] + q[2])), asks = 0; for (let it = 0; it < 100; it++) { const mid = (lo + hi) / 2, v = below(mid) >= tot / 2; if (asks < 3 && Number.isInteger(mid * 2)) { T.at({ lo, hi, y: mid, areaBelow: below(mid) }); T.yn(`At y = ${mid}, is the area below ≥ half (${tot / 2})?`, v, v ? 'Move hi down.' : 'Move lo up.'); asks++; } if (v) hi = mid; else lo = mid; } return hi; }
+    s(I, T) { const below = y => I.squares.reduce((s, [, y0, l]) => s + l * Math.min(l, Math.max(0, y - y0)), 0), tot = I.squares.reduce((s, [, , l]) => s + l * l, 0); T.at({ squares: A(I.squares.map(q => q.join('/'))) }); T.n('Total area?', tot, 'the sum of l², overlaps counted separately.'); let lo = Math.min(...I.squares.map(q => q[1])), hi = Math.max(...I.squares.map(q => q[1] + q[2])), asks = 0; for (let it = 0; it < 100; it++) { const mid = (lo + hi) / 2, v = below(mid) >= tot / 2; if (asks < 3 && Number.isInteger(mid * 2)) { T.at({ lo, hi, y: mid, areaBelow: below(mid) }); T.yn(`At y = ${mid}, is the area below at least half (${tot / 2})?`, v, v ? 'Move hi down.' : 'Move lo up.'); asks++; } if (v) hi = mid; else lo = mid; } return hi; }
   });
 
   D('shortest-matching-substring', {
@@ -29,8 +29,8 @@
 
   D('maximize-the-distance-between-points-on-a-square', {
     t: 'Maximize the Distance Between Points on a Square',
-    r: 'Unroll the boundary into a line of length 4·side; for answers ≤ side, Manhattan distance equals the perimeter distance. Binary search d: from each start, greedily jump to the next point ≥ d further (binary search), k − 1 times, and check the wrap-around gap.',
+    r: 'Unroll the boundary into a line of length 4 times side; for answers at most side, Manhattan distance equals the perimeter distance. Binary search d: from each start, greedily jump to the next point at least d further (binary search), k − 1 times, and check the wrap-around gap.',
     g: R => { const side = R.int(1, 4), all = []; for (let x = 0; x <= side; x++) for (let y = 0; y <= side; y++) if (x === 0 || y === 0 || x === side || y === side) all.push([x, y]); const pts = R.shuffle(all).slice(0, Math.max(4, R.int(4, Math.min(all.length, 8)))); return { side, points: pts, k: R.int(4, Math.min(pts.length, 5)) }; },
-    s(I, T) { const S = I.side, P = 4 * S, pos = I.points.map(([x, y]) => x === 0 ? y : y === S ? S + x : x === S ? 3 * S - y : P - x).sort((a, b) => a - b); T.at({ side: S, perimeterPos: A(pos) }); T.n('Perimeter position of the point farthest along?', pos[pos.length - 1], 'Walk up the left edge, right on top, down the right, left along the bottom.'); const ok = d => { for (let s = 0; s < pos.length; s++) { let cur = pos[s], j = s, good = true; for (let t = 1; t < I.k; t++) { j = lowerBound(pos, cur + d); if (j >= pos.length) { good = false; break; } cur = pos[j]; } if (good && P - (cur - pos[s]) >= d) return true; } return false; }; return lastTrue(0, S, ok, T, d => ({ feasible: ok(d) }), d => `Can ${I.k} points be ≥ ${d} apart?`); }
+    s(I, T) { const S = I.side, P = 4 * S, pos = I.points.map(([x, y]) => x === 0 ? y : y === S ? S + x : x === S ? 3 * S - y : P - x).sort((a, b) => a - b); T.at({ side: S, perimeterPos: A(pos) }); T.n('Perimeter position of the point farthest along?', pos[pos.length - 1], 'Walk up the left edge, right on top, down the right, left along the bottom.'); const ok = d => { for (let s = 0; s < pos.length; s++) { let cur = pos[s], j = s, good = true; for (let t = 1; t < I.k; t++) { j = lowerBound(pos, cur + d); if (j >= pos.length) { good = false; break; } cur = pos[j]; } if (good && P - (cur - pos[s]) >= d) return true; } return false; }; return lastTrue(0, S, ok, T, d => ({ feasible: ok(d) }), d => `Can ${I.k} points be at least ${d} apart?`); }
   });
 })();

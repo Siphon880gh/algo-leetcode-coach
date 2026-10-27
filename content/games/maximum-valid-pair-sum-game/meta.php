@@ -5,7 +5,7 @@ return [
     'title' => 'Maximum Valid Pair Sum',
     'leetcode' => 3979,
     'difficulty' => 'Med',
-    'summary' => 'Sweep j from k upward while keeping the best nums[i] with i ≤ j − k. Each j pairs with that running maximum.',
+    'summary' => 'Sweep j from k upward while keeping the best nums[i] with i at most j − k. Each j pairs with that running maximum.',
     'category' => 'LeetCode',
     'subcategory' => 'Arrays',
     'topic' => 'LeetCode · Arrays',

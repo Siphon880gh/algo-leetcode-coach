@@ -18,7 +18,7 @@
 
   D('frog-position-after-t-seconds', {
     t: 'Frog Position After t Seconds: split probability, stop at leaves',
-    r: 'DFS from vertex 1 multiplying by 1/(unvisited children). At the target: if exactly t seconds passed, or the frog is stuck (no unvisited children) before t, return the probability; otherwise 0.',
+    r: 'DFS from vertex 1 multiplying by 1 divided by (unvisited children). At the target: if exactly t seconds passed, or the frog is stuck (no unvisited children) before t, return the probability; otherwise 0.',
     g: R => { const n = R.int(1, 7); return { n, edges: treeEdges(R, n, 1), t: R.int(1, 4), target: R.int(1, n) }; },
     cmp: 'float',
     s(I, T) { const g = adjOf(I.n, I.edges, 1); const go = (u, p, time, prob) => { const kids = g[u].filter(v => v !== p); if (u === I.target) { const ok = time === I.t || (time < I.t && !kids.length); T.at({ graph: GR(I.n, I.edges, { base: 1, cls: { [u]: 'hit' } }), time, prob: Math.round(prob * 1e4) / 1e4 }); T.yn('Is the frog still on the target at time t?', ok, 'Exactly t, or stuck at a leaf earlier.'); return ok ? prob : 0; } if (time === I.t || !kids.length) return 0; T.at({ graph: GR(I.n, I.edges, { base: 1, cls: { [u]: 'hit' } }) }); T.n(`Unvisited neighbors of ${u}?`, kids.length, 'The probability splits evenly among them.'); for (const v of kids) { const r = go(v, u, time + 1, prob / kids.length); if (r) return r; } return 0; }; return go(1, 0, 0, 1); }
@@ -55,14 +55,14 @@
 
   D('count-good-nodes-in-binary-tree', {
     t: 'Count Good Nodes: carry the path maximum',
-    r: 'A node is good if its value is ≥ the maximum seen on the path from the root.',
+    r: 'A node is good if its value is at least the maximum seen on the path from the root.',
     g: R => ({ root: R.tree(R.int(1, 9), 1, 6) }),
     s(I, T) { const root = Tr.from(I.root); let c = 0; const go = (n, mx) => { if (!n) return; const good = n.val >= mx; T.at({ tree: TR(root, { hit: n }), pathMax: mx === -Infinity ? '—' : mx }); T.yn(`Is this ${n.val} good?`, good, 'Not smaller than the path max.'); if (good) c++; go(n.left, Math.max(mx, n.val)); go(n.right, Math.max(mx, n.val)); }; go(root, -Infinity); return c; }
   });
 
   D('pseudo-palindromic-paths-in-a-binary-tree', {
     t: 'Pseudo-Palindromic Paths: parity bitmask',
-    r: 'Toggle bit val on the way down. At a leaf the path can form a palindrome iff at most one bit is set (mask & (mask − 1) = 0).',
+    r: 'Toggle bit val on the way down. At a leaf the path can form a palindrome exactly when at most one bit is set (mask & (mask − 1) = 0).',
     g: R => ({ root: R.tree(R.int(1, 9), 1, 3) }),
     s(I, T) { const root = Tr.from(I.root); let c = 0; const go = (n, m) => { if (!n) return; m ^= 1 << n.val; if (leaf(n)) { const ok = (m & (m - 1)) === 0; T.at({ tree: TR(root, { hit: n }), mask: m.toString(2) }); T.yn('Pseudo-palindromic path?', ok, 'At most one odd count.'); if (ok) c++; } go(n.left, m); go(n.right, m); }; go(root, 0); return c; }
   });
@@ -76,7 +76,7 @@
   });
 
   D('clone-binary-tree-with-random-pointer', {
-    t: 'Clone Tree With Random Pointers: map old → new',
+    t: 'Clone Tree With Random Pointers: map old to new',
     r: 'First pass: copy every node into a map. Second pass: set left, right and random from the map.',
     g: R => { const t = R.tree(R.int(1, 6)); const idx = t.map((v, i) => v === null ? -1 : i).filter(i => i >= 0); return { root: t.map(v => v === null ? null : [v, R.chance(0.6) ? R.pick(idx) : null]) }; },
     s(I, T) { const a = I.root; a.forEach((x, i) => { if (x && x[1] !== null && x[1] !== undefined) { T.at({ nodes: A(a.map(y => y ? y[0] : null), { hl: [i] }) }); T.n(`Index the copy of node ${i} points to randomly?`, x[1], 'Map lookup of the original random target.'); } }); return a.map(x => x ? [x[0], x[1] === undefined ? null : x[1]] : null); }
@@ -91,7 +91,7 @@
 
   D('find-root-of-n-ary-tree', {
     t: 'Find Root of N-ary Tree: sum trick',
-    r: 'Every node except the root appears exactly once as a child. Root value = Σ all values − Σ child values.',
+    r: 'Every node except the root appears exactly once as a child. Root value = the sum of all values − the sum of child values.',
     g: R => ({ tree: naryGen(R) }),
     s(I, T) { const root = naryFrom(I.tree), ns = naryNodes(root); const all = ns.reduce((a, n) => a + n.val, 0), ch = ns.reduce((a, n) => a + n.children.reduce((b, c) => b + c.val, 0), 0); T.at({ nodes: A(ns.map(n => n.val)) }); T.n('Sum of all node values?', all, 'Every node once.'); T.n('Sum of all child values?', ch, 'Every node except the root, once.'); T.n('Root value?', all - ch, 'The difference of the two sums.'); return naryArr(root); }
   });
@@ -119,14 +119,14 @@
 
   D('number-of-good-leaf-nodes-pairs', {
     t: 'Good Leaf Pairs: distance lists from each subtree',
-    r: 'Each node returns the distances to the leaves below it. At a node, count pairs (one from the left list, one from the right) with sum ≤ distance; pass distances + 1 upward.',
+    r: 'Each node returns the distances to the leaves below it. At a node, count pairs (one from the left list, one from the right) with sum at most distance; pass distances + 1 upward.',
     g: R => ({ root: R.tree(R.int(1, 9)), distance: R.int(1, 5) }),
     s(I, T) { const res = (() => { const root = Tr.from(I.root); let c = 0; const go = n => { if (!n) return []; if (leaf(n)) return [1]; const a = go(n.left), b = go(n.right); let k = 0; for (const x of a) for (const y of b) if (x + y <= I.distance) k++; if (n.left && n.right) { T.at({ tree: TR(root, { hit: n }), left: A(a), right: A(b) }); T.n(`Good pairs meeting at ${n.val}?`, k, `Left plus right distance is at most ${I.distance}.`); } c += k; return [...a, ...b].map(x => x + 1).filter(x => x < I.distance); }; go(root); return c; })(); T.n('Good leaf pairs in total?', res, 'Add the pairs found at every node.'); return res; }
   });
 
   D('build-binary-expression-tree-from-infix-expression', {
     t: 'Expression Tree From Infix: two stacks',
-    r: 'Shunting-yard: push operands as leaves; on an operator, first combine while the stack top has precedence ≥ it; "(" waits for ")"; combine = pop op and two nodes into a new node.',
+    r: 'Shunting-yard: push operands as leaves; on an operator, first combine while the stack top has precedence at least it; "(" waits for ")"; combine = pop op and two nodes into a new node.',
     g: R => { const n = R.int(2, 4); let s = String(R.int(1, 9)); for (let i = 1; i < n; i++) s += R.pick(['+', '-', '*', '/']) + R.int(1, 9); return { s }; },
     s(I, T) { const ops = [], nodes = [], pr = { '+': 1, '-': 1, '*': 2, '/': 2, '(': 0 }; const comb = () => { const op = ops.pop(), r = nodes.pop(), l = nodes.pop(); nodes.push(N(op, l, r)); T.at({ ops: A(ops.slice()), nodes: A(nodes.map(x => x.val)) }); T.c('Operator just combined?', ['+', '-', '*', '/'], op, 'Top of the operator stack.'); }; for (const ch of I.s) { if (/\d/.test(ch)) nodes.push(N(ch)); else if (ch === '(') ops.push(ch); else if (ch === ')') { while (ops[ops.length - 1] !== '(') comb(); ops.pop(); } else { while (ops.length && pr[ops[ops.length - 1]] >= pr[ch]) comb(); ops.push(ch); } } while (ops.length) comb(); return Tr.arr(nodes[0]); }
   });
@@ -196,7 +196,7 @@
   });
 
   D('find-distance-in-a-binary-tree', {
-    t: 'Find Distance in a Binary Tree: depth(p) + depth(q) − 2·depth(LCA)',
+    t: 'Find Distance in a Binary Tree: depth(p) + depth(q) − 2 times depth(LCA)',
     r: 'Find the LCA, then add the distances from it down to p and to q.',
     g: R => { const r = uniq(R, R.int(1, 8)); const v = Tr.nodes(r).map(n => n.val); return { root: Tr.arr(r), p: R.pick(v), q: R.pick(v) }; },
     s(I, T) { const res = (() => { const root = Tr.from(I.root), dep = new Map(), par = new Map(); const go = (n, d, p) => { if (!n) return; dep.set(n, d); par.set(n, p); go(n.left, d + 1, n); go(n.right, d + 1, n); }; go(root, 0, null); const P = Tr.find(root, I.p), Q = Tr.find(root, I.q); const anc = new Set(); for (let x = P; x; x = par.get(x)) anc.add(x); let l = Q; while (!anc.has(l)) l = par.get(l); T.at({ tree: TR(root, { hit: [P, Q], ok: l }) }); T.n('Depth of p?', dep.get(P), 'Edges from the root.'); T.n('LCA value?', l.val, 'First common ancestor.'); return dep.get(P) + dep.get(Q) - 2 * dep.get(l); })(); T.n('Distance between p and q?', res, 'Depth of p plus depth of q, minus twice the depth of the LCA.'); return res; }
@@ -217,7 +217,7 @@
   });
 
   D('count-ways-to-build-rooms-in-an-ant-colony', {
-    t: 'Ways to Build Rooms: n! / Π subtree sizes',
+    t: 'Ways to Build Rooms: n! divided by the product of subtree sizes',
     r: 'The build orders are the topological orders of the tree: n! divided by the product of all subtree sizes (mod 1e9+7).',
     g: R => { const n = R.int(2, 7); return { prevRoom: Array.from({ length: n }, (_, i) => i ? R.int(0, i - 1) : -1) }; },
     s(I, T) { const res = (() => { const n = I.prevRoom.length, size = Array(n).fill(1); for (let i = n - 1; i > 0; i--) size[I.prevRoom[i]] += size[i]; T.at({ prevRoom: A(I.prevRoom), size: A(size) }); T.n('Size of the largest subtree below room 0?', Math.max(...size.slice(1)), 'Add sizes from the leaves up.'); T.n('Product of all subtree sizes?', size.reduce((a, b) => a * b, 1), 'Multiply the subtree sizes together.'); let f = 1n; for (let i = 2; i <= n; i++) f = f * BigInt(i); return Number(f / BigInt(size.reduce((a, b) => a * b, 1)) % M); })(); T.n('Build orders, mod 1000000007?', res, 'n! divided by the product of subtree sizes.'); return res; }
@@ -246,7 +246,7 @@
 
   D('subtree-removal-game-with-fibonacci-tree', {
     t: 'Fibonacci Tree Removal Game: n mod 6',
-    r: 'The Sprague–Grundy values of Fibonacci trees give a simple pattern: Alice loses exactly when n mod 6 = 1.',
+    r: 'The Sprague-Grundy values of Fibonacci trees give a simple pattern: Alice loses exactly when n mod 6 = 1.',
     g: R => ({ n: R.int(1, 30) }),
     s(I, T) { const res = (() => { T.at({ n: I.n }); T.yn('Is n equal to 1?', I.n === 1, 'Then Alice must take the root and loses.'); T.n('Remainder of n divided by 6?', I.n % 6, 'Alice loses only when it is 1.'); return I.n % 6 !== 1; })(); T.yn('Does Alice win?', res, 'Unless the remainder is 1.'); return res; }
   });
@@ -260,7 +260,7 @@
 
   D('step-by-step-directions-from-a-binary-tree-node-to-another', {
     t: 'Step-by-Step Directions: strip the common prefix',
-    r: 'Find root→start and root→dest paths as L/R strings; drop their common prefix. The answer is "U" for each remaining step of the start path, then the rest of the dest path.',
+    r: 'Find root to start and root to dest paths as L or R strings; drop their common prefix. The answer is "U" for each remaining step of the start path, then the rest of the dest path.',
     g: R => { const r = uniq(R, R.int(2, 8)); const v = Tr.nodes(r).map(n => n.val), a = R.pick(v); let b; do b = R.pick(v); while (b === a); return { root: Tr.arr(r), startValue: a, destValue: b }; },
     s(I, T) { const root = Tr.from(I.root); const path = (n, t, p) => { if (!n) return null; if (n.val === t) return p; return path(n.left, t, p + 'L') ?? path(n.right, t, p + 'R'); }; const a = path(root, I.startValue, ''), b = path(root, I.destValue, ''); let i = 0; while (i < a.length && i < b.length && a[i] === b[i]) i++; T.at({ tree: TR(root, { hit: [Tr.find(root, I.startValue), Tr.find(root, I.destValue)] }), toStart: a || '(root)', toDest: b || '(root)' }); T.n('Length of the common prefix?', i, 'Shared steps from the root.'); T.n('Steps up to the common ancestor?', a.length - i, 'Each becomes a U.'); T.n('Steps down to the destination?', b.length - i, 'The rest of the path to dest.'); return 'U'.repeat(a.length - i) + b.slice(i); }
   });
@@ -281,21 +281,21 @@
 
   D('count-nodes-equal-to-average-of-subtree', {
     t: 'Nodes Equal to Average of Subtree: (sum, count) upward',
-    r: 'Post-order returns subtree sum and size; a node counts if ⌊sum / size⌋ equals its value.',
+    r: 'Post-order returns subtree sum and size; a node counts if sum divided by size, rounded down equals its value.',
     g: R => ({ root: R.tree(R.int(1, 8), 0, 6) }),
-    s(I, T) { const root = Tr.from(I.root); let c = 0; const go = n => { if (!n) return [0, 0]; const a = go(n.left), b = go(n.right), s = n.val + a[0] + b[0], k = 1 + a[1] + b[1]; T.at({ tree: TR(root, { hit: n }), count: c }); T.n(`Floor average of the subtree at ${n.val}?`, Math.floor(s / k), `${s} / ${k}.`); if (Math.floor(s / k) === n.val) c++; return [s, k]; }; go(root); return c; }
+    s(I, T) { const root = Tr.from(I.root); let c = 0; const go = n => { if (!n) return [0, 0]; const a = go(n.left), b = go(n.right), s = n.val + a[0] + b[0], k = 1 + a[1] + b[1]; T.at({ tree: TR(root, { hit: n }), count: c }); T.n(`Floor average of the subtree at ${n.val}?`, Math.floor(s / k), `${s} divided by ${k}.`); if (Math.floor(s / k) === n.val) c++; return [s, k]; }; go(root); return c; }
   });
 
   D('closest-node-to-path-in-tree', {
     t: 'Closest Node to Path: mark the path, BFS from the node',
-    r: 'For each query, find the start→end path (BFS parents), then BFS from node until you reach a path vertex.',
+    r: 'For each query, find the start to end path (BFS parents), then BFS from node until you reach a path vertex.',
     g: R => { const n = R.int(2, 7); return { n, edges: treeEdges(R, n, 0), query: Array.from({ length: R.int(1, 3) }, () => [R.int(0, n - 1), R.int(0, n - 1), R.int(0, n - 1)]) }; },
-    s(I, T) { const g = adjOf(I.n, I.edges, 0); const bfs = s => { const par = Array(I.n).fill(-2), d = Array(I.n).fill(-1), q = [s]; par[s] = -1; d[s] = 0; while (q.length) { const u = q.shift(); for (const v of g[u]) if (d[v] < 0) { d[v] = d[u] + 1; par[v] = u; q.push(v); } } return [par, d]; }; return I.query.map(([a, b, x]) => { const [par] = bfs(a), path = new Set(); for (let u = b; u !== -1; u = par[u]) path.add(u); const [, dx] = bfs(x); let best = -1; for (const u of path) if (best < 0 || dx[u] < dx[best]) best = u; T.at({ graph: GR(I.n, I.edges, { cls: Object.fromEntries([...path].map(u => [u, 'ok']).concat([[x, 'hit']])) }) }); T.n(`Closest path node to ${x} (path ${a}→${b})?`, best, 'First path vertex reached by BFS.'); return best; }); }
+    s(I, T) { const g = adjOf(I.n, I.edges, 0); const bfs = s => { const par = Array(I.n).fill(-2), d = Array(I.n).fill(-1), q = [s]; par[s] = -1; d[s] = 0; while (q.length) { const u = q.shift(); for (const v of g[u]) if (d[v] < 0) { d[v] = d[u] + 1; par[v] = u; q.push(v); } } return [par, d]; }; return I.query.map(([a, b, x]) => { const [par] = bfs(a), path = new Set(); for (let u = b; u !== -1; u = par[u]) path.add(u); const [, dx] = bfs(x); let best = -1; for (const u of path) if (best < 0 || dx[u] < dx[best]) best = u; T.at({ graph: GR(I.n, I.edges, { cls: Object.fromEntries([...path].map(u => [u, 'ok']).concat([[x, 'hit']])) }) }); T.n(`Closest path node to ${x} (path ${a} to ${b})?`, best, 'First path vertex reached by BFS.'); return best; }); }
   });
 
   D('minimum-flips-in-binary-tree-to-get-result', {
     t: 'Minimum Flips for a Boolean Tree Result: (cost false, cost true)',
-    r: 'Each node returns the cheapest flips to make it false and to make it true. Leaves: 0 or 1. OR/AND/XOR/NOT combine the children\'s pairs.',
+    r: 'Each node returns the cheapest flips to make it false and to make it true. Leaves: 0 or 1. OR, AND, XOR and NOT combine the children\'s pairs.',
     g: R => { const mk = d => { if (d >= 3 || R.chance(0.3)) return N(R.int(0, 1)); const op = R.int(2, 5); if (op === 5) return R.chance(0.5) ? N(5, mk(d + 1)) : N(5, null, mk(d + 1)); return N(op, mk(d + 1), mk(d + 1)); }; return { root: Tr.arr(mk(1)), result: R.chance(0.5) }; },
     s(I, T) { const root = Tr.from(I.root), nm = { 2: 'OR', 3: 'AND', 4: 'XOR', 5: 'NOT' }; const go = n => { if (n.val < 2) return [n.val === 0 ? 0 : 1, n.val === 1 ? 0 : 1]; let res; if (n.val === 5) { const [f, t] = go(n.left || n.right); res = [t, f]; } else { const [fl, tl] = go(n.left), [fr, tr] = go(n.right); if (n.val === 2) res = [fl + fr, Math.min(tl + tr, tl + fr, fl + tr)]; else if (n.val === 3) res = [Math.min(fl + fr, fl + tr, tl + fr), tl + tr]; else res = [Math.min(fl + fr, tl + tr), Math.min(tl + fr, fl + tr)]; } T.at({ tree: TR(root, { hit: n }) }); T.n(`Flips to make this ${nm[n.val]} node true?`, res[1], 'Combine the children\'s (false, true) costs.'); return res; }; return go(root)[I.result ? 1 : 0]; }
   });

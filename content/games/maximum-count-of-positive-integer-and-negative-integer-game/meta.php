@@ -5,7 +5,7 @@ return [
     'title' => 'Max Count of Positives and Negatives',
     'leetcode' => 2529,
     'difficulty' => 'Easy',
-    'summary' => 'Binary search the first index ≥ 0 (negatives before it) and the first index > 0 (positives after it).',
+    'summary' => 'Binary search the first index at least 0 (negatives before it) and the first index > 0 (positives after it).',
     'category' => 'LeetCode',
     'subcategory' => 'Binary Search',
     'topic' => 'LeetCode · Binary Search',

@@ -5,7 +5,7 @@ return [
     'title' => 'Binary Number with Alternating Bits',
     'leetcode' => 693,
     'difficulty' => 'Easy',
-    'summary' => 'x = n ^ (n >> 1) is all 1s iff the bits alternate; check x & (x + 1) == 0.',
+    'summary' => 'x = n ^ (n >> 1) is all 1s exactly when the bits alternate; check x & (x + 1) == 0.',
     'category' => 'LeetCode',
     'subcategory' => 'Bit Manipulation',
     'topic' => 'LeetCode · Bit Manipulation',

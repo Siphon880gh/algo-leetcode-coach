@@ -5,7 +5,7 @@ return [
     'title' => 'Minimum Increase to Maximize Special Indices',
     'leetcode' => 3891,
     'difficulty' => 'Med',
-    'summary' => 'Making i special costs max(0, max(nums[i−1], nums[i+1]) + 1 − nums[i]), and special indices cannot be adjacent. The most we can get is ⌊(n−1)/2⌋. DP over i: (count, cost) taking i (jump from i−2) or skipping it, preferring more specials, then less cost.',
+    'summary' => 'Making i special costs max(0, max(nums[i−1], nums[i+1]) + 1 − nums[i]), and special indices cannot be adjacent. The most we can get is half of (n−1), rounded down. DP over i: (count, cost) taking i (jump from i−2) or skipping it, preferring more specials, then less cost.',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

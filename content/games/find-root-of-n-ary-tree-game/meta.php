@@ -5,7 +5,7 @@ return [
     'title' => 'Find Root of N-ary Tree: sum trick',
     'leetcode' => 1506,
     'difficulty' => 'Med',
-    'summary' => 'Every node except the root appears exactly once as a child. Root value = Σ all values − Σ child values.',
+    'summary' => 'Every node except the root appears exactly once as a child. Root value = the sum of all values − the sum of child values.',
     'category' => 'LeetCode',
     'subcategory' => 'Trees',
     'topic' => 'LeetCode · Trees',

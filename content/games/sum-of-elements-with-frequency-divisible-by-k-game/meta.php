@@ -5,7 +5,7 @@ return [
     'title' => 'Sum of Elements With Frequency Divisible by K',
     'leetcode' => 3712,
     'difficulty' => 'Easy',
-    'summary' => 'Count every value. A value whose count is divisible by k adds value × count; the others add nothing.',
+    'summary' => 'Count every value. A value whose count is divisible by k adds value times count; the others add nothing.',
     'category' => 'LeetCode',
     'subcategory' => 'Hash Table',
     'topic' => 'LeetCode · Hash Table',

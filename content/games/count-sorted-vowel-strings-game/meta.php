@@ -5,7 +5,7 @@ return [
     'title' => 'Count Sorted Vowel Strings: how many end with each vowel',
     'leetcode' => 1641,
     'difficulty' => 'Med',
-    'summary' => 'cnt[v] = sorted strings ending in vowel v. Next length: new cnt[v] = Σ cnt[u] for u ≤ v (a running prefix sum).',
+    'summary' => 'cnt[v] = sorted strings ending in vowel v. Next length: new cnt[v] = the sum of cnt[u] for u at most v (a running prefix sum).',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

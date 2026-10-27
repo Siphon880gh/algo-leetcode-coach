@@ -5,7 +5,7 @@ return [
     'title' => 'Minimum Steps to Convert String with Operations',
     'leetcode' => 3579,
     'difficulty' => 'Hard',
-    'summary' => 'dp[i] = min over j of dp[j] + cost(word1[j..i−1] → word2[j..i−1]). A piece costs (mismatches − swappable pairs), where a pair a→b and b→a is fixed by one swap; or 1 more for reversing it first.',
+    'summary' => 'dp[i] = min over j of dp[j] + cost(turning word1[j to i−1] into word2[j to i−1]). A piece costs (mismatches − swappable pairs), where a pair a to b and b to a is fixed by one swap; or 1 more for reversing it first.',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

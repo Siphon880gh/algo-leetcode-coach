@@ -5,7 +5,7 @@ return [
     'title' => 'Count of Monotonic Pairs II: the same DP with prefix sums',
     'leetcode' => 3251,
     'difficulty' => 'Hard',
-    'summary' => 'dp[i][v] = Σ dp[i−1][u] for u ≤ v − max(0, nums[i] − nums[i−1]); prefix sums make each row O(max value).',
+    'summary' => 'dp[i][v] = the sum of dp[i−1][u] for u at most v − max(0, nums[i] − nums[i−1]); prefix sums make each row O(max value).',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

@@ -5,7 +5,7 @@ return [
     'title' => 'Subsequence After One Replacement',
     'leetcode' => 3983,
     'difficulty' => 'Med',
-    'summary' => 'pre[i] = where in t the greedy match of s[0..i) ends, suf[i] = where the greedy match of s[i..] from the right begins. Replacing s[i] works if some character of t lies strictly between pre[i] and suf[i + 1], i.e. pre[i] < suf[i + 1].',
+    'summary' => 'pre[i] = where in t the greedy match of s[0 to i) ends, suf[i] = where the greedy match of s[i..] from the right begins. Replacing s[i] works if some character of t lies strictly between pre[i] and suf[i + 1], i.e. pre[i] < suf[i + 1].',
     'category' => 'LeetCode',
     'subcategory' => 'Two Pointers',
     'topic' => 'LeetCode · Two Pointers',

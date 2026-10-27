@@ -5,7 +5,7 @@ return [
     'title' => 'Find Root of a Colored Tree',
     'leetcode' => 4085,
     'difficulty' => 'Med',
-    'summary' => 'Orient the tree away from a candidate root. Each child must take the next colour in the cycle R → B → W → R, and no node may have more than two children. Only a node with no neighbour of the colour before its own can be the root.',
+    'summary' => 'Orient the tree away from a candidate root. Each child must take the next colour in the cycle R, then B, then W, then back to R, and no node may have more than two children. Only a node with no neighbour of the colour before its own can be the root.',
     'category' => 'LeetCode',
     'subcategory' => 'Graphs',
     'topic' => 'LeetCode · Graphs',

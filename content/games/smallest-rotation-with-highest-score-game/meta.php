@@ -5,7 +5,7 @@ return [
     'title' => 'Smallest Rotation with Highest Score',
     'leetcode' => 798,
     'difficulty' => 'Hard',
-    'summary' => 'Element nums[i] scores for rotations k where it lands at an index ≥ its value: a contiguous (circular) range of k. Mark each range on a difference array, prefix-sum, and take the first max.',
+    'summary' => 'Element nums[i] scores for rotations k where it lands at an index at least its value: a contiguous (circular) range of k. Mark each range on a difference array, prefix-sum, and take the first max.',
     'category' => 'LeetCode',
     'subcategory' => 'Prefix Sum',
     'topic' => 'LeetCode · Prefix Sum',

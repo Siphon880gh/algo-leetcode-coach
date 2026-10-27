@@ -5,7 +5,7 @@ return [
     'title' => 'Decode the Slanted Ciphertext',
     'leetcode' => 2075,
     'difficulty' => 'Med',
-    'summary' => 'cols = length / rows. The text was written down diagonals, so read each diagonal starting at (0, c) moving (+1, +1), for c = 0, 1, …; finally strip trailing spaces.',
+    'summary' => 'cols = length divided by rows. The text was written down diagonals, so read each diagonal starting at (0, c) moving (+1, +1), for c = 0, 1, …; finally strip trailing spaces.',
     'category' => 'LeetCode',
     'subcategory' => 'Graphs',
     'topic' => 'LeetCode · Graphs',

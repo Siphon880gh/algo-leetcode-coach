@@ -5,7 +5,7 @@ return [
     'title' => 'Find Substring With Given Hash Value',
     'leetcode' => 2156,
     'difficulty' => 'Hard',
-    'summary' => 'hash(s[i..i+k)) = Σ val(s[i+j]) · power^j mod m. Roll from the right end leftward (multiply by power, add the new char, drop the outgoing one times power^k); keep the leftmost match.',
+    'summary' => 'hash(s[i to i+k)) = the sum of val(s[i+j]) times power to the power j mod m. Roll from the right end leftward (multiply by power, add the new char, drop the outgoing one times power to the power k); keep the leftmost match.',
     'category' => 'LeetCode',
     'subcategory' => 'Sliding Window',
     'topic' => 'LeetCode · Sliding Window',

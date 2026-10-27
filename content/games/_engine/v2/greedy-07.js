@@ -21,7 +21,7 @@
 
   D('maximum-sum-of-edge-values-in-a-graph', {
     t: 'Maximum Sum of Edge Values in a Graph',
-    r: 'With degree ≤ 2 and connected, the graph is a path or a cycle (m = n). Place n first, then each smaller value at whichever end currently holds the larger number, so big values sit beside big values. A cycle also links the two ends.',
+    r: 'With degree at most 2 and connected, the graph is a path or a cycle (m = n). Place n first, then each smaller value at whichever end currently holds the larger number, so big values sit beside big values. A cycle also links the two ends.',
     g: R => { const n = R.int(2, 7), p = R.perm(n), cyc = n >= 3 && R.chance(0.5), edges = []; for (let i = 0; i + 1 < n; i++) edges.push([p[i], p[i + 1]]); if (cyc) edges.push([p[n - 1], p[0]]); return { n, edges: R.shuffle(edges) }; },
     s(I, T) { const n = I.n, cyc = I.edges.length === n; T.v(GR(n, I.edges)); T.yn('Is this graph a cycle?', cyc, 'Connected with max degree 2: a cycle exactly when m = n.'); const dq = [n]; for (let v = n - 1; v >= 1; v--) { const L = dq[0], Rr = dq[dq.length - 1]; if (dq.length > 1 && L !== Rr) { T.at({ line: A(dq.slice()), next: v }); T.c(`Where does ${v} go?`, [`next to ${L}`, `next to ${Rr}`], `next to ${Math.max(L, Rr)}`, 'Put the next largest value beside the larger end to maximize its product.'); } if (L >= Rr && dq.length > 1) dq.unshift(v); else if (dq.length === 1) dq.unshift(v); else dq.push(v); } let s = 0; for (let i = 0; i + 1 < n; i++) s += dq[i] * dq[i + 1]; if (cyc) s += dq[0] * dq[n - 1]; T.at({ line: A(dq), cycle: cyc ? 'yes' : 'no' }); T.n('Total score?', s, cyc ? 'Sum adjacent products, plus the closing edge.' : 'Sum adjacent products.'); return s; }
   });
@@ -37,19 +37,19 @@
     t: 'Transform Array to All Equal Elements',
     r: 'Try both targets (all 1 or all −1). Scan left to right: if nums[i] is wrong, flip i and i+1 (the only way left to fix i). It works if the last element ends right and the flips fit in k.',
     g: R => ({ nums: Array.from({ length: R.int(3, 7) }, () => R.pick([1, -1])), k: R.int(1, 5) }),
-    s(I, T) { let ok = false; for (const t of [1, -1]) { const a = I.nums.slice(); let ops = 0; for (let i = 0; i + 1 < a.length; i++) { const f = a[i] !== t; if (T.room()) { T.at({ nums: A(a.slice(), { i }), target: t, flips: ops }); T.yn(`Flip at index ${i}?`, f, f ? `nums[${i}] ≠ ${t}; only the pair (${i}, ${i + 1}) can still fix it.` : 'Already the target.'); } if (f) { a[i] = -a[i]; a[i + 1] = -a[i + 1]; ops++; } } if (a[a.length - 1] === t && ops <= I.k) ok = true; } return ok; }
+    s(I, T) { let ok = false; for (const t of [1, -1]) { const a = I.nums.slice(); let ops = 0; for (let i = 0; i + 1 < a.length; i++) { const f = a[i] !== t; if (T.room()) { T.at({ nums: A(a.slice(), { i }), target: t, flips: ops }); T.yn(`Flip at index ${i}?`, f, f ? `nums[${i}] not equal to ${t}; only the pair (${i}, ${i + 1}) can still fix it.` : 'Already the target.'); } if (f) { a[i] = -a[i]; a[i + 1] = -a[i + 1]; ops++; } } if (a[a.length - 1] === t && ops <= I.k) ok = true; } return ok; }
   });
 
   D('minimum-adjacent-swaps-to-alternate-parity', {
     t: 'Minimum Adjacent Swaps to Alternate Parity',
-    r: 'Evens and odds may differ in count by at most one. For each allowed pattern (even first or odd first), the k-th even goes to the k-th even slot; the swaps needed are Σ |current index − target index| over the evens. Take the cheaper pattern.',
+    r: 'Evens and odds may differ in count by at most one. For each allowed pattern (even first or odd first), the k-th even goes to the k-th even slot; the swaps needed are the sum of |current index − target index| over the evens. Take the cheaper pattern.',
     g: R => ({ nums: R.distinct(R.int(2, 7), 1, 20) }),
-    s(I, T) { const a = I.nums, ev = a.map((x, i) => x % 2 ? -1 : i).filter(i => i >= 0), E = ev.length, O = a.length - E; T.at({ nums: A(a, { hl: ev }) }); T.yn('Is an alternating arrangement possible?', Math.abs(E - O) <= 1, `${E} evens vs ${O} odds.`); if (Math.abs(E - O) > 1) return -1; let best = Infinity; for (const start of [0, 1]) { if ((start === 0 && E < O) || (start === 1 && E > O)) continue; const c = sum(ev.map((p, k) => Math.abs(p - (start + 2 * k)))); T.at({ nums: A(a, { hl: ev }), evenSlots: A(ev.map((_, k) => start + 2 * k)) }); T.n(`Swaps if evens take the ${start ? 'odd' : 'even'} indices?`, c, 'Σ |even position − its target slot|.'); best = Math.min(best, c); } return best; }
+    s(I, T) { const a = I.nums, ev = a.map((x, i) => x % 2 ? -1 : i).filter(i => i >= 0), E = ev.length, O = a.length - E; T.at({ nums: A(a, { hl: ev }) }); T.yn('Is an alternating arrangement possible?', Math.abs(E - O) <= 1, `${E} evens vs ${O} odds.`); if (Math.abs(E - O) > 1) return -1; let best = Infinity; for (const start of [0, 1]) { if ((start === 0 && E < O) || (start === 1 && E > O)) continue; const c = sum(ev.map((p, k) => Math.abs(p - (start + 2 * k)))); T.at({ nums: A(a, { hl: ev }), evenSlots: A(ev.map((_, k) => start + 2 * k)) }); T.n(`Swaps if evens take the ${start ? 'odd' : 'even'} indices?`, c, 'the sum of |even position − its target slot|.'); best = Math.min(best, c); } return best; }
   });
 
   D('maximum-median-sum-of-subsequences-of-size-3', {
     t: 'Maximum Median Sum of Subsequences of Size 3',
-    r: 'Sort descending. Each group sacrifices one tiny element from the bottom and pairs the next two from the top; the second of those is the median. So the medians are sorted[1], sorted[3], … for n/3 groups.',
+    r: 'Sort descending. Each group sacrifices one tiny element from the bottom and pairs the next two from the top; the second of those is the median. So the medians are sorted[1], sorted[3], … for n divided by 3 groups.',
     g: R => ({ nums: R.ints(3 * R.int(1, 3), 1, 12) }),
     s(I, T) { const s = I.nums.slice().sort((a, b) => b - a), g = s.length / 3; let tot = 0; for (let i = 0; i < g; i++) { const med = s[2 * i + 1]; T.at({ sorted: A(s, { win: [2 * i, 2 * i + 1], dim: range(s.length - i, s.length) }) }); T.n(`Median of group ${i + 1}?`, med, 'Top two remaining plus the smallest remaining; the median is the second of the top two.'); tot += med; } return tot; }
   });
@@ -84,7 +84,7 @@
 
   D('determine-if-a-simple-graph-exists', {
     t: 'Determine if a Simple Graph Exists',
-    r: 'Havel–Hakimi: the degree sum must be even. Repeatedly take the largest degree d, remove it, and subtract 1 from the next d largest. If that is impossible or a degree goes negative, no simple graph exists.',
+    r: 'Havel-Hakimi: the degree sum must be even. Repeatedly take the largest degree d, remove it, and subtract 1 from the next d largest. If that is impossible or a degree goes negative, no simple graph exists.',
     g: R => ({ degrees: Array.from({ length: R.int(2, 6) }, (_, i, a) => R.int(0, 3)) }),
     s(I, T) { let d = I.degrees.slice().filter(x => x >= 0); const tot = sum(d); T.at({ degrees: A(d) }); T.yn('Is the degree sum even?', tot % 2 === 0, `Sum = ${tot}; each edge adds 2.`); if (tot % 2) return false; while (true) { d.sort((a, b) => b - a); while (d.length && d[d.length - 1] === 0) d.pop(); if (!d.length) return true; const x = d.shift(); if (x > d.length) { T.at({ degrees: A([x, ...d]) }); T.yn(`Can the vertex of degree ${x} find ${x} distinct neighbors?`, false, `Only ${d.length} other vertices still need edges.`); return false; } for (let i = 0; i < x; i++) d[i]--; T.at({ took: x, rest: A(d.slice()) }); if (d.some(v => v < 0)) return false; const nx = d.length ? Math.max(...d) : 0; T.n(`After connecting degree ${x} to the next ${x} largest, what is the largest remaining degree?`, nx, 'Subtract 1 from the next d largest, then re-sort.'); } }
   });
@@ -98,7 +98,7 @@
 
   D('generate-schedule', {
     t: 'Generate Schedule',
-    r: 'Each ordered pair plays once (n(n−1) days) and nobody plays two days in a row, which is impossible for n ≤ 4. For larger n, build greedily: each day pick a remaining match between two teams that did not play yesterday, preferring teams with the most matches left; restart with a different tie-break if stuck.',
+    r: 'Each ordered pair plays once (n(n−1) days) and nobody plays two days in a row, which is impossible for n at most 4. For larger n, build greedily: each day pick a remaining match between two teams that did not play yesterday, preferring teams with the most matches left; restart with a different tie-break if stuck.',
     cmp: (o, e, I) => { if (!e.length) return Array.isArray(o) && !o.length; const n = I.n; if (!Array.isArray(o) || o.length !== n * (n - 1)) return false; const seen = new Set(); for (let i = 0; i < o.length; i++) { const [a, b] = o[i]; if (a === b || seen.has(a + ',' + b)) return false; seen.add(a + ',' + b); if (i && (o[i - 1].includes(a) || o[i - 1].includes(b))) return false; } return true; },
     g: R => ({ n: R.int(2, 6) }),
     s(I, T) { const n = I.n; T.at({ n }); T.n('How many matches must be scheduled?', n * (n - 1), 'Every ordered pair (home, away) once.'); T.yn('Is a schedule possible?', n >= 5, n >= 5 ? 'Enough teams to rest every other day.' : 'With 4 or fewer teams, consecutive days force the same two pairs forever.'); if (n < 5) return []; for (let tries = 0; tries < 200; tries++) { const left = []; for (let a = 0; a < n; a++) for (let b = 0; b < n; b++) if (a !== b) left.push([a, b]); const cnt = Array(n).fill(2 * (n - 1)), out = []; let prev = [], ok = true, seed = tries; while (left.length) { const cand = left.filter(([a, b]) => !prev.includes(a) && !prev.includes(b)); if (!cand.length) { ok = false; break; } cand.sort((x, y) => (cnt[y[0]] + cnt[y[1]]) - (cnt[x[0]] + cnt[x[1]]) || ((x[0] * 7 + x[1] * 13 + seed) % 5) - ((y[0] * 7 + y[1] * 13 + seed) % 5)); const m = cand[0]; out.push(m); left.splice(left.indexOf(m), 1); cnt[m[0]]--; cnt[m[1]]--; prev = m; } if (ok) { out.slice(0, 3).forEach((m, d) => { if (!d) return; T.at({ yesterday: out[d - 1].join(' vs '), remaining: K(cnt.map((_, t) => [t, 'team'])) }); T.yn(`Can team ${out[d - 1][0]} play on day ${d}?`, false, 'It played yesterday.'); }); return out; } } return []; }
@@ -106,7 +106,7 @@
 
   D('maximum-total-subarray-value-ii', {
     t: 'Maximum Total Subarray Value II',
-    r: 'For a fixed l, max − min of nums[l..r] only shrinks as r shrinks. Push (l, n−1) for every l into a max-heap (range max/min from a sparse table); pop the best k times, each time pushing (l, r−1).',
+    r: 'For a fixed l, max − min of nums[l to r] only shrinks as r shrinks. Push (l, n−1) for every l into a max-heap (range max or min from a sparse table); pop the best k times, each time pushing (l, r−1).',
     g: R => { const n = R.int(2, 5); return { nums: R.ints(n, 0, 9), k: R.int(1, n * (n + 1) / 2) }; },
     s(I, T) { const a = I.nums, n = a.length, val = (l, r) => Math.max(...a.slice(l, r + 1)) - Math.min(...a.slice(l, r + 1)); let h = range(0, n).map(l => [val(l, n - 1), l, n - 1]), tot = 0; for (let t = 0; t < I.k; t++) { h.sort((x, y) => y[0] - x[0] || x[1] - y[1]); const [v, l, r] = h.shift(); tot += v; if (r > l) h.push([val(l, r - 1), l, r - 1]); if (t < 4) { T.at({ nums: A(a, { win: [l, r] }), picked: t, total: tot - v }); T.n(`Value of pick #${t + 1}?`, v, `Heap top is nums[${l}..${r}].`); } } return tot; }
   });
@@ -120,9 +120,9 @@
 
   D('maximize-sum-of-squares-of-digits', {
     t: 'Maximize Sum of Squares of Digits',
-    r: 'Squares reward concentration: fill digits left to right with as many 9s as possible, then the remainder, then zeros. This also gives the largest number. If sum > 9·num, there is no answer.',
+    r: 'Squares reward concentration: fill digits left to right with as many 9s as possible, then the remainder, then zeros. This also gives the largest number. If sum > 9 times num, there is no answer.',
     g: R => ({ num: R.int(1, 4), sum: R.int(1, 30) }),
-    s(I, T) { T.at({ num: I.num, sum: I.sum }); T.yn('Is any good integer possible?', I.sum <= 9 * I.num, `At most 9 × ${I.num} = ${9 * I.num}.`); if (I.sum > 9 * I.num) return ''; let left = I.sum, out = ''; for (let i = 0; i < I.num; i++) { const d = Math.min(9, left); left -= d; if (i < 4) { T.at({ built: out || '·', left: left + d }); T.n(`Digit at position ${i}?`, d, 'Take as much as possible (up to 9).'); } out += d; } return out; }
+    s(I, T) { T.at({ num: I.num, sum: I.sum }); T.yn('Is any good integer possible?', I.sum <= 9 * I.num, `At most 9 times ${I.num} = ${9 * I.num}.`); if (I.sum > 9 * I.num) return ''; let left = I.sum, out = ''; for (let i = 0; i < I.num; i++) { const d = Math.min(9, left); left -= d; if (i < 4) { T.at({ built: out || '·', left: left + d }); T.n(`Digit at position ${i}?`, d, 'Take as much as possible (up to 9).'); } out += d; } return out; }
   });
 
   D('minimum-operations-to-transform-array', {
@@ -141,14 +141,14 @@
 
   D('lexicographically-smallest-negated-permutation-that-sums-to-target', {
     t: 'Lexicographically Smallest Negated Permutation That Sums to Target',
-    r: 'Start from 1..n all positive (sum S). Negating a set N lowers the sum by 2·sum(N), so we need sum(N) = (S − target)/2 = D (integer, 0 ≤ D ≤ S). Greedily negate from n downwards whenever i ≤ D left; output sorted ascending.',
+    r: 'Start from 1 to n all positive (sum S). Negating a set N lowers the sum by 2 times sum(N), so we need sum(N) = (S − target) divided by 2 = D (integer, D from 0 to S). Greedily negate from n downwards whenever i at most D left; output sorted ascending.',
     g: R => { const n = R.int(1, 6), S = n * (n + 1) / 2; return { n, target: R.int(-S - 1, S + 1) }; },
-    s(I, T) { const n = I.n, S = n * (n + 1) / 2; T.at({ n, target: I.target, S }); const ok = (S - I.target) % 2 === 0 && I.target <= S && I.target >= -S; T.yn('Is the target reachable?', ok, ok ? 'Same parity as S and within ±S.' : 'Wrong parity or out of range.'); if (!ok) return []; let D = (S - I.target) / 2; T.n('Total magnitude that must be negated?', D, '(S − target) / 2.'); const neg = new Set(); for (let i = n; i >= 1; i--) if (D >= i) { neg.add(i); D -= i; } const out = range(1, n + 1).map(i => neg.has(i) ? -i : i).sort((a, b) => a - b); T.at({ negated: A([...neg]) }); T.n('First element of the answer?', out[0], 'The most negative value leads.'); return out; }
+    s(I, T) { const n = I.n, S = n * (n + 1) / 2; T.at({ n, target: I.target, S }); const ok = (S - I.target) % 2 === 0 && I.target <= S && I.target >= -S; T.yn('Is the target reachable?', ok, ok ? 'Same parity as S and within ±S.' : 'Wrong parity or out of range.'); if (!ok) return []; let D = (S - I.target) / 2; T.n('Total magnitude that must be negated?', D, '(S − target) divided by 2.'); const neg = new Set(); for (let i = n; i >= 1; i--) if (D >= i) { neg.add(i); D -= i; } const out = range(1, n + 1).map(i => neg.has(i) ? -i : i).sort((a, b) => a - b); T.at({ negated: A([...neg]) }); T.n('First element of the answer?', out[0], 'The most negative value leads.'); return out; }
   });
 
   D('maximum-total-sum-with-threshold-constraints', {
     t: 'Maximum Total Sum With Threshold Constraints',
-    r: 'Sort indices by threshold. At step s, push every item with threshold ≤ s into a max-heap; if the heap is empty the process stops, otherwise take its largest value. The number of steps does not depend on the choices, so taking the biggest is safe.',
+    r: 'Sort indices by threshold. At step s, push every item with threshold at most s into a max-heap; if the heap is empty the process stops, otherwise take its largest value. The number of steps does not depend on the choices, so taking the biggest is safe.',
     g: R => { const n = R.int(1, 6); return { nums: R.ints(n, 1, 9), threshold: R.ints(n, 1, n) }; },
     s(I, T) { const ix = range(0, I.nums.length).sort((a, b) => I.threshold[a] - I.threshold[b]); let p = 0, tot = 0; const h = []; for (let s = 1; ; s++) { while (p < ix.length && I.threshold[ix[p]] <= s) h.push(I.nums[ix[p++]]); h.sort((a, b) => b - a); T.at({ nums: A(I.nums), threshold: A(I.threshold), step: s, heap: A(h.slice()) }); if (!h.length) { T.yn(`Can step ${s} pick anything?`, false, 'No unused index has a small enough threshold: stop.'); break; } const v = h.shift(); tot += v; T.n(`Value taken at step ${s}?`, v, 'Largest available value.'); } return tot; }
   });
@@ -157,7 +157,7 @@
     t: 'Maximize Points After Choosing K Tasks',
     r: 'Start by giving each task its better technique. If fewer than k use technique 1, switch the tasks with the smallest loss technique2 − technique1 (sort by that gap) until k use technique 1.',
     g: R => { const n = R.int(1, 5); return { technique1: R.ints(n, 1, 9), technique2: R.ints(n, 1, 9), k: R.int(0, n) }; },
-    s(I, T) { const a = I.technique1, b = I.technique2, n = a.length; let tot = 0, c1 = 0; range(0, n).forEach(i => { tot += Math.max(a[i], b[i]); if (a[i] >= b[i]) c1++; }); T.at({ technique1: A(a), technique2: A(b), k: I.k }); T.n('Total if every task takes its better technique?', tot, 'Sum of the maximums.'); T.n('How many of those use technique 1 (ties count as 1)?', c1, 'Tasks where technique1 ≥ technique2.'); const loss = range(0, n).filter(i => a[i] < b[i]).map(i => b[i] - a[i]).sort((x, y) => x - y), need = Math.max(0, I.k - c1); const lost = sum(loss.slice(0, need)); if (need) T.n(`Points lost switching ${need} more task(s) to technique 1?`, lost, 'Switch the smallest losses first.'); return tot - lost; }
+    s(I, T) { const a = I.technique1, b = I.technique2, n = a.length; let tot = 0, c1 = 0; range(0, n).forEach(i => { tot += Math.max(a[i], b[i]); if (a[i] >= b[i]) c1++; }); T.at({ technique1: A(a), technique2: A(b), k: I.k }); T.n('Total if every task takes its better technique?', tot, 'Sum of the maximums.'); T.n('How many of those use technique 1 (ties count as 1)?', c1, 'Tasks where technique1 at least technique2.'); const loss = range(0, n).filter(i => a[i] < b[i]).map(i => b[i] - a[i]).sort((x, y) => x - y), need = Math.max(0, I.k - c1); const lost = sum(loss.slice(0, need)); if (need) T.n(`Points lost switching ${need} more tasks to technique 1?`, lost, 'Switch the smallest losses first.'); return tot - lost; }
   });
 
   D('minimum-moves-to-balance-circular-array', {
@@ -183,16 +183,16 @@
 
   D('minimum-swaps-to-avoid-forbidden-values', {
     t: 'Minimum Swaps to Avoid Forbidden Values',
-    r: 'Impossible if some value v appears in nums more often than the positions that do not forbid v. Otherwise let m be the bad positions (nums[i] = forbidden[i]) and c the largest group of bad positions sharing a value: pair up different bad values (⌈m/2⌉ swaps) unless one value dominates, giving max(⌈m/2⌉, c).',
+    r: 'Impossible if some value v appears in nums more often than the positions that do not forbid v. Otherwise let m be the bad positions (nums[i] = forbidden[i]) and c the largest group of bad positions sharing a value: pair up different bad values ((half of m, rounded up) swaps) unless one value dominates, giving max((half of m, rounded up), c).',
     g: R => { const n = R.int(1, 5); return { nums: R.ints(n, 1, 3), forbidden: R.ints(n, 1, 3) }; },
     s(I, T) { const a = I.nums, f = I.forbidden, n = a.length, cnt = x => a.filter(y => y === x).length, ok = [...new Set(a)].every(v => cnt(v) <= n - f.filter(y => y === v).length); T.at({ nums: A(a), forbidden: A(f) }); T.yn('Is it possible at all?', ok, ok ? 'Every value has enough allowed spots.' : 'Some value has more copies than allowed spots.'); if (!ok) return -1; const bad = range(0, n).filter(i => a[i] === f[i]), g = {}; bad.forEach(i => g[a[i]] = (g[a[i]] || 0) + 1); const c = Math.max(0, ...Object.values(g)); T.at({ nums: A(a, { hl: bad }), forbidden: A(f, { hl: bad }) }); T.n('How many positions are bad?', bad.length, 'nums[i] equals forbidden[i].'); T.n('Largest group of bad positions with the same value?', c, 'These cannot be fixed by swapping among themselves.'); return Math.max(Math.ceil(bad.length / 2), c); }
   });
 
   D('minimum-cost-to-acquire-required-items', {
     t: 'Minimum Cost to Acquire Required Items',
-    r: 'Let k be the number of combined items. The cost k·costBoth + c1·max(0, need1 − k) + c2·max(0, need2 − k) is piecewise linear in k, so the best k is 0, min(need1, need2) or max(need1, need2).',
+    r: 'Let k be the number of combined items. The cost k times costBoth + c1 times max(0, need1 − k) + c2 times max(0, need2 − k) is piecewise linear in k, so the best k is 0, min(need1, need2) or max(need1, need2).',
     g: R => ({ cost1: R.int(1, 9), cost2: R.int(1, 9), costBoth: R.int(1, 15), need1: R.int(0, 6), need2: R.int(0, 6) }),
-    s(I, T) { const f = k => k * I.costBoth + I.cost1 * Math.max(0, I.need1 - k) + I.cost2 * Math.max(0, I.need2 - k), ks = [...new Set([0, Math.min(I.need1, I.need2), Math.max(I.need1, I.need2)])]; ks.forEach(k => { T.at({ cost1: I.cost1, cost2: I.cost2, costBoth: I.costBoth, need1: I.need1, need2: I.need2, combined: k }); T.n(`Total cost with ${k} combined item(s)?`, f(k), 'Combined items first, then single items for what is left.'); }); if (ks.length < 2) T.yn('Is anything needed?', false, 'Both needs are 0.'); return Math.min(...ks.map(f)); }
+    s(I, T) { const f = k => k * I.costBoth + I.cost1 * Math.max(0, I.need1 - k) + I.cost2 * Math.max(0, I.need2 - k), ks = [...new Set([0, Math.min(I.need1, I.need2), Math.max(I.need1, I.need2)])]; ks.forEach(k => { T.at({ cost1: I.cost1, cost2: I.cost2, costBoth: I.costBoth, need1: I.need1, need2: I.need2, combined: k }); T.n(`Total cost with ${k} combined items?`, f(k), 'Combined items first, then single items for what is left.'); }); if (ks.length < 2) T.yn('Is anything needed?', false, 'Both needs are 0.'); return Math.min(...ks.map(f)); }
   });
 
   D('find-maximum-value-in-a-constrained-sequence', {
@@ -206,6 +206,6 @@
     t: 'Minimum Cost to Make Two Binary Strings Equal',
     r: 'Only mismatches matter: type A (s=0, t=1) and type B (s=1, t=0). Pair an A with a B by one swap inside s (or two flips). Two leftovers of the same type need a cross swap plus a swap (or two flips). A last odd one gets flipped.',
     g: R => { const n = R.int(1, 7); return { s: R.str(n, '01'), t: R.str(n, '01'), flipCost: R.int(1, 6), swapCost: R.int(1, 6), crossCost: R.int(1, 6) }; },
-    s(I, T) { let a = 0, b = 0; for (let i = 0; i < I.s.length; i++) { if (I.s[i] === '0' && I.t[i] === '1') a++; if (I.s[i] === '1' && I.t[i] === '0') b++; } const f = I.flipCost; T.at({ s: A(I.s.split('')), t: A(I.t.split('')) }); T.n('Mismatches with s = 0 and t = 1?', a, 'Type A.'); T.n('Mismatches with s = 1 and t = 0?', b, 'Type B.'); const pairs = Math.min(a, b), r = Math.abs(a - b), c1 = pairs * Math.min(I.swapCost, 2 * f); T.at({ A: a, B: b, flip: f, swap: I.swapCost, cross: I.crossCost }); T.n('Cost to fix the mixed A–B pairs?', c1, 'Each pair: one swap or two flips, whichever is cheaper.'); return c1 + Math.floor(r / 2) * Math.min(2 * f, I.crossCost + I.swapCost) + (r % 2) * f; }
+    s(I, T) { let a = 0, b = 0; for (let i = 0; i < I.s.length; i++) { if (I.s[i] === '0' && I.t[i] === '1') a++; if (I.s[i] === '1' && I.t[i] === '0') b++; } const f = I.flipCost; T.at({ s: A(I.s.split('')), t: A(I.t.split('')) }); T.n('Mismatches with s = 0 and t = 1?', a, 'Type A.'); T.n('Mismatches with s = 1 and t = 0?', b, 'Type B.'); const pairs = Math.min(a, b), r = Math.abs(a - b), c1 = pairs * Math.min(I.swapCost, 2 * f); T.at({ A: a, B: b, flip: f, swap: I.swapCost, cross: I.crossCost }); T.n('Cost to fix the mixed A to B pairs?', c1, 'Each pair: one swap or two flips, whichever is cheaper.'); return c1 + Math.floor(r / 2) * Math.min(2 * f, I.crossCost + I.swapCost) + (r % 2) * f; }
   });
 })();

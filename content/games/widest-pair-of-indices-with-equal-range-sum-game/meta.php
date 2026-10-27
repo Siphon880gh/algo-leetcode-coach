@@ -5,7 +5,7 @@ return [
     'title' => 'Widest Pair of Indices With Equal Range Sum',
     'leetcode' => 1983,
     'difficulty' => 'Med',
-    'summary' => 'Equal range sums ⇔ equal prefix sums of d = nums1 − nums2. Store the first index of each prefix difference; widest = j − first[prefix].',
+    'summary' => 'Equal range sums exactly when equal prefix sums of d = nums1 − nums2. Store the first index of each prefix difference; widest = j − first[prefix].',
     'category' => 'LeetCode',
     'subcategory' => 'Prefix Sum',
     'topic' => 'LeetCode · Prefix Sum',

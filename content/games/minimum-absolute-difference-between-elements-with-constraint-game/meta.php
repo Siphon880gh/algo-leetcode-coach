@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Min Difference With Index Gap ≥ x',
+    'title' => 'Min Difference With Index Gap at least x',
     'leetcode' => 2817,
     'difficulty' => 'Med',
     'summary' => 'Scan j from x upward, inserting nums[j − x] into a sorted list; binary search the closest value to nums[j].',

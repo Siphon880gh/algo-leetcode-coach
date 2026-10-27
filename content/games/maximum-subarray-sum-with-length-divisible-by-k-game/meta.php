@@ -5,7 +5,7 @@ return [
     'title' => 'Maximum Subarray Sum With Length Divisible by K',
     'leetcode' => 3381,
     'difficulty' => 'Med',
-    'summary' => 'A subarray (i, j] has length divisible by k iff i ≡ j (mod k). Keep the minimum prefix sum for each index class mod k; at j, best = prefix[j] − minPrefix[j mod k].',
+    'summary' => 'A subarray (i, j] has length divisible by k exactly when i ≡ j (mod k). Keep the minimum prefix sum for each index class mod k; at j, best = prefix[j] − minPrefix[j mod k].',
     'category' => 'LeetCode',
     'subcategory' => 'Prefix Sum',
     'topic' => 'LeetCode · Prefix Sum',

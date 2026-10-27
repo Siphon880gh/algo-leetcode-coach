@@ -5,7 +5,7 @@ return [
     'title' => 'Edge Weight Equilibrium Queries',
     'leetcode' => 2846,
     'difficulty' => 'Hard',
-    'summary' => 'Make every edge on the path a–b equal to its most common weight: answer = path length − max frequency. Weights ≤ 26, so prefix counts from the root per weight plus LCA give each count fast.',
+    'summary' => 'Make every edge on the path a to b equal to its most common weight: answer = path length − max frequency. Weights at most 26, so prefix counts from the root per weight plus LCA give each count fast.',
     'category' => 'LeetCode',
     'subcategory' => 'Graphs',
     'topic' => 'LeetCode · Graphs',

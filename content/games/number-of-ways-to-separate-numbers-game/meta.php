@@ -5,7 +5,7 @@ return [
     'title' => 'Number of Ways to Separate Numbers: the last number decides',
     'leetcode' => 1977,
     'difficulty' => 'Hard',
-    'summary' => 'dp[i][j] = ways where the last number is num[i..j]. It may not start with 0. It extends any split whose previous number num[k..i−1] is ≤ num[i..j] (compare length, then digits).',
+    'summary' => 'dp[i][j] = ways where the last number is num[i to j]. It may not start with 0. It extends any split whose previous number num[k to i−1] is at most num[i to j] (compare length, then digits).',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

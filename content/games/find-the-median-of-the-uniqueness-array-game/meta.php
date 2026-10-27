@@ -5,7 +5,7 @@ return [
     'title' => 'Median of the Uniqueness Array',
     'leetcode' => 3134,
     'difficulty' => 'Hard',
-    'summary' => 'Binary search d: count subarrays with ≤ d distinct values via a sliding window. The median is the first d whose count reaches the middle position.',
+    'summary' => 'Binary search d: count subarrays with at most d distinct values via a sliding window. The median is the first d whose count reaches the middle position.',
     'category' => 'LeetCode',
     'subcategory' => 'Binary Search',
     'topic' => 'LeetCode · Binary Search',

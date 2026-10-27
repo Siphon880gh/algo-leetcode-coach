@@ -5,7 +5,7 @@ return [
     'title' => 'Contains Duplicate III',
     'leetcode' => 220,
     'difficulty' => 'Hard',
-    'summary' => 'Bucket values by width valueDiff + 1 over a window of the last indexDiff elements: same bucket → hit; neighbor buckets need an explicit difference check.',
+    'summary' => 'Bucket values by width valueDiff + 1 over a window of the last indexDiff elements: same bucket means a hit; neighbor buckets need an explicit difference check.',
     'category' => 'LeetCode',
     'subcategory' => 'Sliding Window',
     'topic' => 'LeetCode · Sliding Window',

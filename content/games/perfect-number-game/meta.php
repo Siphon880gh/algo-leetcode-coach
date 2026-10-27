@@ -5,7 +5,7 @@ return [
     'title' => 'Perfect Number: divisors in pairs up to √n',
     'leetcode' => 507,
     'difficulty' => 'Easy',
-    'summary' => 'Sum 1 and every divisor pair (d, n/d) for 2 ≤ d ≤ √n (count a square root once). Perfect if the sum equals n (and n > 1).',
+    'summary' => 'Sum 1 and every divisor pair (d, n divided by d) for 2 at most d at most √n (count a square root once). Perfect if the sum equals n (and n > 1).',
     'category' => 'LeetCode',
     'subcategory' => 'Math',
     'topic' => 'LeetCode · Math',

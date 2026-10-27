@@ -35,7 +35,7 @@
 
   D('process-string-with-special-operations-ii', {
     t: 'Process String with Special Operations II',
-    r: 'Never build the string. Track only its length forward, then walk backwards: undo # by folding k into the first half (k − len/2), undo % by mirroring (len − 1 − k), and when a letter sits at position k, that letter is the answer.',
+    r: 'Never build the string. Track only its length forward, then walk backwards: undo # by folding k into the first half (k − len divided by 2), undo % by mirroring (len − 1 − k), and when a letter sits at position k, that letter is the answer.',
     g: R => ({ s: R.str(R.int(3, 7), 'abc*#%'), k: R.int(0, 6) }),
     s(I, T) { const L = [0]; for (const c of I.s) { const l = L[L.length - 1]; L.push(c === '*' ? Math.max(0, l - 1) : c === '#' ? 2 * l : c === '%' ? l : l + 1); } let k = I.k; const fin = L[L.length - 1]; T.at({ s: A(I.s.split('')), lengths: A(L.slice(1)) }); T.n('Length of the final result?', fin, 'Letters +1, * −1 (not below 0), # doubles, % keeps.'); if (k >= fin) return '.'; for (let i = I.s.length - 1; i >= 0; i--) { const c = I.s[i], len = L[i + 1]; if (c === '#') { const nk = k >= len / 2 ? k - len / 2 : k; T.at({ s: A(I.s.split(''), { i }), k, len }); T.n(`Undo "#" (length ${len}): new k?`, nk, 'The second half is a copy of the first.'); k = nk; } else if (c === '%') { T.at({ s: A(I.s.split(''), { i }), k, len }); T.n(`Undo "%" (length ${len}): new k?`, len - 1 - k, 'Reversal mirrors the position.'); k = len - 1 - k; } else if (c !== '*' && k === len - 1) return c; } return '.'; }
   });
@@ -49,9 +49,9 @@
 
   D('library-late-fee-calculator', {
     t: 'Library Late Fee Calculator',
-    r: 'Go book by book: 1 day costs 1, 2–5 days cost 2 per day, more than 5 days cost 3 per day. Add up the penalties.',
+    r: 'Go book by book: 1 day costs 1, 2 to 5 days cost 2 per day, more than 5 days cost 3 per day. Add up the penalties.',
     g: R => ({ daysLate: R.ints(R.int(1, 5), 1, 9) }),
-    s(I, T) { let tot = 0; I.daysLate.forEach((d, i) => { const p = d === 1 ? 1 : d <= 5 ? 2 * d : 3 * d; tot += p; T.at({ daysLate: A(I.daysLate, { i }), total: tot - p }); T.n(`Penalty for book ${i} (${d} days late)?`, p, d === 1 ? 'Exactly 1 day: 1.' : d <= 5 ? '2–5 days: 2 per day.' : 'Over 5 days: 3 per day.'); }); return tot; }
+    s(I, T) { let tot = 0; I.daysLate.forEach((d, i) => { const p = d === 1 ? 1 : d <= 5 ? 2 * d : 3 * d; tot += p; T.at({ daysLate: A(I.daysLate, { i }), total: tot - p }); T.n(`Penalty for book ${i} (${d} days late)?`, p, d === 1 ? 'Exactly 1 day: 1.' : d <= 5 ? '2 to 5 days: 2 per day.' : 'Over 5 days: 3 per day.'); }); return tot; }
   });
 
   D('compute-alternating-sum', {
@@ -70,7 +70,7 @@
 
   D('minimum-generations-to-target-point', {
     t: 'Minimum Generations to Target Point',
-    r: 'Coordinates stay in 0..6, so there are at most 343 points. Simulate generations: from all points so far, form the floored midpoint of every distinct pair; stop when the target appears or a generation adds nothing new.',
+    r: 'Coordinates stay in 0 to 6, so there are at most 343 points. Simulate generations: from all points so far, form the floored midpoint of every distinct pair; stop when the target appears or a generation adds nothing new.',
     g: R => { const pts = new Set(); while (pts.size < R.int(2, 4)) pts.add([R.int(0, 6), R.int(0, 6), R.int(0, 6)].join(',')); return { points: [...pts].map(p => p.split(',').map(Number)), target: [R.int(0, 6), R.int(0, 6), R.int(0, 6)] }; },
     s(I, T) { const key = p => p.join(','), tk = key(I.target), have = new Set(I.points.map(key)); T.at({ points: A([...have].map(p => `(${p})`)), target: `(${tk})` }); T.yn('Is the target already present?', have.has(tk), have.has(tk) ? 'Generation 0.' : 'Start generating.'); if (have.has(tk)) return 0; for (let g = 1; ; g++) { const pts = [...have].map(p => p.split(',').map(Number)), nw = new Set(); for (let i = 0; i < pts.length; i++) for (let j = i + 1; j < pts.length; j++) { const c = key(pts[i].map((x, t) => Math.floor((x + pts[j][t]) / 2))); if (!have.has(c)) nw.add(c); } nw.forEach(p => have.add(p)); if (g <= 3) { T.at({ known: have.size, target: `(${tk})` }); T.n(`New points in generation ${g}?`, nw.size, 'Floored midpoints of every distinct pair.'); } if (have.has(tk)) return g; if (!nw.size) return -1; } }
   });

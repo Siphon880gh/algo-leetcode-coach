@@ -21,7 +21,7 @@
 
   D('resulting-string-after-adjacent-removals', {
     t: 'Resulting String After Adjacent Removals',
-    r: 'A stack replays "remove the leftmost consecutive pair": push each letter, but if it is next to the top letter in the circular alphabet (a–z wraps), pop the top instead of pushing.',
+    r: 'A stack replays "remove the leftmost consecutive pair": push each letter, but if it is next to the top letter in the circular alphabet (a to z wraps), pop the top instead of pushing.',
     g: R => ({ s: R.str(R.int(3, 9), 'abcdz') }),
     s(I, T) { const st = []; const adj = (a, b) => { const d = Math.abs(a.charCodeAt(0) - b.charCodeAt(0)); return d === 1 || d === 25; }; for (const c of I.s) { const pop = st.length > 0 && adj(st[st.length - 1], c); T.v(S(st.slice()), K([['next', c]])); T.c(`Next letter "${c}": push or pop?`, ['push', 'pop the top'], pop ? 'pop the top' : 'push', pop ? `"${st[st.length - 1]}" and "${c}" are consecutive, so they cancel.` : st.length ? `"${st[st.length - 1]}" and "${c}" are not consecutive.` : 'The stack is empty.'); if (pop) st.pop(); else st.push(c); } return st.join(''); }
   });
@@ -30,7 +30,7 @@
     t: 'Remove K-Balanced Substrings',
     r: 'Keep a stack of runs (char, length). Push each character, merging with an equal top run. When a ")" run reaches k and the run below is "(" with at least k, delete k of each; the runs that meet afterwards merge naturally.',
     g: R => ({ s: R.str(R.int(2, 10), '()'), k: R.int(1, 2) }),
-    s(I, T) { const st = []; [...I.s].forEach((ch, i) => { if (st.length && st[st.length - 1][0] === ch) st[st.length - 1][1]++; else st.push([ch, 1]); const t = st[st.length - 1]; if (ch === ')' && t[1] === I.k && st.length > 1 && st[st.length - 2][0] === '(' && st[st.length - 2][1] >= I.k) { st.pop(); st[st.length - 1][1] -= I.k; if (!st[st.length - 1][1]) st.pop(); } if (i < 8) { T.at({ s: A(I.s.split(''), { i }), runs: S(st.map(([c, n]) => c + '×' + n)) }); T.n(`Length of what remains after reading index ${i}?`, sum(st.map(r => r[1])), 'Merge runs; remove a k-balanced block when one forms.'); } }); return st.map(([c, n]) => c.repeat(n)).join(''); }
+    s(I, T) { const st = []; [...I.s].forEach((ch, i) => { if (st.length && st[st.length - 1][0] === ch) st[st.length - 1][1]++; else st.push([ch, 1]); const t = st[st.length - 1]; if (ch === ')' && t[1] === I.k && st.length > 1 && st[st.length - 2][0] === '(' && st[st.length - 2][1] >= I.k) { st.pop(); st[st.length - 1][1] -= I.k; if (!st[st.length - 1][1]) st.pop(); } if (i < 8) { T.at({ s: A(I.s.split(''), { i }), runs: S(st.map(([c, n]) => c + ', ' + n + ' times')) }); T.n(`Length of what remains after reading index ${i}?`, sum(st.map(r => r[1])), 'Merge runs; remove a k-balanced block when one forms.'); } }); return st.map(([c, n]) => c.repeat(n)).join(''); }
   });
 
   D('evaluate-valid-expressions', {

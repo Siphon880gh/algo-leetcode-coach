@@ -5,7 +5,7 @@ return [
     'title' => 'Count Good Integers in a Range',
     'leetcode' => 3966,
     'difficulty' => 'Hard',
-    'summary' => 'Count good numbers ≤ N with a digit DP over (position, previous digit, tight, started), allowing the next digit only if it is within k of the previous one. The answer is f(r) − f(l − 1).',
+    'summary' => 'Count good numbers at most N with a digit DP over (position, previous digit, tight, started), allowing the next digit only if it is within k of the previous one. The answer is f(r) − f(l − 1).',
     'category' => 'LeetCode',
     'subcategory' => 'Math',
     'topic' => 'LeetCode · Math',

@@ -5,7 +5,7 @@ return [
     'title' => 'Take Gifts From the Richest Pile',
     'leetcode' => 2558,
     'difficulty' => 'Easy',
-    'summary' => 'k times: pop the largest pile and push back ⌊√x⌋. Sum the piles at the end.',
+    'summary' => 'k times: pop the largest pile and push back √x rounded down. Sum the piles at the end.',
     'category' => 'LeetCode',
     'subcategory' => 'Heap',
     'topic' => 'LeetCode · Heap',

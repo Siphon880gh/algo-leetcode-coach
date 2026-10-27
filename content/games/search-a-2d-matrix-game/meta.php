@@ -5,7 +5,7 @@ return [
     'title' => 'Search a 2D Matrix: one sorted list in disguise',
     'leetcode' => 74,
     'difficulty' => 'Med',
-    'summary' => 'Treat the m × n matrix as one sorted array of length m·n. Index i lives at row i / n, column i % n. Then run a normal binary search.',
+    'summary' => 'Treat the m times n matrix as one sorted array of length m times n. Index i lives at row i divided by n, column i % n. Then run a normal binary search.',
     'category' => 'LeetCode',
     'subcategory' => 'Binary Search',
     'topic' => 'LeetCode · Binary Search',

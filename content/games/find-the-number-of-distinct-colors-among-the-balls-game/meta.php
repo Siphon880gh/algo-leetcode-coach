@@ -5,7 +5,7 @@ return [
     'title' => 'Find the Number of Distinct Colors Among the Balls',
     'leetcode' => 3160,
     'difficulty' => 'Med',
-    'summary' => 'Map ball → color and color → count. Recoloring decrements the old color (dropping it at 0) and increments the new one; the answer is the number of colors with positive count.',
+    'summary' => 'Map ball to color and color to count. Recoloring decrements the old color (dropping it at 0) and increments the new one; the answer is the number of colors with positive count.',
     'category' => 'LeetCode',
     'subcategory' => 'Simulation',
     'topic' => 'LeetCode · Simulation',

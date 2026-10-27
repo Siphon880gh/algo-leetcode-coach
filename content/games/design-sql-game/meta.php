@@ -5,7 +5,7 @@ return [
     'title' => 'Design SQL',
     'leetcode' => 2408,
     'difficulty' => 'Med',
-    'summary' => 'Per table: column count, an auto-increment row id, and a map id → row. ins fails on a missing table or wrong column count; sel returns the cell or "<null>"; exp lists remaining rows as "id,cells…".',
+    'summary' => 'Per table: column count, an auto-increment row id, and a map id to row. ins fails on a missing table or wrong column count; sel returns the cell or "<null>"; exp lists remaining rows as "id,cells…".',
     'category' => 'LeetCode',
     'subcategory' => 'Design',
     'topic' => 'LeetCode · Design',

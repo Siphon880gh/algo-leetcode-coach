@@ -5,7 +5,7 @@ return [
     'title' => 'Count of Monotonic Pairs I: arr1 rises, arr2 falls',
     'leetcode' => 3250,
     'difficulty' => 'Hard',
-    'summary' => 'Pick arr1[i] = v (arr2[i] = nums[i] − v). Need u ≤ v and nums[i−1] − u ≥ nums[i] − v, i.e. u ≤ v − max(0, nums[i] − nums[i−1]). dp with prefix sums over v.',
+    'summary' => 'Pick arr1[i] = v (arr2[i] = nums[i] − v). Need u at most v and nums[i−1] − u at least nums[i] − v, i.e. u at most v − max(0, nums[i] − nums[i−1]). dp with prefix sums over v.',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

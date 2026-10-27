@@ -5,7 +5,7 @@ return [
     'title' => 'Count Colored Cells: each minute adds a diamond ring',
     'leetcode' => 2579,
     'difficulty' => 'Med',
-    'summary' => 'Minute k (k ≥ 2) adds 4·(k − 1) cells. Total = 1 + 4·(1 + 2 + … + (n − 1)) = 1 + 2n(n − 1).',
+    'summary' => 'Minute k (k at least 2) adds 4 times (k − 1) cells. Total = 1 + 4 times (1 + 2 + … + (n − 1)) = 1 + 2n(n − 1).',
     'category' => 'LeetCode',
     'subcategory' => 'Math',
     'topic' => 'LeetCode · Math',

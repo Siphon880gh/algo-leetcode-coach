@@ -5,7 +5,7 @@ return [
     'title' => 'Greatest Common Divisor Traversal',
     'leetcode' => 2709,
     'difficulty' => 'Hard',
-    'summary' => 'Union each index with hub nodes for its prime factors. Every pair is traversable iff all indices end in one component (a single element is trivially fine; a 1 among several is isolated).',
+    'summary' => 'Union each index with hub nodes for its prime factors. Every pair is traversable exactly when all indices end in one component (a single element is trivially fine; a 1 among several is isolated).',
     'category' => 'LeetCode',
     'subcategory' => 'Union Find',
     'topic' => 'LeetCode · Union Find',

@@ -5,7 +5,7 @@ return [
     'title' => 'Stone Game IV: win if some square leaves a losing pile',
     'leetcode' => 1510,
     'difficulty' => 'Hard',
-    'summary' => 'win[i] = true if some square s ≤ i makes win[i − s] false.',
+    'summary' => 'win[i] = true if some square s at most i makes win[i − s] false.',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

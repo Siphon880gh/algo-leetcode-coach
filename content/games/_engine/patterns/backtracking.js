@@ -31,7 +31,7 @@
           path.pop(); used[i] = false; pending += 'Un-pick ' + a[i] + '. ';
         }
       })();
-      t.done(view(), 'All ' + res.length + ' permutations found. O(n · n!).');
+      t.done(view(), 'All ' + res.length + ' permutations found. O(n times n!).');
       return t;
     }
   });
@@ -55,8 +55,8 @@
         pending = '';
         dfs(i + 1);
       })(0);
-      t.num(view(n), 'How many subsets did you record?', res.length, { wrong: 'Each element doubles the count: 2^n.', note: '2^' + n + ' = ' + res.length + '.' });
-      t.done(view(n), 'All 2^' + n + ' subsets. O(n · 2^n).');
+      t.num(view(n), 'How many subsets did you record?', res.length, { wrong: 'Each element doubles the count: 2 to the power n.', note: '2^' + n + ' = ' + res.length + '.' });
+      t.done(view(n), 'All 2^' + n + ' subsets. O(n times 2 to the power n).');
       return t;
     }
   });
@@ -77,9 +77,9 @@
           var over = sum + c[j] > target, why = {};
           for (var k = 0; k < c.length; k++) {
             if (!over && k === j) continue;
-            why[k] = k < start ? 'Going back to ' + c[k] + ' would repeat a combination; only indexes ≥ ' + start + '.' : over && k >= j ? sum + ' + ' + c[k] + ' > ' + target + '.' : k < j ? c[k] + ' was already explored here.' : 'Try in order: ' + c[j] + ' first.';
+            why[k] = k < start ? 'Going back to ' + c[k] + ' would repeat a combination; only indexes at least ' + start + '.' : over && k >= j ? sum + ' + ' + c[k] + ' > ' + target + '.' : k < j ? c[k] + ' was already explored here.' : 'Try in order: ' + c[j] + ' first.';
           }
-          if (!over) why.stop = sum + ' + ' + c[j] + ' = ' + (sum + c[j]) + ' ≤ ' + target + ': ' + c[j] + ' still fits.';
+          if (!over) why.stop = sum + ' + ' + c[j] + ' = ' + (sum + c[j]) + ' is at most ' + target + ': ' + c[j] + ' still fits.';
           var ask = pending + 'Path ' + fmt(path) + ', sum ' + sum + '. Next?';
           pending = '';
           if (over) { t.act(view(start, sum), ask, acts, 'stop', why, 'Prune: ' + c[j] + ' and everything after it are too big.'); pending = 'Back up. '; return; }
@@ -88,7 +88,7 @@
         }
         pending += 'All candidates tried. ';
       })(0, 0);
-      t.done(view(0, 0), res.length + ' combination(s): ' + (res.map(fmt).join(' ') || 'none') + '.');
+      t.done(view(0, 0), res.length + ' combinations: ' + (res.map(fmt).join(' ') || 'none') + '.');
       return t;
     }
   });
@@ -145,10 +145,10 @@
           wm[gid(i, j)] = j < start ? 'Column ' + j + ' was already tried in this row; it led to a dead end.' : a !== -1 ? 'Attacked by the queen in row ' + a + ' (column ' + q[a] + ').' : 'Scan left to right: column ' + c + ' is safe and comes first.';
         }
         if (c !== -1) {
-          t.pick(view(r), 'Row ' + r + ': click the leftmost safe column' + (start ? ' from column ' + start : '') + '.', [gid(r, c)], { wrongMap: wm, extra: [{ label: 'No safe column → backtrack', ok: false, why: 'Column ' + c + ' in row ' + r + ' is safe.' }], note: 'Queen at (' + r + ', ' + c + ').' });
+          t.pick(view(r), 'Row ' + r + ': click the leftmost safe column' + (start ? ' from column ' + start : '') + '.', [gid(r, c)], { wrongMap: wm, extra: [{ label: 'No safe column: backtrack', ok: false, why: 'Column ' + c + ' in row ' + r + ' is safe.' }], note: 'Queen at (' + r + ', ' + c + ').' });
           q.push(c); r++; start = 0;
         } else {
-          t.pick(view(r), 'Row ' + r + ': click the leftmost safe column' + (start ? ' from column ' + start : '') + '.', [], { wrongMap: wm, extra: [{ label: 'No safe column → backtrack', ok: true, why: 'Row ' + r + ' is blocked. Lift the queen in row ' + (r - 1) + ' and try further right.' }] });
+          t.pick(view(r), 'Row ' + r + ': click the leftmost safe column' + (start ? ' from column ' + start : '') + '.', [], { wrongMap: wm, extra: [{ label: 'No safe column: backtrack', ok: true, why: 'Row ' + r + ' is blocked. Lift the queen in row ' + (r - 1) + ' and try further right.' }] });
           r--; start = q.pop() + 1;
         }
       }
@@ -159,7 +159,7 @@
 
   LC.register('word-search', {
     title: 'Word Search: DFS, mark visited, unmark on the way back',
-    rule: 'Scan cells row by row for the first letter. From a match, step to an adjacent (up/down/left/right) unvisited cell holding the next letter. If none matches, unmark and backtrack to keep scanning.',
+    rule: 'Scan cells row by row for the first letter. From a match, step to an adjacent (up, down, left or right) unvisited cell holding the next letter. If none matches, unmark and backtrack to keep scanning.',
     rounds: 3, minSteps: 3,
     make: function (rng, round) {
       var R = 3, C = 4 + (round > 1 ? 1 : 0), L = 3 + (round > 0 ? 1 : 0);
@@ -206,17 +206,17 @@
       if (decoy) {
         t.pick(view(null), 'Scan row by row: click the first cell holding "' + word[0] + '".', [gid(decoy[0], decoy[1])], { wrongMap: scanMap(decoy, 0), note: 'Start here and mark it visited.' });
         vis[decoy[0] + ',' + decoy[1]] = 1;
-        t.pick(view(decoy), 'Click the adjacent unvisited cell holding "' + word[1] + '".', [], { wrongMap: stepMap(decoy, null, 1), extra: [{ label: 'No neighbor matches → unmark, backtrack', ok: true, why: 'Dead end. Unmark this cell so other paths may use it, and keep scanning.' }] });
+        t.pick(view(decoy), 'Click the adjacent unvisited cell holding "' + word[1] + '".', [], { wrongMap: stepMap(decoy, null, 1), extra: [{ label: 'No neighbor matches: unmark, backtrack', ok: true, why: 'Dead end. Unmark this cell so other paths may use it, and keep scanning.' }] });
         delete vis[decoy[0] + ',' + decoy[1]];
         scanFrom = decoy[0] * C + decoy[1] + 1;
       }
       t.pick(view(null), (decoy ? 'Keep scanning after the dead end: click the next cell holding "' : 'Scan row by row: click the first cell holding "') + word[0] + '".', [gid(path[0][0], path[0][1])], { wrongMap: scanMap(path[0], scanFrom), note: 'Mark it visited.' });
       vis[path[0][0] + ',' + path[0][1]] = 1;
       for (var k = 1; k < L; k++) {
-        t.pick(view(path[k - 1]), 'Click the adjacent unvisited cell holding "' + word[k] + '".', [gid(path[k][0], path[k][1])], { wrongMap: stepMap(path[k - 1], path[k], k), extra: [{ label: 'No neighbor matches → unmark, backtrack', ok: false, why: 'A neighbor does hold "' + word[k] + '".' }], note: 'Matched "' + word[k] + '".' });
+        t.pick(view(path[k - 1]), 'Click the adjacent unvisited cell holding "' + word[k] + '".', [gid(path[k][0], path[k][1])], { wrongMap: stepMap(path[k - 1], path[k], k), extra: [{ label: 'No neighbor matches: unmark, backtrack', ok: false, why: 'A neighbor does hold "' + word[k] + '".' }], note: 'Matched "' + word[k] + '".' });
         vis[path[k][0] + ',' + path[k][1]] = 1;
       }
-      t.done(view(null), 'Found "' + word.join('') + '". O(R·C·4^L).');
+      t.done(view(null), 'Found "' + word.join('') + '". O(R times C times 4 to the power L).');
       return t;
     }
   });

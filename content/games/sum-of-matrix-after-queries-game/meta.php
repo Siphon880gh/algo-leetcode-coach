@@ -5,7 +5,7 @@ return [
     'title' => 'Sum of Matrix After Queries',
     'leetcode' => 2718,
     'difficulty' => 'Med',
-    'summary' => 'Process queries in reverse: the last write to a row or column wins. A row query on an unseen row adds val × (columns not yet fixed); symmetric for columns.',
+    'summary' => 'Process queries in reverse: the last write to a row or column wins. A row query on an unseen row adds val times (columns not yet fixed); symmetric for columns.',
     'category' => 'LeetCode',
     'subcategory' => 'Hash Table',
     'topic' => 'LeetCode · Hash Table',

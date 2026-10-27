@@ -5,7 +5,7 @@ return [
     'title' => 'Sort Array Using Prefix Reversals',
     'leetcode' => 3991,
     'difficulty' => 'Med',
-    'summary' => 'n ≤ 8, so there are at most 40320 permutations. BFS from nums, where each move reverses one of the allowed prefix lengths, until the sorted permutation appears.',
+    'summary' => 'n at most 8, so there are at most 40320 permutations. BFS from nums, where each move reverses one of the allowed prefix lengths, until the sorted permutation appears.',
     'category' => 'LeetCode',
     'subcategory' => 'Sorting',
     'topic' => 'LeetCode · Sorting',

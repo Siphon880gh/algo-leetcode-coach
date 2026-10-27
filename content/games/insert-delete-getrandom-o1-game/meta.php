@@ -5,7 +5,7 @@ return [
     'title' => 'Insert Delete GetRandom O(1)',
     'leetcode' => 380,
     'difficulty' => 'Med',
-    'summary' => 'An array of values plus a map value → index. Remove swaps the value with the last element and pops, fixing the moved index. getRandom picks a random array slot.',
+    'summary' => 'An array of values plus a map value to index. Remove swaps the value with the last element and pops, fixing the moved index. getRandom picks a random array slot.',
     'category' => 'LeetCode',
     'subcategory' => 'Design',
     'topic' => 'LeetCode · Design',

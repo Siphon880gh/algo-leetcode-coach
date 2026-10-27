@@ -7,9 +7,9 @@
 
   D('maximum-xor-with-an-element-from-array', {
     t: 'Maximum XOR With an Element From Array',
-    r: 'Offline: sort nums and queries by m; insert nums ≤ m into a binary trie, then greedily walk opposite bits for x. Empty trie → −1.',
+    r: 'Offline: sort nums and queries by m; insert nums at most m into a binary trie, then greedily walk opposite bits for x. Empty trie: −1.',
     g: R => ({ nums: R.ints(R.int(1, 6), 0, 15), queries: Array.from({ length: R.int(1, 4) }, () => [R.int(0, 15), R.int(0, 15)]) }),
-    s(I, T) { return I.queries.map(([x, m], i) => { const ok = I.nums.filter(v => v <= m), b = ok.length ? Math.max(...ok.map(v => v ^ x)) : -1; if (i < 4) { T.at({ x: bits(x), allowed: A(ok) }); T.n('Best XOR (−1 if no allowed value)?', b, 'Trie holds only values ≤ m.'); } return b; }); }
+    s(I, T) { return I.queries.map(([x, m], i) => { const ok = I.nums.filter(v => v <= m), b = ok.length ? Math.max(...ok.map(v => v ^ x)) : -1; if (i < 4) { T.at({ x: bits(x), allowed: A(ok) }); T.n('Best XOR (−1 if no allowed value)?', b, 'Trie holds only values at most m.'); } return b; }); }
   });
 
   D('count-pairs-with-xor-in-a-range', {
@@ -21,7 +21,7 @@
 
   D('longest-word-with-all-prefixes', {
     t: 'Longest Word With All Prefixes',
-    r: 'Insert words into a trie; a word qualifies iff every node along its path is a word end. Keep the longest, tie-breaking lexicographically.',
+    r: 'Insert words into a trie; a word qualifies exactly when every node along its path is a word end. Keep the longest, tie-breaking lexicographically.',
     g: R => { const w = []; for (let i = R.int(1, 3); i > 0; i--) { const s = R.str(R.int(1, 4), 'ab'); for (let k = 1; k <= s.length; k++) if (R.chance(0.75)) w.push(s.slice(0, k)); } if (!w.length) w.push('b'); return { words: uniq(w) }; },
     s(I, T) { const set = new Set(I.words); let best = ''; I.words.forEach((w, i) => { let ok = true; for (let k = 1; k < w.length; k++) if (!set.has(w.slice(0, k))) ok = false; if (i < 5) { T.at({ word: w }); T.yn('Are all its prefixes words?', ok, 'Every trie node on the path must end a word.'); } if (ok && (w.length > best.length || (w.length === best.length && w < best))) best = w; }); return best; }
   });
@@ -43,7 +43,7 @@
 
   D('k-divisible-elements-subarrays', {
     t: 'K Divisible Elements Subarrays',
-    r: 'For each start, extend right while the count of multiples of p stays ≤ k, inserting each subarray into a trie keyed by values; new nodes are new distinct subarrays.',
+    r: 'For each start, extend right while the count of multiples of p stays at most k, inserting each subarray into a trie keyed by values; new nodes are new distinct subarrays.',
     g: R => ({ nums: R.ints(R.int(1, 6), 1, 4), k: R.int(1, 3), p: R.int(1, 3) }),
     s(I, T) { const seen = new Set(); I.nums.forEach((_, i) => { let c = 0, fresh = 0; for (let j = i; j < I.nums.length; j++) { if (I.nums[j] % I.p === 0) c++; if (c > I.k) break; const key = I.nums.slice(i, j + 1).join(','); if (!seen.has(key)) { seen.add(key); fresh++; } } if (i < 5) { T.at({ nums: A(I.nums, { i }) }); T.n('New distinct subarrays starting here?', fresh, 'New trie nodes before exceeding k multiples.'); } }); return seen.size; }
   });
@@ -57,7 +57,7 @@
 
   D('words-within-two-edits-of-dictionary', {
     t: 'Words Within Two Edits of Dictionary',
-    r: 'For each query, compare against dictionary words (or DFS a trie allowing at most two mismatches) — keep it if some word differs in ≤ 2 positions. Preserve query order.',
+    r: 'For each query, compare against dictionary words (or DFS a trie allowing at most two mismatches) — keep it if some word differs in at most 2 positions. Preserve query order.',
     g: R => { const L = R.int(1, 5); return { queries: Array.from({ length: R.int(1, 4) }, () => R.str(L, 'abc')), dictionary: Array.from({ length: R.int(1, 3) }, () => R.str(L, 'abc')) }; },
     s(I, T) { return I.queries.filter((q, i) => { const d = Math.min(...I.dictionary.map(w => [...w].filter((c, k) => c !== q[k]).length)); if (i < 4) { T.at({ query: q, dictionary: A(I.dictionary) }); T.n('Fewest edits to some dictionary word?', d, 'Count mismatched positions.'); } return d <= 2; }); }
   });
@@ -78,9 +78,9 @@
 
   D('maximum-strong-pair-xor-ii', {
     t: 'Maximum Strong Pair XOR II',
-    r: 'Sort; y pairs with x ≤ y iff y ≤ 2x. Sliding window over sorted values with a binary trie supporting insert/delete; query max XOR within the window.',
+    r: 'Sort; y pairs with x at most y exactly when y at most 2x. Sliding window over sorted values with a binary trie supporting insert or delete; query max XOR within the window.',
     g: R => ({ nums: R.ints(R.int(1, 6), 1, 20) }),
-    s(I, T) { let best = 0; const a = I.nums.slice().sort((x, y) => x - y); a.forEach((x, i) => { const w = a.filter(y => Math.abs(x - y) <= Math.min(x, y)), b = Math.max(...w.map(y => x ^ y)); best = Math.max(best, b); if (i < 4) { T.at({ sorted: A(a, { i }), strong: A(w) }); T.n('Best XOR with a strong partner?', b, 'Partners within [x/2, 2x].'); } }); return best; }
+    s(I, T) { let best = 0; const a = I.nums.slice().sort((x, y) => x - y); a.forEach((x, i) => { const w = a.filter(y => Math.abs(x - y) <= Math.min(x, y)), b = Math.max(...w.map(y => x ^ y)); best = Math.max(best, b); if (i < 4) { T.at({ sorted: A(a, { i }), strong: A(w) }); T.n('Best XOR with a strong partner?', b, 'Partners within [x divided by 2, 2x].'); } }); return best; }
   });
 
   D('minimum-cost-to-convert-string-ii', {

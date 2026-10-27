@@ -2,10 +2,10 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Word Pattern: letter ↔ word bijection',
+    'title' => 'Word Pattern: letter and word bijection',
     'leetcode' => 290,
     'difficulty' => 'Easy',
-    'summary' => 'Split s into words; counts must match. Keep two maps (letter → word, word → letter) and reject on any conflict.',
+    'summary' => 'Split s into words; counts must match. Keep two maps (letter to word, word to letter) and reject on any conflict.',
     'category' => 'LeetCode',
     'subcategory' => 'Strings',
     'topic' => 'LeetCode · Strings',

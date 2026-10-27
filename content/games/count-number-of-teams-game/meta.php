@@ -5,7 +5,7 @@ return [
     'title' => 'Count Number of Teams',
     'leetcode' => 1395,
     'difficulty' => 'Med',
-    'summary' => 'For each middle soldier j, count smaller/larger ratings on the left and right. Teams through j = leftLess·rightMore + leftMore·rightLess.',
+    'summary' => 'For each middle soldier j, count smaller or larger ratings on the left and right. Teams through j = leftLess times rightMore + leftMore times rightLess.',
     'category' => 'LeetCode',
     'subcategory' => 'Hash Table',
     'topic' => 'LeetCode · Hash Table',

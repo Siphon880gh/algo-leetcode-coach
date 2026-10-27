@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'The Number of Ways to Make the Sum: unlimited 1/2/6, at most two 4s',
+    'title' => 'The Number of Ways to Make the Sum: unlimited 1s, 2s and 6s, at most two 4s',
     'leetcode' => 3183,
     'difficulty' => 'Med',
     'summary' => 'Count combinations with coins 1, 2, 6 (coin-change DP, coin by coin). Then add the 4s: answer = dp[n] + dp[n − 4] + dp[n − 8].',

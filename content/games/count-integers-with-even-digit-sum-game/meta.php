@@ -5,7 +5,7 @@ return [
     'title' => 'Count Integers With Even Digit Sum',
     'leetcode' => 2180,
     'difficulty' => 'Easy',
-    'summary' => 'num ≤ 1000, so check every x from 1 to num: add its digits and count the even sums. (Shortcut: about half of them, adjusted by num\'s own digit sum.)',
+    'summary' => 'num at most 1000, so check every x from 1 to num: add its digits and count the even sums. (Shortcut: about half of them, adjusted by num\'s own digit sum.)',
     'category' => 'LeetCode',
     'subcategory' => 'Math',
     'topic' => 'LeetCode · Math',

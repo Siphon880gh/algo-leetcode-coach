@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Fair Candy Swap: b = a + (sumB − sumA) / 2',
+    'title' => 'Fair Candy Swap: b = a + (sumB − sumA) divided by 2',
     'leetcode' => 888,
     'difficulty' => 'Easy',
     'summary' => 'Swapping a for b changes Alice\'s total by b − a; it must be half the difference. Put Bob\'s boxes in a set and look for a + delta.',

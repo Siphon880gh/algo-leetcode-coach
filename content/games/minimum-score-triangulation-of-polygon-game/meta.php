@@ -5,7 +5,7 @@ return [
     'title' => 'Minimum Score Triangulation: pick the third vertex of edge (i, j)',
     'leetcode' => 1039,
     'difficulty' => 'Med',
-    'summary' => 'dp[i][j] = cheapest triangulation of vertices i..j. Edge (i, j) belongs to one triangle (i, m, j): dp[i][m] + dp[m][j] + v[i]·v[m]·v[j].',
+    'summary' => 'dp[i][j] = cheapest triangulation of vertices i to j. Edge (i, j) belongs to one triangle (i, m, j): dp[i][m] + dp[m][j] + v[i] times v[m] times v[j].',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

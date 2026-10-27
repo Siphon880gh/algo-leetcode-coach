@@ -5,7 +5,7 @@ return [
     'title' => 'Maximum Score From Removing Stones: the biggest pile caps it',
     'leetcode' => 1753,
     'difficulty' => 'Med',
-    'summary' => 'If the largest pile ≥ the other two combined, the score is the sum of the other two. Otherwise every pair can be used: ⌊total / 2⌋.',
+    'summary' => 'If the largest pile at least the other two combined, the score is the sum of the other two. Otherwise every pair can be used: half of total, rounded down.',
     'category' => 'LeetCode',
     'subcategory' => 'Greedy',
     'topic' => 'LeetCode · Greedy',

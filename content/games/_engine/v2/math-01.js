@@ -8,14 +8,14 @@
 
   D('reverse-integer', {
     t: 'Reverse Integer: pop digits, check before pushing',
-    r: 'Pop the last digit (x % 10, truncated toward zero) and push it onto rev. Before rev·10 + d, check it stays within [−2^31, 2^31 − 1]; if not, return 0.',
+    r: 'Pop the last digit (x % 10, truncated toward zero) and push it onto rev. Before rev times 10 + d, check it stays within [−2 to the power 31, 2 to the power 31 − 1]; if not, return 0.',
     g: R => ({ x: R.chance(0.2) ? R.pick([1534236469, -2147483412, 1463847412]) : R.int(-99999, 99999) }),
-    s(I, T) { let x = I.x, rev = 0; const MX = 2 ** 31 - 1, MN = -(2 ** 31); while (x !== 0) { const d = x % 10; x = Math.trunc(x / 10); const nx = rev * 10 + d, of = nx > MX || nx < MN; T.at({ remaining: x, rev, popped: d }); T.yn(`Would pushing ${d} overflow?`, of, of ? 'rev·10 + d leaves the 32-bit range.' : 'Still in range.'); if (of) return 0; rev = nx; T.n('rev now?', rev, 'rev·10 + d.'); } return rev; }
+    s(I, T) { let x = I.x, rev = 0; const MX = 2 ** 31 - 1, MN = -(2 ** 31); while (x !== 0) { const d = x % 10; x = Math.trunc(x / 10); const nx = rev * 10 + d, of = nx > MX || nx < MN; T.at({ remaining: x, rev, popped: d }); T.yn(`Would pushing ${d} overflow?`, of, of ? 'rev times 10 + d leaves the 32-bit range.' : 'Still in range.'); if (of) return 0; rev = nx; T.n('rev now?', rev, 'rev times 10 + d.'); } return rev; }
   });
 
   D('palindrome-number', {
     t: 'Palindrome Number: reverse half the digits',
-    r: 'Negatives and numbers ending in 0 (except 0) are not palindromes. Move digits from x onto rev until rev ≥ x; then compare x with rev (or rev / 10 for odd length).',
+    r: 'Negatives and numbers ending in 0 (except 0) are not palindromes. Move digits from x onto rev until rev at least x; then compare x with rev (or rev divided by 10 for odd length).',
     g: R => ({ x: R.pick([R.int(-500, 99999), +String(R.int(1, 999)).concat([...String(R.int(1, 999))].reverse().join('')), 12321, 10]) }),
     s(I, T) { let x = I.x; const bad = x < 0 || (x % 10 === 0 && x !== 0); T.at({ x }); T.yn('Rejected immediately (negative or trailing 0)?', bad, 'Neither can read the same backward.'); if (bad) return false; let rev = 0; while (x > rev) { rev = rev * 10 + x % 10; x = Math.floor(x / 10); T.at({ x, rev }); T.n('rev now?', rev, 'Move the last digit of x onto rev.'); } return x === rev || x === Math.floor(rev / 10); }
   });
@@ -29,16 +29,16 @@
 
   D('multiply-strings', {
     t: 'Multiply Strings: digit products into position i + j + 1',
-    r: 'res has len1 + len2 slots. num1[i]·num2[j] adds into res[i + j + 1]; carry the tens into res[i + j]. Strip leading zeros.',
+    r: 'res has len1 + len2 slots. num1[i] times num2[j] adds into res[i + j + 1]; carry the tens into res[i + j]. Strip leading zeros.',
     g: R => ({ num1: String(R.int(0, 999)), num2: String(R.int(1, 99)) }),
-    s(I, T) { const a = I.num1, b = I.num2, res = Array(a.length + b.length).fill(0); for (let i = a.length - 1; i >= 0; i--) { for (let j = b.length - 1; j >= 0; j--) { const s = +a[i] * +b[j] + res[i + j + 1]; res[i + j + 1] = s % 10; res[i + j] += Math.floor(s / 10); } T.at({ num1: A([...a], { hl: [i] }), num2: b, res: A(res) }); T.n(`Value of ${b} × ${a[i]}?`, +b * +a[i], 'This row is added in shifted by its position.'); } const s = res.join('').replace(/^0+(?=.)/, ''); return s; }
+    s(I, T) { const a = I.num1, b = I.num2, res = Array(a.length + b.length).fill(0); for (let i = a.length - 1; i >= 0; i--) { for (let j = b.length - 1; j >= 0; j--) { const s = +a[i] * +b[j] + res[i + j + 1]; res[i + j + 1] = s % 10; res[i + j] += Math.floor(s / 10); } T.at({ num1: A([...a], { hl: [i] }), num2: b, res: A(res) }); T.n(`Value of ${b} times ${a[i]}?`, +b * +a[i], 'This row is added in shifted by its position.'); } const s = res.join('').replace(/^0+(?=.)/, ''); return s; }
   });
 
   D('permutation-sequence', {
     t: 'Permutation Sequence: factorial number system',
-    r: 'With k − 1 (0-based), the first digit is the ⌊k/(n−1)!⌋-th remaining number; continue with k mod (n−1)! and fewer numbers.',
+    r: 'With k − 1 (0-based), the first digit is the (k divided by (n−1)!, rounded down)-th remaining number; continue with k mod (n−1)! and fewer numbers.',
     g: R => { const n = R.int(3, 5); let f = 1; for (let i = 2; i <= n; i++) f *= i; return { n, k: R.int(1, f) }; },
-    s(I, T) { const nums = Array.from({ length: I.n }, (_, i) => i + 1), fact = [1]; for (let i = 1; i <= I.n; i++) fact[i] = fact[i - 1] * i; let k = I.k - 1, out = ''; for (let i = I.n; i >= 1; i--) { const idx = Math.floor(k / fact[i - 1]); T.at({ left: A(nums, { hl: [idx] }), k0: k, block: fact[i - 1] }); T.n('Which number goes next?', nums[idx], `Index ⌊${k} / ${fact[i - 1]}⌋ = ${idx} among the remaining numbers.`); out += nums[idx]; nums.splice(idx, 1); k %= fact[i - 1]; } return out; }
+    s(I, T) { const nums = Array.from({ length: I.n }, (_, i) => i + 1), fact = [1]; for (let i = 1; i <= I.n; i++) fact[i] = fact[i - 1] * i; let k = I.k - 1, out = ''; for (let i = I.n; i >= 1; i--) { const idx = Math.floor(k / fact[i - 1]); T.at({ left: A(nums, { hl: [idx] }), k0: k, block: fact[i - 1] }); T.n('Which number goes next?', nums[idx], `Index ${k} divided by ${fact[i - 1]}, rounded down = ${idx} among the remaining numbers.`); out += nums[idx]; nums.splice(idx, 1); k %= fact[i - 1]; } return out; }
   });
 
   D('plus-one', {
@@ -48,8 +48,8 @@
     s(I, T) { const d = I.digits.slice(); for (let i = d.length - 1; i >= 0; i--) { T.at({ digits: A(d, { hl: [i] }) }); T.yn(`Does ${d[i]} + 1 carry?`, d[i] === 9, d[i] === 9 ? '9 + 1 = 10: write 0, carry 1.' : 'No carry: done.'); if (d[i] < 9) { d[i]++; return d; } d[i] = 0; } return [1, ...d]; }
   });
 
-  D('add-binary', { t: 'Add Binary: column by column with a carry', r: 'From the right, add both bits and the carry; write sum mod 2 and carry ⌊sum / 2⌋. Keep going while a carry remains.', g: R => ({ a: '1' + R.str(R.int(0, 4), '01'), b: R.chance(0.2) ? '0' : '1' + R.str(R.int(0, 4), '01') }), s: (I, T) => addStr(I, T, 2) });
-  D('add-strings', { t: 'Add Strings: grade-school addition', r: 'From the right, add both digits and the carry; write sum mod 10 and carry ⌊sum / 10⌋. Continue while either string or a carry remains.', g: R => ({ num1: String(R.int(0, 9999)), num2: String(R.int(0, 999)) }), s: (I, T) => addStr(I, T, 10) });
+  D('add-binary', { t: 'Add Binary: column by column with a carry', r: 'From the right, add both bits and the carry; write sum mod 2 and carry half of sum, rounded down. Keep going while a carry remains.', g: R => ({ a: '1' + R.str(R.int(0, 4), '01'), b: R.chance(0.2) ? '0' : '1' + R.str(R.int(0, 4), '01') }), s: (I, T) => addStr(I, T, 2) });
+  D('add-strings', { t: 'Add Strings: grade-school addition', r: 'From the right, add both digits and the carry; write sum mod 10 and carry sum divided by 10, rounded down. Continue while either string or a carry remains.', g: R => ({ num1: String(R.int(0, 9999)), num2: String(R.int(0, 999)) }), s: (I, T) => addStr(I, T, 10) });
 
   D('max-points-on-a-line', {
     t: 'Max Points on a Line: slopes from each anchor',
@@ -60,9 +60,9 @@
 
   D('fraction-to-recurring-decimal', {
     t: 'Fraction to Recurring Decimal: remember where each remainder appeared',
-    r: 'Write the sign and integer part. Then long division: remainder × 10 gives the next digit. If a remainder repeats, wrap the digits since its first appearance in parentheses.',
+    r: 'Write the sign and integer part. Then long division: remainder times 10 gives the next digit. If a remainder repeats, wrap the digits since its first appearance in parentheses.',
     g: R => ({ numerator: R.int(-20, 30), denominator: R.pick([2, 3, 4, 6, 7, 11, 12, -3, 333, 5]) }),
-    s(I, T) { const n = I.numerator, d = I.denominator; if (n === 0) return '0'; let out = (n < 0) !== (d < 0) ? '-' : ''; const N = Math.abs(n), Dd = Math.abs(d); out += Math.floor(N / Dd); let r = N % Dd; T.at({ fraction: `${n}/${d}` }); T.n('Integer part (absolute value)?', Math.floor(N / Dd), `⌊${N} / ${Dd}⌋.`); if (!r) return out; out += '.'; const seen = new Map(); let frac = ''; while (r && !seen.has(r)) { seen.set(r, frac.length); r *= 10; const dig = Math.floor(r / Dd); T.at({ fraction: `${n}/${d}`, digits: frac || '—', remainder: r / 10 }); T.n('Next decimal digit?', dig, `⌊${r} / ${Dd}⌋.`); frac += dig; r %= Dd; } if (r) { T.at({ digits: frac, remainder: r }); T.n('The repeating part starts at which decimal position (0-based)?', seen.get(r), `Remainder ${r} first appeared there.`); frac = frac.slice(0, seen.get(r)) + '(' + frac.slice(seen.get(r)) + ')'; } return out + frac; }
+    s(I, T) { const n = I.numerator, d = I.denominator; if (n === 0) return '0'; let out = (n < 0) !== (d < 0) ? '-' : ''; const N = Math.abs(n), Dd = Math.abs(d); out += Math.floor(N / Dd); let r = N % Dd; T.at({ fraction: `${n}/${d}` }); T.n('Integer part (absolute value)?', Math.floor(N / Dd), `${N} divided by ${Dd}, rounded down.`); if (!r) return out; out += '.'; const seen = new Map(); let frac = ''; while (r && !seen.has(r)) { seen.set(r, frac.length); r *= 10; const dig = Math.floor(r / Dd); T.at({ fraction: `${n}/${d}`, digits: frac || '—', remainder: r / 10 }); T.n('Next decimal digit?', dig, `${r} divided by ${Dd}, rounded down.`); frac += dig; r %= Dd; } if (r) { T.at({ digits: frac, remainder: r }); T.n('The repeating part starts at which decimal position (0-based)?', seen.get(r), `Remainder ${r} first appeared there.`); frac = frac.slice(0, seen.get(r)) + '(' + frac.slice(seen.get(r)) + ')'; } return out + frac; }
   });
 
   D('excel-sheet-column-title', {
@@ -74,16 +74,16 @@
 
   D('excel-sheet-column-number', {
     t: 'Excel Column Number: read base 26',
-    r: 'result = result × 26 + (letter − A + 1) for each letter, left to right.',
+    r: 'result = result times 26 + (letter − A + 1) for each letter, left to right.',
     g: R => ({ columnTitle: R.str(R.int(1, 3), 'ABCXYZ') }),
-    s(I, T) { let r = 0; [...I.columnTitle].forEach((c, i) => { r = r * 26 + c.charCodeAt(0) - 64; T.at({ title: A([...I.columnTitle], { hl: [i] }) }); T.n('Result so far?', r, `Previous × 26 + ${c.charCodeAt(0) - 64}.`); }); return r; }
+    s(I, T) { let r = 0; [...I.columnTitle].forEach((c, i) => { r = r * 26 + c.charCodeAt(0) - 64; T.at({ title: A([...I.columnTitle], { hl: [i] }) }); T.n('Result so far?', r, `Previous times 26 + ${c.charCodeAt(0) - 64}.`); }); return r; }
   });
 
   D('factorial-trailing-zeroes', {
     t: 'Factorial Trailing Zeroes: count the fives',
-    r: 'Each zero needs a 2·5, and 5s are rarer. Count multiples of 5, plus multiples of 25 (an extra 5), 125, …',
+    r: 'Each zero needs a 2 times 5, and 5s are rarer. Count multiples of 5, plus multiples of 25 (an extra 5), 125, …',
     g: R => ({ n: R.int(0, 700) }),
-    s(I, T) { let t = 0; for (let p = 5; p <= I.n; p *= 5) { T.at({ n: I.n, zeros: t, power: p }); T.n(`Multiples of ${p} up to ${I.n}?`, Math.floor(I.n / p), `⌊${I.n} / ${p}⌋.`); t += Math.floor(I.n / p); } return t; }
+    s(I, T) { let t = 0; for (let p = 5; p <= I.n; p *= 5) { T.at({ n: I.n, zeros: t, power: p }); T.n(`Multiples of ${p} up to ${I.n}?`, Math.floor(I.n / p), `${I.n} divided by ${p}, rounded down.`); t += Math.floor(I.n / p); } return t; }
   });
 
   D('happy-number', {
@@ -115,7 +115,7 @@
 
   D('add-digits', {
     t: 'Add Digits: digital root',
-    r: 'Repeatedly sum the digits until one digit remains. Shortcut: 0 → 0, otherwise 1 + (num − 1) mod 9.',
+    r: 'Repeatedly sum the digits until one digit remains. Shortcut: 0 becomes 0, otherwise 1 + (num − 1) mod 9.',
     g: R => ({ num: R.int(0, 99999) }),
     s(I, T) { let n = I.num; while (n >= 10) { const s = [...String(n)].reduce((a, c) => a + +c, 0); T.at({ num: n }); T.n(`Digit sum of ${n}?`, s, 'Add the digits.'); n = s; } return n; }
   });
@@ -129,7 +129,7 @@
 
   D('integer-to-english-words', {
     t: 'Integer to English Words: groups of three digits',
-    r: 'Split into groups of three (Billion, Million, Thousand, units). Each group: hundreds, then a word for 1–19 or a tens word plus a ones word. Join non-empty groups with their scale.',
+    r: 'Split into groups of three (Billion, Million, Thousand, units). Each group: hundreds, then a word for 1 to 19 or a tens word plus a ones word. Join non-empty groups with their scale.',
     g: R => ({ num: R.pick([0, R.int(1, 99), R.int(100, 99999), R.int(1e6, 2e9)]) }),
     s(I, T) {
       const ones = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen'], tens = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'], sc = ['', 'Thousand', 'Million', 'Billion'];
@@ -140,30 +140,30 @@
 
   D('power-of-three', {
     t: 'Power of Three: divide while divisible',
-    r: 'n must be positive. Divide by 3 while it divides evenly; it is a power of three when 1 remains. (Alternatively 3^19 % n === 0.)',
+    r: 'n must be positive. Divide by 3 while it divides evenly; it is a power of three when 1 remains. (Alternatively 3 to the power 19 % n === 0.)',
     g: R => ({ n: R.pick([3 ** R.int(0, 8), R.int(-3, 100), 45, 0]) }),
     s(I, T) { const res = (() => { let n = I.n; if (n <= 0) { T.at({ n }); T.yn('Is n positive?', false, 'Powers of three are positive.'); T.n('Times divided by 3?', 0, 'Nothing to divide.'); T.yn('Is n a power of three?', false, 'Not positive.'); return false; } let k = 0; while (n % 3 === 0) { n /= 3; k++; } T.at({ n: I.n }); T.n('What remains after dividing out every 3?', n, 'Keep dividing by 3.'); T.n('Times divided by 3?', k, 'Count each division.'); return n === 1; })(); if (I.n > 0) T.yn('Is n a power of three?', res, 'Only 1 should remain.'); return res; }
   });
 
   D('line-reflection', {
-    t: 'Line Reflection: the mirror is at (minX + maxX) / 2',
-    r: 'The only candidate line is x = (minX + maxX) / 2. Use S = minX + maxX: every point (x, y) needs its mirror (S − x, y) in the set.',
+    t: 'Line Reflection: the mirror is at (minX + maxX) divided by 2',
+    r: 'The only candidate line is x = (minX + maxX) divided by 2. Use S = minX + maxX: every point (x, y) needs its mirror (S − x, y) in the set.',
     g: R => { const c = R.int(-2, 2), pts = []; for (let i = 0; i < R.int(1, 3); i++) { const dx = R.int(0, 3), y = R.int(-2, 2); pts.push([c + dx, y], [c - dx, y]); } if (R.chance(0.4)) pts.push([R.int(-4, 4), R.int(-2, 2)]); return { points: pts }; },
     s(I, T) { const xs = I.points.map(p => p[0]), S = Math.min(...xs) + Math.max(...xs), set = new Set(I.points.map(p => p.join())); T.at({ points: A(I.points.map(p => `(${p})`)) }); T.n('minX + maxX?', S, 'The mirror line is at half of this.'); for (const [x, y] of I.points) { const ok = set.has([S - x, y].join()); T.at({ points: A(I.points.map(p => `(${p})`)), S }); T.yn(`Does (${x},${y}) have its mirror (${S - x},${y})?`, ok, 'Look it up in the set.'); if (!ok) return false; } return true; }
   });
 
   D('super-pow', {
-    t: 'Super Pow: a^(10·b + d) = (a^b)^10 · a^d',
-    r: 'Process the digits of b left to right: res = res^10 · a^d (mod 1337), using fast power for each step.',
+    t: 'Super Pow: a to the power (10 times b + d) = (a to the power b) to the power 10 times a to the power d',
+    r: 'Process the digits of b left to right: res = res to the power 10 times a to the power d (mod 1337), using fast power for each step.',
     g: R => ({ a: R.int(1, 50), b: [R.int(1, 9), ...R.ints(R.int(0, 2), 0, 9)] }),
-    s(I, T) { const M = 1337, pw = (x, e) => { let r = 1; x %= M; while (e) { if (e & 1) r = r * x % M; x = x * x % M; e >>= 1; } return r; }; let res = 1; I.b.forEach((d, i) => { res = pw(res, 10) * pw(I.a, d) % M; T.at({ a: I.a, b: A(I.b, { hl: [i] }) }); T.n(`res after digit ${d} (mod 1337)?`, res, 'res^10 · a^d mod 1337.'); }); return res; }
+    s(I, T) { const M = 1337, pw = (x, e) => { let r = 1; x %= M; while (e) { if (e & 1) r = r * x % M; x = x * x % M; e >>= 1; } return r; }; let res = 1; I.b.forEach((d, i) => { res = pw(res, 10) * pw(I.a, d) % M; T.at({ a: I.a, b: A(I.b, { hl: [i] }) }); T.n(`res after digit ${d} (mod 1337)?`, res, 'res to the power 10 times a to the power d mod 1337.'); }); return res; }
   });
 
   D('elimination-game', {
     t: 'Elimination Game: track only the head',
     r: 'Keep head, step and remaining count. The head moves (head += step) on every left-to-right pass, and on right-to-left passes only when the count is odd. Then step doubles and the count halves.',
     g: R => ({ n: R.int(1, 40) }),
-    s(I, T) { let head = 1, step = 1, rem = I.n, left = true; while (rem > 1) { const mv = left || rem % 2 === 1; T.at({ head, step, remaining: rem, direction: left ? 'left → right' : 'right → left' }); T.yn('Does the head move this pass?', mv, left ? 'Left-to-right always removes the head.' : rem % 2 ? 'Odd count: right-to-left also removes the head.' : 'Even count: the head survives right-to-left.'); if (mv) head += step; rem = Math.floor(rem / 2); step *= 2; left = !left; } return head; }
+    s(I, T) { let head = 1, step = 1, rem = I.n, left = true; while (rem > 1) { const mv = left || rem % 2 === 1; T.at({ head, step, remaining: rem, direction: left ? 'left to right' : 'right to left' }); T.yn('Does the head move this pass?', mv, left ? 'Left-to-right always removes the head.' : rem % 2 ? 'Odd count: right-to-left also removes the head.' : 'Even count: the head survives right-to-left.'); if (mv) head += step; rem = Math.floor(rem / 2); step *= 2; left = !left; } return head; }
   });
 
   D('perfect-rectangle', {
@@ -175,7 +175,7 @@
 
   D('fizz-buzz', {
     t: 'Fizz Buzz: check 15 first',
-    r: 'For each i: divisible by 15 → "FizzBuzz", by 3 → "Fizz", by 5 → "Buzz", otherwise the number.',
+    r: 'For each i: divisible by 15 gives "FizzBuzz", by 3 gives "Fizz", by 5 gives "Buzz", otherwise the number.',
     g: R => ({ n: R.int(1, 16) }),
     s(I, T) { const out = []; for (let i = 1; i <= I.n; i++) { const w = i % 15 === 0 ? 'FizzBuzz' : i % 3 === 0 ? 'Fizz' : i % 5 === 0 ? 'Buzz' : String(i); if (i % 3 === 0 || i % 5 === 0 || i === I.n) { T.at({ i }); T.c(`What is written for ${i}?`, ['FizzBuzz', 'Fizz', 'Buzz', 'the number'], i % 15 === 0 ? 'FizzBuzz' : i % 3 === 0 ? 'Fizz' : i % 5 === 0 ? 'Buzz' : 'the number', 'Check 15, then 3, then 5.'); } out.push(w); } return out; }
   });
@@ -189,14 +189,14 @@
 
   D('number-of-boomerangs', {
     t: 'Number of Boomerangs: count equal distances from each center',
-    r: 'For each center i, count points by squared distance. A group of size c gives c·(c − 1) ordered pairs (j, k).',
+    r: 'For each center i, count points by squared distance. A group of size c gives c times (c − 1) ordered pairs (j, k).',
     g: R => { const s = new Set(); while (s.size < R.int(3, 5)) s.add(R.int(0, 3) + ',' + R.int(0, 3)); return { points: [...s].map(p => p.split(',').map(Number)) }; },
-    s(I, T) { let tot = 0; I.points.forEach((a, i) => { const m = {}; I.points.forEach((b, j) => { if (i !== j) { const d = (a[0] - b[0]) ** 2 + (a[1] - b[1]) ** 2; m[d] = (m[d] || 0) + 1; } }); const c = Object.values(m).reduce((s, v) => s + v * (v - 1), 0); T.at({ points: A(I.points.map(p => `(${p})`), { hl: [i] }), dist2: K(m) }); T.n(`Boomerangs centered at (${a})?`, c, 'Σ c·(c − 1) over distance groups.'); tot += c; }); return tot; }
+    s(I, T) { let tot = 0; I.points.forEach((a, i) => { const m = {}; I.points.forEach((b, j) => { if (i !== j) { const d = (a[0] - b[0]) ** 2 + (a[1] - b[1]) ** 2; m[d] = (m[d] || 0) + 1; } }); const c = Object.values(m).reduce((s, v) => s + v * (v - 1), 0); T.at({ points: A(I.points.map(p => `(${p})`), { hl: [i] }), dist2: K(m) }); T.n(`Boomerangs centered at (${a})?`, c, 'the sum of c times (c − 1) over distance groups.'); tot += c; }); return tot; }
   });
 
   D('minimum-moves-to-equal-array-elements', {
     t: 'Minimum Moves to Equal Elements: raise n − 1 = lower one',
-    r: 'Incrementing all but one is the same as decrementing one. So every element must come down to the minimum: answer = Σ nums − n · min.',
+    r: 'Incrementing all but one is the same as decrementing one. So every element must come down to the minimum: answer = the sum of nums − n times min.',
     g: R => ({ nums: R.ints(R.int(2, 5), -3, 9) }),
     s(I, T) { const res = (() => { const m = Math.min(...I.nums); T.at({ nums: A(I.nums) }); T.n('Sum of nums?', I.nums.reduce((a, b) => a + b, 0), 'Add everything.'); T.n('Minimum value?', m, 'Everyone comes down to it.'); return I.nums.reduce((a, x) => a + x - m, 0); })(); T.n('Minimum moves?', res, 'Sum minus n times the minimum.'); return res; }
   });
@@ -212,12 +212,12 @@
     t: 'Convex Polygon: all turns the same way',
     r: 'For each vertex, compute the cross product of consecutive edges. The polygon is convex when all non-zero cross products have the same sign.',
     g: R => R.pick([{ points: [[0, 0], [0, 5], [5, 5], [5, 0]] }, { points: [[0, 0], [0, 10], [10, 10], [10, 0], [5, 5]] }, { points: [[0, 0], [2, 0], [3, 2], [1, 3], [-1, 2]] }, { points: [[0, 0], [4, 0], [2, 1], [4, 4], [0, 4]] }, { points: [[0, 0], [R.int(2, 4), 0], [R.int(2, 4), R.int(2, 4)]] }]),
-    s(I, T) { const p = I.points, n = p.length; let pre = 0; for (let i = 0; i < n; i++) { const a = p[i], b = p[(i + 1) % n], c = p[(i + 2) % n], cr = (b[0] - a[0]) * (c[1] - b[1]) - (b[1] - a[1]) * (c[0] - b[0]); T.at({ points: A(p.map(q => `(${q})`), { hl: [i, (i + 1) % n, (i + 2) % n] }) }); T.n(`Cross product of the turn at (${b})?`, cr, '(b − a) × (c − b).'); if (cr) { if (pre && Math.sign(cr) !== pre) return false; pre = Math.sign(cr); } } return true; }
+    s(I, T) { const p = I.points, n = p.length; let pre = 0; for (let i = 0; i < n; i++) { const a = p[i], b = p[(i + 1) % n], c = p[(i + 2) % n], cr = (b[0] - a[0]) * (c[1] - b[1]) - (b[1] - a[1]) * (c[0] - b[0]); T.at({ points: A(p.map(q => `(${q})`), { hl: [i, (i + 1) % n, (i + 2) % n] }) }); T.n(`Cross product of the turn at (${b})?`, cr, '(b − a) times (c − b).'); if (cr) { if (pre && Math.sign(cr) !== pre) return false; pre = Math.sign(cr); } } return true; }
   });
 
   D('construct-the-rectangle', {
-    t: 'Construct the Rectangle: largest W ≤ √area',
-    r: 'Start W at ⌊√area⌋ and step down until W divides area. Then L = area / W.',
+    t: 'Construct the Rectangle: largest W at most √area',
+    r: 'Start W at √area rounded down and step down until W divides area. Then L = area divided by W.',
     g: R => ({ area: R.int(1, 200) }),
     s(I, T) { const res = (() => { let w = Math.floor(Math.sqrt(I.area)); T.at({ area: I.area }); T.n('Starting W? (square root of area, rounded down)', w, 'W is at most L, so W is at most the square root.'); while (I.area % w) w--; T.n('Width W?', w, 'Largest divisor not above the square root.'); return [I.area / w, w]; })(); T.n('Length L?', res[0], 'Area divided by W.'); return res; }
   });
@@ -231,7 +231,7 @@
 
   D('perfect-number', {
     t: 'Perfect Number: divisors in pairs up to √n',
-    r: 'Sum 1 and every divisor pair (d, n/d) for 2 ≤ d ≤ √n (count a square root once). Perfect if the sum equals n (and n > 1).',
+    r: 'Sum 1 and every divisor pair (d, n divided by d) for 2 at most d at most √n (count a square root once). Perfect if the sum equals n (and n > 1).',
     g: R => ({ num: R.pick([6, 28, 496, R.int(1, 60)]) }),
     s(I, T) { const n = I.num; if (n <= 1) return false; let s = 1; for (let d = 2; d * d <= n; d++) if (n % d === 0) { s += d + (d * d === n ? 0 : n / d); T.at({ num: n, d, sum: s }); T.n(`Sum after adding the pair for ${d}?`, s, `Add ${d}${d * d === n ? '' : ' and ' + n / d}.`); } T.at({ num: n }); T.n('Sum of proper divisors?', s, '1 plus all pairs.'); return s === n; }
   });

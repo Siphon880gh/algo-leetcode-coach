@@ -4,7 +4,7 @@
   const { D, A, G, K, X } = LCGame.H;
   const sorted = a => a.slice().sort((x, y) => x - y);
   const sameMultiset = (a, b) => JSON.stringify(sorted(a)) === JSON.stringify(sorted(b));
-  const consecutiveGroups = (arr, k, T) => { if (arr.length % k) return false; const c = {}; arr.forEach(x => c[x] = (c[x] || 0) + 1); for (const x of Object.keys(c).map(Number).sort((a, b) => a - b)) { const n = c[x]; if (!n) continue; for (let j = 0; j < k; j++) { const ok = (c[x + j] || 0) >= n; T.at({ counts: K(c), start: x }); T.yn(`Are there at least ${n} copies of ${x + j}?`, ok, `${n} group(s) start at ${x}.`); if (!ok) return false; c[x + j] -= n; } } return true; };
+  const consecutiveGroups = (arr, k, T) => { if (arr.length % k) return false; const c = {}; arr.forEach(x => c[x] = (c[x] || 0) + 1); for (const x of Object.keys(c).map(Number).sort((a, b) => a - b)) { const n = c[x]; if (!n) continue; for (let j = 0; j < k; j++) { const ok = (c[x + j] || 0) >= n; T.at({ counts: K(c), start: x }); T.yn(`Are there at least ${n} copies of ${x + j}?`, ok, `${n} groups start at ${x}.`); if (!ok) return false; c[x + j] -= n; } } return true; };
 
   D('maximize-sum-of-array-after-k-negations', {
     t: 'Maximize Sum After K Negations: flip the most negative first',
@@ -51,7 +51,7 @@
 
   D('minimize-rounding-error-to-meet-target', {
     t: 'Minimize Rounding Error: ceil the largest fractions',
-    r: 'Floor everything; need = target − Σ floors ceilings are required (must be between 0 and the number of non-integers). Ceil the ones with the largest fractional parts. Error = Σ fractions of floored + Σ (1 − fraction) of ceiled.',
+    r: 'Floor everything; need = target − the sum of floors ceilings are required (must be between 0 and the number of non-integers). Ceil the ones with the largest fractional parts. Error = the sum of fractions of floored + the sum of (1 − fraction) of ceiled.',
     g: R => { const p = Array.from({ length: R.int(1, 4) }, () => R.int(0, 9) * 1000 + R.int(0, 999)); const fl = p.reduce((a, x) => a + Math.floor(x / 1000), 0); return { prices: p.map(x => (x / 1000).toFixed(3)), target: fl + R.int(-1, p.length) }; },
     s(I, T) { const res = (() => { const th = I.prices.map(s => Math.round(parseFloat(s) * 1000)), fl = th.reduce((a, x) => a + Math.floor(x / 1000), 0), fr = th.map(x => x % 1000).filter(f => f > 0).sort((a, b) => b - a), need = I.target - fl; T.at({ prices: A(I.prices), target: I.target }); T.n('How many prices must be rounded up?', need, `The target minus the sum of the floors (${fl}).`); T.n('Prices with a fractional part?', fr.length, 'Only these can be rounded up.'); if (need < 0 || need > fr.length) return '-1'; let err = 0; fr.forEach((f, i) => err += i < need ? 1000 - f : f); return (err / 1000).toFixed(3); })(); T.yn('Can the target be met?', res !== '-1', 'The needed count must fit between 0 and that number.'); return res; }
   });
@@ -60,12 +60,12 @@
     t: 'Largest Values From Labels: biggest first, label caps',
     r: 'Sort items by value descending. Take an item if fewer than numWanted are taken and its label is used fewer than useLimit times.',
     g: R => { const n = R.int(2, 6); return { values: R.ints(n, 1, 9), labels: R.ints(n, 1, 3), numWanted: R.int(1, n), useLimit: R.int(1, 2) }; },
-    s(I, T) { const it = I.values.map((v, i) => [v, I.labels[i]]).sort((a, b) => b[0] - a[0]), u = {}; let t = 0, c = 0; for (const [v, l] of it) { if (c === I.numWanted) break; const ok = (u[l] || 0) < I.useLimit; T.at({ items: A(it.map(x => `${x[0]}/L${x[1]}`)), used: K(u), taken: c }); T.yn(`Take value ${v} (label ${l})?`, ok, ok ? 'Label still under its limit.' : `Label ${l} already used ${I.useLimit} time(s).`); if (ok) { t += v; c++; u[l] = (u[l] || 0) + 1; } } return t; }
+    s(I, T) { const it = I.values.map((v, i) => [v, I.labels[i]]).sort((a, b) => b[0] - a[0]), u = {}; let t = 0, c = 0; for (const [v, l] of it) { if (c === I.numWanted) break; const ok = (u[l] || 0) < I.useLimit; T.at({ items: A(it.map(x => `${x[0]}/L${x[1]}`)), used: K(u), taken: c }); T.yn(`Take value ${v} (label ${l})?`, ok, ok ? 'Label still under its limit.' : `Label ${l} already used ${I.useLimit} times.`); if (ok) { t += v; c++; u[l] = (u[l] || 0) + 1; } } return t; }
   });
 
   D('divide-array-into-increasing-sequences', {
     t: 'Divide Into Increasing Sequences: the most frequent value decides',
-    r: 'Equal values must go to different sequences, so there are at least maxFreq sequences, each of length ≥ k. Possible exactly when maxFreq · k ≤ n.',
+    r: 'Equal values must go to different sequences, so there are at least maxFreq sequences, each of length at least k. Possible exactly when maxFreq times k at most n.',
     g: R => ({ nums: sorted(R.ints(R.int(2, 8), 1, 5)), k: R.int(1, 4) }),
     s(I, T) { const res = (() => { const c = {}; I.nums.forEach(x => c[x] = (c[x] || 0) + 1); const m = Math.max(...Object.values(c)); T.at({ nums: A(I.nums), k: I.k }); T.n('Highest frequency of a value?', m, 'That many sequences are needed.'); T.n('Values needed: that frequency times k?', m * I.k, 'Each sequence needs k values.'); return m * I.k <= I.nums.length; })(); T.yn('Can the array be divided?', res, 'Only if there are enough values.'); return res; }
   });
@@ -79,14 +79,14 @@
 
   D('maximum-number-of-ones', {
     t: 'Maximum Number of Ones: count each pattern cell',
-    r: 'Any side × side window sees each offset (i, j) exactly once, so the matrix is determined by which offsets hold ones. Offset (i, j) repeats ⌈(width − i)/side⌉ · ⌈(height − j)/side⌉ times; pick the maxOnes largest counts.',
+    r: 'Any side times side window sees each offset (i, j) exactly once, so the matrix is determined by which offsets hold ones. Offset (i, j) repeats ((width − i) divided by side, rounded up) times ((height − j) divided by side, rounded up) times; pick the maxOnes largest counts.',
     g: R => { const s = R.int(1, 3); return { width: R.int(s, 5), height: R.int(s, 5), sideLength: s, maxOnes: R.int(0, s * s) }; },
     s(I, T) { const res = (() => { const s = I.sideLength, c = []; for (let i = 0; i < s; i++) for (let j = 0; j < s; j++) c.push(Math.ceil((I.width - i) / s) * Math.ceil((I.height - j) / s)); c.sort((a, b) => b - a); T.at({ width: I.width, height: I.height, side: s, counts: A(c) }); T.n('Offsets inside one square?', s * s, 'Side length squared.'); T.n('Largest repeat count of an offset?', c[0], 'Offset (0, 0) repeats the most.'); return c.slice(0, I.maxOnes).reduce((a, b) => a + b, 0); })(); T.n('Maximum ones?', res, 'Put ones on the offsets that repeat most.'); return res; }
   });
 
   D('how-many-apples-can-you-put-into-the-basket', {
     t: 'Apples Into the Basket: lightest first',
-    r: 'Sort by weight and add apples while the total stays ≤ 5000.',
+    r: 'Sort by weight and add apples while the total stays at most 5000.',
     g: R => ({ weight: R.ints(R.int(2, 8), 100, 1000) }),
     s(I, T) { const w = sorted(I.weight); let t = 0, c = 0; for (const x of w) { if (t + x > 5000) break; t += x; c++; T.at({ sorted: A(w, { hl: [c - 1] }) }); T.n('Total weight so far?', t, 'Lightest apples first.'); } return c; }
   });
@@ -107,7 +107,7 @@
 
   D('minimum-swaps-to-make-strings-equal', {
     t: 'Minimum Swaps to Make Strings Equal: pair up mismatches',
-    r: 'Count mismatches of type x/y and y/x. Two of the same type fix with 1 swap; one of each needs 2. If the total is odd, it is impossible.',
+    r: 'Count mismatches of type (x, y) and (y, x). Two of the same type fix with 1 swap; one of each needs 2. If the total is odd, it is impossible.',
     g: R => { const n = R.int(1, 6); return { s1: R.str(n, 'xy'), s2: R.str(n, 'xy') }; },
     s(I, T) { const res = (() => { let xy = 0, yx = 0; [...I.s1].forEach((c, i) => { if (c === 'x' && I.s2[i] === 'y') xy++; if (c === 'y' && I.s2[i] === 'x') yx++; }); T.at({ s1: I.s1, s2: I.s2 }); T.n('Positions with x over y?', xy, 'Count them.'); T.n('Positions with y over x?', yx, 'Count them.'); if ((xy + yx) % 2) return -1; return Math.floor(xy / 2) + Math.floor(yx / 2) + 2 * (xy % 2); })(); T.n('Fewest swaps (−1 if impossible)?', res, 'Two of a kind take one swap, one of each takes two.'); return res; }
   });
@@ -138,7 +138,7 @@
 
   D('reverse-subarray-to-maximize-array-value', {
     t: 'Reverse Subarray to Maximize Value: two kinds of gain',
-    r: 'Base = Σ |a[i] − a[i+1]|. Reversing a prefix or suffix changes one edge: try every edge. Reversing a middle part gains 2·(max of min(pair) − min of max(pair)) over adjacent pairs.',
+    r: 'Base = the sum of |a[i] − a[i+1]|. Reversing a prefix or suffix changes one edge: try every edge. Reversing a middle part gains 2 times (max of min(pair) − min of max(pair)) over adjacent pairs.',
     g: R => ({ nums: R.ints(R.int(2, 6), -5, 9) }),
     s(I, T) { const res = (() => { const a = I.nums, n = a.length; let base = 0, g1 = 0, mx = -Infinity, mn = Infinity; for (let i = 0; i + 1 < n; i++) { const d = Math.abs(a[i] - a[i + 1]); base += d; g1 = Math.max(g1, Math.abs(a[0] - a[i + 1]) - d, Math.abs(a[n - 1] - a[i]) - d); mx = Math.max(mx, Math.min(a[i], a[i + 1])); mn = Math.min(mn, Math.max(a[i], a[i + 1])); } const g2 = 2 * (mx - mn); T.at({ nums: A(a) }); T.n('Base value?', base, 'Add the gaps between neighbours.'); T.n('Best gain from reversing a prefix or suffix?', g1, 'Swap one end into a different edge.'); return base + Math.max(g1, g2, 0); })(); T.n('Largest value after one reversal?', res, 'Base plus the best gain.'); return res; }
   });
@@ -152,21 +152,21 @@
 
   D('largest-multiple-of-three', {
     t: 'Largest Multiple of Three: drop the fewest smallest digits',
-    r: 'Sort digits descending. If the digit sum mod 3 = r ≠ 0, remove one smallest digit with that remainder, or else two smallest with remainder 3 − r. Leading zeros collapse to "0".',
+    r: 'Sort digits descending. If the digit sum mod 3 = r not equal to 0, remove one smallest digit with that remainder, or else two smallest with remainder 3 − r. Leading zeros collapse to "0".',
     g: R => ({ digits: R.ints(R.int(1, 6), 0, 9) }),
     s(I, T) { const res = (() => { const d = I.digits.slice().sort((a, b) => b - a), s = d.reduce((a, b) => a + b, 0), r = s % 3; T.at({ digits: A(d) }); T.n('Digit sum?', s, 'Add all digits.'); T.n('Remainder of the digit sum divided by 3?', r, 'Remove the fewest small digits to fix it.'); const rm = (m, k) => { for (let c = 0; c < k; c++) { let i = -1; for (let j = d.length - 1; j >= 0; j--) if (d[j] % 3 === m) { i = j; break; } if (i < 0) return false; d.splice(i, 1); } return true; }; if (r) { const save = d.slice(); if (!rm(r, 1)) { d.splice(0, d.length, ...save); if (!rm(3 - r, 2)) return ''; } } if (!d.length) return ''; return d[0] === 0 ? '0' : d.join(''); })(); T.n('Digits in the answer?', res.length, 'Zero when nothing works.'); return res; }
   });
 
   D('cinema-seat-allocation', {
     t: 'Cinema Seat Allocation: three possible blocks per row',
-    r: 'A family needs seats 2–5, 4–7 or 6–9. A row with no reservations fits 2. For reserved rows: 2 if both 2–5 and 6–9 are free, else 1 if any of the three blocks is free, else 0.',
+    r: 'A family needs seats 2 to 5, 4 to 7 or 6 to 9. A row with no reservations fits 2. For reserved rows: 2 if both 2 to 5 and 6 to 9 are free, else 1 if any of the three blocks is free, else 0.',
     g: R => { const n = R.int(1, 4); return { n, reservedSeats: Array.from({ length: R.int(1, 5) }, () => [R.int(1, n), R.int(1, 10)]) }; },
-    s(I, T) { const rows = {}; I.reservedSeats.forEach(([r, s]) => (rows[r] = rows[r] || new Set()).add(s)); let t = 2 * (I.n - Object.keys(rows).length); for (const [r, set] of Object.entries(rows)) { const free = (a, b) => { for (let s = a; s <= b; s++) if (set.has(s)) return false; return true; }; const v = free(2, 5) && free(6, 9) ? 2 : free(2, 5) || free(4, 7) || free(6, 9) ? 1 : 0; T.at({ row: r, reserved: A([...set].sort((a, b) => a - b)) }); T.n(`Families that fit in row ${r}?`, v, 'Check blocks 2–5, 4–7, 6–9.'); t += v; } return t; }
+    s(I, T) { const rows = {}; I.reservedSeats.forEach(([r, s]) => (rows[r] = rows[r] || new Set()).add(s)); let t = 2 * (I.n - Object.keys(rows).length); for (const [r, set] of Object.entries(rows)) { const free = (a, b) => { for (let s = a; s <= b; s++) if (set.has(s)) return false; return true; }; const v = free(2, 5) && free(6, 9) ? 2 : free(2, 5) || free(4, 7) || free(6, 9) ? 1 : 0; T.at({ row: r, reserved: A([...set].sort((a, b) => a - b)) }); T.n(`Families that fit in row ${r}?`, v, 'Check blocks 2 to 5, 4 to 7, 6 to 9.'); t += v; } return t; }
   });
 
   D('construct-k-palindrome-strings', {
     t: 'Construct K Palindromes: odd counts bound it',
-    r: 'Each palindrome holds at most one odd-count letter in its middle. Possible exactly when (#letters with odd count) ≤ k ≤ length.',
+    r: 'Each palindrome holds at most one odd-count letter in its middle. Possible exactly when (#letters with odd count) at most k at most length.',
     g: R => { const s = R.str(R.int(1, 8), 'aabbc'); return { s, k: R.int(1, s.length + 1) }; },
     s(I, T) { const res = (() => { const c = {}; for (const x of I.s) c[x] = (c[x] || 0) + 1; const odd = Object.values(c).filter(v => v % 2).length; T.at({ counts: K(c), k: I.k }); T.n('Letters with an odd count?', odd, 'Each needs its own palindrome middle.'); T.yn('Is k at most the length of s?', I.k <= I.s.length, 'Each palindrome needs a letter.'); return odd <= I.k && I.k <= I.s.length; })(); T.yn('Can s make k palindromes?', res, 'Both checks must pass.'); return res; }
   });
@@ -175,7 +175,7 @@
     t: 'Reducing Dishes: add dishes while the suffix sum is positive',
     r: 'Sort descending. Adding the next dish shifts every chosen dish one slot later, adding (running sum + dish). Keep adding while that running sum stays positive.',
     g: R => ({ satisfaction: R.ints(R.int(1, 6), -9, 6) }),
-    s(I, T) { const a = sorted(I.satisfaction).reverse(); let run = 0, tot = 0; for (const x of a) { if (run + x <= 0) { T.at({ sorted: A(a), running: run }); T.yn(`Add dish ${x}?`, false, `Running sum would become ${run + x} ≤ 0.`); break; } run += x; tot += run; T.at({ sorted: A(a), running: run, total: tot }); T.n(`Total after adding dish ${x}?`, tot, 'Previous total + new running sum.'); } return tot; }
+    s(I, T) { const a = sorted(I.satisfaction).reverse(); let run = 0, tot = 0; for (const x of a) { if (run + x <= 0) { T.at({ sorted: A(a), running: run }); T.yn(`Add dish ${x}?`, false, `Running sum would become ${run + x} at most 0.`); break; } run += x; tot += run; T.at({ sorted: A(a), running: run, total: tot }); T.n(`Total after adding dish ${x}?`, tot, 'Previous total + new running sum.'); } return tot; }
   });
 
   D('minimum-subsequence-in-non-increasing-order', {
@@ -187,9 +187,9 @@
 
   D('find-the-minimum-number-of-fibonacci-numbers-whose-sum-is-k', {
     t: 'Minimum Fibonacci Numbers Summing to k: largest first',
-    r: 'Repeatedly subtract the largest Fibonacci number ≤ k. (Zeckendorf: this is optimal.)',
+    r: 'Repeatedly subtract the largest Fibonacci number at most k. (Zeckendorf: this is optimal.)',
     g: R => ({ k: R.int(1, 200) }),
-    s(I, T) { const f = [1, 1]; while (f[f.length - 1] < I.k) f.push(f[f.length - 1] + f[f.length - 2]); let k = I.k, c = 0; while (k) { let x = 0; for (const v of f) if (v <= k) x = v; T.at({ k }); T.n(`Largest Fibonacci number ≤ ${k}?`, x, 'Take it.'); k -= x; c++; } return c; }
+    s(I, T) { const f = [1, 1]; while (f[f.length - 1] < I.k) f.push(f[f.length - 1] + f[f.length - 2]); let k = I.k, c = 0; while (k) { let x = 0; for (const v of f) if (v <= k) x = v; T.at({ k }); T.n(`Largest Fibonacci number at most ${k}?`, x, 'Take it.'); k -= x; c++; } return c; }
   });
 
   D('max-difference-you-can-get-from-changing-an-integer', {
@@ -201,14 +201,14 @@
 
   D('check-if-a-string-can-break-another-string', {
     t: 'Can One String Break Another: compare sorted strings',
-    r: 'Sort both. One breaks the other exactly when one sorted string is ≥ the other at every position.',
+    r: 'Sort both. One breaks the other exactly when one sorted string is at least the other at every position.',
     g: R => { const n = R.int(1, 5); return { s1: R.str(n, 'abcxyz'), s2: R.str(n, 'abcxyz') }; },
     s(I, T) { const res = (() => { const a = [...I.s1].sort(), b = [...I.s2].sort(); const ge = a.every((c, i) => c >= b[i]), le = a.every((c, i) => c <= b[i]); T.at({ s1: a.join(''), s2: b.join('') }); T.yn('Does sorted s1 dominate sorted s2 at every position?', ge, 'Compare position by position.'); T.yn('Does sorted s2 dominate sorted s1?', le, 'And the other way.'); return ge || le; })(); T.yn('Can one string break the other?', res, 'Either direction is enough.'); return res; }
   });
 
   D('maximum-area-of-a-piece-of-cake-after-horizontal-and-vertical-cuts', {
     t: 'Maximum Cake Piece: widest gap in each direction',
-    r: 'Sort each cut list and add the edges. The biggest piece is (largest horizontal gap) × (largest vertical gap), mod 10^9 + 7.',
+    r: 'Sort each cut list and add the edges. The biggest piece is (largest horizontal gap) times (largest vertical gap), mod 10 to the power 9 + 7.',
     g: R => { const h = R.int(2, 10), w = R.int(2, 10); return { h, w, horizontalCuts: R.distinct(R.int(1, Math.min(3, h - 1)), 1, h - 1), verticalCuts: R.distinct(R.int(1, Math.min(3, w - 1)), 1, w - 1) }; },
     s(I, T) { const res = (() => { const gap = (L, c) => { const s = [0, ...sorted(c), L]; return Math.max(...s.slice(1).map((v, i) => v - s[i])); }; const a = gap(I.h, I.horizontalCuts), b = gap(I.w, I.verticalCuts); T.at({ h: I.h, cuts: A(sorted(I.horizontalCuts)) }); T.n('Largest horizontal gap?', a, 'Including the edges.'); T.at({ w: I.w, cuts: A(sorted(I.verticalCuts)) }); T.n('Largest vertical gap?', b, 'Including the edges.'); return a * b % (1e9 + 7); })(); T.n('Largest piece area, mod 1000000007?', res, 'The two largest gaps multiplied.'); return res; }
   });
@@ -229,14 +229,14 @@
 
   D('minimum-difference-between-largest-and-smallest-value-in-three-moves', {
     t: 'Min Difference After Three Moves: drop 3 from the ends',
-    r: 'With n ≤ 4 the answer is 0. Otherwise sort and try removing i from the bottom and 3 − i from the top: min over a[n−4+i] − a[i].',
+    r: 'With n at most 4 the answer is 0. Otherwise sort and try removing i from the bottom and 3 − i from the top: min over a[n−4+i] − a[i].',
     g: R => ({ nums: R.ints(R.int(1, 8), -5, 20) }),
     s(I, T) { const a = sorted(I.nums), n = a.length; if (n <= 4) return 0; let best = Infinity; for (let i = 0; i <= 3; i++) { const v = a[n - 4 + i] - a[i]; T.at({ sorted: A(a, { win: [i, n - 4 + i] }) }); T.n(`Range after removing ${i} small and ${3 - i} large?`, v, `a[${n - 4 + i}] − a[${i}].`); best = Math.min(best, v); } return best; }
   });
 
   D('minimum-number-of-increments-on-subarrays-to-form-a-target-array', {
     t: 'Increments on Subarrays: count the rises',
-    r: 'An operation that covers target[i] can extend from i − 1, so only rises cost: answer = target[0] + Σ max(0, target[i] − target[i − 1]).',
+    r: 'An operation that covers target[i] can extend from i − 1, so only rises cost: answer = target[0] + the sum of max(0, target[i] − target[i − 1]).',
     g: R => ({ target: R.ints(R.int(1, 7), 1, 6) }),
     s(I, T) { let t = 0; I.target.forEach((x, i) => { const add = Math.max(0, x - (i ? I.target[i - 1] : 0)); T.at({ target: A(I.target, { hl: [i] }), ops: t }); T.n(`New operations starting at index ${i}?`, add, 'Only a rise needs new operations.'); t += add; }); return t; }
   });

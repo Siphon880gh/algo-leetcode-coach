@@ -5,7 +5,7 @@ return [
     'title' => 'Beautiful Indices I',
     'leetcode' => 3006,
     'difficulty' => 'Med',
-    'summary' => 'Find all occurrences of a and of b. Index i (an occurrence of a) is beautiful if some occurrence j of b has |i − j| ≤ k: binary search the sorted b list.',
+    'summary' => 'Find all occurrences of a and of b. Index i (an occurrence of a) is beautiful if some occurrence j of b has |i − j| at most k: binary search the sorted b list.',
     'category' => 'LeetCode',
     'subcategory' => 'Binary Search',
     'topic' => 'LeetCode · Binary Search',

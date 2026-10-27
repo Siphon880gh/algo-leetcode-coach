@@ -5,7 +5,7 @@ return [
     'title' => 'Minimum Capacity Box',
     'leetcode' => 3861,
     'difficulty' => 'Easy',
-    'summary' => 'Scan the boxes once. Keep the index of the smallest capacity that is still ≥ itemSize; only replace it on a strictly smaller capacity, so ties keep the earlier index.',
+    'summary' => 'Scan the boxes once. Keep the index of the smallest capacity that is still at least itemSize; only replace it on a strictly smaller capacity, so ties keep the earlier index.',
     'category' => 'LeetCode',
     'subcategory' => 'Arrays',
     'topic' => 'LeetCode · Arrays',

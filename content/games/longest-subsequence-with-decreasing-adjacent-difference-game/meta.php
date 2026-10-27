@@ -5,7 +5,7 @@ return [
     'title' => 'Longest Subsequence With Non-Increasing Differences',
     'leetcode' => 3409,
     'difficulty' => 'Med',
-    'summary' => 'dp[i][d] = longest valid subsequence ending at i whose last difference is d. Extending from j with difference d needs the previous last difference ≥ d: dp[i][d] = 1 + max(1, best dp[j][d′ ≥ d]) (a suffix max over d′).',
+    'summary' => 'dp[i][d] = longest valid subsequence ending at i whose last difference is d. Extending from j with difference d needs the previous last difference at least d: dp[i][d] = 1 + max(1, best dp[j][d′ at least d]) (a suffix max over d′).',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

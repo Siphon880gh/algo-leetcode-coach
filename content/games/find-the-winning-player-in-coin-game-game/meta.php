@@ -5,7 +5,7 @@ return [
     'title' => 'Winning Player in Coin Game: count the turns',
     'leetcode' => 3222,
     'difficulty' => 'Easy',
-    'summary' => 'Each turn uses one 75 and four 10s. The number of turns is min(x, ⌊y / 4⌋); Alice wins if it is odd.',
+    'summary' => 'Each turn uses one 75 and four 10s. The number of turns is min(x, (y divided by 4, rounded down)); Alice wins if it is odd.',
     'category' => 'LeetCode',
     'subcategory' => 'Greedy',
     'topic' => 'LeetCode · Greedy',

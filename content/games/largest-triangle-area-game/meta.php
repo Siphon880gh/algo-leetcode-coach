@@ -5,7 +5,7 @@ return [
     'title' => 'Largest Triangle Area: shoelace over every triple',
     'leetcode' => 812,
     'difficulty' => 'Easy',
-    'summary' => 'Try every triple; area = |x1(y2 − y3) + x2(y3 − y1) + x3(y1 − y2)| / 2. Keep the maximum.',
+    'summary' => 'Try every triple; area = |x1(y2 − y3) + x2(y3 − y1) + x3(y1 − y2)| divided by 2. Keep the maximum.',
     'category' => 'LeetCode',
     'subcategory' => 'Math',
     'topic' => 'LeetCode · Math',

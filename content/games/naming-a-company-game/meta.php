@@ -5,7 +5,7 @@ return [
     'title' => 'Naming a Company',
     'leetcode' => 2306,
     'difficulty' => 'Hard',
-    'summary' => 'Group suffixes by first letter. For letters a ≠ b with k common suffixes, valid names = 2 · (|A| − k) · (|B| − k).',
+    'summary' => 'Group suffixes by first letter. For letters a not equal to b with k common suffixes, valid names = 2 times (|A| − k) times (|B| − k).',
     'category' => 'LeetCode',
     'subcategory' => 'Bit Manipulation',
     'topic' => 'LeetCode · Bit Manipulation',

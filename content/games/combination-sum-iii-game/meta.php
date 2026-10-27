@@ -5,7 +5,7 @@ return [
     'title' => 'Combination Sum III',
     'leetcode' => 216,
     'difficulty' => 'Med',
-    'summary' => 'Backtrack over digits 1–9 in increasing order, using each at most once; accept paths with k numbers summing to n.',
+    'summary' => 'Backtrack over digits 1 to 9 in increasing order, using each at most once; accept paths with k numbers summing to n.',
     'category' => 'LeetCode',
     'subcategory' => 'Backtracking',
     'topic' => 'LeetCode · Backtracking',

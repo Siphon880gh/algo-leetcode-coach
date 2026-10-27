@@ -5,7 +5,7 @@ return [
     'title' => 'Minimum Time to Complete All Deliveries',
     'leetcode' => 3733,
     'difficulty' => 'Med',
-    'summary' => 'Binary search the total time T. Drone i has T − ⌊T/r_i⌋ usable hours; hours that are multiples of both r values are useless for everyone. T works if each drone has enough of its own hours and together they have T − ⌊T/lcm⌋ ≥ d1 + d2.',
+    'summary' => 'Binary search the total time T. Drone i has T − (T divided by r_i, rounded down) usable hours; hours that are multiples of both r values are useless for everyone. T works if each drone has enough of its own hours and together they have T − (T divided by lcm, rounded down) at least d1 + d2.',
     'category' => 'LeetCode',
     'subcategory' => 'Binary Search',
     'topic' => 'LeetCode · Binary Search',

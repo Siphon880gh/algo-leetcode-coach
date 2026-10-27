@@ -5,7 +5,7 @@ return [
     'title' => 'Random Flip Matrix',
     'leetcode' => 519,
     'difficulty' => 'Med',
-    'summary' => 'Treat cells as indices 0..m·n − 1. Pick a random index among the first `remaining`, return the cell it maps to (a hash map remembers swaps), then map it to the last free index and shrink. reset clears the map.',
+    'summary' => 'Treat cells as indices 0 to m times n − 1. Pick a random index among the first `remaining`, return the cell it maps to (a hash map remembers swaps), then map it to the last free index and shrink. reset clears the map.',
     'category' => 'LeetCode',
     'subcategory' => 'Design',
     'topic' => 'LeetCode · Design',

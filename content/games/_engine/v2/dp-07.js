@@ -8,7 +8,7 @@
 
   D('restore-the-array', {
     t: 'Restore the Array: how many ways to cut the digits?',
-    r: 'dp[i] = ways to split s[i..]. A number s[i..j] is valid if it has no leading zero and is ≤ k: dp[i] = Σ dp[j+1] over valid j.',
+    r: 'dp[i] = ways to split s[i..]. A number s[i to j] is valid if it has no leading zero and is at most k: dp[i] = the sum of dp[j+1] over valid j.',
     g: R => ({ s: String(R.int(1, 9)) + R.str(R.int(2, 4), '0123'), k: R.pick([10, 20, 100, 300]) }),
     s(I, T) { const s = I.s, n = s.length, dp = Array(n + 1).fill(0); dp[n] = 1; for (let i = n - 1; i >= 0; i--) { if (s[i] !== '0') for (let j = i; j < n; j++) { if (+s.slice(i, j + 1) > I.k) break; dp[i] = (dp[i] + dp[j + 1]) % MOD; } T.at({ s: A([...s], { hl: [i] }), k: I.k, dp: A(dp.map((v, j) => j > i ? v : '?')) }); T.n(`dp[${i}]?`, dp[i], s[i] === '0' ? 'No number may start with 0.' : 'Sum dp after every valid first number.'); } return dp[0]; }
   });
@@ -27,7 +27,7 @@
 
   D('constrained-subsequence-sum', {
     t: 'Constrained Subsequence Sum: best of the last k, via a deque',
-    r: 'dp[i] = nums[i] + max(0, max dp[i−k..i−1]). A decreasing deque of dp values gives the window max in O(1).',
+    r: 'dp[i] = nums[i] + max(0, max dp[i−k to i−1]). A decreasing deque of dp values gives the window max in O(1).',
     g: R => ({ nums: R.ints(R.int(5, 7), -6, 8), k: R.int(1, 3) }),
     s(I, T) { const a = I.nums, dp = []; a.forEach((x, i) => { const w = dp.slice(Math.max(0, i - I.k), i), v = x + Math.max(0, ...w); T.at({ nums: A(a, { hl: [i] }), dp: A(dp.concat('?'), { win: [Math.max(0, i - I.k), i - 1] }) }); T.n(`dp[${i}]?`, v, `${x} + max(0, best in the last ${I.k}).`); dp.push(v); }); return Math.max(...dp); }
   });
@@ -72,7 +72,7 @@
 
   D('max-dot-product-of-two-subsequences', {
     t: 'Max Dot Product of Two Subsequences: pair, extend, or skip',
-    r: 'dp[i][j] = best for nums1[0..i] and nums2[0..j] (non-empty). Options: a[i]·b[j] alone, a[i]·b[j] + dp[i−1][j−1], or skip one side: dp[i−1][j], dp[i][j−1].',
+    r: 'dp[i][j] = best for nums1[0 to i] and nums2[0 to j] (non-empty). Options: a[i] times b[j] alone, a[i] times b[j] + dp[i−1][j−1], or skip one side: dp[i−1][j], dp[i][j−1].',
     g: R => ({ nums1: R.ints(R.int(2, 3), -4, 5), nums2: R.ints(R.int(2, 3), -4, 5) }),
     s(I, T) { const a = I.nums1, b = I.nums2, dp = mk(a.length, b.length, 0); for (let i = 0; i < a.length; i++) for (let j = 0; j < b.length; j++) { const p = a[i] * b[j]; let v = p; if (i && j) v = Math.max(v, p + dp[i - 1][j - 1]); if (i) v = Math.max(v, dp[i - 1][j]); if (j) v = Math.max(v, dp[i][j - 1]); T.at({ dp: G(dp.map((r, x) => r.map((y, z) => x < i || (x === i && z < j) ? y : '?')), { rh: a, ch: b, hl: [[i, j]] }) }); T.n(`dp[${i}][${j}]?`, v, `Best of ${p} alone, ${p} + diagonal, or skipping a side.`); dp[i][j] = v; } return dp[a.length - 1][b.length - 1]; }
   });
@@ -116,7 +116,7 @@
 
   D('allocate-mailboxes', {
     t: 'Allocate Mailboxes: one mailbox per group, at the median',
-    r: 'Sort houses. cost[i][j] = total distance from houses i..j to their median. dp[b][j] = min over i of dp[b−1][i] + cost[i][j−1].',
+    r: 'Sort houses. cost[i][j] = total distance from houses i to j to their median. dp[b][j] = min over i of dp[b−1][i] + cost[i][j−1].',
     g: R => ({ houses: R.distinct(R.int(4, 5), 1, 20), k: R.int(1, 3) }),
     s(I, T) {
       const h = I.houses.slice().sort((a, b) => a - b), n = h.length, cost = (i, j) => { const md = h[(i + j) >> 1]; let s = 0; for (let x = i; x <= j; x++) s += Math.abs(h[x] - md); return s; };
@@ -135,7 +135,7 @@
 
   D('stone-game-iv', {
     t: 'Stone Game IV: win if some square leaves a losing pile',
-    r: 'win[i] = true if some square s ≤ i makes win[i − s] false.',
+    r: 'win[i] = true if some square s at most i makes win[i − s] false.',
     g: R => ({ n: R.int(4, 12) }),
     s(I, T) { const w = [false]; for (let i = 1; i <= I.n; i++) { let v = false; for (let s = 1; s * s <= i; s++) if (!w[i - s * s]) v = true; T.at({ win: A(w.map(x => x ? 'W' : 'L')) }); T.yn(`Does the player to move win with ${i} stones?`, v, v ? 'Some square removal leaves a losing pile.' : 'Every square removal leaves a winning pile.'); w.push(v); } return w[I.n]; }
   });
@@ -149,12 +149,12 @@
 
   D('string-compression-ii', {
     t: 'String Compression II: keep a run, delete the rest of it',
-    r: 'f(i, k) = shortest encoding of s[i..] with k deletions left. Either delete s[i], or keep it and extend its run to j, deleting every different letter in between (if k allows). Run length L costs 1, 2 (L in 2–9), 3 (10–99)…',
+    r: 'f(i, k) = shortest encoding of s[i..] with k deletions left. Either delete s[i], or keep it and extend its run to j, deleting every different letter in between (if k allows). Run length L costs 1, 2 (L in 2 to 9), 3 (10 to 99)…',
     g: R => ({ s: R.str(R.int(5, 7), 'ab'), k: R.int(1, 2) }),
     s(I, T) {
       const s = I.s, n = s.length, memo = new Map(), len = c => c === 1 ? 1 : c < 10 ? 2 : c < 100 ? 3 : 4;
       const f = (i, k) => { if (k < 0) return Infinity; if (n - i <= k) return 0; const key = i * 200 + k; if (memo.has(key)) return memo.get(key); let b = f(i + 1, k - 1), same = 0, diff = 0; for (let j = i; j < n; j++) { if (s[j] === s[i]) same++; else diff++; if (diff > k) break; b = Math.min(b, len(same) + f(j + 1, k - diff)); } memo.set(key, b); return b; };
-      for (let i = Math.min(n - 1, 4); i >= 0; i--) { T.at({ s: A([...s], { win: [i, n - 1] }), k: I.k }); T.n(`Shortest encoding of "${s.slice(i)}" with ${I.k} deletion(s)?`, f(i, I.k), 'Delete s[i], or keep it and grow its run.'); }
+      for (let i = Math.min(n - 1, 4); i >= 0; i--) { T.at({ s: A([...s], { win: [i, n - 1] }), k: I.k }); T.n(`Shortest encoding of "${s.slice(i)}" with ${I.k} deletions?`, f(i, I.k), 'Delete s[i], or keep it and grow its run.'); }
       return f(0, I.k);
     }
   });
@@ -175,28 +175,28 @@
 
   D('minimum-number-of-days-to-eat-n-oranges', {
     t: 'Minimum Days to Eat N Oranges: eat singles only to reach a multiple',
-    r: 'f(n) = 1 + min(n % 2 + f(n / 2), n % 3 + f(n / 3)) (floor division), with f(0) = 0 and f(1) = 1. Eating one at a time is only useful to reach a multiple of 2 or 3.',
+    r: 'f(n) = 1 + min(n % 2 + f(n divided by 2), n % 3 + f(n divided by 3)) (floor division), with f(0) = 0 and f(1) = 1. Eating one at a time is only useful to reach a multiple of 2 or 3.',
     g: R => ({ n: R.int(5, 40) }),
     s(I, T) { const memo = new Map([[0, 0], [1, 1]]), f = n => { if (memo.has(n)) return memo.get(n); const v = 1 + Math.min(n % 2 + f(Math.floor(n / 2)), n % 3 + f(Math.floor(n / 3))); memo.set(n, v); return v; }; f(I.n); let n = I.n; while (n > 1) { const a = n % 2 + f(Math.floor(n / 2)), b = n % 3 + f(Math.floor(n / 3)); T.at({ n, memo: K([...memo].filter(([k]) => k < n).slice(-6).map(([k, v]) => ['f(' + k + ')', v])) }); T.c(`${n} oranges: head for halving or for thirds?`, ['halve', 'third'], a <= b ? 'halve' : 'third', `Halving costs ${a} + 1, thirds cost ${b} + 1.`); n = a <= b ? Math.floor(n / 2) : Math.floor(n / 3); } return f(I.n); }
   });
 
   D('stone-game-v', {
     t: 'Stone Game V: Bob throws away the bigger half',
-    r: 'dp[i][j] = Alice\'s best from row i..j. For each split, the smaller-sum side is kept (its sum is scored and play continues on it); on a tie Alice picks the better side.',
+    r: 'dp[i][j] = Alice\'s best from row i to j. For each split, the smaller-sum side is kept (its sum is scored and play continues on it); on a tie Alice picks the better side.',
     g: R => ({ stoneValue: R.ints(R.int(3, 5), 1, 7) }),
     s(I, T) { const v = I.stoneValue, n = v.length, P = [0]; v.forEach(x => P.push(P[P.length - 1] + x)); const S = (i, j) => P[j + 1] - P[i], dp = mk(n, n, 0); for (let len = 2; len <= n; len++) for (let i = 0; i + len <= n; i++) { const j = i + len - 1; let b = 0; for (let m = i; m < j; m++) { const l = S(i, m), r = S(m + 1, j); b = Math.max(b, l < r ? l + dp[i][m] : l > r ? r + dp[m + 1][j] : l + Math.max(dp[i][m], dp[m + 1][j])); } dp[i][j] = b; T.at({ stones: A(v, { win: [i, j] }) }); T.n(`dp[${i}][${j}]?`, b, 'Best split: score the smaller side and keep playing it.'); } return dp[0][n - 1]; }
   });
 
   D('maximum-length-of-subarray-with-positive-product', {
     t: 'Max Length Subarray With Positive Product: positive and negative lengths',
-    r: 'pos / neg = longest subarray ending here with positive / negative product. Positive x: pos+1, neg+1 (if neg > 0). Negative x: swap them. Zero resets both.',
+    r: 'pos and neg = longest subarray ending here with positive or negative product. Positive x: pos+1, neg+1 (if neg > 0). Negative x: swap them. Zero resets both.',
     g: R => ({ nums: R.ints(R.int(6, 8), -3, 3) }),
     s(I, T) { let pos = 0, neg = 0, best = 0; I.nums.forEach((x, i) => { if (x > 0) { pos++; neg = neg ? neg + 1 : 0; } else if (x < 0) { const p = pos; pos = neg ? neg + 1 : 0; neg = p + 1; } else pos = neg = 0; T.at({ nums: A(I.nums, { hl: [i] }), best }); T.n(`Longest positive-product subarray ending at ${i}?`, pos, x === 0 ? 'Zero resets.' : x < 0 ? 'A negative swaps the roles of pos and neg.' : 'A positive extends both.'); best = Math.max(best, pos); }); return best; }
   });
 
   D('count-all-possible-routes', {
     t: 'Count All Possible Routes: memo on (city, fuel)',
-    r: 'f(city, fuel) = (city == finish ? 1 : 0) + Σ f(next, fuel − |loc[city] − loc[next]|) over other cities with enough fuel.',
+    r: 'f(city, fuel) = (city == finish ? 1 : 0) + the sum of f(next, fuel − |loc[city] − loc[next]|) over other cities with enough fuel.',
     g: R => ({ locations: R.distinct(R.int(3, 4), 1, 8), start: 0, finish: R.int(0, 2), fuel: R.int(2, 6) }),
     s(I, T) { const L = I.locations, memo = new Map(), f = (c, fu) => { const k = c * 1000 + fu; if (memo.has(k)) return memo.get(k); let v = c === I.finish ? 1 : 0; L.forEach((x, j) => { const d = Math.abs(x - L[c]); if (j !== c && d <= fu) v = (v + f(j, fu - d)) % MOD; }); memo.set(k, v); return v; }; for (let fu = 0; fu <= I.fuel; fu++) { T.at({ locations: A(L, { hl: [I.start] }), finish: I.finish }); T.n(`f(start, ${fu}): routes with ${fu} fuel?`, f(I.start, fu), 'Arrive-here counts 1, plus every next city you can afford.'); } return f(I.start, I.fuel); }
   });
@@ -205,7 +205,7 @@
     t: 'Maximum Non-Negative Product: keep the max and the min',
     r: 'For each cell keep the largest and smallest product reaching it. A negative cell swaps which one becomes the new max. Answer: max at the end mod 1e9+7, or −1 if negative.',
     g: R => ({ grid: R.grid(3, 3, -3, 3) }),
-    s(I, T) { const g = I.grid, m = g.length, n = g[0].length, hi = mk(m, n, 0), lo = mk(m, n, 0); for (let r = 0; r < m; r++) for (let c = 0; c < n; c++) { const x = g[r][c]; if (!r && !c) { hi[0][0] = lo[0][0] = x; continue; } const cand = []; if (r) cand.push(hi[r - 1][c] * x, lo[r - 1][c] * x); if (c) cand.push(hi[r][c - 1] * x, lo[r][c - 1] * x); hi[r][c] = Math.max(...cand); lo[r][c] = Math.min(...cand); if (r + c >= 2) { T.at({ grid: G(g, { hl: [[r, c]] }) }); T.n(`Largest product reaching (${r},${c})?`, hi[r][c], x < 0 ? 'Negative cell: the old minimum times x.' : 'The old maximum times x (or the minimum if x ≤ 0).'); } } const v = hi[m - 1][n - 1]; return v < 0 ? -1 : v % MOD; }
+    s(I, T) { const g = I.grid, m = g.length, n = g[0].length, hi = mk(m, n, 0), lo = mk(m, n, 0); for (let r = 0; r < m; r++) for (let c = 0; c < n; c++) { const x = g[r][c]; if (!r && !c) { hi[0][0] = lo[0][0] = x; continue; } const cand = []; if (r) cand.push(hi[r - 1][c] * x, lo[r - 1][c] * x); if (c) cand.push(hi[r][c - 1] * x, lo[r][c - 1] * x); hi[r][c] = Math.max(...cand); lo[r][c] = Math.min(...cand); if (r + c >= 2) { T.at({ grid: G(g, { hl: [[r, c]] }) }); T.n(`Largest product reaching (${r},${c})?`, hi[r][c], x < 0 ? 'Negative cell: the old minimum times x.' : 'The old maximum times x (or the minimum if x at most 0).'); } } const v = hi[m - 1][n - 1]; return v < 0 ? -1 : v % MOD; }
   });
 
   D('minimum-cost-to-connect-two-groups-of-points', {
@@ -230,35 +230,35 @@
 
   D('best-team-with-no-conflicts', {
     t: 'Best Team With No Conflicts: sort by age, then non-decreasing scores',
-    r: 'Sort by (age, score). A team is valid if scores never decrease along that order. dp[i] = score[i] + best dp[j] with j < i and score[j] ≤ score[i].',
+    r: 'Sort by (age, score). A team is valid if scores never decrease along that order. dp[i] = score[i] + best dp[j] with j < i and score[j] at most score[i].',
     g: R => { const n = R.int(4, 6); return { scores: R.ints(n, 1, 9), ages: R.ints(n, 1, 4) }; },
-    s(I, T) { const P = I.scores.map((s, i) => [I.ages[i], s]).sort((a, b) => a[0] - b[0] || a[1] - b[1]), dp = []; P.forEach(([a, s], i) => { let b = s; for (let j = 0; j < i; j++) if (P[j][1] <= s) b = Math.max(b, dp[j] + s); T.at({ players: A(P.map(p => `age ${p[0]}: ${p[1]}`), { hl: [i] }), dp: A(dp.concat('?')) }); T.n(`dp[${i}]?`, b, 'Best earlier dp with score ≤ this one, plus this score.'); dp.push(b); }); return Math.max(...dp); }
+    s(I, T) { const P = I.scores.map((s, i) => [I.ages[i], s]).sort((a, b) => a[0] - b[0] || a[1] - b[1]), dp = []; P.forEach(([a, s], i) => { let b = s; for (let j = 0; j < i; j++) if (P[j][1] <= s) b = Math.max(b, dp[j] + s); T.at({ players: A(P.map(p => `age ${p[0]}: ${p[1]}`), { hl: [i] }), dp: A(dp.concat('?')) }); T.n(`dp[${i}]?`, b, 'Best earlier dp with score at most this one, plus this score.'); dp.push(b); }); return Math.max(...dp); }
   });
 
   D('count-substrings-that-differ-by-one-character', {
     t: 'Count Substrings That Differ by One Character: grow around each mismatch',
-    r: 'For each mismatched pair (s[i], t[j]), count equal letters extending left (L) and right (R). That mismatch is the single difference in (L + 1)·(R + 1) substring pairs.',
+    r: 'For each mismatched pair (s[i], t[j]), count equal letters extending left (L) and right (R). That mismatch is the single difference in (L + 1) times (R + 1) substring pairs.',
     g: R => ({ s: R.str(R.int(2, 3), 'ab'), t: R.str(R.int(2, 3), 'ab') }),
-    s(I, T) { const s = I.s, t = I.t; let tot = 0; for (let i = 0; i < s.length; i++) for (let j = 0; j < t.length; j++) if (s[i] !== t[j]) { let l = 0, r = 0; while (i - l - 1 >= 0 && j - l - 1 >= 0 && s[i - l - 1] === t[j - l - 1]) l++; while (i + r + 1 < s.length && j + r + 1 < t.length && s[i + r + 1] === t[j + r + 1]) r++; T.at({ s: A([...s], { hl: [i] }), t: A([...t], { hl: [j] }), total: tot }); T.n(`Mismatch s[${i}] vs t[${j}]: how many pairs?`, (l + 1) * (r + 1), `(${l} + 1)·(${r} + 1).`); tot += (l + 1) * (r + 1); } return tot; }
+    s(I, T) { const s = I.s, t = I.t; let tot = 0; for (let i = 0; i < s.length; i++) for (let j = 0; j < t.length; j++) if (s[i] !== t[j]) { let l = 0, r = 0; while (i - l - 1 >= 0 && j - l - 1 >= 0 && s[i - l - 1] === t[j - l - 1]) l++; while (i + r + 1 < s.length && j + r + 1 < t.length && s[i + r + 1] === t[j + r + 1]) r++; T.at({ s: A([...s], { hl: [i] }), t: A([...t], { hl: [j] }), total: tot }); T.n(`Mismatch s[${i}] vs t[${j}]: how many pairs?`, (l + 1) * (r + 1), `(${l} + 1) times (${r} + 1).`); tot += (l + 1) * (r + 1); } return tot; }
   });
 
   D('number-of-ways-to-form-a-target-string-given-a-dictionary', {
     t: 'Number of Ways to Form a Target: letter counts per column',
-    r: 'cnt[k][c] = words with letter c at column k. dp[i][k] = ways to form target[0..i) using columns before k = dp[i][k−1] + dp[i−1][k−1]·cnt[k−1][target[i−1]].',
+    r: 'cnt[k][c] = words with letter c at column k. dp[i][k] = ways to form target[0 to i) using columns before k = dp[i][k−1] + dp[i−1][k−1] times cnt[k−1][target[i−1]].',
     g: R => { const L = R.int(3, 4); return { words: Array.from({ length: R.int(2, 3) }, () => R.str(L, 'ab')), target: R.str(R.int(2, 3), 'ab') }; },
     s(I, T) {
       const W = I.words, L = W[0].length, t = I.target, cnt = [...Array(L).keys()].map(k => { const m = {}; W.forEach(w => m[w[k]] = (m[w[k]] || 0) + 1); return m; });
       let dp = Array(t.length + 1).fill(0); dp[0] = 1;
-      for (let k = 0; k < L; k++) { for (let i = t.length; i >= 1; i--) dp[i] = (dp[i] + dp[i - 1] * (cnt[k][t[i - 1]] || 0)) % MOD; T.at({ words: G(W.map(w => [...w]), { hl: W.map((_, r) => [r, k]) }), target: t, dp: A(dp) }); T.n(`After column ${k}: ways to form the whole target?`, dp[t.length], 'dp[i] += dp[i−1] · (count of target[i−1] in this column).'); }
+      for (let k = 0; k < L; k++) { for (let i = t.length; i >= 1; i--) dp[i] = (dp[i] + dp[i - 1] * (cnt[k][t[i - 1]] || 0)) % MOD; T.at({ words: G(W.map(w => [...w]), { hl: W.map((_, r) => [r, k]) }), target: t, dp: A(dp) }); T.n(`After column ${k}: ways to form the whole target?`, dp[t.length], 'dp[i] += dp[i−1] times (count of target[i−1] in this column).'); }
       return dp[t.length];
     }
   });
 
   D('count-sorted-vowel-strings', {
     t: 'Count Sorted Vowel Strings: how many end with each vowel',
-    r: 'cnt[v] = sorted strings ending in vowel v. Next length: new cnt[v] = Σ cnt[u] for u ≤ v (a running prefix sum).',
+    r: 'cnt[v] = sorted strings ending in vowel v. Next length: new cnt[v] = the sum of cnt[u] for u at most v (a running prefix sum).',
     g: R => ({ n: R.int(2, 5) }),
-    s(I, T) { let c = [1, 1, 1, 1, 1]; for (let l = 2; l <= I.n; l++) { const nx = []; c.reduce((s, x, i) => (nx[i] = s + x, s + x), 0); T.at({ ends: A(c, { labels: [...'aeiou'] }) }); T.n(`Length ${l}: strings ending in "u"?`, nx[4], 'Prefix sum over every vowel ≤ u.'); c = nx; } return c.reduce((a, b) => a + b, 0); }
+    s(I, T) { let c = [1, 1, 1, 1, 1]; for (let l = 2; l <= I.n; l++) { const nx = []; c.reduce((s, x, i) => (nx[i] = s + x, s + x), 0); T.at({ ends: A(c, { labels: [...'aeiou'] }) }); T.n(`Length ${l}: strings ending in "u"?`, nx[4], 'Prefix sum over every vowel at most u.'); c = nx; } return c.reduce((a, b) => a + b, 0); }
   });
 
   D('minimum-deletions-to-make-string-balanced', {
@@ -275,7 +275,7 @@
     s(I, T) {
       const { m, n } = I, N = m * n, score = g => { let s = 0; for (let i = 0; i < N; i++) if (g[i]) { const r = Math.floor(i / n), c = i % n; let nb = 0; for (const [dr, dc] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) { const x = r + dr, y = c + dc; if (x >= 0 && y >= 0 && x < m && y < n && g[x * n + y]) nb++; } s += g[i] === 1 ? 120 - 30 * nb : 40 + 20 * nb; } return s; };
       let best = 0; const g = Array(N).fill(0), rec = (i, a, b) => { if (i === N) { best = Math.max(best, score(g)); return; } rec(i + 1, a, b); if (a) { g[i] = 1; rec(i + 1, a - 1, b); g[i] = 0; } if (b) { g[i] = 2; rec(i + 1, a, b - 1); g[i] = 0; } }; rec(0, I.introvertsCount, I.extrovertsCount);
-      for (let t = 0; t < 2; t++) { const p = Array(N).fill(0); let a = I.introvertsCount, b = I.extrovertsCount; for (let i = 0; i < N; i++) { const r = (i * 7 + t * 3 + a + b) % 3; if (r === 1 && a) { p[i] = 1; a--; } else if (r === 2 && b) { p[i] = 2; b--; } } T.at({ grid: G([...Array(m).keys()].map(r => p.slice(r * n, r * n + n).map(x => ['.', 'I', 'E'][x]))) }); T.n('Total happiness of this placement?', score(p), 'I: 120 − 30·neighbors, E: 40 + 20·neighbors.'); }
+      for (let t = 0; t < 2; t++) { const p = Array(N).fill(0); let a = I.introvertsCount, b = I.extrovertsCount; for (let i = 0; i < N; i++) { const r = (i * 7 + t * 3 + a + b) % 3; if (r === 1 && a) { p[i] = 1; a--; } else if (r === 2 && b) { p[i] = 2; b--; } } T.at({ grid: G([...Array(m).keys()].map(r => p.slice(r * n, r * n + n).map(x => ['.', 'I', 'E'][x]))) }); T.n('Total happiness of this placement?', score(p), 'I: 120 − 30 times neighbors, E: 40 + 20 times neighbors.'); }
       T.at({ m, n, introverts: I.introvertsCount, extroverts: I.extrovertsCount }); T.n('Best possible total happiness?', best, 'Search every placement (memoized row profiles in the full solution).');
       return best;
     }
@@ -290,7 +290,7 @@
 
   D('minimum-incompatibility', {
     t: 'Minimum Incompatibility: bitmask over used numbers',
-    r: 'Split into k groups of size n/k, each with distinct values; a group\'s incompatibility is max − min. dp[mask] = best for the used numbers, always placing the lowest unused index in the next group.',
+    r: 'Split into k groups of size n divided by k, each with distinct values; a group\'s incompatibility is max − min. dp[mask] = best for the used numbers, always placing the lowest unused index in the next group.',
     g: R => { const k = R.int(2, 3), sz = 2; return { nums: R.ints(k * sz, 1, k * sz), k }; },
     s(I, T) {
       const a = I.nums, n = a.length, sz = n / I.k, full = (1 << n) - 1, inc = new Map();

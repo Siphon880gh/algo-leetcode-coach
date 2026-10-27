@@ -22,7 +22,7 @@
   });
 
   D('maximum-profit-from-trading-stocks', {
-    t: 'Maximum Profit From Trading Stocks: 0/1 knapsack on the budget',
+    t: 'Maximum Profit From Trading Stocks: 0-1 knapsack on the budget',
     r: 'Each stock costs present[i] and earns future[i] − present[i]. dp[b] = best profit with budget b; process each stock with b descending.',
     g: R => { const n = R.int(3, 5); return { present: R.ints(n, 1, 6), future: R.ints(n, 1, 9), budget: R.int(4, 10) }; },
     s(I, T) { const dp = Array(I.budget + 1).fill(0); I.present.forEach((p, i) => { const g = I.future[i] - p; if (g > 0) for (let b = I.budget; b >= p; b--) dp[b] = Math.max(dp[b], dp[b - p] + g); T.at({ stock: `cost ${p}, profit ${g}`, budget: I.budget }); T.n(`After stock ${i}: best profit with budget ${I.budget}?`, dp[I.budget], g > 0 ? 'Buy it or not (knapsack).' : 'No profit: skip it.'); }); return dp[I.budget]; }
@@ -37,28 +37,28 @@
 
   D('sum-of-numbers-with-units-digit-k', {
     t: 'Sum of Numbers With Units Digit K: try 1 to 10 numbers',
-    r: 'With c numbers ending in k, the sum ends in c·k mod 10 and is at least c·k. Try c = 1..10; the first c with c·k ≤ num and (num − c·k) % 10 == 0 works. num = 0 needs 0 numbers.',
+    r: 'With c numbers ending in k, the sum ends in c times k mod 10 and is at least c times k. Try c = 1 to 10; the first c with c times k at most num and (num − c times k) % 10 == 0 works. num = 0 needs 0 numbers.',
     g: R => ({ num: R.int(0, 60), k: R.int(0, 9) }),
-    s(I, T) { if (I.num === 0) { T.at({ num: 0 }); T.n('How many numbers for num = 0?', 0, 'The empty set.'); return 0; } for (let c = 1; c <= 10; c++) { const ok = c * I.k <= I.num && (I.num - c * I.k) % 10 === 0; T.at({ num: I.num, k: I.k, count: c }); T.yn(`Can ${c} number(s) ending in ${I.k} sum to ${I.num}?`, ok, `${c}·${I.k} = ${c * I.k}; the rest must be a multiple of 10.`); if (ok) return c; } return -1; }
+    s(I, T) { if (I.num === 0) { T.at({ num: 0 }); T.n('How many numbers for num = 0?', 0, 'The empty set.'); return 0; } for (let c = 1; c <= 10; c++) { const ok = c * I.k <= I.num && (I.num - c * I.k) % 10 === 0; T.at({ num: I.num, k: I.k, count: c }); T.yn(`Can ${c} numbers ending in ${I.k} sum to ${I.num}?`, ok, `${c} times ${I.k} = ${c * I.k}; the rest must be a multiple of 10.`); if (ok) return c; } return -1; }
   });
 
   D('longest-binary-subsequence-less-than-or-equal-to-k', {
-    t: 'Longest Binary Subsequence ≤ k: all zeros, plus cheap ones from the right',
-    r: 'Every 0 is free. Scan from the right: a 1 at bit position p is kept if adding 2^p keeps the value ≤ k (positions count kept characters).',
+    t: 'Longest Binary Subsequence at most k: all zeros, plus cheap ones from the right',
+    r: 'Every 0 is free. Scan from the right: a 1 at bit position p is kept if adding 2 to the power p keeps the value at most k (positions count kept characters).',
     g: R => ({ s: R.str(R.int(5, 8), '01'), k: R.int(1, 12) }),
-    s(I, T) { const s = I.s; let val = 0, len = 0; for (let i = s.length - 1; i >= 0; i--) { if (s[i] === '0') { len++; continue; } const add = len < 31 ? 2 ** len : Infinity, ok = val + add <= I.k; T.at({ s: A([...s], { hl: [i] }), value: val, kept: len, k: I.k }); T.yn(`Keep the "1" at index ${i} (worth ${add})?`, ok, ok ? 'Still ≤ k.' : 'Would exceed k.'); if (ok) { val += add; len++; } } return len; }
+    s(I, T) { const s = I.s; let val = 0, len = 0; for (let i = s.length - 1; i >= 0; i--) { if (s[i] === '0') { len++; continue; } const add = len < 31 ? 2 ** len : Infinity, ok = val + add <= I.k; T.at({ s: A([...s], { hl: [i] }), value: val, kept: len, k: I.k }); T.yn(`Keep the "1" at index ${i} (worth ${add})?`, ok, ok ? 'Still at most k.' : 'Would exceed k.'); if (ok) { val += add; len++; } } return len; }
   });
 
   D('selling-pieces-of-wood', {
     t: 'Selling Pieces of Wood: sell whole or cut once',
-    r: 'dp[h][w] = best money for an h × w piece = max(price of that exact shape, best horizontal cut dp[i][w] + dp[h−i][w], best vertical cut dp[h][j] + dp[h][w−j]).',
+    r: 'dp[h][w] = best money for an h times w piece = max(price of that exact shape, best horizontal cut dp[i][w] + dp[h−i][w], best vertical cut dp[h][j] + dp[h][w−j]).',
     g: R => ({ m: R.int(2, 3), n: R.int(2, 4), prices: [[1, 1, R.int(1, 3)], [1, 2, R.int(2, 6)], [2, 1, R.int(2, 6)], [2, 2, R.int(4, 12)]] }),
-    s(I, T) { const P = new Map(I.prices.map(([h, w, p]) => [h * 1000 + w, p])), dp = mk(I.m + 1, I.n + 1, 0); for (let h = 1; h <= I.m; h++) for (let w = 1; w <= I.n; w++) { let b = P.get(h * 1000 + w) || 0; for (let i = 1; i < h; i++) b = Math.max(b, dp[i][w] + dp[h - i][w]); for (let j = 1; j < w; j++) b = Math.max(b, dp[h][j] + dp[h][w - j]); dp[h][w] = b; if (h + w > 2) { T.at({ prices: A(I.prices.map(p => `${p[0]}×${p[1]}: ${p[2]}`)), dp: G(dp.slice(1).map(r => r.slice(1)), { rh: [...Array(I.m).keys()].map(x => 'h' + (x + 1)), ch: [...Array(I.n).keys()].map(x => 'w' + (x + 1)), hl: [[h - 1, w - 1]] }) }); T.n(`dp[${h}][${w}]?`, b, 'Whole-piece price or the best single cut.'); } } return dp[I.m][I.n]; }
+    s(I, T) { const P = new Map(I.prices.map(([h, w, p]) => [h * 1000 + w, p])), dp = mk(I.m + 1, I.n + 1, 0); for (let h = 1; h <= I.m; h++) for (let w = 1; w <= I.n; w++) { let b = P.get(h * 1000 + w) || 0; for (let i = 1; i < h; i++) b = Math.max(b, dp[i][w] + dp[h - i][w]); for (let j = 1; j < w; j++) b = Math.max(b, dp[h][j] + dp[h][w - j]); dp[h][w] = b; if (h + w > 2) { T.at({ prices: A(I.prices.map(p => `${p[0]} by ${p[1]}: ${p[2]}`)), dp: G(dp.slice(1).map(r => r.slice(1)), { rh: [...Array(I.m).keys()].map(x => 'h' + (x + 1)), ch: [...Array(I.n).keys()].map(x => 'w' + (x + 1)), hl: [[h - 1, w - 1]] }) }); T.n(`dp[${h}][${w}]?`, b, 'Whole-piece price or the best single cut.'); } } return dp[I.m][I.n]; }
   });
 
   D('number-of-distinct-roll-sequences', {
     t: 'Number of Distinct Roll Sequences: remember the last two rolls',
-    r: 'dp[a][b] = sequences ending with rolls a, b. Next roll c needs gcd(b, c) = 1, c ≠ b and c ≠ a.',
+    r: 'dp[a][b] = sequences ending with rolls a, b. Next roll c needs gcd(b, c) = 1, c not equal to b and c not equal to a.',
     g: R => ({ n: R.int(2, 4) }),
     s(I, T) {
       if (I.n === 1) return 6; let dp = mk(7, 7, 0); for (let a = 1; a <= 6; a++) for (let b = 1; b <= 6; b++) if (a !== b && gcd(a, b) === 1) dp[a][b] = 1;
@@ -70,7 +70,7 @@
 
   D('count-number-of-ways-to-place-houses', {
     t: 'Count Number of Ways to Place Houses: one side, squared',
-    r: 'The two sides are independent. One side: no two adjacent houses, so ways follow Fibonacci (empty/house states). Answer = (ways for one side)².',
+    r: 'The two sides are independent. One side: no two adjacent houses, so ways follow Fibonacci (empty or house states). Answer = (ways for one side)².',
     g: R => ({ n: R.int(2, 6) }),
     s(I, T) { let e = 1, h = 1; for (let i = 2; i <= I.n; i++) { const ne = (e + h) % MOD; h = e; e = ne; T.at({ plots: i }); T.n(`Ways for one side with ${i} plots?`, (e + h) % MOD, 'Last plot empty (any before) + last plot built (previous empty).'); } const one = (e + h) % MOD; return one * one % MOD; }
   });
@@ -84,14 +84,14 @@
 
   D('number-of-people-aware-of-a-secret', {
     t: 'Number of People Aware of a Secret: new learners per day',
-    r: 'new[d] = number of people who learn on day d = Σ new[j] for j in [d − forget + 1, d − delay] (those currently sharing). Aware on day n = Σ new over the last forget days.',
+    r: 'new[d] = number of people who learn on day d = the sum of new[j] for j in [d − forget + 1, d − delay] (those currently sharing). Aware on day n = the sum of new over the last forget days.',
     g: R => { const delay = R.int(1, 2); return { n: R.int(4, 7), delay, forget: delay + R.int(1, 3) }; },
     s(I, T) { const nw = [0, 1]; for (let d = 2; d <= I.n; d++) { let v = 0; for (let j = Math.max(1, d - I.forget + 1); j <= d - I.delay; j++) v += nw[j]; T.at({ day: d, learned: A(nw.slice(1), { labels: nw.slice(1).map((_, i) => 'd' + (i + 1)) }), delay: I.delay, forget: I.forget }); T.n(`How many people learn on day ${d}?`, v % MOD, 'Sum of those who learned between d − forget + 1 and d − delay.'); nw.push(v % MOD); } let a = 0; for (let j = Math.max(1, I.n - I.forget + 1); j <= I.n; j++) a += nw[j]; return a % MOD; }
   });
 
   D('count-the-number-of-ideal-arrays', {
     t: 'Count the Number of Ideal Arrays: divisor chains',
-    r: 'dp[len][v] = ideal arrays of length len ending in v = Σ dp[len−1][d] over divisors d of v. (The fast version counts strictly increasing chains and spreads them with combinations.)',
+    r: 'dp[len][v] = ideal arrays of length len ending in v = the sum of dp[len−1][d] over divisors d of v. (The fast version counts strictly increasing chains and spreads them with combinations.)',
     g: R => ({ n: R.int(2, 4), maxValue: R.int(2, 6) }),
     s(I, T) { let dp = Array(I.maxValue + 1).fill(1); dp[0] = 0; for (let l = 2; l <= I.n; l++) { const nx = Array(I.maxValue + 1).fill(0); for (let v = 1; v <= I.maxValue; v++) for (let d = 1; d <= v; d++) if (v % d === 0) nx[v] = (nx[v] + dp[d]) % MOD; dp = nx; T.at({ length: l, prev: A(dp.slice(1), { labels: dp.slice(1).map((_, i) => 'ends ' + (i + 1)) }) }); T.n(`Ideal arrays of length ${l} ending in ${I.maxValue}?`, dp[I.maxValue], 'Sum over divisors of the previous counts.'); } return dp.reduce((a, b) => (a + b) % MOD, 0); }
   });
@@ -126,12 +126,12 @@
 
   D('count-special-integers', {
     t: 'Count Special Integers: distinct digits up to n',
-    r: 'Shorter lengths L: 9 · P(9, L − 1). Same length: at each position, count unused smaller digits (no leading zero) times P(remaining digits, remaining positions); stop if n repeats a digit; add 1 if n itself is special.',
+    r: 'Shorter lengths L: 9 times P(9, L − 1). Same length: at each position, count unused smaller digits (no leading zero) times P(remaining digits, remaining positions); stop if n repeats a digit; add 1 if n itself is special.',
     g: R => ({ n: R.int(10, 999) }),
     s(I, T) {
       const s = String(I.n), L = s.length, P = (m, r) => { let v = 1; for (let i = 0; i < r; i++) v *= m - i; return v; }; let cnt = 0;
-      for (let l = 1; l < L; l++) { T.at({ n: s, count: cnt }); T.n(`Special ${l}-digit numbers?`, 9 * P(9, l - 1), `9 · P(9, ${l - 1}).`); cnt += 9 * P(9, l - 1); }
-      const used = new Set(); for (let i = 0; i < L; i++) { const d = +s[i]; let c = 0; for (let x = i ? 0 : 1; x < d; x++) if (!used.has(x)) c++; const v = c * P(9 - i, L - i - 1); T.at({ n: A([...s], { hl: [i] }), used: A([...used]), count: cnt }); T.n(`Position ${i}: special numbers branching off with a smaller digit?`, v, `${c} unused smaller digits × P(${9 - i}, ${L - i - 1}).`); cnt += v; if (used.has(d)) return cnt; used.add(d); }
+      for (let l = 1; l < L; l++) { T.at({ n: s, count: cnt }); T.n(`Special ${l}-digit numbers?`, 9 * P(9, l - 1), `9 times P(9, ${l - 1}).`); cnt += 9 * P(9, l - 1); }
+      const used = new Set(); for (let i = 0; i < L; i++) { const d = +s[i]; let c = 0; for (let x = i ? 0 : 1; x < d; x++) if (!used.has(x)) c++; const v = c * P(9 - i, L - i - 1); T.at({ n: A([...s], { hl: [i] }), used: A([...used]), count: cnt }); T.n(`Position ${i}: special numbers branching off with a smaller digit?`, v, `${c} unused smaller digits times P(${9 - i}, ${L - i - 1}).`); cnt += v; if (used.has(d)) return cnt; used.add(d); }
       return cnt + 1;
     }
   });
@@ -159,7 +159,7 @@
 
   D('minimum-time-to-kill-all-monsters', {
     t: 'Minimum Time to Kill All Monsters: bitmask over the killed',
-    r: 'gain = killed + 1, so killing monster i next takes ceil(power[i] / gain) days. dp[mask] = least days to kill the monsters in mask.',
+    r: 'gain = killed + 1, so killing monster i next takes ceil(power[i] divided by gain) days. dp[mask] = least days to kill the monsters in mask.',
     g: R => ({ power: R.ints(R.int(2, 4), 1, 9) }),
     s(I, T) {
       const p = I.power, n = p.length, dp = Array(1 << n).fill(Infinity); dp[0] = 0; for (let m = 0; m < 1 << n; m++) if (dp[m] < Infinity) for (let i = 0; i < n; i++) if (!(m >> i & 1)) dp[m | 1 << i] = Math.min(dp[m | 1 << i], dp[m] + Math.ceil(p[i] / (pc(m) + 1)));
@@ -171,21 +171,21 @@
 
   D('find-all-good-indices', {
     t: 'Find All Good Indices: k non-increasing before, k non-decreasing after',
-    r: 'dec[i] = non-increasing run length ending at i; inc[i] = non-decreasing run starting at i. Index i is good if dec[i−1] ≥ k and inc[i+1] ≥ k.',
+    r: 'dec[i] = non-increasing run length ending at i; inc[i] = non-decreasing run starting at i. Index i is good if dec[i−1] at least k and inc[i+1] at least k.',
     g: R => ({ nums: R.ints(R.int(6, 8), 1, 4), k: R.int(1, 2) }),
     s(I, T) { const a = I.nums, n = a.length, dec = Array(n).fill(1), inc = Array(n).fill(1); for (let i = 1; i < n; i++) if (a[i] <= a[i - 1]) dec[i] = dec[i - 1] + 1; for (let i = n - 2; i >= 0; i--) if (a[i] <= a[i + 1]) inc[i] = inc[i + 1] + 1; const out = []; for (let i = I.k; i < n - I.k; i++) { const ok = dec[i - 1] >= I.k && inc[i + 1] >= I.k; T.at({ nums: A(a, { hl: [i] }), dec: A(dec), inc: A(inc), k: I.k }); T.yn(`Is index ${i} good?`, ok, `dec[${i - 1}] = ${dec[i - 1]}, inc[${i + 1}] = ${inc[i + 1]}.`); if (ok) out.push(i); } return out; }
   });
 
   D('maximum-deletions-on-a-string', {
     t: 'Maximum Deletions on a String: delete a repeated prefix',
-    r: 'dp[i] = most operations on suffix s[i..]. If s[i..i+j) equals s[i+j..i+2j), you can delete it: 1 + dp[i+j]. Otherwise delete everything: 1. (An LCP table makes the comparison O(1).)',
+    r: 'dp[i] = most operations on suffix s[i..]. If s[i to i+j) equals s[i+j to i+2j), you can delete it: 1 + dp[i+j]. Otherwise delete everything: 1. (An LCP table makes the comparison O(1).)',
     g: R => ({ s: R.str(R.int(4, 7), 'ab') }),
     s(I, T) { const s = I.s, n = s.length, dp = Array(n + 1).fill(0); for (let i = n - 1; i >= 0; i--) { let b = 1; for (let j = 1; i + 2 * j <= n; j++) if (s.slice(i, i + j) === s.slice(i + j, i + 2 * j)) b = Math.max(b, 1 + dp[i + j]); dp[i] = b; T.at({ s: A([...s], { win: [i, n - 1] }) }); T.n(`dp[${i}] for "${s.slice(i)}"?`, b, 'Best repeated prefix to delete, or delete everything (1).'); } return dp[0]; }
   });
 
   D('maximize-total-tastiness-of-purchased-fruits', {
     t: 'Maximize Total Tastiness: knapsack with coupons',
-    r: 'dp[a][c] = best tastiness with amount a spent and c coupons used. Each fruit: skip, buy at full price, or buy at floor(price / 2) using a coupon.',
+    r: 'dp[a][c] = best tastiness with amount a spent and c coupons used. Each fruit: skip, buy at full price, or buy at floor(price divided by 2) using a coupon.',
     g: R => { const n = R.int(2, 4); return { price: R.ints(n, 2, 10), tastiness: R.ints(n, 1, 9), maxAmount: R.int(5, 15), maxCoupons: R.int(0, 2) }; },
     s(I, T) { let dp = mk(I.maxAmount + 1, I.maxCoupons + 1, 0); I.price.forEach((p, i) => { const t = I.tastiness[i], nx = dp.map(r => r.slice()); for (let a = 0; a <= I.maxAmount; a++) for (let c = 0; c <= I.maxCoupons; c++) { if (a >= p) nx[a][c] = Math.max(nx[a][c], dp[a - p][c] + t); const h = Math.floor(p / 2); if (c && a >= h) nx[a][c] = Math.max(nx[a][c], dp[a - h][c - 1] + t); } dp = nx; T.at({ fruit: `price ${p}, taste ${t}`, budget: I.maxAmount, coupons: I.maxCoupons }); T.n(`After fruit ${i}: best tastiness?`, dp[I.maxAmount][I.maxCoupons], 'Skip, pay full, or pay half with a coupon.'); }); return dp[I.maxAmount][I.maxCoupons]; }
   });
@@ -206,58 +206,58 @@
 
   D('minimize-maximum-of-array', {
     t: 'Minimize Maximum of Array: averages of prefixes',
-    r: 'Values can only move left. The first i + 1 numbers can be no flatter than ceil(prefix sum / (i + 1)). The answer is the largest such ceiling.',
+    r: 'Values can only move left. The first i + 1 numbers can be no flatter than ceil(prefix sum divided by (i + 1)). The answer is the largest such ceiling.',
     g: R => ({ nums: R.ints(R.int(3, 5), 0, 12) }),
-    s(I, T) { let s = 0, best = 0; I.nums.forEach((x, i) => { s += x; const v = Math.ceil(s / (i + 1)); T.at({ nums: A(I.nums, { win: [0, i] }), sum: s, best }); T.n(`ceil(prefix sum / ${i + 1})?`, v, `ceil(${s} / ${i + 1}).`); best = Math.max(best, v); }); return best; }
+    s(I, T) { let s = 0, best = 0; I.nums.forEach((x, i) => { s += x; const v = Math.ceil(s / (i + 1)); T.at({ nums: A(I.nums, { win: [0, i] }), sum: s, best }); T.n(`ceil(prefix sum divided by ${i + 1})?`, v, `ceil(${s} divided by ${i + 1}).`); best = Math.max(best, v); }); return best; }
   });
 
   D('minimum-total-distance-traveled', {
     t: 'Minimum Total Distance Traveled: sorted robots go to sorted factories in blocks',
-    r: 'Sort both. dp[i][j] = least distance fixing the first i robots with the first j factories = min over t ≤ limit_j of dp[i−t][j−1] + distance of robots i−t..i−1 to factory j.',
+    r: 'Sort both. dp[i][j] = least distance fixing the first i robots with the first j factories = min over t at most limit_j of dp[i−t][j−1] + distance of robots i−t to i−1 to factory j.',
     g: R => ({ robot: R.distinct(R.int(2, 4), 0, 10), factory: R.distinct(2, 0, 10).map(p => [p, R.int(1, 2)]).concat([[R.int(0, 10), 2]]) }),
     s(I, T) {
       const r = I.robot.slice().sort((a, b) => a - b), f = I.factory.slice().sort((a, b) => a[0] - b[0]), n = r.length; let dp = Array(n + 1).fill(Infinity); dp[0] = 0;
-      f.forEach(([pos, lim], j) => { const nx = dp.slice(); for (let i = 1; i <= n; i++) { let d = 0; for (let t = 1; t <= lim && t <= i; t++) { d += Math.abs(r[i - t] - pos); nx[i] = Math.min(nx[i], dp[i - t] + d); } } dp = nx; T.at({ robots: A(r), factory: `#${j} at ${pos}, limit ${lim}` }); T.n(`After factory ${j}: least distance to fix all ${n} robots (inf if not yet possible)?`, dp[n], 'Give this factory the last t robots, t ≤ limit.'); });
+      f.forEach(([pos, lim], j) => { const nx = dp.slice(); for (let i = 1; i <= n; i++) { let d = 0; for (let t = 1; t <= lim && t <= i; t++) { d += Math.abs(r[i - t] - pos); nx[i] = Math.min(nx[i], dp[i - t] + d); } } dp = nx; T.at({ robots: A(r), factory: `#${j} at ${pos}, limit ${lim}` }); T.n(`After factory ${j}: least distance to fix all ${n} robots (inf if not yet possible)?`, dp[n], 'Give this factory the last t robots, t at most limit.'); });
       return dp[n];
     }
   });
 
   D('minimum-subarrays-in-a-valid-split', {
     t: 'Minimum Subarrays in a Valid Split: first and last share a factor',
-    r: 'dp[i] = fewest subarrays for nums[0..i). The last subarray nums[j..i−1] is valid if gcd(nums[j], nums[i−1]) > 1: dp[i] = min dp[j] + 1.',
+    r: 'dp[i] = fewest subarrays for nums[0 to i). The last subarray nums[j to i−1] is valid if gcd(nums[j], nums[i−1]) > 1: dp[i] = min dp[j] + 1.',
     g: R => ({ nums: Array.from({ length: R.int(3, 5) }, () => R.pick([2, 3, 4, 5, 6, 9, 10])) }),
     s(I, T) { const a = I.nums, n = a.length, dp = [0]; for (let i = 1; i <= n; i++) { let b = Infinity; for (let j = 0; j < i; j++) if (gcd(a[j], a[i - 1]) > 1 && dp[j] < Infinity) b = Math.min(b, dp[j] + 1); T.at({ nums: A(a, { hl: [i - 1] }), dp: A(dp.map(v => v === Infinity ? '∞' : v).concat('?')) }); T.n(`dp[${i}] (inf if impossible)?`, b, 'Best start j whose value shares a factor with the last.'); dp.push(b); } return dp[n] === Infinity ? -1 : dp[n]; }
   });
 
   D('count-ways-to-build-good-strings', {
     t: 'Count Ways to Build Good Strings: append a zero-block or a one-block',
-    r: 'dp[len] = strings of exactly that length = dp[len − zero] + dp[len − one]. Sum dp over low..high.',
+    r: 'dp[len] = strings of exactly that length = dp[len − zero] + dp[len − one]. Sum dp over low to high.',
     g: R => { const low = R.int(2, 5); return { low, high: low + R.int(0, 2), zero: R.int(1, 2), one: R.int(1, 3) }; },
     s(I, T) { const dp = [1]; let tot = 0; for (let l = 1; l <= I.high; l++) { const v = ((l >= I.zero ? dp[l - I.zero] : 0) + (l >= I.one ? dp[l - I.one] : 0)) % MOD; T.at({ dp: A(dp.concat('?')), zero: I.zero, one: I.one }); T.n(`dp[${l}]?`, v, `dp[${l} − ${I.zero}] + dp[${l} − ${I.one}].`); dp.push(v); if (l >= I.low) tot = (tot + v) % MOD; } return tot; }
   });
 
   D('maximum-number-of-non-overlapping-palindrome-substrings', {
     t: 'Non-Overlapping Palindrome Substrings: only lengths k and k + 1 matter',
-    r: 'dp[i] = most palindromes in s[0..i). dp[i] = max(dp[i−1], dp[i−k] + 1 if s[i−k..i) is a palindrome, dp[i−k−1] + 1 if s[i−k−1..i) is).',
+    r: 'dp[i] = most palindromes in s[0 to i). dp[i] = max(dp[i−1], dp[i−k] + 1 if s[i−k to i) is a palindrome, dp[i−k−1] + 1 if s[i−k−1 to i) is).',
     g: R => ({ s: R.str(R.int(6, 8), 'ab'), k: R.int(2, 3) }),
     s(I, T) { const s = I.s, k = I.k, pal = (i, j) => { while (i < j) if (s[i++] !== s[j--]) return false; return true; }, dp = [0]; for (let i = 1; i <= s.length; i++) { let v = dp[i - 1]; if (i >= k && pal(i - k, i - 1)) v = Math.max(v, dp[i - k] + 1); if (i >= k + 1 && pal(i - k - 1, i - 1)) v = Math.max(v, dp[i - k - 1] + 1); T.at({ s: A([...s], { hl: [i - 1] }), dp: A(dp.concat('?')), k }); T.n(`dp[${i}]?`, v, 'Skip, or end a palindrome of length k or k + 1 here.'); dp.push(v); } return dp[s.length]; }
   });
 
   D('number-of-beautiful-partitions', {
     t: 'Number of Beautiful Partitions: prime start, non-prime end',
-    r: 'Each part starts with a prime digit (2, 3, 5, 7), ends with a non-prime, and has length ≥ minLength. dp[p][i] = ways to split s[0..i) into p parts, cutting only where s[i−1] is non-prime and s[i] is prime.',
+    r: 'Each part starts with a prime digit (2, 3, 5, 7), ends with a non-prime, and has length at least minLength. dp[p][i] = ways to split s[0 to i) into p parts, cutting only where s[i−1] is non-prime and s[i] is prime.',
     g: R => ({ s: '2' + R.str(R.int(4, 7), '123456789') + '1', k: R.int(1, 3), minLength: R.int(1, 2) }),
     s(I, T) {
       const s = I.s, n = s.length, P = c => '2357'.includes(c); if (!P(s[0]) || P(s[n - 1])) return 0; let dp = Array(n + 1).fill(0); dp[0] = 1;
-      for (let p = 1; p <= I.k; p++) { const nx = Array(n + 1).fill(0); for (let i = I.minLength; i <= n; i++) if (!P(s[i - 1]) && (i === n || P(s[i]))) for (let j = 0; j + I.minLength <= i; j++) if (dp[j] && (j === 0 || (!P(s[j - 1]) && P(s[j])))) nx[i] = (nx[i] + dp[j]) % MOD; dp = nx; T.at({ s: A([...s], { cls: [...s].map(c => P(c) ? 'ok' : '') }), parts: p, minLength: I.minLength }); T.n(`Ways to split the whole string into ${p} part(s)?`, dp[n], 'Cuts only between a non-prime and a prime.'); }
+      for (let p = 1; p <= I.k; p++) { const nx = Array(n + 1).fill(0); for (let i = I.minLength; i <= n; i++) if (!P(s[i - 1]) && (i === n || P(s[i]))) for (let j = 0; j + I.minLength <= i; j++) if (dp[j] && (j === 0 || (!P(s[j - 1]) && P(s[j])))) nx[i] = (nx[i] + dp[j]) % MOD; dp = nx; T.at({ s: A([...s], { cls: [...s].map(c => P(c) ? 'ok' : '') }), parts: p, minLength: I.minLength }); T.n(`Ways to split the whole string into ${p} parts?`, dp[n], 'Cuts only between a non-prime and a prime.'); }
       return dp[n];
     }
   });
 
   D('count-palindromic-subsequences', {
     t: 'Count Palindromic Subsequences of Length 5: pairs on both sides',
-    r: 'For each middle index, count digit pairs (a, b) before it and (b, a) after it: Σ pre[a][b] · suf[b][a].',
+    r: 'For each middle index, count digit pairs (a, b) before it and (b, a) after it: the sum of pre[a][b] times suf[b][a].',
     g: R => ({ s: R.str(R.int(5, 7), '01') }),
-    s(I, T) { const s = I.s, n = s.length; let tot = 0; for (let m = 2; m < n - 2; m++) { let v = 0; for (const a of '0123456789') for (const b of '0123456789') { let pre = 0, suf = 0; for (let i = 0; i < m; i++) for (let j = i + 1; j < m; j++) if (s[i] === a && s[j] === b) pre++; for (let i = m + 1; i < n; i++) for (let j = i + 1; j < n; j++) if (s[i] === b && s[j] === a) suf++; v += pre * suf; } T.at({ s: A([...s], { hl: [m] }), total: tot }); T.n(`Length-5 palindromes with middle index ${m}?`, v, 'Σ pairs (a, b) before × pairs (b, a) after.'); tot = (tot + v) % MOD; } return tot; }
+    s(I, T) { const s = I.s, n = s.length; let tot = 0; for (let m = 2; m < n - 2; m++) { let v = 0; for (const a of '0123456789') for (const b of '0123456789') { let pre = 0, suf = 0; for (let i = 0; i < m; i++) for (let j = i + 1; j < m; j++) if (s[i] === a && s[j] === b) pre++; for (let i = m + 1; i < n; i++) for (let j = i + 1; j < n; j++) if (s[i] === b && s[j] === a) suf++; v += pre * suf; } T.at({ s: A([...s], { hl: [m] }), total: tot }); T.n(`Length-5 palindromes with middle index ${m}?`, v, 'the sum of pairs (a, b) before times pairs (b, a) after.'); tot = (tot + v) % MOD; } return tot; }
   });
 })();
