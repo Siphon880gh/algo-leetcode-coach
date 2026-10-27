@@ -236,7 +236,7 @@
     }
     var lines = [];
     var title = data.title ? String(data.title) : 'this step-by-step session';
-    lines.push('I am working through a deterministic step-by-step algorithm session in an Algo Learning IDE.');
+    lines.push('I am working through a deterministic step-by-step algorithm session in a Leetcode Practice Coach IDE.');
     lines.push('');
     lines.push('Session: ' + title);
     if (data.topic) lines.push('Topic: ' + String(data.topic));

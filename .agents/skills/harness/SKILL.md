@@ -2,13 +2,13 @@
 name: harness
 description: >-
   Create Algo Guides, Cursor AI Guides, mini games, and deterministic step-by-step
-  sessions for Algo Learning IDE with UI. Use when the user wants a new guide,
+  sessions for Leetcode Practice Coach IDE with UI. Use when the user wants a new guide,
   game, or step-by-step wizard under content/, or when prompting how to author
   study artifacts in this app. Guides use Markdown body.md, meta.kind
   (algo|cursor), and may include [!ui-builder] AI prompt builder widgets.
 ---
 
-# Algo Learning IDE — Harness
+# Leetcode Practice Coach IDE — Harness
 
 This skill is **strictly** for Cursor creating these artifacts inside this app:
 
@@ -152,7 +152,7 @@ Use a Markdown blockquote callout. Each `INPUT_*` line becomes a labeled text fi
 > INPUT_TOPIC: Theory or problem
 > INPUT_SLUG: Folder slug (kebab-case)
 > PROMPT:
-> Use the harness skill at .agents/skills/harness to create a mini-game in this Algo Learning IDE app that teaches [INPUT_TOPIC]. Place it under content/games/[INPUT_SLUG]/ follow meta.php + index.html.
+> Use the harness skill at .agents/skills/harness to create a mini-game in this Leetcode Practice Coach IDE app that teaches [INPUT_TOPIC]. Place it under content/games/[INPUT_SLUG]/ follow meta.php + index.html.
 ```
 
 **Rules for `[!ui-builder]`**

@@ -16,7 +16,7 @@ Fill the fields, preview the prompt, then copy it into Cursor (or Claude Code).
 > INPUT_TOPIC: Theory or problem
 > INPUT_SLUG: Folder slug (kebab-case)
 > PROMPT:
-> Use the harness skill at .agents/skills/harness to create a mini-game in this Algo Learning IDE app that teaches [INPUT_TOPIC]. Place it under content/games/[INPUT_SLUG]. Follow the meta.php + index.html contract, and use .agents/skills/game-development-sickn33 for web/2d craft if needed.
+> Use the harness skill at .agents/skills/harness to create a mini-game in this Leetcode Practice Coach IDE app that teaches [INPUT_TOPIC]. Place it under content/games/[INPUT_SLUG]. Follow the meta.php + index.html contract, and use .agents/skills/game-development-sickn33 for web/2d craft if needed.
 
 ## Prefer a step-by-step walkthrough instead?
 

@@ -13,7 +13,7 @@ Keep `(m1, n1)` and `(m2, n2)`, start `m2` as a sentinel different from `m1`. Fo
 > INPUT_TOPIC: Theory or problem
 > INPUT_SLUG: Folder slug (kebab-case)
 > PROMPT:
-> Use the harness skill at .agents/skills/harness to create a mini-game in this Algo Learning IDE app that teaches [INPUT_TOPIC]. Place it under content/games/[INPUT_SLUG]/. Follow meta.php + index.html. Use .agents/skills/game-development-sickn33 for web/2d craft if needed.
+> Use the harness skill at .agents/skills/harness to create a mini-game in this Leetcode Practice Coach IDE app that teaches [INPUT_TOPIC]. Place it under content/games/[INPUT_SLUG]/. Follow meta.php + index.html. Use .agents/skills/game-development-sickn33 for web/2d craft if needed.
 
 > [!ui-builder] Step-by-step
 > INPUT_TOPIC: Theory or problem

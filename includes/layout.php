@@ -8,12 +8,12 @@ require_once __DIR__ . '/content.php';
  */
 function layout_start(array $opts = []): void
 {
-    $title = $opts['title'] ?? 'Algo Learning IDE with UI';
+    $title = $opts['title'] ?? 'Leetcode Practice Coach IDE with UI';
     $description = $opts['description'] ?? 'Interactive Cursor harness extension for system design, data structures, algorithms, and LeetCode.';
     $active = $opts['active'] ?? '';
-    $pageTitle = $title === 'Algo Learning IDE with UI'
+    $pageTitle = $title === 'Leetcode Practice Coach IDE with UI'
         ? $title
-        : $title . ' · Algo Learning IDE with UI';
+        : $title . ' · Leetcode Practice Coach IDE with UI';
     ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -32,8 +32,8 @@ function layout_start(array $opts = []): void
     <header class="site-header">
         <div class="site-header__inner">
             <a class="brand" href="<?= e(url('index.php')) ?>">
-                <span class="brand__mark">AL</span>
-                <span class="brand__text">Algo Learning IDE with UI</span>
+                <span class="brand__mark">LP</span>
+                <span class="brand__text">Leetcode Practice Coach IDE with UI</span>
             </a>
             <nav class="nav" aria-label="Primary">
                 <a class="nav__link<?= $active === 'guides-cursor' ? ' is-active' : '' ?>" href="<?= e(guide_list_url('cursor')) ?>">Cursor AI</a>

@@ -89,19 +89,19 @@ Copy into guide `[!ui-builder]` PROMPT bodies or the hub. Always mention `.agent
 ### Create an Algo Guide
 
 ```
-Use the harness skill at .agents/skills/harness to create an Algo Guide in this Algo Learning IDE app for [TOPIC / PROBLEM]. Put it under content/guides/[slug]/ set kind => 'algo' in meta.php; use body.md; include complexity notes and an [!ui-builder] or copyable prompt to create a related mini-game and/or step-by-step session.
+Use the harness skill at .agents/skills/harness to create an Algo Guide in this Leetcode Practice Coach IDE app for [TOPIC / PROBLEM]. Put it under content/guides/[slug]/ set kind => 'algo' in meta.php; use body.md; include complexity notes and an [!ui-builder] or copyable prompt to create a related mini-game and/or step-by-step session.
 ```
 
 ### Create a Cursor AI Guide
 
 ```
-Use the harness skill at .agents/skills/harness to create a Cursor AI Guide in this Algo Learning IDE app about [HARNESS / CURSOR USAGE]. Put it under content/guides/[slug]/ set kind => 'cursor' in meta.php; use body.md with [!ui-builder] so the student can fill variables and copy a prompt into Cursor.
+Use the harness skill at .agents/skills/harness to create a Cursor AI Guide in this Leetcode Practice Coach IDE app about [HARNESS / CURSOR USAGE]. Put it under content/guides/[slug]/ set kind => 'cursor' in meta.php; use body.md with [!ui-builder] so the student can fill variables and copy a prompt into Cursor.
 ```
 
 ### Create a mini-game
 
 ```
-Use the harness skill at .agents/skills/harness to create a mini-game in this Algo Learning IDE app that teaches [THEORY OR PROBLEM]. Place it under content/games/[slug]/ follow meta.php + index.html. Use .agents/skills/game-development-sickn33 for web/2d craft if needed.
+Use the harness skill at .agents/skills/harness to create a mini-game in this Leetcode Practice Coach IDE app that teaches [THEORY OR PROBLEM]. Place it under content/games/[slug]/ follow meta.php + index.html. Use .agents/skills/game-development-sickn33 for web/2d craft if needed.
 ```
 
 ### Create a step-by-step session

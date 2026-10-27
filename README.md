@@ -1,4 +1,4 @@
-# Algo Learning IDE with UI
+# Leetcode Practice Coach IDE with UI
 
 By Weng (Weng Fei Fung)
 
@@ -13,7 +13,7 @@ Using AI, coaches you on LeetCode problems, system design, algorithms, and data 
 
 Home hub — jump into Algo Guides, Cursor AI Guides, mini games, or step-by-step sessions:
 
-![Home — Algo Learning IDE with UI](docs/screenshots/home.png)
+![Home — Leetcode Practice Coach IDE with UI](docs/screenshots/home.png)
 
 Cursor AI Guides include fillable prompt builders so you can copy a harness prompt into Cursor:
 

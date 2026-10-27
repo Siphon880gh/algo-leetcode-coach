@@ -4,11 +4,11 @@ declare(strict_types=1);
 require_once __DIR__ . '/includes/layout.php';
 
 $examplePrompt = <<<'PROMPT'
-Use the harness skill at .agents/skills/harness to create a step-by-step session in this Algo Learning IDE app for the Two Sum problem (LeetCode arrays). Follow the content/coaching contract, include at least one wrong-path leaf with rewind, and wire meta.php + tree.php so it appears under Step-by-step.
+Use the harness skill at .agents/skills/harness to create a step-by-step session in this Leetcode Practice Coach IDE app for the Two Sum problem (LeetCode arrays). Follow the content/coaching contract, include at least one wrong-path leaf with rewind, and wire meta.php + tree.php so it appears under Step-by-step.
 PROMPT;
 
 layout_start([
-    'title' => 'Algo Learning IDE with UI',
+    'title' => 'Leetcode Practice Coach IDE with UI',
     'description' => 'Interactive Cursor harness extension for system design, DSA, and LeetCode study.',
     'active' => 'home',
 ]);
@@ -16,7 +16,7 @@ layout_start([
 
 <section class="hero">
     <p class="hero__eyebrow">Cursor harness · study extension</p>
-    <h1 class="hero__brand">Algo Learning IDE with UI</h1>
+    <h1 class="hero__brand">Leetcode Practice Coach IDE with UI</h1>
     <p class="hero__lead">
         For students of system design, data structures, algorithms, and LeetCode.
         An interactive extension of the Cursor harness — learn here, then prompt Cursor to build the next guide, mini-game, or step-by-step path inside this app.
