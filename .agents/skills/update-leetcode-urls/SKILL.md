@@ -2,63 +2,50 @@
 name: update-leetcode-urls
 description: >-
   Use when updating the LeetCode url to LeetCode number map, refreshing
-  context-leetcode-urls/data-cleaned.json, data-difficulty.json, or
-  data-input.html, copying HTML from https://leetcode.com/problemset/, or when
-  LeetCode numbers in the app should open the LeetCode coding page in a tab.
+  context-leetcode-urls/data-cleaned.json or data-difficulty.json, when new
+  LeetCode problems were released, or when LeetCode numbers in the app should
+  open the LeetCode coding page in a tab. Pulls the public GraphQL problem list
+  (no login, no pasted HTML).
 ---
 
 # Update LeetCode urls to LeetCode numbers
 
 This skill is **strictly** for refreshing the problem-number → URL and Easy/Med/Hard maps used by this app.
 
-Do not scrape LeetCode. Do not invent URLs. Do not `Read()` `data-input.html` or `data-cleaned.json` whole (the HTML dump is huge).
+The map comes from LeetCode's **public** GraphQL problem list (`questionList` at `https://leetcode.com/graphql`). It needs no login and no cookies. **Never log in to LeetCode.** Do not invent URLs. Do not `Read()` `data-cleaned.json` or `data-difficulty.json` whole.
 
-## Gate 1 — introduce, report, ask, then stop
+## Step 1 — report and preview
 
-On start, **before any other work**:
-
-1. Introduce yourself as updating the leetcode url to leetcode number.
-2. Report the largest number leetcode number per the data-cleaned.json. Compute it from `context-leetcode-urls/data-cleaned.json` (max integer key). If the file is missing, say so and treat the largest number as unknown.
-3. Asks user if they want to update to current leetcode.
-
-**STOP.** Wait for a yes or no. Do not give copy/paste instructions until they say yes.
-
-If they say no, stop.
-
-## Gate 2 — copy HTML, then stop
-
-If they want to update to current leetcode, guide them to copy and paste the HTML at the element that names the table containing all the problems at https://leetcode.com/problemset/ and to save them to `context-leetcode-urls/data-input.html`.
-
-Tell them:
-
-1. Open https://leetcode.com/problemset/ in the browser.
-2. Load the full problem list in that table (scroll / page until every problem row you want is in the DOM — a single first page is not enough).
-3. In DevTools, select the element that names the table containing all the problems.
-4. Copy that element's HTML (Copy → Copy outerHTML).
-5. Paste it into `context-leetcode-urls/data-input.html`, replacing the file.
-6. Then let me (the AI) know when ready so I can clean the input into a map of leetcode problem to url.
-
-**STOP.** Wait until they say they are ready.
-
-## Gate 3 — clean the map
-
-When they say ready:
-
-1. Confirm `context-leetcode-urls/data-input.html` exists and contains `/problems/` links plus titles like `1. Two Sum`.
-2. From the repo root run:
+1. Say you are updating the LeetCode url to LeetCode number map.
+2. Report the current largest number (max integer key of `context-leetcode-urls/data-cleaned.json`; unknown if the file is missing).
+3. Preview what LeetCode has now, without writing:
 
 ```bash
-python3 .agents/skills/update-leetcode-urls/scripts/clean.py
+python3 .agents/skills/update-leetcode-urls/scripts/fetch_list.py --dry-run
 ```
 
-3. The script writes `context-leetcode-urls/data-cleaned.json` (problem number → URL) and `context-leetcode-urls/data-difficulty.json` (problem number → `Easy` / `Med` / `Hard` from the table column). Report count and new largest number.
-4. If the script fails or finds fewer than a few hundred problems, do not keep a partial overwrite as done. Inspect a small HTML sample with a script (not `Read()` of the whole file), fix the parser if the markup changed, or ask them to copy the full table again.
+It pages the list (100 rows per request, 1.2 s apart, about a minute for ~4,100 problems) and prints the reported total, the new max, the added numbers, which added numbers are paid-only, and any gaps from 1 to the new max.
 
-Do not invent missing numbers. Duplicate numbers with the same URL are fine; different URLs for the same number is a stop-and-ask.
+If the user only asked what is new, stop here and report. If they asked to update (or a drain needs the new numbers), continue.
 
-## Gate 4 — links open the coding page in a tab
+## Step 2 — write the maps
 
-Then I (the AI) will make sure leetcode problems link to the leetcode coding page in a tab.
+```bash
+python3 .agents/skills/update-leetcode-urls/scripts/fetch_list.py
+```
+
+- Writes `context-leetcode-urls/data-cleaned.json` (number → `https://leetcode.com/problems/{slug}`) and `context-leetcode-urls/data-difficulty.json` (number → `Easy` / `Med` / `Hard`).
+- Existing entries are kept; new numbers are merged in and both files are rewritten sorted.
+- It refuses to write when fewer rows came back than the reported total, or when an existing number now points at a different URL. A different URL for the same number is a stop-and-ask: report it to the user instead of forcing it.
+- Report the count, the new largest number, the paid-only new numbers, and gaps (should be 0).
+
+Paid-only numbers still get a URL and difficulty. Their statements are handled by `.agents/skills/fetch-leetcode-problems` (`premium.json` plus `build_premium.py` from the doocs clone).
+
+### Legacy fallback (only if GraphQL is down)
+
+`scripts/clean.py` still parses a pasted problem-table outerHTML at `context-leetcode-urls/data-input.html`. Use it only when the GraphQL list fails for several minutes and the user agrees to paste the HTML. Do not `Read()` that HTML file whole.
+
+## Step 3 — links open the coding page in a tab
 
 1. App lookup is `content_leetcode_url()` / `content_leetcode_difficulty()` in `includes/content.php`, which read `data-cleaned.json` and `data-difficulty.json`.
 2. UI labels go through `content_leetcode_label_html()` / `content_leetcode_difficulty_html()` / `render_leetcode_row()` and the Browse panel. Number links must be `<a class="leetcode-link" href="{url}" target="_blank" rel="noopener noreferrer">` (never nested inside another `<a>`). Easy / Med / Hard sits on that same row, after the number.

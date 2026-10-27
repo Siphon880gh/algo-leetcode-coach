@@ -1,0 +1,206 @@
+<p>You are given a string <code>s</code> of length <code>n</code> consisting of lowercase English letters.</p>
+
+<p>For every triplet of indices <code>(i, j, k)</code> satisfying <code>0 &lt;= i &lt;= j &lt; k &lt; n</code>, define:</p>
+
+<ul>
+	<li><code>s1 = s[i..j]</code></li>
+	<li><code>s2 = s[j + 1..k]</code></li>
+</ul>
+
+<p>A pair of <strong>substrings</strong> <code>(s1, s2)</code> is called <strong>magical</strong> if the number of <strong>distinct</strong> characters in <code>s1</code> is <strong>equal</strong> to the number of <strong>distinct</strong> characters in <code>s2</code>.</p>
+
+<p>Return the number of <strong>triplets</strong> <code>(i, j, k)</code> for which <code>(s1, s2)</code> is a <strong>magical</strong> pair.</p>
+
+<p>A <strong>substring</strong> is a contiguous <b>non-empty</b> sequence of characters within a string.</p>
+
+<p><strong>Example 1:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "aba"</span></p>
+
+<p><strong>Output:</strong> <span>2</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>There are 2 valid triplets:</p>
+
+<table>
+	<thead>
+		<tr>
+			<th>No.</th>
+			<th><code>(i, j, k)</code></th>
+			<th><code>s1</code></th>
+			<th><code>s2</code></th>
+			<th><code>distinct(s1)</code></th>
+			<th><code>distinct(s2)</code></th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>1</td>
+			<td>(0, 0, 1)</td>
+			<td>"a"</td>
+			<td>"b"</td>
+			<td>1</td>
+			<td>1</td>
+		</tr>
+		<tr>
+			<td>2</td>
+			<td>(1, 1, 2)</td>
+			<td>"b"</td>
+			<td>"a"</td>
+			<td>1</td>
+			<td>1</td>
+		</tr>
+	</tbody>
+</table>
+</div>
+
+<p><strong>Example 2:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "kkk"</span></p>
+
+<p><strong>Output:</strong> <span>4</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>There are 4 valid triplets:</p>
+
+<table>
+	<thead>
+		<tr>
+			<th>No.</th>
+			<th><code>(i, j, k)</code></th>
+			<th><code>s1</code></th>
+			<th><code>s2</code></th>
+			<th><code>distinct(s1)</code></th>
+			<th><code>distinct(s2)</code></th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>1</td>
+			<td>(0, 0, 1)</td>
+			<td>"k"</td>
+			<td>"k"</td>
+			<td>1</td>
+			<td>1</td>
+		</tr>
+		<tr>
+			<td>2</td>
+			<td>(0, 0, 2)</td>
+			<td>"k"</td>
+			<td>"kk"</td>
+			<td>1</td>
+			<td>1</td>
+		</tr>
+		<tr>
+			<td>3</td>
+			<td>(0, 1, 2)</td>
+			<td>"kk"</td>
+			<td>"k"</td>
+			<td>1</td>
+			<td>1</td>
+		</tr>
+		<tr>
+			<td>4</td>
+			<td>(1, 1, 2)</td>
+			<td>"k"</td>
+			<td>"k"</td>
+			<td>1</td>
+			<td>1</td>
+		</tr>
+	</tbody>
+</table>
+</div>
+
+<p><strong>Example 3:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>s = "abcac"</span></p>
+
+<p><strong>Output:</strong> <span>7</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>There are 7 valid triplets:</p>
+
+<table>
+	<thead>
+		<tr>
+			<th>No.</th>
+			<th><code>(i, j, k)</code></th>
+			<th><code>s1</code></th>
+			<th><code>s2</code></th>
+			<th><code>distinct(s1)</code></th>
+			<th><code>distinct(s2)</code></th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>1</td>
+			<td>(0, 0, 1)</td>
+			<td>"a"</td>
+			<td>"b"</td>
+			<td>1</td>
+			<td>1</td>
+		</tr>
+		<tr>
+			<td>2</td>
+			<td>(1, 1, 2)</td>
+			<td>"b"</td>
+			<td>"c"</td>
+			<td>1</td>
+			<td>1</td>
+		</tr>
+		<tr>
+			<td>3</td>
+			<td>(2, 2, 3)</td>
+			<td>"c"</td>
+			<td>"a"</td>
+			<td>1</td>
+			<td>1</td>
+		</tr>
+		<tr>
+			<td>4</td>
+			<td>(3, 3, 4)</td>
+			<td>"a"</td>
+			<td>"c"</td>
+			<td>1</td>
+			<td>1</td>
+		</tr>
+		<tr>
+			<td>5</td>
+			<td>(0, 1, 3)</td>
+			<td>"ab"</td>
+			<td>"ca"</td>
+			<td>2</td>
+			<td>2</td>
+		</tr>
+		<tr>
+			<td>6</td>
+			<td>(0, 1, 4)</td>
+			<td>"ab"</td>
+			<td>"cac"</td>
+			<td>2</td>
+			<td>2</td>
+		</tr>
+		<tr>
+			<td>7</td>
+			<td>(1, 2, 4)</td>
+			<td>"bc"</td>
+			<td>"ac"</td>
+			<td>2</td>
+			<td>2</td>
+		</tr>
+	</tbody>
+</table>
+</div>
+
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>2 &lt;= s.length &lt;= 2000</code></li>
+	<li><code>s</code> consists of lowercase English letters.</li>
+</ul>

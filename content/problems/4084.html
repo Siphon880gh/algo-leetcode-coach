@@ -1,0 +1,58 @@
+<p>You are given an <code>m x n</code> matrix <code>grid</code> where each cell contains one of the following characters:</p>
+
+<ul>
+	<li><code>'L'</code>: move one cell left.</li>
+	<li><code>'R'</code>: move one cell right.</li>
+	<li><code>'U'</code>: move one cell up.</li>
+	<li><code>'D'</code>: move one cell down.</li>
+</ul>
+
+<p>You start at cell <code>(0, 0)</code>, which is considered visited. At each step, move to the cell indicated by the character in your current cell.</p>
+
+<p>The process <strong>ends</strong> if the indicated move would either leave the grid or enter a cell that has already been visited. In either case, the move is <strong>not</strong> made.</p>
+
+<p>Return an integer array <code>[r, c]</code> representing the <strong>row and column indices</strong> of the <strong>last visited cell</strong>. The indices are <strong>0-based</strong>.</p>
+
+<p><strong>Example 1:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>grid = [["R","D"],["U","L"]]</span></p>
+
+<p><strong>Output:</strong> <span>[1,0]</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<ul>
+	<li>Start at cell <code>(0, 0)</code>, which contains <code>'R'</code>, so move right to <code>(0, 1)</code>.</li>
+	<li>At cell <code>(0, 1)</code>, the character is <code>'D'</code>, so move down to <code>(1, 1)</code>.</li>
+	<li>At cell <code>(1, 1)</code>, the character is <code>'L'</code>, so move left to <code>(1, 0)</code>.</li>
+	<li>At cell <code>(1, 0)</code>, the character is <code>'U'</code>, which indicates moving to <code>(0, 0)</code>. However, <code>(0, 0)</code> has already been visited, so this move is not made.</li>
+	<li>Therefore, the process ends at the last visited cell <code>(1, 0)</code>, so the answer is <code>[1, 0]</code>.</li>
+</ul>
+</div>
+
+<p><strong>Example 2:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>grid = [["R","R","R"]]</span></p>
+
+<p><strong>Output:</strong> <span>[0,2]</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<ul>
+	<li>Start at cell <code>(0, 0)</code>, which contains <code>'R'</code>, so move right to <code>(0, 1)</code>.</li>
+	<li>At cell <code>(0, 1)</code>, the character is <code>'R'</code>, so move right to <code>(0, 2)</code>.</li>
+	<li>At cell <code>(0, 2)</code>, the character is <code>'R'</code>, which indicates moving to <code>(0, 3)</code>. However, <code>(0, 3)</code> is outside the grid, so this move is not made.</li>
+	<li>Therefore, the process ends at the last visited cell <code>(0, 2)</code>, so the answer is <code>[0, 2]</code>.</li>
+</ul>
+</div>
+
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>1 &lt;= m == grid.length &lt;= 10<sup>5</sup></code></li>
+	<li><code>1 &lt;= n == grid[i].length &lt;= 10<sup>5</sup></code></li>
+	<li><code>m * n &lt;= 10<sup>5</sup></code></li>
+	<li><code>grid[i][j]</code> is one of <code>'L'</code>, <code>'R'</code>, <code>'U'</code>, or <code>'D'</code>.</li>
+</ul>

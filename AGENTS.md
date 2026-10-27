@@ -29,7 +29,7 @@ For numbered LeetCode work, progress is **problem numbers**, not context-repo sl
 - Numbered pages set `'leetcode' => N` and `'difficulty'` (`Easy` \| `Med` \| `Hard`) from `context-leetcode-urls/data-difficulty.json`.
 - A problem is in scope when a statement exists: `content/problems/{N}.html` or `N` in `content/problems/premium.json` (fetch via `.agents/skills/fetch-leetcode-problems`; never log in to LeetCode).
 - Balance **Algo Guides** and **Step-by-steps** so both cover the same number range. The graph keeps total counts `G` and `S` within 20; catch-up authors the lagging companion for a slug that already has the leading side, then pairs them.
-- “Drain all the way” for Leet content means: guides and sessions both reach the **last problem with a statement available** (currently **4041**), with pairing/chrome checks passing for locked and unlocked as applicable.
+- “Drain all the way” for Leet content means: guides and sessions both reach the **last problem with a statement available** (currently **4095**), with pairing/chrome checks passing for locked and unlocked as applicable.
 
 Never author a second numbered LeetCode guide/session when any page already has that `leetcode` number (skip `leetcode_exists` in the graph/author prompts). Context libraries under `context/` (doocs, hello-algo, …) are the **source queue** for author loops. Reporting still leads with Leet numbers when the batch is numbered problems.
 

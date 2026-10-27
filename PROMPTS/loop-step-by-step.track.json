@@ -24636,10 +24636,328 @@
       "title": "Binary Tree Traversal"
     },
     {
-      "repo": "leetcode-master",
-      "id": "problems/0028.实现strStr.md",
-      "slug": "strstr",
-      "title": "实现strStr"
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4042.Valid K-Unique Subarrays II",
+      "slug": "valid-k-unique-subarrays-ii",
+      "title": "Valid K-Unique Subarrays II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4043.Count Rotations With Exactly K Equal Adjacent Pairs",
+      "slug": "count-rotations-with-exactly-k-equal-adjacent-pairs",
+      "title": "Count Rotations With Exactly K Equal Adjacent Pairs"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4044.Count Good Cyclic Rotations",
+      "slug": "count-good-cyclic-rotations",
+      "title": "Count Good Cyclic Rotations"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4045.Count Robot Groups",
+      "slug": "count-robot-groups",
+      "title": "Count Robot Groups"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4046.Minimum Cost Path With At Most K Turns",
+      "slug": "minimum-cost-path-with-at-most-k-turns",
+      "title": "Minimum Cost Path With At Most K Turns"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4047.Minimum Operations to Make XOR of All Elements Zero",
+      "slug": "minimum-operations-to-make-xor-of-all-elements-zero",
+      "title": "Minimum Operations to Make XOR of All Elements Zero"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4048.Count Values With Equally Spaced Occurrences I",
+      "slug": "count-values-with-equally-spaced-occurrences-i",
+      "title": "Count Values With Equally Spaced Occurrences I"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4049.Count Values With Equally Spaced Occurrences II",
+      "slug": "count-values-with-equally-spaced-occurrences-ii",
+      "title": "Count Values With Equally Spaced Occurrences II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4050.Minimum Days to Score Exactly N Points",
+      "slug": "minimum-days-to-score-exactly-n-points",
+      "title": "Minimum Days to Score Exactly N Points"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4051.Count Subarrays with Distant Sums",
+      "slug": "count-subarrays-with-distant-sums",
+      "title": "Count Subarrays with Distant Sums"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4052.Cyclically Shift Rows and Columns",
+      "slug": "cyclically-shift-rows-and-columns",
+      "title": "Cyclically Shift Rows and Columns"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4053.Minimum Operations to Make Every Element Palindromic",
+      "slug": "minimum-operations-to-make-every-element-palindromic",
+      "title": "Minimum Operations to Make Every Element Palindromic"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4054.Count Shadow Pairs I",
+      "slug": "count-shadow-pairs-i",
+      "title": "Count Shadow Pairs I"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4055.Count Shadow Pairs II",
+      "slug": "count-shadow-pairs-ii",
+      "title": "Count Shadow Pairs II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4056.Number of Intersecting Interval Pairs I",
+      "slug": "number-of-intersecting-interval-pairs-i",
+      "title": "Number of Intersecting Interval Pairs I"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4057.Number of Intersecting Interval Pairs II",
+      "slug": "number-of-intersecting-interval-pairs-ii",
+      "title": "Number of Intersecting Interval Pairs II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4058.Maximum Pulse Value After One Subarray Rotation",
+      "slug": "maximum-pulse-value-after-one-subarray-rotation",
+      "title": "Maximum Pulse Value After One Subarray Rotation"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4059.Lexicographically Largest Power Array",
+      "slug": "lexicographically-largest-power-array",
+      "title": "Lexicographically Largest Power Array"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4060.Count Evenly Good Integers",
+      "slug": "count-evenly-good-integers",
+      "title": "Count Evenly Good Integers"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4061.Minimum Queen Moves to Reach Target",
+      "slug": "minimum-queen-moves-to-reach-target",
+      "title": "Minimum Queen Moves to Reach Target"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4062.Transform Array Using Pair Operations",
+      "slug": "transform-array-using-pair-operations",
+      "title": "Transform Array Using Pair Operations"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4063.Longest Subarray Divisible by K with At Most One Negation I",
+      "slug": "longest-subarray-divisible-by-k-with-at-most-one-negation-i",
+      "title": "Longest Subarray Divisible by K with At Most One Negation I"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4064.Longest Subarray Divisible by K with At Most One Negation II",
+      "slug": "longest-subarray-divisible-by-k-with-at-most-one-negation-ii",
+      "title": "Longest Subarray Divisible by K with At Most One Negation II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4065.Rearrange Array by Removing Distinct Values",
+      "slug": "rearrange-array-by-removing-distinct-values",
+      "title": "Rearrange Array by Removing Distinct Values"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4066.Maximum Equal Adjacent Pairs After at Most One Replacement",
+      "slug": "maximum-equal-adjacent-pairs-after-at-most-one-replacement",
+      "title": "Maximum Equal Adjacent Pairs After at Most One Replacement"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4067.Longest Subarray With Restricted Pair Sums",
+      "slug": "longest-subarray-with-restricted-pair-sums",
+      "title": "Longest Subarray With Restricted Pair Sums"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4068.Maximize Meeting Earnings with Idle Gaps",
+      "slug": "maximize-meeting-earnings-with-idle-gaps",
+      "title": "Maximize Meeting Earnings with Idle Gaps"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4069.Best Time to Buy and Sell Stock with Cooldown II",
+      "slug": "best-time-to-buy-and-sell-stock-with-cooldown-ii",
+      "title": "Best Time to Buy and Sell Stock with Cooldown II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4070.Minimum Rotations to Dial a Number I",
+      "slug": "minimum-rotations-to-dial-a-number-i",
+      "title": "Minimum Rotations to Dial a Number I"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4071.Minimum Rotations to Dial a Number II",
+      "slug": "minimum-rotations-to-dial-a-number-ii",
+      "title": "Minimum Rotations to Dial a Number II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4072.Maximum Alternating Subarray Sum With One Deletion",
+      "slug": "maximum-alternating-subarray-sum-with-one-deletion",
+      "title": "Maximum Alternating Subarray Sum With One Deletion"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4073.Count Good Strings",
+      "slug": "count-good-strings",
+      "title": "Count Good Strings"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4074.Maximum Product Pair With Target Sum",
+      "slug": "maximum-product-pair-with-target-sum",
+      "title": "Maximum Product Pair With Target Sum"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4075.Longest Resilient Subarray I",
+      "slug": "longest-resilient-subarray-i",
+      "title": "Longest Resilient Subarray I"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4076.Longest Resilient Subarray II",
+      "slug": "longest-resilient-subarray-ii",
+      "title": "Longest Resilient Subarray II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4077.Minimize Inversions in a Prefix Tree",
+      "slug": "minimize-inversions-in-a-prefix-tree",
+      "title": "Minimize Inversions in a Prefix Tree"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4078.Three Fibonacci Sum",
+      "slug": "three-fibonacci-sum",
+      "title": "Three Fibonacci Sum"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4079.Prime Subset Selection I",
+      "slug": "prime-subset-selection-i",
+      "title": "Prime Subset Selection I"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4080.Design Bus Seat Booking System",
+      "slug": "design-bus-seat-booking-system",
+      "title": "Design Bus Seat Booking System"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4081.Prime Subset Selection II",
+      "slug": "prime-subset-selection-ii",
+      "title": "Prime Subset Selection II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4082.Minimum Operations to Stabilize a Binary Tree",
+      "slug": "minimum-operations-to-stabilize-a-binary-tree",
+      "title": "Minimum Operations to Stabilize a Binary Tree"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4083.Minimum Deletions to Make Array Sharp",
+      "slug": "minimum-deletions-to-make-array-sharp",
+      "title": "Minimum Deletions to Make Array Sharp"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4084.Last Visited Cell in a Directional Grid",
+      "slug": "last-visited-cell-in-a-directional-grid",
+      "title": "Last Visited Cell in a Directional Grid"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4085.Find Root of a Colored Tree",
+      "slug": "find-root-of-a-colored-tree",
+      "title": "Find Root of a Colored Tree"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4086.Minimum Interval Selection to Cover Target Intervals",
+      "slug": "minimum-interval-selection-to-cover-target-intervals",
+      "title": "Minimum Interval Selection to Cover Target Intervals"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4087.Maximum Subarray Sum of Fixed Length After at Most K Swaps",
+      "slug": "maximum-subarray-sum-of-fixed-length-after-at-most-k-swaps",
+      "title": "Maximum Subarray Sum of Fixed Length After at Most K Swaps"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4088.Difference Between Peaks and Valleys",
+      "slug": "difference-between-peaks-and-valleys",
+      "title": "Difference Between Peaks and Valleys"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4089.Count Subarrays With Loose Bounds",
+      "slug": "count-subarrays-with-loose-bounds",
+      "title": "Count Subarrays With Loose Bounds"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4090.Count Magical Substring Pairs I",
+      "slug": "count-magical-substring-pairs-i",
+      "title": "Count Magical Substring Pairs I"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4091.Count Magical Substring Pairs II",
+      "slug": "count-magical-substring-pairs-ii",
+      "title": "Count Magical Substring Pairs II"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4092.Binary Digit Score",
+      "slug": "binary-digit-score",
+      "title": "Binary Digit Score"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4093.Maximize Sum After At Most K Digit Rearrangements",
+      "slug": "maximize-sum-after-at-most-k-digit-rearrangements",
+      "title": "Maximize Sum After At Most K Digit Rearrangements"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4094.Count Frequency Staircase Subarrays I",
+      "slug": "count-frequency-staircase-subarrays-i",
+      "title": "Count Frequency Staircase Subarrays I"
+    },
+    {
+      "repo": "doocs-leetcode",
+      "id": "solution/4000-4099/4095.Count Frequency Staircase Subarrays II",
+      "slug": "count-frequency-staircase-subarrays-ii",
+      "title": "Count Frequency Staircase Subarrays II"
     }
   ],
   "skipped": [

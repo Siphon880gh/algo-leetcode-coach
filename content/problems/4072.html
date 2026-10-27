@@ -1,0 +1,50 @@
+<p>You are given an integer array <code>nums</code>.</p>
+
+<p>You may delete <strong>at most one</strong> element from <code>nums</code>, then choose a <strong><span>subarray</span></strong> of the resulting array.</p>
+
+<p>Return the <strong>maximum</strong> possible <strong>alternating sum</strong> of the chosen subarray.</p>
+
+<p>The <strong>alternating sum</strong> of an array is the sum of its elements at even indices minus the sum of its elements at odd indices. The chosen subarray is <strong>reindexed starting from 0</strong> before calculating its alternating sum.</p>
+
+<p><strong>Example 1:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>nums = [5,-5,1]</span></p>
+
+<p><strong>Output:</strong> <span>11</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>Choose not to delete an element and select the entire array. Its alternating sum is <code>5 - (-5) + 1 = 11</code>, which is the maximum possible.</p>
+</div>
+
+<p><strong>Example 2:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>nums = [10,-5,-100]</span></p>
+
+<p><strong>Output:</strong> <span>110</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>Delete <code>nums[1] = -5</code> to obtain <code>[10,-100]</code>, then select the entire resulting array. Its alternating sum is <code>10 - (-100) = 110</code>, which is the maximum possible.</p>
+</div>
+
+<p><strong>Example 3:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>nums = [4,7]</span></p>
+
+<p><strong>Output:</strong> <span>7</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>Choose not to delete an element and select the subarray <code>[7]</code>. Its alternating sum is 7, which is the maximum possible.</p>
+</div>
+
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>1 &lt;= nums.length &lt;= 10<sup>5</sup></code></li>
+	<li><code>-10<sup>5</sup> &lt;= nums[i] &lt;= 10<sup>5</sup></code></li>
+</ul>

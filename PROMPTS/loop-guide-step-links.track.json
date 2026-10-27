@@ -211,6 +211,276 @@
       "slug": "vector",
       "guide": true,
       "session": true
+    },
+    {
+      "slug": "valid-k-unique-subarrays-ii",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "count-rotations-with-exactly-k-equal-adjacent-pairs",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "count-good-cyclic-rotations",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "count-robot-groups",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "minimum-cost-path-with-at-most-k-turns",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "minimum-operations-to-make-xor-of-all-elements-zero",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "count-values-with-equally-spaced-occurrences-i",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "count-values-with-equally-spaced-occurrences-ii",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "minimum-days-to-score-exactly-n-points",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "count-subarrays-with-distant-sums",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "cyclically-shift-rows-and-columns",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "minimum-operations-to-make-every-element-palindromic",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "count-shadow-pairs-i",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "count-shadow-pairs-ii",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "number-of-intersecting-interval-pairs-i",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "number-of-intersecting-interval-pairs-ii",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "maximum-pulse-value-after-one-subarray-rotation",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "lexicographically-largest-power-array",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "count-evenly-good-integers",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "minimum-queen-moves-to-reach-target",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "transform-array-using-pair-operations",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "longest-subarray-divisible-by-k-with-at-most-one-negation-i",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "longest-subarray-divisible-by-k-with-at-most-one-negation-ii",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "rearrange-array-by-removing-distinct-values",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "maximum-equal-adjacent-pairs-after-at-most-one-replacement",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "longest-subarray-with-restricted-pair-sums",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "maximize-meeting-earnings-with-idle-gaps",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "best-time-to-buy-and-sell-stock-with-cooldown-ii",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "minimum-rotations-to-dial-a-number-i",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "minimum-rotations-to-dial-a-number-ii",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "maximum-alternating-subarray-sum-with-one-deletion",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "count-good-strings",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "maximum-product-pair-with-target-sum",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "longest-resilient-subarray-i",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "longest-resilient-subarray-ii",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "minimize-inversions-in-a-prefix-tree",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "three-fibonacci-sum",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "prime-subset-selection-i",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "design-bus-seat-booking-system",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "prime-subset-selection-ii",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "minimum-operations-to-stabilize-a-binary-tree",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "minimum-deletions-to-make-array-sharp",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "last-visited-cell-in-a-directional-grid",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "find-root-of-a-colored-tree",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "minimum-interval-selection-to-cover-target-intervals",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "maximum-subarray-sum-of-fixed-length-after-at-most-k-swaps",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "difference-between-peaks-and-valleys",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "count-subarrays-with-loose-bounds",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "count-magical-substring-pairs-i",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "count-magical-substring-pairs-ii",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "binary-digit-score",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "maximize-sum-after-at-most-k-digit-rearrangements",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "count-frequency-staircase-subarrays-i",
+      "guide": true,
+      "session": true
+    },
+    {
+      "slug": "count-frequency-staircase-subarrays-ii",
+      "guide": true,
+      "session": true
     }
   ],
   "skipped": [
@@ -24831,12 +25101,6 @@
       "guide": true,
       "session": true,
       "reason": "already_linked"
-    },
-    {
-      "slug": "labu-contribution-guide",
-      "guide": true,
-      "session": false,
-      "reason": "no_pair"
     }
   ],
   "exhausted": true

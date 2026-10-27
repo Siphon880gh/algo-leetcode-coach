@@ -1,0 +1,173 @@
+<p>You are given an integer <code>n</code> and a string <code>s</code> of length <code>n</code> consisting of digits.</p>
+
+<p>The dial contains the digits 0 through 9 in order and is <strong>circular</strong>, so 0 and 9 are adjacent. The pointer initially points to 0.</p>
+
+<p>To dial each digit of <code>s</code> <strong>in order</strong>, rotate the pointer until it points to that digit. Each rotation moves the pointer to an <strong>adjacent</strong> digit, and you may rotate in <strong>either</strong> direction. Dialing a digit that the pointer already points to requires no rotations.</p>
+
+<p>Before dialing, you may perform the following operation <strong>at most once</strong>:</p>
+
+<ul>
+	<li>Choose an index <code>k</code> such that <code>0 &lt;= k &lt; n</code> and <strong>reverse</strong> the <strong><span>suffix</span></strong> <code>s[k..n - 1]</code>.</li>
+</ul>
+
+<p>Return the <strong>minimum</strong> total number of rotations needed to dial the string after optimally choosing whether to perform the operation and which suffix to reverse.</p>
+
+<p><strong>Example 1:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>n = 4, s = "1502"</span></p>
+
+<p><strong>Output:</strong> <span>9</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>Reverse the suffix starting at <code>k = 1</code> to obtain <code>"1205"</code>, then dial it.</p>
+
+<table>
+	<thead>
+		<tr>
+			<th>Step</th>
+			<th>From</th>
+			<th>To</th>
+			<th>Rotations</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>1</td>
+			<td>0</td>
+			<td>1</td>
+			<td>1</td>
+		</tr>
+		<tr>
+			<td>2</td>
+			<td>1</td>
+			<td>2</td>
+			<td>1</td>
+		</tr>
+		<tr>
+			<td>3</td>
+			<td>2</td>
+			<td>0</td>
+			<td>2</td>
+		</tr>
+		<tr>
+			<td>4</td>
+			<td>0</td>
+			<td>5</td>
+			<td>5</td>
+		</tr>
+	</tbody>
+</table>
+
+<p>The total is <code>1 + 1 + 2 + 5 = 9</code>, which is the minimum total number of rotations.</p>
+</div>
+
+<p><strong>Example 2:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>n = 4, s = "2916"</span></p>
+
+<p><strong>Output:</strong> <span>12</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>Choose not to reverse a suffix and dial <code>"2916"</code>.</p>
+
+<table>
+	<thead>
+		<tr>
+			<th>Step</th>
+			<th>From</th>
+			<th>To</th>
+			<th>Rotations</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>1</td>
+			<td>0</td>
+			<td>2</td>
+			<td>2</td>
+		</tr>
+		<tr>
+			<td>2</td>
+			<td>2</td>
+			<td>9</td>
+			<td>3</td>
+		</tr>
+		<tr>
+			<td>3</td>
+			<td>9</td>
+			<td>1</td>
+			<td>2</td>
+		</tr>
+		<tr>
+			<td>4</td>
+			<td>1</td>
+			<td>6</td>
+			<td>5</td>
+		</tr>
+	</tbody>
+</table>
+
+<p>The total is <code>2 + 3 + 2 + 5 = 12</code>, which is the minimum total number of rotations.</p>
+</div>
+
+<p><strong>Example 3:</strong></p>
+
+<div>
+<p><strong>Input:</strong> <span>n = 4, s = "4219"</span></p>
+
+<p><strong>Output:</strong> <span>6</span></p>
+
+<p><strong>Explanation:</strong></p>
+
+<p>Reverse the suffix starting at <code>k = 0</code>, which reverses the entire string, to obtain <code>"9124"</code>, then dial it.</p>
+
+<table>
+	<thead>
+		<tr>
+			<th>Step</th>
+			<th>From</th>
+			<th>To</th>
+			<th>Rotations</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>1</td>
+			<td>0</td>
+			<td>9</td>
+			<td>1</td>
+		</tr>
+		<tr>
+			<td>2</td>
+			<td>9</td>
+			<td>1</td>
+			<td>2</td>
+		</tr>
+		<tr>
+			<td>3</td>
+			<td>1</td>
+			<td>2</td>
+			<td>1</td>
+		</tr>
+		<tr>
+			<td>4</td>
+			<td>2</td>
+			<td>4</td>
+			<td>2</td>
+		</tr>
+	</tbody>
+</table>
+
+<p>The total is <code>1 + 2 + 1 + 2 = 6</code>, which is the minimum total number of rotations.</p>
+</div>
+
+<p><strong>Constraints:</strong></p>
+
+<ul>
+	<li><code>1 &lt;= n == s.length &lt;= 10<sup>5</sup></code></li>
+	<li><code>s</code> consists only of digits <code>'0'</code> to <code>'9'</code></li>
+</ul>
