@@ -51,7 +51,7 @@
     t: 'Maximum Distance Between Unequal Words in Array I',
     r: 'An optimal pair always uses one end. Scan from the right for the last word different from words[0], and from the left for the first word different from words[n−1]; take the larger span.',
     g: R => ({ words: Array.from({ length: R.int(1, 7) }, () => R.pick(['a', 'b', 'c'])) }),
-    s(I, T) { const w = I.words, n = w.length; let j = n - 1; while (j > 0 && w[j] === w[0]) j--; let i = 0; while (i < n - 1 && w[i] === w[n - 1]) i++; const a = w[j] !== w[0] ? j + 1 : 0, b = w[i] !== w[n - 1] ? n - i : 0; T.at({ words: A(w, { i: 0, j }) }); T.n('Best span starting at index 0? (0 if none)', a, `Last word different from "${w[0]}".`); T.at({ words: A(w, { i, j: n - 1 }) }); T.n('Best span ending at the last index? (0 if none)', b, `First word different from "${w[n - 1]}".`); return Math.max(a, b); }
+    s(I, T) { const res = (() => { const w = I.words, n = w.length; let j = n - 1; while (j > 0 && w[j] === w[0]) j--; let i = 0; while (i < n - 1 && w[i] === w[n - 1]) i++; const a = w[j] !== w[0] ? j + 1 : 0, b = w[i] !== w[n - 1] ? n - i : 0; T.at({ words: A(w, { i: 0, j }) }); T.n('Best span starting at index 0? (0 if none)', a, `Last word different from "${w[0]}".`); T.at({ words: A(w, { i, j: n - 1 }) }); T.n('Best span ending at the last index? (0 if none)', b, `First word different from "${w[n - 1]}".`); return Math.max(a, b); })(); T.n('Maximum distance?', res, 'The larger of the two spans.'); return res; }
   });
 
   D('maximum-distance-between-unequal-words-in-array-ii', {
@@ -79,7 +79,7 @@
     t: 'Minimum Prefix Removal to Make Array Strictly Increasing',
     r: 'Walk from the right while each element is smaller than the one after it: that is the longest strictly increasing suffix. Remove everything before it.',
     g: R => ({ nums: R.ints(R.int(1, 7), -3, 6) }),
-    s(I, T) { const a = I.nums; let i = a.length - 1; while (i > 0) { const ok = a[i - 1] < a[i]; T.at({ nums: A(a, { i: i - 1, win: [i, a.length - 1] }) }); T.yn(`Does nums[${i - 1}] = ${a[i - 1]} extend the increasing suffix?`, ok, ok ? `${a[i - 1]} < ${a[i]}.` : `${a[i - 1]} ≥ ${a[i]}: the suffix starts at ${i}.`); if (!ok) break; i--; } if (a.length === 1) { T.at({ nums: A(a) }); T.n('Prefix to remove?', 0, 'One element is increasing.'); } return i; }
+    s(I, T) { const res = (() => { const a = I.nums; let i = a.length - 1; T.at({ nums: A(a) }); T.n('Length of nums?', a.length, 'Walk back from the last index.'); while (i > 0) { const ok = a[i - 1] < a[i]; T.at({ nums: A(a, { i: i - 1, win: [i, a.length - 1] }) }); T.yn(`Does nums[${i - 1}] = ${a[i - 1]} extend the increasing suffix?`, ok, ok ? `${a[i - 1]} < ${a[i]}.` : `${a[i - 1]} is at least ${a[i]}, so the suffix starts at ${i}.`); if (!ok) break; i--; } if (a.length === 1) { T.at({ nums: A(a) }); T.yn('Is a single element strictly increasing?', true, 'Nothing to compare.'); } return i; })(); T.n('Length of the prefix to remove?', res, 'Everything before the increasing suffix.'); return res; }
   });
 
   D('rotate-non-negative-elements', {
@@ -128,7 +128,7 @@
     t: 'Valid Subarrays With Exactly One Peak',
     r: 'List the peaks. For a peak at i, the left end ranges over (previous peak, i] and at most k left of i; the right end over [i, next peak) and at most k right of i. Multiply the two choices and add up over peaks.',
     g: R => ({ nums: R.ints(R.int(1, 8), 1, 6), k: R.int(1, 3) }),
-    s(I, T) { const a = I.nums, n = a.length, pk = range(1, n - 1).filter(i => a[i] > a[i - 1] && a[i] > a[i + 1]); T.at({ nums: A(a, { hl: pk }) }); T.n('How many peaks are there?', pk.length, 'Strictly above both neighbours.'); let tot = 0; pk.forEach((i, t) => { const L = Math.max(t ? pk[t - 1] + 1 : 0, i - I.k), Rr = Math.min(t + 1 < pk.length ? pk[t + 1] - 1 : n - 1, i + I.k), c = (i - L + 1) * (Rr - i + 1); tot += c; if (t < 4) { T.at({ nums: A(a, { i, win: [L, Rr] }), k: I.k }); T.n(`Valid subarrays around the peak at ${i}?`, c, `Left ends ${L}..${i}, right ends ${i}..${Rr}.`); } }); return tot; }
+    s(I, T) { const res = (() => { const a = I.nums, n = a.length, pk = range(1, n - 1).filter(i => a[i] > a[i - 1] && a[i] > a[i + 1]); T.at({ nums: A(a, { hl: pk }) }); T.n('Indices that could be peaks (not the two ends)?', Math.max(0, n - 2), 'A peak needs a neighbour on each side.'); T.n('How many peaks are there?', pk.length, 'Strictly above both neighbours.'); let tot = 0; pk.forEach((i, t) => { const L = Math.max(t ? pk[t - 1] + 1 : 0, i - I.k), Rr = Math.min(t + 1 < pk.length ? pk[t + 1] - 1 : n - 1, i + I.k), c = (i - L + 1) * (Rr - i + 1); tot += c; if (t < 4) { T.at({ nums: A(a, { i, win: [L, Rr] }), k: I.k }); T.n(`Valid subarrays around the peak at ${i}?`, c, `Left ends ${L} to ${i}, right ends ${i} to ${Rr}.`); } }); return tot; })(); T.n('Total valid subarrays?', res, 'Add the count for each peak.'); return res; }
   });
 
   D('minimum-absolute-difference-between-two-values', {

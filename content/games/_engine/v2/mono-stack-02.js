@@ -43,9 +43,9 @@
 
   D('apply-operations-to-maximize-score', {
     t: 'Apply Operations to Maximize Score',
-    r: 'Prime score = number of distinct prime factors. With monotonic stacks, each element is the chosen one in (left span) × (right span) subarrays (ties go left). Take elements largest-first, using up to that many operations, with fast modular powers.',
+    r: 'Prime score = number of distinct prime factors. With monotonic stacks, each element is the chosen one in (left span) times (right span) subarrays (ties go left). Take elements largest-first, using up to that many operations, with fast modular powers.',
     g: R => ({ nums: R.ints(R.int(1, 6), 2, 30), k: R.int(1, 8) }),
-    s(I, T) { const a = I.nums, ps = x => { let c = 0; for (let p = 2; p * p <= x; p++) if (x % p === 0) { c++; while (x % p === 0) x /= p; } return c + (x > 1 ? 1 : 0); }, s = a.map(ps), cnt = a.map((_, i) => { let l = i, r = i; while (l > 0 && s[l - 1] < s[i]) l--; while (r + 1 < a.length && s[r + 1] <= s[i]) r++; return (i - l + 1) * (r - i + 1); }); T.at({ nums: A(a), primeScore: A(s) }); T.n(`Subarrays where ${a[0]} (index 0) is chosen?`, cnt[0], 'Spans by strictly smaller left, ≤ right prime score.'); const ord = a.map((_, i) => i).sort((x, y) => a[y] - a[x]); let k = I.k, sc = 1n; for (const i of ord) { if (!k) break; let t = Math.min(k, cnt[i]); k -= t; let b = BigInt(a[i]), e = BigInt(t); while (e) { if (e & 1n) sc = sc * b % MOD; b = b * b % MOD; e >>= 1n; } } return Number(sc); }
+    s(I, T) { const res = (() => { const a = I.nums, ps = x => { let c = 0; for (let p = 2; p * p <= x; p++) if (x % p === 0) { c++; while (x % p === 0) x /= p; } return c + (x > 1 ? 1 : 0); }, s = a.map(ps), cnt = a.map((_, i) => { let l = i, r = i; while (l > 0 && s[l - 1] < s[i]) l--; while (r + 1 < a.length && s[r + 1] <= s[i]) r++; return (i - l + 1) * (r - i + 1); }); T.at({ nums: A(a), primeScore: A(s) }); T.n(`Subarrays where ${a[0]} (index 0) is chosen?`, cnt[0], 'Left span: strictly smaller prime scores. Right span: smaller or equal.'); const ord = a.map((_, i) => i).sort((x, y) => a[y] - a[x]); T.at({ nums: A(a, { i: ord[0] }), counts: A(cnt), k: I.k }); T.n(`Operations spent on the largest number, ${a[ord[0]]}?`, Math.min(I.k, cnt[ord[0]]), 'Up to its subarray count, capped by k.'); let k = I.k, sc = 1n; for (const i of ord) { if (!k) break; let t = Math.min(k, cnt[i]); k -= t; let b = BigInt(a[i]), e = BigInt(t); while (e) { if (e & 1n) sc = sc * b % MOD; b = b * b % MOD; e >>= 1n; } } return Number(sc); })(); T.n('Final score (remainder by 1e9+7)?', res, 'Multiply in each chosen number.'); return res; }
   });
 
   D('maximal-range-that-each-element-is-maximum-in-it', {
@@ -92,9 +92,9 @@
 
   D('find-sorted-submatrices-with-maximum-element-at-most-k', {
     t: 'Find Sorted Submatrices With Maximum Element at Most K',
-    r: 'For each cell, compute how far right the row stays ≤ k and non-increasing. Then for each column, count submatrices whose top-left is there using a monotonic stack over those widths going down rows (histogram counting).',
+    r: 'For each cell, compute how far right the row stays at most k and non-increasing. Then for each column, count submatrices whose top-left is there using a monotonic stack over those widths going down rows (histogram counting).',
     g: R => ({ grid: R.grid(R.int(1, 3), R.int(1, 4), 1, 5), k: R.int(1, 5) }),
-    s(I, T) { const g = I.grid, m = g.length, n = g[0].length, w = g.map(row => row.map((_, c) => { let e = c; if (row[c] > I.k) return 0; while (e + 1 < n && row[e + 1] <= row[e]) e++; return e - c + 1; })); let tot = 0; for (let c = 0; c < n; c++) for (let r = 0; r < m; r++) { let mn = Infinity; for (let r2 = r; r2 < m; r2++) { mn = Math.min(mn, w[r2][c]); tot += mn; } } T.at({ grid: G(g), widths: G(w) }); T.n('Valid width starting at the top-left cell?', w[0][0], 'Run of non-increasing values ≤ k.'); return tot; }
+    s(I, T) { const res = (() => { const g = I.grid, m = g.length, n = g[0].length, w = g.map(row => row.map((_, c) => { let e = c; if (row[c] > I.k) return 0; while (e + 1 < n && row[e + 1] <= row[e]) e++; return e - c + 1; })); let tot = 0; for (let c = 0; c < n; c++) for (let r = 0; r < m; r++) { let mn = Infinity; for (let r2 = r; r2 < m; r2++) { mn = Math.min(mn, w[r2][c]); tot += mn; } } T.at({ grid: G(g), widths: G(w) }); T.n('Cells with a value above k?', g.flat().filter(x => x > I.k).length, 'Their width is 0.'); T.n('Valid width starting at the top-left cell?', w[0][0], 'Run of non-increasing values at most k.'); return tot; })(); T.n('Total valid submatrices?', res, 'Histogram counting down each column.'); return res; }
   });
 
   D('maximum-and-minimum-sums-of-at-most-size-k-subarrays', {

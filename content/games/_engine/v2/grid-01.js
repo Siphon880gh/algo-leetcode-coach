@@ -18,7 +18,7 @@
     t: 'Rotate Image',
     r: 'Rotate 90° clockwise in place: transpose (swap across the main diagonal), then reverse each row.',
     g: R => { const n = R.int(1, 4); return { matrix: mat(R, n, n, 1, 9) }; },
-    s(I, T) { const n = I.matrix.length, m = I.matrix.map(r => r.slice()); for (let i = 0; i < n; i++) for (let j = i + 1; j < n; j++) [m[i][j], m[j][i]] = [m[j][i], m[i][j]]; T.at({ matrix: G(I.matrix) }); T.n('After transposing, what is at row 0, column 1?', n > 1 ? m[0][1] : m[0][0], 'Transpose swaps (i, j) and (j, i).'); m.forEach(r => r.reverse()); T.at({ transposed: G(I.matrix.map((_, i) => I.matrix.map(r => r[i]))) }); T.n('Top-left value of the rotated matrix?', m[0][0], 'Reverse each row.'); return m; }
+    s(I, T) { const res = (() => { const n = I.matrix.length, m = I.matrix.map(r => r.slice()); for (let i = 0; i < n; i++) for (let j = i + 1; j < n; j++) [m[i][j], m[j][i]] = [m[j][i], m[i][j]]; T.at({ matrix: G(I.matrix) }); T.n('After transposing, what is at row 0, column 1?', n > 1 ? m[0][1] : m[0][0], 'Transpose swaps (i, j) and (j, i).'); m.forEach(r => r.reverse()); T.at({ transposed: G(I.matrix.map((_, i) => I.matrix.map(r => r[i]))) }); T.n('Top-left value of the rotated matrix?', m[0][0], 'Reverse each row.'); return m; })(); const n = res.length; T.n('Bottom-right value of the rotated matrix?', res[n - 1][n - 1], 'It was the top-right of the original.'); return res; }
   });
 
   D('spiral-matrix', {
@@ -32,14 +32,14 @@
     t: 'Spiral Matrix II',
     r: 'Fill 1..n² along the spiral using shrinking bounds (top row → right column → bottom row → left column).',
     g: R => ({ n: R.int(1, 5) }),
-    s(I, T) { const n = I.n, m = Array.from({ length: n }, () => Array(n).fill(0)); let t = 0, b = n - 1, l = 0, r = n - 1, k = 1; while (k <= n * n) { for (let j = l; j <= r; j++) m[t][j] = k++; t++; for (let i = t; i <= b; i++) m[i][r] = k++; r--; for (let j = r; j >= l; j--) m[b][j] = k++; b--; for (let i = b; i >= t; i--) m[i][l] = k++; l++; } T.at({ n }); T.n('Value at the bottom-left corner?', m[n - 1][0], 'After top row, right column and bottom row.'); T.n('Value at the center (or just inside the top-left)?', m[n >> 1][(n - 1) >> 1], 'Follow the spiral.'); return m; }
+    s(I, T) { const res = (() => { const n = I.n, m = Array.from({ length: n }, () => Array(n).fill(0)); let t = 0, b = n - 1, l = 0, r = n - 1, k = 1; while (k <= n * n) { for (let j = l; j <= r; j++) m[t][j] = k++; t++; for (let i = t; i <= b; i++) m[i][r] = k++; r--; for (let j = r; j >= l; j--) m[b][j] = k++; b--; for (let i = b; i >= t; i--) m[i][l] = k++; l++; } T.at({ n }); T.n('Value at the bottom-left corner?', m[n - 1][0], 'After top row, right column and bottom row.'); T.n('Value at the center (or just inside the top-left)?', m[n >> 1][(n - 1) >> 1], 'Follow the spiral.'); return m; })(); T.n('Value at row 0, last column?', res[0][res.length - 1], 'The top row fills first, so it is n.'); return res; }
   });
 
   D('set-matrix-zeroes', {
     t: 'Set Matrix Zeroes',
     r: 'Record which rows and columns contain a zero (O(1) space: use the first row/column as markers plus two flags), then zero every cell whose row or column is marked.',
     g: R => ({ matrix: mat(R, R.int(1, 4), R.int(1, 4), 0, 4) }),
-    s(I, T) { const m = I.matrix, rs = new Set(), cs = new Set(); m.forEach((r, i) => r.forEach((v, j) => { if (!v) { rs.add(i); cs.add(j); } })); T.at({ matrix: G(m) }); T.n('Rows marked for zeroing?', rs.size, 'Rows containing a 0.'); T.n('Columns marked?', cs.size, 'Columns containing a 0.'); return m.map((r, i) => r.map((v, j) => rs.has(i) || cs.has(j) ? 0 : v)); }
+    s(I, T) { const res = (() => { const m = I.matrix, rs = new Set(), cs = new Set(); m.forEach((r, i) => r.forEach((v, j) => { if (!v) { rs.add(i); cs.add(j); } })); T.at({ matrix: G(m) }); T.n('Rows marked for zeroing?', rs.size, 'Rows containing a 0.'); T.n('Columns marked?', cs.size, 'Columns containing a 0.'); return m.map((r, i) => r.map((v, j) => rs.has(i) || cs.has(j) ? 0 : v)); })(); T.n('Zeros in the result?', res.flat().filter(v => v === 0).length, 'Every cell in a marked row or column.'); return res; }
   });
 
   D('game-of-life', {
@@ -53,14 +53,14 @@
     t: 'Best Meeting Point',
     r: 'Manhattan distance splits into rows and columns. The best row is the median of the people\'s rows and the best column the median of their columns; sum the distances.',
     g: R => { const g = mat(R, R.int(1, 4), R.int(1, 5), 0, 1); if (!g.flat().filter(x => x).length) g[0][0] = 1; if (g.flat().filter(x => x).length < 2) g[g.length - 1][g[0].length - 1] = 1; return { grid: g }; },
-    s(I, T) { const rows = [], cols = []; I.grid.forEach((r, i) => r.forEach((v, j) => { if (v) { rows.push(i); cols.push(j); } })); cols.sort((a, b) => a - b); const mr = rows[rows.length >> 1], mc = cols[cols.length >> 1]; T.at({ grid: G(I.grid), rows: A(rows), cols: A(cols) }); T.n('Median row?', mr, 'Middle of the sorted rows.'); T.n('Median column?', mc, 'Middle of the sorted columns.'); return rows.reduce((s, r) => s + Math.abs(r - mr), 0) + cols.reduce((s, c) => s + Math.abs(c - mc), 0); }
+    s(I, T) { const res = (() => { const rows = [], cols = []; I.grid.forEach((r, i) => r.forEach((v, j) => { if (v) { rows.push(i); cols.push(j); } })); cols.sort((a, b) => a - b); const mr = rows[rows.length >> 1], mc = cols[cols.length >> 1]; T.at({ grid: G(I.grid), rows: A(rows), cols: A(cols) }); T.n('Median row?', mr, 'Middle of the sorted rows.'); T.n('Median column?', mc, 'Middle of the sorted columns.'); return rows.reduce((s, r) => s + Math.abs(r - mr), 0) + cols.reduce((s, c) => s + Math.abs(c - mc), 0); })(); T.n('Minimum total distance?', res, 'Row distances to the median row plus column distances to the median column.'); return res; }
   });
 
   D('sparse-matrix-multiplication', {
     t: 'Sparse Matrix Multiplication',
     r: 'For each non-zero mat1[i][k], add mat1[i][k] · mat2[k][j] into res[i][j] for every non-zero mat2[k][j] — zeros are skipped entirely.',
     g: R => { const m = R.int(1, 3), k = R.int(1, 3), n = R.int(1, 3), sp = () => R.chance(0.5) ? 0 : R.int(-3, 4); return { mat1: Array.from({ length: m }, () => Array.from({ length: k }, sp)), mat2: Array.from({ length: k }, () => Array.from({ length: n }, sp)) }; },
-    s(I, T) { const a = I.mat1, b = I.mat2, res = a.map(() => Array(b[0].length).fill(0)); let nz = 0; a.forEach((r, i) => r.forEach((v, k) => { if (!v) return; nz++; b[k].forEach((w, j) => { if (w) res[i][j] += v * w; }); })); T.at({ mat1: G(a), mat2: G(b) }); T.n('Non-zero entries of mat1 that get processed?', nz, 'Zeros are skipped.'); T.n('res[0][0]?', res[0][0], 'Σ mat1[0][k]·mat2[k][0].'); return res; }
+    s(I, T) { const res = (() => { const a = I.mat1, b = I.mat2, res = a.map(() => Array(b[0].length).fill(0)); let nz = 0; a.forEach((r, i) => r.forEach((v, k) => { if (!v) return; nz++; b[k].forEach((w, j) => { if (w) res[i][j] += v * w; }); })); T.at({ mat1: G(a), mat2: G(b) }); T.n('Non-zero entries of mat1 that get processed?', nz, 'Zeros are skipped.'); T.n('res[0][0]?', res[0][0], 'Sum of mat1[0][k] times mat2[k][0].'); return res; })(); T.n('Non-zero entries in the result?', res.flat().filter(v => v !== 0).length, 'Count them in the product.'); return res; }
   });
 
   D('nested-list-weight-sum', {
@@ -81,7 +81,7 @@
     t: 'Water and Jug Problem',
     r: 'By Bézout, the reachable amounts are exactly the multiples of gcd(x, y) up to x + y. So: target ≤ x + y and target % gcd(x, y) == 0.',
     g: R => ({ x: R.int(1, 9), y: R.int(1, 9), target: R.int(0, 18) }),
-    s(I, T) { const g = gcd(I.x, I.y); T.at({ x: I.x, y: I.y, target: I.target }); T.n('gcd(x, y)?', g, 'Every reachable total is a multiple of it.'); T.yn('Is target ≤ x + y?', I.target <= I.x + I.y, 'The jugs cannot hold more.'); return I.target <= I.x + I.y && I.target % g === 0; }
+    s(I, T) { const res = (() => { const g = gcd(I.x, I.y); T.at({ x: I.x, y: I.y, target: I.target }); T.n('gcd(x, y)?', g, 'Every reachable total is a multiple of it.'); T.yn('Is target at most x + y?', I.target <= I.x + I.y, 'The jugs cannot hold more.'); return I.target <= I.x + I.y && I.target % g === 0; })(); T.yn('Can you measure exactly target?', res, 'It must fit and be a multiple of the gcd.'); return res; }
   });
 
   D('battleships-in-a-board', {
@@ -102,14 +102,14 @@
     t: 'Minimum Genetic Mutation',
     r: 'BFS from the start gene: neighbors are bank genes differing in exactly one position. The BFS level at which endGene is reached is the answer; unreachable → −1.',
     g: R => { const g = () => R.str(8, 'AC'); const s = g(), bank = [...new Set(Array.from({ length: R.int(0, 6) }, () => { const a = [...s]; for (let k = R.int(1, 3); k--;) a[R.int(0, 7)] = R.pick('ACGT'); return a.join(''); }))]; return { startGene: s, endGene: bank.length && R.chance(0.8) ? R.pick(bank) : g(), bank }; },
-    s(I, T) { const B = new Set(I.bank), d1 = (a, b) => [...a].filter((c, i) => c !== b[i]).length === 1; if (!B.has(I.endGene)) { T.at({ end: I.endGene, bank: A(I.bank) }); T.yn('Is the end gene in the bank?', false, 'Otherwise unreachable.'); return -1; } let q = [I.startGene], seen = new Set(q), d = 0; while (q.length) { if (d < 6) { T.at({ level: d, frontier: Q(q.slice()) }); T.n('Genes in the current BFS level?', q.length, 'Expand one level at a time.'); } const nx = []; for (const x of q) { if (x === I.endGene) return d; for (const y of I.bank) if (!seen.has(y) && d1(x, y)) { seen.add(y); nx.push(y); } } q = nx; d++; } return -1; }
+    s(I, T) { const res = (() => { const B = new Set(I.bank), d1 = (a, b) => [...a].filter((c, i) => c !== b[i]).length === 1; if (!B.has(I.endGene)) { T.at({ end: I.endGene, bank: A(I.bank) }); T.yn('Is the end gene in the bank?', false, 'Otherwise unreachable.'); T.n('Genes in the bank?', I.bank.length, 'None of them help.'); return -1; } let q = [I.startGene], seen = new Set(q), d = 0; T.at({ start: I.startGene, end: I.endGene }); T.n('Letters that differ between start and end?', [...I.startGene].filter((c, i) => c !== I.endGene[i]).length, 'At least that many mutations.'); while (q.length) { if (d < 6) { T.at({ level: d, frontier: Q(q.slice()) }); T.n('Genes in the current BFS level?', q.length, 'Expand one level at a time.'); } const nx = []; for (const x of q) { if (x === I.endGene) return d; for (const y of I.bank) if (!seen.has(y) && d1(x, y)) { seen.add(y); nx.push(y); } } q = nx; d++; } return -1; })(); T.n('Fewest mutations? (−1 if impossible)', res, 'BFS level where the end gene appears.'); return res; }
   });
 
   D('island-perimeter', {
     t: 'Island Perimeter',
     r: 'Each land cell adds 4 edges; each pair of adjacent land cells hides 2. Perimeter = 4·land − 2·(right neighbors + down neighbors).',
     g: R => { const m = R.int(1, 4), n = R.int(1, 4), g = Array.from({ length: m }, () => Array(n).fill(0)); let r = R.int(0, m - 1), c = R.int(0, n - 1); for (let k = 0; k < R.int(1, 8); k++) { g[r][c] = 1; const [dr, dc] = R.pick([[0, 1], [1, 0], [0, -1], [-1, 0]]); if (r + dr >= 0 && c + dc >= 0 && r + dr < m && c + dc < n) { r += dr; c += dc; } } return { grid: g }; },
-    s(I, T) { let land = 0, adj = 0; I.grid.forEach((r, i) => r.forEach((v, j) => { if (!v) return; land++; if (r[j + 1]) adj++; if (I.grid[i + 1] && I.grid[i + 1][j]) adj++; })); T.at({ grid: G(I.grid) }); T.n('Land cells?', land, 'Each contributes 4 edges.'); T.n('Adjacent land pairs?', adj, 'Each hides 2 edges.'); return 4 * land - 2 * adj; }
+    s(I, T) { const res = (() => { let land = 0, adj = 0; I.grid.forEach((r, i) => r.forEach((v, j) => { if (!v) return; land++; if (r[j + 1]) adj++; if (I.grid[i + 1] && I.grid[i + 1][j]) adj++; })); T.at({ grid: G(I.grid) }); T.n('Land cells?', land, 'Each contributes 4 edges.'); T.n('Adjacent land pairs?', adj, 'Each hides 2 edges.'); return 4 * land - 2 * adj; })(); T.n('Perimeter?', res, '4 times land minus 2 times adjacent pairs.'); return res; }
   });
 
   D('diagonal-traverse', {
@@ -151,7 +151,7 @@
     t: 'Reshape the Matrix',
     r: 'If m·n ≠ r·c return the original. Otherwise element number k (row-major) goes to (⌊k / c⌋, k mod c).',
     g: R => { const m = R.int(1, 3), n = R.int(1, 4); return { mat: mat(R, m, n, 1, 9), r: R.int(1, 4), c: R.int(1, 6) }; },
-    s(I, T) { const m = I.mat.length, n = I.mat[0].length; T.at({ size: `${m}×${n}`, target: `${I.r}×${I.c}` }); T.yn('Is the reshape possible?', m * n === I.r * I.c, 'Element counts must match.'); if (m * n !== I.r * I.c) return I.mat; const f = I.mat.flat(), k = Math.min(f.length - 1, I.c); T.n(`Row of element number ${k}?`, Math.floor(k / I.c), '⌊k / c⌋.'); return Array.from({ length: I.r }, (_, i) => f.slice(i * I.c, i * I.c + I.c)); }
+    s(I, T) { const res = (() => { const m = I.mat.length, n = I.mat[0].length; T.at({ size: `${m} by ${n}`, target: `${I.r} by ${I.c}` }); T.yn('Is the reshape possible?', m * n === I.r * I.c, 'Element counts must match.'); if (m * n !== I.r * I.c) { T.n('Elements in the matrix?', m * n, 'Does not equal r times c.'); return I.mat; } const f = I.mat.flat(), k = Math.min(f.length - 1, I.c); T.n(`Row of element number ${k}?`, Math.floor(k / I.c), 'k divided by c, rounded down.'); return Array.from({ length: I.r }, (_, i) => f.slice(i * I.c, i * I.c + I.c)); })(); T.n('Rows in the result?', res.length, 'r if it works, otherwise the original row count.'); return res; }
   });
 
   D('image-smoother', {
@@ -193,7 +193,7 @@
     t: 'Image Overlap',
     r: 'Pair every 1 in img1 with every 1 in img2 and count the translation vector (dx, dy) they imply. The most frequent vector gives the best overlap.',
     g: R => { const n = R.int(1, 4); return { img1: mat(R, n, n, 0, 1), img2: mat(R, n, n, 0, 1) }; },
-    s(I, T) { const a = [], b = [], c = new Map(); I.img1.forEach((r, i) => r.forEach((v, j) => v && a.push([i, j]))); I.img2.forEach((r, i) => r.forEach((v, j) => v && b.push([i, j]))); for (const [i, j] of a) for (const [x, y] of b) { const k = (x - i) + ',' + (y - j); c.set(k, (c.get(k) || 0) + 1); } T.at({ img1: G(I.img1), img2: G(I.img2) }); T.n('Pairs of ones considered?', a.length * b.length, '|ones1| × |ones2|.'); const best = Math.max(0, ...c.values()); T.n('Best overlap?', best, 'Most common translation.'); return best; }
+    s(I, T) { const a = [], b = [], c = new Map(); I.img1.forEach((r, i) => r.forEach((v, j) => v && a.push([i, j]))); I.img2.forEach((r, i) => r.forEach((v, j) => v && b.push([i, j]))); for (const [i, j] of a) for (const [x, y] of b) { const k = (x - i) + ',' + (y - j); c.set(k, (c.get(k) || 0) + 1); } T.at({ img1: G(I.img1), img2: G(I.img2) }); T.n('Ones in img1?', a.length, 'Collect their positions.'); T.n('Pairs of ones considered?', a.length * b.length, 'Ones in img1 times ones in img2.'); const best = Math.max(0, ...c.values()); T.n('Best overlap?', best, 'Most common translation.'); return best; }
   });
 
   D('magic-squares-in-grid', {
@@ -214,7 +214,7 @@
     t: 'Transpose Matrix',
     r: 'Build an n × m result where result[j][i] = matrix[i][j].',
     g: R => ({ matrix: mat(R, R.int(1, 4), R.int(1, 4), 1, 9) }),
-    s(I, T) { const m = I.matrix, t = m[0].map((_, j) => m.map(r => r[j])); T.at({ matrix: G(m) }); T.n('Rows in the transpose?', t.length, 'Columns become rows.'); T.n('result[0][last]?', t[0][t[0].length - 1], 'matrix[last][0].'); return t; }
+    s(I, T) { const res = (() => { const m = I.matrix, t = m[0].map((_, j) => m.map(r => r[j])); T.at({ matrix: G(m) }); T.n('Rows in the transpose?', t.length, 'Columns become rows.'); T.n('result[0][last]?', t[0][t[0].length - 1], 'matrix[last][0].'); return t; })(); T.n('Columns in the transpose?', res[0].length, 'Rows become columns.'); return res; }
   });
 
   D('projection-area-of-3d-shapes', {
@@ -279,7 +279,7 @@
     r: 'From the king, walk each of the 8 directions; the first queen met in a direction attacks (others behind it are blocked).',
     g: R => { const all = []; for (let r = 0; r < 8; r++) for (let c = 0; c < 8; c++) all.push([r, c]); const p = R.shuffle(all); return { queens: p.slice(1, 1 + R.int(1, 10)), king: p[0] }; },
     cmp: 'set',
-    s(I, T) { const Qs = new Set(I.queens.map(q => q.join())), out = []; let asks = 0; for (const [dr, dc] of N8) { let r = I.king[0] + dr, c = I.king[1] + dc; while (r >= 0 && c >= 0 && r < 8 && c < 8) { if (Qs.has(r + ',' + c)) { out.push([r, c]); break; } r += dr; c += dc; } } T.at({ king: I.king.join(','), queens: A(I.queens.map(q => q.join(','))) }); T.n('How many queens attack the king?', out.length, 'First queen in each of 8 directions.'); if (out.length && asks++ < 1) { T.n('Row of one attacking queen (the first found going up-left, up, … order)?', out[0][0], 'Scan directions in order.'); } return out; }
+    s(I, T) { const Qs = new Set(I.queens.map(q => q.join())), out = []; let asks = 0; for (const [dr, dc] of N8) { let r = I.king[0] + dr, c = I.king[1] + dc; while (r >= 0 && c >= 0 && r < 8 && c < 8) { if (Qs.has(r + ',' + c)) { out.push([r, c]); break; } r += dr; c += dc; } } T.at({ king: I.king.join(', '), queens: A(I.queens.map(q => q.join(', '))) }); T.n('Queens in the same row as the king?', I.queens.filter(q => q[0] === I.king[0]).length, 'Only the nearest one on each side can attack.'); T.n('Queens on any line with the king (row, column or diagonal)?', I.queens.filter(([r, c]) => r === I.king[0] || c === I.king[1] || Math.abs(r - I.king[0]) === Math.abs(c - I.king[1])).length, 'Others can never attack.'); T.n('How many queens attack the king?', out.length, 'First queen in each of 8 directions.'); if (out.length && asks++ < 1) { T.n('Row of the first attacking queen found, scanning up-left first?', out[0][0], 'Scan directions in order.'); } return out; }
   });
 
   D('reconstruct-a-2-row-binary-matrix', {
@@ -287,6 +287,6 @@
     r: 'Columns with sum 2 put 1 in both rows; sum 0 in neither. Assign each sum-1 column to the upper row while it still needs ones, else the lower. Invalid if totals do not work out.',
     g: R => { const cs = R.ints(R.int(1, 6), 0, 2), tot = cs.reduce((a, b) => a + b, 0), twos = cs.filter(x => x === 2).length, u = R.int(twos, tot - twos); return R.chance(0.8) ? { upper: u, lower: tot - u, colsum: cs } : { upper: u + 1, lower: tot - u, colsum: cs }; },
     cmp: (o, e, I) => { if (!e.length) return Array.isArray(o) && !o.length; if (!Array.isArray(o) || o.length !== 2) return false; const [a, b] = o; return a.reduce((s, x) => s + x, 0) === I.upper && b.reduce((s, x) => s + x, 0) === I.lower && I.colsum.every((c, j) => a[j] + b[j] === c && a[j] >= 0 && b[j] >= 0 && a[j] <= 1 && b[j] <= 1); },
-    s(I, T) { let u = I.upper, l = I.lower; const a = [], b = []; for (const c of I.colsum) { if (c === 2) { a.push(1); b.push(1); u--; l--; } else { a.push(0); b.push(0); } } T.at({ colsum: A(I.colsum), upper: I.upper, lower: I.lower }); T.n('Upper ones still needed after the sum-2 columns?', u, 'Each 2 uses one from both rows.'); if (u < 0 || l < 0) return []; I.colsum.forEach((c, j) => { if (c !== 1) return; if (u > 0) { a[j] = 1; u--; } else { b[j] = 1; l--; } }); if (u || l) return []; return [a, b]; }
+    s(I, T) { const res = (() => { let u = I.upper, l = I.lower; const a = [], b = []; for (const c of I.colsum) { if (c === 2) { a.push(1); b.push(1); u--; l--; } else { a.push(0); b.push(0); } } T.at({ colsum: A(I.colsum), upper: I.upper, lower: I.lower }); T.n('Columns with sum 2?', I.colsum.filter(c => c === 2).length, 'Both rows get a 1 there.'); T.n('Upper ones still needed after the sum-2 columns?', u, 'Each 2 uses one from both rows.'); if (u < 0 || l < 0) return []; I.colsum.forEach((c, j) => { if (c !== 1) return; if (u > 0) { a[j] = 1; u--; } else { b[j] = 1; l--; } }); if (u || l) return []; return [a, b]; })(); T.yn('Is a valid matrix possible?', res.length > 0, 'Nothing may be left over in either row.'); return res; }
   });
 })();

@@ -42,9 +42,9 @@
 
   D('find-minimum-log-transportation-cost', {
     t: 'Find Minimum Log Transportation Cost',
-    r: 'Three trucks, two logs: at most one log is longer than k. Cut it into k and x − k (the most unbalanced cut costs least): cost k × (x − k). No log too long → 0.',
+    r: 'Three trucks, two logs: at most one log is longer than k. Cut it into k and x minus k (the most unbalanced cut costs least): cost k times (x minus k). If no log is too long, the cost is 0.',
     g: R => { const k = R.int(2, 9); return { n: R.int(1, 2 * k), m: R.int(1, 2 * k), k }; },
-    s(I, T) { const { n, m, k } = I; T.at({ n, m, k }); const big = n > k ? n : m > k ? m : 0; T.c('Which log needs a cut?', ['n', 'm', 'neither'], n > k ? 'n' : m > k ? 'm' : 'neither', 'A log longer than k does not fit a truck.'); if (!big) return 0; T.at({ log: big, k }); T.n(`Cheapest cut cost for the log of length ${big}?`, k * (big - k), 'len1 × len2 is smallest when the pieces are k and x − k.'); return k * (big - k); }
+    s(I, T) { const res = (() => { const { n, m, k } = I; T.at({ n, m, k }); T.n('Longest log?', Math.max(n, m), 'Compare it with k.'); const big = n > k ? n : m > k ? m : 0; T.c('Which log needs a cut?', ['n', 'm', 'neither'], n > k ? 'n' : m > k ? 'm' : 'neither', 'A log longer than k does not fit a truck.'); if (!big) return 0; T.at({ log: big, k }); T.n(`Cheapest cut cost for the log of length ${big}?`, k * (big - k), 'The piece lengths multiplied; smallest when one piece is exactly k.'); return k * (big - k); })(); T.n('Minimum cost?', res, '0 if both logs fit.'); return res; }
   });
 
   D('maximize-subarray-gcd-score', {
@@ -191,7 +191,7 @@
     t: 'Check Digitorial Permutation',
     r: 'The sum of digit factorials is the same for every permutation. Compute it once and check whether its digits are a rearrangement of n\'s digits (the sum never has a leading zero).',
     g: R => ({ n: R.pick([145, 154, 541, 10, 1, 2, 40585, 58045, R.int(1, 999)]) }),
-    s(I, T) { const f = [1, 1, 2, 6, 24, 120, 720, 5040, 40320, 362880], d = String(I.n).split(''), s = sum(d.map(x => f[+x])); T.at({ digits: A(d), factorials: A(d.map(x => f[+x])) }); T.n('Sum of the digit factorials?', s, 'The same for every permutation.'); const ok = String(s).split('').sort().join('') === d.slice().sort().join(''); T.yn(`Are the digits of ${s} a permutation of ${I.n}'s digits?`, ok, ok ? 'That permutation is digitorial.' : 'No arrangement can equal the sum.'); return ok; }
+    s(I, T) { const f = [1, 1, 2, 6, 24, 120, 720, 5040, 40320, 362880], d = String(I.n).split(''), s = sum(d.map(x => f[+x])); T.at({ digits: A(d), factorials: A(d.map(x => f[+x])) }); T.n('How many digits?', d.length, 'Each contributes its factorial.'); T.n('Sum of the digit factorials?', s, 'The same for every permutation.'); const ok = String(s).split('').sort().join('') === d.slice().sort().join(''); T.yn(`Are the digits of ${s} a permutation of ${I.n}'s digits?`, ok, ok ? 'That permutation is digitorial.' : 'No arrangement can equal the sum.'); return ok; }
   });
 
   D('sum-of-gcd-of-formed-pairs', {
@@ -203,9 +203,9 @@
 
   D('count-commas-in-range-ii', {
     t: 'Count Commas in Range II',
-    r: 'A number gets one comma for each power 1000, 1000², … that it reaches. So the total is the sum over t ≥ 1 of max(0, n − 1000^t + 1).',
+    r: 'A number gets one comma for each power of 1000 (1000, 1000000, and so on) that it reaches. So for each power p up to n, add n minus p plus 1.',
     g: R => ({ n: R.pick([R.int(1, 5000), R.int(900000, 1200000), R.int(1, 999)]) }),
-    s(I, T) { let tot = 0; for (let p = 1000, t = 1; p <= Math.max(I.n, 1000); p *= 1000, t++) { const c = Math.max(0, I.n - p + 1); tot += c; T.at({ n: I.n, threshold: p }); T.n(`Numbers ≤ n with at least ${t} comma(s)?`, c, `Those ≥ ${p}.`); if (p > I.n) break; } return tot; }
+    s(I, T) { const res = (() => { let tot = 0; for (let p = 1000, t = 1; p <= Math.max(I.n, 1000); p *= 1000, t++) { const c = Math.max(0, I.n - p + 1); tot += c; T.at({ n: I.n, threshold: p }); T.n(`Numbers up to n with at least ${t} commas?`, c, `Those at least ${p}.`); if (p > I.n) break; } return tot; })(); T.n('Total commas?', res, 'Add the counts for each comma level.'); return res; }
   });
 
   D('construct-uniform-parity-array-ii', {

@@ -43,10 +43,10 @@
 
   D('balanced-k-factor-decomposition', {
     t: 'Balanced K-Factor Decomposition',
-    r: 'Backtrack over the divisors in non-decreasing order: choose the next factor d ≥ the previous one with d dividing what is left, and the last factor takes the remainder. Keep the split with the smallest max − min.',
+    r: 'Backtrack over the divisors in non-decreasing order: choose the next factor d, at least the previous one, with d dividing what is left, and the last factor takes the remainder. Keep the split with the smallest max minus min.',
     cmp: (o, e, I) => Array.isArray(o) && o.length === I.k && o.reduce((a, b) => a * b, 1) === I.n && Math.max(...o) - Math.min(...o) === Math.max(...e) - Math.min(...e),
     g: R => ({ n: R.pick([12, 16, 18, 24, 30, 36, 44, 48, 60, 72, 100]), k: R.int(2, 3) }),
-    s(I, T) { let best = null; const go = (left, k, min, cur) => { if (k === 1) { if (left >= min) { const c = [...cur, left], d = c[c.length - 1] - c[0]; if (!best || d < best.d) best = { c, d }; } return; } for (let d = min; d * d <= left; d++) if (left % d === 0) go(left / d, k - 1, d, [...cur, d]); }; go(I.n, I.k, 1, []); const divs = range(1, I.n + 1).filter(d => I.n % d === 0); T.at({ n: I.n, k: I.k, divisors: A(divs) }); T.n('Smallest possible max − min?', best.d, 'Try factors in non-decreasing order; the last one takes what is left.'); T.c('Smallest factor in that best split?', divs.slice(0, 6), best.c[0], 'Balanced splits keep factors near the k-th root of n.'); return best.c; }
+    s(I, T) { const res = (() => { let best = null; const go = (left, k, min, cur) => { if (k === 1) { if (left >= min) { const c = [...cur, left], d = c[c.length - 1] - c[0]; if (!best || d < best.d) best = { c, d }; } return; } for (let d = min; d * d <= left; d++) if (left % d === 0) go(left / d, k - 1, d, [...cur, d]); }; go(I.n, I.k, 1, []); const divs = range(1, I.n + 1).filter(d => I.n % d === 0); T.at({ n: I.n, k: I.k, divisors: A(divs) }); T.n('How many divisors does n have?', divs.length, 'Every factor must be one of them.'); T.n('Smallest possible max minus min?', best.d, 'Try factors in non-decreasing order; the last one takes what is left.'); T.c('Smallest factor in that best split?', divs.slice(0, 6), best.c[0], 'Balanced splits keep factors near the k-th root of n.'); return best.c; })(); T.n('Largest factor in that split?', Math.max(...res), 'The last factor takes what is left.'); return res; }
   });
 
   D('word-squares-ii', {

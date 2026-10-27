@@ -31,7 +31,7 @@
     t: 'Delete Node in a BST: successor replaces it',
     r: 'Find the key. With fewer than two children, splice in the child. With two, copy the inorder successor (min of the right subtree) and delete it from the right subtree.',
     g: R => { const a = R.bst(R.int(1, 7), 1, 20); return { root: a, key: R.chance(0.8) ? R.pick(a.filter(x => x !== null)) : 0 }; },
-    s(I, T) { const root = Tr.from(I.root); const del = (n, k) => { if (!n) return null; if (k < n.val) { n.left = del(n.left, k); return n; } if (k > n.val) { n.right = del(n.right, k); return n; } const kids = (n.left ? 1 : 0) + (n.right ? 1 : 0); T.at({ tree: TR(root, { hit: n }) }); T.n(`Children of the node to delete?`, kids, 'Decides splice vs successor.'); if (!n.left) return n.right; if (!n.right) return n.left; let s = n.right; while (s.left) s = s.left; T.n('Successor value?', s.val, 'Leftmost node of the right subtree.'); n.val = s.val; n.right = del(n.right, s.val); return n; }; const out = del(root, I.key); T.at({ tree: TR(out) }); T.n('Nodes left in the tree?', Tr.size(out), 'One fewer if the key existed.'); return Tr.arr(out); }
+    s(I, T) { const root = Tr.from(I.root); T.at({ tree: TR(root), key: I.key }); T.yn(`Is ${I.key} in the tree?`, !!Tr.find(root, I.key), 'Search down the BST.'); const del = (n, k) => { if (!n) return null; if (k < n.val) { n.left = del(n.left, k); return n; } if (k > n.val) { n.right = del(n.right, k); return n; } const kids = (n.left ? 1 : 0) + (n.right ? 1 : 0); T.at({ tree: TR(root, { hit: n }) }); T.n(`Children of the node to delete?`, kids, 'Decides between a simple splice and using the successor.'); if (!n.left) return n.right; if (!n.right) return n.left; let s = n.right; while (s.left) s = s.left; T.n('Successor value?', s.val, 'Leftmost node of the right subtree.'); n.val = s.val; n.right = del(n.right, s.val); return n; }; const out = del(root, I.key); T.at({ tree: TR(out) }); T.n('Nodes left in the tree?', Tr.size(out), 'One fewer if the key existed.'); return Tr.arr(out); }
   });
 
   D('find-mode-in-binary-search-tree', {
@@ -54,7 +54,7 @@
     t: 'Inorder Successor II: with parent pointers',
     r: 'If the node has a right subtree, the successor is its leftmost node. Otherwise climb parents until you come up from a left child.',
     g: R => { const a = R.bst(R.int(1, 7), 1, 20); return { tree: a, node: R.pick(a.filter(x => x !== null)) }; },
-    s(I, T) { const root = Tr.from(I.tree), par = new Map(); Tr.nodes(root).forEach(n => { if (n.left) par.set(n.left, n); if (n.right) par.set(n.right, n); }); let x = Tr.find(root, I.node); T.at({ tree: TR(root, { hit: x }) }); T.yn('Does the node have a right subtree?', !!x.right, 'Then go right, then all the way left.'); if (x.right) { x = x.right; while (x.left) x = x.left; return x.val; } while (par.get(x) && par.get(x).right === x) x = par.get(x); const p = par.get(x); return p ? p.val : null; }
+    s(I, T) { const res = (() => { const root = Tr.from(I.tree), par = new Map(); Tr.nodes(root).forEach(n => { if (n.left) par.set(n.left, n); if (n.right) par.set(n.right, n); }); let x = Tr.find(root, I.node); T.at({ tree: TR(root, { hit: x }) }); T.yn('Does the node have a right subtree?', !!x.right, 'Then go right, then all the way left.'); if (x.right) { x = x.right; while (x.left) x = x.left; return x.val; } while (par.get(x) && par.get(x).right === x) x = par.get(x); const p = par.get(x); return p ? p.val : null; })(); T.yn('Is the node the largest value?', res === null, 'Then it has no successor.'); T.n('Successor value? (−1 if none)', res === null ? -1 : res, 'Next value in sorted order.'); return res; }
   });
 
   D('find-bottom-left-tree-value', {
@@ -103,7 +103,7 @@
     t: 'Boundary of Binary Tree: left edge, leaves, right edge reversed',
     r: 'Root, then the left boundary (excluding leaves), then all leaves left to right, then the right boundary (excluding leaves) in reverse.',
     g: R => ({ root: R.tree(R.int(1, 9)) }),
-    s(I, T) { const root = Tr.from(I.root), leaf = n => !n.left && !n.right; const out = [root.val]; if (leaf(root)) return out; const L = []; let x = root.left; while (x) { if (!leaf(x)) L.push(x.val); x = x.left || x.right; } T.at({ tree: TR(root) }); T.n('How many left-boundary nodes (excluding leaves)?', L.length, 'Follow left, else right.'); const lv = []; const go = n => { if (!n) return; if (leaf(n) && n !== root) lv.push(n.val); go(n.left); go(n.right); }; go(root); T.n('How many leaves?', lv.length, 'Left to right.'); const Rb = []; x = root.right; while (x) { if (!leaf(x)) Rb.push(x.val); x = x.right || x.left; } return [...out, ...L, ...lv, ...Rb.reverse()]; }
+    s(I, T) { const root = Tr.from(I.root), leaf = n => !n.left && !n.right; const out = [root.val]; if (leaf(root)) { T.at({ tree: TR(root) }); T.yn('Is the root a leaf?', true, 'It is the whole boundary.'); T.n('Nodes in the tree?', 1, 'Just the root.'); T.n('Boundary length?', 1, 'Only the root.'); return out; } const L = []; let x = root.left; while (x) { if (!leaf(x)) L.push(x.val); x = x.left || x.right; } T.at({ tree: TR(root) }); T.n('How many left-boundary nodes (excluding leaves)?', L.length, 'Follow left, else right.'); const lv = []; const go = n => { if (!n) return; if (leaf(n) && n !== root) lv.push(n.val); go(n.left); go(n.right); }; go(root); T.n('How many leaves?', lv.length, 'Left to right.'); const Rb = []; x = root.right; while (x) { if (!leaf(x)) Rb.push(x.val); x = x.right || x.left; } T.n('How many right-boundary nodes (excluding leaves)?', Rb.length, 'Follow right, else left.'); return [...out, ...L, ...lv, ...Rb.reverse()]; }
   });
 
   D('binary-tree-longest-consecutive-sequence-ii', {
@@ -138,7 +138,7 @@
     t: 'Subtree of Another Tree: try every node as a match',
     r: 'For every node of root whose value equals subRoot\'s root, check whether the two trees are identical.',
     g: R => { const a = R.tree(R.int(1, 8), 1, 3), r = Tr.from(a); const s = R.chance(0.6) ? Tr.arr(R.pick(Tr.nodes(r))) : R.tree(R.int(1, 3), 1, 3); return { root: a, subRoot: s }; },
-    s(I, T) { const root = Tr.from(I.root), sub = Tr.from(I.subRoot); const same = (x, y) => (!x && !y) || (x && y && x.val === y.val && same(x.left, y.left) && same(x.right, y.right)); for (const n of Tr.nodes(root)) if (n.val === sub.val) { const ok = !!same(n, sub); T.at({ root: TR(root, { hit: n }), subRoot: TR(sub) }); T.yn(`Is the subtree at this ${n.val} identical to subRoot?`, ok, 'Structure and values must match.'); if (ok) return true; } return false; }
+    s(I, T) { const res = (() => { const root = Tr.from(I.root), sub = Tr.from(I.subRoot); const same = (x, y) => (!x && !y) || (x && y && x.val === y.val && same(x.left, y.left) && same(x.right, y.right)); for (const n of Tr.nodes(root)) if (n.val === sub.val) { const ok = !!same(n, sub); T.at({ root: TR(root, { hit: n }), subRoot: TR(sub) }); T.yn(`Is the subtree at this ${n.val} identical to subRoot?`, ok, 'Structure and values must match.'); if (ok) return true; } return false; })(); T.yn('Is subRoot a subtree of root?', res, 'Some match was identical.'); return res; }
   });
 
   D('kill-process', {
@@ -181,7 +181,7 @@
     t: 'Add One Row to Tree: rewire at depth − 1',
     r: 'For each node at depth − 1, insert new nodes: the new left takes the old left as its left; the new right takes the old right as its right. Depth 1 makes a new root.',
     g: R => ({ root: R.tree(R.int(1, 6), 1, 9, 4), val: R.int(1, 9), depth: R.int(1, 3) }),
-    s(I, T) { let root = Tr.from(I.root); if (I.depth === 1) { T.at({ tree: TR(root) }); T.n('Number of nodes at depth 0 to rewire?', 0, 'Depth 1: just make a new root.'); return Tr.arr(N(I.val, root)); } let lv = [root]; for (let d = 1; d < I.depth - 1; d++) lv = lv.flatMap(n => [n.left, n.right].filter(Boolean)); T.at({ tree: TR(root, { hit: lv }) }); T.n(`Nodes at depth ${I.depth - 1}?`, lv.length, 'Each gets two new children.'); lv.forEach(n => { n.left = N(I.val, n.left); n.right = N(I.val, null, n.right); }); return Tr.arr(root); }
+    s(I, T) { const res = (() => { let root = Tr.from(I.root); if (I.depth === 1) { T.at({ tree: TR(root) }); T.yn('Is depth 1?', true, 'Then the new node becomes the root.'); T.n('Children of the new root?', 1, 'The old root becomes its left child.'); return Tr.arr(N(I.val, root)); } let lv = [root]; for (let d = 1; d < I.depth - 1; d++) lv = lv.flatMap(n => [n.left, n.right].filter(Boolean)); T.at({ tree: TR(root, { hit: lv }) }); T.n(`Nodes at depth ${I.depth - 1}?`, lv.length, 'Each gets two new children.'); T.n('New nodes added?', 2 * lv.length, 'Two per node at that depth.'); lv.forEach(n => { n.left = N(I.val, n.left); n.right = N(I.val, null, n.right); }); return Tr.arr(root); })(); T.n('Nodes after adding the row?', res.filter(v => v !== null).length, 'Old nodes plus the new row.'); return res; }
   });
 
   D('average-of-levels-in-binary-tree', {
@@ -231,7 +231,7 @@
     t: 'Equal Tree Partition: look for a subtree with half the total',
     r: 'Collect the sums of all subtrees except the whole tree. Cutting an edge works if the total is even and some subtree sums to total / 2.',
     g: R => ({ root: R.tree(R.int(1, 7), -2, 6) }),
-    s(I, T) { const root = Tr.from(I.root), sums = []; const all = n => { if (!n) return 0; const s = n.val + all(n.left) + all(n.right); sums.push(s); return s; }; const tot = all(root); sums.pop(); T.at({ tree: TR(root), sums: A(sums) }); T.n('Total sum?', tot, 'Sum of all nodes.'); return tot % 2 === 0 && sums.includes(tot / 2); }
+    s(I, T) { const res = (() => { const root = Tr.from(I.root), sums = []; const all = n => { if (!n) return 0; const s = n.val + all(n.left) + all(n.right); sums.push(s); return s; }; const tot = all(root); sums.pop(); T.at({ tree: TR(root), sums: A(sums) }); T.n('Total sum?', tot, 'Sum of all nodes.'); T.yn('Is the total even?', tot % 2 === 0, 'Otherwise it cannot split evenly.'); return tot % 2 === 0 && sums.includes(tot / 2); })(); T.yn('Can the tree be split into equal halves?', res, 'Some subtree must sum to half.'); return res; }
   });
 
   D('path-sum-iv', {
@@ -252,7 +252,7 @@
     t: 'Second Minimum Node: the root is the minimum',
     r: 'The root holds the minimum. Search for the smallest value greater than it; prune subtrees whose root already exceeds it (they cannot hold anything smaller).',
     g: R => { const mk = (v, d) => { if (d >= 3 || R.chance(0.35)) return N(v); const a = R.chance(0.5) ? v : v + R.int(0, 4), b = R.chance(0.5) ? v : v + R.int(0, 4); const L = mk(R.chance(0.5) ? v : a, d + 1); const Rr = mk(L.val === v ? b : v, d + 1); return N(v, L, Rr); }; return { root: Tr.arr(mk(R.int(1, 3), 1)) }; },
-    s(I, T) { const root = Tr.from(I.root), m = root.val; let best = Infinity; for (const n of Tr.nodes(root)) if (n.val > m && n.val < best) { best = n.val; T.at({ tree: TR(root, { hit: n }) }); T.n('Second minimum candidate so far?', best, `Smallest value above ${m}.`); } return best === Infinity ? -1 : best; }
+    s(I, T) { const res = (() => { const root = Tr.from(I.root), m = root.val; let best = Infinity; T.at({ tree: TR(root) }); T.n('Root value (the minimum)?', m, 'Each parent is the smaller of its children.'); for (const n of Tr.nodes(root)) if (n.val > m && n.val < best) { best = n.val; T.at({ tree: TR(root, { hit: n }) }); T.n('Second minimum candidate so far?', best, `Smallest value above ${m}.`); } return best === Infinity ? -1 : best; })(); T.n('Second minimum? (−1 if none)', res, 'Smallest value above the root.'); return res; }
   });
 
   D('longest-univalue-path', {

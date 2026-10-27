@@ -28,9 +28,9 @@
 
   D('flip-square-submatrix-vertically', {
     t: 'Flip Square Submatrix Vertically',
-    r: 'Two row pointers, top = x and bottom = x + k − 1. Swap the k cells in columns y..y+k−1 between them, then move both pointers inward until they meet.',
+    r: 'Two row pointers, top = x and bottom = x plus k minus 1. Swap the k cells in columns y to y plus k minus 1 between them, then move both pointers inward until they meet.',
     g: R => { const m = R.int(2, 5), n = R.int(2, 4), k = R.int(2, Math.min(m, n)); return { grid: R.grid(m, n, 1, 9), x: R.int(0, m - k), y: R.int(0, n - k), k }; },
-    s(I, T) { const g = I.grid.map(r => r.slice()); for (let t = I.x, b = I.x + I.k - 1; t < b; t++, b--) { T.at({ grid: G(g.map(r => r.slice()), { hl: range(I.y, I.y + I.k).flatMap(j => [[t, j], [b, j]]) }), top: t, bottom: b }); T.n(`After swapping rows ${t} and ${b}, what is grid[${t}][${I.y}]?`, g[b][I.y], 'The bottom row\'s slice moves up.'); T.n(`And grid[${b}][${I.y + I.k - 1}]?`, g[t][I.y + I.k - 1], 'The top row\'s slice moves down.'); for (let j = I.y; j < I.y + I.k; j++) [g[t][j], g[b][j]] = [g[b][j], g[t][j]]; } if (I.k < 2) { T.at({ grid: G(g) }); T.n('How many row swaps does a 1×1 flip need?', 0, 'A single row is its own mirror.'); } return g; }
+    s(I, T) { const res = (() => { const g = I.grid.map(r => r.slice()); T.at({ grid: G(I.grid), x: I.x, y: I.y, k: I.k }); T.n('Row swaps needed?', Math.floor(I.k / 2), 'Half of k, rounded down.'); for (let t = I.x, b = I.x + I.k - 1; t < b; t++, b--) { T.at({ grid: G(g.map(r => r.slice()), { hl: range(I.y, I.y + I.k).flatMap(j => [[t, j], [b, j]]) }), top: t, bottom: b }); T.n(`After swapping rows ${t} and ${b}, what is grid[${t}][${I.y}]?`, g[b][I.y], 'The bottom row\'s slice moves up.'); T.n(`And grid[${b}][${I.y + I.k - 1}]?`, g[t][I.y + I.k - 1], 'The top row\'s slice moves down.'); for (let j = I.y; j < I.y + I.k; j++) [g[t][j], g[b][j]] = [g[b][j], g[t][j]]; } if (I.k < 2) { T.at({ grid: G(g) }); T.yn('Is the grid unchanged?', true, 'A single row is its own mirror.'); } return g; })(); T.at({ grid: G(res) }); T.n(`Final value at grid[${I.x}][${I.y}]?`, res[I.x][I.y], 'It came from the bottom row of the square.'); return res; }
   });
 
   D('number-of-perfect-pairs', {
@@ -52,7 +52,7 @@
     t: 'Lexicographically Smallest String After Reverse',
     r: 'There are only 2n candidates: reverse the first k or the last k characters. Build each and keep the smallest (comparisons can stop at the first difference).',
     g: R => ({ s: R.str(R.int(1, 6), 'abcd') }),
-    s(I, T) { const s = I.s, n = s.length, rv = x => x.split('').reverse().join(''); let bp = null, bs = null; for (let k = 1; k <= n; k++) { const a = rv(s.slice(0, k)) + s.slice(k), b = s.slice(0, n - k) + rv(s.slice(n - k)); if (bp === null || a < bp) bp = a; if (bs === null || b < bs) bs = b; } T.at({ s: A(s.split('')) }); T.c('Best result from reversing a prefix?', [...new Set([bp, s, rv(s)])], bp, 'Try every k for the first k characters.'); T.c('Best result from reversing a suffix?', [...new Set([bs, s, rv(s)])], bs, 'Try every k for the last k characters.'); return bp < bs ? bp : bs; }
+    s(I, T) { const s = I.s, n = s.length, rv = x => x.split('').reverse().join(''); let bp = null, bs = null; for (let k = 1; k <= n; k++) { const a = rv(s.slice(0, k)) + s.slice(k), b = s.slice(0, n - k) + rv(s.slice(n - k)); if (bp === null || a < bp) bp = a; if (bs === null || b < bs) bs = b; } T.at({ s: A(s.split('')) }); T.n('Candidates to try?', 2 * n, 'Each k from 1 to n, once for the prefix and once for the suffix.'); T.c('Best result from reversing a prefix?', [...new Set([bp, s, rv(s), s + s[0]])], bp, 'Try every k for the first k characters.'); T.c('Best result from reversing a suffix?', [...new Set([bs, s, rv(s), s + s[0]])], bs, 'Try every k for the last k characters.'); return bp < bs ? bp : bs; }
   });
 
   D('lexicographically-smallest-string-after-reverse-ii', {

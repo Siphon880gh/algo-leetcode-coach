@@ -166,9 +166,9 @@
 
   D('frequency-tracker', {
     t: 'Frequency Tracker',
-    r: 'Two maps: count[x] and freqOfFreq[c] (how many numbers occur exactly c times). add/deleteOne move x between frequency buckets; hasFrequency(f) checks freqOfFreq[f] > 0.',
+    r: 'Two maps: count[x] and freqOfFreq[c] (how many numbers occur exactly c times). add/deleteOne move x between frequency buckets; hasFrequency(f) checks that freqOfFreq[f] is above 0.',
     g: R => seq(R, 'FrequencyTracker', [], R.int(3, 10), R => [R.pick(['add', 'add', 'deleteOne', 'hasFrequency']), [R.int(1, 3)]]),
-    s(I, T) { return play(I, T, () => { const c = new Map(); return { c, add(x) { c.set(x, (c.get(x) || 0) + 1); }, deleteOne(x) { if (c.get(x)) c.set(x, c.get(x) - 1); }, hasFrequency(f) { return [...c.values()].includes(f); } }; }, { view: o => ({ counts: K(Object.fromEntries([...o.c].filter(e => e[1]))) }), why: (op, [f]) => `Does some number occur exactly ${f} times?` }); }
+    s(I, T) { const res = (() => { return play(I, T, () => { const c = new Map(); return { c, add(x) { c.set(x, (c.get(x) || 0) + 1); }, deleteOne(x) { if (c.get(x)) c.set(x, c.get(x) - 1); }, hasFrequency(f) { return [...c.values()].includes(f); } }; }, { view: o => ({ counts: K(Object.fromEntries([...o.c].filter(e => e[1]))) }), why: (op, [f]) => `Does some number occur exactly ${f} times?` }); })(); T.n('add calls?', I.ops.filter(o => o === 'add').length, 'Each raises one count.'); T.n('deleteOne calls?', I.ops.filter(o => o === 'deleteOne').length, 'Each lowers a count if it is above 0.'); return res; }
   });
 
   D('design-neighbor-sum-service', {

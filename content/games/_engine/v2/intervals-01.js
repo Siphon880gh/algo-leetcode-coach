@@ -42,7 +42,7 @@
     t: 'Minimum Number of Taps to Open to Water a Garden',
     r: 'Convert taps to "from x you can reach y" (max reach per left end), then greedy jump-game: extend the current coverage with the farthest reach; count jumps, −1 if stuck.',
     g: R => { const n = R.int(1, 8); return { n, ranges: R.ints(n + 1, 0, 3) }; },
-    s(I, T) { const n = I.n, reach = Array(n + 1).fill(0); I.ranges.forEach((r, i) => { const l = Math.max(0, i - r); reach[l] = Math.max(reach[l], Math.min(n, i + r)); }); let taps = 0, end = 0, far = 0; for (let i = 0; i <= n; i++) { if (i > far) return -1; if (i > end) { taps++; end = far; if (taps <= 4) { T.at({ reach: A(reach, { i }) }); T.n('Coverage end after opening this tap?', end, 'Farthest reach from the covered part.'); } } far = Math.max(far, reach[i]); } return taps + (end < n ? 1 : 0); }
+    s(I, T) { const res = (() => { const n = I.n, reach = Array(n + 1).fill(0); I.ranges.forEach((r, i) => { const l = Math.max(0, i - r); reach[l] = Math.max(reach[l], Math.min(n, i + r)); }); T.at({ reach: A(reach) }); T.n('Farthest reach starting from position 0?', reach[0], 'Best tap whose left end is 0.'); let taps = 0, end = 0, far = 0; for (let i = 0; i <= n; i++) { if (i > far) return -1; if (i > end) { taps++; end = far; if (taps <= 4) { T.at({ reach: A(reach, { i }) }); T.n('Coverage end after opening this tap?', end, 'Farthest reach from the covered part.'); } } far = Math.max(far, reach[i]); } return taps + (end < n ? 1 : 0); })(); T.n('Fewest taps? (−1 if impossible)', res, 'Count of coverage extensions.'); return res; }
   });
 
   D('maximum-number-of-non-overlapping-substrings', {

@@ -32,14 +32,14 @@
     t: 'Length of Last Word',
     r: 'Scan from the end: skip trailing spaces, then count characters until the next space or the start.',
     g: R => ({ s: (R.chance(0.5) ? ' ' : '') + words(R, R.int(1, 4), 'ab', 1, 5).join(R.pick([' ', '  '])) + (R.chance(0.5) ? '  ' : '') }),
-    s(I, T) { const s = I.s; let i = s.length - 1; while (s[i] === ' ') i--; T.at({ s: A([...s].map(c => c === ' ' ? '␣' : c), { i }) }); T.n('Index of the last non-space?', i, 'Skip trailing spaces.'); let n = 0; while (i >= 0 && s[i] !== ' ') { i--; n++; } T.n('Length of the last word?', n, 'Count until a space.'); return n; }
+    s(I, T) { const s = I.s; let i = s.length - 1; while (s[i] === ' ') i--; T.at({ s: A([...s].map(c => c === ' ' ? '␣' : c), { i }) }); T.n('Index of the last non-space?', i, 'Skip trailing spaces.'); T.n('How many trailing spaces?', s.length - 1 - i, 'Characters after that index.'); let n = 0; while (i >= 0 && s[i] !== ' ') { i--; n++; } T.n('Length of the last word?', n, 'Count until a space.'); return n; }
   });
 
   D('reverse-words-in-a-string', {
     t: 'Reverse Words in a String',
     r: 'Split on runs of spaces (dropping empty pieces), reverse the word list and join with single spaces. In-place: reverse the whole string, then each word, then compact spaces.',
     g: R => ({ s: (R.chance(0.5) ? ' ' : '') + words(R, R.int(1, 4), 'abc', 1, 4).join(R.pick([' ', '  '])) + (R.chance(0.5) ? ' ' : '') }),
-    s(I, T) { const w = I.s.split(' ').filter(Boolean); T.at({ s: JSON.stringify(I.s) }); T.n('How many words?', w.length, 'Ignore extra spaces.'); const r = w.reverse().join(' '); T.c('Result?', [...new Set([r, w.slice().reverse().join(' '), r + ' '])].map(x => JSON.stringify(x)), JSON.stringify(r), 'Reverse word order, single spaces.'); return r; }
+    s(I, T) { const res = (() => { const w = I.s.split(' ').filter(Boolean); T.at({ s: JSON.stringify(I.s) }); T.n('How many words?', w.length, 'Ignore extra spaces.'); const r = w.reverse().join(' '); T.c('Result?', [...new Set([r, w.slice().reverse().join(' '), r + ' '])].map(x => JSON.stringify(x)), JSON.stringify(r), 'Reverse word order, single spaces.'); return r; })(); T.n('Spaces in the result?', Math.max(0, res.split(' ').length - 1), 'Exactly one between each pair of words.'); return res; }
   });
 
   D('one-edit-distance', {
@@ -53,7 +53,7 @@
     t: 'Compare Version Numbers',
     r: 'Split on dots and compare revisions as integers left to right, treating missing revisions as 0. The first difference decides (−1 / 1); otherwise 0.',
     g: R => { const v = () => Array.from({ length: R.int(1, 3) }, () => (R.chance(0.3) ? '0' : '') + R.int(0, 3)).join('.'); return { version1: v(), version2: v() }; },
-    s(I, T) { const a = I.version1.split('.').map(Number), b = I.version2.split('.').map(Number); for (let i = 0; i < Math.max(a.length, b.length); i++) { const x = a[i] || 0, y = b[i] || 0; T.at({ v1: A(a, { i }), v2: A(b, { i }) }); T.c(`Revision ${i}: ${x} vs ${y}?`, ['equal', 'v1 bigger', 'v2 bigger'], x === y ? 'equal' : x > y ? 'v1 bigger' : 'v2 bigger', 'Leading zeros ignored; missing = 0.'); if (x !== y) return x > y ? 1 : -1; } return 0; }
+    s(I, T) { const res = (() => { const a = I.version1.split('.').map(Number), b = I.version2.split('.').map(Number); T.at({ v1: A(a), v2: A(b) }); T.n('Revisions to compare at most?', Math.max(a.length, b.length), 'The longer version decides.'); for (let i = 0; i < Math.max(a.length, b.length); i++) { const x = a[i] || 0, y = b[i] || 0; T.at({ v1: A(a, { i }), v2: A(b, { i }) }); T.c(`Revision ${i}: ${x} vs ${y}?`, ['equal', 'v1 bigger', 'v2 bigger'], x === y ? 'equal' : x > y ? 'v1 bigger' : 'v2 bigger', 'Leading zeros are ignored, and a missing revision counts as 0.'); if (x !== y) return x > y ? 1 : -1; } return 0; })(); T.n('Result? (1, −1 or 0)', res, 'The first unequal revision decides.'); return res; }
   });
 
   D('summary-ranges', {
@@ -67,7 +67,7 @@
     t: 'Shortest Word Distance',
     r: 'One pass remembering the latest index of word1 and of word2. Whenever you see either, update its index and, if both are known, the best distance.',
     g: R => { const w = ['a', 'b', 'c', 'd'], d = Array.from({ length: R.int(2, 8) }, () => R.pick(w)); d[R.int(0, d.length - 1)] = 'x'; let i = R.int(0, d.length - 1); while (d[i] === 'x') i = (i + 1) % d.length; d[i] = 'y'; return { wordsDict: d, word1: 'x', word2: 'y' }; },
-    s(I, T) { let p = -1, q = -1, best = Infinity; I.wordsDict.forEach((w, i) => { if (w === I.word1) p = i; if (w === I.word2) q = i; if ((w === I.word1 || w === I.word2) && p >= 0 && q >= 0) { best = Math.min(best, Math.abs(p - q)); T.at({ words: A(I.wordsDict, { i }), last1: p, last2: q }); T.n('Best distance so far?', best, '|last1 − last2|.'); } }); return best; }
+    s(I, T) { const res = (() => { let p = -1, q = -1, best = Infinity; T.at({ words: A(I.wordsDict) }); T.n(`Times "${I.word1}" appears?`, I.wordsDict.filter(w => w === I.word1).length, 'Each one is a candidate position.'); I.wordsDict.forEach((w, i) => { if (w === I.word1) p = i; if (w === I.word2) q = i; if ((w === I.word1 || w === I.word2) && p >= 0 && q >= 0) { best = Math.min(best, Math.abs(p - q)); T.at({ words: A(I.wordsDict, { i }), last1: p, last2: q }); T.n('Best distance so far?', best, 'Distance between the two last positions.'); } }); return best; })(); T.n('Shortest distance?', res, 'The best distance over the whole scan.'); return res; }
   });
 
   D('shortest-word-distance-iii', {
@@ -81,7 +81,7 @@
     t: 'Strobogrammatic Number',
     r: 'Two pointers from both ends: each pair must be a rotation pair — 0↔0, 1↔1, 8↔8, 6↔9, 9↔6.',
     g: R => { const P = [['0', '0'], ['1', '1'], ['8', '8'], ['6', '9'], ['9', '6']], h = R.int(0, 2), L = [], Rr = []; for (let i = 0; i < h; i++) { const p = R.pick(P); L.push(p[0]); Rr.unshift(p[1]); } let s = L.join('') + (R.chance(0.5) ? R.pick(['0', '1', '8']) : '') + Rr.join(''); if (!s || R.chance(0.3)) s = String(R.int(1, 999)); return { num: s }; },
-    s(I, T) { const M = { 0: '0', 1: '1', 8: '8', 6: '9', 9: '6' }, s = I.num; let l = 0, r = s.length - 1; while (l <= r) { const ok = M[s[l]] === s[r]; T.at({ num: A([...s], { l, r }) }); T.yn(`Is ${s[l]} ↔ ${s[r]} a valid rotated pair?`, ok, 'Pairs: 00 11 88 69 96.'); if (!ok) return false; l++; r--; } return true; }
+    s(I, T) { const res = (() => { const M = { 0: '0', 1: '1', 8: '8', 6: '9', 9: '6' }, s = I.num; let l = 0, r = s.length - 1; while (l <= r) { const ok = M[s[l]] === s[r]; T.at({ num: A([...s], { l, r }) }); T.yn(`Do ${s[l]} and ${s[r]} form a valid rotated pair?`, ok, 'Valid pairs: 0 and 0, 1 and 1, 8 and 8, 6 and 9, 9 and 6.'); if (!ok) return false; l++; r--; } return true; })(); T.yn('Is the number strobogrammatic?', res, 'Every pair must be valid.'); return res; }
   });
 
   D('3sum-smaller', {
@@ -102,7 +102,7 @@
     t: 'Reverse Vowels of a String',
     r: 'Two pointers from both ends: advance each until it sits on a vowel (either case), swap, and move both inward.',
     g: R => ({ s: R.str(R.int(1, 8), 'aeIOubcd') }),
-    s(I, T) { const a = [...I.s], V = 'aeiouAEIOU'; let l = 0, r = a.length - 1, asks = 0; while (l < r) { while (l < r && !V.includes(a[l])) l++; while (l < r && !V.includes(a[r])) r--; if (l < r) { if (asks++ < 6) { T.at({ s: A(a.slice(), { l, r }) }); T.c(`Swap which characters?`, [...new Set([a[l] + '↔' + a[r], a[r] + '↔' + a[l], a[l] + '↔' + a[l]])], a[l] + '↔' + a[r], 'Both pointers rest on vowels.'); } [a[l], a[r]] = [a[r], a[l]]; l++; r--; } } if (!asks) { T.at({ s: A(a) }); T.n('How many swaps happen?', 0, 'Fewer than two vowels.'); } return a.join(''); }
+    s(I, T) { const a = [...I.s], V = 'aeiouAEIOU'; let l = 0, r = a.length - 1, asks = 0; T.at({ s: A(a.slice()) }); T.n('How many vowels?', a.filter(c => V.includes(c)).length, 'Upper and lower case both count.'); while (l < r) { while (l < r && !V.includes(a[l])) l++; while (l < r && !V.includes(a[r])) r--; if (l < r) { if (asks++ < 6) { T.at({ s: A(a.slice(), { l, r }) }); T.n(`Index ${l} swaps with which index?`, r, 'Both pointers rest on vowels.'); } [a[l], a[r]] = [a[r], a[l]]; l++; r--; } } if (!asks) { T.at({ s: A(a) }); T.n('How many swaps happen?', 0, 'Fewer than two vowels.'); T.yn('Is the string unchanged?', true, 'Nothing was swapped.'); } return a.join(''); }
   });
 
   D('intersection-of-two-arrays-ii', {
@@ -160,14 +160,14 @@
     t: 'Magical String',
     r: 'Generate the string with a read pointer: s[i] says how many copies of the next symbol (alternating 1/2) to append. Count 1s among the first n.',
     g: R => ({ n: R.int(1, 25) }),
-    s(I, T) { const s = [1, 2, 2]; let i = 2; while (s.length < I.n) { const v = s[s.length - 1] === 1 ? 2 : 1; for (let k = 0; k < s[i]; k++) s.push(v); i++; } const f = s.slice(0, I.n), c = f.filter(x => x === 1).length; T.at({ s: A(f) }); T.n(`Value at index ${Math.min(I.n, 6) - 1}?`, f[Math.min(I.n, 6) - 1], 'Group sizes read from the string itself.'); T.n('How many 1s in the first n?', c, 'Count them.'); return c; }
+    s(I, T) { const s = [1, 2, 2]; let i = 2; while (s.length < I.n) { const v = s[s.length - 1] === 1 ? 2 : 1; for (let k = 0; k < s[i]; k++) s.push(v); i++; } const f = s.slice(0, I.n), c = f.filter(x => x === 1).length; T.at({ s: A(f) }); T.n(`Value at index ${Math.min(I.n, 6) - 1}?`, f[Math.min(I.n, 6) - 1], 'Group sizes read from the string itself.'); T.n('How many 1s in the first n?', c, 'Count them.'); T.n('How many 2s in the first n?', I.n - c, 'The rest of the first n.'); return c; }
   });
 
   D('longest-uncommon-subsequence-ii', {
     t: 'Longest Uncommon Subsequence II',
     r: 'The answer, if any, is a whole string. Check strings longest-first: one that is not a subsequence of any other string wins; −1 if none.',
     g: R => ({ strs: words(R, R.int(2, 4), 'ab', 1, 3) }),
-    s(I, T) { const s = I.strs.map((x, i) => [x, i]).sort((a, b) => b[0].length - a[0].length); let asks = 0; for (const [x, i] of s) { const ok = I.strs.every((y, j) => j === i || !isSub(x, y)); if (asks++ < 6) { T.at({ strs: A(I.strs, { i }) }); T.yn(`Is "${x}" a subsequence of none of the others?`, ok, 'Then its length is the answer.'); } if (ok) return x.length; } return -1; }
+    s(I, T) { const res = (() => { const s = I.strs.map((x, i) => [x, i]).sort((a, b) => b[0].length - a[0].length); let asks = 0; T.at({ strs: A(I.strs) }); T.n('Length of the longest string?', s[0][0].length, 'Check longer strings first.'); for (const [x, i] of s) { const ok = I.strs.every((y, j) => j === i || !isSub(x, y)); if (asks++ < 6) { T.at({ strs: A(I.strs, { i }) }); T.yn(`Is "${x}" a subsequence of none of the others?`, ok, 'Then its length is the answer.'); } if (ok) return x.length; } return -1; })(); T.n('Answer? (−1 if none)', res, 'The first length that works.'); return res; }
   });
 
   D('longest-word-in-dictionary-through-deleting', {
@@ -188,14 +188,14 @@
     t: 'Reverse String II',
     r: 'Step through the string in blocks of 2k; reverse the first k characters of each block (or all that remain if fewer than k).',
     g: R => ({ s: R.str(R.int(1, 10), 'abcdefg'), k: R.int(1, 4) }),
-    s(I, T) { const a = [...I.s]; for (let i = 0; i < a.length; i += 2 * I.k) { const j = Math.min(i + I.k, a.length) - 1; T.at({ s: A(a.slice(), { win: [i, j] }) }); T.n('Last index reversed in this block?', j, 'First k of every 2k.'); let l = i, r = j; while (l < r) { [a[l], a[r]] = [a[r], a[l]]; l++; r--; } } return a.join(''); }
+    s(I, T) { const a = [...I.s]; T.at({ s: A(a.slice()), k: I.k }); T.n('How many 2k blocks?', Math.ceil(a.length / (2 * I.k)), 'The last block may be short.'); for (let i = 0; i < a.length; i += 2 * I.k) { const j = Math.min(i + I.k, a.length) - 1; T.at({ s: A(a.slice(), { win: [i, j] }) }); T.n('Last index reversed in this block?', j, 'First k of every 2k.'); let l = i, r = j; while (l < r) { [a[l], a[r]] = [a[r], a[l]]; l++; r--; } } return a.join(''); }
   });
 
   D('next-greater-element-iii', {
     t: 'Next Greater Element III',
     r: 'Apply next permutation to the digits: find the pivot from the right, swap with the rightmost larger digit, reverse the suffix. No pivot or a result above 2^31 − 1 → −1.',
     g: R => ({ n: R.int(1, 99999) }),
-    s(I, T) { const d = [...String(I.n)].map(Number), [res, i] = nextPerm(d); T.at({ digits: A(d) }); T.n('Pivot index (−1 if none)?', i, 'Rightmost digit smaller than its right neighbor.'); if (i < 0) return -1; const v = +res.join(''); T.n('Next greater number?', v, 'Swap, reverse suffix.'); return v > 2147483647 ? -1 : v; }
+    s(I, T) { const d = [...String(I.n)].map(Number), [res, i] = nextPerm(d); T.at({ digits: A(d) }); T.n('How many digits?', d.length, 'Only rearrange these.'); T.n('Pivot index (−1 if none)?', i, 'Rightmost digit smaller than its right neighbor.'); if (i < 0) { T.n('Answer?', -1, 'Digits already descend.'); return -1; } const v = +res.join(''); T.n('Next greater number?', v, 'Swap, reverse suffix.'); return v > 2147483647 ? -1 : v; }
   });
 
   D('reverse-words-in-a-string-iii', {
@@ -209,7 +209,7 @@
     t: 'Shortest Unsorted Continuous Subarray',
     r: 'Left to right, track the running max: any element below it marks the right end. Right to left, track the running min: any element above it marks the left end. Length = r − l + 1 (0 if sorted).',
     g: R => { const a = R.sorted(R.int(1, 8), 1, 9); if (R.chance(0.7) && a.length > 1) { const i = R.int(0, a.length - 2), j = R.int(i + 1, a.length - 1); [a[i], a[j]] = [a[j], a[i]]; } return { nums: a }; },
-    s(I, T) { const a = I.nums, n = a.length; let mx = -Infinity, mn = Infinity, r = -1, l = 0; for (let i = 0; i < n; i++) { if (a[i] < mx) r = i; else mx = a[i]; } for (let i = n - 1; i >= 0; i--) { if (a[i] > mn) l = i; else mn = a[i]; } T.at({ nums: A(a) }); T.n('Right end (last index below the running max; −1 if none)?', r, 'Scan left to right.'); if (r < 0) return 0; T.n('Left end (last index above the running min, scanning right to left)?', l, 'Scan right to left.'); return r - l + 1; }
+    s(I, T) { const res = (() => { const a = I.nums, n = a.length; let mx = -Infinity, mn = Infinity, r = -1, l = 0; for (let i = 0; i < n; i++) { if (a[i] < mx) r = i; else mx = a[i]; } for (let i = n - 1; i >= 0; i--) { if (a[i] > mn) l = i; else mn = a[i]; } T.at({ nums: A(a) }); T.yn('Is the array already sorted?', r < 0, 'No value is below the running max.'); T.n('Right end? This is the last index below the running max, or −1 if none.', r, 'Scan left to right.'); if (r < 0) return 0; T.n('Left end? This is the last index above the running min, scanning right to left.', l, 'Scan right to left.'); return r - l + 1; })(); T.n('Length of the shortest subarray to sort?', res, 'Right end minus left end, plus 1, or 0.'); return res; }
   });
 
   D('valid-triangle-number', {
@@ -230,7 +230,7 @@
     t: 'Candy Crush',
     r: 'Repeat: mark every cell in a horizontal or vertical line of ≥ 3 equal non-zero candies (mark first, crush together), set them to 0, then let each column fall with a write pointer from the bottom. Stop when nothing is marked.',
     g: R => ({ board: Array.from({ length: R.int(3, 5) }, () => R.ints(3, 1, 3)) }),
-    s(I, T) { const b = I.board.map(r => r.slice()), m = b.length, n = b[0].length; let round = 0; for (;;) { const mk = b.map(r => r.map(() => false)); let any = false; for (let i = 0; i < m; i++) for (let j = 0; j < n; j++) { const v = b[i][j]; if (!v) continue; if (j + 2 < n && b[i][j + 1] === v && b[i][j + 2] === v) mk[i][j] = mk[i][j + 1] = mk[i][j + 2] = any = true; if (i + 2 < m && b[i + 1][j] === v && b[i + 2][j] === v) mk[i][j] = mk[i + 1][j] = mk[i + 2][j] = any = true; } const cnt = mk.flat().filter(Boolean).length; if (round < 4) { T.at({ board: G(b.map(r => r.slice())) }); T.n('How many cells get crushed this round?', cnt, 'Mark all lines of 3+ first.'); } round++; if (!any) break; for (let j = 0; j < n; j++) { let w = m - 1; for (let i = m - 1; i >= 0; i--) if (!mk[i][j] && b[i][j]) b[w--][j] = b[i][j]; while (w >= 0) b[w--][j] = 0; } } return b; }
+    s(I, T) { const res = (() => { const b = I.board.map(r => r.slice()), m = b.length, n = b[0].length; let round = 0; for (;;) { const mk = b.map(r => r.map(() => false)); let any = false; for (let i = 0; i < m; i++) for (let j = 0; j < n; j++) { const v = b[i][j]; if (!v) continue; if (j + 2 < n && b[i][j + 1] === v && b[i][j + 2] === v) mk[i][j] = mk[i][j + 1] = mk[i][j + 2] = any = true; if (i + 2 < m && b[i + 1][j] === v && b[i + 2][j] === v) mk[i][j] = mk[i + 1][j] = mk[i + 2][j] = any = true; } const cnt = mk.flat().filter(Boolean).length; if (round < 4) { T.at({ board: G(b.map(r => r.slice())) }); T.n('How many cells get crushed this round?', cnt, 'Mark all lines of 3+ first.'); } round++; if (!any) break; for (let j = 0; j < n; j++) { let w = m - 1; for (let i = m - 1; i >= 0; i--) if (!mk[i][j] && b[i][j]) b[w--][j] = b[i][j]; while (w >= 0) b[w--][j] = 0; } } return b; })(); T.n('Empty cells at the end?', res.flat().filter(v => !v).length, 'Crushed cells fill from the top.'); return res; }
   });
 
   D('swap-adjacent-in-lr-string', {

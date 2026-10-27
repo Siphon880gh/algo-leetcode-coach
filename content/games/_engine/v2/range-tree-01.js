@@ -121,7 +121,7 @@
     t: 'Maximum Profitable Triplets With Increasing Prices I',
     r: 'For each middle j, take the best profit to the left with a smaller price and the best to the right with a larger price (Fenwick max trees over prices). Maximize the sum; −1 if none.',
     g: R => { const n = R.int(3, 6); return { prices: R.ints(n, 1, 8), profits: R.ints(n, 1, 9) }; },
-    s(I, T) { const p = I.prices, f = I.profits, n = p.length; let best = -1; for (let j = 1; j + 1 < n; j++) { const l = Math.max(-1, ...p.slice(0, j).map((x, i) => x < p[j] ? f[i] : -1)), r = Math.max(-1, ...p.slice(j + 1).map((x, i) => x > p[j] ? f[j + 1 + i] : -1)); if (l < 0 || r < 0) continue; best = Math.max(best, l + f[j] + r); T.at({ prices: A(p, { i: j }) }); T.n('Best triplet profit with this middle?', l + f[j] + r, 'Best cheaper on the left + best pricier on the right.'); } return best; }
+    s(I, T) { const res = (() => { const p = I.prices, f = I.profits, n = p.length; T.at({ prices: A(p), profits: A(f) }); T.n('Possible middle indices?', Math.max(0, n - 2), 'Every index except the two ends.'); let best = -1; for (let j = 1; j + 1 < n; j++) { const l = Math.max(-1, ...p.slice(0, j).map((x, i) => x < p[j] ? f[i] : -1)), r = Math.max(-1, ...p.slice(j + 1).map((x, i) => x > p[j] ? f[j + 1 + i] : -1)); if (l < 0 || r < 0) continue; best = Math.max(best, l + f[j] + r); T.at({ prices: A(p, { i: j }) }); T.n('Best triplet profit with this middle?', l + f[j] + r, 'Best cheaper on the left plus best pricier on the right.'); } return best; })(); T.at({ prices: A(I.prices), profits: A(I.profits) }); T.n('Best total profit? (−1 if none)', res, 'Largest over all middles.'); return res; }
   });
 
   D('subarrays-distinct-element-sum-of-squares-ii', {
@@ -133,8 +133,8 @@
 
   D('maximum-profitable-triplets-with-increasing-prices-ii', {
     t: 'Maximum Profitable Triplets With Increasing Prices II',
-    r: 'Same as I but large: sweep left-to-right with a Fenwick max over prices for the best left profit, and right-to-left for the best right profit; combine at each middle.',
+    r: 'Same as I but large: sweep left to right with a Fenwick max over prices for the best left profit, and right to left for the best right profit; combine at each middle.',
     g: R => { const n = R.int(3, 6); return { prices: R.ints(n, 1, 8), profits: R.ints(n, 1, 9) }; },
-    s(I, T) { const p = I.prices, f = I.profits, n = p.length, L = [], Rt = []; for (let j = 0; j < n; j++) L[j] = Math.max(-1, ...p.slice(0, j).map((x, i) => x < p[j] ? f[i] : -1)); for (let j = n - 1; j >= 0; j--) Rt[j] = Math.max(-1, ...p.slice(j + 1).map((x, i) => x > p[j] ? f[j + 1 + i] : -1)); T.at({ prices: A(p), bestLeft: A(L) }); T.n('Best left profit for the second item?', L[1], 'Fenwick max over smaller prices.'); let best = -1; for (let j = 0; j < n; j++) if (L[j] >= 0 && Rt[j] >= 0) best = Math.max(best, L[j] + f[j] + Rt[j]); return best; }
+    s(I, T) { const res = (() => { const p = I.prices, f = I.profits, n = p.length, L = [], Rt = []; for (let j = 0; j < n; j++) L[j] = Math.max(-1, ...p.slice(0, j).map((x, i) => x < p[j] ? f[i] : -1)); for (let j = n - 1; j >= 0; j--) Rt[j] = Math.max(-1, ...p.slice(j + 1).map((x, i) => x > p[j] ? f[j + 1 + i] : -1)); T.at({ prices: A(p), bestLeft: A(L) }); T.n('Best left profit for the second item?', L[1], 'Fenwick max over smaller prices.'); T.at({ prices: A(p), bestRight: A(Rt) }); T.n('Best right profit for the next to last item?', Rt[n - 2], 'Fenwick max over larger prices.'); let best = -1; for (let j = 0; j < n; j++) if (L[j] >= 0 && Rt[j] >= 0) best = Math.max(best, L[j] + f[j] + Rt[j]); return best; })(); T.n('Best total profit? (−1 if none)', res, 'Left plus middle plus right, best over all middles.'); return res; }
   });
 })();

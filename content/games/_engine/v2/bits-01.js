@@ -69,7 +69,7 @@
     t: 'Power of Two',
     r: 'n is a power of two iff n > 0 and n & (n − 1) == 0 (exactly one set bit).',
     g: R => ({ n: R.chance(0.5) ? 2 ** R.int(0, 20) : R.int(-8, 1000) }),
-    s(I, T) { T.at({ n: I.n, binary: I.n > 0 ? bin(I.n) : '—' }); T.yn('Is n positive?', I.n > 0, 'Required.'); if (I.n <= 0) return false; T.n('n & (n − 1)?', I.n & (I.n - 1), 'Zero iff one set bit.'); return (I.n & (I.n - 1)) === 0; }
+    s(I, T) { const res = (() => { T.at({ n: I.n, binary: I.n > 0 ? bin(I.n) : '—' }); T.yn('Is n positive?', I.n > 0, 'Required.'); T.n('Set bits in n? (0 if not positive)', I.n > 0 ? pc(I.n) : 0, 'A power of two has exactly one.'); if (I.n <= 0) return false; T.n('n AND (n minus 1)?', I.n & (I.n - 1), 'Zero exactly when there is one set bit.'); return (I.n & (I.n - 1)) === 0; })(); T.yn('Is n a power of two?', res, 'Positive with one set bit.'); return res; }
   });
 
   D('single-number-iii', {
@@ -77,7 +77,7 @@
     r: 'XOR all to get a ^ b. Its lowest set bit splits the numbers into two groups; XOR each group to get a and b.',
     g: R => { const v = R.distinct(R.int(2, 5), 1, 15), a = v.pop(), b = v.pop(); return { nums: R.shuffle([...v, ...v, a, b]) }; },
     cmp: 'set',
-    s(I, T) { const x = I.nums.reduce((p, q) => p ^ q, 0), low = x & -x; T.at({ nums: A(I.nums) }); T.n('XOR of everything (a ^ b)?', x, 'Pairs cancel.'); T.n('Lowest set bit used to split?', low, 'x & −x.'); let a = 0, b = 0; I.nums.forEach(v => v & low ? a ^= v : b ^= v); return [a, b]; }
+    s(I, T) { const res = (() => { const x = I.nums.reduce((p, q) => p ^ q, 0), low = x & -x; T.at({ nums: A(I.nums) }); T.n('XOR of everything? This equals a XOR b.', x, 'Pairs cancel.'); T.n('Lowest set bit used to split?', low, 'x AND negative x.'); let a = 0, b = 0; I.nums.forEach(v => v & low ? a ^= v : b ^= v); return [a, b]; })(); T.n('Smaller of the two single numbers?', Math.min(...res), 'XOR each group separately.'); return res; }
   });
 
   D('palindrome-permutation', {
@@ -105,7 +105,7 @@
     t: 'Power of Four',
     r: 'A power of four is a power of two whose single set bit is at an even position: n > 0, n & (n − 1) == 0, and n & 0x55555555 ≠ 0.',
     g: R => ({ n: R.chance(0.5) ? 2 ** R.int(0, 20) : R.int(-4, 300) }),
-    s(I, T) { const p2 = I.n > 0 && (I.n & (I.n - 1)) === 0; T.at({ n: I.n, binary: I.n > 0 ? bin(I.n) : '—' }); T.yn('Power of two?', p2, 'One set bit.'); if (!p2) return false; T.yn('Is that bit at an even position?', (I.n & 0x55555555) !== 0, 'Mask 0x55555555.'); return (I.n & 0x55555555) !== 0; }
+    s(I, T) { const res = (() => { const p2 = I.n > 0 && (I.n & (I.n - 1)) === 0; T.at({ n: I.n, binary: I.n > 0 ? bin(I.n) : '—' }); T.n('Set bits in n? (0 if not positive)', I.n > 0 ? pc(I.n) : 0, 'Count the ones.'); T.yn('Power of two?', p2, 'One set bit.'); if (!p2) return false; T.yn('Is that bit at an even position?', (I.n & 0x55555555) !== 0, 'Mask 0x55555555.'); return (I.n & 0x55555555) !== 0; })(); T.yn('Is n a power of four?', res, 'One set bit at an even position.'); return res; }
   });
 
   D('sum-of-two-integers', {
@@ -119,7 +119,7 @@
     t: 'Find the Difference',
     r: 'XOR all character codes of s and t; everything cancels except the added letter.',
     g: R => { const s = R.str(R.int(0, 6), 'abcd'), add = R.pick(['a', 'b', 'c', 'e']), p = R.int(0, s.length); return { s, t: [...R.shuffle([...s.slice(0, p) + add + s.slice(p)])].join('') }; },
-    s(I, T) { let x = 0; [...I.s, ...I.t].forEach(c => x ^= c.charCodeAt(0)); T.at({ s: I.s, t: I.t }); T.n('XOR of all character codes?', x, 'Pairs cancel.'); return String.fromCharCode(x); }
+    s(I, T) { const res = (() => { let x = 0; [...I.s, ...I.t].forEach(c => x ^= c.charCodeAt(0)); T.at({ s: I.s, t: I.t }); T.n('Characters XORed in total?', I.s.length + I.t.length, 'Every character of s and t.'); T.n('XOR of all character codes?', x, 'Pairs cancel.'); return String.fromCharCode(x); })(); T.c('Added letter?', [...new Set([res, ...I.t, 'a', 'b'])], res, 'The code left after XOR.'); return res; }
   });
 
   D('utf-8-validation', {
@@ -140,14 +140,14 @@
     t: 'Hamming Distance',
     r: 'XOR the numbers; the distance is the number of set bits in x ^ y.',
     g: R => ({ x: R.int(0, 63), y: R.int(0, 63) }),
-    s(I, T) { const z = I.x ^ I.y; T.at({ x: bin(I.x, 6), y: bin(I.y, 6) }); T.n('x ^ y?', z, 'Differing bits are set.'); return pc(z); }
+    s(I, T) { const res = (() => { const z = I.x ^ I.y; T.at({ x: bin(I.x, 6), y: bin(I.y, 6) }); T.yn('Are x and y equal?', I.x === I.y, 'Then the distance is 0.'); T.n('x XOR y?', z, 'Differing bits are set.'); return pc(z); })(); T.n('Hamming distance?', res, 'Count the set bits of the XOR.'); return res; }
   });
 
   D('number-complement', {
     t: 'Number Complement',
     r: 'Build a mask of all 1s as wide as num (highest bit and below) and XOR: num ^ mask.',
     g: R => ({ num: R.int(1, 200) }),
-    s(I, T) { let m = 1; while (m <= I.num) m <<= 1; m -= 1; T.at({ num: bin(I.num) }); T.n('Mask of 1s covering num?', m, 'Same width as num.'); return I.num ^ m; }
+    s(I, T) { const res = (() => { let m = 1; while (m <= I.num) m <<= 1; m -= 1; T.at({ num: bin(I.num) }); T.n('Bit length of num?', bin(I.num).length, 'The mask needs this many ones.'); T.n('Mask of 1s covering num?', m, 'Same width as num.'); return I.num ^ m; })(); T.n('Complement?', res, 'num XOR the mask.'); return res; }
   });
 
   D('total-hamming-distance', {
@@ -161,14 +161,14 @@
     t: 'Set Mismatch',
     r: 'Mark seen values by negating nums[|x| − 1]; a value whose slot is already negative is the duplicate; the slot left positive marks the missing number.',
     g: R => { const n = R.int(2, 7), a = [...Array(n).keys()].map(x => x + 1), i = R.int(0, n - 1); let j = R.int(0, n - 1); if (j === i) j = (i + 1) % n; a[i] = a[j]; return { nums: R.shuffle(a) }; },
-    s(I, T) { const a = I.nums.slice(); let dup = -1; a.forEach((_, i) => { const x = Math.abs(a[i]); if (a[x - 1] < 0) dup = x; else a[x - 1] *= -1; }); T.at({ marked: A(a) }); T.n('Duplicate value?', dup, 'Found a slot already negative.'); const miss = a.findIndex(v => v > 0) + 1; return [dup, miss]; }
+    s(I, T) { const res = (() => { const a = I.nums.slice(); let dup = -1; a.forEach((_, i) => { const x = Math.abs(a[i]); if (a[x - 1] < 0) dup = x; else a[x - 1] *= -1; }); T.at({ marked: A(a) }); T.n('Expected sum of 1 to n?', a.length * (a.length + 1) / 2, 'n times n plus 1, halved.'); T.n('Duplicate value?', dup, 'Found a slot already negative.'); const miss = a.findIndex(v => v > 0) + 1; return [dup, miss]; })(); T.n('Missing value?', res[1], 'The slot that stayed positive.'); return res; }
   });
 
   D('binary-number-with-alternating-bits', {
     t: 'Binary Number with Alternating Bits',
     r: 'x = n ^ (n >> 1) is all 1s iff the bits alternate; check x & (x + 1) == 0.',
     g: R => ({ n: R.chance(0.4) ? R.pick([1, 2, 5, 10, 21, 42, 85]) : R.int(1, 100) }),
-    s(I, T) { const x = I.n ^ (I.n >> 1); T.at({ n: bin(I.n) }); T.n('n ^ (n >> 1)?', x, 'All ones if alternating.'); return (x & (x + 1)) === 0; }
+    s(I, T) { const res = (() => { const x = I.n ^ (I.n >> 1); T.at({ n: bin(I.n) }); T.n('n XOR (n shifted right by 1)?', x, 'All ones if alternating.'); T.n('That value AND itself plus 1?', x & (x + 1), 'Zero when it is all ones.'); return (x & (x + 1)) === 0; })(); T.yn('Does n have alternating bits?', res, 'The check above is zero.'); return res; }
   });
 
   D('ip-to-cidr', {
@@ -189,7 +189,7 @@
     t: 'K-th Symbol in Grammar',
     r: 'Each row is the previous row followed by its complement. The k-th symbol equals the parity of the number of set bits in k − 1.',
     g: R => { const n = R.int(1, 8); return { n, k: R.int(1, 2 ** (n - 1)) }; },
-    s(I, T) { T.at({ n: I.n, k: I.k, 'k − 1 in binary': bin(I.k - 1) }); T.n('Set bits in k − 1?', pc(I.k - 1), 'Each set bit is one flip.'); return pc(I.k - 1) & 1; }
+    s(I, T) { const res = (() => { T.at({ n: I.n, k: I.k, 'k minus 1 in binary': bin(I.k - 1) }); T.n('Length of row n?', Math.pow(2, I.n - 1), 'Each row doubles.'); T.n('Set bits in k minus 1?', pc(I.k - 1), 'Each set bit is one flip.'); return pc(I.k - 1) & 1; })(); T.n('Symbol? (0 or 1)', res, 'An odd number of flips gives 1.'); return res; }
   });
 
   D('binary-gap', {
@@ -217,7 +217,7 @@
     t: 'Complement of Base 10 Integer',
     r: 'Mask of all 1s as wide as n (at least one bit, so 0 → 1), then n ^ mask.',
     g: R => ({ n: R.int(0, 200) }),
-    s(I, T) { let m = 1; while (m <= I.n) m <<= 1; m = Math.max(1, m - 1); T.at({ n: bin(I.n) }); T.n('Mask?', m, 'All ones, same width.'); return I.n ^ m; }
+    s(I, T) { const res = (() => { let m = 1; while (m <= I.n) m <<= 1; m = Math.max(1, m - 1); T.at({ n: bin(I.n) }); T.n('Bit length of n?', bin(I.n).length, 'The mask needs this many ones.'); T.n('Mask?', m, 'All ones, same width.'); return I.n ^ m; })(); T.n('Complement?', res, 'n XOR the mask.'); return res; }
   });
 
   D('binary-string-with-substrings-representing-1-to-n', {
@@ -253,7 +253,7 @@
     t: 'Encode Number',
     r: 'The encoding of num is the binary of num + 1 without its leading 1.',
     g: R => ({ num: R.int(0, 60) }),
-    s(I, T) { T.at({ num: I.num }); T.n('num + 1?', I.num + 1, 'Its binary minus the top bit.'); return bin(I.num + 1).slice(1); }
+    s(I, T) { const res = (() => { T.at({ num: I.num }); T.n('num + 1?', I.num + 1, 'Its binary minus the top bit.'); T.n('Bits in num + 1?', bin(I.num + 1).length, 'Write it in binary.'); return bin(I.num + 1).slice(1); })(); T.n('Length of the encoding?', res.length, 'One less than that bit count.'); return res; }
   });
 
   D('minimum-flips-to-make-a-or-b-equal-to-c', {

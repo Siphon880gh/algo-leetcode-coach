@@ -26,7 +26,7 @@
     t: 'Maximum Prime Difference: first and last prime',
     r: 'The farthest pair is the first prime index and the last prime index.',
     g: R => { const a = R.ints(R.int(2, 7), 1, 20); if (!a.some(isPrime)) a[R.int(0, a.length - 1)] = 7; return { nums: a }; },
-    s(I, T) { const f = I.nums.findIndex(isPrime), l = I.nums.length - 1 - [...I.nums].reverse().findIndex(isPrime); T.at({ nums: A(I.nums) }); T.n('Index of the first prime?', f, 'Scan from the left.'); T.n('Index of the last prime?', l, 'Scan from the right.'); return l - f; }
+    s(I, T) { const res = (() => { const f = I.nums.findIndex(isPrime), l = I.nums.length - 1 - [...I.nums].reverse().findIndex(isPrime); T.at({ nums: A(I.nums) }); T.n('Index of the first prime?', f, 'Scan from the left.'); T.n('Index of the last prime?', l, 'Scan from the right.'); return l - f; })(); T.n('Maximum distance?', res, 'Last prime index minus first prime index.'); return res; }
   });
 
   D('right-triangles', {
@@ -47,7 +47,7 @@
     t: 'Child With the Ball After k Seconds: bounce period 2(n − 1)',
     r: 'Reduce k mod 2(n − 1). If it is < n the ball is at child k; otherwise it is coming back: child 2(n − 1) − k.',
     g: R => ({ n: R.int(2, 8), k: R.int(1, 30) }),
-    s(I, T) { const c = 2 * (I.n - 1), t = I.k % c; T.at({ n: I.n, k: I.k }); T.n(`k mod ${c}?`, t, 'Remove full round trips.'); return t < I.n ? t : c - t; }
+    s(I, T) { const res = (() => { const c = 2 * (I.n - 1), t = I.k % c; T.at({ n: I.n, k: I.k }); T.n('Seconds for a full round trip?', c, 'Out and back: 2 times (n minus 1).'); T.n(`Remainder of k divided by ${c}?`, t, 'Remove full round trips.'); return t < I.n ? t : c - t; })(); T.n('Child with the ball?', res, 'Going right, or coming back.'); return res; }
   });
 
   D('find-minimum-operations-to-make-all-elements-divisible-by-three', {
@@ -61,14 +61,14 @@
     t: 'Maximum Height of a Triangle: try both starting colors',
     r: 'Rows alternate colors and row i needs i balls. Try starting with red and with blue; keep building while the needed color has enough. Take the taller.',
     g: R => ({ red: R.int(1, 20), blue: R.int(1, 20) }),
-    s(I, T) { const h = (a, b) => { const c = [a, b]; let i = 1; while (c[(i - 1) % 2] >= i) { c[(i - 1) % 2] -= i; i++; } return i - 1; }; const r = h(I.red, I.blue), b = h(I.blue, I.red); T.at({ red: I.red, blue: I.blue }); T.n('Height starting with red?', r, 'Odd rows red, even rows blue.'); T.n('Height starting with blue?', b, 'Odd rows blue, even rows red.'); return Math.max(r, b); }
+    s(I, T) { const res = (() => { const h = (a, b) => { const c = [a, b]; let i = 1; while (c[(i - 1) % 2] >= i) { c[(i - 1) % 2] -= i; i++; } return i - 1; }; const r = h(I.red, I.blue), b = h(I.blue, I.red); T.at({ red: I.red, blue: I.blue }); T.n('Height starting with red?', r, 'Odd rows red, even rows blue.'); T.n('Height starting with blue?', b, 'Odd rows blue, even rows red.'); return Math.max(r, b); })(); T.n('Maximum height?', res, 'The better starting colour.'); return res; }
   });
 
   D('find-if-digit-game-can-be-won', {
     t: 'Digit Game: compare the two sums',
     r: 'Alice takes all single-digit or all double-digit numbers. She wins with one choice exactly when the two sums differ.',
     g: R => ({ nums: R.ints(R.int(1, 6), 1, 99) }),
-    s(I, T) { const s1 = I.nums.filter(x => x < 10).reduce((a, b) => a + b, 0), s2 = I.nums.filter(x => x >= 10).reduce((a, b) => a + b, 0); T.at({ nums: A(I.nums) }); T.n('Sum of single-digit numbers?', s1, 'Below 10.'); T.n('Sum of double-digit numbers?', s2, '10 and up.'); return s1 !== s2; }
+    s(I, T) { const res = (() => { const s1 = I.nums.filter(x => x < 10).reduce((a, b) => a + b, 0), s2 = I.nums.filter(x => x >= 10).reduce((a, b) => a + b, 0); T.at({ nums: A(I.nums) }); T.n('Sum of single-digit numbers?', s1, 'Below 10.'); T.n('Sum of double-digit numbers?', s2, '10 and up.'); return s1 !== s2; })(); T.yn('Can Alice win?', res, 'She wins if the sums differ.'); return res; }
   });
 
   D('find-the-count-of-numbers-which-are-not-special', {
@@ -89,14 +89,14 @@
     t: 'Same Chessboard Color: compare parities',
     r: 'A square\'s color is the parity of (file + rank). Two squares match when the parities match.',
     g: R => ({ coordinate1: 'abcdefgh'[R.int(0, 7)] + R.int(1, 8), coordinate2: 'abcdefgh'[R.int(0, 7)] + R.int(1, 8) }),
-    s(I, T) { const p = c => (c.charCodeAt(0) - 96 + +c[1]) % 2; T.at({ a: I.coordinate1, b: I.coordinate2 }); T.n(`Parity of file + rank for ${I.coordinate1}?`, p(I.coordinate1), 'a = 1.'); T.n(`Parity for ${I.coordinate2}?`, p(I.coordinate2), 'a = 1.'); return p(I.coordinate1) === p(I.coordinate2); }
+    s(I, T) { const res = (() => { const p = c => (c.charCodeAt(0) - 96 + +c[1]) % 2; T.at({ a: I.coordinate1, b: I.coordinate2 }); T.n(`Parity of file plus rank for ${I.coordinate1}?`, p(I.coordinate1), 'Count a as 1.'); T.n(`Parity for ${I.coordinate2}?`, p(I.coordinate2), 'Count a as 1.'); return p(I.coordinate1) === p(I.coordinate2); })(); T.yn('Same color?', res, 'Equal parity means the same color.'); return res; }
   });
 
   D('convert-date-to-binary', {
     t: 'Convert Date to Binary: each part on its own',
     r: 'Split "yyyy-mm-dd", convert each part to binary without leading zeros, and join with dashes.',
     g: R => ({ date: `${R.int(1900, 2100)}-${String(R.int(1, 12)).padStart(2, '0')}-${String(R.int(1, 28)).padStart(2, '0')}` }),
-    s(I, T) { const p = I.date.split('-').map(Number); T.at({ date: I.date }); T.n('How many binary digits does the month have?', p[1].toString(2).length, `Month ${p[1]}.`); T.n('How many binary digits does the day have?', p[2].toString(2).length, `Day ${p[2]}.`); return p.map(x => x.toString(2)).join('-'); }
+    s(I, T) { const res = (() => { const p = I.date.split('-').map(Number); T.at({ date: I.date }); T.n('How many binary digits does the month have?', p[1].toString(2).length, `Month ${p[1]}.`); T.n('How many binary digits does the day have?', p[2].toString(2).length, `Day ${p[2]}.`); return p.map(x => x.toString(2)).join('-'); })(); T.n('Binary digits in the year?', (+I.date.slice(0, 4)).toString(2).length, 'Write the year in binary.'); return res; }
   });
 
   D('the-two-sneaky-numbers-of-digitville', {
@@ -138,7 +138,7 @@
     t: 'Maximum Area Rectangle With Point Constraints I: brute force',
     r: 'n ≤ 10: try every pair as opposite corners with both other corners present, reject rectangles with any other point inside or on the border, keep the largest area (−1 if none).',
     g: R => { const s = new Set(); while (s.size < R.int(4, 7)) s.add(R.int(0, 3) + ',' + R.int(0, 3)); return { points: [...s].map(p => p.split(',').map(Number)) }; },
-    s(I, T) { const p = I.points, S = new Set(p.map(q => q.join())); let best = -1; for (let i = 0; i < p.length; i++) for (let j = 0; j < p.length; j++) { const [a, b] = [p[i], p[j]]; if (!(a[0] < b[0] && a[1] < b[1])) continue; if (!S.has([a[0], b[1]].join()) || !S.has([b[0], a[1]].join())) continue; const inside = p.filter(q => q[0] >= a[0] && q[0] <= b[0] && q[1] >= a[1] && q[1] <= b[1]).length; T.at({ points: A(p.map(q => `(${q})`), { hl: [i, j] }) }); T.yn(`Rectangle (${a})–(${b}): any other point inside or on it?`, inside > 4, inside > 4 ? 'It is blocked.' : 'Only its four corners.'); if (inside === 4) best = Math.max(best, (b[0] - a[0]) * (b[1] - a[1])); } return best; }
+    s(I, T) { const res = (() => { const p = I.points, S = new Set(p.map(q => q.join())); let best = -1; T.at({ points: A(p.map(q => `(${q})`)) }); T.n('Distinct x values?', new Set(p.map(q => q[0])).size, 'A rectangle needs two of them.'); for (let i = 0; i < p.length; i++) for (let j = 0; j < p.length; j++) { const [a, b] = [p[i], p[j]]; if (!(a[0] < b[0] && a[1] < b[1])) continue; if (!S.has([a[0], b[1]].join()) || !S.has([b[0], a[1]].join())) continue; const inside = p.filter(q => q[0] >= a[0] && q[0] <= b[0] && q[1] >= a[1] && q[1] <= b[1]).length; T.at({ points: A(p.map(q => `(${q})`), { hl: [i, j] }) }); T.yn(`Rectangle from (${a}) to (${b}): any other point inside or on it?`, inside > 4, inside > 4 ? 'It is blocked.' : 'Only its four corners.'); if (inside === 4) best = Math.max(best, (b[0] - a[0]) * (b[1] - a[1])); } return best; })(); T.n('Largest area? (−1 if none)', res, 'Best empty rectangle.'); return res; }
   });
 
   D('subsequences-with-a-unique-middle-mode-i', { t: 'Unique Middle Mode I: fix the middle element', r: 'Fix the middle index; choose 2 from the left and 2 from the right. Count choices where the middle value is the strict mode, by counting how many copies of it (and of other values) land on each side.', g: R => ({ nums: R.ints(R.int(5, 7), 1, 3) }), s: middleMode });
@@ -148,14 +148,14 @@
     t: 'Count Special Subsequences: equal ratios with gaps',
     r: 'nums[p]·nums[r] = nums[q]·nums[s] ⇔ nums[p]/nums[q] = nums[s]/nums[r]. For each r, add ratios nums[p]/nums[q] with q = r − 2 into a map, then look up nums[s]/nums[r] for s ≥ r + 2 (gaps of at least 2 everywhere).',
     g: R => ({ nums: R.ints(R.int(7, 8), 1, 4) }),
-    s(I, T) { const a = I.nums, n = a.length; let t = 0; for (let q = 2; q < n; q++) for (let r = q + 2; r < n; r++) { let c = 0; for (let p = 0; p + 1 < q; p++) for (let s = r + 2; s < n; s++) if (a[p] * a[r] === a[q] * a[s]) c++; if (c) { T.at({ nums: A(a, { hl: [q, r] }) }); T.n(`Special subsequences with q = ${q}, r = ${r}?`, c, 'Pairs (p ≤ q − 2, s ≥ r + 2) with nums[p]·nums[r] = nums[q]·nums[s].'); } t += c; } return t; }
+    s(I, T) { const res = (() => { const a = I.nums, n = a.length; let t = 0; T.at({ nums: A(a) }); T.n('Pairs of q and r to try?', Array.from({ length: n }, (_, q) => q >= 2 ? Math.max(0, n - q - 2) : 0).reduce((x, y) => x + y, 0), 'r must be at least 2 after q.'); for (let q = 2; q < n; q++) for (let r = q + 2; r < n; r++) { let c = 0; for (let p = 0; p + 1 < q; p++) for (let s = r + 2; s < n; s++) if (a[p] * a[r] === a[q] * a[s]) c++; if (c) { T.at({ nums: A(a, { hl: [q, r] }) }); T.n(`Special subsequences with q = ${q}, r = ${r}?`, c, 'Pairs with p at least 2 before q and s at least 2 after r, where nums[p] times nums[r] equals nums[q] times nums[s].'); } t += c; } return t; })(); T.n('Total special subsequences?', res, 'Add the counts for every q and r.'); return res; }
   });
 
   D('count-mentions-per-user', {
     t: 'Count Mentions per User: process events in time order',
     r: 'Sort events by timestamp, with OFFLINE before MESSAGE at the same time. OFFLINE marks a user offline until t + 60. "ALL" mentions everyone, "HERE" only online users, and idX tokens mention that user (repeats count).',
     g: R => { const n = R.int(1, 3), ev = []; for (let i = 0; i < R.int(1, 4); i++) { const t = String(R.int(1, 100)); if (R.chance(0.3)) ev.push(['OFFLINE', t, String(R.int(0, n - 1))]); else ev.push(['MESSAGE', t, R.pick(['ALL', 'HERE', Array.from({ length: R.int(1, 2) }, () => 'id' + R.int(0, n - 1)).join(' ')])]); } return { numberOfUsers: n, events: ev }; },
-    s(I, T) { const n = I.numberOfUsers, cnt = Array(n).fill(0), back = Array(n).fill(0); const ev = I.events.map((e, i) => [e, i]).sort((x, y) => +x[0][1] - +y[0][1] || (x[0][0] === 'OFFLINE' ? 0 : 1) - (y[0][0] === 'OFFLINE' ? 0 : 1) || x[1] - y[1]).map(x => x[0]); for (const [type, ts, arg] of ev) { const t = +ts; if (type === 'OFFLINE') { back[+arg] = t + 60; continue; } const before = cnt.slice(); if (arg === 'ALL') cnt.forEach((_, i) => cnt[i]++); else if (arg === 'HERE') cnt.forEach((_, i) => { if (back[i] <= t) cnt[i]++; }); else arg.split(' ').forEach(id => cnt[+id.slice(2)]++); T.at({ event: `${type} @${t}: ${arg}`, online: A(back.map(b => b <= t ? 'on' : 'off')) }); T.n('How many mentions does this message add?', cnt.reduce((a, b) => a + b, 0) - before.reduce((a, b) => a + b, 0), arg === 'HERE' ? 'Online users only.' : arg === 'ALL' ? 'Every user.' : 'One per id token.'); } return cnt; }
+    s(I, T) { const res = (() => { const n = I.numberOfUsers, cnt = Array(n).fill(0), back = Array(n).fill(0); const ev = I.events.map((e, i) => [e, i]).sort((x, y) => +x[0][1] - +y[0][1] || (x[0][0] === 'OFFLINE' ? 0 : 1) - (y[0][0] === 'OFFLINE' ? 0 : 1) || x[1] - y[1]).map(x => x[0]); for (const [type, ts, arg] of ev) { const t = +ts; if (type === 'OFFLINE') { back[+arg] = t + 60; continue; } const before = cnt.slice(); if (arg === 'ALL') cnt.forEach((_, i) => cnt[i]++); else if (arg === 'HERE') cnt.forEach((_, i) => { if (back[i] <= t) cnt[i]++; }); else arg.split(' ').forEach(id => cnt[+id.slice(2)]++); T.at({ event: `${type} at ${t}: ${arg}`, online: A(back.map(b => b <= t ? 'on' : 'off')) }); T.n('How many mentions does this message add?', cnt.reduce((a, b) => a + b, 0) - before.reduce((a, b) => a + b, 0), arg === 'HERE' ? 'Online users only.' : arg === 'ALL' ? 'Every user.' : 'One per id token.'); } return cnt; })(); T.n('Mentions of user 0?', res[0], 'Add up every message that included user 0.'); return res; }
   });
 
   D('maximum-manhattan-distance-after-k-changes', {

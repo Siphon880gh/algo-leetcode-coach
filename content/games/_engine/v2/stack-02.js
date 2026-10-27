@@ -50,7 +50,7 @@
     t: 'Maximum Score From Removing Substrings',
     r: 'Greedy: remove the more valuable pair ("ab" if x ≥ y, else "ba") everywhere with a stack first, then remove the other pair from what remains.',
     g: R => ({ s: R.str(R.int(1, 12), 'abbac'), x: R.int(1, 6), y: R.int(1, 6) }),
-    s(I, T) { const [p1, v1, p2, v2] = I.x >= I.y ? ['ab', I.x, 'ba', I.y] : ['ba', I.y, 'ab', I.x]; const pass = (s, p, v) => { const st = []; let sc = 0; for (const c of s) { if (st.length && st[st.length - 1] === p[0] && c === p[1]) { st.pop(); sc += v; } else st.push(c); } return [st.join(''), sc]; }; const [r1, s1] = pass(I.s, p1, v1); T.at({ s: I.s, first: p1 }); T.n(`Points from removing "${p1}" first?`, s1, 'Higher-value pair first.'); const [r2, s2] = pass(r1, p2, v2); T.at({ left: r1 }); T.n(`Points from "${p2}" afterwards?`, s2, 'Clean up what remains.'); return s1 + s2; }
+    s(I, T) { const res = (() => { const [p1, v1, p2, v2] = I.x >= I.y ? ['ab', I.x, 'ba', I.y] : ['ba', I.y, 'ab', I.x]; const pass = (s, p, v) => { const st = []; let sc = 0; for (const c of s) { if (st.length && st[st.length - 1] === p[0] && c === p[1]) { st.pop(); sc += v; } else st.push(c); } return [st.join(''), sc]; }; const [r1, s1] = pass(I.s, p1, v1); T.at({ s: I.s, first: p1 }); T.n(`Points from removing "${p1}" first?`, s1, 'Higher-value pair first.'); const [r2, s2] = pass(r1, p2, v2); T.at({ left: r1 }); T.n(`Points from "${p2}" afterwards?`, s2, 'Clean up what remains.'); return s1 + s2; })(); T.n('Maximum score?', res, 'Both passes together.'); return res; }
   });
 
   D('remove-all-occurrences-of-a-substring', {
@@ -78,7 +78,7 @@
     t: 'Check if a Parentheses String Can Be Valid',
     r: 'Odd length fails. Left to right, treat unlocked characters as "(" — the balance must never go negative. Right to left, treat unlocked as ")" — likewise.',
     g: R => { const n = 2 * R.int(1, 4) - (R.chance(0.15) ? 1 : 0); return { s: R.str(n, '()'), locked: R.str(n, '01') }; },
-    s(I, T) { const n = I.s.length; T.at({ s: I.s, locked: I.locked }); T.yn('Even length?', n % 2 === 0, 'Required.'); if (n % 2) return false; let b = 0; for (let i = 0; i < n; i++) { b += I.locked[i] === '0' || I.s[i] === '(' ? 1 : -1; if (b < 0) { T.at({ s: A([...I.s], { i }) }); T.yn('Too many locked ")" from the left?', true, 'Even with all free as "(".'); return false; } } b = 0; for (let i = n - 1; i >= 0; i--) { b += I.locked[i] === '0' || I.s[i] === ')' ? 1 : -1; if (b < 0) { T.at({ s: A([...I.s], { i }) }); T.yn('Too many locked "(" from the right?', true, 'Even with all free as ")".'); return false; } } return true; }
+    s(I, T) { const res = (() => { const n = I.s.length; T.at({ s: I.s, locked: I.locked }); T.n('Free positions?', [...I.locked].filter(c => c === '0').length, 'They can be either bracket.'); T.yn('Even length?', n % 2 === 0, 'Required.'); if (n % 2) return false; let b = 0; for (let i = 0; i < n; i++) { b += I.locked[i] === '0' || I.s[i] === '(' ? 1 : -1; if (b < 0) { T.at({ s: A([...I.s], { i }) }); T.yn('Too many locked ")" from the left?', true, 'Even with all free as "(".'); return false; } } b = 0; for (let i = n - 1; i >= 0; i--) { b += I.locked[i] === '0' || I.s[i] === ')' ? 1 : -1; if (b < 0) { T.at({ s: A([...I.s], { i }) }); T.yn('Too many locked "(" from the right?', true, 'Even with all free as ")".'); return false; } } return true; })(); T.yn('Can it be made valid?', res, 'Both scans stayed non-negative.'); return res; }
   });
 
   D('replace-non-coprime-numbers-in-array', {
@@ -92,7 +92,7 @@
     t: 'Count Collisions on a Road',
     r: 'Cars moving L at the far left and R at the far right escape. Every other moving car eventually collides and stops, adding 1 each.',
     g: R => ({ directions: R.str(R.int(1, 8), 'LRS') }),
-    s(I, T) { const d = I.directions; let i = 0, j = d.length - 1; while (i < d.length && d[i] === 'L') i++; while (j >= 0 && d[j] === 'R') j--; T.at({ road: A([...d], { i, j }) }); T.n('Cars escaping to the left?', i, 'Leading L cars.'); let c = 0; for (let k = i; k <= j; k++) if (d[k] !== 'S') c++; return c; }
+    s(I, T) { const res = (() => { const d = I.directions; let i = 0, j = d.length - 1; while (i < d.length && d[i] === 'L') i++; while (j >= 0 && d[j] === 'R') j--; T.at({ road: A([...d], { i, j }) }); T.n('Cars escaping to the left?', i, 'Leading L cars.'); T.n('Cars escaping to the right?', d.length - 1 - j, 'Trailing R cars.'); let c = 0; for (let k = i; k <= j; k++) if (d[k] !== 'S') c++; return c; })(); T.n('Total collisions?', res, 'Every moving car in the middle stops.'); return res; }
   });
 
   D('minimum-deletions-to-make-array-beautiful', {
@@ -134,14 +134,14 @@
     t: 'Robot Collisions',
     r: 'Sort robots by position. Keep a stack of right-moving survivors. A left-mover fights the stack top: the weaker one dies, the stronger loses 1 health; equal health kills both. Return survivors\' health in original order.',
     g: R => { const n = R.int(1, 6); return { positions: R.distinct(n, 1, 20), healths: R.ints(n, 1, 6), directions: R.str(n, 'LR') }; },
-    s(I, T) { const n = I.positions.length, h = I.healths.slice(), ord = I.positions.map((_, i) => i).sort((a, b) => I.positions[a] - I.positions[b]), st = []; let k = 0; for (const i of ord) { if (I.directions[i] === 'R') { st.push(i); continue; } while (h[i] > 0 && st.length) { const j = st[st.length - 1]; const res = h[j] < h[i] ? 'left-mover' : h[j] > h[i] ? 'right-mover' : 'both die'; if (h[j] < h[i]) { st.pop(); h[j] = 0; h[i]--; } else if (h[j] > h[i]) { h[i] = 0; h[j]--; } else { st.pop(); h[i] = h[j] = 0; } if (k++ < 5) { T.at({ fight: `#${j + 1} (R) vs #${i + 1} (L)`, healths: A(h.slice()) }); T.c('Outcome?', ['left-mover', 'right-mover', 'both die'], res, 'Stronger survives with −1 health.'); } } } return h.filter(x => x > 0); }
+    s(I, T) { const res = (() => { const n = I.positions.length, h = I.healths.slice(), ord = I.positions.map((_, i) => i).sort((a, b) => I.positions[a] - I.positions[b]), st = []; let k = 0; for (const i of ord) { if (I.directions[i] === 'R') { st.push(i); continue; } while (h[i] > 0 && st.length) { const j = st[st.length - 1]; const res = h[j] < h[i] ? 'left-mover' : h[j] > h[i] ? 'right-mover' : 'both die'; if (h[j] < h[i]) { st.pop(); h[j] = 0; h[i]--; } else if (h[j] > h[i]) { h[i] = 0; h[j]--; } else { st.pop(); h[i] = h[j] = 0; } if (k++ < 5) { T.at({ fight: `Robot ${j + 1} going right meets robot ${i + 1} going left`, healths: A(h.slice()) }); T.c('Outcome?', ['left-mover', 'right-mover', 'both die'], res, 'The stronger one survives with 1 less health.'); } } } return h.filter(x => x > 0); })(); T.n('Robots left?', res.length, 'Survivors in input order.'); return res; }
   });
 
   D('lexicographically-minimum-string-after-removing-stars', {
     t: 'Lexicographically Minimum String After Removing Stars',
     r: 'Keep a stack of indices per letter. Each "*" deletes the smallest letter to its left, choosing its rightmost occurrence (pop from that letter\'s stack). Output the surviving letters in order.',
     g: R => { let s = '', n = 0; for (let i = 0; i < R.int(1, 9); i++) { if (n && R.chance(0.3)) { s += '*'; n--; } else { s += R.pick(['a', 'b', 'c']); n++; } } return { s }; },
-    s(I, T) { const st = Array.from({ length: 26 }, () => []), gone = new Set(); let k = 0; [...I.s].forEach((c, i) => { if (c !== '*') { st[c.charCodeAt(0) - 97].push(i); return; } gone.add(i); const L = st.findIndex(x => x.length), j = st[L].pop(); gone.add(j); if (k++ < 5) { T.at({ s: A([...I.s], { i, j }) }); T.n('Index of the letter removed?', j, 'Smallest letter, rightmost copy.'); } }); return [...I.s].filter((_, i) => !gone.has(i)).join(''); }
+    s(I, T) { const res = (() => { const st = Array.from({ length: 26 }, () => []), gone = new Set(); T.at({ s: A([...I.s]) }); T.n('Stars?', [...I.s].filter(c => c === '*').length, 'Each removes one letter.'); let k = 0; [...I.s].forEach((c, i) => { if (c !== '*') { st[c.charCodeAt(0) - 97].push(i); return; } gone.add(i); const L = st.findIndex(x => x.length), j = st[L].pop(); gone.add(j); if (k++ < 5) { T.at({ s: A([...I.s], { i, j }) }); T.n('Index of the letter removed?', j, 'Smallest letter, rightmost copy.'); } }); return [...I.s].filter((_, i) => !gone.has(i)).join(''); })(); T.n('Length of the result?', res.length, 'Letters minus stars.'); return res; }
   });
 
   D('clear-digits', {

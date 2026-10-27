@@ -129,12 +129,12 @@
     r: 'From each start, walk s1 forward matching s2 in order. When s2 is done at end e, walk backward from e matching s2 in reverse to find the tightest start. Keep the shortest window (earliest on ties).',
     g: R => ({ s1: R.str(R.int(7, 9), 'abcd'), s2: R.str(R.int(2, 3), 'abcd') }),
     s(I, T) {
-      const s = I.s1, t = I.s2; let best = '', i = 0;
+      const s = I.s1, t = I.s2; let best = '', i = 0; T.at({ s1: A([...s]), s2: A([...t]) }); T.n('Length of s2?', t.length, 'Every window must contain s2 in order.'); T.yn('Does s1 contain s2 as a subsequence at all?', (() => { let j = 0; for (const c of s) if (c === t[j]) j++; return j === t.length; })(), 'If not, the answer is the empty string.');
       while (i < s.length) { let j = 0, k = i; while (k < s.length && j < t.length) { if (s[k] === t[j]) j++; k++; } if (j < t.length) break;
         let e = k - 1; j = t.length - 1; let st = e; while (j >= 0) { if (s[st] === t[j]) j--; st--; } st++;
         T.at({ s1: A([...s], { win: [st, e] }), s2: A([...t]), best: JSON.stringify(best) }); T.n(`Window found: length of the tightest window ending at ${e}?`, e - st + 1, `Backward match from ${e} lands on start ${st}.`);
         if (!best || e - st + 1 < best.length) best = s.slice(st, e + 1); i = st + 1; }
-      return best;
+      T.at({ s1: A([...s]), best: JSON.stringify(best) }); T.n('Length of the shortest window? (0 if none)', best.length, 'The smallest of all tight windows, leftmost on ties.'); return best;
     }
   });
 
@@ -266,12 +266,12 @@
     g: R => ({ nums: R.ints(R.int(4, 5), 1, 9), k: R.int(2, 3) }),
     s(I, T) {
       const a = I.nums, n = a.length, P = [0]; a.forEach(x => P.push(P[P.length - 1] + x)); const avg = (j, i) => (P[i] - P[j]) / (i - j);
-      let dp = Array.from({ length: n + 1 }, (_, i) => i ? avg(0, i) : 0);
+      let dp = Array.from({ length: n + 1 }, (_, i) => i ? avg(0, i) : 0); T.at({ nums: A(a), k: I.k }); T.n('Score with one group (average of everything, 4 decimals)?', r4(avg(0, n)), 'Sum divided by n.');
       for (let g = 2; g <= I.k; g++) { const nx = dp.slice();
         for (let i = g; i <= n; i++) { let b = -1, bj = 0; for (let j = g - 1; j < i; j++) { const v = dp[j] + avg(j, i); if (v > b + 1e-12) { b = v; bj = j; } }
           nx[i] = Math.max(b, dp[i]); if (i === n) { T.at({ nums: A(a, { win: [bj, i - 1] }), groups: g }); T.n(`With ${g} groups over all ${n} numbers, at which index does the best last group start?`, bj, `Last group starts at ${bj}: score ${r4(b)}.`); } }
         dp = nx; }
-      return dp[n];
+      T.at({ nums: A(a), k: I.k }); T.n('Largest score (4 decimals)?', r4(dp[n]), 'More groups never hurt, so use all k.'); return dp[n];
     }
   });
 
@@ -319,7 +319,7 @@
     t: 'Longest Mountain: climb up, then down',
     r: 'up[i] = rising steps ending at i, down[i] = falling steps starting at i. A peak with both > 0 has a mountain of up + down + 1.',
     g: R => ({ arr: R.ints(R.int(8, 9), 0, 6) }),
-    s(I, T) { const a = I.arr, n = a.length, up = Array(n).fill(0), dn = Array(n).fill(0); for (let i = 1; i < n; i++) if (a[i] > a[i - 1]) up[i] = up[i - 1] + 1; for (let i = n - 2; i >= 0; i--) if (a[i] > a[i + 1]) dn[i] = dn[i + 1] + 1; let best = 0; for (let i = 0; i < n; i++) if (up[i] && dn[i]) { T.at({ arr: A(a, { hl: [i] }), up: A(up), down: A(dn), best }); T.n(`Mountain length with peak at ${i}?`, up[i] + dn[i] + 1, `${up[i]} up + ${dn[i]} down + 1.`); best = Math.max(best, up[i] + dn[i] + 1); } return best; }
+    s(I, T) { const res = (() => { const a = I.arr, n = a.length, up = Array(n).fill(0), dn = Array(n).fill(0); for (let i = 1; i < n; i++) if (a[i] > a[i - 1]) up[i] = up[i - 1] + 1; for (let i = n - 2; i >= 0; i--) if (a[i] > a[i + 1]) dn[i] = dn[i + 1] + 1; T.at({ arr: A(a), up: A(up), down: A(dn) }); T.n('How many peaks (a rise before and a fall after)?', a.filter((_, i) => up[i] && dn[i]).length, 'Both counts must be positive.'); let best = 0; for (let i = 0; i < n; i++) if (up[i] && dn[i]) { T.at({ arr: A(a, { hl: [i] }), up: A(up), down: A(dn), best }); T.n(`Mountain length with peak at ${i}?`, up[i] + dn[i] + 1, `${up[i]} going up, ${dn[i]} going down, plus the peak.`); best = Math.max(best, up[i] + dn[i] + 1); } return best; })(); T.n('Longest mountain? (0 if none)', res, 'Best over all peaks.'); return res; }
   });
 
   D('minimum-number-of-refueling-stops', {

@@ -108,6 +108,7 @@
       const P = [['0', '0'], ['1', '1'], ['6', '9'], ['8', '8'], ['9', '6']], build = (m, n) => { if (m === 0) return ['']; if (m === 1) return ['0', '1', '8']; const out = []; for (const s of build(m - 2, n)) for (const [a, b] of P) if (!(m === n && a === '0')) out.push(a + s + b); return out; };
       const cmp = (x, y) => x.length !== y.length ? x.length - y.length : x < y ? -1 : x > y ? 1 : 0; let tot = 0;
       for (let L = I.low.length; L <= I.high.length; L++) { const all = build(L, L), c = all.filter(s => cmp(s, I.low) >= 0 && cmp(s, I.high) <= 0).length; T.at({ low: I.low, high: I.high, length: L }); T.n(`Strobogrammatic numbers of length ${L} in range?`, c, `Build all of length ${L} (${all.length}) and keep those in [low, high].`); tot += c; }
+      T.at({ low: I.low, high: I.high }); T.n('Total in range?', tot, 'Add the counts for every length.');
       return tot;
     }
   });
@@ -141,7 +142,7 @@
     t: 'Power of Three: divide while divisible',
     r: 'n must be positive. Divide by 3 while it divides evenly; it is a power of three when 1 remains. (Alternatively 3^19 % n === 0.)',
     g: R => ({ n: R.pick([3 ** R.int(0, 8), R.int(-3, 100), 45, 0]) }),
-    s(I, T) { let n = I.n; if (n <= 0) return false; let k = 0; while (n % 3 === 0) { n /= 3; k++; } T.at({ n: I.n }); T.n('What remains after dividing out every 3?', n, 'Keep dividing by 3.'); return n === 1; }
+    s(I, T) { const res = (() => { let n = I.n; if (n <= 0) { T.at({ n }); T.yn('Is n positive?', false, 'Powers of three are positive.'); T.n('Times divided by 3?', 0, 'Nothing to divide.'); T.yn('Is n a power of three?', false, 'Not positive.'); return false; } let k = 0; while (n % 3 === 0) { n /= 3; k++; } T.at({ n: I.n }); T.n('What remains after dividing out every 3?', n, 'Keep dividing by 3.'); T.n('Times divided by 3?', k, 'Count each division.'); return n === 1; })(); if (I.n > 0) T.yn('Is n a power of three?', res, 'Only 1 should remain.'); return res; }
   });
 
   D('line-reflection', {
@@ -197,14 +198,14 @@
     t: 'Minimum Moves to Equal Elements: raise n − 1 = lower one',
     r: 'Incrementing all but one is the same as decrementing one. So every element must come down to the minimum: answer = Σ nums − n · min.',
     g: R => ({ nums: R.ints(R.int(2, 5), -3, 9) }),
-    s(I, T) { const m = Math.min(...I.nums); T.at({ nums: A(I.nums) }); T.n('Minimum value?', m, 'Everyone comes down to it.'); return I.nums.reduce((a, x) => a + x - m, 0); }
+    s(I, T) { const res = (() => { const m = Math.min(...I.nums); T.at({ nums: A(I.nums) }); T.n('Sum of nums?', I.nums.reduce((a, b) => a + b, 0), 'Add everything.'); T.n('Minimum value?', m, 'Everyone comes down to it.'); return I.nums.reduce((a, x) => a + x - m, 0); })(); T.n('Minimum moves?', res, 'Sum minus n times the minimum.'); return res; }
   });
 
   D('minimum-moves-to-equal-array-elements-ii', {
     t: 'Minimum Moves II: meet at the median',
     r: 'The sum of absolute differences is minimized at a median. Sort, take the middle element, and add |x − median|.',
     g: R => ({ nums: R.ints(R.int(2, 6), -5, 12) }),
-    s(I, T) { const a = I.nums.slice().sort((x, y) => x - y), med = a[a.length >> 1]; T.at({ sorted: A(a, { hl: [a.length >> 1] }) }); T.n('Median value?', med, 'The middle element after sorting.'); return a.reduce((s, x) => s + Math.abs(x - med), 0); }
+    s(I, T) { const res = (() => { const a = I.nums.slice().sort((x, y) => x - y), med = a[a.length >> 1]; T.at({ sorted: A(a, { hl: [a.length >> 1] }) }); T.n('Median value?', med, 'The middle element after sorting.'); T.n('Distance from the smallest value to the median?', med - a[0], 'One part of the total.'); return a.reduce((s, x) => s + Math.abs(x - med), 0); })(); T.n('Minimum moves?', res, 'Sum of distances to the median.'); return res; }
   });
 
   D('convex-polygon', {
@@ -218,7 +219,7 @@
     t: 'Construct the Rectangle: largest W ≤ √area',
     r: 'Start W at ⌊√area⌋ and step down until W divides area. Then L = area / W.',
     g: R => ({ area: R.int(1, 200) }),
-    s(I, T) { let w = Math.floor(Math.sqrt(I.area)); T.at({ area: I.area }); T.n('Starting W (⌊√area⌋)?', w, 'W ≤ L means W ≤ √area.'); while (I.area % w) w--; T.n('Width W?', w, 'Largest divisor not above √area.'); return [I.area / w, w]; }
+    s(I, T) { const res = (() => { let w = Math.floor(Math.sqrt(I.area)); T.at({ area: I.area }); T.n('Starting W? (square root of area, rounded down)', w, 'W is at most L, so W is at most the square root.'); while (I.area % w) w--; T.n('Width W?', w, 'Largest divisor not above the square root.'); return [I.area / w, w]; })(); T.n('Length L?', res[0], 'Area divided by W.'); return res; }
   });
 
   D('base-7', {
@@ -239,6 +240,6 @@
     t: 'Complex Number Multiplication: (a + bi)(c + di)',
     r: 'Parse a, b, c, d. The product is (ac − bd) + (ad + bc)i, written as "real+imaginaryi".',
     g: R => ({ num1: `${R.int(-9, 9)}+${R.int(-9, 9)}i`, num2: `${R.int(-9, 9)}+${R.int(-9, 9)}i` }),
-    s(I, T) { const p = s => s.slice(0, -1).split('+').map(Number), [a, b] = p(I.num1), [c, d] = p(I.num2); T.at({ num1: I.num1, num2: I.num2 }); T.n('Real part?', a * c - b * d, 'ac − bd.'); T.n('Imaginary part?', a * d + b * c, 'ad + bc.'); return `${a * c - b * d}+${a * d + b * c}i`; }
+    s(I, T) { const p = s => s.slice(0, -1).split('+').map(Number), [a, b] = p(I.num1), [c, d] = p(I.num2); T.at({ num1: I.num1, num2: I.num2 }); T.n('Real part of num1?', a, 'Before the plus sign.'); T.n('Real part?', a * c - b * d, 'a times c, minus b times d.'); T.n('Imaginary part?', a * d + b * c, 'a times d, plus b times c.'); return `${a * c - b * d}+${a * d + b * c}i`; }
   });
 })();

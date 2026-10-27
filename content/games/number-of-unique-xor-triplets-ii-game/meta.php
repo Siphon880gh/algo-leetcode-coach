@@ -5,7 +5,7 @@ return [
     'title' => 'Number of Unique XOR Triplets II: pairs first, then a third',
     'leetcode' => 3514,
     'difficulty' => 'Med',
-    'summary' => 'Values are at most 1500 (< 2048). Build the set of a ^ b over distinct values, then XOR each with every value; at most 2048 · 1500 steps.',
+    'summary' => 'Values are small (below 2048). Build the set of a XOR b over distinct values (a may equal b), then XOR each with every value, and count the results.',
     'category' => 'LeetCode',
     'subcategory' => 'Bit Manipulation',
     'topic' => 'LeetCode · Bit Manipulation',

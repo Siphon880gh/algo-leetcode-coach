@@ -29,14 +29,14 @@
     r: 'Keep sunny-day indices in a sorted set. When a full lake rains again, binary search the first sunny day after it last filled and dry that lake there; if none, flooding is unavoidable.',
     cmp: (o, e, I) => { if (!e.length) return Array.isArray(o) && o.length === 0; if (!Array.isArray(o) || o.length !== I.rains.length) return false; const full = new Set(); for (let i = 0; i < o.length; i++) { const r = I.rains[i]; if (r) { if (o[i] !== -1 || full.has(r)) return false; full.add(r); } else { if (o[i] < 1) return false; full.delete(o[i]); } } return true; },
     g: R => ({ rains: Array.from({ length: R.int(1, 8) }, () => R.chance(0.4) ? 0 : R.int(1, 3)) }),
-    s(I, T) { const r = I.rains, ans = r.map(x => x ? -1 : 1), last = new Map(), dry = []; for (let i = 0; i < r.length; i++) { if (!r[i]) { dry.push(i); continue; } if (last.has(r[i])) { const k = upperBound(dry, last.get(r[i])); T.at({ rains: A(r, { hl: [last.get(r[i]), i] }), sunny: A(dry) }); T.yn(`Is there a sunny day to dry lake ${r[i]} before day ${i}?`, k < dry.length, 'First sunny day after it last filled.'); if (k === dry.length) return []; ans[dry[k]] = r[i]; dry.splice(k, 1); } last.set(r[i], i); } return ans; }
+    s(I, T) { const res = (() => { const r = I.rains, ans = r.map(x => x ? -1 : 1), last = new Map(), dry = []; T.at({ rains: A(r) }); T.n('Sunny days?', r.filter(x => !x).length, 'Days with 0 can dry a lake.'); for (let i = 0; i < r.length; i++) { if (!r[i]) { dry.push(i); continue; } if (last.has(r[i])) { const k = upperBound(dry, last.get(r[i])); T.at({ rains: A(r, { hl: [last.get(r[i]), i] }), sunny: A(dry) }); T.yn(`Is there a sunny day to dry lake ${r[i]} before day ${i}?`, k < dry.length, 'First sunny day after it last filled.'); if (k === dry.length) return []; ans[dry[k]] = r[i]; dry.splice(k, 1); } last.set(r[i], i); } return ans; })(); T.yn('Can every flood be avoided?', res.length > 0, 'Each refill found a sunny day in time.'); return res; }
   });
 
   D('range-sum-of-sorted-subarray-sums', {
     t: 'Range Sum of Sorted Subarray Sums',
     r: 'List all subarray sums, sort them, and add positions left..right (1-indexed), mod 1e9+7. Faster: binary search the k-th sum and count with two pointers.',
     g: R => { const n = R.int(1, 5), t = n * (n + 1) / 2, l = R.int(1, t); return { nums: R.ints(n, 1, 9), n, left: l, right: R.int(l, t) }; },
-    s(I, T) { const s = []; for (let i = 0; i < I.nums.length; i++) { let x = 0; for (let j = i; j < I.nums.length; j++) s.push(x += I.nums[j]); } s.sort((a, b) => a - b); T.at({ sums: A(s, { win: [I.left - 1, I.right - 1] }) }); T.n(`The ${I.left}-th smallest subarray sum?`, s[I.left - 1], 'Sorted order.'); return s.slice(I.left - 1, I.right).reduce((a, b) => (a + b) % MOD, 0); }
+    s(I, T) { const res = (() => { const s = []; for (let i = 0; i < I.nums.length; i++) { let x = 0; for (let j = i; j < I.nums.length; j++) s.push(x += I.nums[j]); } s.sort((a, b) => a - b); T.at({ nums: A(I.nums) }); T.n('How many subarray sums?', s.length, 'n times n plus 1, halved.'); T.at({ sums: A(s, { win: [I.left - 1, I.right - 1] }) }); T.n(`The ${I.left}-th smallest subarray sum?`, s[I.left - 1], 'Sorted order.'); return s.slice(I.left - 1, I.right).reduce((a, b) => (a + b) % MOD, 0); })(); T.n('Sum of that range (mod 1e9+7)?', res, 'Add the sorted sums from left to right.'); return res; }
   });
 
   D('find-the-index-of-the-large-integer', {
@@ -65,7 +65,7 @@
     t: 'Shortest Subarray to Remove for Sorted',
     r: 'Find the longest sorted prefix [0..l] and suffix [r..n−1]. Answer starts at min(n − l − 1, r); then two-pointer join prefix elements with suffix elements ≥ them.',
     g: R => ({ arr: R.ints(R.int(1, 8), 0, 9) }),
-    s(I, T) { const a = I.arr, n = a.length; let l = 0; while (l + 1 < n && a[l] <= a[l + 1]) l++; if (l === n - 1) { T.at({ arr: A(a) }); T.yn('Is the array already sorted?', true, 'Remove nothing.'); return 0; } let r = n - 1; while (r > 0 && a[r - 1] <= a[r]) r--; T.at({ arr: A(a, { win: [0, l] }) }); T.n('Last index of the sorted prefix?', l, 'Extend while non-decreasing.'); T.n('First index of the sorted suffix?', r, 'Extend left while non-decreasing.'); let best = Math.min(n - l - 1, r), j = r; for (let i = 0; i <= l; i++) { while (j < n && a[j] < a[i]) j++; best = Math.min(best, j - i - 1); } return best; }
+    s(I, T) { const res = (() => { const a = I.arr, n = a.length; let l = 0; while (l + 1 < n && a[l] <= a[l + 1]) l++; if (l === n - 1) { T.at({ arr: A(a) }); T.yn('Is the array already sorted?', true, 'Remove nothing.'); T.n('Last index of the sorted prefix?', l, 'It runs to the end.'); return 0; } let r = n - 1; while (r > 0 && a[r - 1] <= a[r]) r--; T.at({ arr: A(a, { win: [0, l] }) }); T.n('Last index of the sorted prefix?', l, 'Extend while non-decreasing.'); T.n('First index of the sorted suffix?', r, 'Extend left while non-decreasing.'); let best = Math.min(n - l - 1, r), j = r; for (let i = 0; i <= l; i++) { while (j < n && a[j] < a[i]) j++; best = Math.min(best, j - i - 1); } return best; })(); T.n('Shortest subarray to remove?', res, 'Join the best prefix and suffix.'); return res; }
   });
 
   D('special-array-with-x-elements-greater-than-or-equal-x', {
@@ -101,14 +101,14 @@
     t: 'Make Target a Subsequence: LIS on indices',
     r: 'Map arr values to their index in target (drop others). The longest strictly increasing subsequence of those indices is the part already in order; answer = |target| − LIS.',
     g: R => ({ target: R.distinct(R.int(1, 6), 1, 9), arr: R.ints(R.int(1, 8), 1, 9) }),
-    s(I, T) { const pos = new Map(I.target.map((v, i) => [v, i])), idx = I.arr.filter(v => pos.has(v)).map(v => pos.get(v)); T.at({ target: A(I.target), indices: A(idx) }); const L = lisLen(idx, true); T.n('LIS length of the mapped indices?', L, 'Patience sorting with binary search.'); return I.target.length - L; }
+    s(I, T) { const res = (() => { const pos = new Map(I.target.map((v, i) => [v, i])), idx = I.arr.filter(v => pos.has(v)).map(v => pos.get(v)); T.at({ target: A(I.target), indices: A(idx) }); T.n('Values of arr that appear in target?', idx.length, 'Others never help.'); const L = lisLen(idx, true); T.n('LIS length of the mapped indices?', L, 'Patience sorting with binary search.'); return I.target.length - L; })(); T.n('Fewest insertions?', res, 'Target length minus the LIS.'); return res; }
   });
 
   D('building-boxes', {
     t: 'Building Boxes: full pyramids, then grow the floor',
     r: 'Stack complete corner pyramids (layer i adds i(i+1)/2 boxes) while they fit. Then add floor boxes one by one: the j-th new floor box lets j boxes total be added.',
     g: R => ({ n: R.int(1, 60) }),
-    s(I, T) { let tot = 0, floor = 0, i = 1; while (tot + i * (i + 1) / 2 <= I.n) { tot += i * (i + 1) / 2; floor = i * (i + 1) / 2; i++; } T.at({ n: I.n, boxes: tot }); T.n('Floor boxes of the largest full pyramid?', floor, 'Triangular number of the last full layer.'); let j = 1; while (tot < I.n) { floor++; tot += j; j++; } return floor; }
+    s(I, T) { const res = (() => { let tot = 0, floor = 0, i = 1; while (tot + i * (i + 1) / 2 <= I.n) { tot += i * (i + 1) / 2; floor = i * (i + 1) / 2; i++; } T.at({ n: I.n, boxes: tot }); T.n('Layers in the largest full pyramid?', i - 1, 'Stop before the boxes run out.'); T.n('Floor boxes of the largest full pyramid?', floor, 'Triangular number of the last full layer.'); let j = 1; while (tot < I.n) { floor++; tot += j; j++; } return floor; })(); T.n('Fewest boxes touching the floor?', res, 'Add floor boxes one at a time for the rest.'); return res; }
   });
 
   D('minimum-limit-of-balls-in-a-bag', {
@@ -185,14 +185,14 @@
     t: 'Student Who Replaces the Chalk',
     r: 'Full rounds don\'t matter: k mod total. Then binary search the prefix sums for the first student whose prefix exceeds the remainder.',
     g: R => ({ chalk: R.ints(R.int(1, 5), 1, 6), k: R.int(1, 60) }),
-    s(I, T) { const tot = I.chalk.reduce((a, b) => a + b, 0), r = I.k % tot, P = []; let s = 0; for (const c of I.chalk) P.push(s += c); T.at({ chalk: A(I.chalk), prefix: A(P) }); T.n('Chalk left after full rounds?', r, `${I.k} mod ${tot}.`); return upperBound(P, r); }
+    s(I, T) { const res = (() => { const tot = I.chalk.reduce((a, b) => a + b, 0), r = I.k % tot, P = []; let s = 0; for (const c of I.chalk) P.push(s += c); T.at({ chalk: A(I.chalk), prefix: A(P) }); T.n('Chalk used per full round?', tot, 'Sum of all students.'); T.n('Chalk left after full rounds?', r, `Remainder of ${I.k} divided by ${tot}.`); return upperBound(P, r); })(); T.n('Student who replaces the chalk?', res, 'First prefix sum above the leftover chalk.'); return res; }
   });
 
   D('maximum-number-of-removable-characters', {
     t: 'Maximum Removable Characters',
     r: 'Binary search k: remove the first k indices in removable and check whether p is still a subsequence of s.',
     g: R => { const s = R.str(R.int(2, 8), 'abc'); const p = [...s].filter(() => R.chance(0.4)).join('') || s[0]; return { s, p, removable: R.shuffle([...Array(s.length).keys()]).slice(0, R.int(0, s.length - 1)) }; },
-    s(I, T) { const ok = k => { const gone = new Set(I.removable.slice(0, k)); let j = 0; for (let i = 0; i < I.s.length && j < I.p.length; i++) if (!gone.has(i) && I.s[i] === I.p[j]) j++; return j === I.p.length; }; return lastTrue(0, I.removable.length, ok, T, k => ({ s: A([...I.s], { hl: I.removable.slice(0, k) }), p: I.p }), k => `After removing the first ${k} indices, is p still a subsequence?`); }
+    s(I, T) { const res = (() => { const ok = k => { const gone = new Set(I.removable.slice(0, k)); let j = 0; for (let i = 0; i < I.s.length && j < I.p.length; i++) if (!gone.has(i) && I.s[i] === I.p[j]) j++; return j === I.p.length; }; return lastTrue(0, I.removable.length, ok, T, k => ({ s: A([...I.s], { hl: I.removable.slice(0, k) }), p: I.p }), k => `After removing the first ${k} indices, is p still a subsequence?`); })(); T.n('Most characters you can remove?', res, 'The largest k that keeps p a subsequence.'); return res; }
   });
 
   D('find-a-peak-element-ii', {
@@ -200,7 +200,7 @@
     r: 'Binary search a column: take its maximum row. If the right neighbor is bigger go right; if the left is bigger go left; otherwise it is a peak.',
     cmp: (o, e, I) => { if (!Array.isArray(o)) return false; const [r, c] = o, g = I.mat, v = g[r] && g[r][c]; if (v === undefined) return false; return [[0, 1], [1, 0], [0, -1], [-1, 0]].every(([dr, dc]) => { const x = g[r + dr] && g[r + dr][c + dc]; return x === undefined || x < v; }); },
     g: R => { const m = R.int(1, 4), n = R.int(1, 4), v = R.shuffle([...Array(m * n).keys()].map(x => x + 1)); return { mat: Array.from({ length: m }, (_, i) => v.slice(i * n, i * n + n)) }; },
-    s(I, T) { const g = I.mat, n = g[0].length; let lo = 0, hi = n - 1; for (;;) { const c = (lo + hi) >> 1; let r = 0; for (let i = 1; i < g.length; i++) if (g[i][c] > g[r][c]) r = i; const L = c ? g[r][c - 1] : -1, Rr = c + 1 < n ? g[r][c + 1] : -1, mv = Rr > g[r][c] ? 'right' : L > g[r][c] ? 'left' : 'peak'; T.at({ mat: G(g, { hl: [[r, c]] }) }); T.c(`Column ${c} max is ${g[r][c]}: next?`, ['left', 'right', 'peak'], mv, 'Move toward a bigger neighbor.'); if (mv === 'peak') return [r, c]; if (mv === 'right') lo = c + 1; else hi = c - 1; } }
+    s(I, T) { const res = (() => { const g = I.mat, n = g[0].length; let lo = 0, hi = n - 1; for (;;) { const c = (lo + hi) >> 1; let r = 0; for (let i = 1; i < g.length; i++) if (g[i][c] > g[r][c]) r = i; const L = c ? g[r][c - 1] : -1, Rr = c + 1 < n ? g[r][c + 1] : -1, mv = Rr > g[r][c] ? 'right' : L > g[r][c] ? 'left' : 'peak'; T.at({ mat: G(g, { hl: [[r, c]] }) }); T.c(`The max of column ${c} is ${g[r][c]}. Which way next?`, ['left', 'right', 'peak'], mv, 'Move toward a bigger neighbor.'); if (mv === 'peak') return [r, c]; if (mv === 'right') lo = c + 1; else hi = c - 1; } })(); T.n('Value at the peak?', I.mat[res[0]][res[1]], 'Bigger than all its neighbours.'); return res; }
   });
 
   D('kth-smallest-subarray-sum', {
@@ -214,7 +214,7 @@
     t: 'Longest Common Subpath: search the length',
     r: 'If all paths share a subpath of length L, they share one of length L − 1. Binary search L; check by intersecting sets of length-L windows (rolling hash in practice).',
     g: R => { const n = R.int(2, 5); return { n, paths: Array.from({ length: R.int(2, 3) }, () => { const p = []; for (let i = 0; i < R.int(1, 6); i++) { let v; do v = R.int(0, n - 1); while (p.length && p[p.length - 1] === v); p.push(v); } return p; }) }; },
-    s(I, T) { const win = (p, L) => { const s = new Set(); for (let i = 0; i + L <= p.length; i++) s.add(p.slice(i, i + L).join(',')); return s; }; const ok = L => { let s = win(I.paths[0], L); for (const p of I.paths.slice(1)) { const t = win(p, L); s = new Set([...s].filter(x => t.has(x))); } return s.size > 0; }; return lastTrue(0, Math.min(...I.paths.map(p => p.length)), L => L === 0 || ok(L), T, () => ({ paths: A(I.paths.map(p => p.join(' '))) }), L => `Do all paths share a subpath of length ${L}?`); }
+    s(I, T) { const res = (() => { const win = (p, L) => { const s = new Set(); for (let i = 0; i + L <= p.length; i++) s.add(p.slice(i, i + L).join(',')); return s; }; const ok = L => { let s = win(I.paths[0], L); for (const p of I.paths.slice(1)) { const t = win(p, L); s = new Set([...s].filter(x => t.has(x))); } return s.size > 0; }; return lastTrue(0, Math.min(...I.paths.map(p => p.length)), L => L === 0 || ok(L), T, () => ({ paths: A(I.paths.map(p => p.join(' '))) }), L => `Do all paths share a subpath of length ${L}?`); })(); T.n('Longest common subpath?', res, 'The largest length every path shares.'); return res; }
   });
 
   D('minimum-garden-perimeter-to-collect-enough-apples', {
@@ -228,7 +228,7 @@
     t: 'Minimum Time for k Variants to Meet',
     r: 'A variant reaches a cell after its Manhattan distance in days. For each candidate cell, the time when k variants are present is the k-th smallest distance; take the minimum over cells (binary search on days works too).',
     g: R => { const n = R.int(2, 4); return { points: Array.from({ length: n }, () => [R.int(1, 9), R.int(1, 9)]), k: R.int(2, n) }; },
-    s(I, T) { const xs = I.points.map(p => p[0]), ys = I.points.map(p => p[1]); let best = Infinity; for (let x = Math.min(...xs); x <= Math.max(...xs); x++) for (let y = Math.min(...ys); y <= Math.max(...ys); y++) { const d = I.points.map(([a, b]) => Math.abs(a - x) + Math.abs(b - y)).sort((p, q) => p - q)[I.k - 1]; if (d < best) best = d; } const d0 = I.points.map(([a, b]) => Math.abs(a - I.points[0][0]) + Math.abs(b - I.points[0][1])).sort((p, q) => p - q)[I.k - 1]; T.at({ points: A(I.points.map(p => p.join(','))), k: I.k }); T.n(`Days until ${I.k} variants are at point ${I.points[0].join(',')}?`, d0, 'k-th smallest Manhattan distance.'); return best; }
+    s(I, T) { const res = (() => { const xs = I.points.map(p => p[0]), ys = I.points.map(p => p[1]); let best = Infinity; for (let x = Math.min(...xs); x <= Math.max(...xs); x++) for (let y = Math.min(...ys); y <= Math.max(...ys); y++) { const d = I.points.map(([a, b]) => Math.abs(a - x) + Math.abs(b - y)).sort((p, q) => p - q)[I.k - 1]; if (d < best) best = d; } const d0 = I.points.map(([a, b]) => Math.abs(a - I.points[0][0]) + Math.abs(b - I.points[0][1])).sort((p, q) => p - q)[I.k - 1]; T.at({ points: A(I.points.map(p => p.join(', '))), k: I.k }); T.n(`Days until ${I.k} variants are at point ${I.points[0].join(', ')}?`, d0, 'k-th smallest Manhattan distance.'); return best; })(); if (I.points.length > 1) T.n('Distance between the first two points?', Math.abs(I.points[0][0] - I.points[1][0]) + Math.abs(I.points[0][1] - I.points[1][1]), 'Manhattan distance.'); else T.n('Variants needed?', I.k, 'Given as k.'); T.n('Fewest days?', res, 'Best meeting cell over the grid.'); return res; }
   });
 
   D('binary-searchable-numbers-in-an-unsorted-array', {
@@ -277,14 +277,14 @@
     t: 'Maximum Tasks You Can Assign',
     r: 'Binary search k: try the k easiest tasks with the k strongest workers. Go from the hardest task down: use the strongest worker if able; otherwise give a pill to the weakest worker who can then do it.',
     g: R => ({ tasks: R.ints(R.int(1, 5), 0, 9), workers: R.ints(R.int(1, 5), 0, 9), pills: R.int(0, 2), strength: R.int(0, 5) }),
-    s(I, T) { const t = I.tasks.slice().sort((a, b) => a - b), w = I.workers.slice().sort((a, b) => a - b); const ok = k => { const ws = w.slice(w.length - k); let p = I.pills; for (let i = k - 1; i >= 0; i--) { if (ws[ws.length - 1] >= t[i]) { ws.pop(); continue; } if (!p) return false; const j = lowerBound(ws, t[i] - I.strength); if (j === ws.length) return false; ws.splice(j, 1); p--; } return true; }; return lastTrue(0, Math.min(t.length, w.length), k => k === 0 || ok(k), T, () => ({ tasks: A(t), workers: A(w) }), k => `Can the ${k} easiest tasks all be done?`); }
+    s(I, T) { const res = (() => { const t = I.tasks.slice().sort((a, b) => a - b), w = I.workers.slice().sort((a, b) => a - b); const ok = k => { const ws = w.slice(w.length - k); let p = I.pills; for (let i = k - 1; i >= 0; i--) { if (ws[ws.length - 1] >= t[i]) { ws.pop(); continue; } if (!p) return false; const j = lowerBound(ws, t[i] - I.strength); if (j === ws.length) return false; ws.splice(j, 1); p--; } return true; }; return lastTrue(0, Math.min(t.length, w.length), k => k === 0 || ok(k), T, () => ({ tasks: A(t), workers: A(w) }), k => `Can the ${k} easiest tasks all be done?`); })(); T.n('Most tasks assigned?', res, 'The largest k that works.'); return res; }
   });
 
   D('maximum-fruits-harvested-after-at-most-k-steps', {
     t: 'Maximum Fruits Within k Steps',
     r: 'A reachable range [L, R] around start costs min(2·(s−L) + (R−s), 2·(R−s) + (s−L)) steps. Slide over ranges with prefix sums (binary search the matching end).',
     g: R => { const ps = R.distinct(R.int(1, 5), 0, 12).sort((a, b) => a - b); return { fruits: ps.map(p => [p, R.int(1, 9)]), startPos: R.int(0, 12), k: R.int(0, 8) }; },
-    s(I, T) { const f = I.fruits, s = I.startPos; let best = 0; const pts = [...new Set([s, ...f.map(x => x[0])])]; for (const L of pts) for (const Rr of pts) { if (L > s || Rr < s) continue; const cost = Math.min(2 * (s - L) + (Rr - s), 2 * (Rr - s) + (s - L)); if (cost > I.k) continue; best = Math.max(best, f.filter(x => x[0] >= L && x[0] <= Rr).reduce((a, x) => a + x[1], 0)); } const here = f.filter(x => x[0] === s).reduce((a, x) => a + x[1], 0); T.at({ fruits: A(f.map(x => `${x[0]}:${x[1]}`)), start: s, k: I.k }); T.n('Fruits available without moving?', here, 'Only the start position.'); return best; }
+    s(I, T) { const res = (() => { const f = I.fruits, s = I.startPos; let best = 0; const pts = [...new Set([s, ...f.map(x => x[0])])]; for (const L of pts) for (const Rr of pts) { if (L > s || Rr < s) continue; const cost = Math.min(2 * (s - L) + (Rr - s), 2 * (Rr - s) + (s - L)); if (cost > I.k) continue; best = Math.max(best, f.filter(x => x[0] >= L && x[0] <= Rr).reduce((a, x) => a + x[1], 0)); } const here = f.filter(x => x[0] === s).reduce((a, x) => a + x[1], 0); T.at({ fruits: A(f.map(x => `${x[1]} at ${x[0]}`)), start: s, k: I.k }); T.n('Fruits available without moving?', here, 'Only the start position.'); T.n('Leftmost position you could reach?', s - I.k, 'Walk left the whole way.'); return best; })(); T.n('Most fruits?', res, 'Best range you can cover in k steps.'); return res; }
   });
 
   D('minimum-operations-to-make-the-array-k-increasing', {

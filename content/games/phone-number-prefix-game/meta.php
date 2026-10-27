@@ -5,7 +5,7 @@ return [
     'title' => 'Phone Number Prefix: sort, then compare neighbors',
     'leetcode' => 3491,
     'difficulty' => 'Easy',
-    'summary' => 'In lexicographic order, if some number is a prefix of another, it is also a prefix of the number right after it. So one sort and a neighbor check suffice.',
+    'summary' => 'Sort the numbers as strings. If some number is a prefix of another, it is also a prefix of the number right after it, so one sort and a neighbour check are enough. Return true when no number is a prefix of another.',
     'category' => 'LeetCode',
     'subcategory' => 'Strings',
     'topic' => 'LeetCode · Strings',

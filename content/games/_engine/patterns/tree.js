@@ -238,7 +238,7 @@
   LC.register('lowest-common-ancestor-of-a-binary-search-tree', {
     title: 'LCA of a BST: the split point',
     rule: 'From the root: if p and q are both smaller, go left; both bigger, go right. Otherwise they split here (or one of them is this node): this node is the LCA.',
-    rounds: 5, minSteps: 2,
+    rounds: 5, minSteps: 3,
     make: function (rng, round) {
       var tr = randBST(rng, 7, 11), nodes = []; for (var x = 0; x < MAX; x++) if (has(tr, x)) nodes.push(x);
       var pair = rng.shuffle(nodes).slice(0, 2), p = tr[pair[0]], q = tr[pair[1]];
@@ -246,6 +246,8 @@
       t.setup = 'p = ' + p + '   q = ' + q;
       var acts = [['L', 'Both smaller: go left'], ['R', 'Both bigger: go right'], ['S', 'Split here: LCA']];
       var i = 0, cls = {}; cls[pair[0]] = 'blue'; cls[pair[1]] = 'blue';
+      var below = (p < tr[0] ? 1 : 0) + (q < tr[0] ? 1 : 0);
+      t.num(V(T(tr, cls), P.vars([['p', p], ['q', q]])), 'How many of p and q are smaller than the root ' + tr[0] + '?', below, { wrong: 'Compare each of p and q with the root value.', note: below === 1 ? 'One on each side (or one is the root), so the root splits them.' : 'Same side, so keep going down.' });
       while (true) {
         var v = tr[i], key = p < v && q < v ? 'L' : p > v && q > v ? 'R' : 'S';
         var c = LC.clone(cls); c[i] = 'hit';
@@ -253,6 +255,7 @@
         if (key === 'S') { cls[i] = 'ok'; break; }
         i = key === 'L' ? 2 * i + 1 : 2 * i + 2;
       }
+      t.num(V(T(tr, cls), P.vars([['p', p], ['q', q]])), 'Value of the LCA?', tr[i], { wrong: 'The node where p and q split.', note: 'LCA = ' + tr[i] + '.' });
       t.done(V(T(tr, cls)), 'LCA = ' + tr[i] + '. O(h).');
       return t;
     }

@@ -56,7 +56,7 @@
   LC.register('keys-and-rooms', {
     title: 'Keys and Rooms: visit every room your keys open',
     rule: 'DFS from room 0 with a visited set. Every key in a visited room opens another room. Rooms you never reach are locked forever.',
-    minSteps: 2,
+    minSteps: 3,
     make: function (rng, round) {
       var n = 6 + (round > 0 ? 1 : 0), keys = [];
       for (var i = 0; i < n; i++) { var ks = []; for (var j = 0; j < rng.int(0, 2); j++) { var k = rng.int(0, n - 1); if (k !== i && ks.indexOf(k) === -1) ks.push(k); } keys.push(ks); }
@@ -69,15 +69,17 @@
       var reach = Object.keys(seen).map(Number).filter(function (x) { return x !== 0; });
       var links = {}; keys.forEach(function (ks, a) { links['n:' + a] = ks.map(function (b) { return 'n:' + b; }); });
       var nodes = circle(n), cls = { 0: 'ok' };
+      t.num(V(G(nodes, e, true, cls, {}, 'rooms (an arrow from a to b: room a has the key to b)')), 'How many keys are in room 0?', keys[0].length, { wrong: 'Count the arrows leaving room 0.', note: 'These are the first rooms you can open.' });
       if (reach.length) {
         var aset = {}; reach.forEach(function (r) { aset['n:' + r] = 1; });
         var wm = {}; for (i = 1; i < n; i++) if (!aset['n:' + i]) wm['n:' + i] = 'No room you can reach holds the key to room ' + i + '.';
         wm['n:0'] = 'Room 0 is already open.';
-        t.pick(V(G(nodes, e, true, cls, {}, 'rooms (arrow a → b: room a has key b)')), 'Room 0 is open. Click every room you can unlock.', reach.map(function (r) { return 'n:' + r; }), { all: true, links: links, seeds: ['n:0'], wrongMap: wm, wrongChain: 'You do not hold that key yet. Open rooms one key at a time.', note: 'Visited set complete.' });
+        t.pick(V(G(nodes, e, true, cls, {}, 'rooms (an arrow from a to b: room a has the key to b)')), 'Room 0 is open. Click every room you can unlock.', reach.map(function (r) { return 'n:' + r; }), { all: true, links: links, seeds: ['n:0'], wrongMap: wm, wrongChain: 'You do not hold that key yet. Open rooms one key at a time.', note: 'Visited set complete.' });
       }
       reach.forEach(function (r) { cls[r] = 'ok'; });
       var all = reach.length + 1 === n;
-      t.act(V(G(nodes, e, true, cls)), 'Nothing new opens.', [['T', 'Every room visited → true'], ['F', 'Some room locked → false']], all ? 'T' : 'F', all ? 'You visited all ' + n + ' rooms.' : (n - reach.length - 1) + ' room(s) were never reached.', all ? 'True.' : 'False.');
+      t.num(V(G(nodes, e, true, cls)), 'How many rooms did you visit, including room 0?', reach.length + 1, { wrong: 'Count the green rooms.', note: (reach.length + 1) + ' of ' + n + ' rooms.' });
+      t.act(V(G(nodes, e, true, cls)), 'Nothing new opens.', [['T', 'Every room visited, so true'], ['F', 'Some room locked, so false']], all ? 'T' : 'F', all ? 'You visited all ' + n + ' rooms.' : (n - reach.length - 1) + ' rooms were never reached.', all ? 'True.' : 'False.');
       t.done(V(G(nodes, e, true, cls)), all ? 'All rooms open.' : 'Some rooms stay locked.');
       return t;
     }
@@ -86,7 +88,7 @@
   LC.register('find-if-path-exists-in-graph', {
     title: 'Find if Path Exists: BFS layers from the source',
     rule: 'BFS from source with a visited set. Each layer is every unvisited neighbor of the last layer. Stop as soon as destination appears; if the layers run out, there is no path.',
-    minSteps: 2,
+    minSteps: 3,
     make: function (rng, round) {
       var n = 7 + (round > 0 ? 1 : 0), e = [], seen = {};
       for (var k = 0; k < n; k++) { var a = rng.int(0, n - 1), b = rng.int(0, n - 1); var key = Math.min(a, b) + '-' + Math.max(a, b); if (a !== b && !seen[key]) { seen[key] = 1; e.push([a, b]); } }
@@ -97,6 +99,7 @@
       t.setup = 'n = ' + n + '   edges = ' + JSON.stringify(e) + '   source = ' + src + '   destination = ' + dst;
       var nodes = circle(n), visited = {}, layer = [src], cls = {}, tag = {}, found = false, d = 0;
       visited[src] = 1; cls[src] = 'hit'; tag[src] = 'S'; tag[dst] = (tag[dst] || '') + 'D';
+      t.num(V(G(nodes, e, false, LC.clone(cls), tag, 'graph (S = source, D = destination)')), 'How many neighbors does the source ' + src + ' have?', adj[src].length, { wrong: 'Count the edges touching the source.', note: 'They form layer 1.' });
       while (true) {
         var next = []; layer.forEach(function (x) { adj[x].forEach(function (y) { if (!visited[y] && next.indexOf(y) === -1) next.push(y); }); });
         if (!next.length) break;
@@ -108,6 +111,8 @@
         if (visited[dst]) { found = true; break; }
         layer = next;
       }
+      var nVis = Object.keys(visited).length;
+      t.num(V(G(nodes, e, false, LC.clone(cls), tag)), 'How many nodes has the BFS visited, including the source?', nVis, { wrong: 'Count the source plus every node in the layers.', note: nVis + ' visited.' });
       cls[dst] = found ? 'ok' : 'bad';
       t.act(V(G(nodes, e, false, cls, tag)), found ? 'Destination is in this layer.' : 'No new nodes to visit.', [['T', 'Return true'], ['F', 'Return false']], found ? 'T' : 'F', found ? 'The destination was reached.' : 'The BFS ran out before reaching the destination.', found ? 'Path exists.' : 'No path.');
       t.done(V(G(nodes, e, false, cls, tag)), (found ? 'True' : 'False') + '. O(V + E).');

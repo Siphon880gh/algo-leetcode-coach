@@ -98,9 +98,9 @@
 
   D('maximum-value-of-concatenated-binary-segments', {
     t: 'Maximum Value of Concatenated Binary Segments',
-    r: 'Order the segments with the exchange rule: X goes before Y when X+Y > Y+X as strings (all-ones segments first, then more leading ones and fewer trailing zeros). Then build the value mod 1e9+7 by appending bits (doubling).',
+    r: 'Order the segments with the exchange rule: X goes before Y when X followed by Y beats Y followed by X as strings (all-ones segments first, then more leading ones and fewer trailing zeros). Then build the value, as a remainder by 1e9+7, by appending bits (doubling).',
     g: R => { const n = R.int(1, 4); return { nums1: R.ints(n, 0, 3), nums0: R.ints(n, 1, 3) }; },
-    s(I, T) { const seg = I.nums1.map((a, i) => '1'.repeat(a) + '0'.repeat(I.nums0[i])), ord = seg.slice().sort((x, y) => (y + x).localeCompare(x + y)); ord.slice(0, 4).forEach((sg, i) => { T.at({ segments: A(seg), chosen: A(ord.slice(0, i)) }); T.c(`Which segment goes in position ${i}?`, [...new Set(ord.slice(i))], sg, 'Pick the one that wins the X+Y vs Y+X comparison.'); }); let v = 0; for (const ch of ord.join('')) v = (v * 2 + (ch === '1' ? 1 : 0)) % MOD; return v; }
+    s(I, T) { const res = (() => { const seg = I.nums1.map((a, i) => '1'.repeat(a) + '0'.repeat(I.nums0[i])), ord = seg.slice().sort((x, y) => (y + x).localeCompare(x + y)); T.at({ segments: A(seg) }); T.n('How many segments?', seg.length, 'One per pair of counts.'); ord.slice(0, 4).forEach((sg, i) => { T.at({ segments: A(seg), chosen: A(ord.slice(0, i)) }); T.c(`Which segment goes in position ${i}?`, [...new Set(ord.slice(i))], sg, 'Pick the one that wins the X then Y against Y then X comparison.'); }); let v = 0; for (const ch of ord.join('')) v = (v * 2 + (ch === '1' ? 1 : 0)) % MOD; return v; })(); T.n('Final value (remainder by 1e9+7)?', res, 'Double and add each bit in order.'); return res; }
   });
 
   D('minimum-energy-to-maintain-brightness', {

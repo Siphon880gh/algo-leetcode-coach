@@ -10,7 +10,7 @@
     t: 'Shift 2D Grid',
     r: 'Flatten row-major: element at index i moves to (i + k) mod (m·n). Map back to (row, col).',
     g: R => ({ grid: mat(R, R.int(1, 3), R.int(1, 4), 1, 9), k: R.int(0, 12) }),
-    s(I, T) { const m = I.grid.length, n = I.grid[0].length, N = m * n, f = I.grid.flat(), out = Array(N); f.forEach((v, i) => out[(i + I.k) % N] = v); T.at({ grid: G(I.grid), k: I.k }); T.n('Where does flat index 0 land?', I.k % N, '(0 + k) mod m·n.'); T.n('New top-left value?', out[0], 'The element from index (−k) mod m·n.'); return Array.from({ length: m }, (_, i) => out.slice(i * n, i * n + n)); }
+    s(I, T) { const m = I.grid.length, n = I.grid[0].length, N = m * n, f = I.grid.flat(), out = Array(N); f.forEach((v, i) => out[(i + I.k) % N] = v); T.at({ grid: G(I.grid), k: I.k }); T.n('Where does flat index 0 land?', I.k % N, 'k modulo the number of cells.'); T.n('New top-left value?', out[0], 'The value that started k places earlier, wrapping around.'); T.n('New bottom-right value?', out[N - 1], 'The value k places before the end, wrapping around.'); return Array.from({ length: m }, (_, i) => out.slice(i * n, i * n + n)); }
   });
 
   D('count-servers-that-communicate', {
@@ -45,7 +45,7 @@
     t: 'Maximum Candies You Can Get from Boxes',
     r: 'Simulate with a queue of boxes you can open (have it AND it is open or you hold its key). Opening collects candies, keys (which may unlock held boxes) and contained boxes.',
     g: R => { const n = R.int(1, 6), ids = [...Array(n).keys()], contained = ids.map(() => []), keys = ids.map(() => []); ids.slice(1).forEach(b => { if (R.chance(0.7)) contained[R.int(0, n - 1)].push(b); }); ids.forEach(b => { if (R.chance(0.3)) keys[b].push(R.int(0, n - 1)); }); return { status: ids.map(() => R.int(0, 1)), candies: R.ints(n, 1, 9), keys: keys.map(k => [...new Set(k)]), containedBoxes: contained, initialBoxes: ids.filter(b => !contained.some(c => c.includes(b)) && R.chance(0.7)) }; },
-    s(I, T) { const have = new Set(I.initialBoxes), key = new Set(), done = new Set(); let tot = 0, prog = true, asks = 0; while (prog) { prog = false; for (const b of [...have]) { if (done.has(b) || !(I.status[b] || key.has(b))) continue; done.add(b); prog = true; tot += I.candies[b]; I.keys[b].forEach(k => key.add(k)); I.containedBoxes[b].forEach(x => have.add(x)); if (asks++ < 6) { T.at({ opened: b, have: A([...have]), keys: A([...key]) }); T.n('Candies collected so far?', tot, 'Open any held box that is open or keyed.'); } } } if (!asks) { T.at({ initial: A(I.initialBoxes), status: A(I.status) }); T.n('Candies?', 0, 'No box can be opened.'); } return tot; }
+    s(I, T) { const res = (() => { T.at({ initial: A(I.initialBoxes), status: A(I.status) }); T.n('Boxes held at the start?', I.initialBoxes.length, 'Only held boxes can be opened.'); const have = new Set(I.initialBoxes), key = new Set(), done = new Set(); let tot = 0, prog = true, asks = 0; while (prog) { prog = false; for (const b of [...have]) { if (done.has(b) || !(I.status[b] || key.has(b))) continue; done.add(b); prog = true; tot += I.candies[b]; I.keys[b].forEach(k => key.add(k)); I.containedBoxes[b].forEach(x => have.add(x)); if (asks++ < 6) { T.at({ opened: b, have: A([...have]), keys: A([...key]) }); T.n('Candies collected so far?', tot, 'Open any held box that is open or keyed.'); } } } if (!asks) { T.at({ initial: A(I.initialBoxes), status: A(I.status) }); T.n('Boxes that can be opened?', 0, 'No held box is open or has a key.'); } return tot; })(); T.n('Total candies?', res, 'Everything from the opened boxes.'); return res; }
   });
 
   D('jump-game-iii', {
@@ -59,7 +59,7 @@
     t: 'Get Watched Videos by Your Friends',
     r: 'BFS from id to find people at exactly distance `level`. Count the videos they watched and sort by frequency, then alphabetically.',
     g: R => { const n = R.int(2, 6), fr = Array.from({ length: n }, () => new Set()); for (let i = 1; i < n; i++) { const j = R.int(0, i - 1); fr[i].add(j); fr[j].add(i); } return { watchedVideos: Array.from({ length: n }, () => [...new Set(Array.from({ length: R.int(0, 2) }, () => R.pick(['A', 'B', 'C', 'D'])))]), friends: fr.map(s => [...s]), id: R.int(0, n - 1), level: R.int(1, 2) }; },
-    s(I, T) { let q = [I.id]; const seen = new Set(q); for (let d = 0; d < I.level; d++) { const nq = []; for (const x of q) for (const y of I.friends[x]) if (!seen.has(y)) { seen.add(y); nq.push(y); } q = nq; } T.at({ friends: K(Object.fromEntries(I.friends.map((f, i) => [i, f.join(',')]))), id: I.id }); T.n(`People at exactly level ${I.level}?`, q.length, 'BFS layers.'); const c = {}; q.forEach(p => I.watchedVideos[p].forEach(v => c[v] = (c[v] || 0) + 1)); return Object.keys(c).sort((a, b) => c[a] - c[b] || (a < b ? -1 : 1)); }
+    s(I, T) { let q = [I.id]; const seen = new Set(q); for (let d = 0; d < I.level; d++) { const nq = []; for (const x of q) for (const y of I.friends[x]) if (!seen.has(y)) { seen.add(y); nq.push(y); } q = nq; } T.at({ friends: K(Object.fromEntries(I.friends.map((f, i) => [i, f.join(',')]))), id: I.id }); T.n(`People within ${I.level} steps, including you?`, seen.size, 'Everyone visited so far.'); T.n(`People at exactly level ${I.level}?`, q.length, 'The last BFS layer.'); const c = {}; q.forEach(p => I.watchedVideos[p].forEach(v => c[v] = (c[v] || 0) + 1)); T.n('Distinct videos watched at that level?', Object.keys(c).length, 'Sorted by count, then by name.'); return Object.keys(c).sort((a, b) => c[a] - c[b] || (a < b ? -1 : 1)); }
   });
 
   D('matrix-block-sum', {
@@ -73,7 +73,7 @@
     t: 'Sort the Matrix Diagonally',
     r: 'Cells on one diagonal share i − j. Collect each diagonal, sort it, and write it back top-left to bottom-right.',
     g: R => ({ mat: mat(R, R.int(1, 4), R.int(1, 4), 1, 9) }),
-    s(I, T) { const g = I.mat.map(r => r.slice()), m = g.length, n = g[0].length, D0 = {}; g.forEach((r, i) => r.forEach((v, j) => (D0[i - j] = D0[i - j] || []).push(v))); Object.values(D0).forEach(a => a.sort((x, y) => x - y)); T.at({ mat: G(I.mat) }); T.n('How many diagonals?', m + n - 1, 'One per value of i − j.'); T.n('New value at (0, 0)?', D0[0][0], 'Smallest on the main diagonal.'); const idx = {}; return g.map((r, i) => r.map((_, j) => { const k = i - j; idx[k] = (idx[k] || 0); return D0[k][idx[k]++]; })); }
+    s(I, T) { const g = I.mat.map(r => r.slice()), m = g.length, n = g[0].length, D0 = {}; g.forEach((r, i) => r.forEach((v, j) => (D0[i - j] = D0[i - j] || []).push(v))); Object.values(D0).forEach(a => a.sort((x, y) => x - y)); T.at({ mat: G(I.mat) }); T.n('How many diagonals?', m + n - 1, 'One per value of i − j.'); T.n('New value at (0, 0)?', D0[0][0], 'Smallest on the main diagonal.'); T.n('Largest value on the main diagonal?', D0[0][D0[0].length - 1], 'It moves to the bottom end.'); const idx = {}; return g.map((r, i) => r.map((_, j) => { const k = i - j; idx[k] = (idx[k] || 0); return D0[k][idx[k]++]; })); }
   });
 
   D('jump-game-iv', {
@@ -88,14 +88,14 @@
     r: 'A lucky number is the minimum of its row and the maximum of its column. Compute row minima and column maxima; values in both sets are lucky (all values are distinct).',
     g: R => { const m = R.int(1, 4), n = R.int(1, 4), v = R.distinct(m * n, 1, 30); return { matrix: Array.from({ length: m }, (_, i) => v.slice(i * n, i * n + n)) }; },
     cmp: 'set',
-    s(I, T) { const g = I.matrix, rm = g.map(r => Math.min(...r)), cm = g[0].map((_, j) => Math.max(...g.map(r => r[j]))); T.at({ matrix: G(g), rowMin: A(rm), colMax: A(cm) }); const out = rm.filter(x => cm.includes(x)); T.n('How many lucky numbers?', out.length, 'In both lists.'); return out; }
+    s(I, T) { const g = I.matrix, rm = g.map(r => Math.min(...r)), cm = g[0].map((_, j) => Math.max(...g.map(r => r[j]))); T.at({ matrix: G(g), rowMin: A(rm), colMax: A(cm) }); const out = rm.filter(x => cm.includes(x)); T.n('Largest row minimum?', Math.max(...rm), 'A lucky number must be this.'); T.n('Smallest column maximum?', Math.min(...cm), 'And also this.'); T.n('How many lucky numbers?', out.length, 'In both lists.'); return out; }
   });
 
   D('check-if-there-is-a-valid-path-in-a-grid', {
     t: 'Check if There is a Valid Path in a Grid',
     r: 'Each street type opens two directions. DFS from (0, 0): move to a neighbor only if the current cell opens toward it AND the neighbor opens back. Reaching the bottom-right → true.',
     g: R => ({ grid: mat(R, R.int(1, 3), R.int(1, 4), 1, 6) }),
-    s(I, T) { const g = I.grid, m = g.length, n = g[0].length, L = [0, -1], Rr = [0, 1], U = [-1, 0], Dn = [1, 0], O = { 1: [L, Rr], 2: [U, Dn], 3: [L, Dn], 4: [Rr, Dn], 5: [L, U], 6: [Rr, U] }; const seen = new Set(['0,0']), st = [[0, 0]]; let asks = 0; while (st.length) { const [r, c] = st.pop(); if (r === m - 1 && c === n - 1) { T.at({ grid: G(g, { hl: [[r, c]] }) }); T.yn('Reached the target?', true, 'Bottom-right corner.'); return true; } for (const [dr, dc] of O[g[r][c]]) { const a = r + dr, b = c + dc; if (a < 0 || b < 0 || a >= m || b >= n || seen.has(a + ',' + b)) continue; const ok = O[g[a][b]].some(([x, y]) => x === -dr && y === -dc); if (asks++ < 6) { T.at({ grid: G(g, { hl: [[r, c], [a, b]] }) }); T.yn(`Does street ${g[a][b]} connect back to street ${g[r][c]}?`, ok, 'The neighbor must open toward us.'); } if (ok) { seen.add(a + ',' + b); st.push([a, b]); } } } return false; }
+    s(I, T) { const res = (() => { const g = I.grid, m = g.length, n = g[0].length, L = [0, -1], Rr = [0, 1], U = [-1, 0], Dn = [1, 0], O = { 1: [L, Rr], 2: [U, Dn], 3: [L, Dn], 4: [Rr, Dn], 5: [L, U], 6: [Rr, U] }; const seen = new Set(['0,0']), st = [[0, 0]]; let asks = 0; while (st.length) { const [r, c] = st.pop(); if (r === m - 1 && c === n - 1) { T.at({ grid: G(g, { hl: [[r, c]] }) }); T.yn('Reached the target?', true, 'Bottom-right corner.'); return true; } for (const [dr, dc] of O[g[r][c]]) { const a = r + dr, b = c + dc; if (a < 0 || b < 0 || a >= m || b >= n || seen.has(a + ',' + b)) continue; const ok = O[g[a][b]].some(([x, y]) => x === -dr && y === -dc); if (asks++ < 6) { T.at({ grid: G(g, { hl: [[r, c], [a, b]] }) }); T.yn(`Does street ${g[a][b]} connect back to street ${g[r][c]}?`, ok, 'The neighbor must open toward us.'); } if (ok) { seen.add(a + ',' + b); st.push([a, b]); } } } return false; })(); T.yn('Is there a valid path?', res, 'Follow connected streets from the top-left.'); return res; }
   });
 
   D('diagonal-traverse-ii', {
@@ -116,7 +116,7 @@
     t: 'Matrix Diagonal Sum',
     r: 'Add mat[i][i] and mat[i][n − 1 − i] for every i; for odd n the center was counted twice, so subtract it once.',
     g: R => { const n = R.int(1, 5); return { mat: mat(R, n, n, 1, 9) }; },
-    s(I, T) { const n = I.mat.length; let s = 0; for (let i = 0; i < n; i++) s += I.mat[i][i] + I.mat[i][n - 1 - i]; T.at({ mat: G(I.mat) }); T.n('Sum of both diagonals counting the center twice?', s, 'Primary + secondary.'); if (n % 2) s -= I.mat[n >> 1][n >> 1]; return s; }
+    s(I, T) { const res = (() => { const n = I.mat.length; let s = 0; for (let i = 0; i < n; i++) s += I.mat[i][i] + I.mat[i][n - 1 - i]; T.at({ mat: G(I.mat) }); T.n('Sum of both diagonals counting the center twice?', s, 'Primary plus secondary.'); T.yn('Is n odd?', n % 2 === 1, 'Then the centre was counted twice.'); if (n % 2) s -= I.mat[n >> 1][n >> 1]; return s; })(); T.n('Diagonal sum?', res, 'Subtract the centre once if needed.'); return res; }
   });
 
   D('special-positions-in-a-binary-matrix', {
@@ -138,7 +138,7 @@
     t: 'Lexicographically Smallest String After Applying Operations',
     r: 'There are few reachable strings (≤ 10 add-states × n rotations). BFS/DFS over states using both operations — add a to every odd index (mod 10) and rotate right by b — and keep the smallest.',
     g: R => { const n = 2 * R.int(1, 3); return { s: R.ints(n, 0, 9).join(''), a: R.int(1, 9), b: R.int(1, n - 1) }; },
-    s(I, T) { const add = s => [...s].map((c, i) => i % 2 ? String((+c + I.a) % 10) : c).join(''), rot = s => s.slice(-I.b) + s.slice(0, -I.b); const seen = new Set([I.s]), q = [I.s]; let best = I.s; for (let k = 0; k < q.length; k++) { const s = q[k]; if (s < best) best = s; for (const t of [add(s), rot(s)]) if (!seen.has(t)) { seen.add(t); q.push(t); } } T.at({ s: I.s, a: I.a, b: I.b }); T.c('Result of one "add" operation?', [...new Set([add(I.s), rot(I.s), I.s])], add(I.s), 'Odd indices + a (mod 10).'); T.n('Reachable strings?', seen.size, 'Explore both operations.'); return best; }
+    s(I, T) { const res = (() => { const add = s => [...s].map((c, i) => i % 2 ? String((+c + I.a) % 10) : c).join(''), rot = s => s.slice(-I.b) + s.slice(0, -I.b); const seen = new Set([I.s]), q = [I.s]; let best = I.s; for (let k = 0; k < q.length; k++) { const s = q[k]; if (s < best) best = s; for (const t of [add(s), rot(s)]) if (!seen.has(t)) { seen.add(t); q.push(t); } } T.at({ s: I.s, a: I.a, b: I.b }); T.c('Result of one "add" operation?', [...new Set([add(I.s), rot(I.s), I.s])], add(I.s), 'Add a to every odd index, wrapping past 9.'); T.n('Reachable strings?', seen.size, 'Explore both operations.'); return best; })(); T.n('First digit of the smallest string?', +res[0], 'The smallest reachable string.'); return res; }
   });
 
   D('richest-customer-wealth', {
@@ -187,7 +187,7 @@
     t: 'Get Biggest Three Rhombus Sums in a Grid',
     r: 'Enumerate every rhombus by its top cell and size k (k = 0 is a single cell), summing its border (diagonal prefix sums speed this up). Keep the three largest distinct sums.',
     g: R => ({ grid: mat(R, R.int(1, 4), R.int(1, 4), 1, 9) }),
-    s(I, T) { const g = I.grid, m = g.length, n = g[0].length, S = new Set(); for (let r = 0; r < m; r++) for (let c = 0; c < n; c++) for (let k = 0; r + 2 * k < m && c - k >= 0 && c + k < n; k++) { if (!k) { S.add(g[r][c]); continue; } let s = 0; for (let t = 0; t < k; t++) s += g[r + t][c + t] + g[r + k + t][c + k - t] + g[r + 2 * k - t][c - t] + g[r + k - t][c - k + t]; S.add(s); } const top = [...S].sort((a, b) => b - a).slice(0, 3); T.at({ grid: G(g) }); T.n('Distinct rhombus sums found?', S.size, 'Single cells count as size-0 rhombi.'); T.n('Largest?', top[0], 'Max of the set.'); return top; }
+    s(I, T) { const g = I.grid, m = g.length, n = g[0].length, S = new Set(); for (let r = 0; r < m; r++) for (let c = 0; c < n; c++) for (let k = 0; r + 2 * k < m && c - k >= 0 && c + k < n; k++) { if (!k) { S.add(g[r][c]); continue; } let s = 0; for (let t = 0; t < k; t++) s += g[r + t][c + t] + g[r + k + t][c + k - t] + g[r + 2 * k - t][c - t] + g[r + k - t][c - k + t]; S.add(s); } const top = [...S].sort((a, b) => b - a).slice(0, 3); T.at({ grid: G(g) }); T.n('Distinct rhombus sums found?', S.size, 'Single cells count as size-0 rhombi.'); T.n('Largest sum?', top[0], 'Max of the set.'); T.n('How many sums are returned?', top.length, 'Up to three distinct sums.'); return top; }
   });
 
   D('determine-whether-matrix-can-be-obtained-by-rotation', {
@@ -201,28 +201,28 @@
     t: 'Largest Magic Square',
     r: 'Try sizes k from min(m, n) down to 2; for each k×k window check all row, column and both diagonal sums are equal (row/column prefix sums make each check O(k)). Size 1 always works.',
     g: R => ({ grid: mat(R, R.int(1, 4), R.int(1, 4), 1, 3) }),
-    s(I, T) { const g = I.grid, m = g.length, n = g[0].length; for (let k = Math.min(m, n); k >= 2; k--) { let found = false; for (let r = 0; r + k <= m && !found; r++) for (let c = 0; c + k <= n && !found; c++) { const t = g[r].slice(c, c + k).reduce((a, b) => a + b, 0); let ok = true; for (let i = 0; i < k && ok; i++) { if (g[r + i].slice(c, c + k).reduce((a, b) => a + b, 0) !== t) ok = false; let cs = 0; for (let j = 0; j < k; j++) cs += g[r + j][c + i]; if (cs !== t) ok = false; } let d1 = 0, d2 = 0; for (let i = 0; i < k; i++) { d1 += g[r + i][c + i]; d2 += g[r + i][c + k - 1 - i]; } if (d1 !== t || d2 !== t) ok = false; found = ok; } T.at({ grid: G(g), size: k }); T.yn(`Is there a magic square of size ${k}?`, found, 'All lines equal in some window.'); if (found) return k; } return 1; }
+    s(I, T) { const res = (() => { const g = I.grid, m = g.length, n = g[0].length; for (let k = Math.min(m, n); k >= 2; k--) { let found = false; for (let r = 0; r + k <= m && !found; r++) for (let c = 0; c + k <= n && !found; c++) { const t = g[r].slice(c, c + k).reduce((a, b) => a + b, 0); let ok = true; for (let i = 0; i < k && ok; i++) { if (g[r + i].slice(c, c + k).reduce((a, b) => a + b, 0) !== t) ok = false; let cs = 0; for (let j = 0; j < k; j++) cs += g[r + j][c + i]; if (cs !== t) ok = false; } let d1 = 0, d2 = 0; for (let i = 0; i < k; i++) { d1 += g[r + i][c + i]; d2 += g[r + i][c + k - 1 - i]; } if (d1 !== t || d2 !== t) ok = false; found = ok; } T.at({ grid: G(g), size: k }); T.yn(`Is there a magic square of size ${k}?`, found, 'All lines equal in some window.'); if (found) return k; } return 1; })(); T.n('Largest magic square size?', res, 'Every single cell is magic, so at least 1.'); return res; }
   });
 
   D('cyclically-rotating-a-grid', {
     t: 'Cyclically Rotating a Grid',
     r: 'Peel each layer into a list (clockwise from its top-left), rotate the list left by k mod length (a counter-clockwise rotation), and write it back.',
     g: R => ({ grid: mat(R, 2 * R.int(1, 2), 2 * R.int(1, 2), 1, 9), k: R.int(1, 8) }),
-    s(I, T) { const g = I.grid.map(r => r.slice()), m = g.length, n = g[0].length; for (let L = 0; L < Math.min(m, n) / 2; L++) { const pos = []; for (let j = L; j < n - L; j++) pos.push([L, j]); for (let i = L + 1; i < m - L; i++) pos.push([i, n - 1 - L]); for (let j = n - 2 - L; j >= L; j--) pos.push([m - 1 - L, j]); for (let i = m - 2 - L; i > L; i--) pos.push([i, L]); const v = pos.map(([i, j]) => g[i][j]), s = I.k % v.length; pos.forEach(([i, j], t) => g[i][j] = v[(t + s) % v.length]); T.at({ layer: L, values: A(v) }); T.n(`Cells in layer ${L}?`, v.length, 'Perimeter of the layer.'); } return g; }
+    s(I, T) { const g = I.grid.map(r => r.slice()), m = g.length, n = g[0].length; T.at({ grid: G(I.grid), k: I.k }); T.n('How many layers?', Math.min(m, n) / 2, 'Peel rings from the outside in.'); for (let L = 0; L < Math.min(m, n) / 2; L++) { const pos = []; for (let j = L; j < n - L; j++) pos.push([L, j]); for (let i = L + 1; i < m - L; i++) pos.push([i, n - 1 - L]); for (let j = n - 2 - L; j >= L; j--) pos.push([m - 1 - L, j]); for (let i = m - 2 - L; i > L; i--) pos.push([i, L]); const v = pos.map(([i, j]) => g[i][j]), s = I.k % v.length; pos.forEach(([i, j], t) => g[i][j] = v[(t + s) % v.length]); T.at({ layer: L, values: A(v) }); T.n(`Cells in layer ${L}?`, v.length, 'Perimeter of the layer.'); } T.at({ grid: G(g) }); T.n('New top-left value?', g[0][0], 'After rotating the outer layer.'); return g; }
   });
 
   D('check-if-move-is-legal', {
     t: 'Check if Move is Legal',
     r: 'From the move cell, look in each of 8 directions: there must be at least one opposite-color cell in a row, ending at a cell of your color (a line of length ≥ 3). Any such direction → legal.',
     g: R => { const b = Array.from({ length: 8 }, () => Array.from({ length: 8 }, () => R.pick(['.', 'B', 'W']))); const r = R.int(0, 7), c = R.int(0, 7); b[r][c] = '.'; return { board: b, rMove: r, cMove: c, color: R.pick(['B', 'W']) }; },
-    s(I, T) { const b = I.board, me = I.color, op = me === 'B' ? 'W' : 'B'; for (const [dr, dc] of N8) { let r = I.rMove + dr, c = I.cMove + dc, k = 0; while (r >= 0 && c >= 0 && r < 8 && c < 8 && b[r][c] === op) { r += dr; c += dc; k++; } const ok = k > 0 && r >= 0 && c >= 0 && r < 8 && c < 8 && b[r][c] === me; if (k) { T.at({ board: G(b, { hl: [[I.rMove, I.cMove]] }), direction: `${dr},${dc}`, opposite: k }); T.yn('Does this direction end on your color?', ok, 'Opposite cells, then yours.'); } if (ok) return true; } return false; }
+    s(I, T) { const res = (() => { const b = I.board, me = I.color, op = me === 'B' ? 'W' : 'B'; for (const [dr, dc] of N8) { let r = I.rMove + dr, c = I.cMove + dc, k = 0; while (r >= 0 && c >= 0 && r < 8 && c < 8 && b[r][c] === op) { r += dr; c += dc; k++; } const ok = k > 0 && r >= 0 && c >= 0 && r < 8 && c < 8 && b[r][c] === me; if (k) { T.at({ board: G(b, { hl: [[I.rMove, I.cMove]] }), direction: `${dr},${dc}`, opposite: k }); T.yn('Does this direction end on your color?', ok, 'Opposite cells, then yours.'); } if (ok) return true; } return false; })(); T.yn('Is the move legal?', res, 'Some direction must end on your color.'); return res; }
   });
 
   D('maximum-matrix-sum', {
     t: 'Maximum Matrix Sum',
     r: 'Flipping adjacent pairs can move a minus sign anywhere, so negatives cancel in pairs. Sum of |values|; if the count of negatives is odd, subtract 2 × the smallest |value|.',
     g: R => { const n = R.int(2, 4); return { matrix: mat(R, n, n, -5, 5) }; },
-    s(I, T) { const f = I.matrix.flat(), neg = f.filter(x => x < 0).length, abs = f.reduce((s, x) => s + Math.abs(x), 0), mn = Math.min(...f.map(Math.abs)); T.at({ matrix: G(I.matrix) }); T.n('Number of negatives?', neg, 'Pairs cancel out.'); T.n('Sum of absolute values?', abs, 'Best case.'); return neg % 2 ? abs - 2 * mn : abs; }
+    s(I, T) { const res = (() => { const f = I.matrix.flat(), neg = f.filter(x => x < 0).length, abs = f.reduce((s, x) => s + Math.abs(x), 0), mn = Math.min(...f.map(Math.abs)); T.at({ matrix: G(I.matrix) }); T.n('Number of negatives?', neg, 'Pairs cancel out.'); T.n('Sum of absolute values?', abs, 'Best case.'); return neg % 2 ? abs - 2 * mn : abs; })(); T.n('Maximum sum?', res, 'If the negatives are odd, one smallest absolute value stays negative.'); return res; }
   });
 
   D('find-all-groups-of-farmland', {
@@ -230,7 +230,7 @@
     r: 'Farmland groups are rectangles. At a 1 whose top and left are not farmland (a top-left corner), extend down and right to find the bottom-right corner.',
     g: R => { const m = R.int(1, 5), n = R.int(1, 5), g = Array.from({ length: m }, () => Array(n).fill(0)); for (let k = 0; k < 3; k++) { const r = R.int(0, m - 1), c = R.int(0, n - 1), h = R.int(1, 2), w = R.int(1, 2); let ok = true; for (let i = r - 1; i <= r + h; i++) for (let j = c - 1; j <= c + w; j++) if (i >= 0 && j >= 0 && i < m && j < n && g[i][j]) ok = false; if (ok && r + h <= m && c + w <= n) for (let i = r; i < r + h; i++) for (let j = c; j < c + w; j++) g[i][j] = 1; } return { land: g }; },
     cmp: 'set',
-    s(I, T) { const g = I.land, out = []; g.forEach((r, i) => r.forEach((v, j) => { if (!v || (i && g[i - 1][j]) || (j && r[j - 1])) return; let a = i, b = j; while (a + 1 < g.length && g[a + 1][j]) a++; while (b + 1 < r.length && r[b + 1]) b++; out.push([i, j, a, b]); T.at({ land: G(g, { hl: [[i, j]] }) }); T.c('Bottom-right corner of this group?', [...new Set([`${a},${b}`, `${i},${b}`, `${a},${j}`])], `${a},${b}`, 'Extend down and right.'); })); if (!out.length) { T.at({ land: G(g) }); T.n('Groups?', 0, 'No farmland.'); } return out; }
+    s(I, T) { const g = I.land, out = []; T.at({ land: G(g) }); T.n('Farmland cells?', g.flat().filter(Boolean).length, 'Cells with value 1.'); g.forEach((r, i) => r.forEach((v, j) => { if (!v || (i && g[i - 1][j]) || (j && r[j - 1])) return; let a = i, b = j; while (a + 1 < g.length && g[a + 1][j]) a++; while (b + 1 < r.length && r[b + 1]) b++; out.push([i, j, a, b]); T.at({ land: G(g, { hl: [[i, j]] }) }); T.c('Bottom-right corner of this group?', [...new Set([`${a},${b}`, `${i},${b}`, `${a},${j}`])], `${a},${b}`, 'Extend down and right.'); })); T.at({ land: G(g) }); T.n('Groups of farmland?', out.length, 'One per top-left corner.'); return out; }
   });
 
   D('smallest-greater-multiple-made-of-two-digits', {
@@ -251,14 +251,14 @@
     t: 'Check if Word Can Be Placed In Crossword',
     r: 'Split every row and column (and their reverses) into slots between "#" cells. A slot fits if its length equals the word\'s and each cell is blank or the matching letter.',
     g: R => { const m = R.int(1, 4), n = R.int(1, 4); return { board: Array.from({ length: m }, () => Array.from({ length: n }, () => R.pick(['#', ' ', ' ', 'a', 'b']))), word: R.str(R.int(1, 3), 'ab') }; },
-    s(I, T) { const b = I.board, lines = [...b.map(r => r.join('')), ...b[0].map((_, j) => b.map(r => r[j]).join(''))]; let asks = 0; for (const L of lines) for (const sl of L.split('#')) for (const s of [sl, [...sl].reverse().join('')]) { if (s.length !== I.word.length) continue; const ok = [...s].every((c, i) => c === ' ' || c === I.word[i]); if (asks++ < 6) { T.at({ slot: JSON.stringify(s), word: I.word }); T.yn('Does the word fit this slot?', ok, 'Blank or matching letters.'); } if (ok) return true; } if (!asks) { T.at({ word: I.word }); T.yn('Any slot of the right length?', false, 'None.'); } return false; }
+    s(I, T) { const res = (() => { const b = I.board, lines = [...b.map(r => r.join('')), ...b[0].map((_, j) => b.map(r => r[j]).join(''))]; let asks = 0; T.at({ board: A(b.map(r => r.join(''))), word: I.word }); T.n('Open slots between # cells, rows and columns together?', lines.flatMap(L => L.split('#')).filter(s => s.length).length, 'Split each line on #.'); for (const L of lines) for (const sl of L.split('#')) for (const s of [sl, [...sl].reverse().join('')]) { if (s.length !== I.word.length) continue; const ok = [...s].every((c, i) => c === ' ' || c === I.word[i]); if (asks++ < 6) { T.at({ slot: JSON.stringify(s), word: I.word }); T.yn('Does the word fit this slot?', ok, 'Blank or matching letters.'); } if (ok) return true; } if (!asks) { T.at({ word: I.word }); T.yn('Any slot of the right length?', false, 'None.'); } return false; })(); T.yn('Can the word be placed?', res, 'Some slot of the right length fits.'); return res; }
   });
 
   D('convert-1d-array-into-2d-array', {
     t: 'Convert 1D Array Into 2D Array',
     r: 'Possible only if m·n equals the length. Then element i goes to row ⌊i / n⌋, column i mod n.',
     g: R => ({ original: R.ints(R.int(1, 8), 1, 9), m: R.int(1, 4), n: R.int(1, 4) }),
-    s(I, T) { T.at({ length: I.original.length, m: I.m, n: I.n }); T.yn('Is m·n equal to the length?', I.m * I.n === I.original.length, 'Otherwise return [].'); if (I.m * I.n !== I.original.length) return []; return Array.from({ length: I.m }, (_, i) => I.original.slice(i * I.n, i * I.n + I.n)); }
+    s(I, T) { const res = (() => { T.at({ length: I.original.length, m: I.m, n: I.n }); T.n('m times n?', I.m * I.n, 'Cells in the new array.'); T.yn('Is m times n equal to the length?', I.m * I.n === I.original.length, 'Otherwise return [].'); if (I.m * I.n !== I.original.length) return []; return Array.from({ length: I.m }, (_, i) => I.original.slice(i * I.n, i * I.n + I.n)); })(); T.n('Rows in the result?', res.length, 'm rows, or 0 when it does not fit.'); return res; }
   });
 
   D('number-of-spaces-cleaning-robot-cleaned', {
@@ -272,14 +272,14 @@
     t: 'Decode the Slanted Ciphertext',
     r: 'cols = length / rows. The text was written down diagonals, so read each diagonal starting at (0, c) moving (+1, +1), for c = 0, 1, …; finally strip trailing spaces.',
     g: R => { const rows = R.int(1, 3), txt = R.str(R.int(1, 7), 'abc d'), cols = Math.ceil(txt.length / rows) + rows; const g = Array.from({ length: rows }, () => Array(cols).fill(' ')); [...txt].forEach((ch, i) => { const r = i % rows, c = Math.floor(i / rows) + r; if (c < cols) g[r][c] = ch; }); return { encodedText: g.map(r => r.join('')).join(''), rows }; },
-    s(I, T) { const n = I.encodedText.length, cols = n / I.rows; T.at({ length: n, rows: I.rows }); T.n('Columns?', cols, 'length / rows.'); let out = ''; for (let c = 0; c < cols; c++) for (let r = 0, j = c; r < I.rows && j < cols; r++, j++) out += I.encodedText[r * cols + j]; return out.replace(/\s+$/, ''); }
+    s(I, T) { const res = (() => { const n = I.encodedText.length, cols = n / I.rows; T.at({ length: n, rows: I.rows }); T.n('Columns?', cols, 'Length divided by rows.'); let out = ''; for (let c = 0; c < cols; c++) for (let r = 0, j = c; r < I.rows && j < cols; r++, j++) out += I.encodedText[r * cols + j]; T.n('Characters read before trimming?', out.length, 'One per cell on each diagonal.'); return out.replace(/\s+$/, ''); })(); T.n('Length of the decoded text?', res.length, 'Trailing spaces are removed.'); return res; }
   });
 
   D('minimum-cost-homecoming-of-a-robot-in-a-grid', {
     t: 'Minimum Cost Homecoming of a Robot in a Grid',
     r: 'Any shortest path enters each row between start and home exactly once (and likewise columns), and detours only add cost. So sum rowCosts of rows strictly after start up to home, plus the same for columns.',
     g: R => { const m = R.int(1, 5), n = R.int(1, 5); return { startPos: [R.int(0, m - 1), R.int(0, n - 1)], homePos: [R.int(0, m - 1), R.int(0, n - 1)], rowCosts: R.ints(m, 0, 9), colCosts: R.ints(n, 0, 9) }; },
-    s(I, T) { const sum = (a, s, e) => { let t = 0; if (s < e) for (let i = s + 1; i <= e; i++) t += a[i]; else for (let i = s - 1; i >= e; i--) t += a[i]; return t; }; const r = sum(I.rowCosts, I.startPos[0], I.homePos[0]), c = sum(I.colCosts, I.startPos[1], I.homePos[1]); T.at({ start: I.startPos.join(','), home: I.homePos.join(','), rowCosts: A(I.rowCosts) }); T.n('Row cost total?', r, 'Rows entered, excluding the start row.'); T.at({ colCosts: A(I.colCosts) }); T.n('Column cost total?', c, 'Columns entered, excluding the start column.'); return r + c; }
+    s(I, T) { const res = (() => { const sum = (a, s, e) => { let t = 0; if (s < e) for (let i = s + 1; i <= e; i++) t += a[i]; else for (let i = s - 1; i >= e; i--) t += a[i]; return t; }; const r = sum(I.rowCosts, I.startPos[0], I.homePos[0]), c = sum(I.colCosts, I.startPos[1], I.homePos[1]); T.at({ start: I.startPos.join(','), home: I.homePos.join(','), rowCosts: A(I.rowCosts) }); T.n('Row cost total?', r, 'Rows entered, excluding the start row.'); T.at({ colCosts: A(I.colCosts) }); T.n('Column cost total?', c, 'Columns entered, excluding the start column.'); return r + c; })(); T.n('Total cost?', res, 'Rows plus columns.'); return res; }
   });
 
   D('number-of-laser-beams-in-a-bank', {

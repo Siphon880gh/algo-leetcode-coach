@@ -67,7 +67,7 @@
     t: 'Maximum Earnings From Taxi: best earnings at each point',
     r: 'dp[p] = best earnings by the time you reach point p = max(dp[p−1], dp[start] + end − start + tip for rides ending at p).',
     g: R => { const n = R.int(6, 9); return { n, rides: Array.from({ length: R.int(3, 4) }, () => { const s = R.int(1, n - 1); return [s, R.int(s + 1, n), R.int(1, 4)]; }) }; },
-    s(I, T) { const dp = Array(I.n + 1).fill(0); for (let p = 2; p <= I.n; p++) { dp[p] = dp[p - 1]; const ends = I.rides.filter(r => r[1] === p); for (const [s, e, t] of ends) dp[p] = Math.max(dp[p], dp[s] + e - s + t); if (ends.length) { T.at({ rides: A(I.rides.map(r => r.join('→')), { hl: I.rides.map((r, i) => r[1] === p ? i : -1).filter(i => i >= 0) }), dp: A(dp.slice(0, p).concat('?')) }); T.n(`dp[${p}]?`, dp[p], 'Skip, or finish a ride here: dp[start] + length + tip.'); } } return dp[I.n]; }
+    s(I, T) { const dp = Array(I.n + 1).fill(0); for (let p = 2; p <= I.n; p++) { dp[p] = dp[p - 1]; const ends = I.rides.filter(r => r[1] === p); for (const [s, e, t] of ends) dp[p] = Math.max(dp[p], dp[s] + e - s + t); if (ends.length) { T.at({ rides: A(I.rides.map(r => r.join(' to ')), { hl: I.rides.map((r, i) => r[1] === p ? i : -1).filter(i => i >= 0) }), dp: A(dp.slice(0, p).concat('?')) }); T.n(`dp[${p}]?`, dp[p], 'Skip, or finish a ride here: dp[start] + length + tip.'); } } return dp[I.n]; }
   });
 
   D('the-score-of-students-solving-math-expression', {
@@ -92,7 +92,7 @@
     s(I, T) {
       const a = I.nums, n = a.length / 2, tot = a.reduce((x, y) => x + y, 0); let best = Infinity;
       for (let m = 0; m < 1 << a.length; m++) if (pc(m) === n) { let s = 0; for (let i = 0; i < a.length; i++) if (m >> i & 1) s += a[i]; best = Math.min(best, Math.abs(tot - 2 * s)); }
-      T.at({ nums: A(a), n }); T.n('Total sum?', tot, 'Add everything.'); T.n('Smallest |difference|?', best, 'Best subset of size n, so |total − 2·subset|.'); return best;
+      T.at({ nums: A(a), n }); T.n('Size of each half?', n, 'Half the array.'); T.n('Total sum?', tot, 'Add everything.'); T.n('Smallest absolute difference?', best, 'Best subset of size n: total minus twice its sum, made positive.'); return best;
     }
   });
 
@@ -141,8 +141,9 @@
     r: 'h[r][c] = tallest pyramid with apex (r, c) = 1 + min(h of the three cells below) for fertile cells. Pyramids there: h − 1 (height ≥ 2). Do the same upside-down for inverse pyramids.',
     g: R => ({ grid: R.grid(3, R.int(3, 5), 0, 1).map(r => r.map(x => R.chance(0.7) ? 1 : x)) }),
     s(I, T) {
-      const g = I.grid, m = g.length, n = g[0].length, run = (rows, nm) => { const h = mk(m, n, 0); let tot = 0; for (const r of rows) for (let c = 0; c < n; c++) { if (!g[r][c]) continue; const nr = nm === 'pyramid' ? r + 1 : r - 1; h[r][c] = nr < 0 || nr >= m || c === 0 || c === n - 1 ? 1 : 1 + Math.min(h[nr][c - 1], h[nr][c], h[nr][c + 1]); tot += h[r][c] - 1; } T.at({ grid: G(g), kind: nm }); T.n(`Total ${nm}s?`, tot, 'Sum of (height − 1) over every apex.'); return tot; };
-      return run([...Array(m).keys()].reverse(), 'pyramid') + run([...Array(m).keys()], 'inverse pyramid');
+      const g = I.grid, m = g.length, n = g[0].length, run = (rows, nm) => { const h = mk(m, n, 0); let tot = 0; for (const r of rows) for (let c = 0; c < n; c++) { if (!g[r][c]) continue; const nr = nm === 'pyramid' ? r + 1 : r - 1; h[r][c] = nr < 0 || nr >= m || c === 0 || c === n - 1 ? 1 : 1 + Math.min(h[nr][c - 1], h[nr][c], h[nr][c + 1]); tot += h[r][c] - 1; } T.at({ grid: G(g), kind: nm }); T.n(`Total ${nm}s?`, tot, 'Add height minus 1 over every apex.'); return tot; };
+      const a = run([...Array(m).keys()].reverse(), 'pyramid'), b = run([...Array(m).keys()], 'inverse pyramid'); T.at({ grid: G(g) }); T.n('Total of both kinds?', a + b, 'Pyramids plus inverse pyramids.');
+      return a + b;
     }
   });
 
@@ -181,7 +182,7 @@
     s(I, T) {
       const P = I.points, n = P.length, col = (a, b, c) => (P[b][0] - P[a][0]) * (P[c][1] - P[a][1]) === (P[b][1] - P[a][1]) * (P[c][0] - P[a][0]), lines = [];
       for (let i = 0; i < n; i++) for (let j = i + 1; j < n; j++) { let m = 0; for (let k = 0; k < n; k++) if (col(i, j, k)) m |= 1 << k; lines.push(m); }
-      T.at({ points: A(P.map(p => `(${p})`)) }); if (n >= 2) T.n(`Points on the line through points 0 and 1?`, pc(lines[0]), 'Count every collinear point.');
+      T.at({ points: A(P.map(p => `(${p})`)) }); T.n('Point pairs to check?', n * (n - 1) / 2, 'Each pair defines a line.'); if (n >= 2) T.n(`Points on the line through points 0 and 1?`, pc(lines[0]), 'Count every collinear point.');
       const full = (1 << n) - 1, dp = Array(1 << n).fill(Infinity); dp[0] = 0; for (let m = 0; m < full; m++) if (dp[m] < Infinity) { let low = 0; while (m >> low & 1) low++; dp[m | 1 << low] = Math.min(dp[m | 1 << low], dp[m] + 1); for (const l of lines) if (l >> low & 1) dp[m | l] = Math.min(dp[m | l], dp[m] + 1); }
       T.n('Fewest lines?', dp[full], 'Bitmask DP, always covering the lowest uncovered point next.'); return dp[full];
     }
@@ -277,7 +278,8 @@
     g: R => ({ nums: R.ints(R.int(4, 5), 0, 6) }),
     s(I, T) {
       const vals = [...new Set(I.nums)].sort((a, b) => a - b), run = (arr, nm) => { let dp = vals.map(() => 0); for (const x of arr) { let m = Infinity; dp = vals.map((v, k) => { m = Math.min(m, dp[k]); return m + Math.abs(x - v); }); } const r = Math.min(...dp); T.at({ nums: A(arr), values: A(vals), mode: nm }); T.n(`Least cost to make it ${nm}?`, r, 'Running prefix minimum over target values.'); return r; };
-      return Math.min(run(I.nums, 'non-decreasing'), run(I.nums.slice().reverse(), 'non-increasing'));
+      const r = Math.min(run(I.nums, 'non-decreasing'), run(I.nums.slice().reverse(), 'non-increasing')); T.at({ nums: A(I.nums) }); T.n('Least cost overall?', r, 'The cheaper of the two directions.');
+      return r;
     }
   });
 

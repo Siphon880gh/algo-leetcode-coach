@@ -15,12 +15,12 @@
 
   D('build-array-where-you-can-find-the-maximum-exactly-k-comparisons', {
     t: 'Build Array with Exactly k Max Updates: length, max, cost',
-    r: 'dp[i][j][c] = arrays of length i with maximum j and c updates. Appending a value ≤ j keeps both: dp·j. Appending a new maximum j from a smaller max j\' adds one update: Σ dp[i−1][j\'][c−1].',
+    r: 'dp[i][j][c] = arrays of length i with maximum j and c updates. Appending a value at most j keeps both, so multiply by j. Appending a new maximum j after a smaller maximum adds one update, so add dp[i minus 1][smaller max][c minus 1] over every smaller max.',
     g: R => ({ n: R.int(2, 3), m: R.int(2, 3), k: R.int(1, 2) }),
     s(I, T) {
-      const { n, m, k } = I; let dp = mk(m + 1, k + 1, 0); for (let j = 1; j <= m; j++) dp[j][1] = 1;
+      const { n, m, k } = I; let dp = mk(m + 1, k + 1, 0); for (let j = 1; j <= m; j++) dp[j][1] = 1; T.at({ n, m, k }); T.n('Most updates any array can have?', Math.min(n, m), 'Each update needs a new, larger maximum.'); T.n('Length 1: arrays with exactly 1 update?', m, 'Any single value from 1 to m.'); if (n === 1) T.n(`Arrays with exactly ${k} updates?`, k === 1 ? m % MOD : 0, 'A single element always costs 1.');
       for (let i = 2; i <= n; i++) { const nx = mk(m + 1, k + 1, 0); for (let j = 1; j <= m; j++) for (let c = 1; c <= k; c++) { let v = dp[j][c] * j; for (let p = 1; p < j; p++) v += dp[p][c - 1]; nx[j][c] = v % MOD; }
-        dp = nx; T.at({ length: i, table: G(dp.slice(1).map(r => r.slice(1)), { rh: dp.slice(1).map((_, j) => 'max ' + (j + 1)), ch: dp[0].slice(1).map((_, c) => 'cost ' + (c + 1)) }) }); T.n(`Length ${i}: arrays with exactly ${k} update(s)?`, dp.reduce((s, r) => s + r[k], 0) % MOD, 'Sum the cost-k column.'); }
+        dp = nx; T.at({ length: i, table: G(dp.slice(1).map(r => r.slice(1)), { rh: dp.slice(1).map((_, j) => 'max ' + (j + 1)), ch: dp[0].slice(1).map((_, c) => 'cost ' + (c + 1)) }) }); T.n(`Length ${i}: arrays with exactly ${k} updates?`, dp.reduce((s, r) => s + r[k], 0) % MOD, 'Sum the cost-k column.'); }
       return dp.reduce((s, r) => (s + r[k]) % MOD, 0);
     }
   });
@@ -225,7 +225,7 @@
     t: 'Number of Sets of k Non-Overlapping Segments: C(n + k − 1, 2k)',
     r: 'Segments may share endpoints. Stretch each shared point into two: choosing k segments becomes choosing 2k distinct endpoints from n + k − 1 points.',
     g: R => { const n = R.int(3, 6); return { n, k: R.int(1, n - 1) }; },
-    s(I, T) { const N = I.n + I.k - 1, K2 = 2 * I.k; T.at({ n: I.n, k: I.k }); T.n('How many points after stretching the shared endpoints?', N, 'n + k − 1.'); let c = 1; for (let i = 0; i < K2; i++) c = c * (N - i) / (i + 1); T.n(`C(${N}, ${K2})?`, c, 'Choose 2k endpoints.'); return c % MOD; }
+    s(I, T) { const N = I.n + I.k - 1, K2 = 2 * I.k; T.at({ n: I.n, k: I.k }); T.n('How many points after stretching the shared endpoints?', N, 'n plus k minus 1.'); T.n('Endpoints to choose?', K2, 'Two per segment.'); let c = 1; for (let i = 0; i < K2; i++) c = c * (N - i) / (i + 1); T.n(`Ways to choose ${K2} of the ${N} points?`, c, 'Choose 2k endpoints.'); return c % MOD; }
   });
 
   D('best-team-with-no-conflicts', {
@@ -296,7 +296,7 @@
       const a = I.nums, n = a.length, sz = n / I.k, full = (1 << n) - 1, inc = new Map();
       for (let m = 1; m <= full; m++) if (pc(m) === sz) { const v = a.filter((_, i) => m >> i & 1); if (new Set(v).size === sz) inc.set(m, Math.max(...v) - Math.min(...v)); }
       const cnt = {}; a.forEach(x => cnt[x] = (cnt[x] || 0) + 1); const ok = Math.max(...Object.values(cnt)) <= I.k;
-      T.at({ nums: A(a), k: I.k }); T.yn(`Can ${n} numbers split into ${I.k} groups of distinct values?`, ok, `No value may appear more than ${I.k} times.`); if (!ok) return -1;
+      T.at({ nums: A(a), k: I.k }); T.n('Size of each group?', sz, 'n divided by k.'); T.yn(`Can ${n} numbers split into ${I.k} groups of distinct values?`, ok, `No value may appear more than ${I.k} times.`); if (!ok) { T.n('Answer?', -1, 'Impossible, so the answer is −1.'); return -1; }
       const memo = new Map(), f = m => { if (m === full) return 0; if (memo.has(m)) return memo.get(m); let low = 0; while (m >> low & 1) low++; let b = Infinity; for (const [g, c] of inc) if ((g & m) === 0 && (g >> low & 1)) b = Math.min(b, c + f(m | g)); memo.set(m, b); return b; };
       const ans = f(0); T.n('Minimum total incompatibility?', ans, 'Bitmask DP over the groups.'); return ans;
     }

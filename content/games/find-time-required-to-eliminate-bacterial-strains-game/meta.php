@@ -5,7 +5,7 @@ return [
     'title' => 'Find Time Required to Eliminate Bacterial Strains: merge the two smallest',
     'leetcode' => 3506,
     'difficulty' => 'Hard',
-    'summary' => 'Think backwards: the last split joins two groups, costing split plus the slower group. Like Huffman coding, repeatedly merge the two smallest times a ≤ b into b + split.',
+    'summary' => 'Think backwards: the last split joins two groups and costs splitTime plus the slower group. Like Huffman coding, keep merging the two smallest times a and b (a at most b) into b plus splitTime.',
     'category' => 'LeetCode',
     'subcategory' => 'Greedy',
     'topic' => 'LeetCode · Greedy',

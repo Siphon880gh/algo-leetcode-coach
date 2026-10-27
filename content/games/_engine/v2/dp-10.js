@@ -77,9 +77,9 @@
 
   D('maximum-score-of-spliced-array', {
     t: 'Maximum Score of Spliced Array: Kadane on the difference',
-    r: 'Swapping [l, r] adds sum(nums2 − nums1) on that range to nums1\'s total. Kadane on the differences gives the best gain (or 0). Do it both ways and take the better total.',
+    r: 'Swapping [l, r] adds the sum of (nums2 minus nums1) on that range to nums1\'s total. Kadane on the differences gives the best gain (or 0). Do it both ways and take the better total.',
     g: R => { const n = R.int(4, 5); return { nums1: R.ints(n, 1, 9), nums2: R.ints(n, 1, 9) }; },
-    s(I, T) { const run = (a, b, nm) => { let cur = 0, best = 0; a.forEach((x, i) => { cur = Math.max(0, cur + b[i] - x); best = Math.max(best, cur); }); const tot = a.reduce((s, x) => s + x, 0); T.at({ keep: A(a), swapFrom: A(b), diff: A(b.map((v, i) => v - a[i])) }); T.n(`Best total for ${nm}?`, tot + best, `${tot} + best gain ${best}.`); return tot + best; }; return Math.max(run(I.nums1, I.nums2, 'nums1'), run(I.nums2, I.nums1, 'nums2')); }
+    s(I, T) { const res = (() => { const run = (a, b, nm) => { let cur = 0, best = 0; a.forEach((x, i) => { cur = Math.max(0, cur + b[i] - x); best = Math.max(best, cur); }); const tot = a.reduce((s, x) => s + x, 0); T.at({ keep: A(a), swapFrom: A(b), diff: A(b.map((v, i) => v - a[i])) }); T.n(`Best total for ${nm}?`, tot + best, `${tot} plus best gain ${best}.`); return tot + best; }; return Math.max(run(I.nums1, I.nums2, 'nums1'), run(I.nums2, I.nums1, 'nums2')); })(); T.n('Maximum score?', res, 'The better of the two totals.'); return res; }
   });
 
   D('number-of-people-aware-of-a-secret', {
@@ -152,9 +152,9 @@
 
   D('number-of-ways-to-reach-a-position-after-exactly-k-steps', {
     t: 'Ways to Reach a Position in Exactly k Steps: choose the right steps',
-    r: 'With R right steps and k − R left steps, the net move is 2R − k = d. So R = (k + d)/2 must be an integer in [0, k]; the answer is C(k, R).',
+    r: 'With R right steps and k minus R left steps, the net move is 2R minus k, which must equal d. So R = (k plus d) divided by 2 must be a whole number from 0 to k; the answer is k choose R.',
     g: R => ({ startPos: R.int(1, 5), endPos: R.int(1, 7), k: R.int(1, 8) }),
-    s(I, T) { const d = Math.abs(I.endPos - I.startPos), ok = d <= I.k && (I.k + d) % 2 === 0; T.at({ start: I.startPos, end: I.endPos, k: I.k }); T.yn('Is the target reachable in exactly k steps?', ok, 'Need |d| ≤ k and the same parity.'); if (!ok) return 0; const Rr = (I.k + d) / 2; T.n('How many steps go toward the target?', Rr, `(k + |d|)/2 = (${I.k} + ${d})/2.`); return C(I.k, Rr) % MOD; }
+    s(I, T) { const res = (() => { const d = Math.abs(I.endPos - I.startPos), ok = d <= I.k && (I.k + d) % 2 === 0; T.at({ start: I.startPos, end: I.endPos, k: I.k }); T.n('Distance between start and end?', d, 'Absolute difference.'); T.yn('Is the target reachable in exactly k steps?', ok, 'The distance must be at most k and have the same parity as k.'); if (!ok) return 0; const Rr = (I.k + d) / 2; T.n('How many steps go toward the target?', Rr, `(k plus distance) divided by 2: (${I.k} plus ${d}) divided by 2.`); return C(I.k, Rr) % MOD; })(); T.n('Number of ways?', res, 'k choose the steps toward the target; 0 if unreachable.'); return res; }
   });
 
   D('minimum-time-to-kill-all-monsters', {

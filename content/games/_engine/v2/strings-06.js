@@ -56,10 +56,10 @@
 
   D('find-the-shortest-superstring-ii', {
     t: 'Find the Shortest Superstring II',
-    r: 'If one string contains the other, return the longer one. Otherwise overlap them as much as possible both ways (suffix of one = prefix of the other) and keep the shorter result.',
+    r: 'If one string contains the other, return the longer one. Otherwise overlap them as much as possible both ways (a suffix of one that equals a prefix of the other) and keep the shorter result.',
     g: R => ({ s1: R.str(R.int(1, 5), 'ab'), s2: R.str(R.int(1, 5), 'ab') }),
     cmp: (o, e, I) => typeof o === 'string' && o.length === e.length && o.includes(I.s1) && o.includes(I.s2),
-    s(I, T) { const { s1, s2 } = I; if (s1.includes(s2) || s2.includes(s1)) { T.at({ s1, s2 }); T.yn('Does one string contain the other?', true, 'Then the longer string is the answer.'); return s1.includes(s2) ? s1 : s2; } const ov = (a, b) => { for (let L = Math.min(a.length, b.length); L > 0; L--) if (a.endsWith(b.slice(0, L))) return L; return 0; }; const x = ov(s1, s2), y = ov(s2, s1); T.at({ s1, s2 }); T.n('Longest suffix of s1 that is a prefix of s2?', x, 'Try lengths from longest down.'); T.n('Longest suffix of s2 that is a prefix of s1?', y, 'Same check the other way.'); return x >= y ? s1 + s2.slice(x) : s2 + s1.slice(y); }
+    s(I, T) { const res = (() => { const { s1, s2 } = I; T.at({ s1, s2 }); T.n('Length if you simply join them?', s1.length + s2.length, 'The worst case, with no overlap.'); if (s1.includes(s2) || s2.includes(s1)) { T.at({ s1, s2 }); T.yn('Does one string contain the other?', true, 'Then the longer string is the answer.'); return s1.includes(s2) ? s1 : s2; } const ov = (a, b) => { for (let L = Math.min(a.length, b.length); L > 0; L--) if (a.endsWith(b.slice(0, L))) return L; return 0; }; const x = ov(s1, s2), y = ov(s2, s1); T.at({ s1, s2 }); T.n('Longest suffix of s1 that is a prefix of s2?', x, 'Try lengths from longest down.'); T.n('Longest suffix of s2 that is a prefix of s1?', y, 'Same check the other way.'); return x >= y ? s1 + s2.slice(x) : s2 + s1.slice(y); })(); T.n('Length of the shortest superstring?', res.length, 'Joined length minus the best overlap.'); return res; }
   });
 
   D('generate-tag-for-video-caption', {
@@ -99,9 +99,9 @@
 
   D('find-kth-character-in-expanded-string', {
     t: 'Find Kth Character in Expanded String',
-    r: 'A word of length L expands to L(L+1)/2 characters, followed by one space. Skip whole words while k is past them; inside the right word, skip 1, 2, 3, … copies until k lands.',
+    r: 'A word of length L expands to L times (L plus 1), halved, characters, followed by one space. Skip whole words while k is past them; inside the right word, skip 1, 2, 3 and so on copies until k lands.',
     g: R => { const s = Array.from({ length: R.int(1, 3) }, () => R.str(R.int(1, 4), 'abcde')).join(' '), len = s.split(' ').reduce((t, w) => t + w.length * (w.length + 1) / 2, 0) + s.split(' ').length - 1; return { s, k: R.int(0, len - 1) }; },
-    s(I, T) { let k = I.k; const ws = I.s.split(' '); for (let w = 0; w < ws.length; w++) { const L = ws[w].length, sz = L * (L + 1) / 2; T.at({ words: A(ws, { i: w }), k }); T.yn(`Does index k land inside word "${ws[w]}" (${sz} chars)?`, k < sz, k < sz ? 'Walk its letters.' : k === sz ? 'It lands on the following space.' : `Skip ${sz} + 1 for the space.`); if (k < sz) { for (let i = 0; i < L; i++) { if (k < i + 1) return ws[w][i]; k -= i + 1; } } if (k === sz) return ' '; k -= sz + 1; } return ' '; }
+    s(I, T) { const res = (() => { let k = I.k; const ws = I.s.split(' '); T.at({ words: A(ws), k }); T.n('How many words?', ws.length, 'Split on spaces.'); for (let w = 0; w < ws.length; w++) { const L = ws[w].length, sz = L * (L + 1) / 2; T.at({ words: A(ws, { i: w }), k }); T.yn(`Does index k land inside word "${ws[w]}" (${sz} chars)?`, k < sz, k < sz ? 'Walk its letters.' : k === sz ? 'It lands on the following space.' : `Skip ${sz}, plus 1 for the space.`); if (k < sz) { for (let i = 0; i < L; i++) { if (k < i + 1) return ws[w][i]; k -= i + 1; } } if (k === sz) return ' '; k -= sz + 1; } return ' '; })(); T.yn('Is the answer a space?', res === ' ', 'k can land between words.'); return res; }
   });
 
   D('reverse-words-with-same-vowel-count', {

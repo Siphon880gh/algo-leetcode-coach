@@ -119,7 +119,7 @@
     t: 'Serialize and Deserialize Binary Tree',
     r: 'Serialize level by level (or preorder) writing "#" for null children. Deserialize reads tokens in the same order, attaching left then right children to each queued node.',
     g: R => ({ root: R.chance(0.1) ? [] : Tr.arr(Tr.from(R.tree(R.int(1, 9), -5, 9, 4))) }),
-    s(I, T) { const root = Tr.from(I.root), toks = []; const q = [root]; while (q.length) { const n = q.shift(); if (!n) { toks.push('#'); continue; } toks.push(String(n.val)); q.push(n.left, n.right); } T.at({ tree: root ? TR(root) : 'empty', serialized: toks.join(',') }); T.n('How many "#" tokens does level-order serialization write?', toks.filter(t => t === '#').length, 'Every missing child, including below leaves.'); T.n('How many tokens in total?', toks.length, 'Nodes + null markers.'); return Tr.arr(root); }
+    s(I, T) { const res = (() => { const root = Tr.from(I.root), toks = []; const q = [root]; while (q.length) { const n = q.shift(); if (!n) { toks.push('#'); continue; } toks.push(String(n.val)); q.push(n.left, n.right); } T.at({ tree: root ? TR(root) : 'empty', serialized: toks.join(',') }); T.n('How many "#" tokens does level-order serialization write?', toks.filter(t => t === '#').length, 'Every missing child, including below leaves.'); T.n('How many tokens in total?', toks.length, 'Nodes plus null markers.'); return Tr.arr(root); })(); T.n('Nodes in the tree?', res.filter(v => v !== null).length, 'Tokens that are not #.'); return res; }
   });
 
   D('range-sum-query-immutable', {
@@ -234,7 +234,7 @@
     r: 'Walk the list once; keep the i-th node with probability 1/i. Every node ends up chosen with probability 1/n without knowing n in advance.',
     g: R => seq(R, 'Solution', [R.ints(R.int(1, 5), 1, 9)], R.int(2, 5), () => ['getRandom', []]),
     cmp: (o, e, I) => Array.isArray(o) && o.length === e.length && o.slice(1).every(v => I.args[0][0].includes(v)),
-    s(I, T) { const list = I.args[0][0], rnd = rngOf(I); T.at({ list: A(list) }); T.n('Probability ×100 that the 2nd node replaces the pick when reached (i = 2)?', 50, '1/i = 1/2.'); return play(I, T, () => ({ getRandom() { let pick = list[0]; for (let i = 1; i < list.length; i++) if (rnd() < 1 / (i + 1)) pick = list[i]; return pick; } }), { skip: () => true, max: 0 }); }
+    s(I, T) { const list = I.args[0][0], rnd = rngOf(I); T.at({ list: A(list) }); T.n('Chance, in percent, that the 2nd node replaces the pick when it is reached?', 50, 'One in i, so one in 2.'); T.n('getRandom calls?', I.ops.filter(o => o === 'getRandom').length, 'Each one walks the whole list.'); T.n('Chance, in percent and rounded, of picking the last node?', Math.round(100 / list.length), 'Every node ends up equally likely.'); return play(I, T, () => ({ getRandom() { let pick = list[0]; for (let i = 1; i < list.length; i++) if (rnd() < 1 / (i + 1)) pick = list[i]; return pick; } }), { skip: () => true, max: 0 }); }
   });
 
   D('shuffle-an-array', {
@@ -242,7 +242,7 @@
     r: 'For i from the end down to 1, swap a[i] with a[random j ≤ i]. Each permutation is equally likely. reset returns the saved original.',
     g: R => seq(R, 'Solution', [R.distinct(R.int(1, 5), 1, 9)], R.int(2, 5), R => [R.pick(['shuffle', 'reset']), []]),
     cmp: (o, e, I) => Array.isArray(o) && o.length === e.length && o.slice(1).every((v, i) => I.ops[i + 1] === 'reset' ? JSON.stringify(v) === JSON.stringify(I.args[0][0]) : Array.isArray(v) && JSON.stringify(v.slice().sort((a, b) => a - b)) === JSON.stringify(I.args[0][0].slice().sort((a, b) => a - b))),
-    s(I, T) { const orig = I.args[0][0], rnd = rngOf(I); T.at({ nums: A(orig) }); T.n('How many swaps does Fisher–Yates make?', Math.max(0, orig.length - 1), 'One per index from n − 1 down to 1.'); return play(I, T, () => ({ shuffle() { const a = orig.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(rnd() * (i + 1));[a[i], a[j]] = [a[j], a[i]]; } return a; }, reset() { return orig.slice(); } }), { skip: () => true, max: 0 }); }
+    s(I, T) { const orig = I.args[0][0], rnd = rngOf(I); T.at({ nums: A(orig) }); T.n('How many swaps does Fisher-Yates make?', Math.max(0, orig.length - 1), 'One per index from n minus 1 down to 1.'); T.n('shuffle calls?', I.ops.filter(o => o === 'shuffle').length, 'Each makes a fresh permutation.'); T.n('reset calls?', I.ops.filter(o => o === 'reset').length, 'Each returns the original order.'); return play(I, T, () => ({ shuffle() { const a = orig.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(rnd() * (i + 1));[a[i], a[j]] = [a[j], a[i]]; } return a; }, reset() { return orig.slice(); } }), { skip: () => true, max: 0 }); }
   });
 
   D('random-pick-index', {
@@ -250,7 +250,7 @@
     r: 'Scan nums; for the k-th occurrence of target, keep its index with probability 1/k. Each matching index is returned uniformly.',
     g: R => { const nums = R.ints(R.int(1, 6), 1, 3); return seq(R, 'Solution', [nums], R.int(1, 4), R => ['pick', [R.pick(nums)]]); },
     cmp: (o, e, I) => Array.isArray(o) && o.length === e.length && o.slice(1).every((v, i) => I.args[0][0][v] === I.args[i + 1][0]),
-    s(I, T) { const nums = I.args[0][0], rnd = rngOf(I); const t0 = I.args[1] ? I.args[1][0] : nums[0]; T.at({ nums: A(nums) }); T.n(`How many indices hold ${t0}?`, nums.filter(x => x === t0).length, 'Each is picked with probability 1/count.'); return play(I, T, () => ({ pick(t) { let k = 0, res = -1; nums.forEach((x, i) => { if (x === t && rnd() < 1 / ++k) res = i; }); return res; } }), { skip: () => true, max: 0 }); }
+    s(I, T) { const nums = I.args[0][0], rnd = rngOf(I); const t0 = I.args[1] ? I.args[1][0] : nums[0]; T.at({ nums: A(nums) }); T.n(`How many indices hold ${t0}?`, nums.filter(x => x === t0).length, 'Each is picked with probability one over the count.'); T.n('pick calls?', I.ops.filter(o => o === 'pick').length, 'Reservoir sampling each time.'); T.n('Distinct values in nums?', new Set(nums).size, 'Targets always exist in nums.'); return play(I, T, () => ({ pick(t) { let k = 0, res = -1; nums.forEach((x, i) => { if (x === t && rnd() < 1 / ++k) res = i; }); return res; } }), { skip: () => true, max: 0 }); }
   });
 
   D('all-oone-data-structure', {

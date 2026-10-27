@@ -17,7 +17,7 @@
     t: 'Minimum Score After Two Removals: subtree XORs',
     r: 'Root the tree; compute every subtree XOR. Removing edges above u and v gives components whose XORs depend on whether one subtree contains the other. Try every pair.',
     g: R => { const n = R.int(3, 7); return { nums: R.ints(n, 1, 15), edges: treeEdges(R, n, 0) }; },
-    s(I, T) { const n = I.nums.length, g = adjOf(n, I.edges), [par, order] = parOf(n, g, 0), x = I.nums.slice(); for (let i = n - 1; i > 0; i--) x[par[order[i]]] ^= x[order[i]]; const anc = (a, b) => { for (let y = b; y >= 0; y = par[y]) if (y === a) return true; return false; }; T.at({ graph: GR(n, I.edges), subtreeXor: A(x) }); T.n('XOR of the whole tree?', x[0], 'Root subtree XOR.'); let best = Infinity; for (let a = 1; a < n; a++) for (let b = a + 1; b < n; b++) { let p, q, r; if (anc(a, b)) { p = x[b]; q = x[a] ^ x[b]; r = x[0] ^ x[a]; } else if (anc(b, a)) { p = x[a]; q = x[b] ^ x[a]; r = x[0] ^ x[b]; } else { p = x[a]; q = x[b]; r = x[0] ^ x[a] ^ x[b]; } best = Math.min(best, Math.max(p, q, r) - Math.min(p, q, r)); } return best; }
+    s(I, T) { const res = (() => { const n = I.nums.length, g = adjOf(n, I.edges), [par, order] = parOf(n, g, 0), x = I.nums.slice(); for (let i = n - 1; i > 0; i--) x[par[order[i]]] ^= x[order[i]]; const anc = (a, b) => { for (let y = b; y >= 0; y = par[y]) if (y === a) return true; return false; }; T.at({ graph: GR(n, I.edges), subtreeXor: A(x) }); T.n('XOR of the whole tree?', x[0], 'Root subtree XOR.'); T.n('Edges to choose from?', n - 1, 'Pick two to remove.'); let best = Infinity; for (let a = 1; a < n; a++) for (let b = a + 1; b < n; b++) { let p, q, r; if (anc(a, b)) { p = x[b]; q = x[a] ^ x[b]; r = x[0] ^ x[a]; } else if (anc(b, a)) { p = x[a]; q = x[b] ^ x[a]; r = x[0] ^ x[b]; } else { p = x[a]; q = x[b]; r = x[0] ^ x[a] ^ x[b]; } best = Math.min(best, Math.max(p, q, r) - Math.min(p, q, r)); } return best; })(); T.n('Minimum score?', res, 'Best over every pair of removed edges.'); return res; }
   });
 
   D('evaluate-boolean-binary-tree', {
@@ -45,7 +45,7 @@
     t: 'Reverse Odd Levels: swap mirrored values',
     r: 'Walk the tree in mirrored pairs (left.left with right.right, left.right with right.left); at odd levels, swap the pair\'s values.',
     g: R => ({ root: Array.from({ length: 2 ** R.int(1, 4) - 1 }, () => R.int(0, 30)) }),
-    s(I, T) { const root = Tr.from(I.root); let lv = [root], d = 0; while (lv.length) { if (d % 2) { const v = lv.map(n => n.val).reverse(); lv.forEach((n, i) => n.val = v[i]); T.at({ tree: TR(root, { hit: lv }) }); T.n(`First value on level ${d} after reversing?`, v[0], 'It was the last one.'); } lv = lv.flatMap(n => [n.left, n.right].filter(Boolean)); d++; } return Tr.arr(root); }
+    s(I, T) { const res = (() => { const root = Tr.from(I.root); let lv = [root], d = 0; while (lv.length) { if (d % 2) { const v = lv.map(n => n.val).reverse(); lv.forEach((n, i) => n.val = v[i]); T.at({ tree: TR(root, { hit: lv }) }); T.n(`First value on level ${d} after reversing?`, v[0], 'It was the last one.'); } lv = lv.flatMap(n => [n.left, n.right].filter(Boolean)); d++; } return Tr.arr(root); })(); const L = Math.round(Math.log2(res.length + 1)); T.n('Levels reversed?', Math.floor(L / 2), 'Levels 1, 3, 5 and so on.'); return res; }
   });
 
   D('create-components-with-same-value', {
@@ -129,7 +129,7 @@
     t: 'Kth Character of a Rope Tree: skip by lengths',
     r: 'At an internal node, compare k with the left part\'s length (len of an internal child, or the string length of a leaf); go left or subtract and go right.',
     g: R => { const mk = d => { if (d >= 3 || R.chance(0.35)) return N(R.str(R.int(1, 4), 'abcd')); const l = mk(d + 1), r = R.chance(0.8) ? mk(d + 1) : null; const L = x => x ? (typeof x.val === 'string' ? x.val.length : x.val) : 0; return N(L(l) + L(r), l, r); }; const r = mk(1); const L = typeof r.val === 'string' ? r.val.length : r.val; return { root: Tr.arr(r), k: R.int(1, L) }; },
-    s(I, T) { const root = Tr.from(I.root), len = x => !x ? 0 : typeof x.val === 'string' ? x.val.length : x.val; let n = root, k = I.k; while (typeof n.val !== 'string') { const L = len(n.left); T.at({ tree: TR(root, { hit: n }), k }); T.c('Which side holds the character?', ['left', 'right'], k <= L ? 'left' : 'right', `Left part has ${L} characters.`); if (k <= L) n = n.left; else { k -= L; n = n.right; } } return n.val[k - 1]; }
+    s(I, T) { const res = (() => { const root = Tr.from(I.root), len = x => !x ? 0 : typeof x.val === 'string' ? x.val.length : x.val; let n = root, k = I.k; T.at({ tree: TR(root), k }); T.n('Total length of the string?', len(root), 'The root stores it.'); while (typeof n.val !== 'string') { const L = len(n.left); T.at({ tree: TR(root, { hit: n }), k }); T.c('Which side holds the character?', ['left', 'right'], k <= L ? 'left' : 'right', `Left part has ${L} characters.`); if (k <= L) n = n.left; else { k -= L; n = n.right; } } return n.val[k - 1]; })(); const ch = [...new Set(I.root.filter(v => typeof v === 'string').join(''))]; T.c('The kth character?', [...new Set([res, ...ch, 'a', 'b'])], res, 'Read it from the leaf you reached.'); return res; }
   });
 
   D('is-array-a-preorder-of-some-binary-tree', {
@@ -192,7 +192,7 @@
     t: 'Coins to Place: best product of three in the subtree',
     r: 'For each subtree with ≥ 3 nodes, the best product of three costs uses the 3 largest or the 2 smallest × the largest; negative → 0. Smaller subtrees get 1.',
     g: R => { const n = R.int(2, 7); return { edges: treeEdges(R, n, 0), cost: Array.from({ length: n }, () => R.int(-6, 9) || 1) }; },
-    s(I, T) { const n = I.cost.length, g = adjOf(n, I.edges), ans = Array(n).fill(1); const go = (u, p) => { let all = [I.cost[u]]; for (const v of g[u]) if (v !== p) all = all.concat(go(v, u)); all.sort((a, b) => a - b); if (all.length >= 3) { const m = all.length, best = Math.max(all[m - 1] * all[m - 2] * all[m - 3], all[0] * all[1] * all[m - 1]); ans[u] = Math.max(0, best); T.at({ graph: GR(n, I.edges, { cls: { [u]: 'hit' } }), values: A(all) }); T.n(`Coins at node ${u}?`, ans[u], 'Max of top-3 product and two smallest × largest (or 0).'); } return all.length > 5 ? [...all.slice(0, 2), ...all.slice(-3)] : all; }; go(0, -1); return ans; }
+    s(I, T) { const res = (() => { const n = I.cost.length, g = adjOf(n, I.edges), ans = Array(n).fill(1); const go = (u, p) => { let all = [I.cost[u]]; for (const v of g[u]) if (v !== p) all = all.concat(go(v, u)); all.sort((a, b) => a - b); if (all.length >= 3) { const m = all.length, best = Math.max(all[m - 1] * all[m - 2] * all[m - 3], all[0] * all[1] * all[m - 1]); ans[u] = Math.max(0, best); T.at({ graph: GR(n, I.edges, { cls: { [u]: 'hit' } }), values: A(all) }); T.n(`Coins at node ${u}?`, ans[u], 'The larger of the top 3 product and the two smallest times the largest, or 0.'); } return all.length > 5 ? [...all.slice(0, 2), ...all.slice(-3)] : all; }; go(0, -1); return ans; })(); T.n('Nodes with exactly 1 coin?', res.filter(x => x === 1).length, 'Subtrees with fewer than 3 nodes.'); return res; }
   });
 
   D('maximum-subtree-of-the-same-color', {
@@ -235,7 +235,7 @@
     r: 'Marking spreads like BFS, so the last node is the farthest one. The farthest node from any vertex is an endpoint of a diameter: find both endpoints a, b and pick the farther for each i.',
     g: R => { const n = R.int(2, 8); return { edges: treeEdges(R, n, 0) }; },
     cmp: (out, exp, I) => { const n = nOf(I.edges), g = adjOf(n, I.edges); return out.length === n && out.every((x, i) => { const d = bfsDist(g, i); return d[x] === Math.max(...d); }); },
-    s(I, T) { const n = nOf(I.edges), g = adjOf(n, I.edges), d0 = bfsDist(g, 0), a = d0.indexOf(Math.max(...d0)), da = bfsDist(g, a), b = da.indexOf(Math.max(...da)), db = bfsDist(g, b); T.at({ graph: GR(n, I.edges, { cls: { [a]: 'ok', [b]: 'ok' } }) }); T.n('Diameter length (edges)?', da[b], 'Farthest pair.'); return [...Array(n).keys()].map(i => da[i] > db[i] ? a : b); }
+    s(I, T) { const res = (() => { const n = nOf(I.edges), g = adjOf(n, I.edges), d0 = bfsDist(g, 0), a = d0.indexOf(Math.max(...d0)), da = bfsDist(g, a), b = da.indexOf(Math.max(...da)), db = bfsDist(g, b); T.at({ graph: GR(n, I.edges, { cls: { [a]: 'ok', [b]: 'ok' } }) }); T.n('Distance from node 0 to its farthest node?', Math.max(...d0), 'BFS from 0.'); T.n('Diameter length (edges)?', da[b], 'Farthest pair.'); return [...Array(n).keys()].map(i => da[i] > db[i] ? a : b); })(); T.n('Nodes in the tree?', nOf(I.edges), 'Each one gets an answer.'); return res; }
   });
 
   D('k-th-largest-perfect-subtree-size-in-binary-tree', {
@@ -270,14 +270,14 @@
     t: 'Target Nodes After Connecting Trees I',
     r: 'For node i of tree 1: nodes within distance k in tree 1, plus the best count within distance k − 1 from any node of tree 2 (the new edge costs 1).',
     g: R => { const n = R.int(2, 5), m = R.int(2, 5); return { edges1: treeEdges(R, n, 0), edges2: treeEdges(R, m, 0), k: R.int(0, 3) }; },
-    s(I, T) { const g1 = adjOf(nOf(I.edges1), I.edges1), g2 = adjOf(nOf(I.edges2), I.edges2); const within = (g, s, k) => k < 0 ? 0 : bfsDist(g, s).filter(d => d >= 0 && d <= k).length; let best2 = 0; for (let j = 0; j < g2.length; j++) best2 = Math.max(best2, within(g2, j, I.k - 1)); T.at({ tree2: GR(g2.length, I.edges2) }); T.n(`Best count within ${I.k - 1} in tree 2?`, best2, 'Over all attachment points.'); return g1.map((_, i) => within(g1, i, I.k) + best2); }
+    s(I, T) { const res = (() => { const g1 = adjOf(nOf(I.edges1), I.edges1), g2 = adjOf(nOf(I.edges2), I.edges2); const within = (g, s, k) => k < 0 ? 0 : bfsDist(g, s).filter(d => d >= 0 && d <= k).length; let best2 = 0; for (let j = 0; j < g2.length; j++) best2 = Math.max(best2, within(g2, j, I.k - 1)); T.at({ tree2: GR(g2.length, I.edges2) }); T.n(`Nodes within ${I.k} of node 0 in tree 1?`, within(g1, 0, I.k), 'BFS in tree 1.'); T.n(`Best count within ${I.k - 1} in tree 2?`, best2, 'Over all attachment points.'); return g1.map((_, i) => within(g1, i, I.k) + best2); })(); T.n('Answer for node 0?', res[0], 'Its own count plus the best from tree 2.'); return res; }
   });
 
   D('maximize-the-number-of-target-nodes-after-connecting-trees-ii', {
     t: 'Target Nodes After Connecting Trees II: parity colors',
     r: 'Targets are at even distance, so 2-color each tree. Node i gets the size of its own color class in tree 1, plus the larger color class of tree 2 (the new edge flips parity).',
     g: R => { const n = R.int(2, 6), m = R.int(2, 6); return { edges1: treeEdges(R, n, 0), edges2: treeEdges(R, m, 0) }; },
-    s(I, T) { const col = e => { const g = adjOf(nOf(e), e), d = bfsDist(g, 0); return d.map(x => x % 2); }; const c1 = col(I.edges1), c2 = col(I.edges2); const z1 = c1.filter(x => !x).length, z2 = c2.filter(x => !x).length, best2 = Math.max(z2, c2.length - z2); T.at({ tree1: GR(c1.length, I.edges1, { tag: Object.fromEntries(c1.map((c, i) => [i, c ? 'B' : 'W'])) }) }); T.n('Size of the even-depth color class in tree 1?', z1, 'Count depth-parity 0.'); T.n('Larger color class in tree 2?', best2, 'max(even, odd).'); return c1.map(c => (c ? c1.length - z1 : z1) + best2); }
+    s(I, T) { const res = (() => { const col = e => { const g = adjOf(nOf(e), e), d = bfsDist(g, 0); return d.map(x => x % 2); }; const c1 = col(I.edges1), c2 = col(I.edges2); const z1 = c1.filter(x => !x).length, z2 = c2.filter(x => !x).length, best2 = Math.max(z2, c2.length - z2); T.at({ tree1: GR(c1.length, I.edges1, { tag: Object.fromEntries(c1.map((c, i) => [i, c ? 'B' : 'W'])) }) }); T.n('Size of the even-depth color class in tree 1?', z1, 'Count depth-parity 0.'); T.n('Larger color class in tree 2?', best2, 'The larger of the even and odd classes.'); return c1.map(c => (c ? c1.length - z1 : z1) + best2); })(); T.n('Answer for node 0?', res[0], 'Its colour class plus the best class of tree 2.'); return res; }
   });
 
   D('longest-special-path', {

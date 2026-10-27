@@ -10,7 +10,7 @@
     t: 'Split Into Maximum Subarrays: cut when the AND hits 0',
     r: 'The minimum total score is the AND of everything. If it is > 0, only one piece works. Otherwise cut greedily whenever the running AND becomes 0.',
     g: R => ({ nums: R.ints(R.int(1, 7), 0, 7) }),
-    s(I, T) { let all = I.nums.reduce((a, b) => a & b); T.at({ nums: A(I.nums) }); T.n('AND of the whole array?', all, 'The minimum possible total.'); if (all) return 1; let cur = -1, c = 0; I.nums.forEach((x, i) => { cur &= x; if (cur === 0) { c++; cur = -1; } }); return c; }
+    s(I, T) { const res = (() => { let all = I.nums.reduce((a, b) => a & b); T.at({ nums: A(I.nums) }); T.n('AND of the whole array?', all, 'The minimum possible total.'); T.yn('Is the AND of the whole array 0?', all === 0, 'If not, one piece is the best you can do.'); if (all) return 1; let cur = -1, c = 0; I.nums.forEach((x, i) => { cur &= x; if (cur === 0) { c++; cur = -1; } }); return c; })(); T.n('Maximum number of subarrays?', res, 'Cut each time the running AND drops to 0.'); return res; }
   });
 
   D('minimum-processing-time', {
@@ -31,14 +31,14 @@
     t: 'Minimum Groups for a Valid Assignment: try group sizes',
     r: 'Try group size s from the smallest count downward. Count c splits into ⌈c/(s+1)⌉ groups if that many groups of size s fit (⌈c/(s+1)⌉ · s ≤ c). The first workable s gives the answer.',
     g: R => ({ balls: R.ints(R.int(1, 10), 1, 3) }),
-    s(I, T) { const f = [...cnt(I.balls).values()]; for (let s = Math.min(...f); s >= 1; s--) { const ok = f.every(c => Math.ceil(c / (s + 1)) * s <= c); T.at({ counts: A(f), size: s }); T.yn(`Does group size ${s} (or ${s + 1}) work?`, ok, 'Every count must split into sizes s and s + 1.'); if (ok) return f.reduce((a, c) => a + Math.ceil(c / (s + 1)), 0); } }
+    s(I, T) { const res = (() => { const f = [...cnt(I.balls).values()]; T.at({ counts: A(f) }); T.n('Smallest count?', Math.min(...f), 'No group size can be larger.'); for (let s = Math.min(...f); s >= 1; s--) { const ok = f.every(c => Math.ceil(c / (s + 1)) * s <= c); T.at({ counts: A(f), size: s }); T.yn(`Does group size ${s} (or ${s + 1}) work?`, ok, 'Every count must split into sizes s and s + 1.'); if (ok) return f.reduce((a, c) => a + Math.ceil(c / (s + 1)), 0); } })(); T.n('Fewest groups?', res, 'Use the largest group size that works.'); return res; }
   });
 
   D('minimum-equal-sum-of-two-arrays-after-replacing-zeros', {
     t: 'Minimum Equal Sum After Replacing Zeros',
     r: 'Each zero becomes at least 1, so each side\'s minimum is sum + zeros. The answer is the larger minimum, unless the smaller side has no zeros to grow.',
     g: R => ({ nums1: R.ints(R.int(1, 5), 0, 4), nums2: R.ints(R.int(1, 5), 0, 4) }),
-    s(I, T) { const f = a => [a.reduce((x, y) => x + y, 0), a.filter(x => !x).length]; const [s1, z1] = f(I.nums1), [s2, z2] = f(I.nums2); T.at({ nums1: A(I.nums1), nums2: A(I.nums2) }); T.n('Minimum possible sum of nums1?', s1 + z1, 'Zeros become 1.'); T.n('Minimum possible sum of nums2?', s2 + z2, 'Zeros become 1.'); if ((s1 + z1 < s2 + z2 && !z1) || (s2 + z2 < s1 + z1 && !z2)) return -1; return Math.max(s1 + z1, s2 + z2); }
+    s(I, T) { const res = (() => { const f = a => [a.reduce((x, y) => x + y, 0), a.filter(x => !x).length]; const [s1, z1] = f(I.nums1), [s2, z2] = f(I.nums2); T.at({ nums1: A(I.nums1), nums2: A(I.nums2) }); T.n('Minimum possible sum of nums1?', s1 + z1, 'Zeros become 1.'); T.n('Minimum possible sum of nums2?', s2 + z2, 'Zeros become 1.'); if ((s1 + z1 < s2 + z2 && !z1) || (s2 + z2 < s1 + z1 && !z2)) return -1; return Math.max(s1 + z1, s2 + z2); })(); T.n('Answer (−1 if impossible)?', res, 'The larger minimum, as long as the smaller side has a zero to raise.'); return res; }
   });
 
   D('maximum-xor-product', {
@@ -66,28 +66,28 @@
     t: 'Maximum Set Size After Removals: unique first, then shared',
     r: 'Each array keeps n/2. Take values unique to nums1 (up to n/2) and unique to nums2 (up to n/2), then fill with shared values; cap at n.',
     g: R => { const n = 2 * R.int(1, 3); return { nums1: R.ints(n, 1, 5), nums2: R.ints(n, 1, 5) }; },
-    s(I, T) { const a = new Set(I.nums1), b = new Set(I.nums2), n = I.nums1.length, com = [...a].filter(x => b.has(x)).length; const u1 = Math.min(n / 2, a.size - com), u2 = Math.min(n / 2, b.size - com); T.at({ set1: A([...a]), set2: A([...b]) }); T.n('Values in both sets?', com, 'Shared distinct values.'); T.n('Unique nums1 values kept?', u1, 'At most n/2.'); return Math.min(n, u1 + u2 + com); }
+    s(I, T) { const a = new Set(I.nums1), b = new Set(I.nums2), n = I.nums1.length, com = [...a].filter(x => b.has(x)).length; const u1 = Math.min(n / 2, a.size - com), u2 = Math.min(n / 2, b.size - com); T.at({ set1: A([...a]), set2: A([...b]) }); T.n('Values in both sets?', com, 'Shared distinct values.'); T.n('Unique nums1 values kept?', u1, 'At most half of n.'); T.n('Unique nums2 values kept?', u2, 'At most half of n.'); return Math.min(n, u1 + u2 + com); }
   });
 
   D('minimize-length-of-array-using-operations', {
     t: 'Minimize Length Using Modulo Operations: the smallest value rules',
     r: 'Let m be the minimum. If some x has x mod m ≠ 0, a smaller value appears and everything collapses to 1. Otherwise the copies of m pair up: ⌈count(m) / 2⌉.',
     g: R => ({ nums: R.ints(R.int(1, 6), 1, 10) }),
-    s(I, T) { const m = Math.min(...I.nums), c = I.nums.filter(x => x === m).length, rem = I.nums.some(x => x % m); T.at({ nums: A(I.nums), min: m }); T.yn('Does some value leave a non-zero remainder mod the minimum?', rem, 'That creates a new, unique minimum.'); return rem ? 1 : Math.ceil(c / 2); }
+    s(I, T) { const res = (() => { const m = Math.min(...I.nums), c = I.nums.filter(x => x === m).length, rem = I.nums.some(x => x % m); T.at({ nums: A(I.nums), min: m }); T.yn('Does some value leave a non-zero remainder mod the minimum?', rem, 'That creates a new, unique minimum.'); T.n('How many copies of the minimum?', c, 'Pairs of them cancel out.'); return rem ? 1 : Math.ceil(c / 2); })(); T.n('Smallest length?', res, 'One if a new minimum can be made, otherwise half the copies, rounded up.'); return res; }
   });
 
   D('minimum-number-of-pushes-to-type-word-i', {
     t: 'Minimum Pushes to Type Word I: 8 keys per layer',
     r: 'All letters are distinct. The first 8 letters cost 1 push, the next 8 cost 2, then 3, then 4.',
     g: R => ({ word: R.distinct(R.int(1, 20), 0, 25).map(x => String.fromCharCode(97 + x)).join('') }),
-    s(I, T) { const n = I.word.length; let t = 0; for (let i = 0; i < n; i++) t += Math.floor(i / 8) + 1; T.at({ word: I.word }); T.n('Letters that need 2 or more pushes?', Math.max(0, n - 8), 'Only 8 one-push slots.'); return t; }
+    s(I, T) { const res = (() => { const n = I.word.length; let t = 0; for (let i = 0; i < n; i++) t += Math.floor(i / 8) + 1; T.at({ word: I.word }); T.n('Letters typed with one push?', Math.min(n, 8), 'One per key, 8 keys.'); T.n('Letters that need 2 or more pushes?', Math.max(0, n - 8), 'Only 8 one-push slots.'); return t; })(); T.n('Total pushes?', res, 'Each group of 8 letters costs one more push.'); return res; }
   });
 
   D('minimum-number-of-pushes-to-type-word-ii', {
     t: 'Minimum Pushes to Type Word II: frequent letters first',
     r: 'Sort letter counts descending; the i-th letter costs ⌊i / 8⌋ + 1 pushes per use.',
     g: R => ({ word: R.str(R.int(1, 25), 'abcdefghijk') }),
-    s(I, T) { const f = [...cnt([...I.word]).values()].sort((a, b) => b - a); let t = 0; f.forEach((c, i) => t += c * (Math.floor(i / 8) + 1)); T.at({ counts: A(f) }); T.n('Pushes for the most frequent letter?', f[0], 'It gets a one-push slot.'); return t; }
+    s(I, T) { const res = (() => { const f = [...cnt([...I.word]).values()].sort((a, b) => b - a); let t = 0; f.forEach((c, i) => t += c * (Math.floor(i / 8) + 1)); T.at({ counts: A(f) }); T.n('Distinct letters?', f.length, 'Each needs a key slot.'); T.n('Pushes for the most frequent letter?', f[0], 'It gets a one-push slot.'); return t; })(); T.n('Total pushes?', res, 'Frequent letters get the cheap slots.'); return res; }
   });
 
   D('minimize-or-of-remaining-elements-using-operations', {
@@ -101,14 +101,14 @@
     t: 'Maximum Palindromes After Operations: shortest words first',
     r: 'Letters can move freely; only pairs matter (odd middles are always available). Count total pairs, then satisfy words in order of length, each needing ⌊len / 2⌋ pairs.',
     g: R => ({ words: Array.from({ length: R.int(1, 4) }, () => R.str(R.int(1, 4), 'abc')) }),
-    s(I, T) { const c = cnt([...I.words.join('')]); let p = 0; for (const v of c.values()) p += v >> 1; T.at({ words: A(I.words) }); T.n('Total letter pairs?', p, 'Σ ⌊count / 2⌋.'); let r = 0; for (const L of sorted(I.words.map(w => w.length))) { if (L >> 1 > p) break; p -= L >> 1; r++; } return r; }
+    s(I, T) { const res = (() => { const c = cnt([...I.words.join('')]); let p = 0; for (const v of c.values()) p += v >> 1; T.at({ words: A(I.words) }); T.n('Total letter pairs?', p, 'Add half of each count, rounded down.'); T.n('Single letters left over?', [...c.values()].reduce((a, v) => a + v % 2, 0), 'They can fill odd middles.'); let r = 0; for (const L of sorted(I.words.map(w => w.length))) { if (L >> 1 > p) break; p -= L >> 1; r++; } return r; })(); T.n('Most palindromes?', res, 'Fill the shortest words first.'); return res; }
   });
 
   D('apple-redistribution-into-boxes', {
     t: 'Apple Redistribution Into Boxes: biggest boxes first',
     r: 'Total the apples, then use boxes from largest capacity down until they hold everything.',
     g: R => { const ap = R.ints(R.int(1, 4), 1, 6), s = ap.reduce((a, b) => a + b, 0), cap = R.ints(R.int(1, 5), 1, 8); while (cap.reduce((a, b) => a + b, 0) < s) cap.push(R.int(1, 8)); return { apple: ap, capacity: cap }; },
-    s(I, T) { let need = I.apple.reduce((a, b) => a + b, 0), b = 0; const c = sorted(I.capacity).reverse(); T.at({ apple: A(I.apple), capacity: A(c) }); T.n('Total apples?', need, 'Sum of the packs.'); while (need > 0) need -= c[b++]; return b; }
+    s(I, T) { const res = (() => { let need = I.apple.reduce((a, b) => a + b, 0), b = 0; const c = sorted(I.capacity).reverse(); T.at({ apple: A(I.apple), capacity: A(c) }); T.n('Total apples?', need, 'Sum of the packs.'); T.n('Largest box capacity?', c[0], 'Use the biggest boxes first.'); while (need > 0) need -= c[b++]; return b; })(); T.n('Fewest boxes?', res, 'Keep adding the largest box until all apples fit.'); return res; }
   });
 
   D('maximize-happiness-of-selected-children', {
@@ -129,14 +129,14 @@
     t: 'Make String Anti-Palindrome: sort, then fix the middle',
     r: 'Sort. Only the letter c straddling the middle can clash with its mirror. Swap each clashing c in the right half with the next larger letter after the run of c; if you run out, return "-1".',
     g: R => ({ s: R.str(2 * R.int(1, 4), 'aabc') }),
-    s(I, T) { const s = [...I.s].sort(), n = s.length, m = n / 2; T.at({ sorted: A(s.slice()) }); T.yn('Do the two middle letters clash?', s[m - 1] === s[m], 'Only the middle run can cause a clash.'); if (s[m - 1] === s[m]) { const c = s[m]; let j = m; while (j < n && s[j] === c) j++; for (let k = m; k < n && s[k] === c && s[n - 1 - k] === c; k++) { if (j >= n) return '-1'; [s[k], s[j]] = [s[j], s[k]]; j++; } } for (let i = 0; i < n; i++) if (s[i] === s[n - 1 - i]) return '-1'; return s.join(''); }
+    s(I, T) { const res = (() => { const s = [...I.s].sort(), n = s.length, m = n / 2; T.at({ sorted: A(s.slice()) }); T.n('Copies of the letter at the middle?', s.filter(x => x === s[m]).length, 'More than half means it cannot work.'); T.yn('Do the two middle letters clash?', s[m - 1] === s[m], 'Only the middle run can cause a clash.'); if (s[m - 1] === s[m]) { const c = s[m]; let j = m; while (j < n && s[j] === c) j++; for (let k = m; k < n && s[k] === c && s[n - 1 - k] === c; k++) { if (j >= n) return '-1'; [s[k], s[j]] = [s[j], s[k]]; j++; } } for (let i = 0; i < n; i++) if (s[i] === s[n - 1 - i]) return '-1'; return s.join(''); })(); T.yn('Is an anti-palindrome possible?', res !== '-1', 'The swaps either fixed every clash or ran out.'); return res; }
   });
 
   D('apply-operations-to-make-sum-of-array-greater-than-or-equal-to-k', {
     t: 'Sum ≥ k With Increments and Duplicates',
     r: 'Increment the single 1 up to value a (a − 1 ops), then duplicate it ⌈k / a⌉ − 1 times. Try every a and take the minimum.',
     g: R => ({ k: R.int(1, 60) }),
-    s(I, T) { let best = Infinity, ba = 1; for (let a = 1; a <= I.k; a++) { const o = a - 1 + Math.ceil(I.k / a) - 1; if (o < best) { best = o; ba = a; } } T.at({ k: I.k }); const a = Math.max(1, Math.round(Math.sqrt(I.k))); T.n(`Operations if you grow the value to ${a}?`, a - 1 + Math.ceil(I.k / a) - 1, `${a - 1} increments + ${Math.ceil(I.k / a) - 1} duplicates.`); return best; }
+    s(I, T) { const res = (() => { let best = Infinity, ba = 1; for (let a = 1; a <= I.k; a++) { const o = a - 1 + Math.ceil(I.k / a) - 1; if (o < best) { best = o; ba = a; } } T.at({ k: I.k }); T.yn('Is k already reached with no operations?', I.k <= 1, 'The array starts as [1].'); const a = Math.max(1, Math.round(Math.sqrt(I.k))); T.n(`Operations if you grow the value to ${a}?`, a - 1 + Math.ceil(I.k / a) - 1, `${a - 1} increments + ${Math.ceil(I.k / a) - 1} duplicates.`); return best; })(); T.n('Fewest operations?', res, 'Try every value to grow to, then duplicate it.'); return res; }
   });
 
   D('lexicographically-smallest-string-after-operations-with-constraint', {
@@ -150,7 +150,7 @@
     t: 'Make the Median Equal to k',
     r: 'Sort. Move the median to k; values left of it above k must come down to k; values right of it below k must go up to k.',
     g: R => ({ nums: R.ints(R.int(1, 7), 1, 12), k: R.int(1, 12) }),
-    s(I, T) { const a = sorted(I.nums), m = a.length >> 1; T.at({ sorted: A(a, { hl: [m] }), k: I.k }); T.n('Cost to move the median itself?', Math.abs(a[m] - I.k), `|${a[m]} − ${I.k}|.`); let ops = Math.abs(a[m] - I.k); for (let i = 0; i < m; i++) ops += Math.max(0, a[i] - I.k); for (let i = m + 1; i < a.length; i++) ops += Math.max(0, I.k - a[i]); return ops; }
+    s(I, T) { const res = (() => { const a = sorted(I.nums), m = a.length >> 1; T.at({ sorted: A(a, { hl: [m] }), k: I.k }); T.n('Index of the median after sorting?', m, 'The larger middle when the length is even.'); T.n('Cost to move the median itself?', Math.abs(a[m] - I.k), `|${a[m]} − ${I.k}|.`); let ops = Math.abs(a[m] - I.k); for (let i = 0; i < m; i++) ops += Math.max(0, a[i] - I.k); for (let i = m + 1; i < a.length; i++) ops += Math.max(0, I.k - a[i]); return ops; })(); T.n('Total operations?', res, 'Also fix values on the wrong side of k.'); return res; }
   });
 
   D('minimum-rectangles-to-cover-points', {
@@ -164,35 +164,35 @@
     t: 'Maximum Potholes Fixed: long runs are cheapest per pothole',
     r: 'Fixing L consecutive potholes costs L + 1. Sort pothole runs by length descending; fix whole runs while affordable, then fix budget − 1 from the next run.',
     g: R => ({ road: R.str(R.int(1, 12), 'x.x'), budget: R.int(1, 10) }),
-    s(I, T) { const runs = (I.road.match(/x+/g) || []).map(r => r.length).sort((a, b) => b - a); let b = I.budget, f = 0; for (const L of runs) { if (b < 2) break; const take = Math.min(L, b - 1); T.at({ runs: A(runs), budget: b }); T.n(`Potholes fixed from the run of ${L}?`, take, 'Each repair costs length + 1.'); f += take; b -= take + 1; } return f; }
+    s(I, T) { const res = (() => { const runs = (I.road.match(/x+/g) || []).map(r => r.length).sort((a, b) => b - a); let b = I.budget, f = 0; T.at({ runs: A(runs), budget: b }); T.n('How many runs of potholes?', runs.length, 'Longest runs are the cheapest per pothole.'); for (const L of runs) { if (b < 2) break; const take = Math.min(L, b - 1); T.at({ runs: A(runs), budget: b }); T.n(`Potholes fixed from the run of ${L}?`, take, 'Each repair costs length + 1.'); f += take; b -= take + 1; } return f; })(); T.n('Most potholes fixed?', res, 'Add up what each run gave.'); return res; }
   });
 
   D('maximum-number-that-makes-result-of-bitwise-and-zero', {
     t: 'Maximum x With AND of [x, n] Zero',
     r: 'The range must cross below the highest bit of n: x = 2^(highest bit) − 1.',
     g: R => ({ n: R.int(1, 200) }),
-    s(I, T) { let p = 1; while (p * 2 <= I.n) p *= 2; T.at({ n: I.n, binary: I.n.toString(2) }); T.n('Highest power of 2 ≤ n?', p, 'Its bit must be cleared by some number in the range.'); return p - 1; }
+    s(I, T) { const res = (() => { let p = 1; while (p * 2 <= I.n) p *= 2; T.at({ n: I.n, binary: I.n.toString(2) }); T.n('Bits in n?', I.n.toString(2).length, 'Length of its binary form.'); T.n('Highest power of 2 that is at most n?', p, 'Its bit must be cleared by some number in the range.'); return p - 1; })(); T.n('Largest x?', res, 'One less than that power of 2.'); return res; }
   });
 
   D('minimum-cost-to-equalize-array', {
     t: 'Minimum Cost to Equalize Array: try each target',
     r: 'For each target t from max to 2·max: total increments S, largest single gap g. If 2·cost1 ≤ cost2 use singles only. Otherwise pair as much as possible: if g ≤ S − g pair ⌊S/2⌋, else pair S − g and do the rest singly.',
     g: R => ({ nums: R.ints(R.int(1, 5), 1, 8), cost1: R.int(1, 6), cost2: R.int(1, 6) }),
-    s(I, T) { const mx = Math.max(...I.nums), mn = Math.min(...I.nums), n = I.nums.length; let best = Infinity; for (let t = mx; t <= 2 * mx + 1; t++) { const S = n * t - I.nums.reduce((a, b) => a + b, 0), g = t - mn; let c; if (2 * I.cost1 <= I.cost2) c = S * I.cost1; else if (g * 2 <= S) c = Math.floor(S / 2) * I.cost2 + (S % 2) * I.cost1; else c = (S - g) * I.cost2 + (2 * g - S) * I.cost1; if (t === mx) { T.at({ nums: A(I.nums), target: t }); T.n('Total increments needed to reach the max?', S, 'Σ (max − x).'); } best = Math.min(best, c); } return best % 1000000007; }
+    s(I, T) { const res = (() => { const mx = Math.max(...I.nums), mn = Math.min(...I.nums), n = I.nums.length; let best = Infinity; T.at({ nums: A(I.nums) }); T.n('Gap between the max and the min?', mx - mn, 'The smallest value needs the most increments.'); for (let t = mx; t <= 2 * mx + 1; t++) { const S = n * t - I.nums.reduce((a, b) => a + b, 0), g = t - mn; let c; if (2 * I.cost1 <= I.cost2) c = S * I.cost1; else if (g * 2 <= S) c = Math.floor(S / 2) * I.cost2 + (S % 2) * I.cost1; else c = (S - g) * I.cost2 + (2 * g - S) * I.cost1; if (t === mx) { T.at({ nums: A(I.nums), target: t }); T.n('Total increments needed to reach the max?', S, 'Add max minus x over every value.'); } best = Math.min(best, c); } return best % 1000000007; })(); T.n('Minimum cost, mod 1000000007?', res, 'Try targets from the max upward.'); return res; }
   });
 
   D('minimum-moves-to-get-a-peaceful-board', {
     t: 'Peaceful Board: rows and columns are independent',
     r: 'Each row and each column needs exactly one rook. Sort the x coordinates and send the i-th to row i; do the same for y.',
     g: R => { const n = R.int(1, 5), cells = new Set(), r = []; while (r.length < n) { const x = R.int(0, n - 1), y = R.int(0, n - 1); if (!cells.has(x * 9 + y)) { cells.add(x * 9 + y); r.push([x, y]); } } return { rooks: r }; },
-    s(I, T) { const xs = sorted(I.rooks.map(r => r[0])), ys = sorted(I.rooks.map(r => r[1])); const mx = xs.reduce((a, x, i) => a + Math.abs(x - i), 0); T.at({ xs: A(xs), ys: A(ys) }); T.n('Row moves?', mx, 'Σ |sorted x − i|.'); return mx + ys.reduce((a, y, i) => a + Math.abs(y - i), 0); }
+    s(I, T) { const res = (() => { const xs = sorted(I.rooks.map(r => r[0])), ys = sorted(I.rooks.map(r => r[1])); const mx = xs.reduce((a, x, i) => a + Math.abs(x - i), 0); T.at({ xs: A(xs), ys: A(ys) }); T.n('Row moves?', mx, 'Add the distance from each sorted row to its target row.'); T.n('Column moves?', ys.reduce((a, y, i) => a + Math.abs(y - i), 0), 'Same idea for columns.'); return mx + ys.reduce((a, y, i) => a + Math.abs(y - i), 0); })(); T.n('Total moves?', res, 'Rows and columns are independent.'); return res; }
   });
 
   D('maximum-points-after-enemy-battles', {
     t: 'Maximum Points After Enemy Battles: farm the weakest',
     r: 'If you cannot beat the weakest enemy, 0. Otherwise absorb every other enemy\'s energy and keep beating the weakest: ⌊(energy + Σ − min) / min⌋.',
     g: R => ({ enemyEnergies: R.ints(R.int(1, 5), 1, 6), currentEnergy: R.int(0, 10) }),
-    s(I, T) { const m = Math.min(...I.enemyEnergies), s = I.enemyEnergies.reduce((a, b) => a + b, 0); T.at({ enemies: A(I.enemyEnergies), energy: I.currentEnergy }); T.yn('Can you beat the weakest enemy right away?', I.currentEnergy >= m, `${I.currentEnergy} vs ${m}.`); return I.currentEnergy < m ? 0 : Math.floor((I.currentEnergy + s - m) / m); }
+    s(I, T) { const res = (() => { const m = Math.min(...I.enemyEnergies), s = I.enemyEnergies.reduce((a, b) => a + b, 0); T.at({ enemies: A(I.enemyEnergies), energy: I.currentEnergy }); T.n('Energy of the weakest enemy?', m, 'Always fight this one for points.'); T.yn('Can you beat the weakest enemy right away?', I.currentEnergy >= m, `${I.currentEnergy} vs ${m}.`); return I.currentEnergy < m ? 0 : Math.floor((I.currentEnergy + s - m) / m); })(); T.n('Most points?', res, 'Absorb every other enemy, then keep beating the weakest.'); return res; }
   });
 
   D('lexicographically-smallest-string-after-a-swap', {
@@ -213,21 +213,21 @@
     t: 'Winning Player in Coin Game: count the turns',
     r: 'Each turn uses one 75 and four 10s. The number of turns is min(x, ⌊y / 4⌋); Alice wins if it is odd.',
     g: R => ({ x: R.int(1, 10), y: R.int(1, 30) }),
-    s(I, T) { const t = Math.min(I.x, Math.floor(I.y / 4)); T.at({ x: I.x, y: I.y }); T.n('Total turns played?', t, 'min(x, ⌊y/4⌋).'); return t % 2 ? 'Alice' : 'Bob'; }
+    s(I, T) { const res = (() => { const t = Math.min(I.x, Math.floor(I.y / 4)); T.at({ x: I.x, y: I.y }); T.n('Turns the 10 coins allow?', Math.floor(I.y / 4), 'Each turn needs four of them.'); T.n('Total turns played?', t, 'The smaller of x and that number.'); return t % 2 ? 'Alice' : 'Bob'; })(); T.c('Who wins?', ['Alice', 'Bob'], res, 'Alice wins when the number of turns is odd.'); return res; }
   });
 
   D('vowels-game-in-a-string', {
     t: 'Vowels Game in a String: any vowel wins',
     r: 'With an odd number of vowels Alice takes everything; with an even non-zero count she leaves exactly one and Bob is stuck. With no vowels she cannot move.',
     g: R => ({ s: R.str(R.int(1, 8), 'bcdaeo') }),
-    s(I, T) { const v = [...I.s].filter(c => 'aeiou'.includes(c)).length; T.at({ s: I.s }); T.n('Number of vowels?', v, 'Alice wins iff it is non-zero.'); return v > 0; }
+    s(I, T) { const res = (() => { const v = [...I.s].filter(c => 'aeiou'.includes(c)).length; T.at({ s: I.s }); T.n('Number of vowels?', v, 'Alice wins whenever it is not zero.'); T.yn('Is the number of vowels odd?', v % 2 === 1, 'Then Alice can take the whole string at once.'); return v > 0; })(); T.yn('Does Alice win?', res, 'With an even count she leaves one vowel for later.'); return res; }
   });
 
   D('maximum-number-of-operations-to-move-ones-to-the-end', {
     t: 'Move Ones to the End: count ones before each gap',
     r: 'Every time a block of 1s is followed by a 0, each 1 seen so far will make one move across that gap: add the running count of ones.',
     g: R => ({ s: R.str(R.int(1, 10), '01') }),
-    s(I, T) { let ones = 0, ans = 0; [...I.s].forEach((c, i) => { if (c === '1') ones++; else if (i && I.s[i - 1] === '1') { ans += ones; T.at({ s: A([...I.s], { hl: [i] }), ones }); T.n('Operations so far?', ans, 'Each 1 so far crosses this gap.'); } }); return ans; }
+    s(I, T) { const res = (() => { let ones = 0, ans = 0; T.at({ s: A([...I.s]) }); T.n('How many 1s are in s?', [...I.s].filter(c => c === '1').length, 'Each one can move several times.'); [...I.s].forEach((c, i) => { if (c === '1') ones++; else if (i && I.s[i - 1] === '1') { ans += ones; T.at({ s: A([...I.s], { hl: [i] }), ones }); T.n('Operations so far?', ans, 'Each 1 so far crosses this gap.'); } }); return ans; })(); T.n('Maximum operations?', res, 'The running total at the end.'); return res; }
   });
 
   D('minimum-amount-of-damage-dealt-to-bob', {
@@ -255,7 +255,7 @@
     t: 'Division Operations to Be Non-Decreasing',
     r: 'Dividing by the greatest proper divisor leaves the smallest prime factor. From the right, if nums[i] > nums[i + 1], replace it with its smallest prime factor; if still too big, −1.',
     g: R => ({ nums: R.ints(R.int(1, 5), 1, 30) }),
-    s(I, T) { const a = I.nums.slice(), spf = x => { for (let p = 2; p * p <= x; p++) if (x % p === 0) return p; return x; }; let ops = 0; for (let i = a.length - 2; i >= 0; i--) if (a[i] > a[i + 1]) { const p = spf(a[i]); T.at({ nums: A(a, { hl: [i, i + 1] }) }); T.n(`${a[i]} becomes?`, p, 'Its smallest prime factor.'); if (p > a[i + 1]) return -1; a[i] = p; ops++; } return ops; }
+    s(I, T) { const res = (() => { const a = I.nums.slice(), spf = x => { for (let p = 2; p * p <= x; p++) if (x % p === 0) return p; return x; }; let ops = 0; for (let i = a.length - 2; i >= 0; i--) if (a[i] > a[i + 1]) { const p = spf(a[i]); T.at({ nums: A(a, { hl: [i, i + 1] }) }); T.n(`What does ${a[i]} become?`, p, 'Its smallest prime factor.'); if (p > a[i + 1]) return -1; a[i] = p; ops++; } return ops; })(); T.n('Operations needed (−1 if impossible)?', res, 'One per division.'); return res; }
   });
 
   D('maximum-number-of-distinct-elements-after-operations', {
@@ -269,7 +269,7 @@
     t: 'Minimum Cost to Make Arrays Identical: rearrange or not',
     r: 'Without rearranging: Σ |arr − brr|. With one rearrange (cost k), sort both and pair: k + Σ |sorted differences|. Take the smaller.',
     g: R => { const n = R.int(1, 5); return { arr: R.ints(n, -9, 9), brr: R.ints(n, -9, 9), k: R.int(0, 10) }; },
-    s(I, T) { const a = I.arr.reduce((s, x, i) => s + Math.abs(x - I.brr[i]), 0), sa = sorted(I.arr), sb = sorted(I.brr), b = I.k + sa.reduce((s, x, i) => s + Math.abs(x - sb[i]), 0); T.at({ arr: A(I.arr), brr: A(I.brr), k: I.k }); T.n('Cost without rearranging?', a, 'Σ |differences|.'); T.n('Cost with one rearrangement?', b, 'k + sorted pairing.'); return Math.min(a, b); }
+    s(I, T) { const res = (() => { const a = I.arr.reduce((s, x, i) => s + Math.abs(x - I.brr[i]), 0), sa = sorted(I.arr), sb = sorted(I.brr), b = I.k + sa.reduce((s, x, i) => s + Math.abs(x - sb[i]), 0); T.at({ arr: A(I.arr), brr: A(I.brr), k: I.k }); T.n('Cost without rearranging?', a, 'Add the absolute differences.'); T.n('Cost with one rearrangement?', b, 'k + sorted pairing.'); return Math.min(a, b); })(); T.n('Minimum cost?', res, 'The cheaper of the two.'); return res; }
   });
 
   D('reschedule-meetings-for-maximum-free-time-ii', {
@@ -283,13 +283,13 @@
     t: 'Eat Pizzas: biggest on odd days, then second-biggest',
     r: 'Sort. Odd days (⌈days/2⌉ of them) each gain one of the largest pizzas. Even days gain the second largest of their four: take every other pizza going down from the rest.',
     g: R => ({ pizzas: R.ints(4 * R.int(1, 3), 1, 9) }),
-    s(I, T) { const a = sorted(I.pizzas), n = a.length, d = n / 4, odd = Math.ceil(d / 2); let s = 0; for (let i = 0; i < odd; i++) s += a[n - 1 - i]; T.at({ sorted: A(a) }); T.n('Weight gained on odd days?', s, `The ${odd} largest pizzas.`); let idx = n - odd - 2; for (let e = 0; e < d - odd; e++) { s += a[idx]; idx -= 2; } return s; }
+    s(I, T) { const res = (() => { const a = sorted(I.pizzas), n = a.length, d = n / 4, odd = Math.ceil(d / 2); let s = 0; for (let i = 0; i < odd; i++) s += a[n - 1 - i]; T.at({ sorted: A(a) }); T.n('Days of eating?', d, 'Four pizzas a day.'); T.n('Weight gained on odd days?', s, `The ${odd} largest pizzas.`); let idx = n - odd - 2; for (let e = 0; e < d - odd; e++) { s += a[idx]; idx -= 2; } return s; })(); T.n('Most weight gained?', res, 'On even days take the second largest of each group.'); return res; }
   });
 
   D('lexicographically-smallest-generated-string', {
     t: 'Smallest Generated String: place T windows, then fix F windows',
     r: 'Write str2 at every T window (conflict → ""). Fill free cells with "a". For each F window still equal to str2, change its rightmost free cell to "b"; with no free cell, return "".',
     g: R => ({ str1: R.str(R.int(1, 5), 'TFF'), str2: R.str(R.int(1, 3), 'ab') }),
-    s(I, T) { const n = I.str1.length, m = I.str2.length, w = Array(n + m - 1).fill(null), fixed = Array(n + m - 1).fill(false); for (let i = 0; i < n; i++) if (I.str1[i] === 'T') for (let j = 0; j < m; j++) { if (w[i + j] !== null && w[i + j] !== I.str2[j]) return ''; w[i + j] = I.str2[j]; fixed[i + j] = true; } for (let i = 0; i < w.length; i++) if (w[i] === null) w[i] = 'a'; T.at({ word: A(w.slice()) }); T.n('Cells locked by T windows?', fixed.filter(Boolean).length, 'Union of all T windows.'); for (let i = 0; i < n; i++) if (I.str1[i] === 'F' && w.slice(i, i + m).join('') === I.str2) { let j = i + m - 1; while (j >= i && fixed[j]) j--; if (j < i) return ''; w[j] = 'b'; fixed[j] = true; } return w.join(''); }
+    s(I, T) { const res = (() => { T.at({ str1: A([...I.str1]), str2: A([...I.str2]) }); T.n('Length of the generated string?', I.str1.length + I.str2.length - 1, 'Length of str1 plus length of str2, minus 1.'); const n = I.str1.length, m = I.str2.length, w = Array(n + m - 1).fill(null), fixed = Array(n + m - 1).fill(false); for (let i = 0; i < n; i++) if (I.str1[i] === 'T') for (let j = 0; j < m; j++) { if (w[i + j] !== null && w[i + j] !== I.str2[j]) return ''; w[i + j] = I.str2[j]; fixed[i + j] = true; } for (let i = 0; i < w.length; i++) if (w[i] === null) w[i] = 'a'; T.at({ word: A(w.slice()) }); T.n('Cells locked by T windows?', fixed.filter(Boolean).length, 'Union of all T windows.'); for (let i = 0; i < n; i++) if (I.str1[i] === 'F' && w.slice(i, i + m).join('') === I.str2) { let j = i + m - 1; while (j >= i && fixed[j]) j--; if (j < i) return ''; w[j] = 'b'; fixed[j] = true; } return w.join(''); })(); T.yn('Can such a string be built?', res !== '', 'Either the windows conflict or an F window cannot be broken.'); return res; }
   });
 })();

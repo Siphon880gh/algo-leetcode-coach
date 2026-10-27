@@ -63,9 +63,9 @@
 
   D('partition-array-into-k-distinct-groups', {
     t: 'Partition Array into K Distinct Groups',
-    r: 'The array must split into g = n / k groups (n divisible by k), and a value can appear at most once per group, so every frequency must be ≤ g. Dealing values round-robin then always works.',
+    r: 'The array must split into g = n / k groups (n divisible by k), and a value can appear at most once per group, so every frequency must be at most g. Dealing values round-robin then always works.',
     g: R => ({ nums: R.ints(R.int(2, 8), 1, 4), k: R.int(1, 4) }),
-    s(I, T) { const n = I.nums.length; T.at({ nums: A(I.nums), k: I.k }); T.yn('Is n divisible by k?', n % I.k === 0, `${n} mod ${I.k} = ${n % I.k}.`); if (n % I.k) return false; const c = new Map(); I.nums.forEach(x => c.set(x, (c.get(x) || 0) + 1)); const mx = Math.max(...c.values()), g = n / I.k; T.at({ counts: K([...c].sort((a, b) => a[0] - b[0])), groups: g }); T.n('Highest frequency of any value?', mx, 'Count each value.'); return mx <= g; }
+    s(I, T) { const res = (() => { const n = I.nums.length; T.at({ nums: A(I.nums), k: I.k }); T.n('Distinct values?', new Set(I.nums).size, 'Each group needs k different values.'); T.yn('Is n divisible by k?', n % I.k === 0, `${n} divided by ${I.k} leaves ${n % I.k}.`); if (n % I.k) return false; const c = new Map(); I.nums.forEach(x => c.set(x, (c.get(x) || 0) + 1)); const mx = Math.max(...c.values()), g = n / I.k; T.at({ counts: K([...c].sort((a, b) => a[0] - b[0])), groups: g }); T.n('Highest frequency of any value?', mx, 'Count each value.'); return mx <= g; })(); T.yn('Can it be partitioned?', res, 'No value appears more often than there are groups.'); return res; }
   });
 
   D('filter-characters-by-frequency', {
@@ -84,9 +84,9 @@
 
   D('two-letter-card-game', {
     t: 'Two Letter Card Game',
-    r: 'Cards with x split into "x?" (left group), "?x" (right group) and "xx". Within a group two cards pair if their other letters differ; "xx" acts as one more letter in either group. A group of t cards with largest letter count m makes min(⌊t/2⌋, t − m) pairs; try every split of the "xx" cards.',
+    r: 'Cards with x split into "x?" (left group), "?x" (right group) and "xx". Within a group two cards pair if their other letters differ; "xx" acts as one more letter in either group. A group of t cards with largest letter count m makes the smaller of half of t (rounded down) and t minus m pairs; try every split of the "xx" cards.',
     g: R => ({ cards: Array.from({ length: R.int(2, 7) }, () => R.pick('abc') + R.pick('abc')), x: R.pick('ab') }),
-    s(I, T) { const x = I.x, L = {}, Rr = {}; let xx = 0; I.cards.forEach(c => { if (c === x + x) xx++; else if (c[0] === x) L[c[1]] = (L[c[1]] || 0) + 1; else if (c[1] === x) Rr[c[0]] = (Rr[c[0]] || 0) + 1; }); const pairs = (g, e) => { const v = Object.values(g); if (e) v.push(e); const t = sum(v), m = v.length ? Math.max(...v) : 0; return Math.min(Math.floor(t / 2), t - m); }; T.at({ cards: A(I.cards), x }); T.n(`How many cards are "${x}${x}"?`, xx, 'They pair with any single-x card.'); T.n(`Pairs inside the "${x}?" group alone?`, pairs(L, 0), 'min(⌊t/2⌋, t − largest letter count).'); let best = 0; for (let j = 0; j <= xx; j++) best = Math.max(best, pairs(L, j) + pairs(Rr, xx - j)); return best; }
+    s(I, T) { const res = (() => { const x = I.x, L = {}, Rr = {}; let xx = 0; I.cards.forEach(c => { if (c === x + x) xx++; else if (c[0] === x) L[c[1]] = (L[c[1]] || 0) + 1; else if (c[1] === x) Rr[c[0]] = (Rr[c[0]] || 0) + 1; }); const pairs = (g, e) => { const v = Object.values(g); if (e) v.push(e); const t = sum(v), m = v.length ? Math.max(...v) : 0; return Math.min(Math.floor(t / 2), t - m); }; T.at({ cards: A(I.cards), x }); T.n(`How many cards are "${x}${x}"?`, xx, 'They pair with any single-x card.'); T.n(`Pairs inside the "${x}?" group alone?`, pairs(L, 0), 'The smaller of half of t, rounded down, and t minus the largest letter count.'); let best = 0; for (let j = 0; j <= xx; j++) best = Math.max(best, pairs(L, j) + pairs(Rr, xx - j)); return best; })(); T.n('Most pairs?', res, 'Best split of the double cards between the two groups.'); return res; }
   });
 
   D('restore-finishing-order', {
@@ -100,7 +100,7 @@
     t: 'Smallest Absent Positive Greater Than Average',
     r: 'Compute the average, start at the first positive integer strictly above it (at least 1), and step up until you find a value not in the set of nums.',
     g: R => ({ nums: R.ints(R.int(2, 6), -5, 8) }),
-    s(I, T) { const avg = sum(I.nums) / I.nums.length, set = new Set(I.nums); let x = Math.max(1, Math.floor(avg) + 1); T.at({ nums: A(I.nums), sum: sum(I.nums), n: I.nums.length }); T.n('First candidate (smallest positive integer > average)?', x, `Average = ${Math.round(avg * 100) / 100}.`); while (set.has(x)) { T.at({ nums: A(I.nums, { hl: I.nums.map((v, i) => v === x ? i : -1).filter(i => i >= 0) }), candidate: x }); T.yn(`Is ${x} absent?`, false, `${x} is in nums, try ${x + 1}.`); x++; } return x; }
+    s(I, T) { const res = (() => { const avg = sum(I.nums) / I.nums.length, set = new Set(I.nums); let x = Math.max(1, Math.floor(avg) + 1); T.at({ nums: A(I.nums), sum: sum(I.nums), n: I.nums.length }); T.n('First candidate (smallest positive integer above the average)?', x, `Average = ${Math.round(avg * 100) / 100}.`); while (set.has(x)) { T.at({ nums: A(I.nums, { hl: I.nums.map((v, i) => v === x ? i : -1).filter(i => i >= 0) }), candidate: x }); T.yn(`Is ${x} absent?`, false, `${x} is in nums, try ${x + 1}.`); x++; } return x; })(); T.n('Answer?', res, 'The first candidate missing from nums.'); return res; }
   });
 
   D('minimum-index-sum-of-common-elements', {

@@ -8,7 +8,7 @@
     t: 'Maximum Gap',
     r: 'Bucket sort by pigeonhole: with n numbers spanning [min, max], some gap is at least (max − min)/(n − 1), so use buckets of that size and only compare each bucket\'s min with the previous non-empty bucket\'s max.',
     g: R => ({ nums: R.ints(R.int(1, 7), 0, 30) }),
-    s(I, T) { const a = I.nums, n = a.length; if (n < 2) { T.at({ nums: A(a) }); T.n('Gap with fewer than two numbers?', 0, 'By definition.'); return 0; } const lo = Math.min(...a), hi = Math.max(...a); if (lo === hi) return 0; const size = Math.max(1, Math.floor((hi - lo) / (n - 1))), cnt = Math.floor((hi - lo) / size) + 1, mn = Array(cnt).fill(Infinity), mx = Array(cnt).fill(-Infinity); a.forEach(x => { const b = Math.floor((x - lo) / size); mn[b] = Math.min(mn[b], x); mx[b] = Math.max(mx[b], x); }); T.at({ nums: A(a), min: lo, max: hi }); T.n('Bucket size?', size, '⌊(max − min) / (n − 1)⌋, at least 1.'); let prev = lo, best = 0; for (let b = 0; b < cnt; b++) if (mn[b] !== Infinity) { best = Math.max(best, mn[b] - prev); prev = mx[b]; } return best; }
+    s(I, T) { const res = (() => { const a = I.nums, n = a.length; if (n < 2) { T.at({ nums: A(a) }); T.n('How many numbers?', n, 'Need at least two for a gap.'); T.yn('Are there fewer than two?', true, 'Then the gap is 0.'); return 0; } const lo = Math.min(...a), hi = Math.max(...a); if (lo === hi) { T.at({ nums: A(a) }); T.n('Smallest value?', lo, 'Scan for the min.'); T.yn('Are all values equal?', true, 'Then every gap is 0.'); return 0; } const size = Math.max(1, Math.floor((hi - lo) / (n - 1))), cnt = Math.floor((hi - lo) / size) + 1, mn = Array(cnt).fill(Infinity), mx = Array(cnt).fill(-Infinity); a.forEach(x => { const b = Math.floor((x - lo) / size); mn[b] = Math.min(mn[b], x); mx[b] = Math.max(mx[b], x); }); T.at({ nums: A(a), min: lo, max: hi }); T.n('Bucket size?', size, '(max minus min) divided by (n minus 1), rounded down, at least 1.'); T.n('Number of buckets?', cnt, 'The range divided by the bucket size, plus 1.'); let prev = lo, best = 0; for (let b = 0; b < cnt; b++) if (mn[b] !== Infinity) { best = Math.max(best, mn[b] - prev); prev = mx[b]; } return best; })(); T.n('Maximum gap?', res, 'Next bucket min minus previous bucket max.'); return res; }
   });
 
   D('majority-element', {
@@ -23,7 +23,7 @@
     r: 'At most two values can exceed n/3. Run Boyer–Moore with two candidates, then verify each candidate\'s real count.',
     g: R => ({ nums: R.ints(R.int(1, 8), 1, 4) }),
     cmp: 'set',
-    s(I, T) { let c1 = null, c2 = null, k1 = 0, k2 = 0; I.nums.forEach(x => { if (x === c1) k1++; else if (x === c2) k2++; else if (!k1) { c1 = x; k1 = 1; } else if (!k2) { c2 = x; k2 = 1; } else { k1--; k2--; } }); T.at({ nums: A(I.nums) }); T.n('Threshold (must exceed)?', Math.floor(I.nums.length / 3), '⌊n / 3⌋.'); return [...new Set([c1, c2])].filter(c => c !== null && I.nums.filter(x => x === c).length > Math.floor(I.nums.length / 3)); }
+    s(I, T) { const res = (() => { let c1 = null, c2 = null, k1 = 0, k2 = 0; I.nums.forEach(x => { if (x === c1) k1++; else if (x === c2) k2++; else if (!k1) { c1 = x; k1 = 1; } else if (!k2) { c2 = x; k2 = 1; } else { k1--; k2--; } }); T.at({ nums: A(I.nums) }); T.n('Count a value must beat?', Math.floor(I.nums.length / 3), 'n divided by 3, rounded down.'); T.n(`Count of ${I.nums[0]}?`, I.nums.filter(x => x === I.nums[0]).length, 'Verify candidates with a second pass.'); return [...new Set([c1, c2])].filter(c => c !== null && I.nums.filter(x => x === c).length > Math.floor(I.nums.length / 3)); })(); T.n('How many values pass?', res.length, 'At most two can.'); return res; }
   });
 
   D('product-of-array-except-self', {
@@ -44,7 +44,7 @@
     t: 'Largest Number At Least Twice of Others',
     r: 'Find the largest and second largest. The answer is the largest\'s index if it is ≥ 2 × second, else −1.',
     g: R => ({ nums: R.distinct(R.int(1, 6), 0, 20) }),
-    s(I, T) { let i1 = 0; I.nums.forEach((x, i) => { if (x > I.nums[i1]) i1 = i; }); const second = Math.max(0, ...I.nums.filter((_, i) => i !== i1)); T.at({ nums: A(I.nums, { i: i1 }) }); T.n('Second largest?', I.nums.length > 1 ? second : 0, 'Compare to it.'); return I.nums[i1] >= 2 * second ? i1 : -1; }
+    s(I, T) { const res = (() => { let i1 = 0; I.nums.forEach((x, i) => { if (x > I.nums[i1]) i1 = i; }); const second = Math.max(0, ...I.nums.filter((_, i) => i !== i1)); T.at({ nums: A(I.nums, { i: i1 }) }); T.n('Largest value?', I.nums[i1], 'Track its index.'); T.n('Second largest?', I.nums.length > 1 ? second : 0, 'Compare to it.'); return I.nums[i1] >= 2 * second ? i1 : -1; })(); T.n('Answer index? (−1 if not twice as big)', res, 'Largest compared with twice the second.'); return res; }
   });
 
   D('monotonic-array', {
@@ -58,7 +58,7 @@
     t: 'Distance Between Bus Stops',
     r: 'Sum the clockwise distance from start to destination; the counter-clockwise distance is total − that. Return the smaller.',
     g: R => { const n = R.int(1, 6); return { distance: R.ints(n, 0, 9), start: R.int(0, n - 1), destination: R.int(0, n - 1) }; },
-    s(I, T) { const [a, b] = [Math.min(I.start, I.destination), Math.max(I.start, I.destination)], cw = sum(I.distance.slice(a, b)), tot = sum(I.distance); T.at({ distance: A(I.distance, { i: a, j: b }) }); T.n('Distance one way around?', cw, 'Sum between the two stops.'); return Math.min(cw, tot - cw); }
+    s(I, T) { const res = (() => { const [a, b] = [Math.min(I.start, I.destination), Math.max(I.start, I.destination)], cw = sum(I.distance.slice(a, b)), tot = sum(I.distance); T.at({ distance: A(I.distance, { i: a, j: b }) }); T.n('Distance one way around?', cw, 'Sum between the two stops.'); T.n('Total loop length?', tot, 'The other way is the rest.'); return Math.min(cw, tot - cw); })(); T.n('Shortest distance?', res, 'The smaller direction.'); return res; }
   });
 
   D('number-of-ships-in-a-rectangle', {
@@ -80,7 +80,7 @@
     t: 'Sequential Digits',
     r: 'Every sequential-digit number is a substring of "123456789". Enumerate by length and start, keeping those in [low, high].',
     g: R => { const lo = R.int(10, 3000); return { low: lo, high: lo + R.int(0, 5000) }; },
-    s(I, T) { const out = []; for (let L = 2; L <= 9; L++) for (let s = 0; s + L <= 9; s++) { const v = +'123456789'.slice(s, s + L); if (v >= I.low && v <= I.high) out.push(v); } T.at({ low: I.low, high: I.high }); T.n('How many fit?', out.length, 'Substrings of 123456789.'); return out; }
+    s(I, T) { const res = (() => { const out = []; for (let L = 2; L <= 9; L++) for (let s = 0; s + L <= 9; s++) { const v = +'123456789'.slice(s, s + L); if (v >= I.low && v <= I.high) out.push(v); } T.at({ low: I.low, high: I.high }); T.n(`Digits in ${I.low}?`, String(I.low).length, 'Start with numbers of that length.'); T.n('How many fit?', out.length, 'Substrings of 123456789.'); return out; })(); T.n('Smallest one that fits? (0 if none)', res.length ? res[0] : 0, 'Shorter lengths come first.'); return res; }
   });
 
   D('replace-elements-with-greatest-element-on-right-side', {
@@ -108,14 +108,14 @@
     t: 'Kids With the Greatest Number of Candies',
     r: 'Find the current max; kid i qualifies if candies[i] + extra ≥ max.',
     g: R => ({ candies: R.ints(R.int(2, 6), 1, 9), extraCandies: R.int(1, 5) }),
-    s(I, T) { const m = Math.max(...I.candies); T.at({ candies: A(I.candies) }); T.n('Current maximum?', m, 'Target to reach.'); return I.candies.map(c => c + I.extraCandies >= m); }
+    s(I, T) { const res = (() => { const m = Math.max(...I.candies); T.at({ candies: A(I.candies) }); T.n('Current maximum?', m, 'Target to reach.'); T.n('Kids who already have the max?', I.candies.filter(c => c === m).length, 'They are true for sure.'); return I.candies.map(c => c + I.extraCandies >= m); })(); T.n('Kids who can reach the max?', res.filter(Boolean).length, 'Candies plus extra at least the max.'); return res; }
   });
 
   D('check-if-all-1s-are-at-least-length-k-places-away', {
     t: 'Check If All 1\'s Are at Least Length K Places Away',
     r: 'Remember the index of the previous 1; each new 1 must have at least k zeros between them (i − prev − 1 ≥ k).',
     g: R => ({ nums: R.ints(R.int(1, 9), 0, 1), k: R.int(0, 3) }),
-    s(I, T) { let prev = -Infinity; for (let i = 0; i < I.nums.length; i++) if (I.nums[i]) { if (prev > -Infinity) { const ok = i - prev - 1 >= I.k; T.at({ nums: A(I.nums, { i, j: prev }) }); T.yn('Far enough from the previous 1?', ok, `${i - prev - 1} zeros between.`); if (!ok) return false; } prev = i; } return true; }
+    s(I, T) { const res = (() => { let prev = -Infinity; for (let i = 0; i < I.nums.length; i++) if (I.nums[i]) { if (prev > -Infinity) { const ok = i - prev - 1 >= I.k; T.at({ nums: A(I.nums, { i, j: prev }) }); T.yn('Far enough from the previous 1?', ok, `${i - prev - 1} zeros between.`); if (!ok) return false; } prev = i; } return true; })(); T.yn('Are all 1s far enough apart?', res, 'Every gap had at least k zeros.'); return res; }
   });
 
   D('number-of-students-doing-homework-at-a-given-time', {
@@ -129,7 +129,7 @@
     t: 'Maximum Product of Two Elements in an Array',
     r: 'Take the two largest values a ≥ b; the answer is (a − 1)(b − 1).',
     g: R => ({ nums: R.ints(R.int(2, 6), 1, 10) }),
-    s(I, T) { const s = I.nums.slice().sort((a, b) => b - a); T.at({ nums: A(I.nums) }); T.n('Largest value?', s[0], 'Track the top two.'); T.n('Second largest?', s[1], 'May equal the largest.'); return (s[0] - 1) * (s[1] - 1); }
+    s(I, T) { const res = (() => { const s = I.nums.slice().sort((a, b) => b - a); T.at({ nums: A(I.nums) }); T.n('Largest value?', s[0], 'Track the top two.'); T.n('Second largest?', s[1], 'May equal the largest.'); return (s[0] - 1) * (s[1] - 1); })(); T.n('Maximum product?', res, '(largest minus 1) times (second minus 1).'); return res; }
   });
 
   D('shuffle-the-array', {
@@ -144,7 +144,7 @@
     r: '(sum − min − max) / (n − 2).',
     g: R => ({ salary: R.distinct(R.int(3, 6), 1, 20).map(x => x * 1000) }),
     cmp: 'float',
-    s(I, T) { const s = sum(I.salary), mn = Math.min(...I.salary), mx = Math.max(...I.salary); T.at({ salary: A(I.salary) }); T.n('Sum without min and max?', s - mn - mx, 'Remove both extremes.'); return (s - mn - mx) / (I.salary.length - 2); }
+    s(I, T) { const s = sum(I.salary), mn = Math.min(...I.salary), mx = Math.max(...I.salary); T.at({ salary: A(I.salary) }); T.n('Minimum salary?', mn, 'Drop it.'); T.n('Maximum salary?', mx, 'Drop it too.'); T.n('Sum without min and max?', s - mn - mx, 'Remove both extremes.'); return (s - mn - mx) / (I.salary.length - 2); }
   });
 
   D('count-good-triplets', {
@@ -186,7 +186,7 @@
     t: 'Minimum Distance to the Target Element',
     r: 'Scan outward (or over all indices) for nums[i] == target and keep the smallest |i − start|.',
     g: R => { const a = R.ints(R.int(1, 7), 1, 5); return { nums: a, target: R.pick(a), start: R.int(0, a.length - 1) }; },
-    s(I, T) { let b = Infinity; I.nums.forEach((x, i) => { if (x === I.target) { b = Math.min(b, Math.abs(i - I.start)); T.at({ nums: A(I.nums, { i, j: I.start }) }); T.n('Best distance so far?', b, '|i − start|.'); } }); return b; }
+    s(I, T) { const res = (() => { let b = Infinity; I.nums.forEach((x, i) => { if (x === I.target) { b = Math.min(b, Math.abs(i - I.start)); T.at({ nums: A(I.nums, { i, j: I.start }) }); T.n('Best distance so far?', b, 'Distance between i and start.'); } }); return b; })(); T.n('Minimum distance?', res, 'Best over every target position.'); return res; }
   });
 
   D('smallest-index-with-equal-value', {
@@ -207,7 +207,7 @@
     t: 'Count Hills and Valleys in an Array',
     r: 'Collapse runs of equal values (they form one hill or valley). Then count interior points higher or lower than both neighbors.',
     g: R => ({ nums: R.ints(R.int(3, 8), 1, 5) }),
-    s(I, T) { const a = I.nums.filter((x, i) => !i || x !== I.nums[i - 1]); T.at({ collapsed: A(a) }); T.n('Length after collapsing equal runs?', a.length, 'Equal neighbors share a hill/valley.'); let c = 0; for (let i = 1; i + 1 < a.length; i++) if ((a[i] > a[i - 1] && a[i] > a[i + 1]) || (a[i] < a[i - 1] && a[i] < a[i + 1])) c++; return c; }
+    s(I, T) { const res = (() => { const a = I.nums.filter((x, i) => !i || x !== I.nums[i - 1]); T.at({ collapsed: A(a) }); T.n('Length after collapsing equal runs?', a.length, 'Equal neighbors share a hill or valley.'); let c = 0; for (let i = 1; i + 1 < a.length; i++) if ((a[i] > a[i - 1] && a[i] > a[i + 1]) || (a[i] < a[i - 1] && a[i] < a[i + 1])) c++; return c; })(); const a = I.nums.filter((x, i) => !i || x !== I.nums[i - 1]); let h = 0; for (let i = 1; i + 1 < a.length; i++) if (a[i] > a[i - 1] && a[i] > a[i + 1]) h++; T.n('Hills only?', h, 'Higher than both neighbours.'); T.n('Hills plus valleys?', res, 'Valleys are lower than both neighbours.'); return res; }
   });
 
   D('find-closest-number-to-zero', {

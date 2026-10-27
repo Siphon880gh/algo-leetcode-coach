@@ -4,17 +4,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Find Closest Person: compare distances</title>
-  <link rel="stylesheet" href="../_engine/gap/player.css">
+  <link rel="stylesheet" href="../_engine/engine.css">
 </head>
 <body>
   <main id="game"></main>
-  <script src="../_engine/gap/player.js"></script>
-  <script>
-    GapPlayer.mount(document.getElementById('game'), {
-      title: "Find Closest Person: compare distances",
-      rule: "Compare |x − z| and |y − z|.",
-      fixtures: [{"input": {"x": 17, "y": 20, "z": 17}, "answer": 1, "board": "Input:\nx = 17\ny = 20\nz = 17", "steps": [{"ask": "What is `x`?", "answer": 17, "why": "Read it from the input.", "board": "Input:\nx = 17\ny = 20\nz = 17", "choices": null}, {"ask": "What is the answer for this input?", "answer": 1, "why": "Compare |x − z| and |y − z|.", "board": "Input:\nx = 17\ny = 20\nz = 17", "choices": [{"v": 1}, {"v": 2}, {"v": 0}, {"v": 3}]}]}, {"input": {"x": 11, "y": 8, "z": 13}, "answer": 1, "board": "Input:\nx = 11\ny = 8\nz = 13", "steps": [{"ask": "What is `x`?", "answer": 11, "why": "Read it from the input.", "board": "Input:\nx = 11\ny = 8\nz = 13", "choices": null}, {"ask": "What is the answer for this input?", "answer": 1, "why": "Compare |x − z| and |y − z|.", "board": "Input:\nx = 11\ny = 8\nz = 13", "choices": [{"v": 2}, {"v": 1}, {"v": 4}, {"v": 3}]}]}, {"input": {"x": 7, "y": 11, "z": 5}, "answer": 1, "board": "Input:\nx = 7\ny = 11\nz = 5", "steps": [{"ask": "What is `x`?", "answer": 7, "why": "Read it from the input.", "board": "Input:\nx = 7\ny = 11\nz = 5", "choices": null}, {"ask": "What is the answer for this input?", "answer": 1, "why": "Compare |x − z| and |y − z|.", "board": "Input:\nx = 7\ny = 11\nz = 5", "choices": [{"v": 1}, {"v": 3}, {"v": 4}, {"v": -1}]}]}, {"input": {"x": 1, "y": 15, "z": 5}, "answer": 1, "board": "Input:\nx = 1\ny = 15\nz = 5", "steps": [{"ask": "What is `x`?", "answer": 1, "why": "Read it from the input.", "board": "Input:\nx = 1\ny = 15\nz = 5", "choices": null}, {"ask": "What is the answer for this input?", "answer": 1, "why": "Compare |x − z| and |y − z|.", "board": "Input:\nx = 1\ny = 15\nz = 5", "choices": [{"v": 1}, {"v": 0}, {"v": -1}, {"v": 2}]}]}, {"input": {"x": 14, "y": 5, "z": 10}, "answer": 1, "board": "Input:\nx = 14\ny = 5\nz = 10", "steps": [{"ask": "What is `x`?", "answer": 14, "why": "Read it from the input.", "board": "Input:\nx = 14\ny = 5\nz = 10", "choices": null}, {"ask": "What is the answer for this input?", "answer": 1, "why": "Compare |x − z| and |y − z|.", "board": "Input:\nx = 14\ny = 5\nz = 10", "choices": [{"v": 1}, {"v": 4}, {"v": -1}, {"v": 0}]}]}, {"input": {"x": 11, "y": 15, "z": 7}, "answer": 1, "board": "Input:\nx = 11\ny = 15\nz = 7", "steps": [{"ask": "What is `x`?", "answer": 11, "why": "Read it from the input.", "board": "Input:\nx = 11\ny = 15\nz = 7", "choices": null}, {"ask": "What is the answer for this input?", "answer": 1, "why": "Compare |x − z| and |y − z|.", "board": "Input:\nx = 11\ny = 15\nz = 7", "choices": [{"v": 2}, {"v": 1}, {"v": 4}, {"v": 3}]}]}, {"input": {"x": 9, "y": 3, "z": 4}, "answer": 2, "board": "Input:\nx = 9\ny = 3\nz = 4", "steps": [{"ask": "What is `x`?", "answer": 9, "why": "Read it from the input.", "board": "Input:\nx = 9\ny = 3\nz = 4", "choices": null}, {"ask": "What is the answer for this input?", "answer": 2, "why": "Compare |x − z| and |y − z|.", "board": "Input:\nx = 9\ny = 3\nz = 4", "choices": [{"v": 0}, {"v": 4}, {"v": 2}, {"v": 1}]}]}, {"input": {"x": 19, "y": 9, "z": 9}, "answer": 2, "board": "Input:\nx = 19\ny = 9\nz = 9", "steps": [{"ask": "What is `x`?", "answer": 19, "why": "Read it from the input.", "board": "Input:\nx = 19\ny = 9\nz = 9", "choices": null}, {"ask": "What is the answer for this input?", "answer": 2, "why": "Compare |x − z| and |y − z|.", "board": "Input:\nx = 19\ny = 9\nz = 9", "choices": [{"v": 5}, {"v": 4}, {"v": 3}, {"v": 2}]}]}]
-    });
-  </script>
+  <script src="../_engine/engine.js"></script>
+  <script src="../_engine/def.js"></script>
+  <script src="../_engine/v2/gap-01.js"></script>
+  <script>LCGame.mount(document.getElementById('game'), 'find-closest-person');</script>
 </body>
 </html>

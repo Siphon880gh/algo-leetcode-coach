@@ -82,8 +82,9 @@
     g: R => ({ s: R.str(R.int(4, 6), 'abc'), k: R.int(1, 2) }),
     s(I, T) {
       const s = I.s, n = s.length, cost = (i, j) => { const L = j - i + 1; let best = Infinity; for (let d = 1; d < L; d++) if (L % d === 0) { let c = 0; for (let r = 0; r < d; r++) { const idx = []; for (let x = i + r; x <= j; x += d) idx.push(x); for (let a = 0, b = idx.length - 1; a < b; a++, b--) if (s[idx[a]] !== s[idx[b]]) c++; } best = Math.min(best, c); } return best; };
-      T.at({ s: A([...s]) }); T.n('Changes to make the whole string a semi-palindrome?', cost(0, n - 1), 'Best divisor d.');
-      let dp = Array(n + 1).fill(Infinity); dp[0] = 0; for (let p = 1; p <= I.k; p++) { const nx = Array(n + 1).fill(Infinity); for (let i = 2 * p; i <= n; i++) for (let j = 2 * (p - 1); j <= i - 2; j++) if (dp[j] < Infinity) nx[i] = Math.min(nx[i], dp[j] + cost(j, i - 1)); dp = nx; if (p > 1) { T.at({ s: A([...s]), parts: p }); T.n(`Least changes with ${p} parts?`, dp[n], 'Best previous split + cost of the last part.'); } }
+      T.at({ s: A([...s]) }); T.n('Changes to make the whole string a semi-palindrome?', cost(0, n - 1), 'Best divisor d.'); T.n(`Divisors to try for length ${n}?`, [...Array(n).keys()].filter(d => d >= 1 && n % d === 0).length, 'Each d below the length that divides it.');
+      let dp = Array(n + 1).fill(Infinity); dp[0] = 0; for (let p = 1; p <= I.k; p++) { const nx = Array(n + 1).fill(Infinity); for (let i = 2 * p; i <= n; i++) for (let j = 2 * (p - 1); j <= i - 2; j++) if (dp[j] < Infinity) nx[i] = Math.min(nx[i], dp[j] + cost(j, i - 1)); dp = nx; if (p > 1) { T.at({ s: A([...s]), parts: p }); T.n(`Least changes with ${p} parts?`, dp[n], 'Best previous split, plus the cost of the last part.'); } }
+      if (I.k === 1) { T.at({ s: A([...s]), parts: 1 }); T.n('Least changes with 1 part?', dp[n], 'The whole string as one part.'); }
       return dp[n];
     }
   });
@@ -113,7 +114,7 @@
     t: 'Strings Rearrangeable to Contain "leet": inclusion–exclusion',
     r: 'Good strings have ≥ 1 l, ≥ 2 e, ≥ 1 t. Count the complement by inclusion–exclusion over "no l", "no t", "at most one e": bad = 3·25ⁿ + n·25ⁿ⁻¹ − 3·24ⁿ − 2n·24ⁿ⁻¹ + 23ⁿ + n·23ⁿ⁻¹. Answer 26ⁿ − bad.',
     g: R => ({ n: R.int(4, 6) }),
-    s(I, T) { const n = I.n; T.at({ n }); T.n(`Strings of length ${n} with no "l" (mod 1e9+7)?`, Number(pw(25, n)), '25ⁿ.'); T.n(`Strings with exactly one "e" (mod 1e9+7)?`, Number(BigInt(n) * pw(25, n - 1) % BM), 'n · 25ⁿ⁻¹.'); const N = BigInt(n), bad = (3n * pw(25, n) + N * pw(25, n - 1) - 3n * pw(24, n) - 2n * N * pw(24, n - 1) + pw(23, n) + N * pw(23, n - 1)) % BM; return Number(((pw(26, n) - bad) % BM + BM) % BM); }
+    s(I, T) { const res = (() => { const n = I.n; T.at({ n }); T.n(`Strings of length ${n} with no "l" (mod 1e9+7)?`, Number(pw(25, n)), '25 to the power n.'); T.n(`Strings with exactly one "e" (mod 1e9+7)?`, Number(BigInt(n) * pw(25, n - 1) % BM), 'n times 25 to the power (n minus 1).'); const N = BigInt(n), bad = (3n * pw(25, n) + N * pw(25, n - 1) - 3n * pw(24, n) - 2n * N * pw(24, n - 1) + pw(23, n) + N * pw(23, n - 1)) % BM; return Number(((pw(26, n) - bad) % BM + BM) % BM); })(); T.n('Good strings (mod 1e9+7)?', res, 'All strings minus the bad ones.'); return res; }
   });
 
   D('minimum-number-of-coins-for-fruits', {
@@ -157,8 +158,10 @@
     g: R => ({ x: R.int(10, 80), y: R.int(1, 6) }),
     s(I, T) {
       const memo = new Map(), f = x => { if (x <= I.y) return I.y - x; if (memo.has(x)) return memo.get(x); let b = x - I.y; for (const d of [5, 11]) { b = Math.min(b, x % d + 1 + f(Math.floor(x / d)), d - x % d + 1 + f(Math.floor(x / d) + 1)); } memo.set(x, b); return b; };
+      T.at({ x: I.x, y: I.y }); T.yn('Is x already at most y?', I.x <= I.y, 'Then only increments help.');
       let x = I.x; while (x > I.y) { const opts = [['walk', `walk to y (${x - I.y})`]], ok = []; if (x - I.y === f(x)) ok.push('walk'); for (const d of [5, 11]) { const dn = x % d + 1 + f(Math.floor(x / d)), up = d - x % d + 1 + f(Math.floor(x / d) + 1); opts.push(['d' + d, `down to a multiple of ${d}, divide`], ['u' + d, `up to a multiple of ${d}, divide`]); if (dn === f(x)) ok.push('d' + d); if (up === f(x)) ok.push('u' + d); }
         T.at({ x, y: I.y }); T.k(`x = ${x}: best plan?`, opts, ok, `Optimal total from here: ${f(x)}.`); const c = ok[0]; if (c === 'walk') break; const d = +c.slice(1); x = c[0] === 'd' ? Math.floor(x / d) : Math.floor(x / d) + 1; }
+      T.at({ x: I.x, y: I.y }); T.n('Fewest operations?', f(I.x), 'The best plan from the start.');
       return f(I.x);
     }
   });
@@ -169,7 +172,7 @@
     g: R => ({ start: R.int(1, 30), finish: R.int(100, 900), limit: R.int(2, 6), s: String(R.int(1, 2)) }),
     s(I, T) {
       const cnt = N => { const t = String(N), L = I.s.length; if (t.length < L) return 0; if (t.length === L) return +t >= +I.s ? 1 : 0; const pre = t.slice(0, t.length - L), suf = t.slice(t.length - L); let r = 0; for (let i = 0; i < pre.length; i++) { const d = +pre[i]; if (d > I.limit) return r + (I.limit + 1) ** (pre.length - i); r += d * (I.limit + 1) ** (pre.length - i - 1); } return r + (suf >= I.s ? 1 : 0); };
-      const a = cnt(I.finish), b = cnt(I.start - 1); T.at({ s: I.s, limit: I.limit }); T.n(`Powerful integers ≤ ${I.finish}?`, a, 'Prefix digits ≤ limit, then check the suffix.'); T.n(`Powerful integers ≤ ${I.start - 1}?`, b, 'Same count on the lower bound.'); return a - b;
+      const a = cnt(I.finish), b = cnt(I.start - 1); T.at({ s: I.s, limit: I.limit }); T.n(`Powerful integers up to ${I.finish}?`, a, 'Prefix digits at most limit, then check the suffix.'); T.n(`Powerful integers up to ${I.start - 1}?`, b, 'Same count on the lower bound.'); T.n('Powerful integers in range?', a - b, 'Subtract the two counts.'); return a - b;
     }
   });
 
@@ -177,7 +180,7 @@
     t: 'Maximize Partitions After One Change: greedy partitions, try every change',
     r: 'Partitioning is greedy: take the longest prefix with at most k distinct letters, repeat. Changing one letter can split more. Here: count greedily, then try every single-letter change.',
     g: R => ({ s: R.str(R.int(4, 6), 'abc'), k: R.int(1, 2) }),
-    s(I, T) { const part = s => { let c = 0, set = new Set(); for (const ch of s) { set.add(ch); if (set.size > I.k) { c++; set = new Set([ch]); } } return c + 1; }; const base = part(I.s); T.at({ s: A([...I.s]), k: I.k }); T.n('Partitions with no change?', base, 'Greedy longest prefix with ≤ k distinct letters.'); let best = base; for (let i = 0; i < I.s.length; i++) for (const c of 'abcdefghijklmnopqrstuvwxyz') best = Math.max(best, part(I.s.slice(0, i) + c + I.s.slice(i + 1))); T.n('Most partitions after changing at most one letter?', best, 'Try every position and letter.'); return best; }
+    s(I, T) { const part = s => { let c = 0, set = new Set(); for (const ch of s) { set.add(ch); if (set.size > I.k) { c++; set = new Set([ch]); } } return c + 1; }; const base = part(I.s); T.at({ s: A([...I.s]), k: I.k }); T.n('Distinct letters in s?', new Set(I.s).size, 'Compare with k.'); T.n('Partitions with no change?', base, 'Greedy longest prefix with at most k distinct letters.'); let best = base; for (let i = 0; i < I.s.length; i++) for (const c of 'abcdefghijklmnopqrstuvwxyz') best = Math.max(best, part(I.s.slice(0, i) + c + I.s.slice(i + 1))); T.n('Most partitions after changing at most one letter?', best, 'Try every position and letter.'); return best; }
   });
 
   D('maximum-number-that-sum-of-the-prices-is-less-than-or-equal-to-k', {

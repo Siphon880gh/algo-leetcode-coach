@@ -5,7 +5,7 @@ return [
     'title' => 'Minimum Operations to Make Array Sum Divisible by K: the remainder',
     'leetcode' => 3512,
     'difficulty' => 'Easy',
-    'summary' => 'Each operation lowers the sum by 1, so the answer is sum mod k.',
+    'summary' => 'Each operation lowers the sum by 1, so the answer is the remainder of the sum divided by k.',
     'category' => 'LeetCode',
     'subcategory' => 'Math',
     'topic' => 'LeetCode · Math',

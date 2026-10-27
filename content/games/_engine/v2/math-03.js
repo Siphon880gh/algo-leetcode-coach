@@ -20,7 +20,7 @@
     t: 'Valid Boomerang: non-zero cross product',
     r: 'Three points form a boomerang when they are not collinear (which also rules out duplicates): (p2 − p1) × (p3 − p1) ≠ 0.',
     g: R => ({ points: Array.from({ length: 3 }, () => [R.int(0, 4), R.int(0, 4)]) }),
-    s(I, T) { const [a, b, c] = I.points, cr = (b[0] - a[0]) * (c[1] - a[1]) - (b[1] - a[1]) * (c[0] - a[0]); T.at({ points: A(I.points.map(p => `(${p})`)) }); T.n('Cross product (p2 − p1) × (p3 − p1)?', cr, 'Zero means collinear (or repeated).'); return cr !== 0; }
+    s(I, T) { const res = (() => { const [a, b, c] = I.points, cr = (b[0] - a[0]) * (c[1] - a[1]) - (b[1] - a[1]) * (c[0] - a[0]); T.at({ points: A(I.points.map(p => `(${p})`)) }); T.yn('Are any two points the same?', I.points.some((p, i) => I.points.some((q, j) => i < j && p[0] === q[0] && p[1] === q[1])), 'Repeated points never make a boomerang.'); T.n('Cross product of (p2 minus p1) and (p3 minus p1)?', cr, 'Zero means the points are on one line, or repeated.'); return cr !== 0; })(); T.yn('Is it a boomerang?', res, 'The cross product is not zero.'); return res; }
   });
 
   D('robot-bounded-in-circle', {
@@ -34,14 +34,14 @@
     t: 'Confusing Number: rotate each digit',
     r: 'Every digit must be rotatable (0→0, 1→1, 6→9, 8→8, 9→6). Build the rotated number by reading digits from the right. It is confusing when that differs from n.',
     g: R => ({ n: R.pick([R.int(0, 999), +R.str(R.int(1, 4), '01689').replace(/^0+(?=.)/, '')]) }),
-    s(I, T) { const M = { 0: 0, 1: 1, 6: 9, 8: 8, 9: 6 }, s = String(I.n); const ok = [...s].every(c => c in M); T.at({ n: I.n }); T.yn('Are all digits rotatable?', ok, 'Only 0, 1, 6, 8, 9 rotate into digits.'); if (!ok) return false; let r = 0; for (let i = s.length - 1; i >= 0; i--) r = r * 10 + M[s[i]]; T.n('Rotated number?', r, 'Rotate each digit, reading from the right.'); return r !== I.n; }
+    s(I, T) { const res = (() => { const M = { 0: 0, 1: 1, 6: 9, 8: 8, 9: 6 }, s = String(I.n); const ok = [...s].every(c => c in M); T.at({ n: I.n }); T.yn('Are all digits rotatable?', ok, 'Only 0, 1, 6, 8, 9 rotate into digits.'); if (!ok) return false; let r = 0; for (let i = s.length - 1; i >= 0; i--) r = r * 10 + M[s[i]]; T.n('Rotated number?', r, 'Rotate each digit, reading from the right.'); return r !== I.n; })(); T.yn('Is n a confusing number?', res, 'It rotates into a different valid number.'); return res; }
   });
 
   D('greatest-common-divisor-of-strings', {
     t: 'GCD of Strings: concatenation test, then gcd of lengths',
     r: 'A common divisor exists only if str1 + str2 == str2 + str1. Then the answer is the prefix of length gcd(len1, len2).',
     g: R => { const b = R.str(R.int(1, 3), 'AB'); return R.chance(0.7) ? { str1: b.repeat(R.int(1, 4)), str2: b.repeat(R.int(1, 3)) } : { str1: R.str(R.int(2, 6), 'AB'), str2: R.str(R.int(1, 4), 'AB') }; },
-    s(I, T) { const ok = I.str1 + I.str2 === I.str2 + I.str1; T.at({ str1: I.str1, str2: I.str2 }); T.yn('Is str1 + str2 equal to str2 + str1?', ok, 'Both must be built from one repeated block.'); if (!ok) return ''; const g = gcd(I.str1.length, I.str2.length); T.n('gcd of the lengths?', g, `gcd(${I.str1.length}, ${I.str2.length}).`); return I.str1.slice(0, g); }
+    s(I, T) { const res = (() => { const ok = I.str1 + I.str2 === I.str2 + I.str1; T.at({ str1: I.str1, str2: I.str2 }); T.yn('Is str1 + str2 equal to str2 + str1?', ok, 'Both must be built from one repeated block.'); if (!ok) return ''; const g = gcd(I.str1.length, I.str2.length); T.n('Greatest common divisor of the lengths?', g, `Of ${I.str1.length} and ${I.str2.length}.`); return I.str1.slice(0, g); })(); T.n('Length of the answer (0 if none)?', res.length, 'The prefix of that length, if the check passed.'); return res; }
   });
 
   D('adding-two-negabinary-numbers', {
@@ -55,7 +55,7 @@
     t: 'Sum of Digits in the Minimum Number',
     r: 'Find the minimum, add its digits, and return 1 if the sum is even, otherwise 0.',
     g: R => ({ nums: R.ints(R.int(2, 6), 1, 100) }),
-    s(I, T) { const m = Math.min(...I.nums), s = [...String(m)].reduce((a, c) => a + +c, 0); T.at({ nums: A(I.nums) }); T.n('Minimum?', m, 'Smallest value.'); T.n('Its digit sum?', s, 'Add the digits.'); return s % 2 ? 0 : 1; }
+    s(I, T) { const res = (() => { const m = Math.min(...I.nums), s = [...String(m)].reduce((a, c) => a + +c, 0); T.at({ nums: A(I.nums) }); T.n('Minimum?', m, 'Smallest value.'); T.n('Its digit sum?', s, 'Add the digits.'); return s % 2 ? 0 : 1; })(); T.n('Answer?', res, '1 if the digit sum is even, 0 if it is odd.'); return res; }
   });
 
   D('statistics-from-a-large-sample', {
@@ -76,7 +76,7 @@
     t: 'Number of Days in a Month: the leap-year rule',
     r: 'February has 29 days in leap years (divisible by 4, but not by 100 unless also by 400) and 28 otherwise. April, June, September and November have 30; the rest 31.',
     g: R => ({ year: R.pick([R.int(1583, 2100), 1900, 2000, 2024]), month: R.int(1, 12) }),
-    s(I, T) { T.at({ year: I.year, month: I.month }); if (I.month === 2) { T.yn(`Is ${I.year} a leap year?`, leap(I.year), 'Divisible by 4, and not by 100 unless by 400.'); return leap(I.year) ? 29 : 28; } T.yn('Is this a 30-day month?', [4, 6, 9, 11].includes(I.month), 'April, June, September, November.'); return MD[I.month - 1]; }
+    s(I, T) { const res = (() => { T.at({ year: I.year, month: I.month }); T.yn('Is it February?', I.month === 2, 'Only February depends on the year.'); if (I.month === 2) { T.yn(`Is ${I.year} a leap year?`, leap(I.year), 'Divisible by 4, and not by 100 unless by 400.'); return leap(I.year) ? 29 : 28; } T.yn('Is this a 30-day month?', [4, 6, 9, 11].includes(I.month), 'April, June, September, November.'); return MD[I.month - 1]; })(); T.n('Days in the month?', res, 'Read it off the month lengths.'); return res; }
   });
 
   D('maximum-of-absolute-value-expression', {
@@ -90,21 +90,21 @@
     t: 'Armstrong Number: k-th powers of the digits',
     r: 'With k digits, sum each digit raised to the k-th power and compare with n.',
     g: R => ({ n: R.pick([153, 370, 371, 407, 9474, R.int(1, 9999)]) }),
-    s(I, T) { const s = String(I.n), k = s.length, t = [...s].reduce((a, c) => a + (+c) ** k, 0); T.at({ n: I.n, k }); T.n(`Sum of the digits to the power ${k}?`, t, 'Add each digit^k.'); return t === I.n; }
+    s(I, T) { const res = (() => { const s = String(I.n), k = s.length, t = [...s].reduce((a, c) => a + (+c) ** k, 0); T.at({ n: I.n, k }); T.n('Number of digits?', k, 'This is the power to use.'); T.n(`Sum of the digits to the power ${k}?`, t, 'Raise each digit to the power k, then add.'); return t === I.n; })(); T.yn('Is n an Armstrong number?', res, 'The sum must equal n.'); return res; }
   });
 
   D('day-of-the-year', {
     t: 'Day of the Year: add up earlier months',
     r: 'Add the lengths of the months before this one (February gets 29 in leap years) and then the day.',
     g: R => { const y = R.pick([1900, 2000, 2016, R.int(1900, 2019)]), m = R.int(1, 12); return { date: `${y}-${String(m).padStart(2, '0')}-${String(R.int(1, MD[m - 1])).padStart(2, '0')}` }; },
-    s(I, T) { const [y, m, d] = I.date.split('-').map(Number); if (m > 2) { T.at({ date: I.date }); T.yn(`Is ${y} a leap year?`, leap(y), 'Divisible by 4, and not by 100 unless by 400.'); } let t = 0; for (let k = 1; k < m; k++) t += MD[k - 1] + (k === 2 && leap(y) ? 1 : 0); T.at({ date: I.date }); T.n('Days in the months before this one?', t, 'Sum the earlier month lengths.'); return t + d; }
+    s(I, T) { const res = (() => { const [y, m, d] = I.date.split('-').map(Number); if (m > 2) { T.at({ date: I.date }); T.yn(`Is ${y} a leap year?`, leap(y), 'Divisible by 4, and not by 100 unless by 400.'); } let t = 0; for (let k = 1; k < m; k++) t += MD[k - 1] + (k === 2 && leap(y) ? 1 : 0); T.at({ date: I.date }); T.n('Days in the months before this one?', t, 'Sum the earlier month lengths.'); return t + d; })(); T.n('Day of the year?', res, 'Earlier months plus the day.'); return res; }
   });
 
   D('prime-arrangements', {
     t: 'Prime Arrangements: p! · (n − p)!',
     r: 'Count the primes p ≤ n. Primes can be permuted among the p prime positions and the rest among the others: p! · (n − p)! mod 10^9 + 7.',
     g: R => ({ n: R.int(1, 30) }),
-    s(I, T) { let p = 0; for (let i = 2; i <= I.n; i++) if (isPrime(i)) p++; T.at({ n: I.n }); T.n(`Primes up to ${I.n}?`, p, 'Count them.'); const M = 1000000007n; let r = 1n; for (let i = 2n; i <= BigInt(p); i++) r = r * i % M; for (let i = 2n; i <= BigInt(I.n - p); i++) r = r * i % M; return Number(r); }
+    s(I, T) { const res = (() => { let p = 0; for (let i = 2; i <= I.n; i++) if (isPrime(i)) p++; T.at({ n: I.n }); T.n(`Primes up to ${I.n}?`, p, 'Count them.'); T.n(`Non-prime numbers up to ${I.n}?`, I.n - p, 'They fill the other positions.'); const M = 1000000007n; let r = 1n; for (let i = 2n; i <= BigInt(p); i++) r = r * i % M; for (let i = 2n; i <= BigInt(I.n - p); i++) r = r * i % M; return Number(r); })(); T.n('Arrangements, mod 1000000007?', res, 'Primes factorial times non-primes factorial.'); return res; }
   });
 
   D('count-substrings-with-only-one-distinct-letter', {
@@ -118,7 +118,7 @@
     t: 'Day of the Week: count days from a known date',
     r: '1971-01-01 was a Friday. Count the days from then to the date (full years, then months, then days) and step that many weekdays forward mod 7.',
     g: R => { const y = R.int(1971, 2100), m = R.int(1, 12); return { day: R.int(1, MD[m - 1]), month: m, year: y }; },
-    s(I, T) { const W = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'], t = daysFrom1971(I.year, I.month, I.day); T.at({ date: `${I.year}-${I.month}-${I.day}`, anchor: '1971-01-01 = Friday' }); T.n('Days since 1971-01-01, mod 7?', t % 7, 'Count the days, then take mod 7.'); return W[(5 + t) % 7]; }
+    s(I, T) { const res = (() => { const W = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'], t = daysFrom1971(I.year, I.month, I.day); T.at({ date: `${I.year}-${I.month}-${I.day}`, anchor: '1971-01-01 = Friday' }); T.n('Days since 1971-01-01?', t, 'Full years, then months, then days.'); T.n('Days since 1971-01-01, mod 7?', t % 7, 'Count the days, then take mod 7.'); return W[(5 + t) % 7]; })(); T.c('Day of the week?', ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'], res, 'Count forward from Friday.'); return res; }
   });
 
   D('check-if-it-is-a-straight-line', {
@@ -139,7 +139,7 @@
     t: 'Cells With Odd Values: count odd rows and odd columns',
     r: 'A cell is odd when exactly one of its row and column was incremented an odd number of times. With ro odd rows and co odd columns: ro·(n − co) + (m − ro)·co.',
     g: R => { const m = R.int(1, 4), n = R.int(1, 4); return { m, n, indices: Array.from({ length: R.int(1, 4) }, () => [R.int(0, m - 1), R.int(0, n - 1)]) }; },
-    s(I, T) { const r = Array(I.m).fill(0), c = Array(I.n).fill(0); I.indices.forEach(([a, b]) => { r[a] ^= 1; c[b] ^= 1; }); const ro = r.reduce((s, v) => s + v, 0), co = c.reduce((s, v) => s + v, 0); T.at({ rowParity: A(r), colParity: A(c) }); T.n('Rows incremented an odd number of times?', ro, 'Toggle a parity bit per operation.'); T.n('Odd columns?', co, 'Same for columns.'); return ro * (I.n - co) + (I.m - ro) * co; }
+    s(I, T) { const res = (() => { const r = Array(I.m).fill(0), c = Array(I.n).fill(0); I.indices.forEach(([a, b]) => { r[a] ^= 1; c[b] ^= 1; }); const ro = r.reduce((s, v) => s + v, 0), co = c.reduce((s, v) => s + v, 0); T.at({ rowParity: A(r), colParity: A(c) }); T.n('Rows incremented an odd number of times?', ro, 'Toggle a parity bit per operation.'); T.n('Odd columns?', co, 'Same for columns.'); return ro * (I.n - co) + (I.m - ro) * co; })(); T.n('Cells with odd values?', res, 'Odd row with even column, or even row with odd column.'); return res; }
   });
 
   D('minimum-time-visiting-all-points', {
@@ -160,14 +160,14 @@
     t: 'Burgers With No Waste: solve two linear equations',
     r: '4J + 2S = tomato, J + S = cheese ⇒ J = (tomato − 2·cheese) / 2, S = cheese − J. Valid only if both are non-negative integers.',
     g: R => { const j = R.int(0, 6), s = R.int(0, 6); return R.chance(0.7) ? { tomatoSlices: 4 * j + 2 * s, cheeseSlices: j + s } : { tomatoSlices: R.int(0, 30), cheeseSlices: R.int(0, 10) }; },
-    s(I, T) { const d = I.tomatoSlices - 2 * I.cheeseSlices; T.at({ tomato: I.tomatoSlices, cheese: I.cheeseSlices }); T.n('tomato − 2·cheese?', d, 'Twice the jumbo count.'); if (d < 0 || d % 2) return []; const j = d / 2, s = I.cheeseSlices - j; T.n('Jumbo burgers?', j, 'Half of that.'); return s < 0 ? [] : [j, s]; }
+    s(I, T) { const res = (() => { const d = I.tomatoSlices - 2 * I.cheeseSlices; T.at({ tomato: I.tomatoSlices, cheese: I.cheeseSlices }); T.n('Tomato slices minus twice the cheese slices?', d, 'Twice the jumbo count.'); if (d < 0 || d % 2) return []; const j = d / 2, s = I.cheeseSlices - j; T.n('Jumbo burgers?', j, 'Half of that.'); return s < 0 ? [] : [j, s]; })(); T.yn('Is a plan with no waste possible?', res.length > 0, 'Both counts must be whole and not negative.'); return res; }
   });
 
   D('subtract-the-product-and-sum-of-digits-of-an-integer', {
     t: 'Subtract the Product and Sum of Digits',
     r: 'Peel digits with % 10, multiply them into the product and add them into the sum; return product − sum.',
     g: R => ({ n: R.int(1, 99999) }),
-    s(I, T) { const d = [...String(I.n)].map(Number), p = d.reduce((a, b) => a * b, 1), s = d.reduce((a, b) => a + b, 0); T.at({ digits: A(d) }); T.n('Product of digits?', p, 'Multiply them.'); T.n('Sum of digits?', s, 'Add them.'); return p - s; }
+    s(I, T) { const res = (() => { const d = [...String(I.n)].map(Number), p = d.reduce((a, b) => a * b, 1), s = d.reduce((a, b) => a + b, 0); T.at({ digits: A(d) }); T.n('Product of digits?', p, 'Multiply them.'); T.n('Sum of digits?', s, 'Add them.'); return p - s; })(); T.n('Product minus sum?', res, 'Subtract.'); return res; }
   });
 
   D('find-numbers-with-even-number-of-digits', {
@@ -182,7 +182,7 @@
     r: 'Add pairs i and −i for i = 1 … ⌊n/2⌋, and a 0 when n is odd.',
     g: R => ({ n: R.int(1, 8) }),
     cmp: (out, exp, I) => out.length === I.n && new Set(out).size === I.n && out.reduce((a, b) => a + b, 0) === 0,
-    s(I, T) { T.at({ n: I.n }); T.yn('Does the answer need a 0?', I.n % 2 === 1, 'Odd n: pairs cover n − 1 slots.'); T.n('How many ± pairs?', Math.floor(I.n / 2), '⌊n / 2⌋.'); const out = []; for (let i = 1; i <= I.n / 2; i++) out.push(i, -i); if (I.n % 2) out.push(0); return out; }
+    s(I, T) { T.at({ n: I.n }); T.yn('Does the answer need a 0?', I.n % 2 === 1, 'Odd n: pairs cover n − 1 slots.'); T.n('How many pairs of i and −i?', Math.floor(I.n / 2), 'Half of n, rounded down.'); T.n('Smallest value in the answer?', -Math.floor(I.n / 2), 'The negative side of the largest pair.'); const out = []; for (let i = 1; i <= I.n / 2; i++) out.push(i, -i); if (I.n % 2) out.push(0); return out; }
   });
 
   D('convert-integer-to-the-sum-of-two-no-zero-integers', {
@@ -197,21 +197,21 @@
     t: 'Angle Between Clock Hands: 6° per minute, 0.5° drift per minute',
     r: 'Minute hand: 6·m. Hour hand: 30·(h mod 12) + 0.5·m. Take the difference d and return min(d, 360 − d).',
     g: R => ({ hour: R.int(1, 12), minutes: R.int(0, 59) }), cmp: 'float',
-    s(I, T) { const m = 6 * I.minutes, h = 30 * (I.hour % 12) + 0.5 * I.minutes, d = Math.abs(m - h); T.at({ time: `${I.hour}:${String(I.minutes).padStart(2, '0')}` }); T.n('Minute hand angle?', m, '6° per minute.'); T.n('Hour hand angle?', h, '30° per hour + 0.5° per minute.'); return Math.min(d, 360 - d); }
+    s(I, T) { const res = (() => { const m = 6 * I.minutes, h = 30 * (I.hour % 12) + 0.5 * I.minutes, d = Math.abs(m - h); T.at({ time: `${I.hour}:${String(I.minutes).padStart(2, '0')}` }); T.n('Minute hand angle?', m, '6° per minute.'); T.n('Hour hand angle?', h, '30° per hour plus 0.5° per minute.'); return Math.min(d, 360 - d); })(); T.n('Smaller angle between the hands?', res, 'The gap, or 360 minus the gap.'); return res; }
   });
 
   D('number-of-days-between-two-dates', {
     t: 'Days Between Two Dates: count from a fixed day',
     r: 'Convert each date to days since 1971-01-01 (years, then months with the leap rule, then days) and return the absolute difference.',
     g: R => { const d = () => { const y = R.int(1971, 2100), m = R.int(1, 12); return `${y}-${String(m).padStart(2, '0')}-${String(R.int(1, MD[m - 1])).padStart(2, '0')}`; }; return { date1: d(), date2: d() }; },
-    s(I, T) { const f = s => { const [y, m, d] = s.split('-').map(Number); return daysFrom1971(y, m, d); }, a = f(I.date1), b = f(I.date2); T.at({ date1: I.date1, date2: I.date2 }); T.n(`Days from 1971-01-01 to ${I.date1}?`, a, 'Full years, then months, then days.'); T.n(`Days from 1971-01-01 to ${I.date2}?`, b, 'Same count.'); return Math.abs(a - b); }
+    s(I, T) { const res = (() => { const f = s => { const [y, m, d] = s.split('-').map(Number); return daysFrom1971(y, m, d); }, a = f(I.date1), b = f(I.date2); T.at({ date1: I.date1, date2: I.date2 }); T.n(`Days from 1971-01-01 to ${I.date1}?`, a, 'Full years, then months, then days.'); T.n(`Days from 1971-01-01 to ${I.date2}?`, b, 'Same count.'); return Math.abs(a - b); })(); T.n('Days between the dates?', res, 'The difference of the two counts.'); return res; }
   });
 
   D('closest-divisors', {
     t: 'Closest Divisors: search down from the square root',
     r: 'For x = num + 1 and x = num + 2, the closest factor pair has its smaller factor the largest divisor ≤ √x. Compare the two pairs.',
     g: R => ({ num: R.int(1, 300) }), cmp: 'set',
-    s(I, T) { const best = x => { for (let d = Math.floor(Math.sqrt(x)); d >= 1; d--) if (x % d === 0) return [d, x / d]; }; const a = best(I.num + 1), b = best(I.num + 2); T.at({ num: I.num }); T.n(`Largest divisor of ${I.num + 1} that is ≤ its square root?`, a[0], 'Walk down from ⌊√x⌋.'); T.n(`Largest divisor of ${I.num + 2} that is ≤ its square root?`, b[0], 'Walk down from ⌊√x⌋.'); return a[1] - a[0] <= b[1] - b[0] ? a : b; }
+    s(I, T) { const best = x => { for (let d = Math.floor(Math.sqrt(x)); d >= 1; d--) if (x % d === 0) return [d, x / d]; }; const a = best(I.num + 1), b = best(I.num + 2); T.at({ num: I.num }); T.n(`Largest divisor of ${I.num + 1} that is at most its square root?`, a[0], 'Walk down from the square root, rounded down.'); T.n(`Largest divisor of ${I.num + 2} that is at most its square root?`, b[0], 'Walk down from the square root, rounded down.'); T.n('Smallest difference between the two divisors?', Math.min(a[1] - a[0], b[1] - b[0]), 'Keep the closer pair.'); return a[1] - a[0] <= b[1] - b[0] ? a : b; }
   });
 
   D('four-divisors', {
@@ -225,14 +225,14 @@
     t: 'Count Largest Group: bucket by digit sum',
     r: 'Bucket 1…n by digit sum, find the largest bucket size, and count how many buckets have that size.',
     g: R => ({ n: R.int(1, 60) }),
-    s(I, T) { const c = {}; for (let i = 1; i <= I.n; i++) { const s = [...String(i)].reduce((a, d) => a + +d, 0); c[s] = (c[s] || 0) + 1; } const mx = Math.max(...Object.values(c)); T.at({ groups: K(c) }); T.n('Largest group size?', mx, 'Biggest bucket.'); return Object.values(c).filter(v => v === mx).length; }
+    s(I, T) { const res = (() => { const c = {}; for (let i = 1; i <= I.n; i++) { const s = [...String(i)].reduce((a, d) => a + +d, 0); c[s] = (c[s] || 0) + 1; } const mx = Math.max(...Object.values(c)); T.at({ groups: K(c) }); T.n('How many digit-sum groups are there?', Object.keys(c).length, 'One per digit sum.'); T.n('Largest group size?', mx, 'Biggest bucket.'); return Object.values(c).filter(v => v === mx).length; })(); T.n('Groups of the largest size?', res, 'Count the buckets of that size.'); return res; }
   });
 
   D('perform-string-shifts', {
     t: 'Perform String Shifts: net shift once',
     r: 'Add right shifts and subtract left shifts, take it mod n, and rotate once: the last k characters move to the front.',
     g: R => ({ s: R.str(R.int(2, 6), 'abcdefg'), shift: Array.from({ length: R.int(1, 4) }, () => [R.int(0, 1), R.int(0, 5)]) }),
-    s(I, T) { const n = I.s.length, net = I.shift.reduce((a, [d, k]) => a + (d ? k : -k), 0), k = ((net % n) + n) % n; T.at({ s: I.s, shifts: A(I.shift.map(x => `${x[0] ? 'R' : 'L'}${x[1]}`)) }); T.n('Net right shift mod n?', k, 'Right adds, left subtracts.'); return I.s.slice(n - k) + I.s.slice(0, n - k); }
+    s(I, T) { const n = I.s.length, net = I.shift.reduce((a, [d, k]) => a + (d ? k : -k), 0), k = ((net % n) + n) % n; T.at({ s: I.s, shifts: A(I.shift.map(x => `${x[0] ? 'R' : 'L'}${x[1]}`)) }); T.n('Net right shift, before taking the remainder?', net, 'Right adds, left subtracts.'); T.n('Net right shift, modulo the length?', k, 'Wrap it into the range 0 to n − 1.'); T.c('First letter of the result?', [...new Set([I.s[(n - k) % n], ...I.s])], I.s[(n - k) % n], 'The last k letters move to the front.'); return I.s.slice(n - k) + I.s.slice(0, n - k); }
   });
 
   D('simplified-fractions', {
@@ -260,6 +260,6 @@
     t: 'Can Make Arithmetic Progression: sort and check the step',
     r: 'Sort; the common difference must be a[1] − a[0], and every neighbor gap must match it.',
     g: R => { const a = R.int(-5, 5), d = R.int(-3, 3), n = R.int(2, 5), arr = Array.from({ length: n }, (_, i) => a + i * d); if (R.chance(0.4)) arr[R.int(0, n - 1)] += 1; return { arr: R.shuffle(arr) }; },
-    s(I, T) { const a = I.arr.slice().sort((x, y) => x - y), d = a[1] - a[0]; T.at({ sorted: A(a) }); T.n('Common difference?', d, 'a[1] − a[0] after sorting.'); for (let i = 2; i < a.length; i++) if (a[i] - a[i - 1] !== d) { T.at({ sorted: A(a, { hl: [i - 1, i] }) }); T.n(`Gap at index ${i}?`, a[i] - a[i - 1], 'It differs from the common difference.'); return false; } return true; }
+    s(I, T) { const res = (() => { const a = I.arr.slice().sort((x, y) => x - y), d = a[1] - a[0]; T.at({ sorted: A(a) }); T.n('Common difference?', d, 'a[1] − a[0] after sorting.'); T.n('Largest value minus smallest?', a[a.length - 1] - a[0], 'It must be (n − 1) times the difference.'); for (let i = 2; i < a.length; i++) if (a[i] - a[i - 1] !== d) { T.at({ sorted: A(a, { hl: [i - 1, i] }) }); T.n(`Gap at index ${i}?`, a[i] - a[i - 1], 'It differs from the common difference.'); return false; } return true; })(); T.yn('Can it form an arithmetic progression?', res, 'Every gap must match.'); return res; }
   });
 })();

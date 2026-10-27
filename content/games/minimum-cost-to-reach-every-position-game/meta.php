@@ -5,7 +5,7 @@ return [
     'title' => 'Minimum Cost to Reach Every Position: prefix minimum',
     'leetcode' => 3502,
     'difficulty' => 'Easy',
-    'summary' => 'Pay once to swap with someone ahead, then everyone behind you swaps for free. So reaching i costs the cheapest cost among positions 0 … i.',
+    'summary' => 'Pay once to swap with someone ahead, and everyone behind them then swaps with you for free. So reaching position i costs the cheapest cost among positions 0 to i: a running minimum.',
     'category' => 'LeetCode',
     'subcategory' => 'Arrays',
     'topic' => 'LeetCode · Arrays',

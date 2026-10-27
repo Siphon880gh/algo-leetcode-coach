@@ -5,7 +5,7 @@ return [
     'title' => 'Reverse Degree of a String: one weighted sum',
     'leetcode' => 3498,
     'difficulty' => 'Easy',
-    'summary' => 'Add (26 − (c − a)) · position for each character, with 1-based positions.',
+    'summary' => 'Each letter has a reverse value: 26 for a, 25 for b, down to 1 for z. Multiply it by the letter position (starting at 1) and add everything up.',
     'category' => 'LeetCode',
     'subcategory' => 'Strings',
     'topic' => 'LeetCode · Strings',

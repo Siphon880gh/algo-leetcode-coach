@@ -49,9 +49,9 @@
 
   D('number-of-ways-to-assign-edge-weights-i', {
     t: 'Number of Ways to Assign Edge Weights I',
-    r: 'Only the path from node 1 to a deepest node matters. With L edges, flipping the last edge between 1 and 2 changes the parity, so exactly half of the 2^L assignments are odd: 2^(L−1).',
+    r: 'Only the path from node 1 to a deepest node matters. With L edges, flipping the last edge between 1 and 2 changes the parity, so exactly half of the 2 to the power L assignments are odd: 2 to the power (L minus 1).',
     g: R => { const n = R.int(2, 8), edges = []; for (let i = 2; i <= n; i++) edges.push([R.int(1, i - 1), i]); return { edges }; },
-    s(I, T) { const n = I.edges.length + 1, { order, par } = kids(n, I.edges, 1, 1), d = Array(n + 1).fill(0); order.slice(1).forEach(v => d[v] = d[par[v]] + 1); const D2 = Math.max(...d); T.v(GR(range(1, n + 1), I.edges, { tag: Object.fromEntries(order.map(v => [v, 'd' + d[v]])) })); T.n('Edges on the path from 1 to a deepest node?', D2, 'Maximum depth (BFS from node 1).'); T.n('Ways to make that path\'s cost odd?', Math.pow(2, D2 - 1) % MOD, 'Half of 2^L assignments.'); let r = 1; for (let i = 1; i < D2; i++) r = r * 2 % MOD; return r; }
+    s(I, T) { const n = I.edges.length + 1, { order, par } = kids(n, I.edges, 1, 1), d = Array(n + 1).fill(0); order.slice(1).forEach(v => d[v] = d[par[v]] + 1); const D2 = Math.max(...d); T.v(GR(range(1, n + 1), I.edges, { tag: Object.fromEntries(order.map(v => [v, 'd' + d[v]])) })); T.n('Smallest label of a deepest node?', d.indexOf(D2), 'BFS depths from node 1.'); T.n('Edges on the path from 1 to a deepest node?', D2, 'Maximum depth (BFS from node 1).'); T.n('Ways to make that path\'s cost odd?', Math.pow(2, D2 - 1) % MOD, 'Half of the 2 to the power L assignments.'); let r = 1; for (let i = 1; i < D2; i++) r = r * 2 % MOD; return r; }
   });
 
   D('number-of-ways-to-assign-edge-weights-ii', {
@@ -93,7 +93,7 @@
     t: 'Minimum Increments to Equalize Leaf Paths',
     r: 'Compute best[u] = cost[u] + max best[child] bottom-up. At every node, each child whose best is below the largest child best must be raised once (raise that child itself), so count those children.',
     g: R => { const n = R.int(2, 7), edges = []; for (let i = 1; i < n; i++) edges.push([R.int(0, i - 1), i]); return { n, edges, cost: R.ints(n, 1, 6) }; },
-    s(I, T) { const { ch, order } = kids(I.n, I.edges, 0), best = Array(I.n).fill(0); let tot = 0; order.slice().reverse().forEach(u => { const b = ch[u].map(c => best[c]), mx = b.length ? Math.max(...b) : 0; best[u] = I.cost[u] + mx; if (ch[u].length > 1) { const c = b.filter(x => x < mx).length; tot += c; T.v(GR(I.n, I.edges, { cls: { [u]: 'hit' }, tag: Object.fromEntries(range(0, I.n).map(x => [x, 'c' + I.cost[x] + (order.indexOf(x) > order.indexOf(u) ? ' b' + best[x] : '')])) })); T.n(`Children of node ${u} that need an increment?`, c, `Child path sums ${b.join(', ')}; every one below ${mx} is raised once.`); } }); return tot; }
+    s(I, T) { const { ch, order } = kids(I.n, I.edges, 0), best = Array(I.n).fill(0); let tot = 0; T.v(GR(I.n, I.edges, { tag: Object.fromEntries(range(0, I.n).map(x => [x, 'c' + I.cost[x]])) })); T.n('How many leaves?', ch.filter((c, u) => u !== 0 && !c.length).length + (ch[0].length ? 0 : 1), 'Nodes with no children.'); order.slice().reverse().forEach(u => { const b = ch[u].map(c => best[c]), mx = b.length ? Math.max(...b) : 0; best[u] = I.cost[u] + mx; if (ch[u].length > 1) { const c = b.filter(x => x < mx).length; tot += c; T.v(GR(I.n, I.edges, { cls: { [u]: 'hit' }, tag: Object.fromEntries(range(0, I.n).map(x => [x, 'c' + I.cost[x] + (order.indexOf(x) > order.indexOf(u) ? ' b' + best[x] : '')])) })); T.n(`Children of node ${u} that need an increment?`, c, `Child path sums ${b.join(', ')}; every one below ${mx} is raised once.`); } }); T.n('Largest root to leaf path sum?', best[0], 'Every other leaf path is raised to this.'); return tot; }
   });
 
   D('sum-of-perfect-square-ancestors', {

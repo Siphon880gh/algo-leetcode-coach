@@ -9,7 +9,7 @@
     t: 'First Missing Positive',
     r: 'Cyclic placement: swap each value v in 1..n into slot v − 1 until it is there (or a duplicate). Then the first index i with nums[i] ≠ i + 1 gives i + 1; otherwise n + 1.',
     g: R => ({ nums: R.ints(R.int(1, 7), -2, 8) }),
-    s(I, T) { const a = I.nums.slice(), n = a.length; for (let i = 0; i < n; i++) while (a[i] > 0 && a[i] <= n && a[a[i] - 1] !== a[i]) { const j = a[i] - 1; [a[i], a[j]] = [a[j], a[i]]; } T.at({ placed: A(a) }); T.n('How many slots i hold i + 1?', a.filter((v, i) => v === i + 1).length, 'After cyclic placement.'); for (let i = 0; i < n; i++) if (a[i] !== i + 1) { T.at({ placed: A(a, { i }) }); T.n('First missing positive?', i + 1, 'First slot without its value.'); return i + 1; } T.at({ placed: A(a) }); T.n('First missing positive?', n + 1, 'All 1..n present.'); return n + 1; }
+    s(I, T) { const a = I.nums.slice(), n = a.length; for (let i = 0; i < n; i++) while (a[i] > 0 && a[i] <= n && a[a[i] - 1] !== a[i]) { const j = a[i] - 1; [a[i], a[j]] = [a[j], a[i]]; } T.at({ placed: A(a) }); T.n('Values between 1 and n?', I.nums.filter(v => v >= 1 && v <= n).length, 'Only these can be placed.'); T.n('How many slots i hold i + 1?', a.filter((v, i) => v === i + 1).length, 'After cyclic placement.'); for (let i = 0; i < n; i++) if (a[i] !== i + 1) { T.at({ placed: A(a, { i }) }); T.n('First missing positive?', i + 1, 'First slot without its value.'); return i + 1; } T.at({ placed: A(a) }); T.n('First missing positive?', n + 1, 'Every value from 1 to n is present.'); return n + 1; }
   });
 
   D('longest-consecutive-sequence', {
@@ -47,7 +47,7 @@
     r: 'Mark presence by negating nums[|x| − 1]. Indices that stay positive give the missing numbers i + 1.',
     g: R => { const n = R.int(1, 8); return { nums: Array.from({ length: n }, () => R.int(1, n)) }; },
     cmp: 'set',
-    s(I, T) { const a = I.nums.slice(); a.forEach((_, i) => { const x = Math.abs(a[i]); a[x - 1] = -Math.abs(a[x - 1]); }); T.at({ marked: A(a) }); const out = a.map((v, i) => v > 0 ? i + 1 : 0).filter(Boolean); T.n('How many numbers are missing?', out.length, 'Positive slots after marking.'); return out; }
+    s(I, T) { const a = I.nums.slice(); a.forEach((_, i) => { const x = Math.abs(a[i]); a[x - 1] = -Math.abs(a[x - 1]); }); T.at({ marked: A(a) }); const out = a.map((v, i) => v > 0 ? i + 1 : 0).filter(Boolean); T.n('How many numbers are missing?', out.length, 'Positive slots after marking.'); T.n('Distinct values in nums?', new Set(I.nums).size, 'Each one marks its slot.'); T.n('Smallest missing number (−1 if none)?', out.length ? out[0] : -1, 'First slot still positive.'); return out; }
   });
 
   D('4sum-ii', {
@@ -68,7 +68,7 @@
     t: 'Degree of an Array',
     r: 'Track count, first index and last index of each value. Among values with the max count, the answer is the smallest last − first + 1.',
     g: R => ({ nums: R.ints(R.int(1, 9), 1, 4) }),
-    s(I, T) { const c = new Map(), f = new Map(), l = new Map(); I.nums.forEach((x, i) => { c.set(x, (c.get(x) || 0) + 1); if (!f.has(x)) f.set(x, i); l.set(x, i); }); const deg = Math.max(...c.values()); T.at({ counts: K(obj(c)) }); T.n('Degree of the array?', deg, 'Max frequency.'); let best = Infinity; for (const [x, k] of c) if (k === deg) best = Math.min(best, l.get(x) - f.get(x) + 1); return best; }
+    s(I, T) { const res = (() => { const c = new Map(), f = new Map(), l = new Map(); I.nums.forEach((x, i) => { c.set(x, (c.get(x) || 0) + 1); if (!f.has(x)) f.set(x, i); l.set(x, i); }); const deg = Math.max(...c.values()); T.at({ counts: K(obj(c)) }); T.n('Degree of the array?', deg, 'Max frequency.'); T.n('Values that reach the degree?', [...c.values()].filter(k => k === deg).length, 'Check each of them.'); let best = Infinity; for (const [x, k] of c) if (k === deg) best = Math.min(best, l.get(x) - f.get(x) + 1); return best; })(); T.n('Shortest subarray with the same degree?', res, 'From the first to the last copy of such a value.'); return res; }
   });
 
   D('find-anagram-mappings', {
@@ -83,7 +83,7 @@
     t: 'Card Flipping Game',
     r: 'A number on both sides of one card can never be hidden. Collect those in a set; the answer is the smallest number on any side not in the set (0 if none).',
     g: R => { const n = R.int(1, 5); return { fronts: R.ints(n, 1, 6), backs: R.ints(n, 1, 6) }; },
-    s(I, T) { const bad = new Set(I.fronts.filter((f, i) => f === I.backs[i])); T.at({ fronts: A(I.fronts), backs: A(I.backs) }); T.n('How many numbers are blocked (same on both sides)?', bad.size, 'They always face up.'); const c = [...I.fronts, ...I.backs].filter(x => !bad.has(x)); return c.length ? Math.min(...c) : 0; }
+    s(I, T) { const res = (() => { const bad = new Set(I.fronts.filter((f, i) => f === I.backs[i])); T.at({ fronts: A(I.fronts), backs: A(I.backs) }); T.n('How many numbers are blocked (same on both sides)?', bad.size, 'They always face up.'); const c = [...I.fronts, ...I.backs].filter(x => !bad.has(x)); T.n('Distinct numbers still allowed?', new Set(c).size, 'Any number not blocked.'); return c.length ? Math.min(...c) : 0; })(); T.n('Smallest good number (0 if none)?', res, 'The smallest allowed number.'); return res; }
   });
 
   D('n-repeated-element-in-size-2n-array', {
@@ -118,7 +118,7 @@
     t: 'Largest Unique Number',
     r: 'Count values; the answer is the largest value with count 1, or −1.',
     g: R => ({ nums: R.ints(R.int(1, 8), 1, 9) }),
-    s(I, T) { const c = cnt(I.nums); T.at({ counts: K(obj(c)) }); const u = [...c].filter(([, k]) => k === 1).map(([v]) => v); T.n('How many values appear exactly once?', u.length, 'Count 1.'); return u.length ? Math.max(...u) : -1; }
+    s(I, T) { const res = (() => { const c = cnt(I.nums); T.at({ counts: K(obj(c)) }); const u = [...c].filter(([, k]) => k === 1).map(([v]) => v); T.n('Distinct values?', c.size, 'Keys of the count map.'); T.n('How many values appear exactly once?', u.length, 'Their count is 1.'); return u.length ? Math.max(...u) : -1; })(); T.n('Largest unique number (−1 if none)?', res, 'The largest value seen once.'); return res; }
   });
 
   D('analyze-user-website-visit-pattern', {
@@ -132,7 +132,7 @@
     t: 'Unique Number of Occurrences',
     r: 'Count each value, then check the counts are all distinct (put them in a set).',
     g: R => ({ arr: R.ints(R.int(1, 9), 1, 4) }),
-    s(I, T) { const c = cnt(I.arr); T.at({ counts: K(obj(c)) }); T.n('How many distinct counts?', new Set(c.values()).size, 'Set of frequencies.'); return new Set(c.values()).size === c.size; }
+    s(I, T) { const res = (() => { const c = cnt(I.arr); T.at({ counts: K(obj(c)) }); T.n('How many distinct values?', c.size, 'Each one has a count.'); T.n('How many distinct counts?', new Set(c.values()).size, 'Set of frequencies.'); return new Set(c.values()).size === c.size; })(); T.yn('Are all the counts unique?', res, 'As many distinct counts as values.'); return res; }
   });
 
   D('maximum-equal-frequency', {
@@ -160,7 +160,7 @@
     t: 'Rank Teams by Votes',
     r: 'Count, for each team, how many votes place it at each position. Sort teams by those count vectors (descending, position 0 first), then alphabetically.',
     g: R => { const teams = R.shuffle(['A', 'B', 'C', 'D']).slice(0, R.int(1, 4)); return { votes: Array.from({ length: R.int(1, 4) }, () => R.shuffle(teams.slice()).join('')) }; },
-    s(I, T) { const m = I.votes[0].length, c = {}; for (const t of I.votes[0]) c[t] = Array(m).fill(0); I.votes.forEach(v => [...v].forEach((t, p) => c[t][p]++)); const teams = Object.keys(c); T.at({ votes: A(I.votes) }); T.n(`First-place votes for ${teams[0]}?`, c[teams[0]][0], 'Count position 0.'); return teams.sort((a, b) => { for (let p = 0; p < m; p++) if (c[a][p] !== c[b][p]) return c[b][p] - c[a][p]; return a < b ? -1 : 1; }).join(''); }
+    s(I, T) { const res = (() => { const m = I.votes[0].length, c = {}; for (const t of I.votes[0]) c[t] = Array(m).fill(0); I.votes.forEach(v => [...v].forEach((t, p) => c[t][p]++)); const teams = Object.keys(c); T.at({ votes: A(I.votes) }); T.n('How many teams?', m, 'Each vote ranks all of them.'); T.n(`First-place votes for ${teams[0]}?`, c[teams[0]][0], 'Count position 0.'); return teams.sort((a, b) => { for (let p = 0; p < m; p++) if (c[a][p] !== c[b][p]) return c[b][p] - c[a][p]; return a < b ? -1 : 1; }).join(''); })(); T.c('Team ranked first?', [...I.votes[0]], res[0], 'Most first-place votes, then second, and so on.'); return res; }
   });
 
   D('find-lucky-integer-in-an-array', {
@@ -181,7 +181,7 @@
     t: 'Display Table of Food Orders in a Restaurant',
     r: 'Build a map table → food → count and a set of foods. Header = "Table" + foods sorted; rows sorted numerically by table, each with counts as strings.',
     g: R => ({ orders: Array.from({ length: R.int(1, 6) }, () => [R.pick(['Ann', 'Bo', 'Cy']), String(R.int(1, 12)), R.pick(['Soda', 'Taco', 'Pie'])]) }),
-    s(I, T) { const foods = [...new Set(I.orders.map(o => o[2]))].sort(), tbl = {}; I.orders.forEach(([, t, f]) => { tbl[t] = tbl[t] || {}; tbl[t][f] = (tbl[t][f] || 0) + 1; }); T.at({ orders: A(I.orders.map(o => `${o[1]}:${o[2]}`)) }); T.n('How many food columns?', foods.length, 'Distinct foods.'); T.n('How many table rows?', Object.keys(tbl).length, 'Distinct tables.'); return [['Table', ...foods], ...Object.keys(tbl).sort((a, b) => a - b).map(t => [t, ...foods.map(f => String(tbl[t][f] || 0))])]; }
+    s(I, T) { const foods = [...new Set(I.orders.map(o => o[2]))].sort(), tbl = {}; I.orders.forEach(([, t, f]) => { tbl[t] = tbl[t] || {}; tbl[t][f] = (tbl[t][f] || 0) + 1; }); T.at({ orders: A(I.orders.map(o => `${o[1]}:${o[2]}`)) }); T.n('How many food columns?', foods.length, 'Distinct foods.'); T.n('How many table rows?', Object.keys(tbl).length, 'Distinct tables.'); const t0 = Object.keys(tbl).sort((a, b) => a - b)[0]; T.n(`Orders at table ${t0}?`, Object.values(tbl[t0]).reduce((a, b) => a + b, 0), 'Add its food counts.'); return [['Table', ...foods], ...Object.keys(tbl).sort((a, b) => a - b).map(t => [t, ...foods.map(f => String(tbl[t][f] || 0))])]; }
   });
 
   D('counting-elements', {
@@ -195,7 +195,7 @@
     t: 'Make Two Arrays Equal by Reversing Subarrays',
     r: 'Reversals of length 2 are swaps, so any permutation is reachable: just compare value counts.',
     g: R => { const a = R.ints(R.int(1, 6), 1, 5); return { target: a, arr: R.chance(0.6) ? R.shuffle(a.slice()) : R.ints(a.length, 1, 5) }; },
-    s(I, T) { const c = cnt(I.target); for (const x of I.arr) c.set(x, (c.get(x) || 0) - 1); const ok = [...c.values()].every(v => v === 0); T.at({ target: A(I.target), arr: A(I.arr) }); T.yn('Same multiset of values?', ok, 'Then swaps can arrange it.'); return ok; }
+    s(I, T) { const res = (() => { const c = cnt(I.target); for (const x of I.arr) c.set(x, (c.get(x) || 0) - 1); const ok = [...c.values()].every(v => v === 0); T.at({ target: A(I.target), arr: A(I.arr) }); T.n('Values whose counts differ?', [...c.values()].filter(v => v !== 0).length, 'Zero means the same values.'); T.yn('Same multiset of values?', ok, 'Then swaps can arrange it.'); return ok; })(); T.yn('Can arr become target?', res, 'Reversing length-2 subarrays is a swap.'); return res; }
   });
 
   D('arithmetic-subarrays', {
@@ -209,7 +209,7 @@
     t: 'Sort Array by Increasing Frequency',
     r: 'Count values; sort by frequency ascending, and for equal frequency by value descending.',
     g: R => ({ nums: R.ints(R.int(1, 8), -3, 4) }),
-    s(I, T) { const c = cnt(I.nums); T.at({ counts: K(obj(c)) }); T.n('Smallest frequency?', Math.min(...c.values()), 'Those values come first.'); return I.nums.slice().sort((a, b) => c.get(a) - c.get(b) || b - a); }
+    s(I, T) { const res = (() => { const c = cnt(I.nums); T.at({ counts: K(obj(c)) }); T.n('Distinct values?', c.size, 'One count each.'); T.n('Smallest frequency?', Math.min(...c.values()), 'Those values come first.'); return I.nums.slice().sort((a, b) => c.get(a) - c.get(b) || b - a); })(); T.n('First value of the result?', res[0], 'Lowest frequency, and the largest value on ties.'); return res; }
   });
 
   D('check-array-formation-through-concatenation', {
@@ -238,14 +238,14 @@
     r: 'Build an adjacency map. An end of the array has only one neighbor; start there and repeatedly step to the neighbor that is not the previous element.',
     g: R => { const a = R.distinct(R.int(2, 7), -9, 9); return { adjacentPairs: R.shuffle(a.slice(1).map((x, i) => R.chance(0.5) ? [a[i], x] : [x, a[i]])) }; },
     cmp: (o, e) => JSON.stringify(o) === JSON.stringify(e) || JSON.stringify(o) === JSON.stringify(e.slice().reverse()),
-    s(I, T) { const adj = new Map(); I.adjacentPairs.forEach(([a, b]) => { (adj.get(a) || adj.set(a, []).get(a)).push(b); (adj.get(b) || adj.set(b, []).get(b)).push(a); }); const start = [...adj].find(([, v]) => v.length === 1)[0], out = [start]; T.at({ adjacency: K(Object.fromEntries([...adj].map(([k, v]) => [k, v.join(',')]))) }); T.n('An end of the array (a value with one neighbor)?', start, 'Exactly two values have degree 1; we take the first found.'); while (out.length < adj.size) { const cur = out[out.length - 1], prev = out[out.length - 2]; out.push(adj.get(cur).find(x => x !== prev)); } return out; }
+    s(I, T) { const adj = new Map(); I.adjacentPairs.forEach(([a, b]) => { (adj.get(a) || adj.set(a, []).get(a)).push(b); (adj.get(b) || adj.set(b, []).get(b)).push(a); }); const start = [...adj].find(([, v]) => v.length === 1)[0], out = [start]; T.at({ adjacency: K(Object.fromEntries([...adj].map(([k, v]) => [k, v.join(',')]))) }); T.n('An end of the array (a value with one neighbor)?', start, 'Exactly two values have degree 1; we take the first found.'); while (out.length < adj.size) { const cur = out[out.length - 1], prev = out[out.length - 2]; out.push(adj.get(cur).find(x => x !== prev)); } T.at({ restored: A(out) }); T.n('How many values does the array have?', adj.size, 'One more than the number of pairs.'); T.n('Last value of the array?', out[out.length - 1], 'The other end.'); return out; }
   });
 
   D('sum-of-unique-elements', {
     t: 'Sum of Unique Elements',
     r: 'Count values and add the ones with count 1.',
     g: R => ({ nums: R.ints(R.int(1, 8), 1, 6) }),
-    s(I, T) { const c = cnt(I.nums); T.at({ counts: K(obj(c)) }); const u = [...c].filter(([, k]) => k === 1); T.n('How many unique values?', u.length, 'Count exactly 1.'); return u.reduce((s, [v]) => s + v, 0); }
+    s(I, T) { const res = (() => { const c = cnt(I.nums); T.at({ counts: K(obj(c)) }); const u = [...c].filter(([, k]) => k === 1); T.n('Distinct values?', c.size, 'Keys of the count map.'); T.n('How many unique values?', u.length, 'Their count is exactly 1.'); return u.reduce((s, [v]) => s + v, 0); })(); T.n('Sum of unique elements?', res, 'Add those values.'); return res; }
   });
 
   D('finding-the-users-active-minutes', {
@@ -259,7 +259,7 @@
     t: 'Longest Common Subsequence Between Sorted Arrays',
     r: 'Each array is strictly increasing, so a value is common iff it appears in all arrays. Count occurrences across arrays; output values with count = number of arrays, in order.',
     g: R => ({ arrays: Array.from({ length: R.int(2, 3) }, () => R.distinct(R.int(1, 6), 1, 9).sort((a, b) => a - b)) }),
-    s(I, T) { const c = cnt(I.arrays.flat()); T.at({ counts: K(obj(c)), arrays: I.arrays.length }); const out = [...c].filter(([, k]) => k === I.arrays.length).map(([v]) => v).sort((a, b) => a - b); T.n('How many values are in every array?', out.length, 'Count equals the number of arrays.'); return out; }
+    s(I, T) { const c = cnt(I.arrays.flat()); T.at({ counts: K(obj(c)), arrays: I.arrays.length }); const out = [...c].filter(([, k]) => k === I.arrays.length).map(([v]) => v).sort((a, b) => a - b); T.n('How many values are in every array?', out.length, 'Count equals the number of arrays.'); T.n('Distinct values across all arrays?', c.size, 'Keys of the count map.'); T.n('Largest common value (−1 if none)?', out.length ? out[out.length - 1] : -1, 'The answer is sorted.'); return out; }
   });
 
   D('count-special-quadruplets', {
@@ -280,21 +280,21 @@
     t: 'Find Target Indices After Sorting Array',
     r: 'No sort needed: let less = #values < target and eq = #values = target. The indices are less, less + 1, …, less + eq − 1.',
     g: R => ({ nums: R.ints(R.int(1, 8), 1, 5), target: R.int(1, 5) }),
-    s(I, T) { const less = I.nums.filter(x => x < I.target).length, eq = I.nums.filter(x => x === I.target).length; T.at({ nums: A(I.nums), target: I.target }); T.n('Values smaller than target?', less, 'First index of target after sorting.'); T.n('Copies of target?', eq, 'Length of the index run.'); return Array.from({ length: eq }, (_, i) => less + i); }
+    s(I, T) { const less = I.nums.filter(x => x < I.target).length, eq = I.nums.filter(x => x === I.target).length; T.at({ nums: A(I.nums), target: I.target }); T.n('Values smaller than target?', less, 'First index of target after sorting.'); T.n('Copies of target?', eq, 'Length of the index run.'); T.n('First index in the answer (−1 if empty)?', eq ? less : -1, 'Right after the smaller values.'); return Array.from({ length: eq }, (_, i) => less + i); }
   });
 
   D('finding-3-digit-even-numbers', {
     t: 'Finding 3-Digit Even Numbers',
     r: 'Count available digits. For each even number 100..998, check its digits fit within the counts; collect in increasing order.',
     g: R => ({ digits: R.ints(R.int(3, 6), 0, 5) }),
-    s(I, T) { const c = Array(10).fill(0); I.digits.forEach(d => c[d]++); const out = []; for (let x = 100; x < 1000; x += 2) { const need = Array(10).fill(0); String(x).split('').forEach(d => need[+d]++); if (need.every((k, d) => k <= c[d])) out.push(x); } T.at({ digitCounts: A(c) }); T.n('How many valid numbers?', out.length, 'Even, no leading zero, digits available.'); return out; }
+    s(I, T) { const c = Array(10).fill(0); I.digits.forEach(d => c[d]++); const out = []; for (let x = 100; x < 1000; x += 2) { const need = Array(10).fill(0); String(x).split('').forEach(d => need[+d]++); if (need.every((k, d) => k <= c[d])) out.push(x); } T.at({ digitCounts: A(c) }); T.n('Distinct even digits available?', [0, 2, 4, 6, 8].filter(d => c[d] > 0).length, 'One of them must be last.'); T.n('How many valid numbers?', out.length, 'Even, no leading zero, digits available.'); T.n('Smallest valid number (−1 if none)?', out.length ? out[0] : -1, 'Scan upward from 100.'); return out; }
   });
 
   D('count-elements-with-strictly-smaller-and-greater-elements', {
     t: 'Count Elements With Strictly Smaller and Greater Elements',
     r: 'Only the minimum and maximum values fail. Count elements strictly between min and max.',
     g: R => ({ nums: R.ints(R.int(1, 8), 1, 6) }),
-    s(I, T) { const mn = Math.min(...I.nums), mx = Math.max(...I.nums); T.at({ nums: A(I.nums), min: mn, max: mx }); T.n('How many equal the min or max?', I.nums.filter(x => x === mn || x === mx).length, 'These fail.'); return I.nums.filter(x => x > mn && x < mx).length; }
+    s(I, T) { const res = (() => { const mn = Math.min(...I.nums), mx = Math.max(...I.nums); T.at({ nums: A(I.nums), min: mn, max: mx }); T.yn('Are all values equal?', mn === mx, 'Then nothing qualifies.'); T.n('How many equal the min or max?', I.nums.filter(x => x === mn || x === mx).length, 'These fail.'); return I.nums.filter(x => x > mn && x < mx).length; })(); T.n('Elements with both a smaller and a greater value?', res, 'Everything strictly between min and max.'); return res; }
   });
 
   D('find-all-lonely-numbers-in-the-array', {
@@ -309,7 +309,7 @@
     t: 'Most Frequent Number Following Key In an Array',
     r: 'Count nums[i + 1] whenever nums[i] = key; return the target with the highest count (unique by guarantee).',
     g: R => { for (;;) { const key = R.int(1, 3), a = R.ints(R.int(2, 9), 1, 4); a[R.int(0, a.length - 2)] = key; const c = {}; for (let i = 0; i + 1 < a.length; i++) if (a[i] === key) c[a[i + 1]] = (c[a[i + 1]] || 0) + 1; const v = Object.values(c), m = Math.max(...v); if (v.filter(x => x === m).length === 1) return { nums: a, key }; } },
-    s(I, T) { const c = new Map(); for (let i = 0; i + 1 < I.nums.length; i++) if (I.nums[i] === I.key) c.set(I.nums[i + 1], (c.get(I.nums[i + 1]) || 0) + 1); T.at({ nums: A(I.nums), key: I.key, followers: K(obj(c)) }); const best = Math.max(...c.values()); T.n('Highest follower count?', best, 'Count numbers right after key.'); return [...c].find(([, k]) => k === best)[0]; }
+    s(I, T) { const res = (() => { const c = new Map(); for (let i = 0; i + 1 < I.nums.length; i++) if (I.nums[i] === I.key) c.set(I.nums[i + 1], (c.get(I.nums[i + 1]) || 0) + 1); T.at({ nums: A(I.nums), key: I.key, followers: K(obj(c)) }); const best = Math.max(...c.values()); T.n('Times key is followed by a number?', [...c.values()].reduce((a, b) => a + b, 0), 'Every key except one at the end.'); T.n('Highest follower count?', best, 'Count numbers right after key.'); return [...c].find(([, k]) => k === best)[0]; })(); T.n('Most frequent follower?', res, 'The value with that count.'); return res; }
   });
 
   D('find-the-difference-of-two-arrays', {
@@ -317,13 +317,13 @@
     r: 'Build sets of both arrays; answer[0] = distinct values only in nums1, answer[1] = only in nums2.',
     g: R => ({ nums1: R.ints(R.int(1, 6), 1, 6), nums2: R.ints(R.int(1, 6), 1, 6) }),
     cmp: (o, e) => Array.isArray(o) && o.length === 2 && o.every((x, i) => JSON.stringify(x.slice().sort((a, b) => a - b)) === JSON.stringify(e[i].slice().sort((a, b) => a - b))),
-    s(I, T) { const A1 = new Set(I.nums1), B = new Set(I.nums2), x = [...A1].filter(v => !B.has(v)), y = [...B].filter(v => !A1.has(v)); T.at({ set1: A([...A1]), set2: A([...B]) }); T.n('Values only in nums1?', x.length, 'Set difference.'); T.n('Values only in nums2?', y.length, 'Set difference.'); return [x, y]; }
+    s(I, T) { const A1 = new Set(I.nums1), B = new Set(I.nums2), x = [...A1].filter(v => !B.has(v)), y = [...B].filter(v => !A1.has(v)); T.at({ set1: A([...A1]), set2: A([...B]) }); T.n('Values only in nums1?', x.length, 'Set difference.'); T.n('Values only in nums2?', y.length, 'Set difference.'); T.n('Values in both?', [...A1].filter(v => B.has(v)).length, 'These go in neither list.'); return [x, y]; }
   });
 
   D('find-players-with-zero-or-one-losses', {
     t: 'Find Players With Zero or One Losses',
     r: 'Count losses per player (and note everyone who played). Players with 0 losses and with exactly 1 loss, each list sorted.',
     g: R => ({ matches: (() => { const m = [], seen = new Set(); for (let i = 0; i < R.int(1, 6); i++) { const w = R.int(1, 6); let l = R.int(1, 6); if (l === w) l = (w % 6) + 1; const k = w + ',' + l; if (!seen.has(k)) { seen.add(k); m.push([w, l]); } } return m; })() }),
-    s(I, T) { const loss = new Map(); I.matches.forEach(([w, l]) => { if (!loss.has(w)) loss.set(w, 0); loss.set(l, (loss.get(l) || 0) + 1); }); T.at({ losses: K(obj(loss)) }); const z = [...loss].filter(([, k]) => k === 0).map(([p]) => p).sort((a, b) => a - b), o = [...loss].filter(([, k]) => k === 1).map(([p]) => p).sort((a, b) => a - b); T.n('Players who never lost?', z.length, 'Loss count 0.'); return [z, o]; }
+    s(I, T) { const loss = new Map(); I.matches.forEach(([w, l]) => { if (!loss.has(w)) loss.set(w, 0); loss.set(l, (loss.get(l) || 0) + 1); }); T.at({ losses: K(obj(loss)) }); const z = [...loss].filter(([, k]) => k === 0).map(([p]) => p).sort((a, b) => a - b), o = [...loss].filter(([, k]) => k === 1).map(([p]) => p).sort((a, b) => a - b); T.n('Players who never lost?', z.length, 'Loss count 0.'); T.n('Players who lost exactly once?', o.length, 'Loss count 1.'); T.n('Players in total?', loss.size, 'Everyone who played a match.'); return [z, o]; }
   });
 })();

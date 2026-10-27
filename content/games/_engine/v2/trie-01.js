@@ -10,7 +10,7 @@
     r: 'DFS from each start index, walking a trie of the dictionary to find every word that begins there; memoize the sentences for each suffix.',
     cmp: 'set',
     g: R => ({ s: R.str(R.int(1, 7), 'ab'), wordDict: uniq(Array.from({ length: R.int(1, 4) }, () => R.str(R.int(1, 3), 'ab'))) }),
-    s(I, T) { const s = I.s, memo = {}; const go = i => { if (i === s.length) return ['']; if (memo[i]) return memo[i]; const out = []; I.wordDict.forEach(w => { if (s.startsWith(w, i)) go(i + w.length).forEach(t => out.push(t ? w + ' ' + t : w)); }); return memo[i] = out; }; const words0 = I.wordDict.filter(w => s.startsWith(w)); T.at({ s: A([...s]), dict: A(I.wordDict) }); T.n('Dictionary words starting at index 0?', words0.length, 'Walk the trie from s[0].'); return go(0); }
+    s(I, T) { const res = (() => { const s = I.s, memo = {}; const go = i => { if (i === s.length) return ['']; if (memo[i]) return memo[i]; const out = []; I.wordDict.forEach(w => { if (s.startsWith(w, i)) go(i + w.length).forEach(t => out.push(t ? w + ' ' + t : w)); }); return memo[i] = out; }; const words0 = I.wordDict.filter(w => s.startsWith(w)); T.at({ s: A([...s]), dict: A(I.wordDict) }); T.n('Longest dictionary word?', Math.max(...I.wordDict.map(w => w.length)), 'No match can be longer.'); T.n('Dictionary words starting at index 0?', words0.length, 'Walk the trie from s[0].'); return go(0); })(); T.n('How many sentences?', res.length, 'Every full split of s.'); return res; }
   });
 
   D('word-search-ii', {
@@ -26,7 +26,7 @@
     r: 'For each word, split it into prefix + suffix. If prefix is a palindrome and reverse(suffix) is a word, pair it before; if suffix is a palindrome and reverse(prefix) is a word, pair it after. A trie of reversed words makes the lookups fast.',
     cmp: 'set',
     g: R => ({ words: uniq(Array.from({ length: R.int(2, 5) }, () => R.str(R.int(0, 3), 'ab'))) }),
-    s(I, T) { const W = I.words, out = []; W.forEach((a, i) => W.forEach((b, j) => { if (i !== j && isPal(a + b)) out.push([i, j]); })); T.at({ words: A(W.map(w => w || '""')) }); T.yn(`Is "${W[0]}" + "${W[1]}" a palindrome?`, isPal(W[0] + W[1]), 'Check the concatenation.'); return out; }
+    s(I, T) { const res = (() => { const W = I.words, out = []; W.forEach((a, i) => W.forEach((b, j) => { if (i !== j && isPal(a + b)) out.push([i, j]); })); T.at({ words: A(W.map(w => w || '""')) }); T.n('Ordered pairs to check?', W.length * (W.length - 1), 'Every word with every other word.'); T.yn(`Is "${W[0]}" + "${W[1]}" a palindrome?`, isPal(W[0] + W[1]), 'Check the concatenation.'); return out; })(); T.n('Palindrome pairs?', res.length, 'Ordered pairs whose join reads the same both ways.'); return res; }
   });
 
   D('lexicographical-numbers', {
@@ -77,14 +77,14 @@
     t: 'Add Bold Tag in String',
     r: 'Mark every character covered by some word occurrence (trie scan from each index), then wrap each maximal run of marked characters in <b>…</b>.',
     g: R => ({ s: R.str(R.int(1, 8), 'abc'), words: uniq(Array.from({ length: R.int(1, 3) }, () => R.str(R.int(1, 3), 'abc'))) }),
-    s(I, T) { const s = I.s, b = Array(s.length).fill(false); for (let i = 0; i < s.length; i++) { let end = i; I.words.forEach(w => { if (s.startsWith(w, i)) end = Math.max(end, i + w.length); }); for (let j = i; j < end; j++) b[j] = true; } T.at({ s: A([...s]) }); T.n('How many characters end up bold?', b.filter(Boolean).length, 'Union of all word occurrences.'); let out = ''; for (let i = 0; i < s.length; i++) { if (b[i] && (i === 0 || !b[i - 1])) out += '<b>'; out += s[i]; if (b[i] && (i === s.length - 1 || !b[i + 1])) out += '</b>'; } return out; }
+    s(I, T) { const res = (() => { const s = I.s, b = Array(s.length).fill(false); for (let i = 0; i < s.length; i++) { let end = i; I.words.forEach(w => { if (s.startsWith(w, i)) end = Math.max(end, i + w.length); }); for (let j = i; j < end; j++) b[j] = true; } T.at({ s: A([...s]) }); T.n('Positions where some word starts?', [...s].filter((_, i) => I.words.some(w => w && s.startsWith(w, i))).length, 'Check every word at every index.'); T.n('How many characters end up bold?', b.filter(Boolean).length, 'Union of all word occurrences.'); let out = ''; for (let i = 0; i < s.length; i++) { if (b[i] && (i === 0 || !b[i - 1])) out += '<b>'; out += s[i]; if (b[i] && (i === s.length - 1 || !b[i + 1])) out += '</b>'; } return out; })(); T.n('Bold tags opened?', res.split('<b>').length - 1, 'One per run of bold characters.'); return res; }
   });
 
   D('replace-words', {
     t: 'Replace Words',
     r: 'Insert roots into a trie. For each word, walk the trie and stop at the first end-of-root node — that shortest root replaces the word.',
     g: R => ({ dictionary: uniq(Array.from({ length: R.int(1, 3) }, () => R.str(R.int(1, 2), 'ab'))), sentence: Array.from({ length: R.int(1, 4) }, () => R.str(R.int(1, 4), 'abc')).join(' ') }),
-    s(I, T) { return I.sentence.split(' ').map((w, i) => { let r = w; for (let k = 1; k <= w.length; k++) if (I.dictionary.includes(w.slice(0, k))) { r = w.slice(0, k); break; } if (i < 4) { T.at({ word: w, roots: A(I.dictionary) }); T.c('Replacement?', uniq([w, r, ...I.dictionary.filter(d => w.startsWith(d))]), r, 'Shortest root that prefixes the word.'); } return r; }).join(' '); }
+    s(I, T) { const res = (() => { T.at({ sentence: I.sentence, roots: A(I.dictionary) }); T.n('Words in the sentence?', I.sentence.split(' ').length, 'Replace each one separately.'); return I.sentence.split(' ').map((w, i) => { let r = w; for (let k = 1; k <= w.length; k++) if (I.dictionary.includes(w.slice(0, k))) { r = w.slice(0, k); break; } if (i < 4) { T.at({ word: w, roots: A(I.dictionary) }); T.c('Replacement?', uniq([w, r, ...I.dictionary.filter(d => w.startsWith(d))]), r, 'Shortest root that prefixes the word.'); } return r; }).join(' '); })(); const o = I.sentence.split(' '); T.n('Words replaced?', res.split(' ').filter((w, i) => w !== o[i]).length, 'Words that had a shorter root.'); return res; }
   });
 
   D('longest-word-in-dictionary', {

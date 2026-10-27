@@ -19,7 +19,7 @@
     r: 'Count frequencies, then keep a min-heap of size k keyed by frequency (or bucket by frequency); the heap ends with the k most frequent values.',
     g: R => { const v = R.distinct(R.int(1, 5), 1, 9), nums = []; v.forEach((x, i) => { for (let j = 0; j <= i; j++) nums.push(x); }); return { nums: R.shuffle(nums), k: R.int(1, v.length) }; },
     cmp: (o, e, I) => { if (!Array.isArray(o) || o.length !== I.k || new Set(o).size !== o.length) return false; const c = cnt(I.nums), lo = Math.min(...o.map(x => c[x] || 0)); return Object.keys(c).filter(x => !o.includes(+x)).every(x => c[x] <= lo) && o.every(x => c[x]); },
-    s(I, T) { const c = cnt(I.nums), h = PQ((a, b) => a[1] - b[1]); Object.entries(c).forEach(([v, f]) => { h.push([+v, f]); if (h.size > I.k) h.pop(); }); T.at({ freq: K(c), k: I.k }); T.n('Smallest frequency kept in the heap?', h.peek()[1], 'Min-heap of size k.'); return h.items().map(x => x[0]); }
+    s(I, T) { const res = (() => { const c = cnt(I.nums), h = PQ((a, b) => a[1] - b[1]); Object.entries(c).forEach(([v, f]) => { h.push([+v, f]); if (h.size > I.k) h.pop(); }); T.at({ freq: K(c), k: I.k }); T.n('Distinct values?', Object.keys(c).length, 'Each one is pushed once.'); T.n('Smallest frequency kept in the heap?', h.peek()[1], 'Min-heap of size k.'); return h.items().map(x => x[0]); })(); const c = cnt(I.nums); T.n('Largest frequency in the answer?', Math.max(...res.map(x => c[x])), 'The most frequent value is always kept.'); return res; }
   });
 
   D('rearrange-string-k-distance-apart', {
@@ -41,14 +41,14 @@
     t: 'Strong Password Checker',
     r: 'Count missing types (lower/upper/digit) and runs of ≥ 3. Short: max(6 − n, missing). Medium: max(missing, Σ⌊run/3⌋). Long: spend n − 20 deletions first on runs with len % 3 == 0, then % 3 == 1 (2 each), then 3 per replacement; answer = deletions + max(missing, replacements left).',
     g: R => ({ password: R.str(R.int(1, 24), 'aaB1.') }),
-    s(I, T) { const p = I.password, n = p.length, missing = (/[a-z]/.test(p) ? 0 : 1) + (/[A-Z]/.test(p) ? 0 : 1) + (/\d/.test(p) ? 0 : 1); let rep = 0, one = 0, two = 0; for (let i = 0; i < n;) { let j = i; while (j < n && p[j] === p[i]) j++; const L = j - i; if (L >= 3) { rep += Math.floor(L / 3); if (L % 3 === 0) one++; else if (L % 3 === 1) two++; } i = j; } T.at({ password: p, length: n }); T.n('Missing character types?', missing, 'Lowercase, uppercase, digit.'); if (n < 6) return Math.max(6 - n, missing); T.n('Replacements needed to break runs?', rep, 'Σ ⌊run / 3⌋.'); if (n <= 20) return Math.max(missing, rep); const d = n - 20; rep -= Math.min(d, one); rep -= Math.floor(Math.min(Math.max(d - one, 0), two * 2) / 2); rep -= Math.floor(Math.max(d - one - 2 * two, 0) / 3); return d + Math.max(missing, rep); }
+    s(I, T) { const res = (() => { const p = I.password, n = p.length, missing = (/[a-z]/.test(p) ? 0 : 1) + (/[A-Z]/.test(p) ? 0 : 1) + (/\d/.test(p) ? 0 : 1); let rep = 0, one = 0, two = 0; for (let i = 0; i < n;) { let j = i; while (j < n && p[j] === p[i]) j++; const L = j - i; if (L >= 3) { rep += Math.floor(L / 3); if (L % 3 === 0) one++; else if (L % 3 === 1) two++; } i = j; } T.at({ password: p, length: n }); T.yn('Is the length between 6 and 20?', n >= 6 && n <= 20, 'Otherwise insert or delete characters.'); T.n('Missing character types?', missing, 'Lowercase, uppercase, digit.'); if (n < 6) return Math.max(6 - n, missing); T.n('Replacements needed to break runs?', rep, 'A run of length L needs L divided by 3, rounded down.'); if (n <= 20) return Math.max(missing, rep); const d = n - 20; rep -= Math.min(d, one); rep -= Math.floor(Math.min(Math.max(d - one, 0), two * 2) / 2); rep -= Math.floor(Math.max(d - one - 2 * two, 0) / 3); return d + Math.max(missing, rep); })(); T.n('Minimum steps?', res, 'Combine length fixes, missing types and run breaks.'); return res; }
   });
 
   D('ipo', {
     t: 'IPO',
     r: 'Sort projects by capital. Each round, push every affordable project\'s profit into a max-heap, then take the top profit. Stop after k projects or when nothing is affordable.',
     g: R => { const n = R.int(1, 5); return { k: R.int(1, 3), w: R.int(0, 3), profits: R.ints(n, 1, 6), capital: R.ints(n, 0, 6) }; },
-    s(I, T) { const pr = I.capital.map((c, i) => [c, I.profits[i]]).sort((a, b) => a[0] - b[0]), h = PQ((a, b) => b - a); let w = I.w, i = 0; for (let r = 0; r < I.k; r++) { while (i < pr.length && pr[i][0] <= w) h.push(pr[i++][1]); if (!h.size) break; const p = h.pop(); w += p; T.at({ capital: w - p, available: A(h.items().concat([p]).sort((a, b) => b - a)) }); T.n('Capital after this project?', w, `Take the best profit ${p}.`); } return w; }
+    s(I, T) { const pr = I.capital.map((c, i) => [c, I.profits[i]]).sort((a, b) => a[0] - b[0]), h = PQ((a, b) => b - a); let w = I.w, i = 0; T.at({ capital: A(I.capital), profits: A(I.profits), w: I.w }); T.n('Projects affordable right away?', I.capital.filter(c => c <= I.w).length, 'Capital at most w.'); for (let r = 0; r < I.k; r++) { while (i < pr.length && pr[i][0] <= w) h.push(pr[i++][1]); if (!h.size) break; const p = h.pop(); w += p; T.at({ capital: w - p, available: A(h.items().concat([p]).sort((a, b) => b - a)) }); T.n('Capital after this project?', w, `Take the best profit ${p}.`); } return w; }
   });
 
   D('relative-ranks', {
@@ -62,7 +62,7 @@
     t: 'Task Scheduler',
     r: 'Let f be the max frequency and c the number of tasks with it. The schedule needs at least (f − 1)(n + 1) + c slots, and never fewer than the number of tasks.',
     g: R => ({ tasks: [...R.str(R.int(1, 9), 'AABC')], n: R.int(0, 3) }),
-    s(I, T) { const c = cnt(I.tasks), f = Math.max(...Object.values(c)), top = Object.values(c).filter(v => v === f).length; T.at({ counts: K(c), n: I.n }); T.n('Maximum frequency?', f, 'The busiest task sets the frame.'); T.n('Tasks sharing that frequency?', top, 'They fill the last row.'); return Math.max(I.tasks.length, (f - 1) * (I.n + 1) + top); }
+    s(I, T) { const res = (() => { const c = cnt(I.tasks), f = Math.max(...Object.values(c)), top = Object.values(c).filter(v => v === f).length; T.at({ counts: K(c), n: I.n }); T.n('Maximum frequency?', f, 'The busiest task sets the frame.'); T.n('Tasks sharing that frequency?', top, 'They fill the last row.'); return Math.max(I.tasks.length, (f - 1) * (I.n + 1) + top); })(); T.n('Fewest time units?', res, 'Frame size or the task count, whichever is larger.'); return res; }
   });
 
   D('course-schedule-iii', {
@@ -76,21 +76,21 @@
     t: 'Split Array into Consecutive Subsequences',
     r: 'Greedy with counts and "ends": for each x, extend a subsequence ending at x − 1 if possible; otherwise start x, x+1, x+2 (fail if missing). (A heap per end value also works.)',
     g: R => ({ nums: R.sorted(R.int(1, 9), 1, 6) }),
-    s(I, T) { const c = cnt(I.nums), end = {}; for (const [i, x] of I.nums.entries()) { if (!c[x]) continue; c[x]--; let how; if (end[x - 1]) { end[x - 1]--; end[x] = (end[x] || 0) + 1; how = 'extend'; } else if (c[x + 1] && c[x + 2]) { c[x + 1]--; c[x + 2]--; end[x + 2] = (end[x + 2] || 0) + 1; how = 'start'; } else how = 'fail'; if (i < 7) { T.at({ nums: A(I.nums, { i }), endsAt: K({ ...end }) }); T.c(`What happens with ${x}?`, ['extend', 'start', 'fail'], how, 'Prefer extending an existing run.'); } if (how === 'fail') return false; } return true; }
+    s(I, T) { const res = (() => { const c = cnt(I.nums), end = {}; for (const [i, x] of I.nums.entries()) { if (!c[x]) continue; c[x]--; let how; if (end[x - 1]) { end[x - 1]--; end[x] = (end[x] || 0) + 1; how = 'extend'; } else if (c[x + 1] && c[x + 2]) { c[x + 1]--; c[x + 2]--; end[x + 2] = (end[x + 2] || 0) + 1; how = 'start'; } else how = 'fail'; if (i < 7) { T.at({ nums: A(I.nums, { i }), endsAt: K({ ...end }) }); T.c(`What happens with ${x}?`, ['extend', 'start', 'fail'], how, 'Prefer extending an existing run.'); } if (how === 'fail') return false; } return true; })(); T.yn('Can the array be split?', res, 'Every value found a place.'); return res; }
   });
 
   D('top-k-frequent-words', {
     t: 'Top K Frequent Words',
     r: 'Count words; order by frequency descending, then lexicographically (a heap of size k with the reverse order works).',
     g: R => { const w = Array.from({ length: R.int(1, 8) }, () => R.pick(['a', 'b', 'cat', 'dog', 'b'])); return { words: w, k: R.int(1, new Set(w).size) }; },
-    s(I, T) { const c = cnt(I.words); T.at({ counts: K(c) }); T.n('Distinct words?', Object.keys(c).length, 'Candidates.'); return Object.keys(c).sort((a, b) => c[b] - c[a] || (a < b ? -1 : 1)).slice(0, I.k); }
+    s(I, T) { const res = (() => { const c = cnt(I.words); T.at({ counts: K(c) }); T.n('Distinct words?', Object.keys(c).length, 'Candidates.'); T.n('Highest count?', Math.max(...Object.values(c)), 'The heap keeps the most frequent words.'); return Object.keys(c).sort((a, b) => c[b] - c[a] || (a < b ? -1 : 1)).slice(0, I.k); })(); T.c('Most frequent word?', Object.keys(cnt(I.words)), res[0], 'Ties go to the alphabetically smaller word.'); return res; }
   });
 
   D('employee-free-time', {
     t: 'Employee Free Time',
     r: 'Merge all intervals in start order (a heap over each employee\'s next interval). Every gap between the current merged end and the next start is common free time.',
     g: R => ({ schedule: Array.from({ length: R.int(1, 3) }, () => { const out = []; let t = R.int(0, 3); for (let i = 0; i < R.int(1, 3); i++) { const s = t + R.int(0, 2), e = s + R.int(1, 3); out.push([s, e]); t = e + 1; } return out; }) }),
-    s(I, T) { const all = I.schedule.flat().sort((a, b) => a[0] - b[0]), out = []; let end = all[0][1]; for (let i = 1; i < all.length; i++) { const [s, e] = all[i]; if (s > end) { out.push([end, s]); T.at({ mergedEnd: end, next: `[${s}, ${e}]` }); T.n('Length of this free gap?', s - end, 'Next start − merged end.'); } end = Math.max(end, e); } if (!out.length) { T.at({ intervals: A(all.map(x => x.join('–'))) }); T.n('Free gaps?', 0, 'Everything overlaps.'); } return out; }
+    s(I, T) { const res = (() => { const all = I.schedule.flat().sort((a, b) => a[0] - b[0]), out = []; let end = all[0][1]; T.at({ intervals: A(all.map(x => x.join(' to '))) }); T.n('Working intervals in total?', all.length, 'Merge all employees together.'); for (let i = 1; i < all.length; i++) { const [s, e] = all[i]; if (s > end) { out.push([end, s]); T.at({ mergedEnd: end, next: `[${s}, ${e}]` }); T.n('Length of this free gap?', s - end, 'Next start minus merged end.'); } end = Math.max(end, e); } if (!out.length) { T.at({ intervals: A(all.map(x => x.join(' to '))) }); T.yn('Is there any free time?', false, 'Everything overlaps.'); } return out; })(); T.n('Free gaps?', res.length, 'One for each break between merged intervals.'); return res; }
   });
 
   D('reorganize-string', {
@@ -98,7 +98,7 @@
     r: 'If some letter appears more than ⌈n/2⌉ times it is impossible. Otherwise repeatedly pop the two most frequent letters from a max-heap, append both, and push them back with decremented counts.',
     g: R => ({ s: R.str(R.int(1, 7), 'aabc') }),
     cmp: (o, e, I) => e === '' ? o === '' : typeof o === 'string' && sameMultiset(o, I.s) && [...o].every((ch, i) => !i || o[i - 1] !== ch),
-    s(I, T) { const c = cnt(I.s), mx = Math.max(...Object.values(c)); T.at({ counts: K(c) }); T.yn('Is any letter too frequent (> ⌈n/2⌉)?', mx > Math.ceil(I.s.length / 2), 'Then no arrangement works.'); if (mx > Math.ceil(I.s.length / 2)) return ''; const h = PQ((a, b) => b[1] - a[1] || (a[0] < b[0] ? -1 : 1)); Object.entries(c).forEach(e => h.push(e)); let out = ''; while (h.size >= 2) { const a = h.pop(), b = h.pop(); out += a[0] + b[0]; if (--a[1]) h.push(a); if (--b[1]) h.push(b); } if (h.size) out += h.pop()[0]; return out; }
+    s(I, T) { const res = (() => { const c = cnt(I.s), mx = Math.max(...Object.values(c)); T.at({ counts: K(c) }); T.n('Highest letter count?', mx, 'The hardest letter to spread out.'); T.yn('Is that more than half of n, rounded up?', mx > Math.ceil(I.s.length / 2), 'Then no arrangement works.'); if (mx > Math.ceil(I.s.length / 2)) return ''; const h = PQ((a, b) => b[1] - a[1] || (a[0] < b[0] ? -1 : 1)); Object.entries(c).forEach(e => h.push(e)); let out = ''; while (h.size >= 2) { const a = h.pop(), b = h.pop(); out += a[0] + b[0]; if (--a[1]) h.push(a); if (--b[1]) h.push(b); } if (h.size) out += h.pop()[0]; return out; })(); T.n('Length of the answer? (0 if impossible)', res.length, 'All letters, or the empty string.'); return res; }
   });
 
   D('minimum-cost-to-hire-k-workers', {
@@ -120,7 +120,7 @@
     t: 'High Five',
     r: 'For each student keep a min-heap of size 5 of their scores; the average of the heap (integer division) is their high-five. Output sorted by id.',
     g: R => ({ items: [1, 2].flatMap(id => Array.from({ length: 5 + R.int(0, 2) }, () => [id, R.int(50, 100)])) }),
-    s(I, T) { const m = {}; I.items.forEach(([id, s]) => (m[id] = m[id] || []).push(s)); return Object.keys(m).map(Number).sort((a, b) => a - b).map(id => { const top = m[id].sort((a, b) => b - a).slice(0, 5), v = Math.floor(top.reduce((a, b) => a + b, 0) / 5); T.at({ student: id, top5: A(top) }); T.n('High-five average?', v, 'Integer division of the top-5 sum.'); return [id, v]; }); }
+    s(I, T) { const m = {}; I.items.forEach(([id, s]) => (m[id] = m[id] || []).push(s)); T.at({ items: A(I.items.map(x => x.join(', '))) }); T.n('How many students?', Object.keys(m).length, 'Group scores by id.'); return Object.keys(m).map(Number).sort((a, b) => a - b).map(id => { const top = m[id].sort((a, b) => b - a).slice(0, 5), v = Math.floor(top.reduce((a, b) => a + b, 0) / 5); T.at({ student: id, top5: A(top) }); T.n('High-five average?', v, 'Integer division of the top-5 sum.'); return [id, v]; }); }
   });
 
   D('minimum-cost-to-connect-sticks', {
@@ -148,7 +148,7 @@
     t: 'Construct Target Array With Multiple Sums',
     r: 'Work backwards with a max-heap: the largest value x was last set to the sum of the array, so its previous value is x mod (rest sum). Fail if rest ≥ x or the value hits 0 (unless rest is 1).',
     g: R => { if (R.chance(0.6)) { const a = Array(R.int(1, 4)).fill(1); for (let s = 0; s < R.int(1, 4); s++) { const i = R.int(0, a.length - 1); a[i] = a.reduce((x, y) => x + y, 0); } return { target: a }; } return { target: R.ints(R.int(1, 4), 1, 12) }; },
-    s(I, T) { const a = I.target.slice(); let sum = a.reduce((x, y) => x + y, 0), k = 0; for (;;) { let mi = 0; a.forEach((v, i) => { if (v > a[mi]) mi = i; }); const x = a[mi], rest = sum - x; if (x === 1 || rest === 1) return true; if (rest === 0 || rest >= x || x % rest === 0) { T.at({ array: A(a, { i: mi }) }); T.yn('Can the largest value be undone?', false, 'Rest must be smaller and not divide it.'); return false; } a[mi] = x % rest; sum = rest + a[mi]; if (k++ < 4) { T.at({ array: A(a.slice(), { i: mi }) }); T.n('Previous value of the largest element?', a[mi], 'x mod (sum of the others).'); } } }
+    s(I, T) { const res = (() => { const a = I.target.slice(); let sum = a.reduce((x, y) => x + y, 0), k = 0; T.at({ target: A(a) }); T.n('Sum of the target?', sum, 'Work backwards from it.'); for (;;) { let mi = 0; a.forEach((v, i) => { if (v > a[mi]) mi = i; }); const x = a[mi], rest = sum - x; if (x === 1 || rest === 1) return true; if (rest === 0 || rest >= x || x % rest === 0) { T.at({ array: A(a, { i: mi }) }); T.yn('Can the largest value be undone?', false, 'Rest must be smaller and not divide it.'); return false; } a[mi] = x % rest; sum = rest + a[mi]; if (k++ < 4) { T.at({ array: A(a.slice(), { i: mi }) }); T.n('Previous value of the largest element?', a[mi], 'The remainder of x divided by the sum of the others.'); } } })(); T.yn('Can the target be built?', res, 'Undo until every value is 1.'); return res; }
   });
 
   D('maximum-performance-of-a-team', {
@@ -256,7 +256,7 @@
     t: 'Find the Kth Largest Integer in the Array',
     r: 'Compare numeric strings by length, then lexicographically. Keep a min-heap of size k (or sort) and return its top.',
     g: R => { const a = Array.from({ length: R.int(1, 6) }, () => String(R.int(0, 120))); return { nums: a, k: R.int(1, a.length) }; },
-    s(I, T) { const cmp = (a, b) => a.length - b.length || (a < b ? -1 : a > b ? 1 : 0), h = PQ(cmp); I.nums.forEach(x => { h.push(x); if (h.size > I.k) h.pop(); }); T.at({ nums: A(I.nums), k: I.k }); T.n('How many strings stay in the heap?', I.k, 'Size k.'); return h.peek(); }
+    s(I, T) { const res = (() => { const cmp = (a, b) => a.length - b.length || (a < b ? -1 : a > b ? 1 : 0), h = PQ(cmp); I.nums.forEach(x => { h.push(x); if (h.size > I.k) h.pop(); }); T.at({ nums: A(I.nums), k: I.k }); T.n('How many strings stay in the heap?', I.k, 'Size k.'); return h.peek(); })(); T.n('Digits in the kth largest?', res.length, 'Compare by length first.'); T.n('Numbers with more digits than it?', I.nums.filter(x => x.length > res.length).length, 'They are all larger.'); return res; }
   });
 
   D('find-subsequence-of-length-k-with-the-largest-sum', {
@@ -264,7 +264,7 @@
     r: 'Pick the k largest values (heap), keeping their indices; output them in original index order.',
     g: R => { const a = R.ints(R.int(1, 7), -5, 9); return { nums: a, k: R.int(1, a.length) }; },
     cmp: (o, e, I) => { if (!Array.isArray(o) || o.length !== I.k) return false; let j = 0; for (const x of I.nums) if (j < o.length && x === o[j]) j++; return j === o.length && o.reduce((a, b) => a + b, 0) === e.reduce((a, b) => a + b, 0); },
-    s(I, T) { const idx = I.nums.map((v, i) => i).sort((a, b) => I.nums[b] - I.nums[a] || a - b).slice(0, I.k).sort((a, b) => a - b); T.at({ nums: A(I.nums) }); T.n('Largest possible sum?', idx.reduce((s, i) => s + I.nums[i], 0), 'Sum of the k largest.'); return idx.map(i => I.nums[i]); }
+    s(I, T) { const res = (() => { const idx = I.nums.map((v, i) => i).sort((a, b) => I.nums[b] - I.nums[a] || a - b).slice(0, I.k).sort((a, b) => a - b); T.at({ nums: A(I.nums) }); T.n('Largest possible sum?', idx.reduce((s, i) => s + I.nums[i], 0), 'Sum of the k largest.'); T.n('Smallest value kept?', Math.min(...idx.map(i => I.nums[i])), 'The kth largest value.'); return idx.map(i => I.nums[i]); })(); T.n('First value of the answer?', res[0], 'Keep the original order.'); return res; }
   });
 
   D('construct-string-with-repeat-limit', {

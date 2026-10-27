@@ -5,7 +5,7 @@ return [
     'title' => 'Minimum Deletions for At Most K Distinct Characters: drop the rarest letters',
     'leetcode' => 3545,
     'difficulty' => 'Easy',
-    'summary' => 'Keep the k most frequent letters; delete every copy of the rest.',
+    'summary' => 'Keep the k most frequent letters and delete every copy of the rest.',
     'category' => 'LeetCode',
     'subcategory' => 'Greedy',
     'topic' => 'LeetCode · Greedy',

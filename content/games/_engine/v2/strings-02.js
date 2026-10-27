@@ -10,7 +10,7 @@
     t: 'Word Subsets: merge requirements by max count',
     r: 'Combine words2 into one requirement: for each letter, the max count over all b. A word in words1 is universal iff it meets that requirement.',
     g: R => ({ words1: words(R, R.int(1, 5), 'abc', 1, 5), words2: words(R, R.int(1, 3), 'abc', 1, 2) }),
-    s(I, T) { const need = {}; for (const b of I.words2) { const c = cnt(b); for (const k in c) need[k] = Math.max(need[k] || 0, c[k]); } T.at({ words2: A(I.words2), need: K(need) }); T.n(`Merged requirement for '${Object.keys(need)[0]}'?`, need[Object.keys(need)[0]], 'Max count across words2.'); return I.words1.filter(w => { const c = cnt(w); return Object.keys(need).every(k => (c[k] || 0) >= need[k]); }); }
+    s(I, T) { const res = (() => { const need = {}; for (const b of I.words2) { const c = cnt(b); for (const k in c) need[k] = Math.max(need[k] || 0, c[k]); } T.at({ words2: A(I.words2), need: K(need) }); T.n(`Merged requirement for '${Object.keys(need)[0]}'?`, need[Object.keys(need)[0]], 'Max count across words2.'); T.n('Different letters in the merged requirement?', Object.keys(need).length, 'Every letter that appears in some word of words2.'); return I.words1.filter(w => { const c = cnt(w); return Object.keys(need).every(k => (c[k] || 0) >= need[k]); }); })(); T.n('How many words in words1 are universal?', res.length, 'Each must meet the merged requirement.'); return res; }
   });
 
   D('unique-email-addresses', {
@@ -38,14 +38,14 @@
     t: 'Largest Time for Given Digits: try all permutations',
     r: 'Try all 24 orderings; keep those with HH < 24 and MM < 60; return the latest as "HH:MM" (or "").',
     g: R => ({ arr: R.ints(4, 0, 6) }),
-    s(I, T) { let best = -1; const a = I.arr; for (let i = 0; i < 4; i++) for (let j = 0; j < 4; j++) for (let k = 0; k < 4; k++) { if (i === j || j === k || i === k) continue; const l = 6 - i - j - k, h = a[i] * 10 + a[j], m = a[k] * 10 + a[l]; if (h < 24 && m < 60) best = Math.max(best, h * 60 + m); } T.at({ digits: A(a) }); T.yn('Can any valid time be made?', best >= 0, 'Some ordering with HH < 24 and MM < 60.'); return best < 0 ? '' : String(Math.floor(best / 60)).padStart(2, '0') + ':' + String(best % 60).padStart(2, '0'); }
+    s(I, T) { const res = (() => { let best = -1; const a = I.arr; for (let i = 0; i < 4; i++) for (let j = 0; j < 4; j++) for (let k = 0; k < 4; k++) { if (i === j || j === k || i === k) continue; const l = 6 - i - j - k, h = a[i] * 10 + a[j], m = a[k] * 10 + a[l]; if (h < 24 && m < 60) best = Math.max(best, h * 60 + m); } T.at({ digits: A(a) }); T.yn('Can any valid time be made?', best >= 0, 'Some ordering with HH < 24 and MM < 60.'); return best < 0 ? '' : String(Math.floor(best / 60)).padStart(2, '0') + ':' + String(best % 60).padStart(2, '0'); })(); T.n('Hour of the best time? (−1 if none)', res ? +res.slice(0, 2) : -1, 'Largest hour that still allows valid minutes.'); T.n('Minutes of the best time? (−1 if none)', res ? +res.slice(3) : -1, 'Largest minutes with the remaining digits.'); return res; }
   });
 
   D('verifying-an-alien-dictionary', {
     t: 'Verifying an Alien Dictionary: compare neighbors',
     r: 'Rank letters by the alien order. Each adjacent pair must be in order: compare at the first differing letter; if none, the shorter word must come first.',
     g: R => ({ words: words(R, R.int(2, 4), 'abc', 1, 3), order: R.shuffle([...'abcdefghijklmnopqrstuvwxyz']).join('') }),
-    s(I, T) { const rk = {}; [...I.order].forEach((c, i) => rk[c] = i); for (let i = 1; i < I.words.length; i++) { const a = I.words[i - 1], b = I.words[i]; let ok = a.length <= b.length; for (let j = 0; j < Math.min(a.length, b.length); j++) if (a[j] !== b[j]) { ok = rk[a[j]] < rk[b[j]]; break; } T.at({ order: I.order.slice(0, 8) + '…', pair: A([a, b]) }); T.yn(`Is "${a}" ≤ "${b}" in alien order?`, ok, 'First differing letter decides.'); if (!ok) return false; } return true; }
+    s(I, T) { const res = (() => { const rk = {}; [...I.order].forEach((c, i) => rk[c] = i); for (let i = 1; i < I.words.length; i++) { const a = I.words[i - 1], b = I.words[i]; let ok = a.length <= b.length; for (let j = 0; j < Math.min(a.length, b.length); j++) if (a[j] !== b[j]) { ok = rk[a[j]] < rk[b[j]]; break; } T.at({ order: I.order.slice(0, 8) + '…', pair: A([a, b]) }); T.yn(`Does "${a}" come no later than "${b}" in alien order?`, ok, 'First differing letter decides.'); if (!ok) return false; } return true; })(); T.yn('Is the whole list sorted?', res, 'Every neighbouring pair must be in order.'); return res; }
   });
 
   D('vowel-spellchecker', {
@@ -60,28 +60,28 @@
     r: 'Take the minimum count of each letter across all words; output each letter that many times.',
     cmp: 'set',
     g: R => ({ words: words(R, R.int(1, 4), 'abcl', 2, 5) }),
-    s(I, T) { let m = cnt(I.words[0]); for (const w of I.words.slice(1)) { const c = cnt(w); for (const k in m) m[k] = Math.min(m[k], c[k] || 0); } T.at({ words: A(I.words), common: K(m) }); const out = Object.keys(m).flatMap(k => Array(m[k]).fill(k)); T.n('How many characters are common?', out.length, 'Sum of min counts.'); return out; }
+    s(I, T) { const res = (() => { let m = cnt(I.words[0]); for (const w of I.words.slice(1)) { const c = cnt(w); for (const k in m) m[k] = Math.min(m[k], c[k] || 0); } T.at({ words: A(I.words), common: K(m) }); T.n(`Common count of '${I.words[0][0]}'?`, m[I.words[0][0]], 'Its smallest count across all words.'); const out = Object.keys(m).flatMap(k => Array(m[k]).fill(k)); T.n('How many characters are common?', out.length, 'Sum of min counts.'); return out; })(); T.n('Different letters in the answer?', new Set(res).size, 'Letters whose smallest count is above 0.'); return res; }
   });
 
   D('occurrences-after-bigram', {
     t: 'Occurrences After Bigram',
     r: 'Scan word triples; when words i, i+1 are first and second, collect word i+2.',
     g: R => ({ text: Array.from({ length: R.int(3, 8) }, () => R.pick(['a', 'b', 'c'])).join(' '), first: 'a', second: 'b' }),
-    s(I, T) { const w = I.text.split(' '), out = []; for (let i = 0; i + 2 < w.length; i++) if (w[i] === I.first && w[i + 1] === I.second) { T.at({ words: A(w, { hl: [i, i + 1] }) }); T.c('Word that follows?', [...new Set([w[i + 2], 'a', 'b', 'c'])], w[i + 2], 'The third word.'); out.push(w[i + 2]); } if (!out.length) { T.at({ words: A(w) }); T.yn(`Does "${I.first} ${I.second}" appear with a following word?`, false, 'No match.'); } return out; }
+    s(I, T) { const res = (() => { const w = I.text.split(' '), out = []; T.at({ words: A(w) }); T.n('Words in the text?', w.length, 'Split on spaces.'); for (let i = 0; i + 2 < w.length; i++) if (w[i] === I.first && w[i + 1] === I.second) { T.at({ words: A(w, { hl: [i, i + 1] }) }); T.c('Word that follows?', [...new Set([w[i + 2], 'a', 'b', 'c'])], w[i + 2], 'The third word.'); out.push(w[i + 2]); } if (!out.length) { T.at({ words: A(w) }); T.yn(`Does "${I.first} ${I.second}" appear with a following word?`, false, 'No match.'); } return out; })(); T.n('How many words are collected?', res.length, 'One for each match that has a word after it.'); return res; }
   });
 
   D('defanging-an-ip-address', {
     t: 'Defanging an IP Address',
     r: 'Replace every "." with "[.]".',
     g: R => ({ address: Array.from({ length: 4 }, () => R.int(0, 255)).join('.') }),
-    s(I, T) { T.at({ address: I.address }); T.n('How many dots to replace?', 3, 'An IPv4 address has 4 parts.'); return I.address.split('.').join('[.]'); }
+    s(I, T) { const res = (() => { T.at({ address: I.address }); T.n('Characters in the original address?', I.address.length, 'Digits plus the 3 dots.'); T.n('How many dots to replace?', 3, 'An IPv4 address has 4 parts.'); return I.address.split('.').join('[.]'); })(); T.n('Length of the result?', res.length, 'Each dot gains two brackets.'); return res; }
   });
 
   D('remove-vowels-from-a-string', {
     t: 'Remove Vowels from a String',
     r: 'Keep only characters that are not a, e, i, o, u.',
     g: R => ({ s: R.str(R.int(1, 8), 'aeiolcd') }),
-    s(I, T) { const v = [...I.s].filter(c => 'aeiou'.includes(c)).length; T.at({ s: chars(I.s) }); T.n('How many vowels are removed?', v, 'Count a, e, i, o, u.'); return I.s.replace(/[aeiou]/g, ''); }
+    s(I, T) { const res = (() => { const v = [...I.s].filter(c => 'aeiou'.includes(c)).length; T.at({ s: chars(I.s) }); T.n('Length of s?', I.s.length, 'Count every character.'); T.n('How many vowels are removed?', v, 'Count a, e, i, o, u.'); return I.s.replace(/[aeiou]/g, ''); })(); T.n('Length of the result?', res.length, 'Length of s minus the vowels.'); return res; }
   });
 
   D('alphabet-board-path', {
@@ -117,14 +117,14 @@
     t: 'Before and After Puzzle: last word meets first word',
     r: 'For every ordered pair i ≠ j where the last word of phrase i equals the first word of phrase j, join them sharing that word. Return distinct results sorted.',
     g: R => ({ phrases: Array.from({ length: R.int(2, 4) }, () => Array.from({ length: R.int(1, 3) }, () => R.pick(['a', 'b', 'c'])).join(' ')) }),
-    s(I, T) { const set = new Set(), p = I.phrases; for (let i = 0; i < p.length; i++) for (let j = 0; j < p.length; j++) { if (i === j) continue; const a = p[i].split(' '), b = p[j].split(' '); if (a[a.length - 1] === b[0]) set.add([...a, ...b.slice(1)].join(' ')); } T.at({ phrases: A(p) }); T.n('How many distinct puzzles?', set.size, 'Pairs whose ends match.'); return [...set].sort(); }
+    s(I, T) { const res = (() => { const set = new Set(), p = I.phrases; for (let i = 0; i < p.length; i++) for (let j = 0; j < p.length; j++) { if (i === j) continue; const a = p[i].split(' '), b = p[j].split(' '); if (a[a.length - 1] === b[0]) set.add([...a, ...b.slice(1)].join(' ')); } T.at({ phrases: A(p) }); T.n('Ordered pairs of phrases to try?', p.length * (p.length - 1), 'Every phrase with every other phrase, in both orders.'); T.n('How many distinct puzzles?', set.size, 'Pairs whose ends match.'); return [...set].sort(); })(); let m = 0; const p = I.phrases; for (let i = 0; i < p.length; i++) for (let j = 0; j < p.length; j++) if (i !== j && p[i].split(' ').pop() === p[j].split(' ')[0]) m++; T.n('Matching ordered pairs before removing duplicates?', m, 'Last word of one equals the first word of the other.'); return res; }
   });
 
   D('maximum-number-of-balloons', {
     t: 'Maximum Number of Balloons',
     r: '"balloon" needs b, a, n once and l, o twice. The answer is the min of count(b), count(a), count(l)/2, count(o)/2, count(n).',
     g: R => ({ text: R.str(R.int(3, 14), 'balonx') }),
-    s(I, T) { const c = cnt(I.text), v = Math.min(c.b || 0, c.a || 0, Math.floor((c.l || 0) / 2), Math.floor((c.o || 0) / 2), c.n || 0); T.at({ counts: K(c) }); T.n('Copies available from l alone?', Math.floor((c.l || 0) / 2), 'Two l per balloon.'); return v; }
+    s(I, T) { const res = (() => { const c = cnt(I.text), v = Math.min(c.b || 0, c.a || 0, Math.floor((c.l || 0) / 2), Math.floor((c.o || 0) / 2), c.n || 0); T.at({ counts: K(c) }); T.n('Copies available from l alone?', Math.floor((c.l || 0) / 2), 'Two l per balloon.'); T.n('Copies available from o alone?', Math.floor((c.o || 0) / 2), 'Two o per balloon.'); return v; })(); T.n('Most balloons you can make?', res, 'The smallest of all the letter limits.'); return res; }
   });
 
   D('decrypt-string-from-alphabet-to-integer-mapping', {
@@ -145,14 +145,14 @@
     t: 'Print Words Vertically',
     r: 'Row j takes the j-th letter of each word (space if too short); trim trailing spaces.',
     g: R => ({ s: Array.from({ length: R.int(1, 4) }, () => R.str(R.int(1, 3), 'ABC')).join(' ') }),
-    s(I, T) { const w = I.s.split(' '), m = Math.max(...w.map(x => x.length)), out = []; T.at({ words: A(w) }); T.n('How many output rows?', m, 'Length of the longest word.'); for (let j = 0; j < m; j++) out.push(w.map(x => x[j] || ' ').join('').replace(/ +$/, '')); return out; }
+    s(I, T) { const res = (() => { const w = I.s.split(' '), m = Math.max(...w.map(x => x.length)), out = []; T.at({ words: A(w) }); T.n('How many output rows?', m, 'Length of the longest word.'); for (let j = 0; j < m; j++) out.push(w.map(x => x[j] || ' ').join('').replace(/ +$/, '')); return out; })(); const w = I.s.split(' '); T.c('First output row?', [...new Set([res[0], w.map(x => x[0]).reverse().join(''), w[0]])], res[0], 'The first letter of each word, in order.'); T.n('Length of the last row?', res[res.length - 1].length, 'Trailing spaces are removed.'); return res; }
   });
 
   D('minimum-number-of-steps-to-make-two-strings-anagram', {
     t: 'Steps to Make an Anagram: surplus letters',
     r: 'Count s up and t down; the answer is the total positive surplus (letters t is missing).',
     g: R => { const n = R.int(1, 7); return { s: R.str(n, 'abc'), t: R.str(n, 'abc') }; },
-    s(I, T) { const c = cnt(I.s); for (const x of I.t) c[x] = (c[x] || 0) - 1; T.at({ diff: K(c) }); const v = Object.values(c).reduce((a, b) => a + Math.max(0, b), 0); T.n('Replacements needed?', v, 'Sum of positive differences.'); return v; }
+    s(I, T) { const c = cnt(I.s); for (const x of I.t) c[x] = (c[x] || 0) - 1; T.at({ diff: K(c) }); T.n(`Difference for '${I.s[0]}'?`, c[I.s[0]], 'Its count in s minus its count in t.'); T.n('Sum of the negative differences, as a positive number?', -Object.values(c).reduce((a, b) => a + Math.min(0, b), 0), 'Same length strings, so it matches the positive sum.'); const v = Object.values(c).reduce((a, b) => a + Math.max(0, b), 0); T.n('Replacements needed?', v, 'Sum of positive differences.'); return v; }
   });
 
   D('increasing-decreasing-string', {
@@ -167,7 +167,7 @@
     r: 'If n is odd, n copies of one letter work. If n is even, use n − 1 copies plus one different letter.',
     cmp: (o, e, I) => typeof o === 'string' && o.length === I.n && /^[a-z]*$/.test(o) && Object.values(cnt(o)).every(x => x % 2 === 1),
     g: R => ({ n: R.int(1, 12) }),
-    s(I, T) { T.at({ n: I.n }); T.yn('Is n odd?', I.n % 2 === 1, 'Odd n → a single repeated letter.'); return I.n % 2 ? 'a'.repeat(I.n) : 'a'.repeat(I.n - 1) + 'b'; }
+    s(I, T) { const res = (() => { T.at({ n: I.n }); T.yn('Is n odd?', I.n % 2 === 1, 'If n is odd, one repeated letter works.'); return I.n % 2 ? 'a'.repeat(I.n) : 'a'.repeat(I.n - 1) + 'b'; })(); T.n('Different letters used?', new Set(res).size, 'One if n is odd, two if n is even.'); T.n(`Copies of 'a'?`, res.split('a').length - 1, 'n if n is odd, otherwise n minus 1.'); return res; }
   });
 
   D('longest-happy-prefix', {
@@ -189,7 +189,7 @@
     t: 'HTML Entity Parser: replace known entities',
     r: 'Scan for "&…;" and replace only &quot; &apos; &amp; &gt; &lt; &frasl;. Process left to right so "&amp;gt;" becomes "&gt;", not ">".',
     g: R => ({ text: Array.from({ length: R.int(1, 4) }, () => R.pick(['&amp;', '&gt;', '&lt;', '&quot;', '&x;', 'a', ' ', '&amp;gt;'])).join('') }),
-    s(I, T) { const E = { '&quot;': '"', '&apos;': "'", '&amp;': '&', '&gt;': '>', '&lt;': '<', '&frasl;': '/' }; let out = '', i = 0, k = 0; while (i < I.text.length) { let hit = null; if (I.text[i] === '&') for (const e in E) if (I.text.startsWith(e, i)) hit = e; if (hit) { out += E[hit]; i += hit.length; k++; } else out += I.text[i++]; } T.at({ text: I.text }); T.n('How many entities are replaced?', k, 'Known entities only, left to right.'); return out; }
+    s(I, T) { const res = (() => { const E = { '&quot;': '"', '&apos;': "'", '&amp;': '&', '&gt;': '>', '&lt;': '<', '&frasl;': '/' }; let out = '', i = 0, k = 0; while (i < I.text.length) { let hit = null; if (I.text[i] === '&') for (const e in E) if (I.text.startsWith(e, i)) hit = e; if (hit) { out += E[hit]; i += hit.length; k++; } else out += I.text[i++]; } T.at({ text: I.text }); T.n('Ampersands in the text?', I.text.split('&').length - 1, 'Each one might start an entity.'); T.n('How many entities are replaced?', k, 'Known entities only, left to right.'); return out; })(); T.n('Length of the result?', res.length, 'Each entity shrinks to one character.'); return res; }
   });
 
   D('reformat-the-string', {
@@ -197,14 +197,14 @@
     r: 'Split letters and digits. If their counts differ by more than 1, return "". Otherwise alternate, starting with the larger group.',
     cmp: (o, e) => e === '' ? o === '' : typeof o === 'string' && [...o].sort().join('') === [...e].sort().join('') && [...o].every((c, i) => !i || /\d/.test(c) !== /\d/.test(o[i - 1])),
     g: R => ({ s: R.str(R.int(1, 7), 'ab12') }),
-    s(I, T) { const L = [...I.s].filter(c => /[a-z]/.test(c)), Dg = [...I.s].filter(c => /\d/.test(c)); T.at({ letters: A(L), digits: A(Dg) }); T.yn('Is a valid alternation possible?', Math.abs(L.length - Dg.length) <= 1, 'Counts differ by at most 1.'); if (Math.abs(L.length - Dg.length) > 1) return ''; const [a, b] = L.length >= Dg.length ? [L, Dg] : [Dg, L]; let out = ''; for (let i = 0; i < a.length; i++) out += a[i] + (b[i] || ''); return out; }
+    s(I, T) { const res = (() => { const L = [...I.s].filter(c => /[a-z]/.test(c)), Dg = [...I.s].filter(c => /\d/.test(c)); T.at({ letters: A(L), digits: A(Dg) }); T.n('How many letters?', L.length, 'The rest are digits.'); T.yn('Is a valid alternation possible?', Math.abs(L.length - Dg.length) <= 1, 'Counts differ by at most 1.'); if (Math.abs(L.length - Dg.length) > 1) return ''; const [a, b] = L.length >= Dg.length ? [L, Dg] : [Dg, L]; let out = ''; for (let i = 0; i < a.length; i++) out += a[i] + (b[i] || ''); return out; })(); T.n('Length of the result?', res.length, 'All characters, or 0 if it is impossible.'); return res; }
   });
 
   D('destination-city', {
     t: 'Destination City: no outgoing path',
     r: 'Collect all source cities; the destination is the one city that only appears as a target.',
     g: R => { const c = R.shuffle(['A', 'B', 'C', 'D', 'E']).slice(0, R.int(2, 5)); return { paths: R.shuffle(c.slice(1).map((x, i) => [c[i], x])) }; },
-    s(I, T) { const src = new Set(I.paths.map(p => p[0])); T.at({ paths: A(I.paths.map(p => p.join('→'))), sources: A([...src]) }); const d = I.paths.find(p => !src.has(p[1]))[1]; T.c('Destination city?', [...new Set(I.paths.flat())], d, 'Never a source.'); return d; }
+    s(I, T) { const src = new Set(I.paths.map(p => p[0])); T.at({ paths: A(I.paths.map(p => p.join(' to '))), sources: A([...src]) }); T.n('How many cities are sources?', src.size, 'Every city with an outgoing path.'); T.n('Cities in total?', new Set(I.paths.flat()).size, 'Sources plus the one destination.'); const d = I.paths.find(p => !src.has(p[1]))[1]; T.c('Destination city?', [...new Set(I.paths.flat())], d, 'Never a source.'); return d; }
   });
 
   D('consecutive-characters', {
@@ -218,7 +218,7 @@
     t: 'Rearrange Words by Length: stable sort',
     r: 'Lower-case all words, stable-sort by length, then capitalize the first word.',
     g: R => { const w = Array.from({ length: R.int(1, 5) }, () => R.str(R.int(1, 4), 'abc')); w[0] = w[0][0].toUpperCase() + w[0].slice(1); return { text: w.join(' ') }; },
-    s(I, T) { const w = I.text.toLowerCase().split(' '), s = w.slice().sort((a, b) => a.length - b.length); T.at({ words: A(w) }); T.c('Which word comes first?', [...new Set(w)], s[0], 'Shortest; ties keep the original order.'); s[0] = s[0][0].toUpperCase() + s[0].slice(1); return s.join(' '); }
+    s(I, T) { const res = (() => { const w = I.text.toLowerCase().split(' '), s = w.slice().sort((a, b) => a.length - b.length); T.at({ words: A(w) }); T.n('Length of the shortest word?', s[0].length, 'Sort by length.'); T.c('Which word comes first?', [...new Set(w)], s[0], 'Shortest; ties keep the original order.'); s[0] = s[0][0].toUpperCase() + s[0].slice(1); return s.join(' '); })(); const o = res.toLowerCase().split(' '); T.c('Which word comes last?', [...new Set(o)], o[o.length - 1], 'Longest; ties keep the original order.'); return res; }
   });
 
   D('people-whose-list-of-favorite-companies-is-not-a-subset-of-another-list', {
@@ -253,14 +253,14 @@
     t: 'Reformat Date: Day Month Year → YYYY-MM-DD',
     r: 'Strip the day suffix, map the month name to 01–12, pad, and reorder.',
     g: R => ({ date: (d => d + (d % 10 === 1 && d !== 11 ? 'st' : d % 10 === 2 && d !== 12 ? 'nd' : d % 10 === 3 && d !== 13 ? 'rd' : 'th'))(R.int(1, 28)) + ' ' + R.pick(['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']) + ' ' + R.int(1900, 2100) }),
-    s(I, T) { const [d, m, y] = I.date.split(' '), M = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'].indexOf(m) + 1; T.at({ date: I.date }); T.n(`Month number of ${m}?`, M, 'Jan = 1.'); return `${y}-${String(M).padStart(2, '0')}-${String(parseInt(d)).padStart(2, '0')}`; }
+    s(I, T) { const [d, m, y] = I.date.split(' '), M = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'].indexOf(m) + 1; T.at({ date: I.date }); T.n('Day number?', parseInt(d), 'Drop the st, nd, rd or th.'); T.yn('Does the day need a leading zero?', parseInt(d) < 10, 'Days below 10 get a 0 in front.'); T.n(`Month number of ${m}?`, M, 'Jan = 1.'); return `${y}-${String(M).padStart(2, '0')}-${String(parseInt(d)).padStart(2, '0')}`; }
   });
 
   D('shuffle-string', {
     t: 'Shuffle String: place by index',
     r: 'Put s[i] at position indices[i] of the result.',
     g: R => { const n = R.int(1, 7); return { s: R.str(n, 'abcde'), indices: R.perm(n) }; },
-    s(I, T) { const out = Array(I.s.length); I.indices.forEach((j, i) => out[j] = I.s[i]); const j0 = I.indices.indexOf(0); T.at({ s: chars(I.s), indices: A(I.indices) }); T.c('First character of the result?', [...new Set([I.s[j0], I.s[0]])], I.s[j0], `Index ${j0} maps to 0.`); return out.join(''); }
+    s(I, T) { const res = (() => { const out = Array(I.s.length); I.indices.forEach((j, i) => out[j] = I.s[i]); const j0 = I.indices.indexOf(0); T.at({ s: chars(I.s), indices: A(I.indices) }); T.n(`New position of '${I.s[0]}' at index 0?`, I.indices[0], 'indices[0] gives its new position.'); T.c('First character of the result?', [...new Set([I.s[j0], I.s[0]])], I.s[j0], `Index ${j0} maps to 0.`); return out.join(''); })(); T.c('Last character of the result?', [...new Set([res[res.length - 1], I.s[I.s.length - 1]])], res[res.length - 1], 'The character whose index is the last position.'); return res; }
   });
 
   D('can-convert-string-in-k-moves', {
@@ -288,6 +288,6 @@
     t: 'Thousand Separator',
     r: 'Insert a dot every three digits counting from the right.',
     g: R => ({ n: R.int(0, 10 ** R.int(1, 9)) }),
-    s(I, T) { const s = String(I.n); T.at({ n: s }); T.n('How many dots?', Math.floor((s.length - 1) / 3), 'One per group of three after the first.'); let out = ''; for (let i = 0; i < s.length; i++) { if (i && (s.length - i) % 3 === 0) out += '.'; out += s[i]; } return out; }
+    s(I, T) { const res = (() => { const s = String(I.n); T.at({ n: s }); T.n('How many digits?', s.length, 'Count from the right in groups of three.'); T.n('How many dots?', Math.floor((s.length - 1) / 3), 'One per group of three after the first.'); let out = ''; for (let i = 0; i < s.length; i++) { if (i && (s.length - i) % 3 === 0) out += '.'; out += s[i]; } return out; })(); T.n('Length of the result?', res.length, 'Digits plus dots.'); return res; }
   });
 })();

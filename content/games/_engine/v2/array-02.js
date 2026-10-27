@@ -51,7 +51,7 @@
     t: 'Longest Alternating Subarray',
     r: 'From each start where nums[i+1] = nums[i] + 1, extend while the differences keep alternating +1, −1, …; track the longest (−1 if none).',
     g: R => ({ nums: R.ints(R.int(2, 8), 1, 4) }),
-    s(I, T) { let best = -1; for (let i = 0; i + 1 < I.nums.length; i++) { if (I.nums[i + 1] !== I.nums[i] + 1) continue; let j = i + 1; while (j + 1 < I.nums.length && I.nums[j + 1] - I.nums[j] === ((j - i) % 2 ? -1 : 1)) j++; best = Math.max(best, j - i + 1); T.at({ nums: A(I.nums, { i, j }) }); T.n('Alternating length from here?', j - i + 1, '+1, −1, +1, …'); } return best; }
+    s(I, T) { const res = (() => { let best = -1; T.at({ nums: A(I.nums) }); T.n('Neighbouring pairs that go up by exactly 1?', I.nums.filter((x, i) => i && x === I.nums[i - 1] + 1).length, 'Each one can start a run.'); for (let i = 0; i + 1 < I.nums.length; i++) { if (I.nums[i + 1] !== I.nums[i] + 1) continue; let j = i + 1; while (j + 1 < I.nums.length && I.nums[j + 1] - I.nums[j] === ((j - i) % 2 ? -1 : 1)) j++; best = Math.max(best, j - i + 1); T.at({ nums: A(I.nums, { i, j }) }); T.n('Alternating length from here?', j - i + 1, 'Up 1, down 1, up 1, and so on.'); } return best; })(); T.n('Longest alternating length? (−1 if none)', res, 'Best over every start.'); return res; }
   });
 
   D('number-of-employees-who-met-the-target', {
@@ -65,7 +65,7 @@
     t: 'Minimum Right Shifts to Sort the Array',
     r: 'Find the single descent (if any). Sortable by rotation only if there is at most one descent and the last element is below the first; the shifts needed are n − (descent index + 1).',
     g: R => { const s = R.distinct(R.int(1, 6), 1, 20).sort((a, b) => a - b), k = R.int(0, s.length - 1), a = [...s.slice(k), ...s.slice(0, k)]; if (R.chance(0.3) && a.length > 2) [a[0], a[1]] = [a[1], a[0]]; return { nums: a }; },
-    s(I, T) { const n = I.nums.length, drops = []; for (let i = 0; i + 1 < n; i++) if (I.nums[i] > I.nums[i + 1]) drops.push(i); T.at({ nums: A(I.nums) }); T.n('Descents inside the array?', drops.length, 'Places where a value drops.'); if (!drops.length) return 0; if (drops.length > 1 || I.nums[n - 1] > I.nums[0]) return -1; return n - drops[0] - 1; }
+    s(I, T) { const res = (() => { const n = I.nums.length, drops = []; for (let i = 0; i + 1 < n; i++) if (I.nums[i] > I.nums[i + 1]) drops.push(i); T.at({ nums: A(I.nums) }); T.n('Descents inside the array?', drops.length, 'Places where a value drops.'); T.n('Index of the smallest value?', I.nums.indexOf(Math.min(...I.nums)), 'It must end up at index 0.'); if (!drops.length) return 0; if (drops.length > 1 || I.nums[n - 1] > I.nums[0]) return -1; return n - drops[0] - 1; })(); T.n('Fewest right shifts? (−1 if impossible)', res, 'Shift the smallest value to the front.'); return res; }
   });
 
   D('maximum-value-of-an-ordered-triplet-i', {
@@ -93,7 +93,7 @@
     t: 'Minimum Operations to Maximize Last Elements in Arrays',
     r: 'Try two cases: keep the last pair as is, or swap it (1 op). For every other index, it must fit under both maxima either as is or swapped (count a swap); if neither, the case fails.',
     g: R => { const n = R.int(1, 5); return { nums1: R.ints(n, 1, 9), nums2: R.ints(n, 1, 9) }; },
-    s(I, T) { const n = I.nums1.length, run = (l1, l2, base) => { let c = base; for (let i = 0; i + 1 < n; i++) { const a = I.nums1[i], b = I.nums2[i]; if (a <= l1 && b <= l2) continue; if (b <= l1 && a <= l2) c++; else return Infinity; } return c; }; const k = run(I.nums1[n - 1], I.nums2[n - 1], 0), s = run(I.nums2[n - 1], I.nums1[n - 1], 1); T.at({ nums1: A(I.nums1), nums2: A(I.nums2) }); T.n('Operations if we keep the last pair (−1 if impossible)?', k === Infinity ? -1 : k, 'Swap whatever does not fit.'); const r = Math.min(k, s); return r === Infinity ? -1 : r; }
+    s(I, T) { const res = (() => { const n = I.nums1.length, run = (l1, l2, base) => { let c = base; for (let i = 0; i + 1 < n; i++) { const a = I.nums1[i], b = I.nums2[i]; if (a <= l1 && b <= l2) continue; if (b <= l1 && a <= l2) c++; else return Infinity; } return c; }; const k = run(I.nums1[n - 1], I.nums2[n - 1], 0), s = run(I.nums2[n - 1], I.nums1[n - 1], 1); T.at({ nums1: A(I.nums1), nums2: A(I.nums2) }); T.n('Operations if we keep the last pair? (−1 if impossible)', k === Infinity ? -1 : k, 'Swap whatever does not fit.'); T.n('Operations if we swap the last pair? (−1 if impossible)', s === Infinity ? -1 : s, 'One swap at the end, plus fixes.'); const r = Math.min(k, s); return r === Infinity ? -1 : r; })(); T.n('Fewest operations? (−1 if impossible)', res, 'The better of the two plans.'); return res; }
   });
 
   D('find-the-peaks', {
@@ -121,7 +121,7 @@
     t: 'Maximum Increasing Triplet Value',
     r: 'For each middle j, use the largest value to its right (suffix max, must exceed nums[j]) and the largest value to its left that is smaller than nums[j] (ordered set). Value = left − nums[j] + right.',
     g: R => ({ nums: R.ints(R.int(3, 7), 1, 12) }),
-    s(I, T) { const a = I.nums, n = a.length; let best = -Infinity; for (let j = 1; j + 1 < n; j++) { const left = a.slice(0, j).filter(x => x < a[j]), right = Math.max(...a.slice(j + 1)); if (!left.length || right <= a[j]) continue; const v = Math.max(...left) - a[j] + right; best = Math.max(best, v); T.at({ nums: A(a, { i: j }) }); T.n('Best value with this middle?', v, 'max smaller left − mid + max right.'); } return best; }
+    s(I, T) { const res = (() => { const a = I.nums, n = a.length; let best = -Infinity; for (let j = 1; j + 1 < n; j++) { const left = a.slice(0, j).filter(x => x < a[j]), right = Math.max(...a.slice(j + 1)); if (!left.length || right <= a[j]) continue; const v = Math.max(...left) - a[j] + right; best = Math.max(best, v); T.at({ nums: A(a, { i: j }) }); T.n('Best value with this middle?', v, 'Largest smaller value on the left, minus the middle, plus the largest on the right.'); } return best; })(); T.n('Maximum triplet value?', res, 'Best over every middle.'); return res; }
   });
 
   D('longest-strictly-increasing-or-strictly-decreasing-subarray', {
@@ -135,14 +135,14 @@
     t: 'Find the Integer Added to Array I',
     r: 'Adding x shifts every element, so x = min(nums2) − min(nums1).',
     g: R => { const a = R.ints(R.int(1, 5), 0, 9), x = R.int(-5, 5); return { nums1: a, nums2: R.shuffle(a.map(v => v + x)) }; },
-    s(I, T) { T.at({ nums1: A(I.nums1), nums2: A(I.nums2) }); T.n('min(nums1)?', Math.min(...I.nums1), 'Smallest maps to smallest.'); return Math.min(...I.nums2) - Math.min(...I.nums1); }
+    s(I, T) { const res = (() => { T.at({ nums1: A(I.nums1), nums2: A(I.nums2) }); T.n('Smallest value in nums1?', Math.min(...I.nums1), 'Smallest maps to smallest.'); T.n('Smallest value in nums2?', Math.min(...I.nums2), 'Its partner.'); return Math.min(...I.nums2) - Math.min(...I.nums1); })(); T.n('Integer added?', res, 'Difference of the two minimums.'); return res; }
   });
 
   D('special-array-i', {
     t: 'Special Array I',
     r: 'Every adjacent pair must have different parity.',
     g: R => ({ nums: R.ints(R.int(1, 7), 1, 9) }),
-    s(I, T) { for (let i = 1; i < I.nums.length; i++) { const ok = I.nums[i] % 2 !== I.nums[i - 1] % 2; T.at({ nums: A(I.nums, { i, j: i - 1 }) }); T.yn('Different parity?', ok, 'One odd, one even.'); if (!ok) return false; } return true; }
+    s(I, T) { const res = (() => { for (let i = 1; i < I.nums.length; i++) { const ok = I.nums[i] % 2 !== I.nums[i - 1] % 2; T.at({ nums: A(I.nums, { i, j: i - 1 }) }); T.yn('Different parity?', ok, 'One odd, one even.'); if (!ok) return false; } return true; })(); T.yn('Is the array special?', res, 'Every neighbouring pair differs in parity.'); return res; }
   });
 
   D('find-indices-of-stable-mountains', {

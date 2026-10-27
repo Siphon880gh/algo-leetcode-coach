@@ -14,7 +14,7 @@
     t: 'Basic Calculator',
     r: 'Scan left to right with a running result and sign. On "(", push (result, sign) and start fresh; on ")", finish the inner value and combine it with the popped result and sign.',
     g: R => ({ s: genSigned(R, 2) }),
-    s(I, T) { const st = []; let res = 0, sign = 1, n = 0, k = 0; for (const c of I.s + ' ') { if (c >= '0' && c <= '9') { n = n * 10 + +c; continue; } res += sign * n; n = 0; if (c === '+') sign = 1; else if (c === '-') sign = -1; else if (c === '(') { st.push([res, sign]); res = 0; sign = 1; } else if (c === ')') { const [r, sg] = st.pop(); res = r + sg * res; if (k++ < 4) { T.at({ s: X(I.s), stack: S(st.map(x => `${x[0]},${x[1] > 0 ? '+' : '−'}`)) }); T.n('Running result after closing this ")"?', res, 'outer + sign × inner.'); } } } if (!k) { T.at({ s: X(I.s) }); T.n('Result?', res, 'Sum with signs.'); } return res; }
+    s(I, T) { const res = (() => { const st = []; let res = 0, sign = 1, n = 0, k = 0; T.at({ s: X(I.s) }); T.n('Opening brackets?', [...I.s].filter(c => c === '(').length, 'Each one pushes onto the stack.'); for (const c of I.s + ' ') { if (c >= '0' && c <= '9') { n = n * 10 + +c; continue; } res += sign * n; n = 0; if (c === '+') sign = 1; else if (c === '-') sign = -1; else if (c === '(') { st.push([res, sign]); res = 0; sign = 1; } else if (c === ')') { const [r, sg] = st.pop(); res = r + sg * res; if (k++ < 4) { T.at({ s: X(I.s), stack: S(st.map(x => `${x[0]},${x[1] > 0 ? '+' : '−'}`)) }); T.n('Running result after closing this ")"?', res, 'Outer result plus sign times inner result.'); } } } if (!k) { T.at({ s: X(I.s) }); T.n('Numbers in the expression?', (I.s.match(/\d+/g) || []).length, 'Each is added with its sign.'); } return res; })(); T.n('Final result?', res, 'Sum everything with its sign.'); return res; }
   });
 
   D('basic-calculator-ii', {
@@ -35,7 +35,7 @@
     t: 'Longest Absolute File Path',
     r: 'Process lines; the number of tabs is the depth. Keep a stack of cumulative path lengths per depth: len[d] = len[d−1] + name length + 1. Files (names with ".") update the answer.',
     g: R => { const lines = []; const gen = (d, n) => { for (let i = 0; i < n; i++) { const isFile = d > 0 && R.chance(0.4); lines.push('\t'.repeat(d) + (isFile ? R.pick(['a', 'fi', 'long']) + '.' + R.pick(['x', 'ext']) : R.pick(['dir', 'd', 'sub']) + R.int(1, 9))); if (!isFile && d < 3) gen(d + 1, R.int(0, 2)); } }; gen(0, 1); return { input: lines.join('\n') }; },
-    s(I, T) { const len = [0]; let best = 0, k = 0; I.input.split('\n').forEach(line => { const d = line.lastIndexOf('\t') + 1, name = line.slice(d); len[d + 1] = len[d] + name.length + 1; if (name.includes('.')) { best = Math.max(best, len[d + 1] - 1); if (k++ < 4) { T.at({ line: X(line.replace(/\t/g, '→')) }); T.n('Path length to this file?', len[d + 1] - 1, 'Parent length + name + "/" separators.'); } } }); return best; }
+    s(I, T) { const res = (() => { const len = [0]; let best = 0, k = 0; T.at({ input: X(I.input.replace(/\t/g, '[tab]')) }); T.n('Lines?', I.input.split('\n').length, 'One file or folder per line.'); I.input.split('\n').forEach(line => { const d = line.lastIndexOf('\t') + 1, name = line.slice(d); len[d + 1] = len[d] + name.length + 1; if (name.includes('.')) { best = Math.max(best, len[d + 1] - 1); if (k++ < 4) { T.at({ line: X(line.replace(/\t/g, '[tab]')) }); T.n('Path length to this file?', len[d + 1] - 1, 'Parent length, plus the name, plus a "/" separator.'); } } }); return best; })(); T.n('Longest file path? (0 if none)', res, 'Best over every file.'); return res; }
   });
 
   D('decode-string', {
@@ -56,7 +56,7 @@
     t: 'Find Permutation',
     r: 'Start from [1..n] and reverse every maximal run covered by consecutive "D"s (the block of positions i..j where s[i..j−1] are all "D"). This gives the lexicographically smallest permutation.',
     g: R => ({ s: R.str(R.int(1, 7), 'ID') }),
-    s(I, T) { const n = I.s.length + 1, p = Array.from({ length: n }, (_, i) => i + 1); for (let i = 0; i < I.s.length;) { if (I.s[i] !== 'D') { i++; continue; } let j = i; while (j < I.s.length && I.s[j] === 'D') j++; p.splice(i, j - i + 1, ...p.slice(i, j + 1).reverse()); T.at({ s: A([...I.s], { i, j: j - 1 }), perm: A(p.slice()) }); T.n('Length of the reversed block?', j - i + 1, 'D-run length + 1.'); i = j; } return p; }
+    s(I, T) { const res = (() => { const n = I.s.length + 1, p = Array.from({ length: n }, (_, i) => i + 1); T.at({ s: A([...I.s]) }); T.n('Length of the permutation?', n, 'One more than s.'); for (let i = 0; i < I.s.length;) { if (I.s[i] !== 'D') { i++; continue; } let j = i; while (j < I.s.length && I.s[j] === 'D') j++; p.splice(i, j - i + 1, ...p.slice(i, j + 1).reverse()); T.at({ s: A([...I.s], { i, j: j - 1 }), perm: A(p.slice()) }); T.n('Length of the reversed block?', j - i + 1, 'D-run length, plus 1.'); i = j; } return p; })(); T.n('First value of the permutation?', res[0], 'Reversed runs start with their largest value.'); return res; }
   });
 
   D('tag-validator', {
@@ -119,7 +119,7 @@
     t: 'Decoded String at Index',
     r: 'Compute the decoded length, then walk backward: k %= size; a letter with k == 0 is the answer; a digit d divides size by d, a letter decrements size.',
     g: R => { let s = R.pick(['a', 'le', 'ha']), size = s.length; for (let i = 0; i < R.int(1, 4); i++) { if (R.chance(0.5)) { const d = R.int(2, 3); s += d; size *= d; } else { const t = R.str(R.int(1, 2), 'xyz'); s += t; size += t.length; } } return { s, k: R.int(1, size) }; },
-    s(I, T) { let size = 0; for (const c of I.s) size = /\d/.test(c) ? size * +c : size + 1; T.at({ s: I.s }); T.n('Decoded length?', size, 'Multiply on digits, +1 on letters.'); let k = I.k; for (let i = I.s.length - 1; i >= 0; i--) { const c = I.s[i]; k %= size; if (k === 0 && !/\d/.test(c)) return c; size = /\d/.test(c) ? size / +c : size - 1; } }
+    s(I, T) { const res = (() => { let size = 0; for (const c of I.s) size = /\d/.test(c) ? size * +c : size + 1; T.at({ s: I.s }); T.n('Decoded length?', size, 'Multiply on digits, add 1 on letters.'); T.n('Letters in s?', [...I.s].filter(c => !/\d/.test(c)).length, 'Digits only repeat.'); let k = I.k; for (let i = I.s.length - 1; i >= 0; i--) { const c = I.s[i]; k %= size; if (k === 0 && !/\d/.test(c)) return c; size = /\d/.test(c) ? size / +c : size - 1; } })(); T.c('Letter at position k?', [...new Set([res, ...I.s.replace(/\d/g, ''), 'a', 'b'])], res, 'Walk backwards, taking k modulo the size.'); return res; }
   });
 
   D('stamping-the-sequence', {

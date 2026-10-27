@@ -22,14 +22,14 @@
     t: 'Merge In Between Linked Lists',
     r: 'Find node a − 1 and node b + 1 in list1. Link node a − 1 to list2\'s head and list2\'s tail to node b + 1.',
     g: R => { const n = R.int(3, 7), a = R.int(1, n - 2); return { list1: Array.from({ length: n }, (_, i) => i), a, b: R.int(a, n - 2), list2: Array.from({ length: R.int(1, 3) }, (_, i) => 100 + i) }; },
-    s(I, T) { T.at({ list1: A(I.list1, { i: I.a - 1, j: I.b + 1 }) }); T.n('Value of the node before the cut?', I.list1[I.a - 1], 'Node a − 1.'); T.n('Value of the node after the cut?', I.list1[I.b + 1], 'Node b + 1.'); return [...I.list1.slice(0, I.a), ...I.list2, ...I.list1.slice(I.b + 1)]; }
+    s(I, T) { const res = (() => { T.at({ list1: A(I.list1, { i: I.a - 1, j: I.b + 1 }) }); T.n('Value of the node before the cut?', I.list1[I.a - 1], 'Node a minus 1.'); T.n('Value of the node after the cut?', I.list1[I.b + 1], 'Node b plus 1.'); return [...I.list1.slice(0, I.a), ...I.list2, ...I.list1.slice(I.b + 1)]; })(); T.n('Length of the result?', res.length, 'list1 minus the cut nodes, plus list2.'); return res; }
   });
 
   D('swapping-nodes-in-a-linked-list', {
     t: 'Swapping Nodes in a Linked List',
     r: 'Move a pointer k − 1 steps to the k-th node; then advance a second pointer from the head together with the first until it hits the end — it lands on the k-th from the end. Swap values.',
     g: R => { const h = R.ints(R.int(1, 8), 1, 9); return { head: h, k: R.int(1, h.length) }; },
-    s(I, T) { const a = I.head.slice(), n = a.length, i = I.k - 1, j = n - I.k; T.at({ list: A(a, { i, j }) }); T.n('Index of the k-th node from the end?', j, 'n − k.'); [a[i], a[j]] = [a[j], a[i]]; return a; }
+    s(I, T) { const res = (() => { const a = I.head.slice(), n = a.length, i = I.k - 1, j = n - I.k; T.at({ list: A(a, { i, j }) }); T.n('Index of the k-th node from the start?', i, 'k minus 1.'); T.n('Index of the k-th node from the end?', j, 'n minus k.'); [a[i], a[j]] = [a[j], a[i]]; return a; })(); T.n('Value now at index k minus 1?', res[I.k - 1], 'It came from the other end.'); return res; }
   });
 
   D('remove-duplicates-from-an-unsorted-linked-list', {
@@ -64,7 +64,7 @@
     t: 'Delete the Middle Node of a Linked List',
     r: 'Slow/fast pointers with fast starting two ahead: when fast reaches the end, slow is just before the middle (index ⌊n/2⌋); unlink slow.next.',
     g: R => ({ head: R.ints(R.int(1, 8), 1, 9) }),
-    s(I, T) { const m = Math.floor(I.head.length / 2); T.at({ list: LL(Ls.from(I.head)) }); T.n('Index of the middle node?', m, '⌊n / 2⌋.'); return I.head.filter((_, i) => i !== m); }
+    s(I, T) { const res = (() => { const m = Math.floor(I.head.length / 2); T.at({ list: LL(Ls.from(I.head)) }); T.n('Length of the list?', I.head.length, 'Or use slow and fast pointers.'); T.n('Index of the middle node?', m, 'n divided by 2, rounded down.'); return I.head.filter((_, i) => i !== m); })(); T.n('Length after deleting?', res.length, 'One fewer node.'); return res; }
   });
 
   D('maximum-twin-sum-of-a-linked-list', {
@@ -106,7 +106,7 @@
     t: 'Split a Circular Linked List',
     r: 'Slow/fast pointers find the middle: the first half gets ⌈n/2⌉ nodes. Cut after it and close both halves into circles.',
     g: R => ({ nums: R.ints(R.int(2, 8), 1, 9) }),
-    s(I, T) { const h = Math.ceil(I.nums.length / 2); T.at({ circle: A(I.nums) }); T.n('Size of the first half?', h, '⌈n / 2⌉.'); return [I.nums.slice(0, h), I.nums.slice(h)]; }
+    s(I, T) { const res = (() => { const h = Math.ceil(I.nums.length / 2); T.at({ circle: A(I.nums) }); T.n('Size of the first half?', h, 'n divided by 2, rounded up.'); return [I.nums.slice(0, h), I.nums.slice(h)]; })(); T.n('Size of the second half?', res[1].length, 'The rest of the nodes.'); T.n('First value of the second half? (−1 if empty)', res[1].length ? res[1][0] : -1, 'Right after the first half.'); return res; }
   });
 
   D('insert-greatest-common-divisors-in-linked-list', {
@@ -135,7 +135,7 @@
     r: 'Count each value in a hash map, then build a list of the counts.',
     g: R => ({ head: R.ints(R.int(1, 8), 1, 4) }),
     cmp: (o, e) => Array.isArray(o) && JSON.stringify(o.slice().sort()) === JSON.stringify(e.slice().sort()),
-    s(I, T) { const c = new Map(); I.head.forEach(v => c.set(v, (c.get(v) || 0) + 1)); T.at({ list: A(I.head) }); T.n('Distinct values?', c.size, 'One output node each.'); return [...c.values()]; }
+    s(I, T) { const res = (() => { const c = new Map(); I.head.forEach(v => c.set(v, (c.get(v) || 0) + 1)); T.at({ list: A(I.head) }); T.n('Distinct values?', c.size, 'One output node each.'); return [...c.values()]; })(); T.n('Largest frequency?', Math.max(...res), 'The most common value.'); T.n('Sum of all frequencies?', res.reduce((a, b) => a + b, 0), 'The length of the list.'); return res; }
   });
 
   D('delete-nodes-from-linked-list-present-in-array', {
@@ -156,6 +156,6 @@
     t: 'Convert Doubly Linked List to Array II',
     r: 'From the given node, follow prev pointers back to the head, then follow next pointers forward collecting values.',
     g: R => { const h = R.distinct(R.int(1, 6), 1, 20); return { head: h, node: R.pick(h) }; },
-    s(I, T) { const i = I.head.indexOf(I.node); T.at({ list: A(I.head, { i }) }); T.n('prev steps back to the head?', i, 'Its position.'); return I.head.slice(); }
+    s(I, T) { const res = (() => { const i = I.head.indexOf(I.node); T.at({ list: A(I.head, { i }) }); T.n('How many prev steps reach the head?', i, 'Its position.'); T.n('How many next steps reach the tail?', I.head.length - 1 - i, 'Nodes after it.'); return I.head.slice(); })(); T.n('Length of the array?', res.length, 'Every node once.'); return res; }
   });
 })();

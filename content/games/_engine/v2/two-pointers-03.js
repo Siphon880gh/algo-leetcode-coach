@@ -6,8 +6,9 @@
   const nextPerm = a => { a = a.slice(); let i = a.length - 2; while (i >= 0 && a[i] >= a[i + 1]) i--; if (i < 0) return null; let j = a.length - 1; while (a[j] <= a[i]) j--; [a[i], a[j]] = [a[j], a[i]]; let l = i + 1, r = a.length - 1; while (l < r) { [a[l], a[r]] = [a[r], a[l]]; l++; r--; } return a; };
   const lastSub = s => { let i = 0, j = 1, k = 0; while (j + k < s.length) { if (s[i + k] === s[j + k]) { k++; continue; } if (s[i + k] > s[j + k]) j = j + k + 1; else { i = Math.max(i + k + 1, j); j = i + 1; } k = 0; } return i; };
   const pairIdx = (o, I) => { if (!Array.isArray(o) || o.length !== 2) return false; const [i, j] = o; if (i === -1 && j === -1) { for (let a = 0; a < I.nums.length; a++) for (let b = 0; b < I.nums.length; b++) if (Math.abs(a - b) >= I.indexDifference && Math.abs(I.nums[a] - I.nums[b]) >= I.valueDifference) return false; return true; } return i >= 0 && j >= 0 && i < I.nums.length && j < I.nums.length && Math.abs(i - j) >= I.indexDifference && Math.abs(I.nums[i] - I.nums[j]) >= I.valueDifference; };
-  const idxDiff = (I, T) => { const a = I.nums; let mn = 0, mx = 0, asks = 0; for (let j = I.indexDifference; j < a.length; j++) { const i = j - I.indexDifference; if (a[i] < a[mn]) mn = i; if (a[i] > a[mx]) mx = i; if (asks++ < 6) { T.at({ nums: A(a, { mn, mx, j }), valueDiff: I.valueDifference }); T.n('Largest |nums[j] − partner| available?', Math.max(Math.abs(a[j] - a[mn]), Math.abs(a[j] - a[mx])), 'Partner is the min or max seen at index ≤ j − indexDifference.'); } if (a[j] - a[mn] >= I.valueDifference) return [mn, j]; if (a[mx] - a[j] >= I.valueDifference) return [mx, j]; } return [-1, -1]; };
-  const box = (I, T) => { const w = I.word, n = w.length, L = n - I.numFriends + 1; if (I.numFriends === 1) { T.at({ word: w }); T.yn('With one friend, is the whole word the only split?', true, 'Return the word.'); return w; } const i = lastSub(w); T.at({ word: A([...w], { i }) }); T.n('Start of the lexicographically largest suffix?', i, 'Two-candidate comparison.'); T.n('Max allowed piece length?', L, 'n − numFriends + 1 (others need ≥ 1 char each).'); return w.slice(i, i + L); };
+  const idxDiff = (I, T) => { T.at({ nums: A(I.nums), indexDiff: I.indexDifference, valueDiff: I.valueDifference }); T.n('Smallest j worth checking?', I.indexDifference, 'j must be at least indexDifference away from index 0.'); const r = idxScan(I, T); T.yn('Is there a valid pair?', r[0] >= 0, 'Otherwise return −1, −1.'); return r; };
+  const idxScan = (I, T) => { const a = I.nums; let mn = 0, mx = 0, asks = 0; for (let j = I.indexDifference; j < a.length; j++) { const i = j - I.indexDifference; if (a[i] < a[mn]) mn = i; if (a[i] > a[mx]) mx = i; if (asks++ < 6) { T.at({ nums: A(a, { mn, mx, j }), valueDiff: I.valueDifference }); T.n('Largest difference between nums[j] and an allowed partner?', Math.max(Math.abs(a[j] - a[mn]), Math.abs(a[j] - a[mx])), 'The partner is the min or max seen at least indexDifference before j.'); } if (a[j] - a[mn] >= I.valueDifference) return [mn, j]; if (a[mx] - a[j] >= I.valueDifference) return [mx, j]; } return [-1, -1]; };
+  const box = (I, T) => { const w = I.word, n = w.length, L = n - I.numFriends + 1; if (I.numFriends === 1) { T.at({ word: w }); T.yn('With one friend, is the whole word the only split?', true, 'Return the word.'); T.n('Length of the word?', n, 'It is the whole answer.'); T.n('Max allowed piece length?', L, 'n minus numFriends plus 1.'); return w; } const i = lastSub(w); T.at({ word: A([...w], { i }) }); T.n('Start of the lexicographically largest suffix?', i, 'Two-candidate comparison.'); T.n('Max allowed piece length?', L, 'n minus numFriends plus 1, since every other friend needs at least one character.'); T.n('Length of the answer?', w.slice(i, i + L).length, 'Cut the suffix at the max piece length.'); return w.slice(i, i + L); };
   const F = [null, (x, y) => x + y, (x, y) => x * y, (x, y) => x * x + y, (x, y) => x + y * y, (x, y) => x * x + y * y, (x, y) => (x + y) ** 2, (x, y) => x ** 3 + y ** 3, (x, y) => x * x * y, (x, y) => x * y * y];
 
   D('find-positive-integer-solution-for-a-given-equation', {
@@ -29,7 +30,7 @@
     t: 'Sentence Similarity III',
     r: 'Split into words. Match a common prefix from the left and a common suffix from the right (not overlapping in the shorter sentence). Similar iff together they cover all words of the shorter one.',
     g: R => { const w = Array.from({ length: R.int(1, 5) }, () => R.pick(['A', 'b', 'c', 'dd'])), s = w.slice(); const i = R.int(0, s.length); s.splice(i, R.int(0, 2)); if (R.chance(0.3)) s.push('x'); return { sentence1: w.join(' '), sentence2: (s.length ? s : ['b']).join(' ') }; },
-    s(I, T) { let a = I.sentence1.split(' '), b = I.sentence2.split(' '); if (a.length < b.length) [a, b] = [b, a]; let i = 0; while (i < b.length && a[i] === b[i]) i++; let j = 0; while (j < b.length - i && a[a.length - 1 - j] === b[b.length - 1 - j]) j++; T.at({ longer: A(a), shorter: A(b) }); T.n('Common prefix words?', i, 'Match from the left.'); T.n('Common suffix words (not reusing prefix words)?', j, 'Match from the right.'); return i + j >= b.length; }
+    s(I, T) { const res = (() => { let a = I.sentence1.split(' '), b = I.sentence2.split(' '); if (a.length < b.length) [a, b] = [b, a]; let i = 0; while (i < b.length && a[i] === b[i]) i++; let j = 0; while (j < b.length - i && a[a.length - 1 - j] === b[b.length - 1 - j]) j++; T.at({ longer: A(a), shorter: A(b) }); T.n('Common prefix words?', i, 'Match from the left.'); T.n('Common suffix words (not reusing prefix words)?', j, 'Match from the right.'); return i + j >= b.length; })(); T.yn('Are the sentences similar?', res, 'Prefix plus suffix must cover the shorter sentence.'); return res; }
   });
 
   D('faulty-sensor', {
@@ -43,7 +44,7 @@
     t: 'Next Palindrome Using Same Digits',
     r: 'A palindrome is fixed by its first half. Take the next permutation of the first half (none → ""), then mirror it around the middle digit.',
     g: R => { const h = R.ints(R.int(1, 4), 1, 4).join(''), mid = R.chance(0.5) ? String(R.int(1, 9)) : ''; return { num: h + mid + [...h].reverse().join('') }; },
-    s(I, T) { const n = I.num.length, h = [...I.num.slice(0, n >> 1)].map(Number), np = nextPerm(h); T.at({ half: A(h) }); T.yn('Does the first half have a next permutation?', !!np, 'Otherwise return "".'); if (!np) return ''; const s = np.join(''), r = s + (n % 2 ? I.num[n >> 1] : '') + [...s].reverse().join(''); T.at({ newHalf: A(np) }); T.c('Result?', [...new Set([r, I.num, s + [...s].reverse().join('')])], r, 'Mirror the new half.'); return r; }
+    s(I, T) { const n = I.num.length, h = [...I.num.slice(0, n >> 1)].map(Number), np = nextPerm(h); T.at({ half: A(h) }); T.n('Digits in the first half?', h.length, 'The second half mirrors it.'); T.yn('Does the first half have a next permutation?', !!np, 'Otherwise return "".'); if (!np) { T.n('Length of the answer?', 0, 'No larger palindrome exists.'); return ''; } const s = np.join(''), r = s + (n % 2 ? I.num[n >> 1] : '') + [...s].reverse().join(''); T.at({ newHalf: A(np) }); T.c('Result?', [...new Set([r, I.num, s + [...s].reverse().join('')])], r, 'Mirror the new half.'); return r; }
   });
 
   D('minimum-adjacent-swaps-to-reach-the-kth-smallest-number', {
@@ -92,7 +93,7 @@
     t: 'Reverse Prefix of Word',
     r: 'Find the first occurrence of ch; reverse word[0..i] with two pointers. No occurrence → unchanged.',
     g: R => ({ word: R.str(R.int(1, 8), 'abcd'), ch: R.pick('abcde') }),
-    s(I, T) { const i = I.word.indexOf(I.ch); T.at({ word: A([...I.word]), ch: I.ch }); T.n('Index of the first ch (−1 if none)?', i, 'Scan from the left.'); return i < 0 ? I.word : [...I.word.slice(0, i + 1)].reverse().join('') + I.word.slice(i + 1); }
+    s(I, T) { const res = (() => { const i = I.word.indexOf(I.ch); T.at({ word: A([...I.word]), ch: I.ch }); T.n('Index of the first ch (−1 if none)?', i, 'Scan from the left.'); return i < 0 ? I.word : [...I.word.slice(0, i + 1)].reverse().join('') + I.word.slice(i + 1); })(); const i = I.word.indexOf(I.ch); T.n('Characters reversed?', i + 1, '0 if ch is missing.'); T.n('Characters left unchanged at the end?', I.word.length - i - 1, 'Everything after the first ch.'); return res; }
   });
 
   D('watering-plants-ii', {
@@ -106,7 +107,7 @@
     t: 'Find First Palindromic String in the Array',
     r: 'Check words in order with a two-pointer palindrome test; return the first that passes, or "".',
     g: R => ({ words: Array.from({ length: R.int(1, 5) }, () => R.chance(0.3) ? (h => h + [...h].reverse().join('').slice(1))(R.str(R.int(1, 3), 'abc')) : R.str(R.int(1, 3), 'abc')) }),
-    s(I, T) { for (const [k, w] of I.words.entries()) { const p = pal(w, 0, w.length - 1); if (k < 6) { T.at({ words: A(I.words, { i: k }) }); T.yn(`Is "${w}" a palindrome?`, p, 'Compare ends inward.'); } if (p) return w; } return ''; }
+    s(I, T) { const res = (() => { for (const [k, w] of I.words.entries()) { const p = pal(w, 0, w.length - 1); if (k < 6) { T.at({ words: A(I.words, { i: k }) }); T.yn(`Is "${w}" a palindrome?`, p, 'Compare ends inward.'); } if (p) return w; } return ''; })(); T.n('Length of the answer? (0 if none)', res.length, 'The first palindrome, or the empty string.'); return res; }
   });
 
   D('adding-spaces-to-a-string', {
@@ -127,7 +128,7 @@
     t: 'Partition Array According to Given Pivot',
     r: 'Stable three-way partition: collect values < pivot, then equal, then greater (two pointers filling from both ends work too).',
     g: R => ({ nums: R.ints(R.int(1, 8), 1, 9), pivot: R.int(2, 8) }),
-    s(I, T) { const lo = I.nums.filter(x => x < I.pivot), eq = I.nums.filter(x => x === I.pivot); T.at({ nums: A(I.nums), pivot: I.pivot }); T.n('How many values are less than the pivot?', lo.length, 'They go first, in order.'); T.n('Index where the pivot block starts?', lo.length, 'Right after the smaller values.'); return [...lo, ...eq, ...I.nums.filter(x => x > I.pivot)]; }
+    s(I, T) { const res = (() => { const lo = I.nums.filter(x => x < I.pivot), eq = I.nums.filter(x => x === I.pivot); T.at({ nums: A(I.nums), pivot: I.pivot }); T.n('How many values are less than the pivot?', lo.length, 'They go first, in order.'); T.n('Index where the pivot block starts?', lo.length, 'Right after the smaller values.'); return [...lo, ...eq, ...I.nums.filter(x => x > I.pivot)]; })(); T.n('Index where the larger values start?', I.nums.filter(x => x <= I.pivot).length, 'After the smaller values and the pivot copies.'); return res; }
   });
 
   D('find-all-k-distant-indices-in-an-array', {
@@ -162,7 +163,7 @@
     t: 'Strictly Palindromic Number',
     r: 'In base n − 2, n is written "12" for every n ≥ 5 (and n = 4 is "100" in base 2), which is never a palindrome. So the answer is always false.',
     g: R => ({ n: R.int(4, 38) }),
-    s(I, T) { const b = I.n - 2, s = I.n.toString(b); T.at({ n: I.n, base: b }); T.c(`n written in base ${b}?`, [...new Set([s, '11', '21'])], s, 'n = 1·(n−2) + 2.'); T.yn('Is that a palindrome?', s === [...s].reverse().join(''), 'So n can never be strictly palindromic.'); return false; }
+    s(I, T) { const b = I.n - 2, s = I.n.toString(b); T.at({ n: I.n, base: b }); T.n('Which base is checked here?', b, 'n minus 2, the largest base to check.'); T.c(`n written in base ${b}?`, [...new Set([s, '11', '21'])], s, 'n equals 1 times (n minus 2), plus 2.'); T.yn('Is that a palindrome?', s === [...s].reverse().join(''), 'So n can never be strictly palindromic.'); return false; }
   });
 
   D('divide-intervals-into-minimum-number-of-groups', {
@@ -312,14 +313,14 @@
     t: 'Minimum Number of Flips to Make Binary Grid Palindromic I',
     r: 'Making all rows palindromic costs one flip per mismatched mirrored pair in each row; same for columns. Answer = min of the two totals.',
     g: R => { const n = R.int(1, 4); return { grid: Array.from({ length: R.int(1, 4) }, () => R.ints(n, 0, 1)) }; },
-    s(I, T) { const g = I.grid, m = g.length, n = g[0].length; let rw = 0, cl = 0; for (const r of g) for (let l = 0, q = n - 1; l < q; l++, q--) if (r[l] !== r[q]) rw++; for (let j = 0; j < n; j++) for (let l = 0, q = m - 1; l < q; l++, q--) if (g[l][j] !== g[q][j]) cl++; T.at({ grid: G(g) }); T.n('Flips to make every row a palindrome?', rw, 'Mismatched pairs per row.'); T.n('Flips to make every column a palindrome?', cl, 'Mismatched pairs per column.'); return Math.min(rw, cl); }
+    s(I, T) { const res = (() => { const g = I.grid, m = g.length, n = g[0].length; let rw = 0, cl = 0; for (const r of g) for (let l = 0, q = n - 1; l < q; l++, q--) if (r[l] !== r[q]) rw++; for (let j = 0; j < n; j++) for (let l = 0, q = m - 1; l < q; l++, q--) if (g[l][j] !== g[q][j]) cl++; T.at({ grid: G(g) }); T.n('Flips to make every row a palindrome?', rw, 'Mismatched pairs per row.'); T.n('Flips to make every column a palindrome?', cl, 'Mismatched pairs per column.'); return Math.min(rw, cl); })(); T.n('Fewest flips?', res, 'The cheaper of all rows or all columns.'); return res; }
   });
 
   D('minimum-number-of-flips-to-make-binary-grid-palindromic-ii', {
     t: 'Minimum Number of Flips to Make Binary Grid Palindromic II',
     r: 'Each group of 4 mirrored cells must be equal: cost min(ones, 4 − ones). The middle row/column (odd sizes) has mirrored pairs: d mismatched pairs, and o ones in matching pairs. If o % 4 == 0 pay d; else pay d if d > 0 (one mismatch becomes 11) or 2. The center cell must be 0.',
     g: R => { const m = R.int(1, 4), n = R.int(1, 4); return { grid: Array.from({ length: m }, () => R.ints(n, 0, 1)) }; },
-    s(I, T) { const g = I.grid, m = g.length, n = g[0].length; let c = 0; for (let i = 0; i < m >> 1; i++) for (let j = 0; j < n >> 1; j++) { const o = g[i][j] + g[i][n - 1 - j] + g[m - 1 - i][j] + g[m - 1 - i][n - 1 - j]; c += Math.min(o, 4 - o); } T.at({ grid: G(g) }); T.n('Flips for the 4-cell mirror groups?', c, 'min(ones, 4 − ones) each.'); let d = 0, o = 0; const pair = (x, y) => { if (x !== y) d++; else if (x) o += 2; }; if (m % 2) { const r = m >> 1; for (let j = 0; j < n >> 1; j++) pair(g[r][j], g[r][n - 1 - j]); } if (n % 2) { const q = n >> 1; for (let i = 0; i < m >> 1; i++) pair(g[i][q], g[m - 1 - i][q]); } if (m % 2 && n % 2) c += g[m >> 1][n >> 1]; if (m % 2 || n % 2) { T.at({ mismatchedPairs: d, onesInMatchedPairs: o }); T.n('Mismatched pairs on the middle line(s)?', d, 'Each costs one flip.'); } c += (o % 4 === 0 || d > 0) ? d : 2; return c; }
+    s(I, T) { const res = (() => { const g = I.grid, m = g.length, n = g[0].length; let c = 0; for (let i = 0; i < m >> 1; i++) for (let j = 0; j < n >> 1; j++) { const o = g[i][j] + g[i][n - 1 - j] + g[m - 1 - i][j] + g[m - 1 - i][n - 1 - j]; c += Math.min(o, 4 - o); } T.at({ grid: G(g) }); T.n('Flips for the 4-cell mirror groups?', c, 'The smaller of ones and zeros in each group.'); let d = 0, o = 0; const pair = (x, y) => { if (x !== y) d++; else if (x) o += 2; }; if (m % 2) { const r = m >> 1; for (let j = 0; j < n >> 1; j++) pair(g[r][j], g[r][n - 1 - j]); } if (n % 2) { const q = n >> 1; for (let i = 0; i < m >> 1; i++) pair(g[i][q], g[m - 1 - i][q]); } if (m % 2 && n % 2) c += g[m >> 1][n >> 1]; if (m % 2 || n % 2) { T.at({ mismatchedPairs: d, onesInMatchedPairs: o }); T.n('Mismatched pairs on the middle lines?', d, 'Each costs one flip.'); } c += (o % 4 === 0 || d > 0) ? d : 2; return c; })(); T.n('Fewest flips?', res, 'Groups, middle lines, and the count of ones divisible by 4.'); return res; }
   });
 
   D('maximum-number-of-matching-indices-after-right-shifts', {

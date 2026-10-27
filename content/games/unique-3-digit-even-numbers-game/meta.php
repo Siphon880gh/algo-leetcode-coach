@@ -5,7 +5,7 @@ return [
     'title' => 'Unique 3-Digit Even Numbers: try every even number from 100 to 998',
     'leetcode' => 3483,
     'difficulty' => 'Easy',
-    'summary' => 'There are only 450 candidates. Keep those whose digit counts fit inside the given digit counts.',
+    'summary' => 'There are only 450 even numbers from 100 to 998. Keep those whose digit counts fit inside the given digit counts.',
     'category' => 'LeetCode',
     'subcategory' => 'Hash Table',
     'topic' => 'LeetCode · Hash Table',

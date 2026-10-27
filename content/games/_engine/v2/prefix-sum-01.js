@@ -38,7 +38,7 @@
     t: 'Split Array with Equal Sum',
     r: 'Fix the middle cut j. For each i on the left where sum(0..i−1) = sum(i+1..j−1), put that sum in a set; then scan k on the right for sum(j+1..k−1) = sum(k+1..n−1) in the set.',
     g: R => ({ nums: R.ints(R.int(1, 9), -1, 3) }),
-    s(I, T) { const a = I.nums, n = a.length, P = pre(a), S = (l, r) => P[r + 1] - P[l]; let asks = 0; for (let j = 3; j < n - 3; j++) { const set = new Set(); for (let i = 1; i < j - 1; i++) if (S(0, i - 1) === S(i + 1, j - 1)) set.add(S(0, i - 1)); let hit = false; for (let k = j + 2; k < n - 1; k++) if (S(j + 1, k - 1) === S(k + 1, n - 1) && set.has(S(k + 1, n - 1))) hit = true; if (asks++ < 5) { T.at({ nums: A(a, { j }), leftSums: A([...set]) }); T.yn('Does this middle cut work?', hit, 'A right split must match a left sum.'); } if (hit) return true; } if (!asks) { T.at({ n }); T.yn('Is the array long enough (n ≥ 7)?', false, 'Need three cuts with parts between.'); } return false; }
+    s(I, T) { const res = (() => { const a = I.nums, n = a.length, P = pre(a), S = (l, r) => P[r + 1] - P[l]; let asks = 0; T.at({ nums: A(a) }); T.n('Total sum?', P[n], 'Last prefix sum.'); for (let j = 3; j < n - 3; j++) { const set = new Set(); for (let i = 1; i < j - 1; i++) if (S(0, i - 1) === S(i + 1, j - 1)) set.add(S(0, i - 1)); let hit = false; for (let k = j + 2; k < n - 1; k++) if (S(j + 1, k - 1) === S(k + 1, n - 1) && set.has(S(k + 1, n - 1))) hit = true; if (asks++ < 5) { T.at({ nums: A(a, { j }), leftSums: A([...set]) }); T.yn('Does this middle cut work?', hit, 'A right split must match a left sum.'); } if (hit) return true; } if (!asks) { T.at({ n }); T.yn('Is the array long enough (at least 7)?', false, 'Need three cuts with parts between.'); } return false; })(); T.yn('Can the array be split?', res, 'Some middle cut worked.'); return res; }
   });
 
   D('brick-wall', {
@@ -80,7 +80,7 @@
     t: 'Partition Array Into Three Parts With Equal Sum',
     r: 'Total must be divisible by 3. Scan with a running sum; each time it hits total/3, count a part and reset. Valid if at least 3 parts form (the third may absorb the rest).',
     g: R => ({ arr: R.ints(R.int(3, 9), -3, 4) }),
-    s(I, T) { const tot = I.arr.reduce((a, b) => a + b, 0); T.at({ arr: A(I.arr), total: tot }); T.yn('Is the total divisible by 3?', tot % 3 === 0, 'Each part needs total / 3.'); if (tot % 3) return false; let s = 0, parts = 0; I.arr.forEach(x => { s += x; if (s === tot / 3) { parts++; s = 0; } }); T.n('Parts found greedily?', parts, 'Reset at each total / 3.'); return parts >= 3; }
+    s(I, T) { const res = (() => { const tot = I.arr.reduce((a, b) => a + b, 0); T.at({ arr: A(I.arr), total: tot }); T.yn('Is the total divisible by 3?', tot % 3 === 0, 'Each part needs a third of the total.'); if (tot % 3) { T.n('Remainder of the total divided by 3?', tot % 3, 'Not 0, so it fails.'); return false; } let s = 0, parts = 0; I.arr.forEach(x => { s += x; if (s === tot / 3) { parts++; s = 0; } }); T.n('Parts found greedily?', parts, 'Reset each time you reach a third of the total.'); return parts >= 3; })(); T.yn('Can it be split into three parts?', res, 'At least 3 greedy parts.'); return res; }
   });
 
   D('car-pooling', {
@@ -185,14 +185,14 @@
     t: 'Maximum Sum Obtained of Any Permutation',
     r: 'Count how many requests cover each index (difference array + prefix sum). Sort counts and numbers; pair largest with largest.',
     g: R => { const a = R.ints(R.int(1, 7), 0, 9); return { nums: a, requests: Array.from({ length: R.int(1, 4) }, () => { const l = R.int(0, a.length - 1); return [l, R.int(l, a.length - 1)]; }) }; },
-    s(I, T) { const n = I.nums.length, d = Array(n + 1).fill(0); I.requests.forEach(([l, r]) => { d[l]++; d[r + 1]--; }); const c = []; let s = 0; for (let i = 0; i < n; i++) c.push(s += d[i]); T.at({ coverCounts: A(c) }); T.n('Most-covered index count?', Math.max(...c), 'Prefix sum of the difference array.'); const cs = c.slice().sort((a, b) => b - a), ns = I.nums.slice().sort((a, b) => b - a); return cs.reduce((t, v, i) => t + v * ns[i], 0) % 1000000007; }
+    s(I, T) { const res = (() => { const n = I.nums.length, d = Array(n + 1).fill(0); I.requests.forEach(([l, r]) => { d[l]++; d[r + 1]--; }); const c = []; let s = 0; for (let i = 0; i < n; i++) c.push(s += d[i]); T.at({ coverCounts: A(c) }); T.n('Most-covered index count?', Math.max(...c), 'Prefix sum of the difference array.'); T.n('Largest number in nums?', Math.max(...I.nums), 'Put it on the most-covered index.'); const cs = c.slice().sort((a, b) => b - a), ns = I.nums.slice().sort((a, b) => b - a); return cs.reduce((t, v, i) => t + v * ns[i], 0) % 1000000007; })(); T.n('Maximum total (mod 1e9+7)?', res, 'Pair sorted counts with sorted numbers.'); return res; }
   });
 
   D('make-sum-divisible-by-p', {
     t: 'Make Sum Divisible by P',
     r: 'Need to remove a subarray with sum ≡ total (mod p). Store the latest index of each prefix remainder; at j look up (prefix − need) mod p. Removing the whole array is not allowed.',
     g: R => ({ nums: R.ints(R.int(1, 7), 1, 9), p: R.int(2, 9) }),
-    s(I, T) { const need = I.nums.reduce((a, b) => a + b, 0) % I.p; T.at({ nums: A(I.nums), p: I.p }); T.n('Remainder to remove (total mod p)?', need, 'The removed subarray must match it.'); if (!need) return 0; const last = new Map([[0, -1]]); let p = 0, best = Infinity; I.nums.forEach((x, j) => { p = (p + x) % I.p; const want = (p - need + I.p) % I.p; if (last.has(want)) best = Math.min(best, j - last.get(want)); last.set(p, j); }); return best >= I.nums.length ? -1 : best; }
+    s(I, T) { const res = (() => { const need = I.nums.reduce((a, b) => a + b, 0) % I.p; T.at({ nums: A(I.nums), p: I.p }); T.n('Total of nums?', I.nums.reduce((a, b) => a + b, 0), 'Add everything.'); T.n('Remainder of the total divided by p?', need, 'The removed subarray must match it.'); if (!need) return 0; const last = new Map([[0, -1]]); let p = 0, best = Infinity; I.nums.forEach((x, j) => { p = (p + x) % I.p; const want = (p - need + I.p) % I.p; if (last.has(want)) best = Math.min(best, j - last.get(want)); last.set(p, j); }); return best >= I.nums.length ? -1 : best; })(); T.n('Shortest subarray to remove? (−1 if impossible)', res, 'Match prefix remainders.'); return res; }
   });
 
   D('ways-to-make-a-fair-array', {
@@ -206,7 +206,7 @@
     t: 'Minimum Moves to Make Array Complementary',
     r: 'For each pair (a, b) and target sum s: 0 moves if s = a + b, 1 move if s ∈ [min + 1, max + limit], else 2. Encode these ranges on a difference array over s ∈ [2, 2·limit] and take the minimum.',
     g: R => { const n = 2 * R.int(1, 3), lim = R.int(1, 5); return { nums: R.ints(n, 1, lim), limit: lim }; },
-    s(I, T) { const a = I.nums, n = a.length; let best = Infinity, bs = 0; for (let s = 2; s <= 2 * I.limit; s++) { let m = 0; for (let i = 0; i < n / 2; i++) { const x = a[i], y = a[n - 1 - i]; m += x + y === s ? 0 : (s >= Math.min(x, y) + 1 && s <= Math.max(x, y) + I.limit) ? 1 : 2; } if (m < best) { best = m; bs = s; } } T.at({ nums: A(a), limit: I.limit }); T.n('A best target sum?', bs, 'Smallest target with minimal moves.'); return best; }
+    s(I, T) { const res = (() => { const a = I.nums, n = a.length; let best = Infinity, bs = 0; for (let s = 2; s <= 2 * I.limit; s++) { let m = 0; for (let i = 0; i < n / 2; i++) { const x = a[i], y = a[n - 1 - i]; m += x + y === s ? 0 : (s >= Math.min(x, y) + 1 && s <= Math.max(x, y) + I.limit) ? 1 : 2; } if (m < best) { best = m; bs = s; } } T.at({ nums: A(a), limit: I.limit }); T.n('Pairs to fix?', n / 2, 'Index i with n minus 1 minus i.'); T.n('A best target sum?', bs, 'Smallest target with minimal moves.'); return best; })(); T.n('Fewest moves?', res, 'Moves at the best target sum.'); return res; }
   });
 
   D('sum-of-absolute-differences-in-a-sorted-array', {
@@ -227,7 +227,7 @@
     t: 'Change Minimum Characters to Satisfy One of Three Conditions',
     r: 'Count letters of a and b. For each boundary letter c (b..z): a < c ≤ b costs (a letters ≥ c) + (b letters < c), and symmetric. Condition 3 costs |a| + |b| − (max count of a letter in a) − (in b). Prefix sums of counts make each boundary O(1).',
     g: R => ({ a: R.str(R.int(1, 5), 'abcd'), b: R.str(R.int(1, 5), 'abcd') }),
-    s(I, T) { const ca = Array(26).fill(0), cb = Array(26).fill(0); for (const c of I.a) ca[c.charCodeAt(0) - 97]++; for (const c of I.b) cb[c.charCodeAt(0) - 97]++; const m = I.a.length, n = I.b.length, c3 = m + n - Math.max(...ca) - Math.max(...cb); T.at({ a: I.a, b: I.b }); T.n('Cost of condition 3 (each string one letter)?', c3, 'Keep the most common letter in each.'); let best = c3, pa = 0, pb = 0; for (let i = 0; i < 25; i++) { pa += ca[i]; pb += cb[i]; best = Math.min(best, m - pa + pb, n - pb + pa); } return best; }
+    s(I, T) { const res = (() => { const ca = Array(26).fill(0), cb = Array(26).fill(0); for (const c of I.a) ca[c.charCodeAt(0) - 97]++; for (const c of I.b) cb[c.charCodeAt(0) - 97]++; const m = I.a.length, n = I.b.length, c3 = m + n - Math.max(...ca) - Math.max(...cb); T.at({ a: I.a, b: I.b }); T.n('Most common letter count in a?', Math.max(...ca), 'Keep it for condition 3.'); T.n('Cost of condition 3 (each string one letter)?', c3, 'Keep the most common letter in each.'); let best = c3, pa = 0, pb = 0; for (let i = 0; i < 25; i++) { pa += ca[i]; pb += cb[i]; best = Math.min(best, m - pa + pb, n - pb + pa); } return best; })(); T.n('Fewest changes?', res, 'Best of the three conditions.'); return res; }
   });
 
   D('can-you-eat-your-favorite-candy-on-your-favorite-day', {
@@ -325,7 +325,7 @@
     t: 'Maximum Number of Ways to Partition an Array',
     r: 'A pivot works when prefix = total / 2. Changing nums[i] to k shifts total by δ = k − nums[i]: pivots left of i need prefix = (total + δ)/2, pivots at or after i need prefix + δ = (total + δ)/2. Count with left/right prefix maps.',
     g: R => ({ nums: R.ints(R.int(2, 7), -2, 3), k: R.int(-2, 3) }),
-    s(I, T) { const ways = a => { const P = pre(a), tot = P[a.length]; let c = 0; for (let p = 1; p < a.length; p++) if (2 * P[p] === tot) c++; return c; }; let best = ways(I.nums); T.at({ nums: A(I.nums) }); T.n('Ways with no change?', best, 'Pivots where prefix = total / 2.'); I.nums.forEach((_, i) => { const b = I.nums.slice(); b[i] = I.k; best = Math.max(best, ways(b)); }); return best; }
+    s(I, T) { const res = (() => { const ways = a => { const P = pre(a), tot = P[a.length]; let c = 0; for (let p = 1; p < a.length; p++) if (2 * P[p] === tot) c++; return c; }; let best = ways(I.nums); T.at({ nums: A(I.nums) }); T.n('Total sum?', I.nums.reduce((a, b) => a + b, 0), 'Each side must be half of it.'); T.n('Ways with no change?', best, 'Pivots where the prefix is half the total.'); I.nums.forEach((_, i) => { const b = I.nums.slice(); b[i] = I.k; best = Math.max(best, ways(b)); }); return best; })(); T.n('Most ways after at most one change?', res, 'Try replacing each value with k.'); return res; }
   });
 
   D('count-subarrays-with-more-ones-than-zeros', {

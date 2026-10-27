@@ -15,7 +15,7 @@
     r: 'Binary search level L (real). Water above L poured out arrives with (1 − loss%) efficiency; L works if that covers the deficit below L.',
     cmp: 'float',
     g: R => ({ buckets: R.ints(R.int(1, 4), 0, 9), loss: R.pick([0, 10, 50, 80]) }),
-    s(I, T) { const b = I.buckets, f = 1 - I.loss / 100, ok = L => b.reduce((s, x) => s + Math.max(0, x - L), 0) * f >= b.reduce((s, x) => s + Math.max(0, L - x), 0); const lo0 = Math.min(...b), hi0 = Math.max(...b), mid = (lo0 + hi0) / 2; T.at({ buckets: A(b), loss: I.loss }); T.yn(`Can every bucket reach level ${mid}?`, ok(mid), 'Poured water × efficiency vs deficit.'); let lo = lo0, hi = hi0; for (let it = 0; it < 60; it++) { const m = (lo + hi) / 2; if (ok(m)) lo = m; else hi = m; } return lo; }
+    s(I, T) { const b = I.buckets, f = 1 - I.loss / 100, ok = L => b.reduce((s, x) => s + Math.max(0, x - L), 0) * f >= b.reduce((s, x) => s + Math.max(0, L - x), 0); const lo0 = Math.min(...b), hi0 = Math.max(...b), mid = (lo0 + hi0) / 2; T.at({ buckets: A(b), loss: I.loss }); T.n('Lowest bucket?', lo0, 'The answer is at least this.'); T.n('Highest bucket?', hi0, 'The answer is at most this.'); T.yn(`Can every bucket reach level ${mid}?`, ok(mid), 'Poured water times what survives, compared with the deficit.'); let lo = lo0, hi = hi0; for (let it = 0; it < 60; it++) { const m = (lo + hi) / 2; if (ok(m)) lo = m; else hi = m; } return lo; }
   });
 
   D('maximum-running-time-of-n-computers', {
@@ -50,7 +50,7 @@
     t: 'Maximum Total Beauty of Gardens',
     r: 'Sort. Try each count of complete gardens (the largest ones). Pay to raise them to target, then binary search the best minimum (< target) for the rest with the leftover flowers.',
     g: R => ({ flowers: R.ints(R.int(1, 5), 1, 8), newFlowers: R.int(1, 12), target: R.int(2, 8), full: R.int(1, 10), partial: R.int(1, 5) }),
-    s(I, T) { const n = I.flowers.length, f = asc(I.flowers.map(x => Math.min(x, I.target))), P = [0]; f.forEach(x => P.push(P[P.length - 1] + x)); const pre = f.filter(x => x >= I.target).length; let best = 0, cost = 0; for (let c = 0; c <= n; c++) { if (c > 0) cost += I.target - f[n - c]; if (c < pre) continue; if (cost > I.newFlowers) break; const rem = I.newFlowers - cost, m = n - c; let v = c * I.full; if (m > 0) { let lo = f[0], hi = I.target - 1; while (lo < hi) { const mid = Math.floor((lo + hi + 1) / 2), k = lowerBound(f.slice(0, m), mid); if (mid * k - P[k] <= rem) lo = mid; else hi = mid - 1; } v += lo * I.partial; if (c <= pre + 2) { T.at({ flowers: A(f, { win: [m, n - 1] }), leftover: rem }); T.n(`Best minimum of the incomplete gardens with ${c} complete?`, lo, 'Binary search the level the leftovers can reach.'); } } best = Math.max(best, v); } return best; }
+    s(I, T) { const res = (() => { const n = I.flowers.length, f = asc(I.flowers.map(x => Math.min(x, I.target))), P = [0]; f.forEach(x => P.push(P[P.length - 1] + x)); const pre = f.filter(x => x >= I.target).length; let best = 0, cost = 0; for (let c = 0; c <= n; c++) { if (c > 0) cost += I.target - f[n - c]; if (c < pre) continue; if (cost > I.newFlowers) break; const rem = I.newFlowers - cost, m = n - c; let v = c * I.full; if (m > 0) { let lo = f[0], hi = I.target - 1; while (lo < hi) { const mid = Math.floor((lo + hi + 1) / 2), k = lowerBound(f.slice(0, m), mid); if (mid * k - P[k] <= rem) lo = mid; else hi = mid - 1; } v += lo * I.partial; if (c <= pre + 2) { T.at({ flowers: A(f, { win: [m, n - 1] }), leftover: rem }); T.n(`Best minimum of the incomplete gardens with ${c} complete?`, lo, 'Binary search the level the leftovers can reach.'); } } best = Math.max(best, v); } return best; })(); T.n('Maximum total beauty?', res, 'Best over every count of complete gardens.'); return res; }
   });
 
   D('number-of-flowers-in-full-bloom', {
@@ -85,7 +85,7 @@
     t: 'Latest Time to Catch a Bus',
     r: 'Simulate boarding in time order. For the last bus: if it has room, try its departure time; else the last boarded passenger\'s time − 1. Step back past times already taken by passengers.',
     g: R => ({ buses: R.distinct(R.int(1, 3), 2, 20), passengers: R.distinct(R.int(1, 6), 2, 20), capacity: R.int(1, 3) }),
-    s(I, T) { const b = asc(I.buses), p = asc(I.passengers); let j = 0, cnt = 0; for (const t of b) { cnt = 0; while (j < p.length && p[j] <= t && cnt < I.capacity) { j++; cnt++; } } T.at({ buses: A(b), passengers: A(p, { win: [0, j - 1] }) }); T.yn('Does the last bus leave with room?', cnt < I.capacity, `${cnt} of ${I.capacity} seats used.`); let cand = cnt < I.capacity ? b[b.length - 1] : p[j - 1], k = j - 1; while (k >= 0 && p[k] === cand) { cand--; k--; } return cand; }
+    s(I, T) { const res = (() => { const b = asc(I.buses), p = asc(I.passengers); let j = 0, cnt = 0; for (const t of b) { cnt = 0; while (j < p.length && p[j] <= t && cnt < I.capacity) { j++; cnt++; } } T.at({ buses: A(b), passengers: A(p, { win: [0, j - 1] }) }); T.n('Passengers who board a bus?', j, 'Fill buses in time order.'); T.yn('Does the last bus leave with room?', cnt < I.capacity, `${cnt} of ${I.capacity} seats used.`); let cand = cnt < I.capacity ? b[b.length - 1] : p[j - 1], k = j - 1; while (k >= 0 && p[k] === cand) { cand--; k--; } return cand; })(); T.n('Latest arrival time?', res, 'Step back past anyone already at that time.'); return res; }
   });
 
   D('minimum-sum-of-squared-difference', {
@@ -99,7 +99,7 @@
     t: 'Number of Excellent Pairs: popcount',
     r: 'popcount(a OR b) + popcount(a AND b) = popcount(a) + popcount(b). Count distinct values by bit count; add cnt[i] · cnt[j] for every i + j ≥ k.',
     g: R => ({ nums: R.ints(R.int(1, 6), 1, 15), k: R.int(1, 6) }),
-    s(I, T) { const u = [...new Set(I.nums)], c = Array(32).fill(0); u.forEach(x => c[pc(x)]++); T.at({ distinct: A(u), bitCounts: A(u.map(pc)) }); T.n(`Bit count of ${u[0]}?`, pc(u[0]), 'Set bits.'); let t = 0; for (let i = 0; i < 32; i++) for (let j = 0; j < 32; j++) if (i + j >= I.k) t += c[i] * c[j]; return t; }
+    s(I, T) { const res = (() => { const u = [...new Set(I.nums)], c = Array(32).fill(0); u.forEach(x => c[pc(x)]++); T.at({ distinct: A(u), bitCounts: A(u.map(pc)) }); T.n('Distinct values?', u.length, 'Duplicates do not add pairs.'); T.n(`Bit count of ${u[0]}?`, pc(u[0]), 'Set bits.'); let t = 0; for (let i = 0; i < 32; i++) for (let j = 0; j < 32; j++) if (i + j >= I.k) t += c[i] * c[j]; return t; })(); T.n('Excellent pairs?', res, 'Pairs of bit counts adding to at least k.'); return res; }
   });
 
   D('maximum-number-of-groups-entering-a-competition', {
@@ -155,7 +155,7 @@
     t: 'Split Message Based on Limit',
     r: 'Try part counts b = 1, 2, …: part a holds limit − |"<a/b>"| characters. The first b whose total capacity covers the message wins; stop if the suffix alone fills the limit.',
     g: R => ({ message: Array.from({ length: R.int(1, 4) }, () => R.str(R.int(1, 5), 'ab')).join(' '), limit: R.int(5, 12) }),
-    s(I, T) { const L = I.message.length, dig = x => String(x).length; for (let b = 1; b <= L; b++) { if (3 + 2 * dig(b) >= I.limit) { T.at({ limit: I.limit }); T.yn(`Can parts with ${b} total fit a suffix and text?`, false, 'The suffix alone fills the limit.'); return []; } let cap = 0; for (let a = 1; a <= b; a++) cap += I.limit - 3 - dig(a) - dig(b); if (cap >= L) { T.at({ length: L, limit: I.limit }); T.n('Fewest parts?', b, 'First b whose capacity covers the message.'); const out = []; let i = 0; for (let a = 1; a <= b; a++) { const w = I.limit - 3 - dig(a) - dig(b); out.push(I.message.slice(i, i + w) + `<${a}/${b}>`); i += w; } return out; } } return []; }
+    s(I, T) { const res = (() => { const L = I.message.length, dig = x => String(x).length; T.at({ length: L, limit: I.limit }); T.n('Message length?', L, 'Every character must be placed.'); for (let b = 1; b <= L; b++) { if (3 + 2 * dig(b) >= I.limit) { T.at({ limit: I.limit }); T.yn(`Can parts with ${b} total fit a suffix and text?`, false, 'The suffix alone fills the limit.'); return []; } let cap = 0; for (let a = 1; a <= b; a++) cap += I.limit - 3 - dig(a) - dig(b); if (cap >= L) { T.at({ length: L, limit: I.limit }); T.n('Fewest parts?', b, 'First b whose capacity covers the message.'); T.n('Text characters in part 1?', Math.min(L, I.limit - 3 - 1 - dig(b)), 'The limit minus the suffix length.'); const out = []; let i = 0; for (let a = 1; a <= b; a++) { const w = I.limit - 3 - dig(a) - dig(b); out.push(I.message.slice(i, i + w) + `<${a}/${b}>`); i += w; } return out; } } return []; })(); if (!res.length) T.n('Parts returned?', 0, 'It cannot be split.'); return res; }
   });
 
   D('frog-jump-ii', {
@@ -190,7 +190,7 @@
     t: 'Max Count of Positives and Negatives',
     r: 'Binary search the first index ≥ 0 (negatives before it) and the first index > 0 (positives after it).',
     g: R => ({ nums: asc(R.ints(R.int(1, 8), -4, 4)) }),
-    s(I, T) { const a = I.nums, neg = lowerBound(a, 0), pos = a.length - upperBound(a, 0); T.at({ nums: A(a) }); T.n('How many negatives?', neg, 'First index with value ≥ 0.'); T.n('How many positives?', pos, 'After the last 0.'); return Math.max(neg, pos); }
+    s(I, T) { const res = (() => { const a = I.nums, neg = lowerBound(a, 0), pos = a.length - upperBound(a, 0); T.at({ nums: A(a) }); T.n('How many negatives?', neg, 'First index with a value of at least 0.'); T.n('How many positives?', pos, 'After the last 0.'); return Math.max(neg, pos); })(); T.n('Larger of the two counts?', res, 'Compare them.'); return res; }
   });
 
   D('minimum-common-value', {
@@ -211,7 +211,7 @@
     t: 'Choose Integers From a Range II',
     r: 'Take the smallest allowed numbers. Between consecutive banned values, take as many from the gap as the remaining budget allows (arithmetic series + binary search).',
     g: R => ({ banned: R.ints(R.int(1, 4), 1, 10), n: R.int(1, 10), maxSum: R.int(1, 40) }),
-    s(I, T) { const b = [...new Set(I.banned.filter(x => x <= I.n))].sort((x, y) => x - y); b.push(I.n + 1); let prev = 0, left = I.maxSum, cnt = 0; for (const x of b) { const lo = prev + 1, len = x - prev - 1; if (len > 0 && left >= lo) { let a = 0, h = len; while (a < h) { const m = Math.floor((a + h + 1) / 2); if (m * lo + m * (m - 1) / 2 <= left) a = m; else h = m - 1; } T.at({ gap: `${lo}..${x - 1}`, budget: left }); T.n(`How many from ${lo}..${x - 1} fit?`, a, 'Smallest first, sum ≤ budget.'); cnt += a; left -= a * lo + a * (a - 1) / 2; if (a < len) break; } prev = x; } if (!cnt) { T.at({ budget: I.maxSum }); T.n('Integers chosen?', 0, 'Nothing fits.'); } return cnt; }
+    s(I, T) { const res = (() => { const b = [...new Set(I.banned.filter(x => x <= I.n))].sort((x, y) => x - y); b.push(I.n + 1); let prev = 0, left = I.maxSum, cnt = 0; for (const x of b) { const lo = prev + 1, len = x - prev - 1; if (len > 0 && left >= lo) { let a = 0, h = len; while (a < h) { const m = Math.floor((a + h + 1) / 2); if (m * lo + m * (m - 1) / 2 <= left) a = m; else h = m - 1; } T.at({ gap: `${lo} to ${x - 1}`, budget: left }); T.n(`How many from ${lo} to ${x - 1} fit?`, a, 'Smallest first, sum at most the budget.'); cnt += a; left -= a * lo + a * (a - 1) / 2; if (a < len) break; } prev = x; } if (!cnt) { T.at({ budget: I.maxSum }); T.n('Integers chosen?', 0, 'Nothing fits.'); } return cnt; })(); T.n('Most integers chosen?', res, 'Add the counts from each gap.'); return res; }
   });
 
   D('house-robber-iv', {
@@ -232,7 +232,7 @@
     t: 'Subsequence With the Minimum Score',
     r: 'Remove one block t[i..j−1]. pre[i] = where in s the prefix t[0..i) ends (greedy); suf[j] = latest start of the suffix t[j..]. Valid if pre[i] ≤ suf[j]; minimize j − i.',
     g: R => ({ s: R.str(R.int(1, 7), 'abc'), t: R.str(R.int(1, 5), 'abcz') }),
-    s(I, T) { const s = I.s, t = I.t, n = s.length, m = t.length, pre = [0], suf = Array(m + 1).fill(-1); suf[m] = n; for (let i = 0, p = 0; i < m; i++) { while (p < n && s[p] !== t[i]) p++; if (p >= n) break; pre.push(++p); } for (let j = m - 1, p = n - 1; j >= 0; j--) { while (p >= 0 && s[p] !== t[j]) p--; if (p < 0) break; suf[j] = p--; } T.at({ s: A([...s]), t: A([...t]) }); T.n('Longest prefix of t that is a subsequence of s?', pre.length - 1, 'Greedy left to right.'); let best = m; for (let i = 0; i < pre.length; i++) for (let j = i; j <= m; j++) if (suf[j] >= pre[i]) { best = Math.min(best, j - i); break; } return best; }
+    s(I, T) { const res = (() => { const s = I.s, t = I.t, n = s.length, m = t.length, pre = [0], suf = Array(m + 1).fill(-1); suf[m] = n; for (let i = 0, p = 0; i < m; i++) { while (p < n && s[p] !== t[i]) p++; if (p >= n) break; pre.push(++p); } for (let j = m - 1, p = n - 1; j >= 0; j--) { while (p >= 0 && s[p] !== t[j]) p--; if (p < 0) break; suf[j] = p--; } T.at({ s: A([...s]), t: A([...t]) }); T.n('Longest prefix of t that is a subsequence of s?', pre.length - 1, 'Greedy left to right.'); T.n('Longest suffix of t that is a subsequence of s?', suf.slice(0, m).filter(v => v >= 0).length, 'Greedy right to left.'); let best = m; for (let i = 0; i < pre.length; i++) for (let j = i; j <= m; j++) if (suf[j] >= pre[i]) { best = Math.min(best, j - i); break; } return best; })(); T.n('Minimum score?', res, 'Smallest gap between a good prefix and a good suffix.'); return res; }
   });
 
   D('find-the-maximum-number-of-marked-indices', {

@@ -5,7 +5,7 @@ return [
     'title' => 'Calculate Score After Performing Instructions: simulate with a visited set',
     'leetcode' => 3522,
     'difficulty' => 'Med',
-    'summary' => 'Follow the instructions, marking each index before running it; stop when out of range or at an index already marked.',
+    'summary' => 'Start at index 0 with score 0. Mark each index before running it. "add" adds values[i] and moves to i plus 1; "jump" moves to i plus values[i]. Stop when the index leaves the array or was already marked.',
     'category' => 'LeetCode',
     'subcategory' => 'Simulation',
     'topic' => 'LeetCode · Simulation',

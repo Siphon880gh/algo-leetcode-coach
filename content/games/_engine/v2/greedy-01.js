@@ -46,7 +46,7 @@
     r: 'Sort. Split into the smaller half and the larger half, reverse both (so equal middle values are far apart), and alternate small, large, small, large, ….',
     g: R => { const n = R.int(2, 7), b = R.ints(n, 1, 9).sort((x, y) => x - y); const s = b.slice(0, Math.ceil(n / 2)).reverse(), l = b.slice(Math.ceil(n / 2)).reverse(), out = b.map((_, i) => i % 2 ? l[i >> 1] : s[i >> 1]); const ok = out.every((v, i) => !i || (i % 2 ? v > out[i - 1] : v < out[i - 1])); return { nums: ok ? R.shuffle(out) : [1, 3, 2, 2, 3, 1] }; },
     cmp: (out, exp, I) => sameMultiset(out, I.nums) && out.every((v, i) => !i || (i % 2 ? v > out[i - 1] : v < out[i - 1])),
-    s(I, T) { const b = sorted(I.nums), n = b.length, h = Math.ceil(n / 2), s = b.slice(0, h).reverse(), l = b.slice(h).reverse(); T.at({ sorted: A(b), small: A(s), large: A(l) }); T.n('Size of the smaller half?', h, '⌈n/2⌉ (even positions).'); return b.map((_, i) => i % 2 ? l[i >> 1] : s[i >> 1]); }
+    s(I, T) { const res = (() => { const b = sorted(I.nums), n = b.length, h = Math.ceil(n / 2), s = b.slice(0, h).reverse(), l = b.slice(h).reverse(); T.at({ sorted: A(b), small: A(s), large: A(l) }); T.n('Size of the smaller half?', h, 'Half of n, rounded up, for the even positions.'); T.n('Largest value?', b[n - 1], 'It goes first in the larger half.'); return b.map((_, i) => i % 2 ? l[i >> 1] : s[i >> 1]); })(); T.n('Value at index 0?', res[0], 'The largest of the smaller half.'); return res; }
   });
 
   D('patching-array', {
@@ -81,7 +81,7 @@
     t: 'Longest Palindrome: use pairs, plus one middle',
     r: 'Every letter contributes 2·⌊count/2⌋. If any count is odd, one letter can sit in the middle: +1.',
     g: R => ({ s: R.str(R.int(1, 9), 'aabbcC') }),
-    s(I, T) { const c = {}; for (const x of I.s) c[x] = (c[x] || 0) + 1; const pairs = Object.values(c).reduce((a, v) => a + Math.floor(v / 2), 0), odd = Object.values(c).some(v => v % 2); T.at({ counts: K(c) }); T.n('How many pairs?', pairs, 'Σ ⌊count / 2⌋.'); T.yn('Can a letter sit in the middle?', odd, 'Some count is odd.'); return 2 * pairs + (odd ? 1 : 0); }
+    s(I, T) { const res = (() => { const c = {}; for (const x of I.s) c[x] = (c[x] || 0) + 1; const pairs = Object.values(c).reduce((a, v) => a + Math.floor(v / 2), 0), odd = Object.values(c).some(v => v % 2); T.at({ counts: K(c) }); T.n('How many pairs?', pairs, 'Each count halved, rounded down, then added up.'); T.yn('Can a letter sit in the middle?', odd, 'Some count is odd.'); return 2 * pairs + (odd ? 1 : 0); })(); T.n('Longest palindrome length?', res, 'Two per pair, plus 1 for a middle letter.'); return res; }
   });
 
   D('split-concatenated-strings', {
@@ -109,7 +109,7 @@
     t: 'Distribute Candies: distinct types, capped at n/2',
     r: 'Alice eats n/2 candies; the most types she can get is min(number of distinct types, n/2).',
     g: R => ({ candyType: R.ints(2 * R.int(1, 4), 1, 5) }),
-    s(I, T) { const d = new Set(I.candyType).size; T.at({ candies: A(I.candyType) }); T.n('Distinct types?', d, 'Use a set.'); return Math.min(d, I.candyType.length / 2); }
+    s(I, T) { const res = (() => { const d = new Set(I.candyType).size; T.at({ candies: A(I.candyType) }); T.n('Distinct types?', d, 'Use a set.'); T.n('Candies she may eat?', I.candyType.length / 2, 'Half of all candies.'); return Math.min(d, I.candyType.length / 2); })(); T.n('Most types she can eat?', res, 'The smaller of the two.'); return res; }
   });
 
   D('maximum-distance-in-arrays', {
@@ -123,7 +123,7 @@
     t: 'Minimum Factorization: divide by 9 down to 2',
     r: 'num < 10 is its own answer. Otherwise divide out 9, 8, …, 2 greedily (bigger digits mean fewer digits), then write the digits in increasing order. Leftover > 1 or overflow → 0.',
     g: R => ({ num: R.pick([R.int(1, 200), 48, 15, 2 ** R.int(1, 10), 11 * R.int(1, 5)]) }),
-    s(I, T) { let n = I.num; if (n < 10) return n; const d = []; for (let k = 9; k >= 2; k--) { let c = 0; while (n % k === 0) { n /= k; d.push(k); c++; } if (c) { T.at({ num: I.num, left: n }); T.n(`How many ${k}s?`, c, `Divide out ${k} while possible.`); } } if (n > 1) return 0; const r = +d.reverse().join(''); return r > 2 ** 31 - 1 ? 0 : r; }
+    s(I, T) { const res = (() => { let n = I.num; if (n < 10) { T.at({ num: n }); T.yn('Is num a single digit?', true, 'It is its own answer.'); T.n('Digits in the answer?', 1, 'Just num.'); return n; } const d = []; for (let k = 9; k >= 2; k--) { let c = 0; while (n % k === 0) { n /= k; d.push(k); c++; } if (c) { T.at({ num: I.num, left: n }); T.n(`How many ${k}s?`, c, `Divide out ${k} while possible.`); } } T.at({ num: I.num, left: n }); T.yn('Is a factor above 9 left over?', n > 1, 'Then no answer exists.'); if (n > 1) return 0; const r = +d.reverse().join(''); return r > 2 ** 31 - 1 ? 0 : r; })(); T.n('Smallest number? (0 if none)', res, 'Digits in increasing order.'); return res; }
   });
 
   D('non-decreasing-array', {
@@ -137,7 +137,7 @@
     t: 'Maximum Swap: swap with the last occurrence of a bigger digit',
     r: 'Record the last index of each digit. From the left, find the first digit that has a bigger digit later (check 9 down), and swap it with the last occurrence of that bigger digit.',
     g: R => ({ num: R.int(0, 99999) }),
-    s(I, T) { const d = [...String(I.num)], last = {}; d.forEach((c, i) => last[c] = i); for (let i = 0; i < d.length; i++) for (let k = 9; k > +d[i]; k--) if (last[k] > i) { T.at({ digits: A(d, { hl: [i] }) }); T.n('Swap it with which index?', last[k], `The last ${k}.`); [d[i], d[last[k]]] = [d[last[k]], d[i]]; return +d.join(''); } T.at({ digits: A(d) }); T.yn('Is any swap useful?', false, 'Digits are already non-increasing.'); return I.num; }
+    s(I, T) { const res = (() => { const d = [...String(I.num)], last = {}; T.at({ digits: A(d) }); T.n('Largest digit?', Math.max(...d.map(Number)), 'It should be as far left as possible.'); d.forEach((c, i) => last[c] = i); for (let i = 0; i < d.length; i++) for (let k = 9; k > +d[i]; k--) if (last[k] > i) { T.at({ digits: A(d, { hl: [i] }) }); T.n('Swap it with which index?', last[k], `The last ${k}.`); [d[i], d[last[k]]] = [d[last[k]], d[i]]; return +d.join(''); } T.at({ digits: A(d) }); T.yn('Is any swap useful?', false, 'Digits are already non-increasing.'); return I.num; })(); T.n('Largest number after one swap?', res, 'Swap the first digit that has a larger digit later.'); return res; }
   });
 
   D('1-bit-and-2-bit-characters', {
@@ -172,7 +172,7 @@
     t: 'Guess the Word: guess, then keep only consistent words',
     r: 'Guess a word (minimax: the one whose worst match-count bucket is smallest). Master returns the number of exact-position matches; keep only words with the same match count against the guess. Repeat.',
     g: R => { const base = R.str(6, 'abc'), words = new Set([base]); while (words.size < R.int(3, 6)) words.add([...base].map(c => R.chance(0.4) ? R.pick(['a', 'b', 'c', 'z']) : c).join('')); const w = [...words]; return { secret: R.pick(w), words: w, allowedGuesses: 10 }; },
-    s(I, T) { const m = (a, b) => [...a].filter((c, i) => c === b[i]).length; let cand = I.words.slice(); for (let g = 0; g < I.allowedGuesses && cand.length; g++) { let pick = cand[0], bestW = Infinity; for (const w of cand) { const b = {}; cand.forEach(x => { const k = m(w, x); b[k] = (b[k] || 0) + 1; }); const worst = Math.max(...Object.values(b)); if (worst < bestW) { bestW = worst; pick = w; } } const r = m(pick, I.secret); T.at({ candidates: A(cand), guess: pick }); T.n(`Master.guess("${pick}") returns?`, r, 'Count positions where it matches the secret.'); if (r === 6) return 'You guessed the secret word correctly.'; cand = cand.filter(x => x !== pick && m(x, pick) === r); } return 'Either you took too many guesses, or you did not find the secret word.'; }
+    s(I, T) { const res = (() => { const m = (a, b) => [...a].filter((c, i) => c === b[i]).length; let cand = I.words.slice(); for (let g = 0; g < I.allowedGuesses && cand.length; g++) { let pick = cand[0], bestW = Infinity; for (const w of cand) { const b = {}; cand.forEach(x => { const k = m(w, x); b[k] = (b[k] || 0) + 1; }); const worst = Math.max(...Object.values(b)); if (worst < bestW) { bestW = worst; pick = w; } } const r = m(pick, I.secret); T.at({ candidates: A(cand), guess: pick }); T.n(`Master.guess("${pick}") returns?`, r, 'Count positions where it matches the secret.'); if (r === 6) return 'You guessed the secret word correctly.'; cand = cand.filter(x => x !== pick && m(x, pick) === r); } return 'Either you took too many guesses, or you did not find the secret word.'; })(); T.yn('Was the secret found?', res.startsWith('You guessed'), 'Within the allowed guesses.'); return res; }
   });
 
   D('hand-of-straights', {
@@ -186,7 +186,7 @@
     t: 'Lemonade Change: give a 10 before two 5s',
     r: 'Track $5 and $10 bills. A $10 needs one $5 back. A $20 needs $15: prefer $10 + $5 (keeps more fives), else three $5s.',
     g: R => ({ bills: Array.from({ length: R.int(2, 7) }, () => R.pick([5, 5, 10, 20])) }),
-    s(I, T) { let f = 0, t = 0; for (const b of I.bills) { if (b === 5) { f++; continue; } let how; if (b === 10) { how = f ? 'one $5' : 'cannot'; if (f) f--; t++; } else { how = t && f ? '$10 + $5' : f >= 3 ? 'three $5' : 'cannot'; if (how === '$10 + $5') { t--; f--; } else if (how === 'three $5') f -= 3; } T.at({ fives: f, tens: t, paid: b }); T.c(`Customer pays $${b}. Change given?`, b === 10 ? ['one $5', 'cannot'] : ['$10 + $5', 'three $5', 'cannot'], how, 'Prefer handing out tens.'); if (how === 'cannot') return false; } return true; }
+    s(I, T) { const res = (() => { let f = 0, t = 0; T.at({ bills: A(I.bills) }); T.n('Customers paying with $5?', I.bills.filter(b => b === 5).length, 'They need no change.'); for (const b of I.bills) { if (b === 5) { f++; continue; } let how; if (b === 10) { how = f ? 'one $5' : 'cannot'; if (f) f--; t++; } else { how = t && f ? '$10 and $5' : f >= 3 ? 'three $5' : 'cannot'; if (how === '$10 and $5') { t--; f--; } else if (how === 'three $5') f -= 3; } T.at({ fives: f, tens: t, paid: b }); T.c(`Customer pays $${b}. Change given?`, b === 10 ? ['one $5', 'cannot'] : ['$10 and $5', 'three $5', 'cannot'], how, 'Prefer handing out tens.'); if (how === 'cannot') return false; } return true; })(); T.yn('Can everyone get change?', res, 'Every customer was served.'); return res; }
   });
 
   D('smallest-range-ii', {
@@ -207,7 +207,7 @@
     t: 'Array of Doubled Pairs: smallest absolute value first',
     r: 'Sort by absolute value. Each value x (still unused) must pair with 2x; take them from the counts. If 2x is missing, it fails.',
     g: R => { const b = R.ints(R.int(1, 3), -4, 4).filter(x => x); const a = b.flatMap(x => [x, 2 * x]); if (R.chance(0.3) || !a.length) a.push(R.int(1, 5), R.int(1, 5)); return { arr: R.shuffle(a) }; },
-    s(I, T) { const c = new Map(); I.arr.forEach(x => c.set(x, (c.get(x) || 0) + 1)); for (const x of [...c.keys()].sort((a, b) => Math.abs(a) - Math.abs(b))) { const k = c.get(x); if (!k) continue; if (x === 0) { if (k % 2) return false; continue; } const ok = (c.get(2 * x) || 0) >= k; T.at({ counts: K([...c].map(([a, b]) => [String(a), b])) }); T.yn(`Enough ${2 * x}s for ${k} × ${x}?`, ok, 'Each x needs its double.'); if (!ok) return false; c.set(2 * x, c.get(2 * x) - k); } return true; }
+    s(I, T) { const res = (() => { const c = new Map(); T.at({ arr: A(I.arr) }); T.n('Zeros?', I.arr.filter(x => x === 0).length, 'Zeros pair with each other.'); I.arr.forEach(x => c.set(x, (c.get(x) || 0) + 1)); for (const x of [...c.keys()].sort((a, b) => Math.abs(a) - Math.abs(b))) { const k = c.get(x); if (!k) continue; if (x === 0) { if (k % 2) return false; continue; } const ok = (c.get(2 * x) || 0) >= k; T.at({ counts: K([...c].map(([a, b]) => [String(a), b])) }); T.yn(`Enough ${2 * x}s to pair ${k} copies of ${x}?`, ok, 'Each x needs its double.'); if (!ok) return false; c.set(2 * x, c.get(2 * x) - k); } return true; })(); T.yn('Can the array be reordered into doubled pairs?', res, 'Every value found its double.'); return res; }
   });
 
   D('delete-columns-to-make-sorted-ii', {
@@ -229,7 +229,7 @@
     t: 'Largest Perimeter Triangle: sorted triples from the top',
     r: 'Sort descending; the first three consecutive values with a[i] < a[i+1] + a[i+2] give the largest perimeter.',
     g: R => ({ nums: R.ints(R.int(3, 6), 1, 12) }),
-    s(I, T) { const a = sorted(I.nums).reverse(); for (let i = 0; i + 2 < a.length; i++) { const ok = a[i] < a[i + 1] + a[i + 2]; T.at({ sorted: A(a, { hl: [i, i + 1, i + 2] }) }); T.yn(`Do ${a[i]}, ${a[i + 1]}, ${a[i + 2]} form a triangle?`, ok, `${a[i + 1]} + ${a[i + 2]} ${ok ? '>' : '≤'} ${a[i]}.`); if (ok) return a[i] + a[i + 1] + a[i + 2]; } return 0; }
+    s(I, T) { const res = (() => { const a = sorted(I.nums).reverse(); T.at({ sorted: A(a) }); T.n('Largest side to try first?', a[0], 'Sort from largest to smallest.'); for (let i = 0; i + 2 < a.length; i++) { const ok = a[i] < a[i + 1] + a[i + 2]; T.at({ sorted: A(a, { hl: [i, i + 1, i + 2] }) }); T.yn(`Do ${a[i]}, ${a[i + 1]}, ${a[i + 2]} form a triangle?`, ok, `${a[i + 1]} + ${a[i + 2]} is ${ok ? 'more than' : 'not more than'} ${a[i]}.`); if (ok) return a[i] + a[i + 1] + a[i + 2]; } return 0; })(); T.n('Largest perimeter? (0 if none)', res, 'The first valid triple from the top.'); return res; }
   });
 
   D('string-without-aaa-or-bbb', {

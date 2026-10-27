@@ -16,7 +16,7 @@
     t: 'Serialize and Deserialize BST',
     r: 'A BST is fixed by its preorder alone, so write only the values (no null markers). To rebuild, read values recursively with (low, high) bounds: a value outside the bounds belongs to an ancestor\'s other side.',
     g: R => ({ root: R.chance(0.1) ? [] : Tr.arr(bstGen(R)) }),
-    s(I, T) { const root = Tr.from(I.root), pre = []; const go = n => { if (!n) return; pre.push(n.val); go(n.left); go(n.right); }; go(root); T.at({ tree: root ? TR(root) : 'empty', preorder: A(pre) }); T.n('How many tokens are written?', pre.length, 'One per node — no null markers needed.'); if (pre.length > 1) { const lefts = pre.slice(1).filter(v => v < pre[0]).length; T.n('How many values belong to the root\'s left subtree?', lefts, `Values below ${pre[0]}.`); } return Tr.arr(root); }
+    s(I, T) { const res = (() => { const root = Tr.from(I.root), pre = []; const go = n => { if (!n) return; pre.push(n.val); go(n.left); go(n.right); }; go(root); T.at({ tree: root ? TR(root) : 'empty', preorder: A(pre) }); T.n('How many tokens are written?', pre.length, 'One per node; no null markers are needed.'); T.yn('Is the tree empty?', !root, 'Then the string is empty.'); if (pre.length > 1) { const lefts = pre.slice(1).filter(v => v < pre[0]).length; T.n('How many values belong to the root\'s left subtree?', lefts, `Values below ${pre[0]}.`); } return Tr.arr(root); })(); T.n('Nodes after decoding?', res.filter(v => v !== null).length, 'Same as the tokens.'); return res; }
   });
 
   D('lfu-cache', {
@@ -31,7 +31,7 @@
     r: 'Pick an angle uniformly and a radius r = R·√u (u uniform in [0, 1]). The square root spreads points evenly by area; a plain uniform radius would crowd the center.',
     g: R => seq(R, 'Solution', [R.int(1, 5), R.int(-3, 3), R.int(-3, 3)], R.int(1, 4), () => ['randPoint', []]),
     cmp: (o, e, I) => { const [r, x, y] = I.args[0]; return Array.isArray(o) && o.length === e.length && o.slice(1).every(p => Array.isArray(p) && (p[0] - x) ** 2 + (p[1] - y) ** 2 <= r * r + 1e-9); },
-    s(I, T) { const [rad, x, y] = I.args[0], rnd = rngOf(I); T.at({ radius: rad, center: `${x},${y}` }); T.c('Which radius sampling is uniform by area?', ['R·√u', 'R·u', 'R·u²'], 'R·√u', 'Area grows like r², so take the square root.'); return play(I, T, () => ({ randPoint() { const a = rnd() * 2 * Math.PI, r = rad * Math.sqrt(rnd()); return [x + r * Math.cos(a), y + r * Math.sin(a)]; } }), { skip: () => true, max: 0 }); }
+    s(I, T) { const [rad, x, y] = I.args[0], rnd = rngOf(I); T.at({ radius: rad, center: `${x}, ${y}` }); T.n('Points requested?', I.ops.filter(o => o === 'randPoint').length, 'One per randPoint call.'); T.n('Area of the circle, rounded down?', Math.floor(Math.PI * rad * rad), 'Pi times r squared.'); T.c('Which radius sampling is uniform by area?', ['R times the square root of u', 'R times u', 'R times u squared'], 'R times the square root of u', 'Area grows with r squared, so take the square root.'); return play(I, T, () => ({ randPoint() { const a = rnd() * 2 * Math.PI, r = rad * Math.sqrt(rnd()); return [x + r * Math.cos(a), y + r * Math.sin(a)]; } }), { skip: () => true, max: 0 }); }
   });
 
   D('random-point-in-non-overlapping-rectangles', {
@@ -39,7 +39,7 @@
     r: 'Weight each rectangle by its number of integer points, (x2 − x1 + 1)(y2 − y1 + 1). Pick a random point index, binary search the prefix sums for its rectangle, and map the offset to coordinates.',
     g: R => { const rects = []; let x = 0; for (let i = 0; i < R.int(1, 3); i++) { const w = R.int(0, 2), h = R.int(0, 2), y = R.int(-2, 2); rects.push([x, y, x + w, y + h]); x += w + 2; } return seq(R, 'Solution', [rects], R.int(1, 4), () => ['pick', []]); },
     cmp: (o, e, I) => Array.isArray(o) && o.length === e.length && o.slice(1).every(p => Array.isArray(p) && I.args[0][0].some(([a, b, c, d]) => p[0] >= a && p[0] <= c && p[1] >= b && p[1] <= d && Number.isInteger(p[0]) && Number.isInteger(p[1]))),
-    s(I, T) { const rects = I.args[0][0], cnt = rects.map(([a, b, c, d]) => (c - a + 1) * (d - b + 1)), P = []; cnt.reduce((s, c) => (P.push(s + c), s + c), 0); const rnd = rngOf(I); T.at({ rects: A(rects.map(r => r.join(','))), points: A(cnt) }); T.n('Integer points in the first rectangle?', cnt[0], '(x2 − x1 + 1)·(y2 − y1 + 1).'); return play(I, T, () => ({ pick() { let k = Math.floor(rnd() * P[P.length - 1]), i = 0; while (k >= P[i]) i++; k -= i ? P[i - 1] : 0; const [a, b, c] = rects[i], w = c - a + 1; return [a + k % w, b + Math.floor(k / w)]; } }), { skip: () => true, max: 0 }); }
+    s(I, T) { const rects = I.args[0][0], cnt = rects.map(([a, b, c, d]) => (c - a + 1) * (d - b + 1)), P = []; cnt.reduce((s, c) => (P.push(s + c), s + c), 0); const rnd = rngOf(I); T.at({ rects: A(rects.map(r => r.join(', '))), points: A(cnt) }); T.n('Integer points in the first rectangle?', cnt[0], '(x2 minus x1 plus 1) times (y2 minus y1 plus 1).'); T.n('Integer points in total?', P[P.length - 1], 'Pick by prefix sums of the counts.'); T.n('Picks requested?', I.ops.filter(o => o === 'pick').length, 'One per pick call.'); return play(I, T, () => ({ pick() { let k = Math.floor(rnd() * P[P.length - 1]), i = 0; while (k >= P[i]) i++; k -= i ? P[i - 1] : 0; const [a, b, c] = rects[i], w = c - a + 1; return [a + k % w, b + Math.floor(k / w)]; } }), { skip: () => true, max: 0 }); }
   });
 
   D('random-flip-matrix', {
@@ -47,7 +47,7 @@
     r: 'Treat cells as indices 0..m·n − 1. Pick a random index among the first `remaining`, return the cell it maps to (a hash map remembers swaps), then map it to the last free index and shrink. reset clears the map.',
     g: R => { const m = R.int(1, 3), n = R.int(1, 3), ops = ['Solution'], args = [[m, n]]; let left = m * n; for (let i = 0; i < R.int(2, 6); i++) { if (left && R.chance(0.75)) { ops.push('flip'); left--; } else { ops.push('reset'); left = m * n; } args.push([]); } return { ops, args }; },
     cmp: (o, e, I) => { if (!Array.isArray(o) || o.length !== e.length) return false; const [m, n] = I.args[0]; let seen = new Set(); for (let i = 1; i < I.ops.length; i++) { if (I.ops[i] === 'reset') { seen = new Set(); continue; } const p = o[i]; if (!Array.isArray(p) || p[0] < 0 || p[1] < 0 || p[0] >= m || p[1] >= n || seen.has(p.join())) return false; seen.add(p.join()); } return true; },
-    s(I, T) { const [m, n] = I.args[0], rnd = rngOf(I); T.at({ rows: m, cols: n }); T.n('Cells available before any flip?', m * n, 'm·n.'); return play(I, T, () => { let left = m * n, map = new Map(); return { flip() { const k = Math.floor(rnd() * left--), v = map.has(k) ? map.get(k) : k; map.set(k, map.has(left) ? map.get(left) : left); return [Math.floor(v / n), v % n]; }, reset() { left = m * n; map = new Map(); } }; }, { skip: () => true, max: 0 }); }
+    s(I, T) { const [m, n] = I.args[0], rnd = rngOf(I); T.at({ rows: m, cols: n }); T.n('Cells available before any flip?', m * n, 'm times n.'); T.n('Flips requested?', I.ops.filter(o => o === 'flip').length, 'Each one removes a cell.'); T.n('Resets?', I.ops.filter(o => o === 'reset').length, 'Each one restores every cell.'); return play(I, T, () => { let left = m * n, map = new Map(); return { flip() { const k = Math.floor(rnd() * left--), v = map.has(k) ? map.get(k) : k; map.set(k, map.has(left) ? map.get(left) : left); return [Math.floor(v / n), v % n]; }, reset() { left = m * n; map = new Map(); } }; }, { skip: () => true, max: 0 }); }
   });
 
   D('random-pick-with-weight', {
@@ -62,7 +62,7 @@
     t: 'Encode and Decode TinyURL',
     r: 'Keep two maps: long → code and code → long. Encode assigns the next id (base-62 text) to new URLs; decode looks the code up.',
     g: R => ({ url: 'https://leetcode.com/problems/' + R.str(R.int(3, 8), 'abcxyz') }),
-    s(I, T) { const al = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', b62 = n => { let s = ''; do { s = al[n % 62] + s; n = Math.floor(n / 62); } while (n); return s; }; const code = b62(1); T.at({ url: I.url }); T.c('Code given to the first URL (id 1 in base 62)?', ['1', '0', 'a'], code, 'The counter starts at 1.'); T.yn('Does decoding look the code up in a map?', true, 'code → long URL.'); return I.url; }
+    s(I, T) { const res = (() => { const al = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', b62 = n => { let s = ''; do { s = al[n % 62] + s; n = Math.floor(n / 62); } while (n); return s; }; const code = b62(1); T.at({ url: I.url }); T.c('Code given to the first URL (id 1 in base 62)?', ['1', '0', 'a'], code, 'The counter starts at 1.'); T.yn('Does decoding look the code up in a map?', true, 'It maps each code to its long URL.'); return I.url; })(); T.n('Length of the decoded URL?', res.length, 'Exactly the original.'); return res; }
   });
 
   D('design-in-memory-file-system', {
@@ -154,7 +154,7 @@
     t: 'Design Linked List',
     r: 'Use a dummy head and a size counter. Walk index steps from the dummy to reach the node before a position. Out-of-range indices: get returns −1, insert/delete do nothing (index = size inserts at the tail).',
     g: R => seq(R, 'MyLinkedList', [], R.int(4, 10), R => R.pick([['addAtHead', [R.int(1, 9)]], ['addAtTail', [R.int(1, 9)]], ['addAtIndex', [R.int(0, 3), R.int(1, 9)]], ['get', [R.int(0, 3)]], ['deleteAtIndex', [R.int(0, 3)]]])),
-    s(I, T) { return play(I, T, () => { const a = []; return { a, get(i) { return i < a.length ? a[i] : -1; }, addAtHead(v) { a.unshift(v); }, addAtTail(v) { a.push(v); }, addAtIndex(i, v) { if (i <= a.length) a.splice(i, 0, v); }, deleteAtIndex(i) { if (i < a.length) a.splice(i, 1); } }; }, { view: o => ({ list: A(o.a.slice()) }), why: (op, [i]) => `Node at index ${i}, or −1 past the end.` }); }
+    s(I, T) { T.at({ calls: I.ops.length - 1 }); T.n('Operations after the constructor?', I.ops.length - 1, 'Count the calls.'); return play(I, T, () => { const a = []; return { a, get(i) { return i < a.length ? a[i] : -1; }, addAtHead(v) { a.unshift(v); }, addAtTail(v) { a.push(v); }, addAtIndex(i, v) { if (i <= a.length) a.splice(i, 0, v); }, deleteAtIndex(i) { if (i < a.length) a.splice(i, 1); } }; }, { view: o => ({ list: A(o.a.slice()) }), why: (op, [i]) => `Node at index ${i}, or −1 past the end.` }); }
   });
 
   D('random-pick-with-blacklist', {

@@ -19,7 +19,7 @@
     t: 'Optimal Division: divide by as little as possible',
     r: 'a / b / c / … is largest when everything after a is divided as much as possible: a / (b / c / … / z) divides a only by b and multiplies by the rest. With 1 or 2 numbers no parentheses are needed.',
     g: R => ({ nums: R.ints(R.int(1, 5), 2, 20) }),
-    s(I, T) { const a = I.nums; T.at({ nums: A(a) }); T.c('Best shape?', ['a', 'a/b', 'a/(b/c/…)'], a.length === 1 ? 'a' : a.length === 2 ? 'a/b' : 'a/(b/c/…)', 'Divide a by b only, and multiply back everything after b.'); return a.length === 1 ? String(a[0]) : a.length === 2 ? a.join('/') : `${a[0]}/(${a.slice(1).join('/')})`; }
+    s(I, T) { const a = I.nums; T.at({ nums: A(a) }); T.c('Best shape?', ['a', 'a/b', 'a/(b/c/…)'], a.length === 1 ? 'a' : a.length === 2 ? 'a/b' : 'a/(b/c/…)', 'Divide a by b only, and multiply back everything after b.'); T.n('How many numbers end up multiplying the result?', a.length <= 2 ? 1 : a.length - 1, 'a, plus everything after b.'); T.yn('Are parentheses needed?', a.length > 2, 'Only with three or more numbers.'); return a.length === 1 ? String(a[0]) : a.length === 2 ? a.join('/') : `${a[0]}/(${a.slice(1).join('/')})`; }
   });
 
   D('find-the-closest-palindrome', {
@@ -29,7 +29,7 @@
     s(I, T) {
       const s = I.n, L = s.length, n = BigInt(s), h = s.slice(0, Math.ceil(L / 2)), mir = p => { const t = String(p); return BigInt(t + [...t.slice(0, L % 2 ? t.length - 1 : t.length)].reverse().join('')); };
       const c = new Set([10n ** BigInt(L - 1) - 1n, 10n ** BigInt(L) + 1n]); for (const d of [-1n, 0n, 1n]) { const p = BigInt(h) + d; if (p >= 0n) c.add(mir(p)); }
-      T.at({ n: s, prefix: h }); T.n('Mirror of the prefix itself?', Number(mir(BigInt(h))), 'Copy the first half onto the second, reversed.');
+      T.at({ n: s, prefix: h }); T.n('How many candidates are there?', c.size, 'Mirrors of prefix − 1, prefix, prefix + 1, plus 99…9 and 10…01.'); T.n('Mirror of the prefix itself?', Number(mir(BigInt(h))), 'Copy the first half onto the second, reversed.');
       let best = null; for (const v of [...c].sort((a, b) => (a < b ? -1 : 1))) { if (v === n || v < 0n) continue; const d = v > n ? v - n : n - v; if (best === null || d < best[1]) best = [v, d]; }
       T.n('Distance from n to the closest palindrome?', Number(best[1]), 'Smallest distance among the candidates.'); return String(best[0]);
     }
@@ -53,21 +53,21 @@
     t: 'Valid Square: six distances, two values',
     r: 'Compute all 6 squared distances and sort. A square has 4 equal positive sides and 2 equal diagonals, each diagonal² = 2 · side².',
     g: R => { if (R.chance(0.5)) { const x = R.int(-3, 3), y = R.int(-3, 3), a = R.int(0, 3), b = R.int(1, 3); return { p1: [x, y], p2: [x + a, y + b], p3: [x + a - b, y + b + a], p4: [x - b, y + a] }; } return { p1: [R.int(0, 3), R.int(0, 3)], p2: [R.int(0, 3), R.int(0, 3)], p3: [R.int(0, 3), R.int(0, 3)], p4: [R.int(0, 3), R.int(0, 3)] }; },
-    s(I, T) { const p = [I.p1, I.p2, I.p3, I.p4], d = []; for (let i = 0; i < 4; i++) for (let j = i + 1; j < 4; j++) d.push((p[i][0] - p[j][0]) ** 2 + (p[i][1] - p[j][1]) ** 2); d.sort((a, b) => a - b); T.at({ points: A(p.map(q => `(${q})`)) }); T.n('Smallest squared distance?', d[0], 'Should be the side² (and positive).'); T.n('Largest squared distance?', d[5], 'Should be the diagonal² = 2 · side².'); return d[0] > 0 && d[0] === d[3] && d[4] === d[5] && d[4] === 2 * d[0]; }
+    s(I, T) { const res = (() => { const p = [I.p1, I.p2, I.p3, I.p4], d = []; for (let i = 0; i < 4; i++) for (let j = i + 1; j < 4; j++) d.push((p[i][0] - p[j][0]) ** 2 + (p[i][1] - p[j][1]) ** 2); d.sort((a, b) => a - b); T.at({ points: A(p.map(q => `(${q})`)) }); T.n('Smallest squared distance?', d[0], 'Should be the side squared, and positive.'); T.n('Largest squared distance?', d[5], 'Should be the diagonal squared, twice the side squared.'); return d[0] > 0 && d[0] === d[3] && d[4] === d[5] && d[4] === 2 * d[0]; })(); T.yn('Is it a valid square?', res, 'Four equal sides and two equal diagonals.'); return res; }
   });
 
   D('maximum-product-of-three-numbers', {
     t: 'Maximum Product of Three: top three or two most negative',
     r: 'After sorting, the best is either the three largest, or the two smallest (most negative) times the largest.',
     g: R => ({ nums: R.ints(R.int(3, 6), -9, 9) }),
-    s(I, T) { const a = I.nums.slice().sort((x, y) => x - y), n = a.length, p1 = a[n - 1] * a[n - 2] * a[n - 3], p2 = a[0] * a[1] * a[n - 1]; T.at({ sorted: A(a) }); T.n('Product of the three largest?', p1, 'Last three after sorting.'); T.n('Two smallest × largest?', p2, 'Two negatives make a positive.'); return Math.max(p1, p2); }
+    s(I, T) { const res = (() => { const a = I.nums.slice().sort((x, y) => x - y), n = a.length, p1 = a[n - 1] * a[n - 2] * a[n - 3], p2 = a[0] * a[1] * a[n - 1]; T.at({ sorted: A(a) }); T.n('Product of the three largest?', p1, 'Last three after sorting.'); T.n('Two smallest times the largest?', p2, 'Two negatives make a positive.'); return Math.max(p1, p2); })(); T.n('Maximum product?', res, 'The larger of the two.'); return res; }
   });
 
   D('solve-the-equation', {
     t: 'Solve the Equation: collect x terms and constants',
     r: 'Parse both sides into (x coefficient, constant). Move x to the left and numbers to the right: a·x = b. a = 0: infinite if b = 0, else none; otherwise x = b / a.',
     g: R => { const side = () => Array.from({ length: R.int(1, 3) }, (_, i) => { const c = R.int(0, 4), t = R.chance(0.5) ? (c === 1 ? '' : c) + 'x' : String(c); return (i ? R.pick(['+', '-']) : R.chance(0.3) ? '-' : '') + t; }).join(''); return { equation: side() + '=' + side() }; },
-    s(I, T) { const parse = s => { let x = 0, c = 0; for (const m of s.matchAll(/[+-]?\d*x|[+-]?\d+/g)) { const t = m[0]; if (t.endsWith('x')) { const k = t.slice(0, -1); x += k === '' || k === '+' ? 1 : k === '-' ? -1 : +k; } else c += +t; } return [x, c]; }; const [l, r] = I.equation.split('='), [a1, c1] = parse(l), [a2, c2] = parse(r), a = a1 - a2, b = c2 - c1; T.at({ equation: I.equation }); T.n('x coefficient after moving x to the left?', a, 'Left x terms − right x terms.'); T.n('Constant after moving numbers to the right?', b, 'Right numbers − left numbers.'); if (a === 0) return b === 0 ? 'Infinite solutions' : 'No solution'; return 'x=' + b / a; }
+    s(I, T) { const res = (() => { const parse = s => { let x = 0, c = 0; for (const m of s.matchAll(/[+-]?\d*x|[+-]?\d+/g)) { const t = m[0]; if (t.endsWith('x')) { const k = t.slice(0, -1); x += k === '' || k === '+' ? 1 : k === '-' ? -1 : +k; } else c += +t; } return [x, c]; }; const [l, r] = I.equation.split('='), [a1, c1] = parse(l), [a2, c2] = parse(r), a = a1 - a2, b = c2 - c1; T.at({ equation: I.equation }); T.n('x coefficient after moving x to the left?', a, 'Left x terms minus right x terms.'); T.n('Constant after moving numbers to the right?', b, 'Right numbers minus left numbers.'); if (a === 0) return b === 0 ? 'Infinite solutions' : 'No solution'; return 'x=' + b / a; })(); T.c('Result?', [...new Set([res, 'No solution', 'Infinite solutions'])], res, 'Divide, unless the x coefficient is 0.'); return res; }
   });
 
   D('remove-9', {
@@ -112,7 +112,7 @@
       const expr = () => { let v = term(); while (tok[p] === '+' || tok[p] === '-') { const o = tok[p++]; v = add(v, term(), o === '+' ? 1 : -1); } return v; };
       const res = [...expr()].filter(([, v]) => v !== 0), deg = k => k ? k.split('*').length : 0;
       res.sort((x, y) => { if (deg(y[0]) !== deg(x[0])) return deg(y[0]) - deg(x[0]); const a = x[0].split('*'), b = y[0].split('*'); for (let i = 0; i < a.length; i++) if (a[i] !== b[i]) return a[i] < b[i] ? -1 : 1; return 0; });
-      T.at({ expression: I.expression, known: K(env) }); T.n('Constant term of the simplified result?', (res.find(r => r[0] === '') || [, 0])[1], 'Collect everything with no variables.'); T.n('How many non-zero terms?', res.length, 'Merge equal variable lists; drop zeros.');
+      T.at({ expression: I.expression, known: K(env) }); T.n('Degree of the leading term?', res.length ? deg(res[0][0]) : 0, 'Terms are sorted by degree, highest first.'); T.n('Constant term of the simplified result?', (res.find(r => r[0] === '') || [, 0])[1], 'Collect everything with no variables.'); T.n('How many non-zero terms?', res.length, 'Merge equal variable lists; drop zeros.');
       return res.map(([k, v]) => k ? `${v}*${k}` : String(v));
     }
   });
@@ -128,7 +128,7 @@
     t: 'Reaching Points: walk backwards with modulo',
     r: 'From (tx, ty) the previous point is unique: subtract the smaller from the larger. Subtract many times at once with modulo, stopping when you reach the start row or column.',
     g: R => { let x = R.int(1, 3), y = R.int(1, 3); const s = [x, y]; for (let i = 0; i < R.int(1, 4); i++) R.chance(0.5) ? x += y : y += x; if (R.chance(0.3)) x += 1; return { sx: s[0], sy: s[1], tx: x, ty: y }; },
-    s(I, T) { let { sx, sy, tx, ty } = I; while (tx >= sx && ty >= sy) { if (tx === ty) break; T.at({ start: `(${sx},${sy})`, now: `(${tx},${ty})` }); if (tx > ty) { if (ty > sy) { T.n(`x after stepping back (${tx} mod ${ty})?`, tx % ty, 'Undo many (x + y, y) steps at once.'); tx %= ty; } else return (tx - sx) % ty === 0; } else { if (tx > sx) { T.n(`y after stepping back (${ty} mod ${tx})?`, ty % tx, 'Undo many (x, x + y) steps at once.'); ty %= tx; } else return (ty - sy) % tx === 0; } } return tx === sx && ty === sy; }
+    s(I, T) { const res = (() => { let { sx, sy, tx, ty } = I; while (tx >= sx && ty >= sy) { if (tx === ty) break; T.at({ start: `(${sx},${sy})`, now: `(${tx},${ty})` }); if (tx > ty) { if (ty > sy) { T.n(`x after stepping back (${tx} mod ${ty})?`, tx % ty, 'Undo many (x + y, y) steps at once.'); tx %= ty; } else return (tx - sx) % ty === 0; } else { if (tx > sx) { T.n(`y after stepping back (${ty} mod ${tx})?`, ty % tx, 'Undo many (x, x + y) steps at once.'); ty %= tx; } else return (ty - sy) % tx === 0; } } return tx === sx && ty === sy; })(); T.yn('Can the target be reached?', res, 'Step back with remainders until you hit the start or pass it.'); return res; }
   });
 
   D('escape-the-ghosts', {
@@ -170,7 +170,7 @@
     t: 'Rectangle Overlap: positive overlap on both axes',
     r: 'Overlap width = min(right edges) − max(left edges), height likewise. They overlap only if both are positive (touching edges do not count).',
     g: R => { const r = () => { const x = R.int(-3, 3), y = R.int(-3, 3); return [x, y, x + R.int(1, 4), y + R.int(1, 4)]; }; return { rec1: r(), rec2: r() }; },
-    s(I, T) { const [a, b] = [I.rec1, I.rec2], w = Math.min(a[2], b[2]) - Math.max(a[0], b[0]), h = Math.min(a[3], b[3]) - Math.max(a[1], b[1]); T.at({ rec1: `[${a}]`, rec2: `[${b}]` }); T.n('Overlap along x (may be ≤ 0)?', w, 'min(x2) − max(x1).'); T.n('Overlap along y (may be ≤ 0)?', h, 'min(y2) − max(y1).'); return w > 0 && h > 0; }
+    s(I, T) { const res = (() => { const [a, b] = [I.rec1, I.rec2], w = Math.min(a[2], b[2]) - Math.max(a[0], b[0]), h = Math.min(a[3], b[3]) - Math.max(a[1], b[1]); T.at({ rec1: `[${a}]`, rec2: `[${b}]` }); T.n('Overlap along x (may be 0 or less)?', w, 'The smaller right edge minus the larger left edge.'); T.n('Overlap along y (may be 0 or less)?', h, 'The smaller top edge minus the larger bottom edge.'); return w > 0 && h > 0; })(); T.yn('Do the rectangles overlap?', res, 'Both overlaps must be positive.'); return res; }
   });
 
   D('prime-palindrome', {
@@ -192,7 +192,7 @@
     r: 'Swapping a for b changes Alice\'s total by b − a; it must be half the difference. Put Bob\'s boxes in a set and look for a + delta.',
     g: R => { const a = R.ints(R.int(1, 3), 1, 6), b = R.ints(R.int(1, 3), 1, 6), x = R.pick(a), y = R.pick(b); const sa = a.reduce((s, v) => s + v, 0), sb = b.reduce((s, v) => s + v, 0); const fix = (sb - sa) - 2 * (y - x); if (fix % 2 === 0 && fix !== 0 && b.length) { b.push(Math.abs(fix) + 1); } return { aliceSizes: a, bobSizes: b }; },
     cmp: (out, exp, I) => { if (!Array.isArray(out) || out.length !== 2) return false; const sa = I.aliceSizes.reduce((s, v) => s + v, 0), sb = I.bobSizes.reduce((s, v) => s + v, 0); return I.aliceSizes.includes(out[0]) && I.bobSizes.includes(out[1]) && sa - out[0] + out[1] === sb - out[1] + out[0]; },
-    s(I, T) { const sa = I.aliceSizes.reduce((s, v) => s + v, 0), sb = I.bobSizes.reduce((s, v) => s + v, 0), d = (sb - sa) / 2, B = new Set(I.bobSizes); T.at({ alice: A(I.aliceSizes), bob: A(I.bobSizes) }); T.n('delta = (sumB − sumA) / 2?', d, `(${sb} − ${sa}) / 2.`); for (const a of I.aliceSizes) if (B.has(a + d)) return [a, a + d]; return []; }
+    s(I, T) { const sa = I.aliceSizes.reduce((s, v) => s + v, 0), sb = I.bobSizes.reduce((s, v) => s + v, 0), d = (sb - sa) / 2, B = new Set(I.bobSizes); T.at({ alice: A(I.aliceSizes), bob: A(I.bobSizes) }); T.n('Alice total?', sa, 'Add her boxes.'); T.n('Bob total?', sb, 'Add his boxes.'); T.n('How much bigger must Bob\'s box be?', d, `Half of ${sb} minus ${sa}.`); for (const a of I.aliceSizes) if (B.has(a + d)) return [a, a + d]; return []; }
   });
 
   D('sum-of-subsequence-widths', {
@@ -206,7 +206,7 @@
     t: 'Orderly Queue: rotations for k = 1, sorting otherwise',
     r: 'With k = 1 you can only rotate, so take the smallest rotation. With k ≥ 2 you can swap any adjacent pair, so any order is reachable: return the sorted string.',
     g: R => ({ s: R.str(R.int(3, 6), 'abc'), k: R.int(1, 3) }),
-    s(I, T) { const s = I.s; T.at({ s, k: I.k }); T.yn('Can every ordering be reached?', I.k > 1, I.k > 1 ? 'Two front choices let you swap neighbors.' : 'Only rotations are possible.'); if (I.k > 1) return [...s].sort().join(''); let best = s, bi = 0; for (let i = 1; i < s.length; i++) { const r = s.slice(i) + s.slice(0, i); if (r < best) { best = r; bi = i; } } T.n('Start index of the smallest rotation?', bi, 'Compare every rotation.'); return best; }
+    s(I, T) { const res = (() => { const s = I.s; T.at({ s, k: I.k }); T.n('Distinct letters in s?', new Set(s).size, 'Sorting them gives the best possible string.'); T.yn('Can every ordering be reached?', I.k > 1, I.k > 1 ? 'Two front choices let you swap neighbors.' : 'Only rotations are possible.'); if (I.k > 1) return [...s].sort().join(''); let best = s, bi = 0; for (let i = 1; i < s.length; i++) { const r = s.slice(i) + s.slice(0, i); if (r < best) { best = r; bi = i; } } T.n('Start index of the smallest rotation?', bi, 'Compare every rotation.'); return best; })(); T.c('First letter of the result?', [...new Set([res[0], ...I.s])], res[0], 'The smallest string you can reach.'); return res; }
   });
 
   D('super-palindromes', {
@@ -220,14 +220,14 @@
     t: 'Smallest Range I: shrink the gap by 2k',
     r: 'Raise the minimum by k and lower the maximum by k. The score is max(0, max − min − 2k).',
     g: R => ({ nums: R.ints(R.int(1, 5), 0, 20), k: R.int(0, 6) }),
-    s(I, T) { const d = Math.max(...I.nums) - Math.min(...I.nums); T.at({ nums: A(I.nums), k: I.k }); T.n('max − min?', d, 'The original range.'); return Math.max(0, d - 2 * I.k); }
+    s(I, T) { const res = (() => { const d = Math.max(...I.nums) - Math.min(...I.nums); T.at({ nums: A(I.nums), k: I.k }); T.n('Largest minus smallest?', d, 'The original range.'); T.n('Most the range can shrink?', 2 * I.k, 'Raise the minimum by k and lower the maximum by k.'); return Math.max(0, d - 2 * I.k); })(); T.n('Smallest range?', res, 'Never below 0.'); return res; }
   });
 
   D('x-of-a-kind-in-a-deck-of-cards', {
     t: 'X of a Kind in a Deck: gcd of the counts',
     r: 'A group size X must divide every value\'s count. Such an X ≥ 2 exists exactly when the gcd of all counts is at least 2.',
     g: R => ({ deck: R.shuffle(Array.from({ length: R.int(1, 3) }, () => Array(R.pick([1, 2, 2, 3, 4, 6])).fill(R.int(0, 9))).flat()) }),
-    s(I, T) { const c = {}; I.deck.forEach(x => c[x] = (c[x] || 0) + 1); const g = Object.values(c).reduce(gcd, 0); T.at({ counts: K(c) }); T.n('gcd of the counts?', g, 'The largest group size that fits every value.'); return g >= 2; }
+    s(I, T) { const res = (() => { const c = {}; I.deck.forEach(x => c[x] = (c[x] || 0) + 1); const g = Object.values(c).reduce(gcd, 0); T.at({ counts: K(c) }); T.n('Distinct values?', Object.keys(c).length, 'One count each.'); T.n('Greatest common divisor of the counts?', g, 'The largest group size that fits every value.'); return g >= 2; })(); T.yn('Can the deck be split into groups of 2 or more?', res, 'The divisor must be at least 2.'); return res; }
   });
 
   D('beautiful-array', {
@@ -242,21 +242,21 @@
     t: 'Minimum Area Rectangle: pick a diagonal, look up the other corners',
     r: 'Put the points in a set. For every pair that differs in both x and y, treat it as a diagonal: if (x1, y2) and (x2, y1) exist, it is a rectangle. Keep the smallest area.',
     g: R => ({ points: ptSet(R, R.int(4, 7), 3) }),
-    s(I, T) { const p = I.points, S = new Set(p.map(q => q.join())); let best = Infinity; for (let i = 0; i < p.length; i++) for (let j = i + 1; j < p.length; j++) { const [a, b] = [p[i], p[j]]; if (a[0] === b[0] || a[1] === b[1]) continue; if (S.has([a[0], b[1]].join()) && S.has([b[0], a[1]].join())) { const ar = Math.abs(a[0] - b[0]) * Math.abs(a[1] - b[1]); T.at({ points: A(p.map(q => `(${q})`), { hl: [i, j] }), best: best === Infinity ? '—' : best }); T.n(`Diagonal (${a})–(${b}) closes a rectangle. Area?`, ar, '|dx| · |dy|.'); best = Math.min(best, ar); } } return best === Infinity ? 0 : best; }
+    s(I, T) { const res = (() => { const p = I.points, S = new Set(p.map(q => q.join())); let best = Infinity; for (let i = 0; i < p.length; i++) for (let j = i + 1; j < p.length; j++) { const [a, b] = [p[i], p[j]]; if (a[0] === b[0] || a[1] === b[1]) continue; if (S.has([a[0], b[1]].join()) && S.has([b[0], a[1]].join())) { const ar = Math.abs(a[0] - b[0]) * Math.abs(a[1] - b[1]); T.at({ points: A(p.map(q => `(${q})`), { hl: [i, j] }), best: best === Infinity ? '—' : best }); T.n(`Diagonal from (${a}) to (${b}) closes a rectangle. Area?`, ar, 'Width times height.'); best = Math.min(best, ar); } } return best === Infinity ? 0 : best; })(); T.n('Minimum area (0 if none)?', res, 'Smallest area found.'); return res; }
   });
 
   D('minimum-area-rectangle-ii', {
     t: 'Minimum Area Rectangle II: right angle plus the fourth corner',
     r: 'For each corner p and two others q, r with (q − p)·(r − p) = 0, the fourth corner is q + r − p. If it exists, the area is |pq| · |pr|. (Faster: group diagonals by midpoint and length.)',
     g: R => R.pick([{ points: [[1, 2], [2, 1], [1, 0], [0, 1]] }, { points: [[0, 1], [2, 1], [1, 1], [1, 0], [2, 0]] }, { points: [[0, 0], [2, 1], [1, 3], [-1, 2], [3, 3], [5, 5]] }, { points: ptSet(R, 5, 3) }]), cmp: 'float',
-    s(I, T) { const p = I.points, S = new Set(p.map(q => q.join())), seen = new Set(); let best = Infinity; for (const a of p) for (const b of p) for (const c of p) { if (a === b || a === c || b === c) continue; if ((b[0] - a[0]) * (c[0] - a[0]) + (b[1] - a[1]) * (c[1] - a[1]) !== 0) continue; const d = [b[0] + c[0] - a[0], b[1] + c[1] - a[1]]; if (!S.has(d.join())) continue; const key = [a, b, c, d].map(q => q.join()).sort().join('|'); const ar = Math.hypot(b[0] - a[0], b[1] - a[1]) * Math.hypot(c[0] - a[0], c[1] - a[1]); if (!seen.has(key)) { seen.add(key); T.at({ corners: A([a, b, c, d].map(q => `(${q})`)) }); T.n('Area of this rectangle?', ar, '|pq| · |pr|.'); } best = Math.min(best, ar); } return best === Infinity ? 0 : best; }
+    s(I, T) { const res = (() => { const p = I.points, S = new Set(p.map(q => q.join())), seen = new Set(); T.at({ points: A(p.map(q => `(${q})`)) }); T.n('Corner and two-neighbour choices to try?', p.length * (p.length - 1) * (p.length - 2), 'Every ordered choice of three different points.'); let best = Infinity; for (const a of p) for (const b of p) for (const c of p) { if (a === b || a === c || b === c) continue; if ((b[0] - a[0]) * (c[0] - a[0]) + (b[1] - a[1]) * (c[1] - a[1]) !== 0) continue; const d = [b[0] + c[0] - a[0], b[1] + c[1] - a[1]]; if (!S.has(d.join())) continue; const key = [a, b, c, d].map(q => q.join()).sort().join('|'); const ar = Math.hypot(b[0] - a[0], b[1] - a[1]) * Math.hypot(c[0] - a[0], c[1] - a[1]); if (!seen.has(key)) { seen.add(key); T.at({ corners: A([a, b, c, d].map(q => `(${q})`)) }); T.n('Area of this rectangle?', ar, 'Length of one side times the other.'); } best = Math.min(best, ar); } return best === Infinity ? 0 : best; })(); T.n('Minimum area (0 if none)?', res, 'Smallest area found.'); return res; }
   });
 
   D('powerful-integers', {
     t: 'Powerful Integers: two small power loops',
     r: 'Loop over powers of x and of y (stop a loop at once if its base is 1) and collect every sum ≤ bound in a set.',
     g: R => ({ x: R.int(1, 4), y: R.int(1, 4), bound: R.int(0, 40) }), cmp: 'set',
-    s(I, T) { const out = new Set(); for (let a = 1; a <= I.bound; a *= I.x) { for (let b = 1; a + b <= I.bound; b *= I.y) { out.add(a + b); if (I.y === 1) break; } if (I.x === 1) break; } T.at({ x: I.x, y: I.y, bound: I.bound }); T.n('How many distinct powerful integers?', out.size, 'Collect x^i + y^j ≤ bound in a set.'); return [...out]; }
+    s(I, T) { const res = (() => { const out = new Set(); for (let a = 1; a <= I.bound; a *= I.x) { for (let b = 1; a + b <= I.bound; b *= I.y) { out.add(a + b); if (I.y === 1) break; } if (I.x === 1) break; } T.at({ x: I.x, y: I.y, bound: I.bound }); let px = 0; for (let a = 1; a <= I.bound; a *= I.x) { px++; if (I.x === 1) break; } T.n('Powers of x up to bound?', px, 'Including x to the power 0.'); T.n('How many distinct powerful integers?', out.size, 'Collect every x to the power i plus y to the power j that is at most bound, in a set.'); return [...out]; })(); T.n('Largest powerful integer (−1 if none)?', res.length ? Math.max(...res) : -1, 'Biggest value in the set.'); return res; }
   });
 
   D('equal-rational-numbers', {
@@ -266,7 +266,7 @@
     s(I, T) {
       const parse = s => { const m = s.match(/^(\d+)(?:\.(\d*)(?:\((\d+)\))?)?$/), ip = BigInt(m[1]), N = m[2] || '', Rp = m[3] || ''; const tn = 10n ** BigInt(N.length); let num = ip * tn + BigInt(N || '0'), den = tn; if (Rp) { const rr = 10n ** BigInt(Rp.length) - 1n; num = num * rr + BigInt(Rp); den = den * rr; } return [num, den, N + (Rp ? Rp.repeat(8) : '')]; };
       const a = parse(I.s), b = parse(I.t); for (const [lab, v] of [['s', a], ['t', b]]) { T.at({ s: I.s, t: I.t }); T.n(`First 6 decimal digits of ${lab} (as a number)?`, +(v[2] + '000000').slice(0, 6), 'Write the repeating part out.'); }
-      return a[0] * b[1] === b[0] * a[1];
+      T.yn('Do they represent the same number?', a[0] * b[1] === b[0] * a[1], 'Compare the exact fractions.'); return a[0] * b[1] === b[0] * a[1];
     }
   });
 

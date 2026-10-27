@@ -16,7 +16,7 @@
     t: 'Function Calls to Make Target Array: popcounts plus doublings',
     r: 'Each 1 bit needs its own +1 call; doublings are shared by all numbers, so you need (highest bit position) of them. Answer = Σ popcount + (max bit length − 1).',
     g: R => ({ nums: R.ints(R.int(1, 4), 0, 20) }),
-    s(I, T) { const ones = I.nums.reduce((a, x) => a + pc(x), 0), mx = Math.max(...I.nums); T.at({ nums: A(I.nums), binary: A(I.nums.map(x => x.toString(2))) }); T.n('Total 1 bits (increment calls)?', ones, 'Σ popcount.'); const dbl = mx ? mx.toString(2).length - 1 : 0; T.n('Doubling calls?', dbl, 'Bit length of the largest − 1.'); return ones + dbl; }
+    s(I, T) { const res = (() => { const ones = I.nums.reduce((a, x) => a + pc(x), 0), mx = Math.max(...I.nums); T.at({ nums: A(I.nums), binary: A(I.nums.map(x => x.toString(2))) }); T.n('Total 1 bits (increment calls)?', ones, 'Add up the 1 bits of every number.'); const dbl = mx ? mx.toString(2).length - 1 : 0; T.n('Doubling calls?', dbl, 'Bit length of the largest, minus 1.'); return ones + dbl; })(); T.n('Total function calls?', res, 'Increments plus shared doublings.'); return res; }
   });
 
   D('maximum-number-of-coins-you-can-get', {
@@ -45,14 +45,14 @@
     t: 'Minimum Time to Make Rope Colorful: keep the slowest of each run',
     r: 'In each run of equal colors, keep the balloon with the largest neededTime and remove the rest: cost = run sum − run max.',
     g: R => { const c = R.str(R.int(2, 7), 'aab'); return { colors: c, neededTime: R.ints(c.length, 1, 6) }; },
-    s(I, T) { let t = 0, i = 0; const c = I.colors; while (i < c.length) { let j = i, s = 0, m = 0; while (j < c.length && c[j] === c[i]) { s += I.neededTime[j]; m = Math.max(m, I.neededTime[j]); j++; } if (j - i > 1) { T.at({ colors: A([...c], { win: [i, j - 1] }), time: A(I.neededTime, { win: [i, j - 1] }) }); T.n(`Cost for the run of "${c[i]}" at ${i}–${j - 1}?`, s - m, 'Sum minus the max (keep the slowest).'); } t += s - m; i = j; } return t; }
+    s(I, T) { const res = (() => { let t = 0, i = 0; const c = I.colors; T.at({ colors: A([...c]) }); T.n('Blocks of the same colour next to each other?', [...c].filter((x, k) => !k || x !== c[k - 1]).length, 'Count where the colour changes, plus the first block.'); while (i < c.length) { let j = i, s = 0, m = 0; while (j < c.length && c[j] === c[i]) { s += I.neededTime[j]; m = Math.max(m, I.neededTime[j]); j++; } if (j - i > 1) { T.at({ colors: A([...c], { win: [i, j - 1] }), time: A(I.neededTime, { win: [i, j - 1] }) }); T.n(`Cost for the run of "${c[i]}" from ${i} to ${j - 1}?`, s - m, 'Sum minus the max (keep the slowest).'); } t += s - m; i = j; } return t; })(); T.n('Minimum total time?', res, 'Add the cost of every run.'); return res; }
   });
 
   D('put-boxes-into-the-warehouse-ii', {
     t: 'Put Boxes Into the Warehouse II: enter from either side',
     r: 'A room\'s usable height is the larger of the prefix minimum from the left and the suffix minimum from the right. Sort usable heights and boxes and match greedily (smallest box to smallest room that fits).',
     g: R => ({ boxes: R.ints(R.int(1, 5), 1, 6), warehouse: R.ints(R.int(1, 5), 1, 6) }),
-    s(I, T) { const w = I.warehouse, n = w.length, L = [], Rm = Array(n); w.forEach((x, i) => L.push(Math.min(x, i ? L[i - 1] : Infinity))); for (let i = n - 1; i >= 0; i--) Rm[i] = Math.min(w[i], i < n - 1 ? Rm[i + 1] : Infinity); const h = w.map((_, i) => Math.max(L[i], Rm[i])); T.at({ warehouse: A(w), usable: A(h) }); T.n('Tallest usable room height?', Math.max(...h), 'max(prefix min, suffix min) per room.'); const hs = sorted(h), b = sorted(I.boxes); let j = 0; for (const x of hs) if (j < b.length && b[j] <= x) j++; return j; }
+    s(I, T) { const res = (() => { const w = I.warehouse, n = w.length, L = [], Rm = Array(n); w.forEach((x, i) => L.push(Math.min(x, i ? L[i - 1] : Infinity))); for (let i = n - 1; i >= 0; i--) Rm[i] = Math.min(w[i], i < n - 1 ? Rm[i + 1] : Infinity); const h = w.map((_, i) => Math.max(L[i], Rm[i])); T.at({ warehouse: A(w), usable: A(h) }); T.n('Tallest usable room height?', Math.max(...h), 'The larger of the left limit and the right limit for each room.'); const hs = sorted(h), b = sorted(I.boxes); let j = 0; for (const x of hs) if (j < b.length && b[j] <= x) j++; return j; })(); T.n('Smallest box?', Math.min(...I.boxes), 'Place small boxes first.'); T.n('Most boxes placed?', res, 'Match sorted boxes to sorted usable heights.'); return res; }
   });
 
   D('minimum-deletions-to-make-character-frequencies-unique', {
@@ -87,21 +87,21 @@
     t: 'Deci-Binary Partition: the largest digit',
     r: 'Each deci-binary number adds at most 1 to each digit, so you need as many as the largest digit — and that many suffice.',
     g: R => ({ n: String(R.int(1, 99999)) }),
-    s(I, T) { const m = Math.max(...[...I.n].map(Number)); T.at({ n: I.n }); T.n('Largest digit?', m, 'That many numbers are needed and enough.'); return m; }
+    s(I, T) { const m = Math.max(...[...I.n].map(Number)); T.at({ n: I.n }); T.n('How many digits?', I.n.length, 'Each deci-binary number covers every position with 0 or 1.'); T.n(`How many times must position 0 get a 1?`, +I.n[0], 'Its digit value.'); T.n('Largest digit?', m, 'That many numbers are needed and enough.'); return m; }
   });
 
   D('maximum-binary-string-after-change', {
     t: 'Maximum Binary String After Change: one zero survives',
     r: 'Leading 1s stay. From the first 0, all zeros can be gathered and merged into a single 0, placed at (first zero index + zero count − 1); everything else becomes 1.',
     g: R => ({ binary: R.str(R.int(1, 8), '01') }),
-    s(I, T) { const b = I.binary, p = b.indexOf('0'); T.at({ binary: A([...b]) }); T.n('Index of the first 0 (−1 if none)?', p, 'Leading 1s never change.'); if (p < 0) return b; const z = [...b].filter(c => c === '0').length; T.n('How many zeros?', z, 'They merge into one.'); const out = Array(b.length).fill('1'); out[p + z - 1] = '0'; return out.join(''); }
+    s(I, T) { const res = (() => { const b = I.binary, p = b.indexOf('0'); T.at({ binary: A([...b]) }); T.n('Index of the first 0 (−1 if none)?', p, 'Leading 1s never change.'); if (p < 0) { T.n('How many ones?', b.length, 'All ones already, nothing to change.'); return b; } const z = [...b].filter(c => c === '0').length; T.n('How many zeros?', z, 'They merge into one.'); const out = Array(b.length).fill('1'); out[p + z - 1] = '0'; return out.join(''); })(); T.n('Position of the single 0 in the result? (−1 if none)', res.indexOf('0'), 'First zero plus the zero count, minus 1.'); return res; }
   });
 
   D('largest-subarray-length-k', {
     t: 'Largest Subarray Length K: the best possible start',
     r: 'Values are distinct, so the largest subarray starts at the largest element among the first n − k + 1 positions.',
     g: R => { const n = R.int(1, 7); return { nums: R.distinct(n, 1, 20), k: R.int(1, n) }; },
-    s(I, T) { const m = I.nums.length - I.k + 1; let s = 0; for (let i = 1; i < m; i++) if (I.nums[i] > I.nums[s]) s = i; T.at({ nums: A(I.nums, { win: [0, m - 1] }), k: I.k }); T.n('Start index?', s, 'Largest value among valid starts.'); return I.nums.slice(s, s + I.k); }
+    s(I, T) { const res = (() => { const m = I.nums.length - I.k + 1; let s = 0; for (let i = 1; i < m; i++) if (I.nums[i] > I.nums[s]) s = i; T.at({ nums: A(I.nums, { win: [0, m - 1] }), k: I.k }); T.n('How many valid start positions?', m, 'n minus k, plus 1.'); T.n('Start index?', s, 'Largest value among valid starts.'); return I.nums.slice(s, s + I.k); })(); T.n('First value of the answer?', res[0], 'The largest start value wins, since values are distinct.'); return res; }
   });
 
   D('maximum-units-on-a-truck', {
@@ -115,7 +115,7 @@
     t: 'Minimum People to Teach: only fix the broken friendships',
     r: 'Find friendships with no common language. Collect the users in them; for each language, teach it to those users who do not know it. Take the cheapest language.',
     g: R => { const m = R.int(2, 4), n = R.int(2, 3); return { n, languages: Array.from({ length: m }, () => R.distinct(R.int(1, n), 1, n)), friendships: Array.from({ length: R.int(1, 3) }, () => { const u = R.int(1, m - 1); return [u, R.int(u + 1, m)]; }) }; },
-    s(I, T) { const L = I.languages.map(x => new Set(x)), bad = new Set(); I.friendships.forEach(([u, v]) => { if (![...L[u - 1]].some(l => L[v - 1].has(l))) { bad.add(u); bad.add(v); } }); T.at({ friendships: A(I.friendships.map(f => `${f[0]}–${f[1]}`)) }); T.n('Users involved in friendships that cannot talk?', bad.size, 'Only these may need teaching.'); let best = Infinity; for (let l = 1; l <= I.n; l++) best = Math.min(best, [...bad].filter(u => !L[u - 1].has(l)).length); return best; }
+    s(I, T) { const res = (() => { const L = I.languages.map(x => new Set(x)), bad = new Set(); I.friendships.forEach(([u, v]) => { if (![...L[u - 1]].some(l => L[v - 1].has(l))) { bad.add(u); bad.add(v); } }); T.at({ friendships: A(I.friendships.map(f => `${f[0]} and ${f[1]}`)) }); T.n('Users involved in friendships that cannot talk?', bad.size, 'Only these may need teaching.'); T.n('Friend pairs that cannot talk?', I.friendships.filter(([u, v]) => ![...L[u - 1]].some(l => L[v - 1].has(l))).length, 'No shared language.'); let best = Infinity; for (let l = 1; l <= I.n; l++) best = Math.min(best, [...bad].filter(u => !L[u - 1].has(l)).length); return best; })(); T.n('Fewest users to teach?', res, 'Pick the language most of them already know.'); return res; }
   });
 
   D('latest-time-by-replacing-hidden-digits', {
@@ -129,7 +129,7 @@
     t: 'Maximum Score From Removing Stones: the biggest pile caps it',
     r: 'If the largest pile ≥ the other two combined, the score is the sum of the other two. Otherwise every pair can be used: ⌊total / 2⌋.',
     g: R => ({ a: R.int(1, 12), b: R.int(1, 12), c: R.int(1, 12) }),
-    s(I, T) { const p = sorted([I.a, I.b, I.c]); T.at({ piles: A(p) }); T.yn('Is the largest pile at least the other two combined?', p[2] >= p[0] + p[1], `${p[2]} vs ${p[0] + p[1]}.`); return p[2] >= p[0] + p[1] ? p[0] + p[1] : Math.floor((p[0] + p[1] + p[2]) / 2); }
+    s(I, T) { const res = (() => { const p = sorted([I.a, I.b, I.c]); T.at({ piles: A(p) }); T.n('Total stones?', p[0] + p[1] + p[2], 'Each move removes two.'); T.yn('Is the largest pile at least the other two combined?', p[2] >= p[0] + p[1], `${p[2]} against ${p[0] + p[1]}.`); return p[2] >= p[0] + p[1] ? p[0] + p[1] : Math.floor((p[0] + p[1] + p[2]) / 2); })(); T.n('Maximum score?', res, 'The two small piles, or half the total.'); return res; }
   });
 
   D('equal-sum-arrays-with-minimum-number-of-operations', {
@@ -143,14 +143,14 @@
     t: 'Minimum Elements to Add: chunks of size limit',
     r: 'The gap is |goal − Σ nums|; each added element covers at most limit of it: ⌈gap / limit⌉.',
     g: R => { const L = R.int(1, 6); return { nums: R.ints(R.int(1, 4), -L, L), limit: L, goal: R.int(-20, 20) }; },
-    s(I, T) { const gap = Math.abs(I.goal - I.nums.reduce((a, b) => a + b, 0)); T.at({ nums: A(I.nums), goal: I.goal, limit: I.limit }); T.n('Gap |goal − sum|?', gap, 'Distance to cover.'); return Math.ceil(gap / I.limit); }
+    s(I, T) { const res = (() => { const gap = Math.abs(I.goal - I.nums.reduce((a, b) => a + b, 0)); T.at({ nums: A(I.nums), goal: I.goal, limit: I.limit }); T.n('Sum of nums?', I.nums.reduce((a, b) => a + b, 0), 'Add them up.'); T.n('Gap between goal and sum (absolute)?', gap, 'Distance to cover.'); return Math.ceil(gap / I.limit); })(); T.n('Fewest elements to add?', res, 'Gap divided by limit, rounded up.'); return res; }
   });
 
   D('count-pairs-of-equal-substrings-with-minimum-difference', {
     t: 'Equal Substrings With Minimum j − a: single letters suffice',
     r: 'The minimum of j − a is reached by single-letter matches: for each letter, use its first index in firstString and last index in secondString. Count letters achieving the minimum.',
     g: R => ({ firstString: R.str(R.int(1, 5), 'abcd'), secondString: R.str(R.int(1, 5), 'abcd') }),
-    s(I, T) { const f = {}, l = {}; [...I.firstString].forEach((c, i) => { if (f[c] === undefined) f[c] = i; }); [...I.secondString].forEach((c, i) => l[c] = i); let best = Infinity, cnt = 0; for (const c of Object.keys(f)) if (l[c] !== undefined) { const v = f[c] - l[c]; T.at({ first: I.firstString, second: I.secondString, letter: c }); T.n(`first index − last index for "${c}"?`, v, `${f[c]} − ${l[c]}.`); if (v < best) { best = v; cnt = 1; } else if (v === best) cnt++; } return cnt; }
+    s(I, T) { const res = (() => { const f = {}, l = {}; [...I.firstString].forEach((c, i) => { if (f[c] === undefined) f[c] = i; }); [...I.secondString].forEach((c, i) => l[c] = i); let best = Infinity, cnt = 0; for (const c of Object.keys(f)) if (l[c] !== undefined) { const v = f[c] - l[c]; T.at({ first: I.firstString, second: I.secondString, letter: c }); T.n(`First index minus last index for "${c}"?`, v, `${f[c]} minus ${l[c]}.`); if (v < best) { best = v; cnt = 1; } else if (v === best) cnt++; } return cnt; })(); T.n('How many letters reach the smallest difference?', res, 'Count the ties at the minimum.'); return res; }
   });
 
   D('maximum-number-of-consecutive-values-you-can-make', {
@@ -192,7 +192,7 @@
     t: 'Swaps to Make Binary String Alternating: count mismatches',
     r: 'Counts of 0s and 1s may differ by at most 1. For each feasible pattern (starting with 0 or 1), mismatched positions / 2 is the swap count; take the smaller.',
     g: R => ({ s: R.str(R.int(1, 8), '01') }),
-    s(I, T) { const s = I.s, z = [...s].filter(c => c === '0').length, o = s.length - z; T.at({ s }); T.n('Zeros minus ones?', z - o, 'Must be −1, 0 or 1.'); if (Math.abs(z - o) > 1) return -1; const mis = st => [...s].filter((c, i) => c !== String((st + i) % 2)).length; let best = Infinity; if (z >= o) best = Math.min(best, mis(0) / 2); if (o >= z) best = Math.min(best, mis(1) / 2); return best; }
+    s(I, T) { const res = (() => { const s = I.s, z = [...s].filter(c => c === '0').length, o = s.length - z; T.at({ s }); T.n('Zeros minus ones?', z - o, 'Must be −1, 0 or 1.'); T.n('How many zeros?', z, 'Count the 0 characters.'); if (Math.abs(z - o) > 1) return -1; const mis = st => [...s].filter((c, i) => c !== String((st + i) % 2)).length; let best = Infinity; if (z >= o) best = Math.min(best, mis(0) / 2); if (o >= z) best = Math.min(best, mis(1) / 2); return best; })(); T.n('Fewest swaps? (−1 if impossible)', res, 'Half the mismatches against the best pattern.'); return res; }
   });
 
   D('minimize-product-sum-of-two-arrays', {
@@ -206,7 +206,7 @@
     t: 'Maximum Value After Insertion: first place where x helps',
     r: 'Positive: insert x before the first digit smaller than x. Negative: insert before the first digit larger than x. Otherwise append.',
     g: R => ({ n: (R.chance(0.4) ? '-' : '') + R.str(R.int(1, 5), '123456789'), x: R.int(1, 9) }),
-    s(I, T) { const neg = I.n[0] === '-', s = neg ? I.n.slice(1) : I.n; let i = 0; while (i < s.length && (neg ? +s[i] <= I.x : +s[i] >= I.x)) i++; T.at({ n: I.n, x: I.x }); T.n('Insert x before which digit index (of the digits)?', i, neg ? 'First digit larger than x.' : 'First digit smaller than x.'); return (neg ? '-' : '') + s.slice(0, i) + I.x + s.slice(i); }
+    s(I, T) { const res = (() => { const neg = I.n[0] === '-', s = neg ? I.n.slice(1) : I.n; let i = 0; while (i < s.length && (neg ? +s[i] <= I.x : +s[i] >= I.x)) i++; T.at({ n: I.n, x: I.x }); T.yn('Is n negative?', neg, 'If it is, x goes before the first digit larger than x.'); T.n('Insert x before which digit index (of the digits)?', i, neg ? 'First digit larger than x.' : 'First digit smaller than x.'); return (neg ? '-' : '') + s.slice(0, i) + I.x + s.slice(i); })(); T.n('Length of the result?', res.length, 'One more character than n.'); return res; }
   });
 
   D('merge-triplets-to-form-target-triplet', {
@@ -220,7 +220,7 @@
     t: 'Largest Odd Number in String: cut after the last odd digit',
     r: 'The longest prefix ending in an odd digit is the largest odd substring. Find the last odd digit.',
     g: R => ({ num: String(R.int(1, 99999)) }),
-    s(I, T) { let i = I.num.length - 1; while (i >= 0 && +I.num[i] % 2 === 0) i--; T.at({ num: A([...I.num]) }); T.n('Index of the last odd digit (−1 if none)?', i, 'Scan from the right.'); return I.num.slice(0, i + 1); }
+    s(I, T) { const res = (() => { let i = I.num.length - 1; while (i >= 0 && +I.num[i] % 2 === 0) i--; T.at({ num: A([...I.num]) }); T.yn('Is the last digit odd?', +I.num[I.num.length - 1] % 2 === 1, 'Then the whole number is the answer.'); T.n('Index of the last odd digit (−1 if none)?', i, 'Scan from the right.'); return I.num.slice(0, i + 1); })(); T.n('Length of the answer?', res.length, 'Everything up to the last odd digit.'); return res; }
   });
 
   D('game-of-nim', {
@@ -234,7 +234,7 @@
     t: 'Remove One Element to Be Strictly Increasing',
     r: 'At the first drop nums[i] ≤ nums[i−1], try removing nums[i−1] or nums[i] and check the rest. More than one drop needing removal means false.',
     g: R => ({ nums: R.ints(R.int(2, 6), 1, 9) }),
-    s(I, T) { const a = I.nums, inc = b => b.every((v, i) => !i || v > b[i - 1]); const i = a.findIndex((v, k) => k && v <= a[k - 1]); T.at({ nums: A(a) }); T.n('Index of the first drop (−1 if none)?', i, 'First nums[i] ≤ nums[i − 1].'); if (i < 0) return true; return inc(a.filter((_, k) => k !== i - 1)) || inc(a.filter((_, k) => k !== i)); }
+    s(I, T) { const res = (() => { const a = I.nums, inc = b => b.every((v, i) => !i || v > b[i - 1]); const i = a.findIndex((v, k) => k && v <= a[k - 1]); T.at({ nums: A(a) }); T.n('Index of the first drop (−1 if none)?', i, 'First place where a value is not bigger than the one before it.'); if (i < 0) { T.n('Drops in the array?', 0, 'Already strictly increasing.'); return true; } T.n('Drops in the array?', a.filter((v, k) => k && v <= a[k - 1]).length, 'More than one means it is impossible.'); return inc(a.filter((_, k) => k !== i - 1)) || inc(a.filter((_, k) => k !== i)); })(); T.yn('Can one removal fix it?', res, 'Try removing either side of the first drop.'); return res; }
   });
 
   D('eliminate-maximum-number-of-monsters', {

@@ -110,14 +110,15 @@
 
   D('dice-roll-simulation', {
     t: 'Dice Roll Simulation: count by face and run length',
-    r: 'dp[f][r] = sequences ending in face f repeated exactly r times (r ≤ rollMax[f]). Rolling a different face starts r = 1 from the total; the same face extends r.',
+    r: 'dp[f][r] = sequences ending in face f repeated exactly r times (r at most rollMax[f]). Rolling a different face starts r = 1 from the total; the same face extends r.',
     g: R => ({ n: R.int(2, 3), rollMax: Array.from({ length: 6 }, () => R.int(1, 2)) }),
     s(I, T) {
+      T.at({ rollMax: A(I.rollMax, { labels: [1, 2, 3, 4, 5, 6] }), n: I.n }); T.n('Sequences after the first roll?', 6, 'One per face.');
       let dp = Array.from({ length: 6 }, (_, f) => { const a = Array(I.rollMax[f] + 1).fill(0); a[1] = 1; return a; });
       for (let k = 2; k <= I.n; k++) { const tot = dp.map(a => a.reduce((x, y) => x + y, 0)), all = tot.reduce((x, y) => x + y, 0) % MOD;
         dp = dp.map((a, f) => { const b = Array(a.length).fill(0); b[1] = (all - tot[f] + MOD) % MOD; for (let r = 2; r < a.length; r++) b[r] = a[r - 1]; return b; });
         T.at({ rollMax: A(I.rollMax, { labels: [1, 2, 3, 4, 5, 6] }), 'total before': all }); T.n(`Roll ${k}: sequences ending in a single (fresh) 1?`, dp[0][1], 'All sequences that did not end in 1.'); }
-      return dp.flat().reduce((a, b) => (a + b) % MOD, 0);
+      const res = dp.flat().reduce((a, b) => (a + b) % MOD, 0); T.n('Total sequences (remainder by 1e9+7)?', res, 'Add every face and run length.'); return res;
     }
   });
 
@@ -269,11 +270,12 @@
 
   D('pizza-with-3n-slices', {
     t: 'Pizza With 3n Slices: n non-adjacent slices on a circle',
-    r: 'You end up with n slices, no two adjacent, around a circle. Solve twice as a line (drop the last slice, or drop the first): dp[i][j] = max(dp[i−1][j], dp[i−2][j−1] + slice).',
+    r: 'You end up with n slices, no two adjacent, around a circle. Solve twice as a line (drop the last slice, or drop the first): dp[i][j] is the larger of dp[i minus 1][j] (skip) and dp[i minus 2][j minus 1] plus the slice (take).',
     g: R => ({ slices: R.ints(3 * R.int(1, 2), 1, 9) }),
     s(I, T) {
       const n = I.slices.length / 3, line = (a, nm) => { const m = a.length, dp = mk(m + 1, n + 1, -Infinity); for (let i = 0; i <= m; i++) dp[i][0] = 0; for (let i = 1; i <= m; i++) for (let j = 1; j <= n; j++) dp[i][j] = Math.max(dp[i - 1][j], (i >= 2 ? dp[i - 2][j - 1] : j === 1 ? 0 : -Infinity) + a[i - 1]); T.at({ line: A(a), take: n, case: nm }); T.n(`Best total of ${n} non-adjacent slices in this line?`, dp[m][n], 'Skip or take (and skip the neighbor).'); return dp[m][n]; };
-      return Math.max(line(I.slices.slice(0, -1), 'without the last slice'), line(I.slices.slice(1), 'without the first slice'));
+      T.at({ slices: A(I.slices) }); T.n('Slices you get to eat?', n, 'One third of the pizza.');
+      const res = Math.max(line(I.slices.slice(0, -1), 'without the last slice'), line(I.slices.slice(1), 'without the first slice')); T.at({ slices: A(I.slices) }); T.n('Best total?', res, 'The better of the two lines.'); return res;
     }
   });
 

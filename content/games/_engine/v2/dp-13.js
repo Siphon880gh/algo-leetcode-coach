@@ -51,9 +51,9 @@
 
   D('find-number-of-ways-to-reach-the-k-th-stair', {
     t: 'Ways to Reach the k-th Stair: count ups and downs',
-    r: 'After j up-jumps (1 + 2 + … + 2^(j−1)) and d single downs, Alice stands on 2^j − d. Downs cannot be consecutive, so they fit into j + 1 gaps: C(j + 1, d) ways. Sum over j with d = 2^j − k in [0, j + 1].',
+    r: 'After j up-jumps (1, then 2, then 4, doubling each time) and d single downs, Alice stands on 2 to the power j, minus d. Downs cannot be consecutive, so they go into j plus 1 gaps: choose d of the j plus 1 gaps. Add this over every j where d (2 to the power j, minus k) is between 0 and j plus 1.',
     g: R => ({ k: R.int(0, 6) }),
-    s(I, T) { let tot = 0; for (let j = 0; j <= 31; j++) { const d = 2 ** j - I.k; if (d > j + 1) break; if (d < 0) continue; T.at({ k: I.k, 'up jumps': j }); T.n(`With ${j} up-jump(s): ways to end on stair ${I.k}?`, Cb(j + 1, d), `${d} downs in ${j + 1} gaps: C(${j + 1}, ${d}).`); tot += Cb(j + 1, d); } return tot; }
+    s(I, T) { const res = (() => { let tot = 0; let j0 = 0; while (2 ** j0 < I.k) j0++; T.at({ k: I.k }); T.n('Fewest up-jumps whose total reaches stair k?', j0, 'Smallest j with 2 to the power j at least k.'); for (let j = 0; j <= 31; j++) { const d = 2 ** j - I.k; if (d > j + 1) break; if (d < 0) continue; T.at({ k: I.k, 'up jumps': j }); T.n(`With ${j} up-jumps: ways to end on stair ${I.k}?`, Cb(j + 1, d), `${d} downs in ${j + 1} gaps: choose ${d} of ${j + 1}.`); tot += Cb(j + 1, d); } return tot; })(); T.n('Total ways?', res, 'Add the counts for every number of up-jumps.'); return res; }
   });
 
   const goodSeq = (I, T) => { const a = I.nums, n = a.length, k = I.k, dp = mk(n, k + 1, 0); let best = 0; for (let i = 0; i < n; i++) { for (let j = 0; j <= k; j++) { let v = 1; for (let p = 0; p < i; p++) { if (a[p] === a[i]) v = Math.max(v, dp[p][j] + 1); else if (j) v = Math.max(v, dp[p][j - 1] + 1); } dp[i][j] = v; } T.at({ nums: A(a, { hl: [i] }), k }); T.n(`Longest good subsequence ending at ${i} with up to ${k} changes?`, dp[i][k], 'Equal predecessor keeps j; a different one uses one change.'); best = Math.max(best, dp[i][k]); } return best; };
@@ -171,13 +171,13 @@
 
   D('find-the-largest-palindrome-divisible-by-k', {
     t: 'Largest Palindrome Divisible by k: greedy digits with a remainder DP',
-    r: 'Fill mirrored digit pairs from the outside in. reach[i][r] says whether the inner pairs can make the total ≡ 0. Pick the largest digit for each pair that keeps a zero remainder reachable.',
+    r: 'Fill mirrored digit pairs from the outside in. reach[i][r] says whether the inner pairs can make the total a multiple of k. Pick the largest digit for each pair that keeps a zero remainder reachable.',
     g: R => ({ n: R.int(1, 4), k: R.int(2, 9) }),
     s(I, T) {
       const n = I.n, k = I.k, h = Math.ceil(n / 2), p10 = [1]; for (let i = 1; i < n; i++) p10.push(p10[i - 1] * 10 % k); const w = [...Array(h).keys()].map(i => i === n - 1 - i ? p10[i] : (p10[i] + p10[n - 1 - i]) % k);
       const R2 = Array.from({ length: h + 1 }, () => Array(k).fill(false)); for (let r = 0; r < k; r++) R2[h][r] = r === 0; for (let i = h - 1; i >= 0; i--) for (let r = 0; r < k; r++) for (let d = (i === 0 ? 1 : 0); d <= 9; d++) if (R2[i + 1][(r + d * w[i]) % k]) { R2[i][r] = true; break; }
-      const digs = []; let r = 0; for (let i = 0; i < h; i++) { let pick = -1; for (let d = 9; d >= (i === 0 ? 1 : 0); d--) if (R2[i + 1][(r + d * w[i]) % k]) { pick = d; break; } T.at({ n, k, sofar: digs.join('') || '""' }); T.n(`Digit for position ${i} (and its mirror)?`, pick, 'Largest digit that keeps a multiple of k reachable.'); digs.push(pick); r = (r + pick * w[i]) % k; }
-      const left = digs.join(''); return left + left.slice(0, n - h).split('').reverse().join('');
+      T.at({ n, k }); T.n('Digit positions to choose (half the length, rounded up)?', h, 'The other half mirrors them.'); const digs = []; let r = 0; for (let i = 0; i < h; i++) { let pick = -1; for (let d = 9; d >= (i === 0 ? 1 : 0); d--) if (R2[i + 1][(r + d * w[i]) % k]) { pick = d; break; } T.at({ n, k, sofar: digs.join('') || '""' }); T.n(`Digit for position ${i} (and its mirror)?`, pick, 'Largest digit that keeps a multiple of k reachable.'); digs.push(pick); r = (r + pick * w[i]) % k; }
+      T.at({ n, k, digits: digs.join('') }); T.n('Remainder of the palindrome divided by k?', r, 'Every pick kept a multiple of k reachable.'); const left = digs.join(''); return left + left.slice(0, n - h).split('').reverse().join('');
     }
   });
 

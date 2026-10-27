@@ -27,7 +27,7 @@
     t: 'Recover BST: find the two inversions in inorder',
     r: 'Inorder of a BST is sorted. The first swapped node is the larger value at the first drop; the second is the smaller value at the last drop. Swap their values.',
     g: R => { const a = R.bst(R.int(2, 7), 1, 20), root = Tr.from(a), ns = Tr.nodes(root), i = R.int(0, ns.length - 1); let j; do j = R.int(0, ns.length - 1); while (j === i); [ns[i].val, ns[j].val] = [ns[j].val, ns[i].val]; return { root: Tr.arr(root) }; },
-    s(I, T) { const root = Tr.from(I.root), io = inorder(root); let x = null, y = null; for (let i = 1; i < io.length; i++) if (io[i].val < io[i - 1].val) { if (!x) x = io[i - 1]; y = io[i]; } T.at({ tree: TR(root), inorder: A(io.map(n => n.val)) }); T.n('First misplaced value?', x.val, 'The larger value at the first drop.'); T.n('Second misplaced value?', y.val, 'The smaller value at the last drop.'); [x.val, y.val] = [y.val, x.val]; return Tr.arr(root); }
+    s(I, T) { const root = Tr.from(I.root), io = inorder(root); let x = null, y = null; for (let i = 1; i < io.length; i++) if (io[i].val < io[i - 1].val) { if (!x) x = io[i - 1]; y = io[i]; } T.at({ tree: TR(root), inorder: A(io.map(n => n.val)) }); T.n('Drops in the inorder sequence?', io.filter((n, i) => i && n.val < io[i - 1].val).length, 'One if the swapped nodes are neighbours, otherwise two.'); T.n('First misplaced value?', x.val, 'The larger value at the first drop.'); T.n('Second misplaced value?', y.val, 'The smaller value at the last drop.'); [x.val, y.val] = [y.val, x.val]; return Tr.arr(root); }
   });
 
   D('same-tree', {
@@ -97,7 +97,7 @@
     t: 'Path Sum: subtract on the way down',
     r: 'Carry the remaining target down; at a leaf, check whether it is exactly the leaf value.',
     g: R => { const t = R.tree(R.int(1, 7), 1, 9); const root = Tr.from(t); const leaves = Tr.nodes(root).filter(n => !n.left && !n.right); let s = 0; if (R.chance(0.6)) { const paths = []; const go = (n, acc) => { if (!n) return; acc += n.val; if (!n.left && !n.right) paths.push(acc); go(n.left, acc); go(n.right, acc); }; go(root, 0); s = R.pick(paths); } else s = R.int(1, 30); return { root: t, targetSum: s }; },
-    s(I, T) { const root = Tr.from(I.root); const go = (n, rem) => { if (!n) return false; rem -= n.val; if (!n.left && !n.right) { T.at({ tree: TR(root, { hit: n }), remaining: rem }); T.yn(`Does the path ending at leaf ${n.val} hit the target?`, rem === 0, 'Remaining must be exactly 0.'); return rem === 0; } return go(n.left, rem) || go(n.right, rem); }; return go(root, I.targetSum); }
+    s(I, T) { const res = (() => { const root = Tr.from(I.root); const go = (n, rem) => { if (!n) return false; rem -= n.val; if (!n.left && !n.right) { T.at({ tree: TR(root, { hit: n }), remaining: rem }); T.yn(`Does the path ending at leaf ${n.val} hit the target?`, rem === 0, 'Remaining must be exactly 0.'); return rem === 0; } return go(n.left, rem) || go(n.right, rem); }; return go(root, I.targetSum); })(); T.yn('Does any root-to-leaf path hit the target?', res, 'Some leaf left exactly 0.'); return res; }
   });
 
   D('path-sum-ii', {
@@ -111,14 +111,14 @@
     t: 'Flatten Tree to Linked List: preorder chain',
     r: 'The list is the preorder. For each node with a left child: find the rightmost node of the left subtree, hang the right subtree there, move left to right.',
     g: R => ({ root: R.tree(R.int(0, 6)) }),
-    s(I, T) { const root = Tr.from(I.root), shown = Tr.from(I.root), mp = new Map(); { const a = preorder(root), b = preorder(shown); a.forEach((n, i) => mp.set(n, b[i])); } let cur = root; while (cur) { if (cur.left) { let p = cur.left; while (p.right) p = p.right; T.at({ original: TR(shown, { hit: mp.get(cur), ok: mp.get(p) }) }); T.n(`Rightmost node of ${cur.val}'s left subtree?`, p.val, 'The right subtree attaches there.'); p.right = cur.right; cur.right = cur.left; cur.left = null; } cur = cur.right; } return Tr.arr(root); }
+    s(I, T) { const res = (() => { const root = Tr.from(I.root), shown = Tr.from(I.root), mp = new Map(); { const a = preorder(root), b = preorder(shown); a.forEach((n, i) => mp.set(n, b[i])); } let cur = root; while (cur) { if (cur.left) { let p = cur.left; while (p.right) p = p.right; T.at({ original: TR(shown, { hit: mp.get(cur), ok: mp.get(p) }) }); T.n(`Rightmost node of ${cur.val}'s left subtree?`, p.val, 'The right subtree attaches there.'); p.right = cur.right; cur.right = cur.left; cur.left = null; } cur = cur.right; } return Tr.arr(root); })(); T.n('Nodes in the flattened list?', res.filter(v => v !== null).length, 'Same nodes, all on the right.'); return res; }
   });
 
   D('populating-next-right-pointers-in-each-node', {
     t: 'Next Right Pointers (Perfect Tree): use the level above',
     r: 'Walk each level with next pointers: left.next = right, and right.next = node.next.left.',
     g: R => { const d = R.int(1, 3), a = Array.from({ length: 2 ** d - 1 }, () => R.int(1, 9)); return { root: a }; },
-    s(I, T) { const root = Tr.from(I.root); if (!root) return []; const out = []; let level = [root]; while (level.length) { level.forEach((n, i) => n.next = level[i + 1] || null); const k = level[0]; if (level.length > 1) { T.at({ tree: TR(root, { hit: level }) }); T.n(`Value that ${k.val}.next points to?`, k.next.val, 'Its neighbor on the level.'); } level.forEach(n => out.push(n.val)); out.push('#'); level = level.flatMap(n => [n.left, n.right].filter(Boolean)); } return out; }
+    s(I, T) { const res = (() => { const root = Tr.from(I.root); if (!root) return []; const out = []; let level = [root]; while (level.length) { level.forEach((n, i) => n.next = level[i + 1] || null); const k = level[0]; if (level.length > 1) { T.at({ tree: TR(root, { hit: level }) }); T.n(`Value that ${k.val}.next points to?`, k.next.val, 'Its neighbor on the level.'); } level.forEach(n => out.push(n.val)); out.push('#'); level = level.flatMap(n => [n.left, n.right].filter(Boolean)); } return out; })(); T.n('Levels?', res.filter(v => v === '#').length, 'One # per level.'); return res; }
   });
 
   D('populating-next-right-pointers-in-each-node-ii', {
@@ -167,7 +167,7 @@
     t: 'Lowest Common Ancestor: where the two searches meet',
     r: 'Return the node if it is p or q. Otherwise search both sides; if both sides return something, this node is the LCA; else pass up the non-null side.',
     g: R => { const n = R.int(2, 8), a = R.tree(n, 1, 9); const r = Tr.from(a); const vals = R.shuffle(Tr.nodes(r).map((_, i) => i + 1)); Tr.nodes(r).forEach((x, i) => x.val = vals[i]); const v = Tr.nodes(r).map(x => x.val); const p = R.pick(v); let q; do q = R.pick(v); while (q === p); return { root: Tr.arr(r), p, q }; },
-    s(I, T) { const root = Tr.from(I.root); let ans = null; const go = n => { if (!n) return null; if (n.val === I.p || n.val === I.q) return n; const l = go(n.left), r = go(n.right); if (l && r) { T.at({ tree: TR(root, { hit: n, ok: [l, r] }) }); T.yn(`Do both sides of ${n.val} return a target?`, true, 'p and q are split here.'); return n; } return l || r; }; ans = go(root); T.at({ tree: TR(root, { hit: ans }) }); T.n('LCA value?', ans.val, 'Where the searches meet (or the ancestor target).'); return ans.val; }
+    s(I, T) { const res = (() => { const root = Tr.from(I.root); let ans = null; const go = n => { if (!n) return null; if (n.val === I.p || n.val === I.q) return n; const l = go(n.left), r = go(n.right); if (l && r) { T.at({ tree: TR(root, { hit: n, ok: [l, r] }) }); T.yn(`Do both sides of ${n.val} return a target?`, true, 'p and q are split here.'); return n; } return l || r; }; ans = go(root); T.at({ tree: TR(root, { hit: ans }) }); T.n('LCA value?', ans.val, 'Where the searches meet, or the target that is an ancestor of the other.'); return ans.val; })(); T.yn('Is the LCA one of p and q?', res === I.p || res === I.q, 'True when one is an ancestor of the other.'); return res; }
   });
 
   D('count-univalue-subtrees', {
@@ -204,7 +204,7 @@
     r: 'Inorder gives sorted values. Keep a window of k values; when a new value is closer than the window\'s oldest, slide the window.',
     g: R => { const a = R.bst(R.int(1, 7), 1, 20); return { root: a, target: Math.round(R.int(0, 2100) / 100 * 1e6) / 1e6, k: R.int(1, Tr.size(Tr.from(a))) }; },
     cmp: 'set',
-    s(I, T) { const v = inorder(Tr.from(I.root)).map(n => n.val), w = []; for (const x of v) { if (w.length < I.k) w.push(x); else if (Math.abs(x - I.target) < Math.abs(w[0] - I.target)) { w.shift(); w.push(x); T.at({ inorder: A(v), window: A(w), target: I.target }); T.n('Oldest value in the window now?', w[0], 'Slid past a farther value.'); } else break; } return w; }
+    s(I, T) { const res = (() => { const v = inorder(Tr.from(I.root)).map(n => n.val), w = []; for (const x of v) { if (w.length < I.k) w.push(x); else if (Math.abs(x - I.target) < Math.abs(w[0] - I.target)) { w.shift(); w.push(x); T.at({ inorder: A(v), window: A(w), target: I.target }); T.n('Oldest value in the window now?', w[0], 'Slid past a farther value.'); } else break; } return w; })(); T.n('Values returned?', res.length, 'Exactly k.'); return res; }
   });
 
   D('inorder-successor-in-bst', {
@@ -260,7 +260,7 @@
     t: 'Sum of Left Leaves',
     r: 'Add a node\'s value only if it is a leaf and the left child of its parent.',
     g: R => ({ root: R.tree(R.int(1, 8)) }),
-    s(I, T) { const root = Tr.from(I.root); let s = 0; for (const n of Tr.nodes(root)) if (n.left && !n.left.left && !n.left.right) { T.at({ tree: TR(root, { hit: n.left }), sum: s }); T.n('Sum after adding this left leaf?', s + n.left.val, `Add ${n.left.val}.`); s += n.left.val; } return s; }
+    s(I, T) { const res = (() => { const root = Tr.from(I.root); let s = 0; for (const n of Tr.nodes(root)) if (n.left && !n.left.left && !n.left.right) { T.at({ tree: TR(root, { hit: n.left }), sum: s }); T.n('Sum after adding this left leaf?', s + n.left.val, `Add ${n.left.val}.`); s += n.left.val; } return s; })(); T.n('Sum of left leaves?', res, 'Add every left leaf.'); return res; }
   });
 
   D('convert-binary-search-tree-to-sorted-doubly-linked-list', {

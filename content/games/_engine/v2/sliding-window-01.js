@@ -112,14 +112,14 @@
     t: 'Binary Subarrays With Sum',
     r: 'Count = atMost(goal) − atMost(goal − 1), where atMost(g) slides a window keeping the sum ≤ g and adds r − l + 1 per right end.',
     g: R => ({ nums: R.ints(R.int(1, 9), 0, 1), goal: R.int(0, 3) }),
-    s(I, T) { const a = atMostSum(I.nums, I.goal), b = atMostSum(I.nums, I.goal - 1); T.at({ nums: A(I.nums), goal: I.goal }); T.n(`Subarrays with sum ≤ ${I.goal}?`, a, 'Sliding window count.'); T.n(`Subarrays with sum ≤ ${I.goal - 1}?`, b, 'Same with goal − 1.'); return a - b; }
+    s(I, T) { const res = (() => { const a = atMostSum(I.nums, I.goal), b = atMostSum(I.nums, I.goal - 1); T.at({ nums: A(I.nums), goal: I.goal }); T.n(`Subarrays with sum at most ${I.goal}?`, a, 'Sliding window count.'); T.n(`Subarrays with sum at most ${I.goal - 1}?`, b, 'Same with goal minus 1.'); return a - b; })(); T.n(`Subarrays with sum exactly ${I.goal}?`, res, 'Subtract the two counts.'); return res; }
   });
 
   D('subarrays-with-k-different-integers', {
     t: 'Subarrays with K Different Integers',
     r: 'exactly(k) = atMost(k) − atMost(k − 1); atMost slides a window with at most k distinct values and adds r − l + 1 per right end.',
     g: R => { const a = R.ints(R.int(1, 8), 1, 3); return { nums: a, k: R.int(1, 3) }; },
-    s(I, T) { const id = x => x, a = atMost(I.nums, I.k, id), b = atMost(I.nums, I.k - 1, id); T.at({ nums: A(I.nums), k: I.k }); T.n(`Subarrays with at most ${I.k} distinct?`, a, 'Sliding window.'); T.n(`With at most ${I.k - 1}?`, b, 'Subtract these.'); return a - b; }
+    s(I, T) { const res = (() => { const id = x => x, a = atMost(I.nums, I.k, id), b = atMost(I.nums, I.k - 1, id); T.at({ nums: A(I.nums), k: I.k }); T.n(`Subarrays with at most ${I.k} distinct?`, a, 'Sliding window.'); T.n(`With at most ${I.k - 1}?`, b, 'Subtract these.'); return a - b; })(); T.n(`Subarrays with exactly ${I.k} distinct?`, res, 'Subtract the two counts.'); return res; }
   });
 
   D('minimum-number-of-k-consecutive-bit-flips', {
@@ -133,7 +133,7 @@
     t: 'Moving Stones Until Consecutive II',
     r: 'Sort. Max moves = max(s[n−1] − s[1], s[n−2] − s[0]) − n + 2 (fill gaps from one end). Min: slide a window of span < n; it needs n − (stones inside) moves, except the special case of n − 1 consecutive stones with one far away, which needs 2.',
     g: R => ({ stones: R.distinct(R.int(3, 6), 1, 15) }),
-    s(I, T) { const s = I.stones.slice().sort((a, b) => a - b), n = s.length, hi = Math.max(s[n - 1] - s[1], s[n - 2] - s[0]) - n + 2; T.at({ stones: A(s) }); T.n('Maximum moves?', hi, 'Fill all gaps except at one end.'); let lo = n, i = 0; for (let j = 0; j < n; j++) { while (s[j] - s[i] >= n) i++; const k = j - i + 1; if (k === n - 1 && s[j] - s[i] === n - 2) lo = Math.min(lo, 2); else lo = Math.min(lo, n - k); } T.n('Minimum moves?', lo, 'Best window of span < n.'); return [lo, hi]; }
+    s(I, T) { const s = I.stones.slice().sort((a, b) => a - b), n = s.length, hi = Math.max(s[n - 1] - s[1], s[n - 2] - s[0]) - n + 2; T.at({ stones: A(s) }); T.n('Empty slots between the first and last stone?', s[n - 1] - s[0] + 1 - n, 'Span minus the stones.'); T.n('Maximum moves?', hi, 'Fill all gaps except at one end.'); let lo = n, i = 0; for (let j = 0; j < n; j++) { while (s[j] - s[i] >= n) i++; const k = j - i + 1; if (k === n - 1 && s[j] - s[i] === n - 2) lo = Math.min(lo, 2); else lo = Math.min(lo, n - k); } T.n('Minimum moves?', lo, 'Best window with a span less than n.'); return [lo, hi]; }
   });
 
   D('grumpy-bookstore-owner', {
@@ -161,7 +161,7 @@
     t: 'Swap For Longest Repeated Character Substring',
     r: 'Compress into runs. A run can grow by 1 if that letter exists elsewhere; two runs of the same letter separated by one other character can merge (+1 if a third copy exists). Cap by the letter\'s total count.',
     g: R => ({ text: R.str(R.int(1, 10), 'aab') }),
-    s(I, T) { const t = I.text, cnt = {}; for (const ch of t) cnt[ch] = (cnt[ch] || 0) + 1; const runs = []; for (const ch of t) { if (runs.length && runs[runs.length - 1][0] === ch) runs[runs.length - 1][1]++; else runs.push([ch, 1]); } T.at({ runs: A(runs.map(([c, k]) => c + k)) }); T.n('How many runs?', runs.length, 'Group equal neighbors.'); let best = 0; runs.forEach(([c, k], i) => { best = Math.max(best, Math.min(k + 1, cnt[c])); if (i + 2 < runs.length && runs[i + 1][1] === 1 && runs[i + 2][0] === c) best = Math.max(best, Math.min(k + runs[i + 2][1] + 1, cnt[c])); }); T.n('Longest after one swap?', best, 'Extend a run or merge across a single gap.'); return best; }
+    s(I, T) { const t = I.text, cnt = {}; for (const ch of t) cnt[ch] = (cnt[ch] || 0) + 1; const runs = []; for (const ch of t) { if (runs.length && runs[runs.length - 1][0] === ch) runs[runs.length - 1][1]++; else runs.push([ch, 1]); } T.at({ runs: A(runs.map(([c, k]) => `${k} of ${c}`)) }); T.n('Different letters in the text?', Object.keys(cnt).length, 'A swap needs another copy of the same letter.'); T.n('How many runs?', runs.length, 'Group equal neighbors.'); let best = 0; runs.forEach(([c, k], i) => { best = Math.max(best, Math.min(k + 1, cnt[c])); if (i + 2 < runs.length && runs[i + 1][1] === 1 && runs[i + 2][0] === c) best = Math.max(best, Math.min(k + runs[i + 2][1] + 1, cnt[c])); }); T.n('Longest after one swap?', best, 'Extend a run or merge across a single gap.'); return best; }
   });
 
   D('diet-plan-performance', {
@@ -189,7 +189,7 @@
     t: 'Count Number of Nice Subarrays',
     r: 'Map each number to 1 if odd else 0; then it is "subarrays with sum exactly k" = atMost(k) − atMost(k − 1).',
     g: R => ({ nums: R.ints(R.int(1, 9), 1, 9), k: R.int(1, 3) }),
-    s(I, T) { const b = I.nums.map(x => x % 2), a = atMostSum(b, I.k), c = atMostSum(b, I.k - 1); T.at({ odd: A(b), k: I.k }); T.n(`Subarrays with at most ${I.k} odd numbers?`, a, 'Sliding window.'); return a - c; }
+    s(I, T) { const res = (() => { const b = I.nums.map(x => x % 2), a = atMostSum(b, I.k), c = atMostSum(b, I.k - 1); T.at({ odd: A(b), k: I.k }); T.n(`Subarrays with at most ${I.k} odd numbers?`, a, 'Sliding window.'); T.n(`Subarrays with at most ${I.k - 1} odd numbers?`, c, 'Subtract these.'); return a - c; })(); T.n(`Subarrays with exactly ${I.k} odd numbers?`, res, 'Subtract the two counts.'); return res; }
   });
 
   D('maximum-number-of-occurrences-of-a-substring', {
@@ -217,7 +217,7 @@
     t: 'Maximum Points You Can Obtain from Cards',
     r: 'Taking k cards from the ends leaves a contiguous middle of n − k cards. Minimize that middle window\'s sum; answer = total − min window.',
     g: R => { const a = R.ints(R.int(1, 8), 1, 9); return { cardPoints: a, k: R.int(1, a.length) }; },
-    s(I, T) { const a = I.cardPoints, n = a.length, w = n - I.k, tot = a.reduce((x, y) => x + y, 0); T.at({ cards: A(a), k: I.k }); T.n('Length of the window left behind?', w, 'n − k.'); if (!w) return tot; let s = a.slice(0, w).reduce((x, y) => x + y, 0), mn = s; for (let i = w; i < n; i++) { s += a[i] - a[i - w]; mn = Math.min(mn, s); } T.n('Smallest middle-window sum?', mn, 'Slide it across.'); return tot - mn; }
+    s(I, T) { const res = (() => { const a = I.cardPoints, n = a.length, w = n - I.k, tot = a.reduce((x, y) => x + y, 0); T.at({ cards: A(a), k: I.k }); T.n('Length of the window left behind?', w, 'n minus k.'); if (!w) { T.n('Sum of all cards?', tot, 'You take every card.'); return tot; } let s = a.slice(0, w).reduce((x, y) => x + y, 0), mn = s; for (let i = w; i < n; i++) { s += a[i] - a[i - w]; mn = Math.min(mn, s); } T.n('Smallest middle-window sum?', mn, 'Slide it across.'); return tot - mn; })(); T.n('Maximum points?', res, 'Total minus the smallest middle window.'); return res; }
   });
 
   D('longest-continuous-subarray-with-absolute-diff-less-than-or-equal-to-limit', {
@@ -231,7 +231,7 @@
     t: 'Check If a String Contains All Binary Codes of Size K',
     r: 'Slide a length-k window (rolling bitmask), adding each code to a set. All codes present iff the set size reaches 2^k.',
     g: R => ({ s: R.str(R.int(1, 12), '01'), k: R.int(1, 3) }),
-    s(I, T) { const S = new Set(); for (let i = 0; i + I.k <= I.s.length; i++) S.add(I.s.substr(i, I.k)); T.at({ s: I.s, k: I.k }); T.n('Distinct codes seen?', S.size, 'Set of windows.'); T.n('Codes needed?', 1 << I.k, '2^k.'); return S.size === 1 << I.k; }
+    s(I, T) { const res = (() => { const S = new Set(); for (let i = 0; i + I.k <= I.s.length; i++) S.add(I.s.substr(i, I.k)); T.at({ s: I.s, k: I.k }); T.n('Distinct codes seen?', S.size, 'Set of windows.'); T.n('Codes needed?', 1 << I.k, '2 to the power k.'); return S.size === 1 << I.k; })(); T.yn('Are all codes present?', res, 'Seen must equal needed.'); return res; }
   });
 
   D('max-value-of-equation', {
@@ -245,7 +245,7 @@
     t: 'Maximum Number of Visible Points',
     r: 'Points at your location are always visible. Convert the others to polar angles, sort, append each + 360°, and slide a window of width `angle` to find the most angles inside.',
     g: R => ({ points: Array.from({ length: R.int(1, 6) }, () => [R.int(0, 4), R.int(0, 4)]), angle: R.pick([0, 45, 90, 180]), location: [R.int(0, 4), R.int(0, 4)] }),
-    s(I, T) { let same = 0; const ang = []; for (const [x, y] of I.points) { if (x === I.location[0] && y === I.location[1]) same++; else ang.push(Math.atan2(y - I.location[1], x - I.location[0]) * 180 / Math.PI); } ang.sort((a, b) => a - b); const all = [...ang, ...ang.map(a => a + 360)]; let l = 0, best = 0; for (let r = 0; r < all.length; r++) { while (all[r] - all[l] > I.angle + 1e-9) l++; best = Math.max(best, r - l + 1); } best = Math.min(best, ang.length); T.at({ location: I.location.join(','), angle: I.angle }); T.n('Points standing at your location?', same, 'Always visible.'); T.n('Most other points inside one view window?', best, 'Sliding window over sorted angles.'); return best + same; }
+    s(I, T) { const res = (() => { let same = 0; const ang = []; for (const [x, y] of I.points) { if (x === I.location[0] && y === I.location[1]) same++; else ang.push(Math.atan2(y - I.location[1], x - I.location[0]) * 180 / Math.PI); } ang.sort((a, b) => a - b); const all = [...ang, ...ang.map(a => a + 360)]; let l = 0, best = 0; for (let r = 0; r < all.length; r++) { while (all[r] - all[l] > I.angle + 1e-9) l++; best = Math.max(best, r - l + 1); } best = Math.min(best, ang.length); T.at({ location: I.location.join(', '), angle: I.angle }); T.n('Points standing at your location?', same, 'Always visible.'); T.n('Most other points inside one view window?', best, 'Sliding window over sorted angles.'); return best + same; })(); T.n('Most visible points?', res, 'Best window plus the points at your location.'); return res; }
   });
 
   D('defuse-the-bomb', {
@@ -259,7 +259,7 @@
     t: 'Minimum Operations to Reduce X to Zero',
     r: 'Removing from both ends leaves a middle subarray with sum total − x. Find the longest such window (all values positive → sliding window); answer = n − its length, or −1.',
     g: R => ({ nums: R.ints(R.int(1, 8), 1, 5), x: R.int(1, 15) }),
-    s(I, T) { const a = I.nums, tgt = a.reduce((s, v) => s + v, 0) - I.x; T.at({ nums: A(a), x: I.x }); T.n('Target sum for the kept middle?', tgt, 'total − x.'); if (tgt < 0) return -1; let l = 0, s = 0, best = -1; for (let r = 0; r < a.length; r++) { s += a[r]; while (s > tgt && l <= r) s -= a[l++]; if (s === tgt) best = Math.max(best, r - l + 1); } if (tgt === 0) best = Math.max(best, 0); T.n('Longest middle window with that sum (−1 if none)?', best, 'Sliding window on positives.'); return best < 0 ? -1 : a.length - best; }
+    s(I, T) { const res = (() => { const a = I.nums, tgt = a.reduce((s, v) => s + v, 0) - I.x; T.at({ nums: A(a), x: I.x }); T.n('Total of nums?', a.reduce((s, v) => s + v, 0), 'Add every value.'); T.n('Target sum for the kept middle?', tgt, 'Total minus x.'); if (tgt < 0) return -1; let l = 0, s = 0, best = -1; for (let r = 0; r < a.length; r++) { s += a[r]; while (s > tgt && l <= r) s -= a[l++]; if (s === tgt) best = Math.max(best, r - l + 1); } if (tgt === 0) best = Math.max(best, 0); T.n('Longest middle window with that sum? (−1 if none)', best, 'Sliding window on positives.'); return best < 0 ? -1 : a.length - best; })(); T.n('Fewest operations? (−1 if impossible)', res, 'n minus the longest middle window.'); return res; }
   });
 
   D('minimum-adjacent-swaps-for-k-consecutive-ones', {
@@ -336,14 +336,14 @@
     t: 'Number of Unique Flavors After Sharing K Candies',
     r: 'Count all flavors. Slide the k-candy window given away: remove its candies from the counts and see how many flavors still have a positive count; maximize.',
     g: R => { const c = R.ints(R.int(1, 8), 1, 4); return { candies: c, k: R.int(0, c.length) }; },
-    s(I, T) { const c = new Map(); I.candies.forEach(x => c.set(x, (c.get(x) || 0) + 1)); const uniq = () => [...c.values()].filter(v => v > 0).length; for (let i = 0; i < I.k; i++) c.set(I.candies[i], c.get(I.candies[i]) - 1); let best = uniq(); T.at({ candies: A(I.candies, I.k ? { win: [0, I.k - 1] } : {}) }); T.n('Flavors kept when giving away the first window?', best, 'Remove the window from the counts.'); for (let i = I.k; i < I.candies.length; i++) { c.set(I.candies[i], c.get(I.candies[i]) - 1); c.set(I.candies[i - I.k], c.get(I.candies[i - I.k]) + 1); best = Math.max(best, uniq()); } return best; }
+    s(I, T) { const res = (() => { const c = new Map(); I.candies.forEach(x => c.set(x, (c.get(x) || 0) + 1)); T.at({ candies: A(I.candies) }); T.n('Distinct flavors before sharing?', c.size, 'Count each flavor once.'); const uniq = () => [...c.values()].filter(v => v > 0).length; for (let i = 0; i < I.k; i++) c.set(I.candies[i], c.get(I.candies[i]) - 1); let best = uniq(); T.at({ candies: A(I.candies, I.k ? { win: [0, I.k - 1] } : {}) }); T.n('Flavors kept when giving away the first window?', best, 'Remove the window from the counts.'); for (let i = I.k; i < I.candies.length; i++) { c.set(I.candies[i], c.get(I.candies[i]) - 1); c.set(I.candies[i - I.k], c.get(I.candies[i - I.k]) + 1); best = Math.max(best, uniq()); } return best; })(); T.n('Most flavors kept?', res, 'Best window to give away.'); return res; }
   });
 
   D('minimum-swaps-to-group-all-1s-together-ii', {
     t: 'Minimum Swaps to Group All 1\'s Together II',
     r: 'Circular array: slide a window of length (number of ones) around the circle (indices mod n). Swaps = ones − max ones inside any window.',
     g: R => ({ nums: R.ints(R.int(1, 9), 0, 1) }),
-    s(I, T) { const a = I.nums, n = a.length, w = a.filter(x => x).length; T.at({ nums: A(a) }); T.n('Window length?', w, 'Number of ones.'); if (!w) return 0; let cur = 0; for (let i = 0; i < w; i++) cur += a[i]; let best = cur; for (let i = 1; i < n; i++) { cur += a[(i + w - 1) % n] - a[i - 1]; best = Math.max(best, cur); } T.n('Most ones in a circular window?', best, 'Slide with wrap-around.'); return w - best; }
+    s(I, T) { const res = (() => { const a = I.nums, n = a.length, w = a.filter(x => x).length; T.at({ nums: A(a) }); T.n('Window length?', w, 'Number of ones.'); if (!w) { T.yn('Are there any ones?', false, 'Nothing to group.'); return 0; } let cur = 0; for (let i = 0; i < w; i++) cur += a[i]; let best = cur; for (let i = 1; i < n; i++) { cur += a[(i + w - 1) % n] - a[i - 1]; best = Math.max(best, cur); } T.n('Most ones in a circular window?', best, 'Slide with wrap-around.'); return w - best; })(); T.n('Fewest swaps?', res, 'Window length minus the most ones inside it.'); return res; }
   });
 
   D('find-substring-with-given-hash-value', {

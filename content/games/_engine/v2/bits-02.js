@@ -13,12 +13,12 @@
   const evenTrip = {
     r: 'popcount(a ^ b ^ c) is even iff the parities of popcount(a), popcount(b), popcount(c) sum to even. Count even/odd-parity values in each array and combine: e·e·e + e·o·o + o·e·o + o·o·e.',
     g: R => ({ a: R.ints(R.int(1, 4), 0, 9), b: R.ints(R.int(1, 4), 0, 9), c: R.ints(R.int(1, 4), 0, 9) }),
-    s(I, T) { const ev = arr => arr.filter(x => pc(x) % 2 === 0).length, [ea, eb, ec] = [ev(I.a), ev(I.b), ev(I.c)], [oa, ob, oc] = [I.a.length - ea, I.b.length - eb, I.c.length - ec]; T.at({ a: A(I.a.map(x => bin(x))) }); T.n('Values in a with an even number of set bits?', ea, 'Parity of popcount.'); return ea * eb * ec + ea * ob * oc + oa * eb * oc + oa * ob * ec; }
+    s(I, T) { const ev = arr => arr.filter(x => pc(x) % 2 === 0).length, [ea, eb, ec] = [ev(I.a), ev(I.b), ev(I.c)], [oa, ob, oc] = [I.a.length - ea, I.b.length - eb, I.c.length - ec]; T.at({ a: A(I.a.map(x => bin(x))) }); T.n('Values in a with an even number of set bits?', ea, 'Parity of popcount.'); T.at({ b: A(I.b.map(x => bin(x))) }); T.n('Values in b with an even number of set bits?', eb, 'Parity of popcount.'); const r = ea * eb * ec + ea * ob * oc + oa * eb * oc + oa * ob * ec; T.n('Triplets with an even XOR popcount?', r, 'Choose an even number of odd-parity values.'); return r; }
   };
   const minBitwise = {
     r: 'We need ans | (ans + 1) = num. Adding 1 flips the trailing ones of ans; so num must be odd (2 → −1), and the best ans clears the highest bit of num\'s trailing block of ones.',
     g: R => ({ nums: Array.from({ length: R.int(1, 6) }, () => R.pick([2, 3, 5, 7, 11, 13, 15, 23, 31, 37])) }),
-    s(I, T) { return I.nums.map((x, i) => { if (x % 2 === 0) { if (i < 5) { T.at({ num: bin(x) }); T.yn('Is num odd?', false, 'Even (only 2 is prime-even) → −1.'); } return -1; } let t = 0; while (x >> t & 1) t++; const v = x - (1 << (t - 1)); if (i < 5) { T.at({ num: bin(x), trailingOnes: t }); T.n('Minimal ans?', v, 'Clear the top bit of the trailing ones.'); } return v; }); }
+    s(I, T) { return I.nums.map((x, i) => { if (x % 2 === 0) { if (i < 5) { T.at({ num: bin(x) }); T.yn('Is num odd?', false, 'Even numbers here are 2, which has no answer, so −1.'); } return -1; } let t = 0; while (x >> t & 1) t++; const v = x - (1 << (t - 1)); if (i < 5) { T.at({ num: bin(x), trailingOnes: t }); T.n('Minimal ans?', v, 'Clear the top bit of the trailing ones.'); } return v; }); }
   };
 
   D('decode-xored-array', {
@@ -32,14 +32,14 @@
     t: 'Decode XORed Permutation',
     r: 'XOR of 1..n is known. XOR of encoded at odd indices equals perm[1] ^ … ^ perm[n−1], so perm[0] = total ^ that. Then decode forward.',
     g: R => { const n = 2 * R.int(1, 3) + 1, p = R.shuffle([...Array(n).keys()].map(x => x + 1)); return { encoded: p.slice(1).map((x, i) => x ^ p[i]) }; },
-    s(I, T) { const n = I.encoded.length + 1; let tot = 0; for (let i = 1; i <= n; i++) tot ^= i; let odd = 0; for (let i = 1; i < I.encoded.length; i += 2) odd ^= I.encoded[i]; T.at({ encoded: A(I.encoded), n }); T.n('XOR of 1..n?', tot, 'All values of the permutation.'); T.n('First element?', tot ^ odd, 'total ^ XOR of encoded at odd indices.'); const out = [tot ^ odd]; I.encoded.forEach((e, i) => out.push(out[i] ^ e)); return out; }
+    s(I, T) { const n = I.encoded.length + 1; let tot = 0; for (let i = 1; i <= n; i++) tot ^= i; let odd = 0; for (let i = 1; i < I.encoded.length; i += 2) odd ^= I.encoded[i]; T.at({ encoded: A(I.encoded), n }); T.n('XOR of 1 to n?', tot, 'All values of the permutation.'); T.n('First element?', tot ^ odd, 'The total, XORed with the encoded values at odd indices.'); const out = [tot ^ odd]; I.encoded.forEach((e, i) => out.push(out[i] ^ e)); T.n('Last element?', out[n - 1], 'Keep XORing with encoded.'); return out; }
   });
 
   D('find-xor-sum-of-all-pairs-bitwise-and', {
     t: 'Find XOR Sum of All Pairs Bitwise AND',
     r: 'AND distributes over XOR: XOR of all (a & b) = (XOR of arr1) & (XOR of arr2).',
     g: R => ({ arr1: R.ints(R.int(1, 4), 0, 15), arr2: R.ints(R.int(1, 4), 0, 15) }),
-    s(I, T) { const x = I.arr1.reduce((a, b) => a ^ b, 0), y = I.arr2.reduce((a, b) => a ^ b, 0); T.at({ arr1: A(I.arr1) }); T.n('XOR of arr1?', x, 'Fold with ^.'); T.at({ arr2: A(I.arr2) }); T.n('XOR of arr2?', y, 'Fold with ^.'); return x & y; }
+    s(I, T) { const res = (() => { const x = I.arr1.reduce((a, b) => a ^ b, 0), y = I.arr2.reduce((a, b) => a ^ b, 0); T.at({ arr1: A(I.arr1) }); T.n('XOR of arr1?', x, 'XOR all of them together.'); T.at({ arr2: A(I.arr2) }); T.n('XOR of arr2?', y, 'XOR all of them together.'); return x & y; })(); T.n('XOR sum of all pairwise ANDs?', res, 'The first XOR AND the second XOR.'); return res; }
   });
 
   D('two-out-of-three', {
@@ -47,14 +47,14 @@
     r: 'Give each value a 3-bit mask of which arrays contain it; keep values whose mask has at least two bits.',
     g: R => ({ nums1: R.ints(R.int(1, 4), 1, 5), nums2: R.ints(R.int(1, 4), 1, 5), nums3: R.ints(R.int(1, 4), 1, 5) }),
     cmp: 'set',
-    s(I, T) { const m = {}; [I.nums1, I.nums2, I.nums3].forEach((arr, k) => arr.forEach(v => m[v] = (m[v] || 0) | 1 << k)); T.at({ masks: K(Object.fromEntries(Object.entries(m).map(([v, x]) => [v, bin(x, 3)]))) }); const out = Object.keys(m).filter(v => pc(m[v]) >= 2).map(Number); T.n('How many values qualify?', out.length, 'Mask with ≥ 2 bits.'); return out; }
+    s(I, T) { const m = {}; [I.nums1, I.nums2, I.nums3].forEach((arr, k) => arr.forEach(v => m[v] = (m[v] || 0) | 1 << k)); T.at({ masks: K(Object.fromEntries(Object.entries(m).map(([v, x]) => [v, bin(x, 3)]))) }); const out = Object.keys(m).filter(v => pc(m[v]) >= 2).map(Number); T.n('Distinct values across the arrays?', Object.keys(m).length, 'One mask each.'); T.n('Values in all three arrays?', Object.values(m).filter(x => x === 7).length, 'Mask 111.'); T.n('How many values qualify?', out.length, 'A mask with at least 2 bits set.'); return out; }
   });
 
   D('rings-and-rods', {
     t: 'Rings and Rods',
     r: 'Each rod gets a 3-bit color mask (R, G, B). Count rods whose mask is 0b111.',
     g: R => ({ rings: Array.from({ length: R.int(1, 8) }, () => R.pick(['R', 'G', 'B']) + R.int(0, 3)).join('') }),
-    s(I, T) { const m = Array(10).fill(0); for (let i = 0; i < I.rings.length; i += 2) m[+I.rings[i + 1]] |= { R: 1, G: 2, B: 4 }[I.rings[i]]; T.at({ masks: A(m.slice(0, 4).map(x => bin(x, 3))) }); const c = m.filter(x => x === 7).length; T.n('Rods with all three colors?', c, 'Mask 111.'); return c; }
+    s(I, T) { const m = Array(10).fill(0); for (let i = 0; i < I.rings.length; i += 2) m[+I.rings[i + 1]] |= { R: 1, G: 2, B: 4 }[I.rings[i]]; T.at({ masks: A(m.slice(0, 4).map(x => bin(x, 3))) }); const c = m.filter(x => x === 7).length; T.n('Rings in total?', I.rings.length / 2, 'Two characters per ring.'); T.n('Rods with at least one ring?', m.filter(x => x).length, 'Mask is not 0.'); T.n('Rods with all three colors?', c, 'Mask 111 means red, green and blue.'); return c; }
   });
 
   D('count-words-obtained-after-adding-a-letter', {
@@ -75,7 +75,7 @@
     t: 'Minimum Bit Flips to Convert Number',
     r: 'The bits that differ are the set bits of start ^ goal; count them.',
     g: R => ({ start: R.int(0, 63), goal: R.int(0, 63) }),
-    s(I, T) { const x = I.start ^ I.goal; T.at({ start: bin(I.start, 6), goal: bin(I.goal, 6) }); T.n('start ^ goal?', x, 'Differing bits.'); return pc(x); }
+    s(I, T) { const res = (() => { const x = I.start ^ I.goal; T.at({ start: bin(I.start, 6), goal: bin(I.goal, 6) }); T.yn('Are start and goal equal?', I.start === I.goal, 'Then no flips are needed.'); T.n('start XOR goal?', x, 'Its set bits are the differing bits.'); return pc(x); })(); T.n('Bit flips needed?', res, 'Count the set bits.'); return res; }
   });
 
   D('largest-combination-with-bitwise-and-greater-than-zero', {
@@ -131,7 +131,7 @@
     t: 'Apply Bitwise Operations to Make Strings Equal',
     r: 'Any string with at least one 1 can reach any other string with at least one 1, and all-zero strings are stuck. So the answer is (s has a 1) == (target has a 1).',
     g: R => { const n = R.int(1, 6); return { s: R.str(n, R.chance(0.2) ? '0' : '01'), target: R.str(n, R.chance(0.2) ? '0' : '01') }; },
-    s(I, T) { const a = I.s.includes('1'), b = I.target.includes('1'); T.at({ s: I.s }); T.yn('Does s contain a 1?', a, 'Needed to create or move ones.'); T.at({ target: I.target }); T.yn('Does target contain a 1?', b, 'Must match.'); return a === b; }
+    s(I, T) { const res = (() => { const a = I.s.includes('1'), b = I.target.includes('1'); T.at({ s: I.s }); T.yn('Does s contain a 1?', a, 'Needed to create or move ones.'); T.at({ target: I.target }); T.yn('Does target contain a 1?', b, 'Must match.'); return a === b; })(); T.yn('Can s become target?', res, 'Both have a 1, or neither does.'); return res; }
   });
 
   D('substring-xor-queries', {
@@ -145,7 +145,7 @@
     t: 'Number of Even and Odd Bits',
     r: 'Count set bits at even positions (n & 0x555…) and at odd positions (n & 0xAAA…).',
     g: R => ({ n: R.int(1, 1000) }),
-    s(I, T) { const e = pc(I.n & 0x55555555), o = pc(I.n & 0xaaaaaaaa); T.at({ n: bin(I.n) }); T.n('Set bits at even positions?', e, 'Mask 0101…'); return [e, o]; }
+    s(I, T) { const e = pc(I.n & 0x55555555), o = pc(I.n & 0xaaaaaaaa); T.at({ n: bin(I.n) }); T.n('Set bits at even positions?', e, 'Mask 0101…'); T.n('Set bits at odd positions?', o, 'Mask 1010…'); T.n('Set bits in total?', pc(I.n), 'The two counts added.'); return [e, o]; }
   });
 
   D('find-the-prefix-common-array-of-two-arrays', {
@@ -159,14 +159,14 @@
     t: 'Neighboring Bitwise XOR',
     r: 'Every original bit appears twice in the XOR of all derived values (circularly), so a valid original exists iff XOR(derived) = 0.',
     g: R => ({ derived: R.ints(R.int(1, 8), 0, 1) }),
-    s(I, T) { const x = I.derived.reduce((a, b) => a ^ b, 0); T.at({ derived: A(I.derived) }); T.n('XOR of all derived values?', x, 'Must be 0.'); return x === 0; }
+    s(I, T) { const res = (() => { const x = I.derived.reduce((a, b) => a ^ b, 0); T.at({ derived: A(I.derived) }); T.n('How many 1s in derived?', I.derived.filter(Boolean).length, 'Their parity decides it.'); T.n('XOR of all derived values?', x, 'Must be 0.'); return x === 0; })(); T.yn('Does a valid original array exist?', res, 'Only when the XOR is 0.'); return res; }
   });
 
   D('find-the-k-th-lucky-number', {
     t: 'Find the K-th Lucky Number',
     r: 'Lucky numbers of length L are L-bit binary strings with 0→4 and 1→7. The k-th one is the binary of k + 1 without its leading 1, mapped.',
     g: R => ({ k: R.int(1, 40) }),
-    s(I, T) { const b = bin(I.k + 1).slice(1); T.at({ k: I.k, 'k + 1 in binary': bin(I.k + 1) }); T.n('Number of digits?', b.length, 'Bits after the leading 1.'); return [...b].map(c => c === '0' ? '4' : '7').join(''); }
+    s(I, T) { const res = (() => { const b = bin(I.k + 1).slice(1); T.at({ k: I.k, 'k + 1 in binary': bin(I.k + 1) }); T.n('Number of digits?', b.length, 'Bits after the leading 1.'); T.n('Lucky numbers with fewer digits?', 2 ** b.length - 2, '2 + 4 + 8 + … for the shorter lengths.'); return [...b].map(c => c === '0' ? '4' : '7').join(''); })(); T.n('How many 7s in the answer?', [...res].filter(c => c === '7').length, 'Each 1 bit becomes a 7.'); return res; }
   });
 
   D('count-pairs-of-points-with-distance-k', {
@@ -201,21 +201,21 @@
     t: 'Maximum Strong Pair XOR I',
     r: 'A pair (x, y) is strong if |x − y| ≤ min(x, y). Check every pair (the II version uses a sorted window with a binary trie) and maximize x ^ y.',
     g: R => ({ nums: R.ints(R.int(1, 6), 1, 12) }),
-    s(I, T) { let best = 0, asks = 0; for (const x of I.nums) for (const y of I.nums) if (Math.abs(x - y) <= Math.min(x, y)) { if ((x ^ y) > best) { best = x ^ y; if (asks++ < 5) { T.at({ pair: `${x}, ${y}` }); T.n('XOR of this strong pair?', x ^ y, 'New best.'); } } } if (!asks) { T.at({ nums: A(I.nums) }); T.n('Best XOR?', 0, 'Only x with itself.'); } return best; }
+    s(I, T) { const res = (() => { let best = 0, asks = 0; T.at({ nums: A(I.nums) }); T.n('Largest value?', Math.max(...I.nums), 'A strong pair needs the gap to be at most the smaller value.'); for (const x of I.nums) for (const y of I.nums) if (Math.abs(x - y) <= Math.min(x, y)) { if ((x ^ y) > best) { best = x ^ y; if (asks++ < 5) { T.at({ pair: `${x}, ${y}` }); T.n('XOR of this strong pair?', x ^ y, 'New best.'); } } } if (!asks) { T.at({ nums: A(I.nums) }); T.n('Best XOR?', 0, 'Only x with itself.'); } return best; })(); T.n('Maximum strong pair XOR?', res, 'The best found.'); return res; }
   });
 
   D('check-if-bitwise-or-has-trailing-zeros', {
     t: 'Check if Bitwise OR Has Trailing Zeros',
     r: 'An OR has a trailing zero iff every chosen number is even. So we need at least two even numbers.',
     g: R => ({ nums: R.ints(R.int(2, 6), 1, 12) }),
-    s(I, T) { const e = I.nums.filter(x => x % 2 === 0).length; T.at({ nums: A(I.nums) }); T.n('How many even numbers?', e, 'Need at least two.'); return e >= 2; }
+    s(I, T) { const res = (() => { const e = I.nums.filter(x => x % 2 === 0).length; T.at({ nums: A(I.nums) }); T.n('How many odd numbers?', I.nums.length - e, 'Any odd number sets the last bit.'); T.n('How many even numbers?', e, 'Need at least two.'); return e >= 2; })(); T.yn('Can two or more numbers OR to a trailing zero?', res, 'Pick two even numbers.'); return res; }
   });
 
   D('minimum-number-of-operations-to-make-array-xor-equal-to-k', {
     t: 'Minimum Number of Operations to Make Array XOR Equal to K',
     r: 'Each flip toggles one bit of the total XOR, so the answer is popcount(XOR(nums) ^ k).',
     g: R => ({ nums: R.ints(R.int(1, 5), 0, 15), k: R.int(0, 15) }),
-    s(I, T) { const x = I.nums.reduce((a, b) => a ^ b, 0); T.at({ nums: A(I.nums), k: I.k }); T.n('XOR of the array?', x, 'Fold with ^.'); return pc(x ^ I.k); }
+    s(I, T) { const res = (() => { const x = I.nums.reduce((a, b) => a ^ b, 0); T.at({ nums: A(I.nums), k: I.k }); T.n('XOR of the array?', x, 'XOR all of them together.'); T.n('That XOR, XOR k?', x ^ I.k, 'Its set bits must be flipped.'); return pc(x ^ I.k); })(); T.n('Fewest operations?', res, 'Count the set bits.'); return res; }
   });
 
   D('find-if-array-can-be-sorted', {
@@ -269,14 +269,14 @@
     t: 'Number of Bit Changes to Make Two Integers Equal',
     r: 'We can only turn 1s of n into 0s, so k must be a submask of n ((n & k) == k). Then the answer is popcount(n ^ k); otherwise −1.',
     g: R => ({ n: R.int(0, 31), k: R.int(0, 31) }),
-    s(I, T) { const ok = (I.n & I.k) === I.k; T.at({ n: bin(I.n, 5), k: bin(I.k, 5) }); T.yn('Is k a submask of n?', ok, 'n & k == k.'); return ok ? pc(I.n ^ I.k) : -1; }
+    s(I, T) { const res = (() => { const ok = (I.n & I.k) === I.k; T.at({ n: bin(I.n, 5), k: bin(I.k, 5) }); T.yn('Is k a submask of n?', ok, 'n AND k must equal k.'); T.n('n XOR k?', I.n ^ I.k, 'Bits that differ.'); return ok ? pc(I.n ^ I.k) : -1; })(); T.n('Changes needed (−1 if impossible)?', res, 'Turn off each differing bit of n.'); return res; }
   });
 
   D('find-the-k-th-character-in-string-game-i', {
     t: 'Find the K-th Character in String Game I',
     r: 'Each doubling appends a shifted copy, so position k − 1 has been shifted once per set bit of k − 1: the answer is \'a\' + popcount(k − 1) (mod 26).',
     g: R => ({ k: R.int(1, 500) }),
-    s(I, T) { T.at({ k: I.k, 'k − 1 in binary': bin(I.k - 1) }); T.n('Set bits in k − 1?', pc(I.k - 1), 'One shift per set bit.'); return String.fromCharCode(97 + pc(I.k - 1) % 26); }
+    s(I, T) { const res = (() => { T.at({ k: I.k, 'k − 1 in binary': bin(I.k - 1) }); let L = 1; while (L < I.k) L *= 2; T.n('Shortest word length that reaches k?', L, 'The word doubles each round.'); T.n('Set bits in k − 1?', pc(I.k - 1), 'One shift per set bit.'); return String.fromCharCode(97 + pc(I.k - 1) % 26); })(); T.c('Which character?', [...new Set([res, 'a', 'b', 'c'])], res, 'a shifted once per set bit.'); return res; }
   });
 
   D('find-the-k-th-character-in-string-game-ii', {
@@ -300,6 +300,6 @@
     t: 'Smallest Number With All Set Bits',
     r: 'The answer is the smallest 2^k − 1 ≥ n: one less than the next power of two above n\'s top bit.',
     g: R => ({ n: R.int(1, 1000) }),
-    s(I, T) { let x = 1; while (x < I.n) x = x * 2 + 1; T.at({ n: bin(I.n) }); T.n('Number of bits in n?', bin(I.n).length, 'All of them set.'); return x; }
+    s(I, T) { const res = (() => { let x = 1; while (x < I.n) x = x * 2 + 1; T.at({ n: bin(I.n) }); T.yn('Is n already all ones?', x === I.n, 'Then n itself is the answer.'); T.n('Number of bits in n?', bin(I.n).length, 'All of them set.'); return x; })(); T.n('Smallest such number?', res, 'That many ones.'); return res; }
   });
 })();

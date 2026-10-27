@@ -12,7 +12,7 @@
   const beautiful = {
     r: 'A substring is beautiful when vowels = consonants and vowels × consonants is divisible by k. Use a running balance (vowel +1, consonant −1) to find equal-count spans and check (len/2)² mod k for each.',
     g: R => ({ s: R.str(R.int(1, 10), 'abeiy'), k: R.int(1, 5) }),
-    s(I, T) { const s = I.s, V = 'aeiou'; let c = 0, asks = 0; for (let i = 0; i < s.length; i++) { let v = 0, here = 0; for (let j = i; j < s.length; j++) { if (V.includes(s[j])) v++; const cc = j - i + 1 - v; if (v === cc && (v * cc) % I.k === 0) here++; } c += here; if (asks++ < 6) { T.at({ s: A([...s], { i }), k: I.k }); T.n('Beautiful substrings starting here?', here, 'Equal counts and v·c divisible by k.'); } } return c; }
+    s(I, T) { const s = I.s, V = 'aeiou'; let c = 0, asks = 0; for (let i = 0; i < s.length; i++) { let v = 0, here = 0; for (let j = i; j < s.length; j++) { if (V.includes(s[j])) v++; const cc = j - i + 1 - v; if (v === cc && (v * cc) % I.k === 0) here++; } c += here; if (asks++ < 6) { T.at({ s: A([...s], { i }), k: I.k }); T.n('Beautiful substrings starting here?', here, 'Equal counts, and vowels times consonants divisible by k.'); } } return c; }
   };
 
   D('count-the-hidden-sequences', {
@@ -103,14 +103,14 @@
     t: 'Find the Pivot Integer',
     r: 'sum(1..x) = sum(x..n) ⇔ x² = n(n + 1)/2. Return x if that is a perfect square, else −1.',
     g: R => ({ n: R.int(1, 60) }),
-    s(I, T) { const t = I.n * (I.n + 1) / 2, x = Math.round(Math.sqrt(t)); T.at({ n: I.n }); T.n('Total 1 + … + n?', t, 'n(n + 1)/2.'); T.yn('Is it a perfect square?', x * x === t, 'x² must equal the total.'); return x * x === t ? x : -1; }
+    s(I, T) { const res = (() => { const t = I.n * (I.n + 1) / 2, x = Math.round(Math.sqrt(t)); T.at({ n: I.n }); T.n('Sum of 1 to n?', t, 'n times n plus 1, halved.'); T.yn('Is it a perfect square?', x * x === t, 'Some x squared must equal the total.'); return x * x === t ? x : -1; })(); T.n('Pivot? (−1 if none)', res, 'The square root of the total.'); return res; }
   });
 
   D('count-subarrays-with-median-k', {
     t: 'Count Subarrays With Median K',
     r: 'Map values > k to +1 and < k to −1. A subarray containing k has median k iff its sum is 0 or 1. Count balance values to the left of k\'s index, then match each right balance.',
     g: R => { const n = R.int(1, 7); return { nums: R.perm(n).map(x => x + 1), k: R.int(1, n) }; },
-    s(I, T) { const p = I.nums.indexOf(I.k), c = {}; let b = 0; c[0] = 1; for (let i = p - 1; i >= 0; i--) { b += I.nums[i] > I.k ? 1 : -1; c[b] = (c[b] || 0) + 1; } T.at({ nums: A(I.nums, { i: p }), leftBalances: K({ ...c }) }); T.n('How many left extensions (including empty)?', p + 1, 'One per start.'); let t = 0; b = 0; for (let j = p; j < I.nums.length; j++) { if (j > p) b += I.nums[j] > I.k ? 1 : -1; t += (c[-b] || 0) + (c[1 - b] || 0); } return t; }
+    s(I, T) { const res = (() => { const p = I.nums.indexOf(I.k), c = {}; let b = 0; c[0] = 1; for (let i = p - 1; i >= 0; i--) { b += I.nums[i] > I.k ? 1 : -1; c[b] = (c[b] || 0) + 1; } T.at({ nums: A(I.nums, { i: p }), leftBalances: K({ ...c }) }); T.n('Index of k?', p, 'Every subarray must include it.'); T.n('How many left extensions (including empty)?', p + 1, 'One per start.'); let t = 0; b = 0; for (let j = p; j < I.nums.length; j++) { if (j > p) b += I.nums[j] > I.k ? 1 : -1; t += (c[-b] || 0) + (c[1 - b] || 0); } return t; })(); T.n('Subarrays with median k?', res, 'Match left and right balances.'); return res; }
   });
 
   D('number-of-substrings-with-fixed-ratio', {
@@ -131,7 +131,7 @@
     t: 'Count Vowel Strings in Ranges',
     r: 'Mark words that start and end with a vowel; prefix-count them so each query is P[r + 1] − P[l].',
     g: R => { const w = Array.from({ length: R.int(1, 6) }, () => R.str(R.int(1, 3), 'aeb')); return { words: w, queries: Array.from({ length: R.int(1, 3) }, () => { const l = R.int(0, w.length - 1); return [l, R.int(l, w.length - 1)]; }) }; },
-    s(I, T) { const V = 'aeiou', f = I.words.map(w => V.includes(w[0]) && V.includes(w[w.length - 1]) ? 1 : 0), P = pre(f); T.at({ words: A(I.words), good: A(f) }); T.n('How many good words in total?', P[f.length], 'Starts and ends with a vowel.'); return I.queries.map(([l, r]) => P[r + 1] - P[l]); }
+    s(I, T) { const res = (() => { const V = 'aeiou', f = I.words.map(w => V.includes(w[0]) && V.includes(w[w.length - 1]) ? 1 : 0), P = pre(f); T.at({ words: A(I.words), good: A(f) }); T.yn(`Is "${I.words[0]}" good?`, f[0] === 1, 'Starts and ends with a vowel.'); T.n('How many good words in total?', P[f.length], 'Starts and ends with a vowel.'); return I.queries.map(([l, r]) => P[r + 1] - P[l]); })(); T.n('Answer to the first query?', res[0], 'Prefix sum at r plus 1, minus prefix sum at l.'); return res; }
   });
 
   D('left-and-right-sum-differences', {
@@ -175,7 +175,7 @@
     t: 'Movement of Robots',
     r: 'Collisions just swap identities, so each robot ends at nums[i] ± d. Sort final positions; the sum of pairwise distances is Σ (pos[i]·i − prefix[i]) mod 1e9+7.',
     g: R => { const n = R.int(2, 6); return { nums: R.distinct(n, -6, 6), s: R.str(n, 'LR'), d: R.int(1, 5) }; },
-    s(I, T) { const p = I.nums.map((x, i) => x + (I.s[i] === 'R' ? I.d : -I.d)).sort((a, b) => a - b); T.at({ final: A(p) }); T.n('Leftmost final position?', p[0], 'Collisions do not matter.'); let t = 0, pref = 0; p.forEach((x, i) => { t += x * i - pref; pref += x; }); return t % MOD; }
+    s(I, T) { const res = (() => { const p = I.nums.map((x, i) => x + (I.s[i] === 'R' ? I.d : -I.d)).sort((a, b) => a - b); T.at({ final: A(p) }); T.n('Leftmost final position?', p[0], 'Collisions do not matter.'); T.n('Rightmost final position?', p[p.length - 1], 'Robots pass through each other.'); let t = 0, pref = 0; p.forEach((x, i) => { t += x * i - pref; pref += x; }); return t % MOD; })(); T.n('Sum of distances (mod 1e9+7)?', res, 'Each position times its index, minus the prefix before it.'); return res; }
   });
 
   D('apply-operations-to-make-all-array-elements-equal-to-zero', {

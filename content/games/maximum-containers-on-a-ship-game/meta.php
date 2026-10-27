@@ -5,7 +5,7 @@ return [
     'title' => 'Maximum Containers on a Ship: the smaller of two limits',
     'leetcode' => 3492,
     'difficulty' => 'Easy',
-    'summary' => 'At most n² cells, and at most ⌊maxWeight / w⌋ containers by weight; the answer is the smaller.',
+    'summary' => 'The deck has n times n cells, and the weight limit allows maxWeight divided by w containers, rounded down. The answer is the smaller of the two.',
     'category' => 'LeetCode',
     'subcategory' => 'Math',
     'topic' => 'LeetCode · Math',

@@ -5,7 +5,7 @@ return [
     'title' => 'Find Most Frequent Vowel and Consonant: two maxima',
     'leetcode' => 3541,
     'difficulty' => 'Easy',
-    'summary' => 'Count letters, then add the largest vowel count and the largest consonant count (0 when a group is missing).',
+    'summary' => 'Count every letter. Add the largest vowel count and the largest consonant count, using 0 for a group that does not appear.',
     'category' => 'LeetCode',
     'subcategory' => 'Hash Table',
     'topic' => 'LeetCode · Hash Table',

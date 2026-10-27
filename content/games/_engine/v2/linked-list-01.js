@@ -30,7 +30,7 @@
     t: 'Rotate List',
     r: 'Find the length n and the tail; make the list circular, then break it after node n − (k mod n) − 1. The next node is the new head.',
     g: R => ({ head: R.ints(R.int(0, 6), 0, 9), k: R.int(0, 12) }),
-    s(I, T) { const n = I.head.length; if (!n) { T.at({ head: A([]) }); T.n('Length?', 0, 'Nothing to rotate.'); return []; } const r = I.k % n; T.at({ list: LL(Ls.from(I.head)), k: I.k }); T.n('Effective rotation (k mod n)?', r, 'Full turns change nothing.'); return [...I.head.slice(n - r), ...I.head.slice(0, n - r)]; }
+    s(I, T) { const res = (() => { const n = I.head.length; if (!n) { T.at({ head: A([]) }); T.yn('Is the list empty?', true, 'Nothing to rotate.'); T.n('Length?', 0, 'No nodes.'); return []; } const r = I.k % n; T.at({ list: LL(Ls.from(I.head)), k: I.k }); T.n('Length?', n, 'Walk the list once.'); T.n('Effective rotation? (the remainder of k divided by n)', r, 'Full turns change nothing.'); return [...I.head.slice(n - r), ...I.head.slice(0, n - r)]; })(); if (res.length) T.n('New head value?', res[0], 'The node r places from the end.'); else T.n('Nodes in the result?', 0, 'Still empty.'); return res; }
   });
 
   D('remove-duplicates-from-sorted-list-ii', {
@@ -58,7 +58,7 @@
     t: 'Reorder List',
     r: 'Find the middle with slow/fast pointers, reverse the second half, then weave the two halves together.',
     g: R => ({ head: R.ints(R.int(1, 7), 1, 9) }),
-    s(I, T) { const n = I.head.length, first = I.head.slice(0, Math.ceil(n / 2)), second = I.head.slice(Math.ceil(n / 2)).reverse(); T.at({ list: LL(Ls.from(I.head)) }); T.n('Length of the reversed second half?', second.length, 'Nodes after the middle.'); const out = []; first.forEach((v, i) => { out.push(v); if (i < second.length) out.push(second[i]); }); return out; }
+    s(I, T) { const res = (() => { const n = I.head.length, first = I.head.slice(0, Math.ceil(n / 2)), second = I.head.slice(Math.ceil(n / 2)).reverse(); T.at({ list: LL(Ls.from(I.head)) }); T.n('Length of the first half?', first.length, 'Find the middle with slow and fast pointers.'); T.n('Length of the reversed second half?', second.length, 'Nodes after the middle.'); const out = []; first.forEach((v, i) => { out.push(v); if (i < second.length) out.push(second[i]); }); return out; })(); T.n('Second value of the result? (−1 if none)', res.length > 1 ? res[1] : -1, 'The last node moves up.'); return res; }
   });
 
   D('insertion-sort-list', {
@@ -79,7 +79,7 @@
     t: 'Intersection of Two Linked Lists',
     r: 'Two pointers: walk A then B, and B then A. They meet at the intersection node after at most lenA + lenB steps (or both reach null).',
     g: R => { const common = R.ints(R.int(0, 3), 1, 9), a = R.ints(R.int(0, 3), 1, 9), b = R.ints(R.int(0, 3), 1, 9); return { intersectVal: common.length ? common[0] : 0, listA: [...a, ...common], listB: [...b, ...common], skipA: common.length ? a.length : a.length + common.length, skipB: common.length ? b.length : b.length + common.length }; },
-    s(I, T) { const shared = I.intersectVal ? Ls.from(I.listA.slice(I.skipA)) : null; const mk = (arr, skip) => { const pre = Ls.from(arr.slice(0, skip)); if (!pre) return shared; let t = pre; while (t.next) t = t.next; t.next = shared; return pre; }; const a = mk(I.listA, I.skipA), b = mk(I.listB, I.skipB); let p = a, q = b, steps = 0; while (p !== q) { p = p ? p.next : b; q = q ? q.next : a; steps++; } T.at({ lenA: I.listA.length, lenB: I.listB.length }); T.n('Steps until the pointers meet?', steps, 'At most lenA + lenB.'); return p ? `Intersected at '${p.val}'` : 'No intersection'; }
+    s(I, T) { const res = (() => { const shared = I.intersectVal ? Ls.from(I.listA.slice(I.skipA)) : null; const mk = (arr, skip) => { const pre = Ls.from(arr.slice(0, skip)); if (!pre) return shared; let t = pre; while (t.next) t = t.next; t.next = shared; return pre; }; const a = mk(I.listA, I.skipA), b = mk(I.listB, I.skipB); let p = a, q = b, steps = 0; while (p !== q) { p = p ? p.next : b; q = q ? q.next : a; steps++; } T.at({ lenA: I.listA.length, lenB: I.listB.length }); T.n('Length of the shared tail?', I.intersectVal ? I.listA.length - I.skipA : 0, 'Nodes after the intersection.'); T.n('Steps until the pointers meet?', steps, 'At most lenA + lenB.'); return p ? `Intersected at '${p.val}'` : 'No intersection'; })(); T.yn('Do the lists intersect?', res !== 'No intersection', 'They meet at a real node.'); return res; }
   });
 
   D('palindrome-linked-list', {
@@ -93,21 +93,21 @@
     t: 'Delete Node in a Linked List',
     r: 'You only have the node itself: copy the next node\'s value into it and unlink the next node.',
     g: R => { const h = R.distinct(R.int(2, 6), 1, 20); return { head: h, node: R.pick(h.slice(0, -1)) }; },
-    s(I, T) { const i = I.head.indexOf(I.node); T.at({ list: A(I.head, { i }) }); T.n('Value copied into the node?', I.head[i + 1], 'Its successor\'s value.'); return I.head.filter((_, j) => j !== i); }
+    s(I, T) { const res = (() => { const i = I.head.indexOf(I.node); T.at({ list: A(I.head, { i }) }); T.n('Index of the node?', i, 'You only get this node.'); T.n('Value copied into the node?', I.head[i + 1], 'Its successor\'s value.'); return I.head.filter((_, j) => j !== i); })(); T.n('Length after deleting?', res.length, 'One fewer node.'); return res; }
   });
 
   D('plus-one-linked-list', {
     t: 'Plus One Linked List',
     r: 'Find the rightmost digit that is not 9; increment it and set every digit after it to 0. If all are 9, prepend a 1.',
     g: R => ({ head: R.chance(0.3) ? Array(R.int(1, 4)).fill(9) : [R.int(1, 9), ...R.ints(R.int(0, 4), 0, 9)] }),
-    s(I, T) { const a = I.head.slice(); let i = a.length - 1; while (i >= 0 && a[i] === 9) i--; T.at({ digits: A(a, { i: Math.max(i, 0) }) }); T.n('Index of the rightmost non-9 digit (−1 if none)?', i, 'It absorbs the carry.'); if (i < 0) return [1, ...a.map(() => 0)]; a[i]++; for (let j = i + 1; j < a.length; j++) a[j] = 0; return a; }
+    s(I, T) { const res = (() => { const a = I.head.slice(); let i = a.length - 1; while (i >= 0 && a[i] === 9) i--; T.at({ digits: A(a, { i: Math.max(i, 0) }) }); T.n('Index of the rightmost non-9 digit (−1 if none)?', i, 'It absorbs the carry.'); if (i < 0) return [1, ...a.map(() => 0)]; a[i]++; for (let j = i + 1; j < a.length; j++) a[j] = 0; return a; })(); T.n('Length of the result?', res.length, 'One longer if every digit was 9.'); T.n('Last digit of the result?', res[res.length - 1], 'It becomes 0 if it was 9.'); return res; }
   });
 
   D('flatten-a-multilevel-doubly-linked-list', {
     t: 'Flatten a Multilevel Doubly Linked List',
     r: 'DFS: when a node has a child, flatten the child list, splice it between the node and its next, and clear the child pointer. Continue from the spliced tail.',
     g: R => { const levels = [R.ints(R.int(1, 4), 1, 9)], ser = [...levels[0]]; let prev = levels[0], v = 10; for (let d = 0; d < R.int(0, 2); d++) { const off = R.int(0, prev.length - 1), lvl = Array.from({ length: R.int(1, 3) }, () => v++); ser.push(...Array(off + 1).fill(null), ...lvl); prev = lvl; } return { head: ser }; },
-    s(I, T) { const tok = I.head, levels = []; let i = 0; const read = () => { const l = []; while (i < tok.length && tok[i] !== null) l.push({ val: tok[i++], child: null }); return l; }; levels.push(read()); while (i < tok.length) { let c = 0; while (i < tok.length && tok[i] === null) { c++; i++; } const prev = levels[levels.length - 1], lvl = read(); prev[c - 1].child = lvl; levels.push(lvl); } const out = []; let k = 0; const walk = l => l.forEach(n => { out.push(n.val); if (n.child) { if (k++ < 3) { T.at({ at: n.val, child: A(n.child.map(x => x.val)) }); T.n('Child-list length spliced in after this node?', n.child.length, 'Flatten it before continuing.'); } walk(n.child); } }); walk(levels[0]); if (!k) { T.at({ list: A(out) }); T.n('Nodes with children?', 0, 'Already flat.'); } return out; }
+    s(I, T) { const res = (() => { const tok = I.head, levels = []; let i = 0; const read = () => { const l = []; while (i < tok.length && tok[i] !== null) l.push({ val: tok[i++], child: null }); return l; }; levels.push(read()); while (i < tok.length) { let c = 0; while (i < tok.length && tok[i] === null) { c++; i++; } const prev = levels[levels.length - 1], lvl = read(); prev[c - 1].child = lvl; levels.push(lvl); } const out = []; let k = 0; const walk = l => l.forEach(n => { out.push(n.val); if (n.child) { if (k++ < 3) { T.at({ at: n.val, child: A(n.child.map(x => x.val)) }); T.n('Child-list length spliced in after this node?', n.child.length, 'Flatten it before continuing.'); } walk(n.child); } }); walk(levels[0]); if (!k) { T.at({ list: A(out) }); T.n('Nodes with children?', 0, 'Already flat.'); } return out; })(); T.n('Total nodes after flattening?', res.length, 'Every level together.'); return res; }
   });
 
   D('add-two-numbers-ii', {
@@ -129,7 +129,7 @@
     t: 'Split Linked List in Parts',
     r: 'With length n, every part gets ⌊n/k⌋ nodes and the first n mod k parts get one extra. Cut the list accordingly.',
     g: R => ({ head: Array.from({ length: R.int(0, 9) }, (_, i) => i + 1), k: R.int(1, 5) }),
-    s(I, T) { const n = I.head.length, q = Math.floor(n / I.k), r = n % I.k; T.at({ n, k: I.k }); T.n('Base size of each part?', q, '⌊n / k⌋.'); T.n('Parts with one extra node?', r, 'n mod k.'); const out = []; let p = 0; for (let i = 0; i < I.k; i++) { const s = q + (i < r ? 1 : 0); out.push(I.head.slice(p, p + s)); p += s; } return out; }
+    s(I, T) { const res = (() => { const n = I.head.length, q = Math.floor(n / I.k), r = n % I.k; T.at({ n, k: I.k }); T.n('Base size of each part?', q, 'n divided by k, rounded down.'); T.n('Parts with one extra node?', r, 'The remainder of n divided by k.'); const out = []; let p = 0; for (let i = 0; i < I.k; i++) { const s = q + (i < r ? 1 : 0); out.push(I.head.slice(p, p + s)); p += s; } return out; })(); T.n('Empty parts?', res.filter(p => !p.length).length, 'When k is bigger than n.'); return res; }
   });
 
   D('linked-list-components', {
@@ -144,7 +144,7 @@
     r: 'Prefix sums with a dummy node: map each prefix sum to the last node where it occurs. A second pass links every node to the node after the last occurrence of its prefix sum, skipping zero-sum runs.',
     g: R => ({ head: R.ints(R.int(1, 7), -3, 3).map(x => x || 1) }),
     cmp: (o, e, I) => { if (!Array.isArray(o)) return false; for (let i = 0; i < o.length; i++) { let s = 0; for (let j = i; j < o.length; j++) if ((s += o[j]) === 0) return false; } const a = I.head, zero = (x, y) => a.slice(x, y).reduce((p, q) => p + q, 0) === 0; const go = (i, j) => { if (j === o.length) return zero(i, a.length); for (let k = i; k < a.length; k++) if (a[k] === o[j] && zero(i, k) && go(k + 1, j + 1)) return true; return false; }; return go(0, 0); },
-    s(I, T) { const a = I.head, pre = [0]; a.forEach(x => pre.push(pre[pre.length - 1] + x)); const last = new Map(); pre.forEach((s, i) => last.set(s, i)); const out = []; let k = 0; for (let i = 0; i < pre.length;) { const j = last.get(pre[i]); if (j > i && k++ < 4) { T.at({ prefix: A(pre, { i, j }) }); T.n('Nodes skipped (a zero-sum run)?', j - i, 'Same prefix sum appears later.'); } i = j; if (i < a.length) out.push(a[i]); i++; } return out; }
+    s(I, T) { const res = (() => { const a = I.head, pre = [0]; a.forEach(x => pre.push(pre[pre.length - 1] + x)); T.at({ prefix: A(pre) }); T.n('Total sum of the list?', pre[pre.length - 1], 'The last prefix sum.'); const last = new Map(); pre.forEach((s, i) => last.set(s, i)); const out = []; let k = 0; for (let i = 0; i < pre.length;) { const j = last.get(pre[i]); if (j > i && k++ < 4) { T.at({ prefix: A(pre, { i, j }) }); T.n('Nodes skipped (a zero-sum run)?', j - i, 'Same prefix sum appears later.'); } i = j; if (i < a.length) out.push(a[i]); i++; } return out; })(); T.n('Nodes left?', res.length, 'Everything not in a zero-sum run.'); return res; }
   });
 
   D('print-immutable-linked-list-in-reverse', {

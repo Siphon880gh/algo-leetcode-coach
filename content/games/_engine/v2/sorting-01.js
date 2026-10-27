@@ -16,7 +16,7 @@
     t: 'Third Maximum Number',
     r: 'Track the top three distinct values in one pass (or sort distinct values). Return the third if it exists, otherwise the maximum.',
     g: R => ({ nums: R.ints(R.int(1, 7), -3, 6) }),
-    s(I, T) { const d = [...new Set(I.nums)].sort((a, b) => b - a); T.at({ distinctDesc: A(d) }); T.n('How many distinct values?', d.length, 'Need at least three for a third maximum.'); return d.length >= 3 ? d[2] : d[0]; }
+    s(I, T) { const res = (() => { const d = [...new Set(I.nums)].sort((a, b) => b - a); T.at({ distinctDesc: A(d) }); T.n('How many distinct values?', d.length, 'Need at least three for a third maximum.'); T.n('Largest value?', d[0], 'First in descending order.'); return d.length >= 3 ? d[2] : d[0]; })(); T.n('Answer?', res, 'The third distinct value, or the largest if there are fewer than three.'); return res; }
   });
 
   D('sort-an-array', {
@@ -37,7 +37,7 @@
     t: 'Minimum Absolute Difference',
     r: 'Sort; the minimum difference is between neighbours. Collect every adjacent pair achieving it, in order.',
     g: R => ({ arr: R.distinct(R.int(2, 7), -6, 12) }),
-    s(I, T) { const a = I.arr.slice().sort((x, y) => x - y); let m = Infinity; for (let i = 1; i < a.length; i++) m = Math.min(m, a[i] - a[i - 1]); T.at({ sorted: A(a) }); T.n('Minimum adjacent difference?', m, 'Only neighbours in sorted order matter.'); const out = []; for (let i = 1; i < a.length; i++) if (a[i] - a[i - 1] === m) out.push([a[i - 1], a[i]]); return out; }
+    s(I, T) { const res = (() => { const a = I.arr.slice().sort((x, y) => x - y); let m = Infinity; for (let i = 1; i < a.length; i++) m = Math.min(m, a[i] - a[i - 1]); T.at({ sorted: A(a) }); T.n(`Difference between the first two sorted values?`, a[1] - a[0], 'Start the scan with them.'); T.n('Minimum adjacent difference?', m, 'Only neighbours in sorted order matter.'); const out = []; for (let i = 1; i < a.length; i++) if (a[i] - a[i - 1] === m) out.push([a[i - 1], a[i]]); return out; })(); T.n('How many pairs have that difference?', res.length, 'Check every neighbouring pair again.'); return res; }
   });
 
   D('filter-restaurants-by-vegan-friendly-price-and-distance', {
@@ -52,7 +52,7 @@
     r: 'Sort, drop n/20 elements from each end, and average the rest.',
     cmp: 'float',
     g: R => ({ arr: R.ints(20 * R.int(1, 2), 0, 9) }),
-    s(I, T) { const a = I.arr.slice().sort((x, y) => x - y), k = a.length / 20, mid = a.slice(k, a.length - k); T.at({ sorted: A(a) }); T.n('Elements removed from each end?', k, '5% of n.'); return mid.reduce((x, y) => x + y, 0) / mid.length; }
+    s(I, T) { const a = I.arr.slice().sort((x, y) => x - y), k = a.length / 20, mid = a.slice(k, a.length - k); T.at({ sorted: A(a) }); T.n('Elements removed from each end?', k, '5% of n.'); T.n('Elements left in the middle?', mid.length, 'n minus both ends.'); T.n('Sum of the middle elements?', mid.reduce((x, y) => x + y, 0), 'Divide this by the count for the mean.'); return mid.reduce((x, y) => x + y, 0) / mid.length; }
   });
 
   D('widest-vertical-area-between-two-points-containing-no-points', {
@@ -73,7 +73,7 @@
     t: 'Maximum Product Difference Between Two Pairs',
     r: 'Use the two largest for (a, b) and the two smallest for (c, d). A single pass or a sort finds them.',
     g: R => ({ nums: R.ints(R.int(4, 7), 1, 10) }),
-    s(I, T) { const a = I.nums.slice().sort((x, y) => x - y), n = a.length; T.at({ sorted: A(a) }); T.n('Product of the two largest?', a[n - 1] * a[n - 2], 'Maximize a·b.'); return a[n - 1] * a[n - 2] - a[0] * a[1]; }
+    s(I, T) { const res = (() => { const a = I.nums.slice().sort((x, y) => x - y), n = a.length; T.at({ sorted: A(a) }); T.n('Product of the two largest?', a[n - 1] * a[n - 2], 'Largest pair gives the largest product.'); T.n('Product of the two smallest?', a[0] * a[1], 'Smallest pair gives the smallest product.'); return a[n - 1] * a[n - 2] - a[0] * a[1]; })(); T.n('Product difference?', res, 'Largest product minus smallest product.'); return res; }
   });
 
   D('find-array-given-subset-sums', {
@@ -88,7 +88,7 @@
     t: 'Sort Even and Odd Indices Independently',
     r: 'Pull out even-index values (sort ascending) and odd-index values (sort descending), then interleave them back.',
     g: R => ({ nums: R.ints(R.int(1, 8), 1, 9) }),
-    s(I, T) { const e = I.nums.filter((_, i) => i % 2 === 0).sort((a, b) => a - b), o = I.nums.filter((_, i) => i % 2).sort((a, b) => b - a); T.at({ even: A(e), odd: A(o) }); T.n('Value placed at index 0?', e[0], 'Smallest even-index value.'); return I.nums.map((_, i) => i % 2 ? o[i >> 1] : e[i >> 1]); }
+    s(I, T) { const res = (() => { const e = I.nums.filter((_, i) => i % 2 === 0).sort((a, b) => a - b), o = I.nums.filter((_, i) => i % 2).sort((a, b) => b - a); T.at({ even: A(e), odd: A(o) }); T.n('Value placed at index 0?', e[0], 'Smallest even-index value.'); T.n('Value placed at index 1? (−1 if none)', o.length ? o[0] : -1, 'Largest odd-index value.'); return I.nums.map((_, i) => i % 2 ? o[i >> 1] : e[i >> 1]); })(); T.n('Value at the last index?', res[res.length - 1], 'Read it from the matching sorted list.'); return res; }
   });
 
   D('sort-the-jumbled-numbers', {
@@ -102,28 +102,28 @@
     t: 'Maximum Consecutive Floors Without Special Floors',
     r: 'Sort special floors; the answer is the max of (first − bottom), gaps between consecutive specials minus one, and (top − last).',
     g: R => { const b = R.int(1, 5), t = b + R.int(0, 10); return { bottom: b, top: t, special: R.distinct(R.int(1, Math.min(4, t - b + 1)), b, t) }; },
-    s(I, T) { const s = I.special.slice().sort((a, b) => a - b), gaps = [s[0] - I.bottom]; for (let i = 1; i < s.length; i++) gaps.push(s[i] - s[i - 1] - 1); gaps.push(I.top - s[s.length - 1]); T.at({ special: A(s), range: `${I.bottom}..${I.top}` }); T.n('Free floors below the first special?', gaps[0], 'first − bottom.'); return Math.max(...gaps); }
+    s(I, T) { const res = (() => { const s = I.special.slice().sort((a, b) => a - b), gaps = [s[0] - I.bottom]; for (let i = 1; i < s.length; i++) gaps.push(s[i] - s[i - 1] - 1); gaps.push(I.top - s[s.length - 1]); T.at({ special: A(s), range: `${I.bottom} to ${I.top}` }); T.n('Free floors below the first special?', gaps[0], 'First special floor minus bottom.'); T.n('Free floors above the last special?', gaps[gaps.length - 1], 'Top minus the last special floor.'); return Math.max(...gaps); })(); T.n('Most consecutive free floors?', res, 'The largest gap, including both ends.'); return res; }
   });
 
   D('sort-array-by-moving-items-to-empty-space', {
     t: 'Sort Array by Moving Items to Empty Space',
     r: 'Try both targets (0 first or 0 last). For a permutation, each cycle of length L costs L − 1 if it contains the empty slot, otherwise L + 1 (borrow the empty slot). Take the cheaper target.',
     g: R => ({ nums: R.perm(R.int(2, 6)) }),
-    s(I, T) { const n = I.nums.length, cost = tgt => { const pos = new Map(tgt.map((v, i) => [v, i])), seen = Array(n).fill(false); let c = 0; for (let i = 0; i < n; i++) { if (seen[i] || pos.get(I.nums[i]) === i) { seen[i] = true; continue; } let L = 0, hasZero = false, j = i; while (!seen[j]) { seen[j] = true; if (I.nums[j] === 0) hasZero = true; j = pos.get(I.nums[j]); L++; } c += hasZero ? L - 1 : L + 1; } return c; }; const a = cost([...Array(n).keys()]), b = cost([...Array(n - 1).keys()].map(x => x + 1).concat(0)); T.at({ nums: A(I.nums) }); T.n('Moves for target [0, 1, …, n−1]?', a, 'Sum of cycle costs.'); T.n('Moves for target [1, …, n−1, 0]?', b, 'Same, other target.'); return Math.min(a, b); }
+    s(I, T) { const res = (() => { const n = I.nums.length, cost = tgt => { const pos = new Map(tgt.map((v, i) => [v, i])), seen = Array(n).fill(false); let c = 0; for (let i = 0; i < n; i++) { if (seen[i] || pos.get(I.nums[i]) === i) { seen[i] = true; continue; } let L = 0, hasZero = false, j = i; while (!seen[j]) { seen[j] = true; if (I.nums[j] === 0) hasZero = true; j = pos.get(I.nums[j]); L++; } c += hasZero ? L - 1 : L + 1; } return c; }; const a = cost([...Array(n).keys()]), b = cost([...Array(n - 1).keys()].map(x => x + 1).concat(0)); T.at({ nums: A(I.nums) }); T.n('Moves for target [0, 1, …, n−1]?', a, 'Sum of cycle costs.'); T.n('Moves for target [1, …, n−1, 0]?', b, 'Same, other target.'); return Math.min(a, b); })(); T.n('Fewest moves?', res, 'The cheaper of the two targets.'); return res; }
   });
 
   D('count-ways-to-group-overlapping-ranges', {
     t: 'Count Ways to Group Overlapping Ranges',
     r: 'Sort and merge overlapping ranges into connected components; each component goes to either group: 2^components mod 1e9+7.',
     g: R => ({ ranges: Array.from({ length: R.int(1, 6) }, () => { const a = R.int(0, 12); return [a, a + R.int(0, 3)]; }) }),
-    s(I, T) { const c = merge(I.ranges).length; T.at({ ranges: A(I.ranges.map(r => r.join('–'))) }); T.n('Connected components after merging?', c, 'Overlapping ranges must share a group.'); let p = 1; for (let i = 0; i < c; i++) p = p * 2 % MOD; return p; }
+    s(I, T) { const res = (() => { const c = merge(I.ranges).length; T.n('Ranges?', I.ranges.length, 'Sort them by start, then merge.'); T.at({ ranges: A(I.ranges.map(r => r.join(' to '))) }); T.n('Connected components after merging?', c, 'Overlapping ranges must share a group.'); let p = 1; for (let i = 0; i < c; i++) p = p * 2 % MOD; return p; })(); T.n('Number of ways (mod 1e9+7)?', res, 'Each group goes to one of two sides, so 2 to the power of the group count.'); return res; }
   });
 
   D('find-maximal-uncovered-ranges', {
     t: 'Find Maximal Uncovered Ranges',
     r: 'Sort ranges by start; sweep a "covered up to" pointer and emit every gap [pointer + 1, start − 1], plus the tail up to n − 1.',
     g: R => { const n = R.int(1, 12); return { n, ranges: Array.from({ length: R.int(0, 4) }, () => { const a = R.int(0, n - 1); return [a, R.int(a, n - 1)]; }) }; },
-    s(I, T) { const out = []; let cur = -1; merge(I.ranges).forEach(([a, b], i) => { if (a > cur + 1) out.push([cur + 1, a - 1]); cur = Math.max(cur, b); if (i < 4) { T.at({ range: `[${a}, ${b}]`, gaps: A(out.map(g => g.join('–'))) }); T.n('Covered up to (after this range)?', cur, 'Advance the sweep pointer.'); } }); if (cur < I.n - 1) out.push([cur + 1, I.n - 1]); if (!I.ranges.length) { T.at({ n: I.n }); T.n('Length of the single uncovered range?', I.n, 'Nothing is covered.'); } return out; }
+    s(I, T) { const res = (() => { const out = []; let cur = -1; merge(I.ranges).forEach(([a, b], i) => { if (a > cur + 1) out.push([cur + 1, a - 1]); cur = Math.max(cur, b); if (i < 4) { T.at({ range: `[${a}, ${b}]`, gaps: A(out.map(g => g.join(' to '))) }); T.n('Covered up to (after this range)?', cur, 'Advance the sweep pointer.'); } }); if (cur < I.n - 1) out.push([cur + 1, I.n - 1]); if (!I.ranges.length) { T.at({ n: I.n }); T.n('Length of the single uncovered range?', I.n, 'Nothing is covered.'); } return out; })(); T.n('How many uncovered ranges?', res.length, 'Gaps between merged ranges, plus the ends.'); return res; }
   });
 
   D('neither-minimum-nor-maximum', {
@@ -131,7 +131,7 @@
     r: 'Any three distinct values contain a middle one: sort the first three and return the middle; fewer than three elements → −1.',
     cmp: (o, e, I) => I.nums.length < 3 ? o === -1 : o !== Math.min(...I.nums) && o !== Math.max(...I.nums) && I.nums.includes(o),
     g: R => ({ nums: R.distinct(R.int(1, 6), 1, 12) }),
-    s(I, T) { T.at({ nums: A(I.nums) }); T.yn('At least three elements?', I.nums.length >= 3, 'Otherwise every value is min or max.'); return I.nums.length < 3 ? -1 : I.nums.slice(0, 3).sort((a, b) => a - b)[1]; }
+    s(I, T) { const res = (() => { T.at({ nums: A(I.nums) }); T.yn('At least three elements?', I.nums.length >= 3, 'Otherwise every value is min or max.'); return I.nums.length < 3 ? -1 : I.nums.slice(0, 3).sort((a, b) => a - b)[1]; })(); if (I.nums.length >= 3) { T.at({ first3: A(I.nums.slice(0, 3)) }); T.n('Smallest of the first three?', Math.min(...I.nums.slice(0, 3)), 'Skip it.'); T.n('Middle of the first three?', res, 'It cannot be the min or the max.'); } else { T.n('Answer?', -1, 'Too few values.'); } return res; }
   });
 
   D('find-the-value-of-the-partition', {
@@ -152,27 +152,27 @@
     t: 'Maximize Area of Square Hole in Grid',
     r: 'Sort each bar list and find its longest run of consecutive indices L; removing them opens a gap of L + 1. Side = min of both gaps; area = side².',
     g: R => { const n = R.int(1, 6), m = R.int(1, 6); return { n, m, hBars: R.distinct(R.int(1, n), 2, n + 1), vBars: R.distinct(R.int(1, m), 2, m + 1) }; },
-    s(I, T) { const run = b => { const s = b.slice().sort((x, y) => x - y); let best = 1, cur = 1; for (let i = 1; i < s.length; i++) { cur = s[i] === s[i - 1] + 1 ? cur + 1 : 1; best = Math.max(best, cur); } return best + 1; }; const h = run(I.hBars), v = run(I.vBars); T.at({ hBars: A(I.hBars.slice().sort((x, y) => x - y)) }); T.n('Widest horizontal gap?', h, 'Longest consecutive run + 1.'); T.at({ vBars: A(I.vBars.slice().sort((x, y) => x - y)) }); T.n('Widest vertical gap?', v, 'Longest consecutive run + 1.'); return Math.min(h, v) ** 2; }
+    s(I, T) { const res = (() => { const run = b => { const s = b.slice().sort((x, y) => x - y); let best = 1, cur = 1; for (let i = 1; i < s.length; i++) { cur = s[i] === s[i - 1] + 1 ? cur + 1 : 1; best = Math.max(best, cur); } return best + 1; }; const h = run(I.hBars), v = run(I.vBars); T.at({ hBars: A(I.hBars.slice().sort((x, y) => x - y)) }); T.n('Widest horizontal gap?', h, 'Longest consecutive run, plus 1.'); T.at({ vBars: A(I.vBars.slice().sort((x, y) => x - y)) }); T.n('Widest vertical gap?', v, 'Longest consecutive run, plus 1.'); return Math.min(h, v) ** 2; })(); T.n('Largest square area?', res, 'The smaller gap, squared.'); return res; }
   });
 
   D('divide-an-array-into-subarrays-with-minimum-cost-i', {
     t: 'Divide an Array Into Subarrays With Minimum Cost I',
     r: 'The first subarray always starts at nums[0]; the other two starts can be any two later elements, so add the two smallest of nums[1..].',
     g: R => ({ nums: R.ints(R.int(3, 7), 1, 9) }),
-    s(I, T) { const r = I.nums.slice(1).sort((a, b) => a - b); T.at({ rest: A(r) }); T.n('Smallest later start?', r[0], 'Pick the two smallest after index 0.'); return I.nums[0] + r[0] + r[1]; }
+    s(I, T) { const res = (() => { const r = I.nums.slice(1).sort((a, b) => a - b); T.at({ rest: A(r) }); T.n('Smallest later start?', r[0], 'Pick the two smallest after index 0.'); T.n('Second smallest later start?', r[1], 'Next in sorted order.'); return I.nums[0] + r[0] + r[1]; })(); T.n('Minimum total cost?', res, 'nums[0] plus the two smallest later starts.'); return res; }
   });
 
   D('count-days-without-meetings', {
     t: 'Count Days Without Meetings',
     r: 'Sort and merge meeting intervals; subtract the covered length from the total days.',
     g: R => { const d = R.int(1, 15); return { days: d, meetings: Array.from({ length: R.int(1, 4) }, () => { const a = R.int(1, d); return [a, R.int(a, d)]; }) }; },
-    s(I, T) { const m = merge(I.meetings.map(([a, b]) => [a, b + 1])).map(([a, b]) => [a, b - 1]), cov = m.reduce((s, [a, b]) => s + b - a + 1, 0); T.at({ merged: A(m.map(x => x.join('–'))) }); T.n('Days covered by meetings?', cov, 'Sum of merged lengths.'); return I.days - cov; }
+    s(I, T) { const res = (() => { const m = merge(I.meetings.map(([a, b]) => [a, b + 1])).map(([a, b]) => [a, b - 1]), cov = m.reduce((s, [a, b]) => s + b - a + 1, 0); T.n('Merged meeting blocks?', m.length, 'Sort by start and merge overlaps.'); T.at({ merged: A(m.map(x => x.join(' to '))) }); T.n('Days covered by meetings?', cov, 'Sum of merged lengths.'); return I.days - cov; })(); T.n('Days without meetings?', res, 'Total days minus covered days.'); return res; }
   });
 
   D('check-if-grid-can-be-cut-into-sections', {
     t: 'Check if Grid Can be Cut into Sections',
     r: 'Project rectangles onto one axis as intervals [start, end); sort and count gaps where no interval crosses. Two gaps on either axis means three sections are possible.',
     g: R => { const n = R.int(3, 6), rs = []; for (let k = R.int(1, 5); k > 0; k--) { const x = R.int(0, n - 1), y = R.int(0, n - 1), r = [x, y, R.int(x + 1, n), R.int(y + 1, n)]; if (!rs.some(q => q[0] < r[2] && r[0] < q[2] && q[1] < r[3] && r[1] < q[3])) rs.push(r); } return { n, rectangles: rs }; },
-    s(I, T) { const gaps = (a, b) => { const iv = I.rectangles.map(r => [r[a], r[b]]).sort((p, q) => p[0] - q[0]); let end = iv[0][1], g = 0; for (const [s, e] of iv.slice(1)) { if (s >= end) g++; end = Math.max(end, e); } return g; }; const gx = gaps(0, 2), gy = gaps(1, 3); T.at({ xIntervals: A(I.rectangles.map(r => `${r[0]}–${r[2]}`)) }); T.n('Clean cut points along x?', gx, 'Gaps no rectangle crosses.'); T.at({ yIntervals: A(I.rectangles.map(r => `${r[1]}–${r[3]}`)) }); T.n('Clean cut points along y?', gy, 'Same along y.'); return gx >= 2 || gy >= 2; }
+    s(I, T) { const res = (() => { const gaps = (a, b) => { const iv = I.rectangles.map(r => [r[a], r[b]]).sort((p, q) => p[0] - q[0]); let end = iv[0][1], g = 0; for (const [s, e] of iv.slice(1)) { if (s >= end) g++; end = Math.max(end, e); } return g; }; const gx = gaps(0, 2), gy = gaps(1, 3); T.at({ xIntervals: A(I.rectangles.map(r => `${r[0]} to ${r[2]}`)) }); T.n('Clean cut points along x?', gx, 'Gaps no rectangle crosses.'); T.at({ yIntervals: A(I.rectangles.map(r => `${r[1]} to ${r[3]}`)) }); T.n('Clean cut points along y?', gy, 'Same along y.'); return gx >= 2 || gy >= 2; })(); T.yn('Can the grid be cut into three sections?', res, 'Need at least two clean cuts in one direction.'); return res; }
   });
 })();

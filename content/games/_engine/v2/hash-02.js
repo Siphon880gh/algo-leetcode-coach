@@ -24,14 +24,14 @@
     t: 'Check if an Array Is Consecutive',
     r: 'Consecutive iff all values are distinct (hash set size n) and max − min = n − 1.',
     g: R => { const s = R.int(0, 5), n = R.int(1, 6), a = Array.from({ length: n }, (_, i) => s + i); if (R.chance(0.4)) a[R.int(0, n - 1)] = R.int(0, 10); return { nums: R.shuffle(a) }; },
-    s(I, T) { const S = new Set(I.nums), mn = Math.min(...I.nums), mx = Math.max(...I.nums); T.at({ nums: A(I.nums) }); T.n('Distinct values?', S.size, 'Must equal n.'); T.n('max − min?', mx - mn, 'Must equal n − 1.'); return S.size === I.nums.length && mx - mn === I.nums.length - 1; }
+    s(I, T) { const res = (() => { const S = new Set(I.nums), mn = Math.min(...I.nums), mx = Math.max(...I.nums); T.at({ nums: A(I.nums) }); T.n('Distinct values?', S.size, 'Must equal n.'); T.n('Largest value minus smallest value?', mx - mn, 'Must equal n − 1.'); return S.size === I.nums.length && mx - mn === I.nums.length - 1; })(); T.yn('Is the array consecutive?', res, 'Both checks must pass.'); return res; }
   });
 
   D('intersection-of-multiple-arrays', {
     t: 'Intersection of Multiple Arrays',
     r: 'Each array has distinct values, so count occurrences across arrays; values with count = number of arrays, sorted ascending.',
     g: R => ({ nums: Array.from({ length: R.int(1, 3) }, () => R.distinct(R.int(1, 5), 1, 7)) }),
-    s(I, T) { const c = cnt(I.nums.flat()); T.at({ counts: K(obj(c)), arrays: I.nums.length }); const out = [...c].filter(([, k]) => k === I.nums.length).map(([v]) => v).sort((a, b) => a - b); T.n('How many values are in every array?', out.length, 'Count equals the number of arrays.'); return out; }
+    s(I, T) { const c = cnt(I.nums.flat()); T.at({ counts: K(obj(c)), arrays: I.nums.length }); const out = [...c].filter(([, k]) => k === I.nums.length).map(([v]) => v).sort((a, b) => a - b); T.n('Distinct values across all arrays?', c.size, 'Keys of the count map.'); T.n('How many values are in every array?', out.length, 'Count equals the number of arrays.'); T.n('Smallest value in every array (−1 if none)?', out.length ? out[0] : -1, 'The answer is sorted.'); return out; }
   });
 
   D('maximum-number-of-pairs-in-array', {
@@ -45,14 +45,14 @@
     t: 'Best Poker Hand',
     r: 'All suits equal → "Flush". Otherwise take the max rank count: ≥ 3 → "Three of a Kind", 2 → "Pair", else "High Card".',
     g: R => ({ ranks: R.ints(5, 1, 6), suits: R.chance(0.3) ? Array(5).fill('a') : Array.from({ length: 5 }, () => R.pick(['a', 'b', 'c', 'd'])) }),
-    s(I, T) { const fl = new Set(I.suits).size === 1; T.at({ suits: A(I.suits) }); T.yn('Flush?', fl, 'All five suits equal.'); if (fl) return 'Flush'; const m = Math.max(...cnt(I.ranks).values()); T.at({ ranks: A(I.ranks) }); T.n('Most cards sharing a rank?', m, 'Max count.'); return m >= 3 ? 'Three of a Kind' : m === 2 ? 'Pair' : 'High Card'; }
+    s(I, T) { const res = (() => { const fl = new Set(I.suits).size === 1; T.at({ suits: A(I.suits) }); T.n('Distinct suits?', new Set(I.suits).size, 'A flush needs exactly one.'); T.yn('Flush?', fl, 'All five suits equal.'); if (fl) return 'Flush'; const m = Math.max(...cnt(I.ranks).values()); T.at({ ranks: A(I.ranks) }); T.n('Most cards sharing a rank?', m, 'Max count.'); return m >= 3 ? 'Three of a Kind' : m === 2 ? 'Pair' : 'High Card'; })(); T.c('Best hand?', ['Flush', 'Three of a Kind', 'Pair', 'High Card'], res, 'Check from the best hand down.'); return res; }
   });
 
   D('merge-similar-items', {
     t: 'Merge Similar Items',
     r: 'Add weights into a map keyed by value from both lists; output [value, total] sorted by value.',
     g: R => ({ items1: R.distinct(R.int(1, 4), 1, 8).map(v => [v, R.int(1, 9)]), items2: R.distinct(R.int(1, 4), 1, 8).map(v => [v, R.int(1, 9)]) }),
-    s(I, T) { const m = new Map(); [...I.items1, ...I.items2].forEach(([v, w]) => m.set(v, (m.get(v) || 0) + w)); T.at({ weights: K(obj(m)) }); T.n('Distinct values?', m.size, 'Keys after merging.'); return [...m].sort((a, b) => a[0] - b[0]); }
+    s(I, T) { const m = new Map(); [...I.items1, ...I.items2].forEach(([v, w]) => m.set(v, (m.get(v) || 0) + w)); T.at({ weights: K(obj(m)) }); T.n('Distinct values?', m.size, 'Keys after merging.'); T.n('Values found in both lists?', I.items1.filter(([v]) => I.items2.some(([u]) => u === v)).length, 'Their weights are added.'); T.n('Total weight?', [...m.values()].reduce((a, b) => a + b, 0), 'Merging never changes the total.'); return [...m].sort((a, b) => a[0] - b[0]); }
   });
 
   D('find-subarrays-with-equal-sum', {
@@ -66,14 +66,14 @@
     t: 'Most Frequent Even Element',
     r: 'Count even values; return the one with the highest count, smallest on ties, or −1.',
     g: R => ({ nums: R.ints(R.int(1, 8), 0, 6) }),
-    s(I, T) { const c = cnt(I.nums.filter(x => x % 2 === 0)); T.at({ evenCounts: K(obj(c)) }); T.n('How many distinct even values?', c.size, 'Only evens count.'); if (!c.size) return -1; return [...c].sort((a, b) => b[1] - a[1] || a[0] - b[0])[0][0]; }
+    s(I, T) { const res = (() => { const c = cnt(I.nums.filter(x => x % 2 === 0)); T.at({ evenCounts: K(obj(c)) }); T.n('How many distinct even values?', c.size, 'Only evens count.'); T.n('Highest count among even values (0 if none)?', c.size ? Math.max(...c.values()) : 0, 'Ties go to the smaller value.'); if (!c.size) return -1; return [...c].sort((a, b) => b[1] - a[1] || a[0] - b[0])[0][0]; })(); T.n('Answer (−1 if no even value)?', res, 'Most frequent even value, smallest on ties.'); return res; }
   });
 
   D('destroy-sequential-targets', {
     t: 'Destroy Sequential Targets',
     r: 'Seeding nums[i] destroys every target with the same remainder mod space (and ≥ it). Count remainders; among values in the largest class, return the minimum.',
     g: R => ({ nums: R.ints(R.int(1, 8), 1, 12), space: R.int(1, 4) }),
-    s(I, T) { const c = cnt(I.nums.map(x => x % I.space)), mx = Math.max(...c.values()); T.at({ remainderCounts: K(obj(c)), space: I.space }); T.n('Largest remainder class size?', mx, 'Targets destroyed.'); return Math.min(...I.nums.filter(x => c.get(x % I.space) === mx)); }
+    s(I, T) { const res = (() => { const c = cnt(I.nums.map(x => x % I.space)), mx = Math.max(...c.values()); T.at({ remainderCounts: K(obj(c)), space: I.space }); T.n('How many remainder classes are there?', c.size, 'Group by value mod space.'); T.n('Largest remainder class size?', mx, 'Targets destroyed.'); return Math.min(...I.nums.filter(x => c.get(x % I.space) === mx)); })(); T.n('Smallest seed that destroys the most?', res, 'The smallest value in a largest class.'); return res; }
   });
 
   D('number-of-unequal-triplets-in-array', {
@@ -87,7 +87,7 @@
     t: 'Form Smallest Number From Two Digit Arrays',
     r: 'If the arrays share a digit, the smallest shared digit is the answer. Otherwise combine the two minimum digits, smaller first.',
     g: R => ({ nums1: R.distinct(R.int(1, 4), 1, 9), nums2: R.distinct(R.int(1, 4), 1, 9) }),
-    s(I, T) { const S = new Set(I.nums1), common = I.nums2.filter(x => S.has(x)); T.at({ nums1: A(I.nums1), nums2: A(I.nums2) }); T.n('How many shared digits?', common.length, 'Set intersection.'); if (common.length) return Math.min(...common); const a = Math.min(...I.nums1), b = Math.min(...I.nums2); return Math.min(a, b) * 10 + Math.max(a, b); }
+    s(I, T) { const res = (() => { const S = new Set(I.nums1), common = I.nums2.filter(x => S.has(x)); T.at({ nums1: A(I.nums1), nums2: A(I.nums2) }); T.n('How many shared digits?', common.length, 'Set intersection.'); T.n('Smallest digit in nums1?', Math.min(...I.nums1), 'A candidate for the answer.'); if (common.length) return Math.min(...common); const a = Math.min(...I.nums1), b = Math.min(...I.nums2); return Math.min(a, b) * 10 + Math.max(a, b); })(); T.n('Smallest number?', res, 'A shared digit, or the two smallest digits put together.'); return res; }
   });
 
   D('convert-an-array-into-a-2d-array-with-conditions', {
@@ -123,21 +123,21 @@
     t: 'Number of Black Blocks',
     r: 'Each black cell touches up to four 2×2 blocks (top-left corners (r−1..r, c−1..c)). Count blacks per block in a hash map; blocks never touched have 0.',
     g: R => { const m = R.int(2, 4), n = R.int(2, 4), S = new Set(); for (let i = 0; i < R.int(0, 4); i++) S.add(R.int(0, m - 1) + ',' + R.int(0, n - 1)); return { m, n, coordinates: [...S].map(s => s.split(',').map(Number)) }; },
-    s(I, T) { const c = new Map(); I.coordinates.forEach(([r, col], k) => { for (const a of [r - 1, r]) for (const b of [col - 1, col]) if (a >= 0 && b >= 0 && a < I.m - 1 && b < I.n - 1) c.set(a + ',' + b, (c.get(a + ',' + b) || 0) + 1); if (k < 4) { T.at({ cell: `${r},${col}`, blocks: K(obj(c)) }); T.n('Blocks touched so far?', c.size, 'Top-left corners within bounds.'); } }); const out = [0, 0, 0, 0, 0]; for (const v of c.values()) out[v]++; out[0] = (I.m - 1) * (I.n - 1) - c.size; return out; }
+    s(I, T) { const c = new Map(); T.at({ m: I.m, n: I.n }); T.n('Total 2 by 2 blocks?', (I.m - 1) * (I.n - 1), '(m − 1) times (n − 1).'); I.coordinates.forEach(([r, col], k) => { for (const a of [r - 1, r]) for (const b of [col - 1, col]) if (a >= 0 && b >= 0 && a < I.m - 1 && b < I.n - 1) c.set(a + ',' + b, (c.get(a + ',' + b) || 0) + 1); if (k < 4) { T.at({ cell: `${r},${col}`, blocks: K(obj(c)) }); T.n('Blocks touched so far?', c.size, 'Top-left corners within bounds.'); } }); const out = [0, 0, 0, 0, 0]; for (const v of c.values()) out[v]++; out[0] = (I.m - 1) * (I.n - 1) - c.size; T.at({ blocks: K(obj(c)) }); T.n('Blocks with no black cell?', out[0], 'All blocks minus the ones touched.'); return out; }
   });
 
   D('minimum-index-of-a-valid-split', {
     t: 'Minimum Index of a Valid Split',
     r: 'Find the dominant value x and its total count. Sweep the split i, keeping the left count of x: valid if 2·left > i + 1 and 2·(total − left) > n − i − 1.',
     g: R => { const n = R.int(1, 8), x = R.int(1, 3), a = Array.from({ length: n }, () => R.chance(0.65) ? x : R.int(1, 5)); const c = a.filter(v => v === x).length; if (2 * c <= n) a.fill(x, 0, Math.floor(n / 2) + 1); return { nums: R.shuffle(a) }; },
-    s(I, T) { const n = I.nums.length, c = cnt(I.nums); let x = null; for (const [v, k] of c) if (2 * k > n) x = v; T.at({ counts: K(obj(c)) }); T.n('Dominant element?', x, 'Count > n/2.'); const tot = c.get(x); let left = 0; for (let i = 0; i < n - 1; i++) { if (I.nums[i] === x) left++; if (2 * left > i + 1 && 2 * (tot - left) > n - i - 1) return i; } return -1; }
+    s(I, T) { const res = (() => { const n = I.nums.length, c = cnt(I.nums); let x = null; for (const [v, k] of c) if (2 * k > n) x = v; T.at({ counts: K(obj(c)) }); T.n('Dominant element?', x, 'Its count is more than half of n.'); const tot = c.get(x); T.n('Total copies of it?', tot, 'Split this count between the two sides.'); let left = 0; for (let i = 0; i < n - 1; i++) { if (I.nums[i] === x) left++; if (2 * left > i + 1 && 2 * (tot - left) > n - i - 1) return i; } return -1; })(); T.n('Smallest valid split index (−1 if none)?', res, 'Both sides must keep it dominant.'); return res; }
   });
 
   D('check-if-array-is-good', {
     t: 'Check if Array is Good',
     r: 'With n = max, the array must have length n + 1, contain 1..n−1 exactly once, and n exactly twice. Compare counts.',
     g: R => { const n = R.int(1, 5), a = [...Array(n).keys()].map(x => x + 1); a.push(n); if (R.chance(0.4)) a[R.int(0, a.length - 1)] = R.int(1, n + 1); return { nums: R.shuffle(a) }; },
-    s(I, T) { const n = Math.max(...I.nums), c = cnt(I.nums); T.at({ nums: A(I.nums) }); T.n('Required length (max + 1)?', n + 1, 'base[n] has n + 1 elements.'); if (I.nums.length !== n + 1) return false; for (let v = 1; v < n; v++) if (c.get(v) !== 1) return false; return c.get(n) === 2; }
+    s(I, T) { const res = (() => { const n = Math.max(...I.nums), c = cnt(I.nums); T.at({ nums: A(I.nums) }); T.n('Required length (max + 1)?', n + 1, 'base[n] has n + 1 elements.'); T.yn('Does the length match?', I.nums.length === n + 1, 'Otherwise it is not good.'); if (I.nums.length !== n + 1) return false; for (let v = 1; v < n; v++) if (c.get(v) !== 1) return false; return c.get(n) === 2; })(); T.yn('Is the array good?', res, '1 to n − 1 once each, and n twice.'); return res; }
   });
 
   D('minimum-seconds-to-equalize-a-circular-array', {
@@ -172,7 +172,7 @@
     t: 'Find Common Elements Between Two Arrays',
     r: 'Make sets of both arrays; count indices of nums1 whose value is in set2 and indices of nums2 whose value is in set1.',
     g: R => ({ nums1: R.ints(R.int(1, 6), 1, 6), nums2: R.ints(R.int(1, 6), 1, 6) }),
-    s(I, T) { const s1 = new Set(I.nums1), s2 = new Set(I.nums2), a = I.nums1.filter(x => s2.has(x)).length, b = I.nums2.filter(x => s1.has(x)).length; T.at({ nums1: A(I.nums1), set2: A([...s2]) }); T.n('Indices of nums1 found in nums2?', a, 'Set lookups.'); return [a, b]; }
+    s(I, T) { const s1 = new Set(I.nums1), s2 = new Set(I.nums2), a = I.nums1.filter(x => s2.has(x)).length, b = I.nums2.filter(x => s1.has(x)).length; T.at({ nums1: A(I.nums1), set2: A([...s2]) }); T.n('Indices of nums1 found in nums2?', a, 'Set lookups.'); T.n('Distinct values in nums2?', s2.size, 'The set used for lookups.'); T.at({ nums2: A(I.nums2), set1: A([...s1]) }); T.n('Indices of nums2 found in nums1?', b, 'Same idea the other way.'); return [a, b]; }
   });
 
   D('number-of-divisible-triplet-sums', {
@@ -186,49 +186,49 @@
     t: 'Maximum Square Area by Removing Fences From a Field',
     r: 'Add the borders (1 and m, 1 and n). Put every pairwise difference of horizontal fences in a set; the largest vertical-pair difference also in that set is the side. Area mod 1e9+7, or −1.',
     g: R => { const m = R.int(3, 9), n = R.int(3, 9); return { m, n, hFences: R.distinct(R.int(1, 3), 2, m - 1), vFences: R.distinct(R.int(1, 3), 2, n - 1) }; },
-    s(I, T) { const h = [1, I.m, ...I.hFences], v = [1, I.n, ...I.vFences], S = new Set(); for (const a of h) for (const b of h) if (a < b) S.add(b - a); T.at({ hFences: A(h.slice().sort((a, b) => a - b)) }); T.n('How many distinct horizontal gaps?', S.size, 'All pairs.'); let best = -1; for (const a of v) for (const b of v) if (a < b && S.has(b - a)) best = Math.max(best, b - a); return best < 0 ? -1 : Number(BigInt(best) * BigInt(best) % 1000000007n); }
+    s(I, T) { const res = (() => { const h = [1, I.m, ...I.hFences], v = [1, I.n, ...I.vFences], S = new Set(); for (const a of h) for (const b of h) if (a < b) S.add(b - a); T.at({ hFences: A(h.slice().sort((a, b) => a - b)) }); T.n('How many distinct horizontal gaps?', S.size, 'All pairs.'); T.at({ vFences: A(v.slice().sort((a, b) => a - b)) }); T.n('How many distinct vertical gaps?', new Set(v.flatMap(a => v.filter(b => b > a).map(b => b - a))).size, 'All pairs.'); let best = -1; for (const a of v) for (const b of v) if (a < b && S.has(b - a)) best = Math.max(best, b - a); return best < 0 ? -1 : Number(BigInt(best) * BigInt(best) % 1000000007n); })(); T.n('Largest square area (−1 if none)?', res, 'The largest gap found on both sides, squared.'); return res; }
   });
 
   D('smallest-missing-integer-greater-than-sequential-prefix-sum', {
     t: 'Smallest Missing Integer Greater Than Sequential Prefix Sum',
     r: 'Sum the longest prefix where each element is the previous + 1. Then, using a set of nums, count up from that sum to the first missing value.',
     g: R => { const s = R.int(1, 5), k = R.int(1, 4), a = Array.from({ length: k }, (_, i) => s + i); return { nums: [...a, ...R.ints(R.int(0, 4), 1, 20)] }; },
-    s(I, T) { let s = I.nums[0], i = 1; while (i < I.nums.length && I.nums[i] === I.nums[i - 1] + 1) s += I.nums[i++]; T.at({ nums: A(I.nums, { win: [0, i - 1] }) }); T.n('Sum of the sequential prefix?', s, 'Stop when the run breaks.'); const S = new Set(I.nums); while (S.has(s)) s++; return s; }
+    s(I, T) { const res = (() => { let s = I.nums[0], i = 1; while (i < I.nums.length && I.nums[i] === I.nums[i - 1] + 1) s += I.nums[i++]; T.at({ nums: A(I.nums, { win: [0, i - 1] }) }); T.n('Length of the sequential prefix?', i, 'Each value is one more than the last.'); T.n('Sum of the sequential prefix?', s, 'Stop when the run breaks.'); const S = new Set(I.nums); while (S.has(s)) s++; return s; })(); T.n('Smallest missing value, at least that sum?', res, 'Step up past values in nums.'); return res; }
   });
 
   D('count-elements-with-maximum-frequency', {
     t: 'Count Elements With Maximum Frequency',
     r: 'Count values, find the max frequency, and add up the frequencies equal to it.',
     g: R => ({ nums: R.ints(R.int(1, 9), 1, 5) }),
-    s(I, T) { const c = cnt(I.nums), mx = Math.max(...c.values()); T.at({ counts: K(obj(c)) }); T.n('Maximum frequency?', mx, 'Highest count.'); return [...c.values()].filter(v => v === mx).reduce((a, b) => a + b, 0); }
+    s(I, T) { const res = (() => { const c = cnt(I.nums), mx = Math.max(...c.values()); T.at({ counts: K(obj(c)) }); T.n('Maximum frequency?', mx, 'Highest count.'); T.n('Values with that frequency?', [...c.values()].filter(v => v === mx).length, 'Each contributes all its copies.'); return [...c.values()].filter(v => v === mx).reduce((a, b) => a + b, 0); })(); T.n('Total elements with the maximum frequency?', res, 'Values times the frequency.'); return res; }
   });
 
   D('find-the-maximum-number-of-elements-in-subset', {
     t: 'Find the Maximum Number of Elements in Subset',
     r: 'Pattern x, x², x⁴, …, x^k, …, x², x. For x = 1 take the largest odd count of ones. For x > 1, while count[x] ≥ 2 add 2 and square x; finish with +1 if the top exists, else −1.',
     g: R => ({ nums: Array.from({ length: R.int(1, 8) }, () => R.pick([1, 2, 4, 16, 3, 9, 5])) }),
-    s(I, T) { const c = cnt(I.nums); const ones = c.get(1) || 0; let best = ones % 2 ? ones : Math.max(ones - 1, 0); T.at({ counts: K(obj(c)) }); T.n('Best length using only 1s?', best, 'Largest odd count.'); for (const x0 of c.keys()) { if (x0 === 1) continue; let x = x0, len = 0; while ((c.get(x) || 0) >= 2) { len += 2; x = x * x; } len += c.get(x) ? 1 : -1; best = Math.max(best, len); } return best; }
+    s(I, T) { const res = (() => { const c = cnt(I.nums); const ones = c.get(1) || 0; let best = ones % 2 ? ones : Math.max(ones - 1, 0); T.at({ counts: K(obj(c)) }); T.n('How many 1s?', ones, 'Every square of 1 is 1.'); T.n('Best length using only 1s?', best, 'Largest odd count.'); for (const x0 of c.keys()) { if (x0 === 1) continue; let x = x0, len = 0; while ((c.get(x) || 0) >= 2) { len += 2; x = x * x; } len += c.get(x) ? 1 : -1; best = Math.max(best, len); } return best; })(); T.n('Largest subset?', res, 'Climb x, x², x⁴ while pairs exist.'); return res; }
   });
 
   D('apply-operations-to-make-string-empty', {
     t: 'Apply Operations to Make String Empty',
     r: 'Each round removes one copy of every letter, so the last round removes exactly the letters with maximum frequency. They remain in the order of their last occurrences.',
     g: R => ({ s: R.str(R.int(1, 10), 'abc') }),
-    s(I, T) { const c = cnt(I.s), mx = Math.max(...c.values()); T.at({ counts: K(obj(c)) }); T.n('Rounds needed (max frequency)?', mx, 'One copy per round.'); const seen = new Map(), out = []; [...I.s].forEach((ch, i) => { seen.set(ch, (seen.get(ch) || 0) + 1); if (seen.get(ch) === mx) out.push([i, ch]); }); return out.map(x => x[1]).join(''); }
+    s(I, T) { const res = (() => { const c = cnt(I.s), mx = Math.max(...c.values()); T.at({ counts: K(obj(c)) }); T.n('Distinct letters?', c.size, 'Each round removes one of each.'); T.n('Rounds needed (max frequency)?', mx, 'One copy per round.'); const seen = new Map(), out = []; [...I.s].forEach((ch, i) => { seen.set(ch, (seen.get(ch) || 0) + 1); if (seen.get(ch) === mx) out.push([i, ch]); }); return out.map(x => x[1]).join(''); })(); T.c('Last letter of the answer?', [...new Set([res[res.length - 1], 'a', 'b', 'c'])], res[res.length - 1], 'The letter whose last copy comes latest.'); return res; }
   });
 
   D('split-the-array', {
     t: 'Split the Array',
     r: 'Each half must have distinct elements, so no value may appear more than twice.',
     g: R => ({ nums: R.ints(2 * R.int(1, 4), 1, 5) }),
-    s(I, T) { const c = cnt(I.nums), mx = Math.max(...c.values()); T.at({ counts: K(obj(c)) }); T.n('Highest count?', mx, 'Must be ≤ 2.'); return mx <= 2; }
+    s(I, T) { const res = (() => { const c = cnt(I.nums), mx = Math.max(...c.values()); T.at({ counts: K(obj(c)) }); T.n('Distinct values?', c.size, 'Each half needs its own distinct values.'); T.n('Highest count?', mx, 'Must be at most 2.'); return mx <= 2; })(); T.yn('Can the array be split?', res, 'No value may appear more than twice.'); return res; }
   });
 
   D('find-occurrences-of-an-element-in-an-array', {
     t: 'Find Occurrences of an Element in an Array',
     r: 'Record the indices where nums[i] = x. Query q returns the (q)-th index (1-based) or −1.',
     g: R => ({ nums: R.ints(R.int(1, 8), 1, 3), queries: R.ints(R.int(1, 4), 1, 5), x: R.int(1, 3) }),
-    s(I, T) { const pos = []; I.nums.forEach((v, i) => v === I.x && pos.push(i)); T.at({ nums: A(I.nums), x: I.x }); T.n('How many occurrences?', pos.length, 'Index list length.'); return I.queries.map(q => q <= pos.length ? pos[q - 1] : -1); }
+    s(I, T) { const pos = []; I.nums.forEach((v, i) => v === I.x && pos.push(i)); T.at({ nums: A(I.nums), x: I.x }); T.n('How many occurrences?', pos.length, 'Index list length.'); T.n(`Answer to the first query (${I.queries[0]})?`, I.queries[0] <= pos.length ? pos[I.queries[0] - 1] : -1, 'The index of that occurrence, or −1.'); T.n('Queries with no answer?', I.queries.filter(q => q > pos.length).length, 'Asking for more occurrences than exist.'); return I.queries.map(q => q <= pos.length ? pos[q - 1] : -1); }
   });
 
   D('find-the-number-of-good-pairs-i', { t: 'Find the Number of Good Pairs I', ...goodPairs });
@@ -257,7 +257,7 @@
     t: 'Minimum Operations to Make Array Values Equal to K',
     r: 'If any value is below k it is impossible. Otherwise each distinct value above k needs one operation (peel them from the top down).',
     g: R => ({ nums: R.ints(R.int(1, 7), 1, 8), k: R.int(1, 5) }),
-    s(I, T) { const mn = Math.min(...I.nums); T.at({ nums: A(I.nums), k: I.k }); T.yn('Is any value below k?', mn < I.k, 'Then −1.'); if (mn < I.k) return -1; return new Set(I.nums.filter(x => x > I.k)).size; }
+    s(I, T) { const res = (() => { const mn = Math.min(...I.nums); T.at({ nums: A(I.nums), k: I.k }); T.yn('Is any value below k?', mn < I.k, 'Then −1.'); T.n('Distinct values above k?', new Set(I.nums.filter(x => x > I.k)).size, 'Each needs one operation.'); if (mn < I.k) return -1; return new Set(I.nums.filter(x => x > I.k)).size; })(); T.n('Fewest operations (−1 if impossible)?', res, 'Lower the largest values one level at a time.'); return res; }
   });
 
   D('minimum-number-of-operations-to-make-elements-in-array-distinct', {
@@ -271,7 +271,7 @@
     t: 'Minimum Unlocked Indices to Sort Nums',
     r: 'Values are 1..3 and only neighbors differing by 1 can swap, so a 3 before a 1 is hopeless (−1). Otherwise every index in [first 2, last 1) and [first 3, last 2) must be unlocked; count the locked ones there.',
     g: R => { const n = R.int(2, 7); return { nums: R.ints(n, 1, 3), locked: R.ints(n, 0, 1) }; },
-    s(I, T) { const a = I.nums, n = a.length, f = v => a.indexOf(v), l = v => a.lastIndexOf(v); for (let i = 0; i < n; i++) if (a[i] === 3 && a.slice(i).includes(1)) { T.at({ nums: A(a, { i }) }); T.yn('Is there a 3 before a 1?', true, 'They can never cross.'); return -1; } T.at({ nums: A(a) }); T.yn('Is there a 3 before a 1?', false, 'Sorting is possible.'); const need = new Set(); if (f(2) >= 0 && l(1) >= 0) for (let i = f(2); i < l(1); i++) need.add(i); if (f(3) >= 0 && l(2) >= 0) for (let i = f(3); i < l(2); i++) need.add(i); const c = [...need].filter(i => I.locked[i]).length; T.at({ nums: A(a), locked: A(I.locked) }); T.n('Locked indices that must be unlocked?', c, 'Inside the crossing ranges.'); return c; }
+    s(I, T) { const res = (() => { T.at({ nums: A(I.nums), locked: A(I.locked) }); T.n('How many indices are locked?', I.locked.filter(Boolean).length, 'Only these can block a swap.'); const a = I.nums, n = a.length, f = v => a.indexOf(v), l = v => a.lastIndexOf(v); for (let i = 0; i < n; i++) if (a[i] === 3 && a.slice(i).includes(1)) { T.at({ nums: A(a, { i }) }); T.yn('Is there a 3 before a 1?', true, 'They can never cross.'); return -1; } T.at({ nums: A(a) }); T.yn('Is there a 3 before a 1?', false, 'Sorting is possible.'); const need = new Set(); if (f(2) >= 0 && l(1) >= 0) for (let i = f(2); i < l(1); i++) need.add(i); if (f(3) >= 0 && l(2) >= 0) for (let i = f(3); i < l(2); i++) need.add(i); const c = [...need].filter(i => I.locked[i]).length; T.at({ nums: A(a), locked: A(I.locked) }); T.n('Locked indices that must be unlocked?', c, 'Inside the crossing ranges.'); return c; })(); T.n('Answer (−1 if impossible)?', res, 'Unlock only what is needed.'); return res; }
   });
 
   D('assign-elements-to-groups-with-constraints', {
@@ -292,13 +292,13 @@
     t: 'Transform Array by Parity',
     r: 'Replace evens with 0 and odds with 1, then sort: that is (#evens) zeros followed by (#odds) ones.',
     g: R => ({ nums: R.ints(R.int(1, 8), 1, 9) }),
-    s(I, T) { const e = I.nums.filter(x => x % 2 === 0).length; T.at({ nums: A(I.nums) }); T.n('How many zeros at the front?', e, 'Number of even values.'); return [...Array(e).fill(0), ...Array(I.nums.length - e).fill(1)]; }
+    s(I, T) { const e = I.nums.filter(x => x % 2 === 0).length; T.at({ nums: A(I.nums) }); T.n('How many zeros at the front?', e, 'Number of even values.'); T.n('How many odd values?', I.nums.length - e, 'They become ones at the back.'); T.n('Index of the first 1 (−1 if none)?', e < I.nums.length ? e : -1, 'Right after the zeros.'); return [...Array(e).fill(0), ...Array(I.nums.length - e).fill(1)]; }
   });
 
   D('find-the-largest-almost-missing-integer', {
     t: 'Find the Largest Almost Missing Integer',
     r: 'Count, for each value, how many size-k windows contain it (hash set per window). Values in exactly one window qualify; return the largest or −1. (Shortcut: only the ends matter unless k is 1 or n.)',
     g: R => { const a = R.ints(R.int(1, 7), 0, 9); return { nums: a, k: R.int(1, a.length) }; },
-    s(I, T) { const c = new Map(); for (let i = 0; i + I.k <= I.nums.length; i++) { const S = new Set(I.nums.slice(i, i + I.k)); S.forEach(v => c.set(v, (c.get(v) || 0) + 1)); } T.at({ windowsContaining: K(obj(c)) }); const ok = [...c].filter(([, k]) => k === 1).map(([v]) => v); T.n('How many values appear in exactly one window?', ok.length, 'Almost missing.'); return ok.length ? Math.max(...ok) : -1; }
+    s(I, T) { const res = (() => { const c = new Map(); T.at({ nums: A(I.nums), k: I.k }); T.n('How many windows of size k?', I.nums.length - I.k + 1, 'One starting at each index that fits.'); for (let i = 0; i + I.k <= I.nums.length; i++) { const S = new Set(I.nums.slice(i, i + I.k)); S.forEach(v => c.set(v, (c.get(v) || 0) + 1)); } T.at({ windowsContaining: K(obj(c)) }); const ok = [...c].filter(([, k]) => k === 1).map(([v]) => v); T.n('How many values appear in exactly one window?', ok.length, 'Almost missing.'); return ok.length ? Math.max(...ok) : -1; })(); T.n('Largest almost missing integer (−1 if none)?', res, 'The largest value in exactly one window.'); return res; }
   });
 })();

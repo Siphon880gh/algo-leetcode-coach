@@ -13,7 +13,7 @@
     r: 'Binary search a cut i in the shorter array (j = half − i in the other) until left maxes ≤ right mins. The median comes from the values around the cut.',
     cmp: 'float',
     g: R => { const a = sorted(R, R.int(0, 4), -5, 9); return { nums1: a, nums2: sorted(R, R.int(a.length ? 0 : 1, 4), -5, 9) }; },
-    s(I, T) { let [a, b] = I.nums1.length <= I.nums2.length ? [I.nums1, I.nums2] : [I.nums2, I.nums1]; const m = a.length, n = b.length, half = Math.floor((m + n + 1) / 2); let lo = 0, hi = m; for (;;) { const i = Math.floor((lo + hi) / 2), j = half - i; const L1 = i ? a[i - 1] : -Infinity, R1 = i < m ? a[i] : Infinity, L2 = j ? b[j - 1] : -Infinity, R2 = j < n ? b[j] : Infinity; T.at({ short: A(a, { hl: [i - 1, i] }), long: A(b, { hl: [j - 1, j] }), cut: i }); const dir = L1 > R2 ? 'left' : L2 > R1 ? 'right' : 'done'; T.c('Move the cut?', ['left', 'right', 'done'], dir, 'Need maxLeft ≤ minRight on both sides.'); if (dir === 'left') hi = i - 1; else if (dir === 'right') lo = i + 1; else { const ml = Math.max(L1, L2); return (m + n) % 2 ? ml : (ml + Math.min(R1, R2)) / 2; } } }
+    s(I, T) { const res = (() => { let [a, b] = I.nums1.length <= I.nums2.length ? [I.nums1, I.nums2] : [I.nums2, I.nums1]; const m = a.length, n = b.length, half = Math.floor((m + n + 1) / 2); let lo = 0, hi = m; T.at({ short: A(a), long: A(b) }); T.n('Size of the left half?', half, 'Total plus 1, halved, rounded down.'); for (;;) { const i = Math.floor((lo + hi) / 2), j = half - i; const L1 = i ? a[i - 1] : -Infinity, R1 = i < m ? a[i] : Infinity, L2 = j ? b[j - 1] : -Infinity, R2 = j < n ? b[j] : Infinity; T.at({ short: A(a, { hl: [i - 1, i] }), long: A(b, { hl: [j - 1, j] }), cut: i }); const dir = L1 > R2 ? 'left' : L2 > R1 ? 'right' : 'done'; T.c('Move the cut?', ['left', 'right', 'done'], dir, 'Every left value must be at most every right value.'); if (dir === 'left') hi = i - 1; else if (dir === 'right') lo = i + 1; else { const ml = Math.max(L1, L2); return (m + n) % 2 ? ml : (ml + Math.min(R1, R2)) / 2; } } })(); T.yn('Is the total length odd?', (I.nums1.length + I.nums2.length) % 2 === 1, 'Then the median is the left max alone.'); return res; }
   });
 
   D('search-in-rotated-sorted-array-ii', {
@@ -48,7 +48,7 @@
     t: 'Find the Duplicate: Floyd cycle on i → nums[i]',
     r: 'Treat i → nums[i] as a linked list. Tortoise and hare meet inside the cycle; restart one at 0 and step both by 1 until they meet at the cycle entrance = duplicate.',
     g: R => { const n = R.int(1, 7), a = R.shuffle([...Array(n).keys()].map(x => x + 1)); a.push(R.int(1, n)); if (R.chance(0.3) && n > 2) a[a.indexOf(a.find(x => x !== a[n]))] = a[n]; return { nums: R.shuffle(a) }; },
-    s(I, T) { const a = I.nums; let s = a[0], f = a[a[0]]; while (s !== f) { s = a[s]; f = a[a[f]]; } T.at({ nums: A(a), meet: s }); T.n('Where do tortoise and hare meet?', s, 'Slow 1 step, fast 2 steps.'); s = 0; while (s !== f) { s = a[s]; f = a[f]; } return s; }
+    s(I, T) { const res = (() => { const a = I.nums; let s = a[0], f = a[a[0]]; T.at({ nums: A(a) }); T.n('Where does the slow pointer go first?', a[0], 'It reads nums[0].'); while (s !== f) { s = a[s]; f = a[a[f]]; } T.at({ nums: A(a), meet: s }); T.n('Where do tortoise and hare meet?', s, 'Slow 1 step, fast 2 steps.'); s = 0; while (s !== f) { s = a[s]; f = a[f]; } return s; })(); T.n('Duplicate number?', res, 'Where the two pointers meet the second time.'); return res; }
   });
 
   D('smallest-rectangle-enclosing-black-pixels', {
@@ -62,7 +62,7 @@
     t: 'Max Rectangle Sum ≤ k',
     r: 'Fix a pair of rows, collapse columns into sums, then for each prefix p find the smallest earlier prefix ≥ p − k (sorted set + binary search).',
     g: R => { const m = R.int(1, 3), n = R.int(1, 3); return { matrix: Array.from({ length: m }, () => R.ints(n, -3, 4)), k: R.int(-1, 6) }; },
-    s(I, T) { const g = I.matrix, m = g.length, n = g[0].length; let best = -Infinity; for (let r1 = 0; r1 < m; r1++) { const col = Array(n).fill(0); for (let r2 = r1; r2 < m; r2++) { for (let j = 0; j < n; j++) col[j] += g[r2][j]; const pre = [0]; let p = 0, here = -Infinity; for (const v of col) { p += v; for (const q of pre) if (p - q <= I.k) here = Math.max(here, p - q); pre.push(p); } if (r1 === r2 && r1 < 2) { T.at({ matrix: G(g), colSums: A(col) }); T.n(`Best sum ≤ k using only row ${r1}? (use −999 if none)`, here === -Infinity ? -999 : here, 'Prefix p minus the smallest prefix ≥ p − k.'); } best = Math.max(best, here); } } return best; }
+    s(I, T) { const res = (() => { const g = I.matrix, m = g.length, n = g[0].length; let best = -Infinity; for (let r1 = 0; r1 < m; r1++) { const col = Array(n).fill(0); for (let r2 = r1; r2 < m; r2++) { for (let j = 0; j < n; j++) col[j] += g[r2][j]; const pre = [0]; let p = 0, here = -Infinity; for (const v of col) { p += v; for (const q of pre) if (p - q <= I.k) here = Math.max(here, p - q); pre.push(p); } if (r1 === r2 && r1 < 2) { T.at({ matrix: G(g), colSums: A(col) }); T.n(`Best sum at most k using only row ${r1}? (use −999 if none)`, here === -Infinity ? -999 : here, 'Prefix p minus the smallest earlier prefix that is at least p minus k.'); } best = Math.max(best, here); } } return best; })(); T.n('Best rectangle sum at most k?', res, 'Best over every pair of rows.'); return res; }
   });
 
   D('kth-smallest-element-in-a-sorted-matrix', {
@@ -76,7 +76,7 @@
     t: 'Nth Digit: skip blocks of equal-length numbers',
     r: 'There are 9 one-digit numbers, 90 two-digit, 900 three-digit… Subtract whole blocks, then locate the number and the digit inside it.',
     g: R => ({ n: R.int(1, 3000) }),
-    s(I, T) { let n = I.n, len = 1, cnt = 9, start = 1; while (n > len * cnt) { n -= len * cnt; len++; cnt *= 10; start *= 10; } T.at({ n: I.n }); T.n('How many digits does the target number have?', len, 'Skip whole blocks.'); const num = start + Math.floor((n - 1) / len); T.n('Which number contains it?', num, `start + ⌊(n − 1)/${len}⌋.`); return +String(num)[(n - 1) % len]; }
+    s(I, T) { const res = (() => { let n = I.n, len = 1, cnt = 9, start = 1; while (n > len * cnt) { n -= len * cnt; len++; cnt *= 10; start *= 10; } T.at({ n: I.n }); T.n('How many digits does the target number have?', len, 'Skip whole blocks.'); const num = start + Math.floor((n - 1) / len); T.n('Which number contains it?', num, `start plus (n minus 1) divided by ${len}, rounded down.`); return +String(num)[(n - 1) % len]; })(); T.n('The digit?', res, 'Pick the position inside that number.'); return res; }
   });
 
   D('split-array-largest-sum', {
@@ -104,7 +104,7 @@
     t: 'Smallest Good Base: try digit counts',
     r: 'With m + 1 ones, n = 1 + k + … + k^m, so k ≈ n^(1/m). Try m from largest to smallest; check k = ⌊n^(1/m)⌋ exactly with BigInt. m = 1 gives k = n − 1.',
     g: R => { const k = R.int(2, 9), m = R.int(1, 4); let n = 0n; for (let i = 0; i <= m; i++) n = n * BigInt(k) + 1n; return { n: String(R.chance(0.3) ? n + BigInt(R.int(1, 5)) : n) }; },
-    s(I, T) { const n = BigInt(I.n); for (let m = Math.floor(Math.log2(Number(n))); m >= 2; m--) { const k = BigInt(Math.floor(Math.pow(Number(n), 1 / m))); if (k < 2n) continue; for (const kk of [k, k + 1n]) { let s = 0n; for (let i = 0; i <= m; i++) s = s * kk + 1n; if (s === n) { T.at({ n: I.n, ones: m + 1 }); T.n('Smallest good base?', Number(kk), `${m + 1} ones in base ${kk}.`); return String(kk); } } } T.at({ n: I.n }); T.yn('Did any base with ≥ 3 ones work?', false, 'Fall back to n − 1 ("11").'); return String(n - 1n); }
+    s(I, T) { const n = BigInt(I.n); T.at({ n: I.n }); T.n('Most ones possible?', Math.floor(Math.log2(I.n)) + 1, 'Base 2 gives the longest string of ones.'); for (let m = Math.floor(Math.log2(Number(n))); m >= 2; m--) { const k = BigInt(Math.floor(Math.pow(Number(n), 1 / m))); if (k < 2n) continue; for (const kk of [k, k + 1n]) { let s = 0n; for (let i = 0; i <= m; i++) s = s * kk + 1n; if (s === n) { T.at({ n: I.n, ones: m + 1 }); T.n('Smallest good base?', Number(kk), `${m + 1} ones in base ${kk}.`); T.n('How many ones?', m + 1, 'Longer strings are tried first.'); return String(kk); } } } T.at({ n: I.n }); T.yn('Did any base with at least 3 ones work?', false, 'Fall back to n minus 1, written as 11.'); T.n('Smallest good base?', I.n - 1, 'n minus 1.'); return String(n - 1n); }
   });
 
   D('sum-of-square-numbers', {
@@ -126,7 +126,7 @@
     t: 'Find K Closest Elements: search the window start',
     r: 'Binary search the start s in [0, n − k]: if x − arr[s] > arr[s + k] − x, the window should move right.',
     g: R => { const a = sorted(R, R.int(1, 8), 0, 12); return { arr: a, k: R.int(1, a.length), x: R.int(-2, 14) }; },
-    s(I, T) { const a = I.arr; let lo = 0, hi = a.length - I.k; while (lo < hi) { const m = (lo + hi) >> 1, right = I.x - a[m] > a[m + I.k] - I.x; T.at({ arr: A(a, { win: [m, m + I.k - 1], hl: [m + I.k] }), x: I.x }); T.yn(`Should the window move right of start ${m}?`, right, `x − ${a[m]} vs ${a[m + I.k]} − x.`); if (right) lo = m + 1; else hi = m; } if (a.length === I.k) { T.at({ arr: A(a) }); T.n('Window start when k = n?', 0, 'Take everything.'); } return a.slice(lo, lo + I.k); }
+    s(I, T) { const res = (() => { const a = I.arr; let lo = 0, hi = a.length - I.k; while (lo < hi) { const m = (lo + hi) >> 1, right = I.x - a[m] > a[m + I.k] - I.x; T.at({ arr: A(a, { win: [m, m + I.k - 1], hl: [m + I.k] }), x: I.x }); T.yn(`Should the window move right of start ${m}?`, right, `x minus ${a[m]}, compared with ${a[m + I.k]} minus x.`); if (right) lo = m + 1; else hi = m; } if (a.length === I.k) { T.at({ arr: A(a) }); T.n('Window start when k = n?', 0, 'Take everything.'); } return a.slice(lo, lo + I.k); })(); T.n('First value of the window?', res[0], 'The final start.'); return res; }
   });
 
   D('kth-smallest-number-in-multiplication-table', {
@@ -140,7 +140,7 @@
     t: 'Search Sorted Array of Unknown Size',
     r: 'Double hi until secret[hi] ≥ target (out of range reads as +∞), then binary search [hi/2, hi].',
     g: R => { const a = R.distinct(R.int(1, 8), -5, 15).sort((x, y) => x - y); return { secret: a, target: R.chance(0.6) ? R.pick(a) : R.int(-5, 15) }; },
-    s(I, T) { const get = i => i < I.secret.length ? I.secret[i] : Infinity; let hi = 1; while (get(hi) < I.target) hi *= 2; T.at({ secret: A(I.secret), target: I.target }); T.n('Upper bound after doubling?', hi, 'Double until reader(hi) ≥ target.'); let lo = Math.floor(hi / 2); while (lo <= hi) { const m = (lo + hi) >> 1, v = get(m); if (v === I.target) return m; if (v < I.target) lo = m + 1; else hi = m - 1; } return -1; }
+    s(I, T) { const res = (() => { const get = i => i < I.secret.length ? I.secret[i] : Infinity; let hi = 1; while (get(hi) < I.target) hi *= 2; T.at({ secret: A(I.secret), target: I.target }); T.n('Upper bound after doubling?', hi, 'Double until reader(hi) is at least target.'); T.n('Lower bound for the binary search?', Math.floor(hi / 2), 'The previous doubling point.'); let lo = Math.floor(hi / 2); while (lo <= hi) { const m = (lo + hi) >> 1, v = get(m); if (v === I.target) return m; if (v < I.target) lo = m + 1; else hi = m - 1; } return -1; })(); T.n('Index of target? (−1 if missing)', res, 'Binary search between the bounds.'); return res; }
   });
 
   D('find-k-th-smallest-pair-distance', {
@@ -162,7 +162,7 @@
     t: 'Kth Smallest Prime Fraction',
     r: 'Binary search a real x; count fractions arr[i]/arr[j] ≤ x with two pointers, tracking the largest such fraction. Stop when the count is exactly k.',
     g: R => { const p = [1, 2, 3, 5, 7, 11, 13].slice(0, R.int(2, 7)); return { arr: p, k: R.int(1, p.length * (p.length - 1) / 2) }; },
-    s(I, T) { const a = I.arr, n = a.length, fr = []; for (let i = 0; i < n; i++) for (let j = i + 1; j < n; j++) fr.push([a[i], a[j]]); fr.sort((x, y) => x[0] * y[1] - y[0] * x[1]); const x = 0.5, c = fr.filter(f => f[0] / f[1] <= x).length; T.at({ arr: A(a), k: I.k, x }); T.n(`How many fractions are ≤ ${x}?`, c, 'Two pointers count them.'); T.yn(`Is the answer ≤ ${x}?`, c >= I.k, 'Compare the count with k.'); return fr[I.k - 1]; }
+    s(I, T) { const res = (() => { const a = I.arr, n = a.length, fr = []; for (let i = 0; i < n; i++) for (let j = i + 1; j < n; j++) fr.push([a[i], a[j]]); fr.sort((x, y) => x[0] * y[1] - y[0] * x[1]); const x = 0.5, c = fr.filter(f => f[0] / f[1] <= x).length; T.at({ arr: A(a), k: I.k, x }); T.n(`How many fractions are at most ${x}?`, c, 'Two pointers count them.'); T.yn(`Is the answer at most ${x}?`, c >= I.k, 'Compare the count with k.'); return fr[I.k - 1]; })(); T.n('Numerator of the answer?', res[0], 'The kth smallest fraction.'); return res; }
   });
 
   D('number-of-matching-subsequences', {
@@ -268,7 +268,7 @@
     t: 'Largest Square With Sum ≤ Threshold',
     r: 'Build 2D prefix sums. Binary search side L: L works if some L×L square has sum ≤ threshold.',
     g: R => { const m = R.int(1, 4), n = R.int(1, 4); return { mat: Array.from({ length: m }, () => R.ints(n, 0, 4)), threshold: R.int(0, 12) }; },
-    s(I, T) { const g = I.mat, m = g.length, n = g[0].length, P = Array.from({ length: m + 1 }, () => Array(n + 1).fill(0)); for (let i = 0; i < m; i++) for (let j = 0; j < n; j++) P[i + 1][j + 1] = g[i][j] + P[i][j + 1] + P[i + 1][j] - P[i][j]; const ok = L => { for (let i = L; i <= m; i++) for (let j = L; j <= n; j++) if (P[i][j] - P[i - L][j] - P[i][j - L] + P[i - L][j - L] <= I.threshold) return true; return false; }; return lastTrue(0, Math.min(m, n), L => L === 0 || ok(L), T, () => ({ mat: G(g) }), L => `Is there a ${L}×${L} square with sum ≤ ${I.threshold}?`); }
+    s(I, T) { const res = (() => { const g = I.mat, m = g.length, n = g[0].length, P = Array.from({ length: m + 1 }, () => Array(n + 1).fill(0)); for (let i = 0; i < m; i++) for (let j = 0; j < n; j++) P[i + 1][j + 1] = g[i][j] + P[i][j + 1] + P[i + 1][j] - P[i][j]; const ok = L => { for (let i = L; i <= m; i++) for (let j = L; j <= n; j++) if (P[i][j] - P[i - L][j] - P[i][j - L] + P[i - L][j - L] <= I.threshold) return true; return false; }; return lastTrue(0, Math.min(m, n), L => L === 0 || ok(L), T, () => ({ mat: G(g) }), L => `Is there a ${L} by ${L} square with sum at most ${I.threshold}?`); })(); T.n('Largest side length?', res, 'The last size that worked.'); return res; }
   });
 
   D('sum-of-mutated-array-closest-to-target', {

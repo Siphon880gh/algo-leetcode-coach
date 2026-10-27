@@ -190,7 +190,7 @@
     s(I, T) {
       const a = I.nums, P = [0]; a.forEach(x => P.push(P[P.length - 1] + x)); const sum = (i, l) => P[i + l] - P[i];
       const run = (L, M, nm) => { let bl = 0, best = 0; for (let j = L; j + M <= a.length; j++) { bl = Math.max(bl, sum(j - L, L)); best = Math.max(best, bl + sum(j, M)); } T.at({ nums: A(a), order: nm }); T.n(`Best total with the length-${L} window first, then length ${M}?`, best, 'Sweep the right window, carrying the best left window.'); return best; };
-      return Math.max(run(I.firstLen, I.secondLen, 'first, then second'), run(I.secondLen, I.firstLen, 'second, then first'));
+      const res = Math.max(run(I.firstLen, I.secondLen, 'first, then second'), run(I.secondLen, I.firstLen, 'second, then first')); T.at({ nums: A(a) }); T.n('Maximum total?', res, 'The better of the two orders.'); return res;
     }
   });
 
@@ -261,13 +261,13 @@
 
   D('shortest-common-supersequence', {
     t: 'Shortest Common Supersequence: LCS, then weave',
-    r: 'Build the LCS table. Walk back from the end: equal letters are written once; otherwise write the letter from the side whose LCS stays larger. Length = m + n − LCS.',
+    r: 'Build the LCS table. Walk back from the end: equal letters are written once; otherwise write the letter from the side whose LCS stays larger. Length = m plus n minus LCS.',
     cmp: (out, exp, I) => typeof out === 'string' && out.length === exp.length && isSub(I.str1, out) && isSub(I.str2, out),
     g: R => ({ str1: R.str(R.int(3, 4), 'abc'), str2: R.str(R.int(3, 4), 'abc') }),
     s(I, T) {
       const a = I.str1, b = I.str2, m = a.length, n = b.length, dp = mk(m + 1, n + 1, 0);
       for (let i = 1; i <= m; i++) for (let j = 1; j <= n; j++) dp[i][j] = a[i - 1] === b[j - 1] ? dp[i - 1][j - 1] + 1 : Math.max(dp[i - 1][j], dp[i][j - 1]);
-      T.at({ dp: G(dp, { rh: ['', ...a], ch: ['', ...b] }) }); T.n('LCS length?', dp[m][n], 'Bottom-right cell.'); T.n('Length of the shortest common supersequence?', m + n - dp[m][n], `${m} + ${n} − ${dp[m][n]}.`);
+      T.at({ dp: G(dp, { rh: ['', ...a], ch: ['', ...b] }) }); T.n('LCS length?', dp[m][n], 'Bottom-right cell.'); T.n('Length of the shortest common supersequence?', m + n - dp[m][n], `${m} plus ${n} minus ${dp[m][n]}.`); T.n('Letters of str2 that are not part of the LCS?', n - dp[m][n], 'They must be added around str1.');
       let i = m, j = n, out = ''; while (i && j) { if (a[i - 1] === b[j - 1]) { out = a[--i] + out; j--; } else if (dp[i - 1][j] >= dp[i][j - 1]) out = a[--i] + out; else out = b[--j] + out; } return a.slice(0, i) + b.slice(0, j) + out;
     }
   });

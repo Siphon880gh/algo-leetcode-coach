@@ -91,7 +91,7 @@
   LC.register('flood-fill', {
     title: 'Flood Fill: spread only through the starting color',
     rule: 'From (sr, sc), repaint every 4-connected cell that has the ORIGINAL color. If the new color equals the original, nothing changes (and DFS would loop forever without a check).',
-    rounds: 4, minSteps: 2,
+    rounds: 4, minSteps: 3,
     make: function (rng, round) {
       var R = 5, C = 6, g = []; for (var r = 0; r < R; r++) { var row = []; for (var c = 0; c < C; c++) row.push(rng.int(0, 2)); g.push(row); }
       var sr = rng.int(0, R - 1), sc = rng.int(0, C - 1), orig = g[sr][sc];
@@ -101,7 +101,8 @@
       var cc = g.map(function (row) { return row.map(function (v) { return ['water', 'land', 'blue'][v]; }); });
       function view(cls) { return V(P.grid(g, { cc: cc, cls: cls, pick: 'g', label: 'image (values shown)' }), P.vars([['start color', orig], ['new color', color]])); }
       var s0 = {}; s0[sr + ',' + sc] = 'hit';
-      var same = orig === color;
+      var same = orig === color, nOrig = 0; g.forEach(function (row) { row.forEach(function (v) { if (v === orig) nOrig++; }); });
+      t.num(view(s0), 'How many cells in the whole image have the start color ' + orig + '?', nOrig, { wrong: 'Count every cell with value ' + orig + ', connected or not.', note: nOrig + ' cells, but only the connected ones will change.' });
       t.act(view(s0), 'Start color ' + orig + ', new color ' + color + '. First check?', [['go', 'Different: start the flood'], ['stop', 'Same: return the image unchanged']], same ? 'stop' : 'go', same ? 'Repainting with the same color changes nothing, and a naive DFS would revisit cells forever.' : 'The colors differ, so there is work to do.', same ? 'Return early.' : 'Flood from (' + sr + ',' + sc + ').');
       if (!same) {
         var seen = {}, q = [[sr, sc]], cells = []; seen[sr + ',' + sc] = 1;
@@ -118,6 +119,7 @@
         t.num(view(s0), 'How many cells get repainted?', cells.length, { wrong: 'Count the start cell plus every cell you found.', note: cells.length + ' cells.' });
         cells.forEach(function (x) { g[x[0]][x[1]] = color; cc[x[0]][x[1]] = ['water', 'land', 'blue'][color]; });
       }
+      if (same) t.num(view(s0), 'How many cells change color?', 0, { wrong: 'The new color equals the old one, so nothing changes.', note: 'Nothing changes.' });
       t.done(view({}), same ? 'Unchanged image.' : 'Filled. O(R·C).');
       return t;
     }
@@ -126,7 +128,7 @@
   LC.register('rotting-oranges', {
     title: 'Rotting Oranges: every rotten orange spreads at once',
     rule: 'Multi-source BFS. Put every rotten orange in the queue at minute 0. Each minute, every fresh orange next to a rotten one rots. If any fresh orange is never reached, the answer is −1.',
-    minSteps: 2,
+    minSteps: 3,
     make: function (rng, round) {
       var R = 4 + (round > 0 ? 1 : 0), C = 5 + (round > 1 ? 1 : 0), g = [];
       for (var r = 0; r < R; r++) { var row = []; for (var c = 0; c < C; c++) row.push(rng.chance(0.7) ? 1 : 0); g.push(row); }
@@ -137,6 +139,9 @@
         var cc = g.map(function (row) { return row.map(function (v) { return v === 0 ? 'water' : v === 1 ? 'warn' : 'bad'; }); });
         return V(P.grid(g, { cc: cc, pick: 'g', label: 'oranges' }), P.vars([['minute', minute]]));
       }
+      var rot0 = 0, fresh0 = 0; g.forEach(function (row) { row.forEach(function (v) { if (v === 2) rot0++; if (v === 1) fresh0++; }); });
+      t.num(view(0), 'How many rotten oranges go into the queue at minute 0?', rot0, { wrong: 'Count every cell with value 2. They all start the BFS together.', note: rot0 + ' sources.' });
+      t.num(view(0), 'How many fresh oranges are there at the start?', fresh0, { wrong: 'Count every cell with value 1.', note: fresh0 + ' fresh oranges to reach.' });
       var minute = 0;
       while (true) {
         var next = [];
@@ -160,7 +165,7 @@
 
   function borderFlood(slug, cfg) {
     LC.register(slug, {
-      title: cfg.title, rule: cfg.rule, minSteps: 2,
+      title: cfg.title, rule: cfg.rule, minSteps: 3,
       make: function (rng, round) {
         var R = 5 + (round > 1 ? 1 : 0), C = 6, g, on, border, inner;
         do {
@@ -189,6 +194,7 @@
         });
         var cls = {}; border.forEach(function (x) { cls[x[0] + ',' + x[1]] = 'blue'; });
         inner.forEach(function (x) { cls[x[0] + ',' + x[1]] = 'warn'; });
+        t.num(view(cls), 'How many cells did the border flood reach (blue)?', border.length, { wrong: 'Count the blue cells: the ones connected to the edge.', note: border.length + ' cells reached from the border.' });
         var answer = cfg.answer(inner, g, on);
         t.num(view(cls, [['reached from border', border.length]]), cfg.finalAsk, answer, { wrong: cfg.finalWhy, note: 'Answer ' + answer + '.' });
         t.done(view(cls), cfg.done(answer));
@@ -228,7 +234,7 @@
   LC.register('01-matrix', {
     title: '01 Matrix: BFS outward from every zero',
     rule: 'Start a BFS from all 0 cells at once (distance 0). Each layer reaches the cells one step farther, so the first time you reach a cell is its distance.',
-    minSteps: 2,
+    minSteps: 3,
     make: function (rng, round) {
       var R = 4 + (round > 0 ? 1 : 0), C = 5, g = [];
       for (var r = 0; r < R; r++) { var row = []; for (var c = 0; c < C; c++) row.push(rng.chance(0.3) ? 0 : 1); g.push(row); }
@@ -240,6 +246,8 @@
         var cc = dist.map(function (row) { return row.map(function (v) { return v === null ? 'land' : v === 0 ? 'water' : 'blue'; }); });
         return V(P.grid(dist.map(function (row) { return row.map(function (v) { return v === null ? '1' : v; }); }), { cc: cc, pick: 'g', label: 'distance so far (brown = not reached)' }), P.vars([['layer', d]]));
       }
+      var zeros = 0; g.forEach(function (row) { row.forEach(function (v) { if (v === 0) zeros++; }); });
+      t.num(view(0), 'How many 0 cells start the BFS at distance 0?', zeros, { wrong: 'Count every 0. They all go into the queue first.', note: zeros + ' sources.' });
       var d = 0;
       while (true) {
         var next = [];
@@ -254,6 +262,7 @@
         next.forEach(function (x) { dist[x[0]][x[1]] = d + 1; });
         d++;
       }
+      t.num(view(d), 'Largest distance in the matrix?', d, { wrong: 'It equals the number of BFS layers after the zeros.', note: 'Farthest cell is ' + d + ' steps from a 0.' });
       t.done(view(d), 'Every distance is the BFS layer that first reached it. O(R·C).');
       return t;
     }
@@ -262,7 +271,7 @@
   LC.register('pacific-atlantic-water-flow', {
     title: 'Pacific Atlantic Water Flow: flood uphill from each ocean',
     rule: 'Instead of testing every cell, flood from the oceans: from the Pacific edge (top, left) and the Atlantic edge (bottom, right), move only to neighbors of equal or greater height. Cells reached by both drain to both.',
-    minSteps: 2,
+    minSteps: 3,
     make: function (rng, round) {
       var R = 4 + (round > 1 ? 1 : 0), C = 4 + (round > 0 ? 1 : 0), g = [];
       for (var r = 0; r < R; r++) { var row = []; for (var c = 0; c < C; c++) row.push(rng.int(1, 6)); g.push(row); }
@@ -277,6 +286,7 @@
       }
       var pac = flood(function (r, c) { return r === 0 || c === 0; }), atl = flood(function (r, c) { return r === R - 1 || c === C - 1; });
       function view(cls) { return V(P.grid(g, { cls: cls, pick: 'g', label: 'heights' })); }
+      t.num(view({}), 'How many cells touch the Pacific edge (top row or left column)?', R + C - 1, { wrong: 'Top row plus left column, counting the corner once.', note: 'These seed the Pacific flood.' });
       var cls = {};
       [[pac, 'Pacific', function (r, c) { return r === 0 || c === 0; }, 'blue'], [atl, 'Atlantic', function (r, c) { return r === R - 1 || c === C - 1; }, 'warn']].forEach(function (o) {
         var res = o[0], name = o[1], edge = o[2];
@@ -293,6 +303,7 @@
         }
         res.cells.forEach(function (x) { var k = x[0] + ',' + x[1]; cls[k] = cls[k] && cls[k] !== o[3] ? 'ok' : o[3]; });
       });
+      t.num(view(cls), 'How many cells can drain to the Pacific?', pac.cells.length, { wrong: 'Count every cell the Pacific flood reached, edges included.', note: pac.cells.length + ' cells.' });
       var both = pac.cells.filter(function (x) { return atl.seen[x[0] + ',' + x[1]]; }).length;
       t.num(view(cls), 'How many cells drain to both oceans (green)?', both, { wrong: 'Count the cells reached by both floods.', note: both + ' cells.' });
       t.done(view(cls), both + ' cells reach both oceans. Two floods: O(R·C).');

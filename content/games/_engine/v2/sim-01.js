@@ -23,7 +23,7 @@
     t: 'Read N Characters Given Read4',
     r: 'Call read4 repeatedly, copying min(got, n − copied) characters each time; stop when read4 returns fewer than 4 or n is reached.',
     g: R => ({ file: R.str(R.int(1, 10), 'abcde'), n: R.int(1, 12) }),
-    s(I, T) { let p = 0, copied = 0; while (copied < I.n) { const got = Math.min(4, I.file.length - p); p += got; const take = Math.min(got, I.n - copied); copied += take; T.at({ file: A([...I.file], { i: Math.max(0, p - 1) }), copied }); T.n('Characters read4 returned?', got, 'Up to 4 per call.'); if (got < 4) break; } return copied; }
+    s(I, T) { const res = (() => { let p = 0, copied = 0; while (copied < I.n) { const got = Math.min(4, I.file.length - p); p += got; const take = Math.min(got, I.n - copied); copied += take; T.at({ file: A([...I.file], { i: Math.max(0, p - 1) }), copied }); T.n('Characters read4 returned?', got, 'Up to 4 per call.'); if (got < 4) break; } return copied; })(); T.n('Characters copied in total?', res, 'The smaller of n and the file length.'); return res; }
   });
 
   D('read-n-characters-given-read4-ii', {
@@ -37,7 +37,7 @@
     t: 'Flip Game',
     r: 'Scan every i where s[i] and s[i+1] are both "+", and record the string with that pair flipped to "--".',
     g: R => ({ currentState: R.str(R.int(1, 7), '++-') }),
-    s(I, T) { const s = I.currentState, out = []; for (let i = 0; i + 1 < s.length; i++) if (s[i] === '+' && s[i + 1] === '+') out.push(s.slice(0, i) + '--' + s.slice(i + 2)); T.at({ state: A([...s]) }); T.n('How many "++" pairs?', out.length, 'Each gives one next state.'); return out; }
+    s(I, T) { const res = (() => { const s = I.currentState, out = []; for (let i = 0; i + 1 < s.length; i++) if (s[i] === '+' && s[i + 1] === '+') out.push(s.slice(0, i) + '--' + s.slice(i + 2)); T.at({ state: A([...s]) }); T.n('Plus signs in the state?', [...s].filter(c => c === '+').length, 'Only neighbouring pairs can flip.'); T.n('How many "++" pairs?', out.length, 'Each gives one next state.'); return out; })(); if (res.length) T.c('First next state?', [...new Set([res[0], I.currentState, ...res])], res[0], 'Flip the leftmost pair.'); else T.n('Next states?', 0, 'No pair to flip.'); return res; }
   });
 
   D('number-of-segments-in-a-string', {
@@ -51,7 +51,7 @@
     t: 'License Key Formatting',
     r: 'Remove dashes and uppercase. Group from the right in chunks of k, so only the first group may be shorter.',
     g: R => ({ s: R.str(R.int(1, 10), 'a1-B2-c'), k: R.int(1, 4) }),
-    s(I, T) { const c = I.s.replace(/-/g, '').toUpperCase(); T.at({ cleaned: c }); T.n('Length of the first group?', c.length % I.k || (c.length ? I.k : 0), 'Remainder (or k).'); const out = []; for (let i = c.length; i > 0; i -= I.k) out.unshift(c.slice(Math.max(0, i - I.k), i)); return out.join('-'); }
+    s(I, T) { const res = (() => { const c = I.s.replace(/-/g, '').toUpperCase(); T.at({ cleaned: c }); T.n('Characters after removing dashes?', c.length, 'Then uppercase them.'); T.n('Length of the first group?', c.length % I.k || (c.length ? I.k : 0), 'The remainder, or k if it divides evenly.'); const out = []; for (let i = c.length; i > 0; i -= I.k) out.unshift(c.slice(Math.max(0, i - I.k), i)); return out.join('-'); })(); T.n('Groups?', res ? res.split('-').length : 0, 'Count the dashes plus 1.'); return res; }
   });
 
   D('output-contest-matches', {
@@ -100,7 +100,7 @@
     t: 'Masking Personal Information',
     r: 'Email: lowercase, keep the first and last letters of the name with "*****" between. Phone: keep digits; last 4 are local, the rest beyond 10 form a country code shown as "+**-".',
     g: R => R.chance(0.5) ? { s: R.pick(['Al', 'Bob', 'LeetCode', 'xY']) + '@' + R.pick(['Qq', 'mail']) + '.com' } : { s: (R.chance(0.5) ? '+' + R.str(R.int(1, 3), '123') + ' ' : '') + '(' + R.str(3, '0123456789') + ') ' + R.str(3, '0123456789') + '-' + R.str(4, '0123456789') },
-    s(I, T) { if (I.s.includes('@')) { const [nm, dom] = I.s.toLowerCase().split('@'); T.at({ s: I.s }); T.yn('Is this an email?', true, 'Contains "@".'); return nm[0] + '*****' + nm[nm.length - 1] + '@' + dom; } const d = I.s.replace(/\D/g, ''), c = d.length - 10; T.at({ digits: d }); T.n('Country-code digits?', c, 'Digits beyond 10.'); return (c ? '+' + '*'.repeat(c) + '-' : '') + '***-***-' + d.slice(-4); }
+    s(I, T) { const res = (() => { if (I.s.includes('@')) { const [nm, dom] = I.s.toLowerCase().split('@'); T.at({ s: I.s }); T.yn('Is this an email?', true, 'Contains "@".'); T.n('Characters in the name part?', nm.length, 'Keep the first and last.'); return nm[0] + '*****' + nm[nm.length - 1] + '@' + dom; } const d = I.s.replace(/\D/g, ''), c = d.length - 10; T.at({ digits: d }); T.n('How many digits?', d.length, 'Ignore every other character.'); T.n('Country-code digits?', c, 'Digits beyond 10.'); return (c ? '+' + '*'.repeat(c) + '-' : '') + '***-***-' + d.slice(-4); })(); T.n('Length of the masked result?', res.length, 'Count every character.'); return res; }
   });
 
   D('walking-robot-simulation', {
@@ -184,7 +184,7 @@
     t: 'Reformat Phone Number',
     r: 'Keep the digits. Take blocks of 3 while more than 4 remain; then 4 digits become 2-2, 3 stay as one block, 2 stay as one block.',
     g: R => ({ number: R.int(1, 9) + Array.from({ length: R.int(1, 10) }, () => R.pick(['1', '2', '3', '4', '5', '-', ' '])).join('') + R.int(0, 9) }),
-    s(I, T) { let d = I.number.replace(/\D/g, ''); const out = []; while (d.length > 4) { out.push(d.slice(0, 3)); d = d.slice(3); } if (d.length === 4) out.push(d.slice(0, 2), d.slice(2)); else out.push(d); T.at({ digits: I.number.replace(/\D/g, '') }); T.n('How many blocks?', out.length, '3s first, then the tail.'); return out.join('-'); }
+    s(I, T) { const res = (() => { let d = I.number.replace(/\D/g, ''); const out = []; while (d.length > 4) { out.push(d.slice(0, 3)); d = d.slice(3); } if (d.length === 4) out.push(d.slice(0, 2), d.slice(2)); else out.push(d); T.at({ digits: I.number.replace(/\D/g, '') }); T.n('How many digits?', I.number.replace(/\D/g, '').length, 'Remove spaces and dashes.'); T.n('How many blocks?', out.length, '3s first, then the tail.'); return out.join('-'); })(); T.n('Length of the last block?', res.split('-').pop().length, 'Never a single digit.'); return res; }
   });
 
   D('average-waiting-time', {
@@ -206,7 +206,7 @@
     t: 'Concatenation of Array',
     r: 'ans[i] = ans[i + n] = nums[i].',
     g: R => ({ nums: R.ints(R.int(1, 5), 1, 9) }),
-    s(I, T) { const n = I.nums.length; T.at({ nums: A(I.nums) }); T.n('Length of the answer?', 2 * n, 'Two copies.'); T.n(`ans[${n}]?`, I.nums[0], 'Second copy starts over.'); return [...I.nums, ...I.nums]; }
+    s(I, T) { const res = (() => { const n = I.nums.length; T.at({ nums: A(I.nums) }); T.n('Length of the answer?', 2 * n, 'Two copies.'); T.n(`ans[${n}]?`, I.nums[0], 'Second copy starts over.'); return [...I.nums, ...I.nums]; })(); T.n('Last value of the answer?', res[res.length - 1], 'The last value of nums.'); return res; }
   });
 
   D('sum-of-digits-of-string-after-convert', {

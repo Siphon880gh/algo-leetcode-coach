@@ -60,7 +60,7 @@
     t: 'Palindrome Partitioning IV: three palindromes',
     r: 'Precompute isPal[i][j]. Try every pair of cuts (i, j): s[0..i], s[i+1..j], s[j+1..] must all be palindromes.',
     g: R => ({ s: R.str(R.int(5, 7), 'ab') }),
-    s(I, T) { const s = I.s, n = s.length, p = (i, j) => { while (i < j) if (s[i++] !== s[j--]) return false; return true; }; for (let i = 0; i < n - 2; i++) if (p(0, i)) { let ok = false; for (let j = i + 1; j < n - 1; j++) if (p(i + 1, j) && p(j + 1, n - 1)) ok = true; T.at({ s: A([...s], { win: [0, i] }) }); T.yn(`First part "${s.slice(0, i + 1)}" (a palindrome): can the rest split into two palindromes?`, ok, 'Try every second cut.'); if (ok) return true; } return false; }
+    s(I, T) { const res = (() => { const s = I.s, n = s.length, p = (i, j) => { while (i < j) if (s[i++] !== s[j--]) return false; return true; }; T.at({ s: A([...s]) }); T.n('Length of s?', n, 'Each of the three parts needs at least one letter.'); for (let i = 0; i < n - 2; i++) if (p(0, i)) { let ok = false; for (let j = i + 1; j < n - 1; j++) if (p(i + 1, j) && p(j + 1, n - 1)) ok = true; T.at({ s: A([...s], { win: [0, i] }) }); T.yn(`First part "${s.slice(0, i + 1)}" (a palindrome): can the rest split into two palindromes?`, ok, 'Try every second cut.'); if (ok) return true; } return false; })(); T.yn('Can s split into three palindromes?', res, 'Some first cut and second cut both work.'); return res; }
   });
 
   D('maximum-subarray-sum-after-one-operation', {
@@ -140,13 +140,13 @@
 
   D('maximize-score-after-n-operations', {
     t: 'Maximize Score After N Operations: later operations weigh more',
-    r: 'f(mask) = best score with the numbers in mask used; operation number = pairs used + 1. Try every free pair: op · gcd(a, b) + f(mask | pair).',
+    r: 'f(mask) = best score with the numbers in mask used; operation number = pairs used + 1. Try every free pair: op times gcd(a, b), plus f of the mask with that pair added.',
     g: R => ({ nums: R.ints(2 * R.int(1, 2), 1, 12) }),
     s(I, T) {
       const a = I.nums, n = a.length, full = (1 << n) - 1, memo = new Map(), f = m => { if (m === full) return 0; if (memo.has(m)) return memo.get(m); const op = pc(m) / 2 + 1; let b = 0; for (let i = 0; i < n; i++) if (!(m >> i & 1)) for (let j = i + 1; j < n; j++) if (!(m >> j & 1)) b = Math.max(b, op * gcd(a[i], a[j]) + f(m | 1 << i | 1 << j)); memo.set(m, b); return b; };
-      let m = 0; while (m !== full) { const op = pc(m) / 2 + 1, opts = [], ok = []; for (let i = 0; i < n; i++) if (!(m >> i & 1)) for (let j = i + 1; j < n; j++) if (!(m >> j & 1)) { const k = i + '-' + j; opts.push([k, `${a[i]} & ${a[j]} (gcd ${gcd(a[i], a[j])})`]); if (op * gcd(a[i], a[j]) + f(m | 1 << i | 1 << j) === f(m)) ok.push(k); }
+      T.at({ nums: A(a) }); T.n('Operations to perform?', n / 2, 'Each removes two numbers.'); let m = 0; while (m !== full) { const op = pc(m) / 2 + 1, opts = [], ok = []; for (let i = 0; i < n; i++) if (!(m >> i & 1)) for (let j = i + 1; j < n; j++) if (!(m >> j & 1)) { const k = i + '-' + j; opts.push([k, `${a[i]} & ${a[j]} (gcd ${gcd(a[i], a[j])})`]); if (op * gcd(a[i], a[j]) + f(m | 1 << i | 1 << j) === f(m)) ok.push(k); }
         T.at({ nums: A(a, { dim: a.map((_, i) => m >> i & 1 ? i : -1).filter(i => i >= 0) }), op }); T.k(`Operation ${op}: which pair (optimal)?`, opts, ok, `The best remaining score is ${f(m)}.`); const [i, j] = ok[0].split('-').map(Number); m |= 1 << i | 1 << j; }
-      return f(0);
+      T.at({ nums: A(a) }); T.n('Maximum score?', f(0), 'Sum of op times gcd over the optimal pairs.'); return f(0);
     }
   });
 
@@ -156,7 +156,7 @@
     g: R => ({ batchSize: R.int(2, 4), groups: R.ints(R.int(4, 6), 1, 9) }),
     s(I, T) {
       const b = I.batchSize, cnt = Array(b).fill(0); I.groups.forEach(g => cnt[g % b]++);
-      T.at({ batch: b, remainders: A(I.groups.map(g => g % b)) }); T.n('Groups with remainder 0 (always happy)?', cnt[0], 'Their size is a multiple of the batch size.');
+      T.at({ batch: b, remainders: A(I.groups.map(g => g % b)) }); T.n('Groups with remainder 0 (always happy)?', cnt[0], 'Their size is a multiple of the batch size.'); T.n('Groups with a non-zero remainder?', I.groups.length - cnt[0], 'These need a good order.');
       const memo = new Map(), f = (c, left) => { const k = c.join(',') + '|' + left; if (memo.has(k)) return memo.get(k); let best = 0; for (let r = 1; r < b; r++) if (c[r]) { c[r]--; best = Math.max(best, (left === 0 ? 1 : 0) + f(c, (left + r) % b)); c[r]++; } memo.set(k, best); return best; };
       const res = cnt[0] + f(cnt.slice().map((v, i) => i ? v : 0), 0); T.n('Maximum happy groups?', res, 'Remainder-0 groups plus the best ordering of the rest.'); return res;
     }

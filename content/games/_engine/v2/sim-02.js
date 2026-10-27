@@ -29,14 +29,14 @@
     t: 'Divide a String Into Groups of Size k',
     r: 'Cut s into chunks of k; pad the last chunk with the fill character.',
     g: R => ({ s: R.str(R.int(1, 10), 'abcdef'), k: R.int(1, 4), fill: 'x' }),
-    s(I, T) { const out = []; for (let i = 0; i < I.s.length; i += I.k) out.push(I.s.slice(i, i + I.k).padEnd(I.k, I.fill)); T.at({ s: I.s, k: I.k }); T.n('Number of groups?', out.length, '⌈n / k⌉.'); return out; }
+    s(I, T) { const res = (() => { const out = []; for (let i = 0; i < I.s.length; i += I.k) out.push(I.s.slice(i, i + I.k).padEnd(I.k, I.fill)); T.at({ s: I.s, k: I.k }); T.n('Number of groups?', out.length, 'n divided by k, rounded up.'); T.n('Fill characters added?', out.length * I.k - I.s.length, 'Only the last group is padded.'); return out; })(); T.n('Characters from s in the last group?', I.s.length - (res.length - 1) * I.k, 'The rest is fill.'); return res; }
   });
 
   D('keep-multiplying-found-values-by-two', {
     t: 'Keep Multiplying Found Values by Two',
     r: 'Put nums in a set; while original is in it, double original.',
     g: R => ({ nums: R.ints(R.int(1, 6), 1, 16), original: R.pick([1, 2, 3, 4]) }),
-    s(I, T) { const S = new Set(I.nums); let x = I.original; for (;;) { const hit = S.has(x); T.at({ nums: A(I.nums), original: x }); T.yn(`Is ${x} in nums?`, hit, 'If so, double it.'); if (!hit) return x; x *= 2; } }
+    s(I, T) { const res = (() => { const S = new Set(I.nums); let x = I.original; for (;;) { const hit = S.has(x); T.at({ nums: A(I.nums), original: x }); T.yn(`Is ${x} in nums?`, hit, 'If so, double it.'); if (!hit) return x; x *= 2; } })(); T.n('How many doublings?', Math.round(Math.log2(res / I.original)), 'Count each time it was found.'); T.n('Final value?', res, 'The first value not in nums.'); return res; }
   });
 
   D('count-artifacts-that-can-be-extracted', {
@@ -107,7 +107,7 @@
     t: 'Semi-Ordered Permutation',
     r: 'Move 1 to the front (its index swaps) and n to the end (n − 1 − its index swaps); subtract 1 if 1 starts to the right of n, since they cross once.',
     g: R => ({ nums: R.perm(R.int(2, 7)).map(x => x + 1) }),
-    s(I, T) { const n = I.nums.length, a = I.nums.indexOf(1), b = I.nums.indexOf(n); T.at({ nums: A(I.nums, { i: a, j: b }) }); T.n('Swaps to move 1 to the front?', a, 'Its index.'); T.n(`Swaps to move ${n} to the end?`, n - 1 - b, 'Distance to the end.'); return a + n - 1 - b - (a > b ? 1 : 0); }
+    s(I, T) { const res = (() => { const n = I.nums.length, a = I.nums.indexOf(1), b = I.nums.indexOf(n); T.at({ nums: A(I.nums, { i: a, j: b }) }); T.n('Swaps to move 1 to the front?', a, 'Its index.'); T.n(`Swaps to move ${n} to the end?`, n - 1 - b, 'Distance to the end.'); return a + n - 1 - b - (a > b ? 1 : 0); })(); T.n('Fewest swaps?', res, 'Both moves, minus 1 if they cross.'); return res; }
   });
 
   D('relocate-marbles', {
@@ -142,7 +142,7 @@
     t: 'Maximum Number of Operations With the Same Score I',
     r: 'The first pair fixes the score. Keep taking the next pair while its sum matches.',
     g: R => ({ nums: R.ints(R.int(2, 8), 1, 4) }),
-    s(I, T) { const s = I.nums[0] + I.nums[1]; let c = 0; for (let i = 0; i + 1 < I.nums.length; i += 2) { const ok = I.nums[i] + I.nums[i + 1] === s; T.at({ nums: A(I.nums, { i, j: i + 1 }), score: s }); T.yn('Does this pair match the score?', ok, 'Stop at the first mismatch.'); if (!ok) break; c++; } return c; }
+    s(I, T) { const res = (() => { const s = I.nums[0] + I.nums[1]; let c = 0; for (let i = 0; i + 1 < I.nums.length; i += 2) { const ok = I.nums[i] + I.nums[i + 1] === s; T.at({ nums: A(I.nums, { i, j: i + 1 }), score: s }); T.yn('Does this pair match the score?', ok, 'Stop at the first mismatch.'); if (!ok) break; c++; } return c; })(); T.n('Operations?', res, 'Pairs that matched before the first mismatch.'); return res; }
   });
 
   D('distribute-elements-into-two-arrays-i', {

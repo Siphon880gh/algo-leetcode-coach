@@ -5,7 +5,7 @@ return [
     'title' => 'Find Sum of Array Product of Magical Sequences: counts with carries',
     'leetcode' => 3539,
     'difficulty' => 'Hard',
-    'summary' => 'Only how many times each index is used matters. Choose a count c for each index from low to high; c copies of 2^i plus the carry from below fix bit i and pass the rest up. Weight each choice by nums[i]^c / c! and multiply by m! at the end t',
+    'summary' => 'A sequence picks m indices (repeats allowed). It is magical when 2 to the power of each index, added up, has exactly k set bits. Only how many times each index is used matters: choose a count for each index from low to high, carry into the next bit, and weight each choice by nums[i] to the power count, divided by count factorial. Multiply by m factorial at the end to count the orderings.',
     'category' => 'LeetCode',
     'subcategory' => 'Dynamic Programming',
     'topic' => 'LeetCode · Dynamic Programming',

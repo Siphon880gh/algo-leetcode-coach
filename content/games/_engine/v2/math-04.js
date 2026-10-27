@@ -8,7 +8,7 @@
   const fact = n => { let r = 1n; for (let i = 2n; i <= BigInt(n); i++) r = r * i % M; return r; };
   const binom = (n, k) => k < 0 || k > n ? 0n : fact(n) * pw(fact(k), M - 2n) % M * pw(fact(n - k), M - 2n) % M;
   const rev = x => +[...String(x)].reverse().join('');
-  const runsOf = (s, T, pred, label) => { let t = 0; for (const r of s.match(/(.)\1*/g)) { if (!pred(r)) continue; const v = r.length * (r.length + 1) / 2; T.at({ s, total: t }); T.n(`Substrings inside the run "${r}"?`, v, `${r.length}·${r.length + 1}/2.`); t = (t + v) % MOD; } return t; };
+  const runsOf = (s, T, pred, label) => { let t = 0; const runs = s.match(/(.)\1*/g).filter(pred); T.at({ s }); T.n('How many runs to count?', runs.length, 'Split into blocks of the same character.'); for (const r of runs) { const v = r.length * (r.length + 1) / 2; T.at({ s, total: t }); T.n(`Substrings inside the run "${r}"?`, v, `${r.length} times ${r.length + 1}, halved.`); t = (t + v) % MOD; } T.at({ s }); T.n('Total substrings (mod 1e9+7)?', t, 'Add the counts of every run.'); return t; };
 
   D('number-of-good-pairs', {
     t: 'Number of Good Pairs: each value pairs with its earlier copies',
@@ -17,7 +17,7 @@
     s(I, T) { const c = {}; let t = 0; I.nums.forEach((x, j) => { T.at({ nums: A(I.nums, { hl: [j] }), seen: K(c), pairs: t }); T.n(`New good pairs ending at index ${j}?`, c[x] || 0, `Earlier copies of ${x}.`); t += c[x] || 0; c[x] = (c[x] || 0) + 1; }); return t; }
   });
 
-  D('number-of-substrings-with-only-1s', { t: 'Substrings With Only 1s: L·(L+1)/2 per run of ones', r: 'Split into runs. A run of L ones contains L·(L + 1)/2 all-ones substrings; sum them mod 10^9 + 7.', g: R => ({ s: R.str(R.int(3, 9), '011') }), s: (I, T) => runsOf(I.s, T, r => r[0] === '1') });
+  D('number-of-substrings-with-only-1s', { t: 'Substrings With Only 1s: count each run of ones', r: 'Split into runs. A run of L ones contains L times (L + 1), halved, all-ones substrings; sum them mod 10^9 + 7.', g: R => ({ s: R.str(R.int(3, 9), '011') }), s: (I, T) => runsOf(I.s, T, r => r[0] === '1') });
   D('count-number-of-homogenous-substrings', { t: 'Count Homogenous Substrings: L·(L+1)/2 per run', r: 'Split into runs of the same letter. A run of length L contains L·(L + 1)/2 homogenous substrings; sum them mod 10^9 + 7.', g: R => ({ s: R.str(R.int(3, 9), 'aab') }), s: (I, T) => runsOf(I.s, T, () => true) });
 
   D('water-bottles', {
@@ -31,7 +31,7 @@
     t: 'Count Odd Numbers in a Range: odds up to x',
     r: 'There are ⌊(x + 1)/2⌋ odd numbers in [0, x]. Answer = odds(high) − odds(low − 1) = ⌊(high + 1)/2⌋ − ⌊low/2⌋.',
     g: R => { const l = R.int(0, 30); return { low: l, high: l + R.int(0, 20) }; },
-    s(I, T) { const a = Math.floor((I.high + 1) / 2), b = Math.floor(I.low / 2); T.at({ low: I.low, high: I.high }); T.n(`Odd numbers in [0, ${I.high}]?`, a, '⌊(high + 1)/2⌋.'); T.n(`Odd numbers in [0, ${I.low - 1}]?`, b, '⌊low/2⌋.'); return a - b; }
+    s(I, T) { const res = (() => { const a = Math.floor((I.high + 1) / 2), b = Math.floor(I.low / 2); T.at({ low: I.low, high: I.high }); T.n(`Odd numbers in [0, ${I.high}]?`, a, 'high plus 1, halved and rounded down.'); T.n(`Odd numbers in [0, ${I.low - 1}]?`, b, 'low halved, rounded down.'); return a - b; })(); T.n(`Odd numbers from ${I.low} to ${I.high}?`, res, 'Subtract the two counts.'); return res; }
   });
 
   D('guess-the-majority-in-a-hidden-array', {
@@ -53,14 +53,14 @@
     t: 'Most Visited Sector: only start and end matter',
     r: 'Full laps add equally to every sector. The extra visits are from rounds[0] to rounds[last]: [start..end] if start ≤ end, else [1..end] plus [start..n].',
     g: R => { const n = R.int(2, 6), r = [R.int(1, n)]; for (let i = 0; i < R.int(1, 4); i++) { let x; do x = R.int(1, n); while (x === r[r.length - 1]); r.push(x); } return { n, rounds: r }; },
-    s(I, T) { const s = I.rounds[0], e = I.rounds[I.rounds.length - 1]; T.at({ n: I.n, start: s, end: e }); T.yn('Does the extra stretch wrap past sector n?', s > e, 'Start after end means it wraps.'); const out = []; if (s <= e) for (let i = s; i <= e; i++) out.push(i); else { for (let i = 1; i <= e; i++) out.push(i); for (let i = s; i <= I.n; i++) out.push(i); } return out; }
+    s(I, T) { const res = (() => { const s = I.rounds[0], e = I.rounds[I.rounds.length - 1]; T.at({ n: I.n, start: s, end: e }); T.yn('Does the extra stretch wrap past sector n?', s > e, 'Start after end means it wraps.'); const out = []; if (s <= e) for (let i = s; i <= e; i++) out.push(i); else { for (let i = 1; i <= e; i++) out.push(i); for (let i = s; i <= I.n; i++) out.push(i); } return out; })(); T.n('How many sectors are most visited?', res.length, 'Every sector from the start to the end of the final lap.'); T.n('Smallest of them?', res[0], 'Return them in increasing order.'); return res; }
   });
 
   D('number-of-ways-to-reorder-array-to-get-same-bst', {
     t: 'Reorder Array for the Same BST: interleave the subtrees',
     r: 'The root stays first. Left items (smaller) and right items (larger) keep their own relative order but can interleave: ways = C(L + R, L) · ways(left) · ways(right). Subtract 1 for the original order.',
     g: R => ({ nums: R.shuffle(Array.from({ length: R.int(2, 6) }, (_, i) => i + 1)) }),
-    s(I, T) { const f = a => { if (a.length <= 2) return 1n; const L = a.filter(x => x < a[0]), Rr = a.filter(x => x > a[0]), c = binom(L.length + Rr.length, L.length); T.at({ subtree: A(a, { hl: [0] }), left: A(L), right: A(Rr) }); T.n(`Interleavings of ${L.length} left and ${Rr.length} right items?`, Number(c), `C(${L.length + Rr.length}, ${L.length}).`); return c * f(L) % M * f(Rr) % M; }; return Number((f(I.nums) - 1n + M) % M); }
+    s(I, T) { const res = (() => { const f = a => { if (a.length <= 2) return 1n; const L = a.filter(x => x < a[0]), Rr = a.filter(x => x > a[0]), c = binom(L.length + Rr.length, L.length); T.at({ subtree: A(a, { hl: [0] }), left: A(L), right: A(Rr) }); T.n(`Interleavings of ${L.length} left and ${Rr.length} right items?`, Number(c), `C(${L.length + Rr.length}, ${L.length}).`); return c * f(L) % M * f(Rr) % M; }; return Number((f(I.nums) - 1n + M) % M); })(); T.n('Other orderings that give the same BST (mod 1e9+7)?', res, 'Multiply all interleavings, then subtract the original order.'); return res; }
   });
 
   D('number-of-ways-to-split-a-string', {
@@ -88,14 +88,14 @@
     t: 'Calculate Money in Leetcode Bank: weeks plus leftover days',
     r: 'Week w (0-based) deposits 28 + 7w. The leftover d days of the next week deposit (w + 1) + … + (w + d).',
     g: R => ({ n: R.int(1, 40) }),
-    s(I, T) { const w = Math.floor(I.n / 7), d = I.n % 7; let full = 0; for (let i = 0; i < w; i++) full += 28 + 7 * i; T.at({ n: I.n, weeks: w, extraDays: d }); T.n('Money from the full weeks?', full, 'Σ (28 + 7w).'); let ext = 0; for (let i = 1; i <= d; i++) ext += w + i; T.n('Money from the leftover days?', ext, `Days start at ${w + 1}.`); return full + ext; }
+    s(I, T) { const res = (() => { const w = Math.floor(I.n / 7), d = I.n % 7; let full = 0; for (let i = 0; i < w; i++) full += 28 + 7 * i; T.at({ n: I.n, weeks: w, extraDays: d }); T.n('Money from the full weeks?', full, 'Week w adds 28 plus 7 times w.'); let ext = 0; for (let i = 1; i <= d; i++) ext += w + i; T.n('Money from the leftover days?', ext, `Days start at ${w + 1}.`); return full + ext; })(); T.n('Total money?', res, 'Full weeks plus leftover days.'); return res; }
   });
 
   D('tuple-with-same-product', {
     t: 'Tuple With Same Product: count equal-product pairs',
     r: 'Count every pair product. Two different pairs with the same product make 8 ordered tuples, so add 8 · C(c, 2) for each product seen c times.',
     g: R => ({ nums: R.distinct(R.int(3, 6), 1, 12) }),
-    s(I, T) { const c = {}; const a = I.nums; for (let i = 0; i < a.length; i++) for (let j = i + 1; j < a.length; j++) c[a[i] * a[j]] = (c[a[i] * a[j]] || 0) + 1; let t = 0; for (const [p, v] of Object.entries(c)) if (v > 1) { T.at({ products: K(Object.entries(c).filter(x => x[1] > 1)) }); T.n(`Tuples from product ${p} (${v} pairs)?`, 8 * v * (v - 1) / 2, '8 · C(c, 2).'); t += 8 * v * (v - 1) / 2; } T.at({ nums: A(a) }); T.n('Pairs with a repeated product?', Object.values(c).filter(v => v > 1).reduce((s, v) => s + v, 0), 'Count every pair whose product appears more than once.'); return t; }
+    s(I, T) { const res = (() => { const c = {}; const a = I.nums; for (let i = 0; i < a.length; i++) for (let j = i + 1; j < a.length; j++) c[a[i] * a[j]] = (c[a[i] * a[j]] || 0) + 1; T.at({ nums: A(a) }); T.n('Pairs in total?', a.length * (a.length - 1) / 2, 'Every pair gives one product.'); let t = 0; for (const [p, v] of Object.entries(c)) if (v > 1) { T.at({ products: K(Object.entries(c).filter(x => x[1] > 1)) }); T.n(`Tuples from product ${p} (${v} pairs)?`, 8 * v * (v - 1) / 2, '8 times the number of ways to choose 2 of those pairs.'); t += 8 * v * (v - 1) / 2; } T.at({ nums: A(a) }); T.n('Pairs with a repeated product?', Object.values(c).filter(v => v > 1).reduce((s, v) => s + v, 0), 'Count every pair whose product appears more than once.'); return t; })(); T.n('Total tuples?', res, 'Add the tuples from every repeated product.'); return res; }
   });
 
   D('count-ways-to-make-array-with-product', {
@@ -109,7 +109,7 @@
     t: 'Maximum Number of Balls in a Box: bucket by digit sum',
     r: 'Each ball goes to the box numbered by its digit sum. Count per box and return the largest count.',
     g: R => { const l = R.int(1, 40); return { lowLimit: l, highLimit: l + R.int(0, 30) }; },
-    s(I, T) { const c = {}; for (let i = I.lowLimit; i <= I.highLimit; i++) { const s = [...String(i)].reduce((a, d) => a + +d, 0); c[s] = (c[s] || 0) + 1; } const best = Object.entries(c).sort((a, b) => b[1] - a[1] || a[0] - b[0])[0]; T.at({ boxes: K(c) }); T.n('Which box gets the most balls (smallest on ties)?', +best[0], 'The digit sum with the biggest count.'); return best[1]; }
+    s(I, T) { const res = (() => { const c = {}; for (let i = I.lowLimit; i <= I.highLimit; i++) { const s = [...String(i)].reduce((a, d) => a + +d, 0); c[s] = (c[s] || 0) + 1; } const best = Object.entries(c).sort((a, b) => b[1] - a[1] || a[0] - b[0])[0]; T.at({ boxes: K(c) }); T.n(`Box for ball ${I.lowLimit}?`, [...String(I.lowLimit)].reduce((a, d) => a + +d, 0), 'Its digit sum.'); T.n('Which box gets the most balls (smallest on ties)?', +best[0], 'The digit sum with the biggest count.'); return best[1]; })(); T.n('Balls in that box?', res, 'The largest count.'); return res; }
   });
 
   D('find-nearest-point-that-has-the-same-x-or-y-coordinate', {
@@ -137,14 +137,14 @@
     t: 'Maximize Nice Divisors: split into threes',
     r: 'Nice divisors = product of the prime exponents, so split primeFactors into parts with the largest product: as many 3s as possible, using 2·2 instead of 3·1.',
     g: R => ({ primeFactors: R.int(1, 30) }),
-    s(I, T) { const n = I.primeFactors; if (n <= 3) return n; const r = n % 3, threes = r === 1 ? (n - 4) / 3 : Math.floor(n / 3); T.at({ primeFactors: n }); T.n('How many parts of size 3?', threes, r === 1 ? 'Remainder 1: use 2 + 2 instead of 3 + 1.' : r === 2 ? 'Remainder 2: one extra 2.' : 'All threes.'); return Number(pw(3, threes) * BigInt(r === 1 ? 4 : r === 2 ? 2 : 1) % M); }
+    s(I, T) { const res = (() => { const n = I.primeFactors; if (n <= 3) { T.at({ primeFactors: n }); T.yn('Is primeFactors 3 or fewer?', true, 'Then one prime repeated n times is best.'); T.n('How many different primes?', 1, 'Keep every factor on one prime.'); return n; } const r = n % 3, threes = r === 1 ? (n - 4) / 3 : Math.floor(n / 3); T.at({ primeFactors: n }); T.n('Remainder when divided by 3?', r, 'It decides whether to use 2s.'); T.n('How many parts of size 3?', threes, r === 1 ? 'Remainder 1: use two 2s instead of a 3 and a 1.' : r === 2 ? 'Remainder 2: one extra 2.' : 'All threes.'); return Number(pw(3, threes) * BigInt(r === 1 ? 4 : r === 2 ? 2 : 1) % M); })(); T.n('Most nice divisors (mod 1e9+7)?', res, 'Multiply the part sizes.'); return res; }
   });
 
   D('determine-color-of-a-chessboard-square', {
     t: 'Chessboard Square Color: parity of file + rank',
     r: 'a1 is black. A square is white when (file index + rank) is odd.',
     g: R => ({ coordinates: 'abcdefgh'[R.int(0, 7)] + R.int(1, 8) }),
-    s(I, T) { const s = I.coordinates.charCodeAt(0) - 96 + +I.coordinates[1]; T.at({ square: I.coordinates }); T.n('File number (a = 1) + rank?', s, 'Add them.'); return s % 2 === 1; }
+    s(I, T) { const res = (() => { const s = I.coordinates.charCodeAt(0) - 96 + +I.coordinates[1]; T.at({ square: I.coordinates }); T.n('File number, with a as 1?', I.coordinates.charCodeAt(0) - 96, 'Position of the letter.'); T.n('File number plus rank?', s, 'Add them.'); return s % 2 === 1; })(); T.yn('Is the square white?', res, 'White when the sum is odd.'); return res; }
   });
 
   D('count-nice-pairs-in-an-array', {
@@ -165,7 +165,7 @@
     t: 'Sign of the Product: count negatives, watch for zero',
     r: 'Any zero makes the product 0. Otherwise the sign is −1 for an odd number of negatives, 1 for even.',
     g: R => ({ nums: R.ints(R.int(1, 6), -5, 5) }),
-    s(I, T) { T.at({ nums: A(I.nums) }); const z = I.nums.includes(0); T.yn('Is there a zero?', z, 'A zero makes the product 0.'); if (z) return 0; const neg = I.nums.filter(x => x < 0).length; T.n('How many negatives?', neg, 'Their parity decides the sign.'); return neg % 2 ? -1 : 1; }
+    s(I, T) { const res = (() => { T.at({ nums: A(I.nums) }); const z = I.nums.includes(0); T.yn('Is there a zero?', z, 'A zero makes the product 0.'); if (z) { T.n('How many zeros?', I.nums.filter(x => x === 0).length, 'Any one of them is enough.'); return 0; } const neg = I.nums.filter(x => x < 0).length; T.n('How many negatives?', neg, 'Their parity decides the sign.'); return neg % 2 ? -1 : 1; })(); T.n('Sign of the product?', res, '1, minus 1 or 0.'); return res; }
   });
 
   D('find-the-winner-of-the-circular-game', {
@@ -214,14 +214,14 @@
     t: 'Number of Full Rounds Played: round inward to 15 minutes',
     r: 'Convert to minutes; if logout < login, add 1440. Round login up and logout down to multiples of 15; full rounds = max(0, (out − in) / 15).',
     g: R => { const t = () => `${String(R.int(0, 23)).padStart(2, '0')}:${String(R.int(0, 59)).padStart(2, '0')}`; let a = t(), b = t(); while (a === b) b = t(); return { loginTime: a, logoutTime: b }; },
-    s(I, T) { const m = s => +s.slice(0, 2) * 60 + +s.slice(3); let a = m(I.loginTime), b = m(I.logoutTime); if (b < a) b += 1440; const s = Math.ceil(a / 15) * 15, e = Math.floor(b / 15) * 15; T.at({ login: I.loginTime, logout: I.logoutTime }); T.n('First full round starts at minute?', s, 'Round login up to 15.'); T.n('Last full round ends at minute (after midnight adds 1440)?', e, 'Round logout down to 15.'); return Math.max(0, (e - s) / 15); }
+    s(I, T) { const res = (() => { const m = s => +s.slice(0, 2) * 60 + +s.slice(3); let a = m(I.loginTime), b = m(I.logoutTime); if (b < a) b += 1440; const s = Math.ceil(a / 15) * 15, e = Math.floor(b / 15) * 15; T.at({ login: I.loginTime, logout: I.logoutTime }); T.n('First full round starts at minute?', s, 'Round login up to 15.'); T.n('Last full round ends at minute (after midnight adds 1440)?', e, 'Round logout down to 15.'); return Math.max(0, (e - s) / 15); })(); T.n('Full rounds played?', res, 'Gap divided by 15, or 0.'); return res; }
   });
 
   D('count-good-numbers', {
     t: 'Count Good Numbers: 5 choices at even positions, 4 at odd',
     r: 'Even indices (⌈n/2⌉ of them) take 0, 2, 4, 6, 8; odd indices (⌊n/2⌋) take 2, 3, 5, 7. Answer 5^⌈n/2⌉ · 4^⌊n/2⌋ with fast power.',
     g: R => ({ n: R.int(1, 30) }),
-    s(I, T) { const e = Math.ceil(I.n / 2), o = Math.floor(I.n / 2); T.at({ n: I.n }); T.n('How many even positions?', e, '⌈n/2⌉.'); return Number(pw(5, e) * pw(4, o) % M); }
+    s(I, T) { const res = (() => { const e = Math.ceil(I.n / 2), o = Math.floor(I.n / 2); T.at({ n: I.n }); T.n('How many even positions?', e, 'Half of n, rounded up.'); T.n('How many odd positions?', o, 'Half of n, rounded down.'); return Number(pw(5, e) * pw(4, o) % M); })(); T.n('Good digit strings (mod 1e9+7)?', res, '5 choices at each even position, 4 at each odd one.'); return res; }
   });
 
   D('count-square-sum-triples', {
@@ -235,7 +235,7 @@
     t: 'Three Divisors: squares of primes',
     r: 'Exactly three divisors means n = p² for a prime p (divisors 1, p, p²). Equivalently count divisors up to √n.',
     g: R => ({ n: R.pick([4, 9, 25, 49, R.int(1, 100)]) }),
-    s(I, T) { let c = 0; for (let d = 1; d * d <= I.n; d++) if (I.n % d === 0) c += d * d === I.n ? 1 : 2; T.at({ n: I.n }); T.n('Number of divisors?', c, 'Pairs (d, n/d), the square root once.'); return c === 3; }
+    s(I, T) { const res = (() => { let c = 0; for (let d = 1; d * d <= I.n; d++) if (I.n % d === 0) c += d * d === I.n ? 1 : 2; T.at({ n: I.n }); T.yn('Is n a perfect square?', Number.isInteger(Math.sqrt(I.n)), 'Only squares have an odd number of divisors.'); T.n('Number of divisors?', c, 'Divisors pair up as d and n divided by d; a square root counts once.'); return c === 3; })(); T.yn('Exactly three divisors?', res, 'Only squares of primes.'); return res; }
   });
 
   D('find-greatest-common-divisor-of-array', {

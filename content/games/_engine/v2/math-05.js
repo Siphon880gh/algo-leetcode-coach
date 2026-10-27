@@ -16,14 +16,14 @@
     r: 'Missing total = mean·(n + m) − Σ rolls. It must lie in [n, 6n]. Give every missing roll ⌊total/n⌋ and add 1 to the first (total mod n) of them.',
     g: R => { const rolls = R.ints(R.int(1, 4), 1, 6), n = R.int(1, 4); return { rolls, mean: R.int(1, 6), n }; },
     cmp: (out, exp, I) => { if (!exp.length) return Array.isArray(out) && !out.length; return out.length === I.n && out.every(v => v >= 1 && v <= 6) && out.reduce((a, b) => a + b, 0) + I.rolls.reduce((a, b) => a + b, 0) === I.mean * (I.n + I.rolls.length); },
-    s(I, T) { const tot = I.mean * (I.n + I.rolls.length) - I.rolls.reduce((a, b) => a + b, 0); T.at({ rolls: A(I.rolls), mean: I.mean, missing: I.n }); T.n('Total of the missing rolls?', tot, 'mean·(n + m) − Σ rolls.'); T.yn(`Is it between ${I.n} and ${6 * I.n}?`, tot >= I.n && tot <= 6 * I.n, 'Each die shows 1 to 6.'); if (tot < I.n || tot > 6 * I.n) return []; const b = Math.floor(tot / I.n); return Array.from({ length: I.n }, (_, i) => b + (i < tot % I.n ? 1 : 0)); }
+    s(I, T) { const res = (() => { const tot = I.mean * (I.n + I.rolls.length) - I.rolls.reduce((a, b) => a + b, 0); T.at({ rolls: A(I.rolls), mean: I.mean, missing: I.n }); T.n('Total of the missing rolls?', tot, 'Mean times all rolls, minus the known rolls.'); T.yn(`Is it between ${I.n} and ${6 * I.n}?`, tot >= I.n && tot <= 6 * I.n, 'Each die shows 1 to 6.'); if (tot < I.n || tot > 6 * I.n) return []; const b = Math.floor(tot / I.n); return Array.from({ length: I.n }, (_, i) => b + (i < tot % I.n ? 1 : 0)); })(); if (res.length) T.n('Largest missing roll?', Math.max(...res), 'Spread the total as evenly as possible.'); else T.n('How many rolls are returned?', 0, 'The total is impossible.'); return res; }
   });
 
   D('minimum-operations-to-make-a-uni-value-grid', {
     t: 'Uni-Value Grid: same remainder, then the median',
     r: 'Every value must share the same remainder mod x, or it is impossible. Then flatten, sort, and move everything to the median: Σ |v − median| / x.',
     g: R => { const x = R.int(1, 3), r = R.int(0, x - 1), m = R.int(1, 3), n = R.int(1, 3); return { grid: Array.from({ length: m }, () => Array.from({ length: n }, () => r + x * R.int(0, 5) + (R.chance(0.1) ? 1 : 0))), x }; },
-    s(I, T) { const v = I.grid.flat().sort((a, b) => a - b), r = v[0] % I.x; const ok = v.every(a => a % I.x === r); T.at({ values: A(v), x: I.x }); T.yn(`Do all values have the same remainder mod ${I.x}?`, ok, 'Steps of x never change the remainder.'); if (!ok) return -1; const med = v[v.length >> 1]; T.n('Median?', med, 'Middle of the sorted values.'); return v.reduce((s, a) => s + Math.abs(a - med) / I.x, 0); }
+    s(I, T) { const res = (() => { const v = I.grid.flat().sort((a, b) => a - b), r = v[0] % I.x; const ok = v.every(a => a % I.x === r); T.at({ values: A(v), x: I.x }); T.yn(`Do all values leave the same remainder when divided by ${I.x}?`, ok, 'Steps of x never change the remainder.'); if (!ok) { T.n(`Remainder of the smallest value when divided by ${I.x}?`, r, 'Some other value leaves a different one.'); T.n('Answer?', -1, 'No common value can be reached.'); return -1; } const med = v[v.length >> 1]; T.n('Median?', med, 'Middle of the sorted values.'); return v.reduce((s, a) => s + Math.abs(a - med) / I.x, 0); })(); if (res >= 0) T.n('Fewest operations?', res, 'Sum of distances to the median, divided by x.'); return res; }
   });
 
   D('vowels-of-all-substrings', {
@@ -51,21 +51,21 @@
     t: 'Divide a Long Corridor: divider choices between seat pairs',
     r: 'Seats must split into pairs, so the count must be even and positive. Between the 2nd seat of one pair and the 1st seat of the next there are (plants + 1) places for the divider; multiply them.',
     g: R => ({ corridor: R.str(R.int(3, 9), 'SSP') }),
-    s(I, T) { const pos = []; [...I.corridor].forEach((c, i) => c === 'S' && pos.push(i)); T.at({ corridor: A([...I.corridor]) }); T.n('How many seats?', pos.length, 'Must be even and at least 2.'); if (!pos.length || pos.length % 2) return 0; let r = 1; for (let k = 2; k < pos.length; k += 2) { const g = pos[k] - pos[k - 1]; T.at({ corridor: A([...I.corridor], { hl: [pos[k - 1], pos[k]] }) }); T.n(`Divider positions between seat ${k} and seat ${k + 1}?`, g, 'Plants between them + 1.'); r = r * g % MOD; } return r; }
+    s(I, T) { const res = (() => { const pos = []; [...I.corridor].forEach((c, i) => c === 'S' && pos.push(i)); T.at({ corridor: A([...I.corridor]) }); T.n('How many seats?', pos.length, 'Must be even and at least 2.'); if (!pos.length || pos.length % 2) return 0; let r = 1; for (let k = 2; k < pos.length; k += 2) { const g = pos[k] - pos[k - 1]; T.at({ corridor: A([...I.corridor], { hl: [pos[k - 1], pos[k]] }) }); T.n(`Divider positions between seat ${k} and seat ${k + 1}?`, g, 'Plants between them, plus 1.'); r = r * g % MOD; } return r; })(); T.n('Number of ways?', res, 'Multiply the choices between each pair of seat pairs.'); return res; }
   });
 
   D('minimum-cost-to-set-cooking-time', {
     t: 'Minimum Cost to Set Cooking Time: two ways to write the time',
     r: 'targetSeconds is m·60 + s with s < 60, or (m − 1)·60 + (s + 60) when s + 60 ≤ 99. Each valid (m ≤ 99) pair is pushed as digits without leading zeros: moving the finger costs moveCost, each push costs pushCost.',
     g: R => ({ startAt: R.int(0, 9), moveCost: R.int(1, 4), pushCost: R.int(1, 4), targetSeconds: R.int(1, 6039) }),
-    s(I, T) { const cost = (m, s) => { const d = (String(m).padStart(2, '0') + String(s).padStart(2, '0')).replace(/^0+/, ''); let cur = I.startAt, c = 0; for (const ch of d) { if (+ch !== cur) { c += I.moveCost; cur = +ch; } c += I.pushCost; } return c; }; const m = Math.floor(I.targetSeconds / 60), s = I.targetSeconds % 60; let best = Infinity; if (m <= 99) { const c = cost(m, s); T.at({ target: I.targetSeconds, start: I.startAt, move: I.moveCost, push: I.pushCost }); T.n(`Cost to enter ${m} min ${s} s?`, c, 'Strip leading zeros; pay moves and pushes.'); best = c; } if (m >= 1 && s + 60 <= 99) { const c = cost(m - 1, s + 60); T.at({ target: I.targetSeconds }); T.n(`Cost to enter ${m - 1} min ${s + 60} s?`, c, 'The alternative with 60+ seconds.'); best = Math.min(best, c); } return best; }
+    s(I, T) { const res = (() => { const cost = (m, s) => { const d = (String(m).padStart(2, '0') + String(s).padStart(2, '0')).replace(/^0+/, ''); let cur = I.startAt, c = 0; for (const ch of d) { if (+ch !== cur) { c += I.moveCost; cur = +ch; } c += I.pushCost; } return c; }; const m = Math.floor(I.targetSeconds / 60), s = I.targetSeconds % 60; let best = Infinity; if (m <= 99) { const c = cost(m, s); T.at({ target: I.targetSeconds, start: I.startAt, move: I.moveCost, push: I.pushCost }); T.n(`Cost to enter ${m} min ${s} s?`, c, 'Strip leading zeros; pay moves and pushes.'); best = c; } if (m >= 1 && s + 60 <= 99) { const c = cost(m - 1, s + 60); T.at({ target: I.targetSeconds }); T.n(`Cost to enter ${m - 1} min ${s + 60} s?`, c, 'The other option, with 60 or more seconds.'); best = Math.min(best, c); } return best; })(); T.n('Cheapest cost?', res, 'The better of the two ways to type it.'); return res; }
   });
 
   D('smallest-value-of-the-rearranged-number', {
     t: 'Smallest Rearranged Number: sort, but no leading zero',
     r: 'Negative: sort digits descending (most negative). Positive: sort ascending, then swap the first non-zero digit to the front.',
     g: R => ({ num: R.pick([-1, 1]) * R.int(0, 99999) }),
-    s(I, T) { const neg = I.num < 0, d = [...String(Math.abs(I.num))].sort(); if (neg) { d.reverse(); T.at({ num: I.num }); T.n('Leading digit after sorting descending?', +d[0], 'The largest digit first makes the most negative value.'); return -+d.join(''); } const i = d.findIndex(c => c !== '0'); if (i > 0) [d[0], d[i]] = [d[i], d[0]]; T.at({ num: I.num }); T.n('Leading digit?', +d[0], 'The smallest non-zero digit.'); return +d.join(''); }
+    s(I, T) { const res = (() => { const neg = I.num < 0, d = [...String(Math.abs(I.num))].sort(); if (neg) { d.reverse(); T.at({ num: I.num }); T.n('How many digits?', d.length, 'Every digit is used once.'); T.n('Leading digit after sorting descending?', +d[0], 'The largest digit first makes the most negative value.'); return -+d.join(''); } const i = d.findIndex(c => c !== '0'); if (i > 0) [d[0], d[i]] = [d[i], d[0]]; T.at({ num: I.num }); T.n('How many zeros?', d.filter(c => c === '0').length, 'Zeros cannot lead, so they go after it.'); T.n('Leading digit?', +d[0], 'The smallest non-zero digit.'); return +d.join(''); })(); T.n('Smallest rearranged value?', res, 'Keep the sign; arrange the rest in order.'); return res; }
   });
 
   D('count-operations-to-obtain-zero', {
@@ -149,21 +149,21 @@
     t: 'Count Days Spent Together: overlap of day-of-year ranges',
     r: 'Convert each "MM-DD" to a day of the (non-leap) year. Overlap = max(0, min(leaves) − max(arrivals) + 1).',
     g: R => { const d = () => { const m = R.int(1, 12); return `${String(m).padStart(2, '0')}-${String(R.int(1, MD[m - 1])).padStart(2, '0')}`; }; const s = [d(), d()].sort(), t = [d(), d()].sort(); return { arriveAlice: s[0], leaveAlice: s[1], arriveBob: t[0], leaveBob: t[1] }; },
-    s(I, T) { const f = s => { const [m, d] = s.split('-').map(Number); return MD.slice(0, m - 1).reduce((a, b) => a + b, 0) + d; }; const st = Math.max(f(I.arriveAlice), f(I.arriveBob)), en = Math.min(f(I.leaveAlice), f(I.leaveBob)); T.at({ alice: `${I.arriveAlice} → ${I.leaveAlice}`, bob: `${I.arriveBob} → ${I.leaveBob}` }); T.n('Later arrival as day of year?', st, 'Sum earlier months + day.'); T.n('Earlier departure as day of year?', en, 'Sum earlier months + day.'); return Math.max(0, en - st + 1); }
+    s(I, T) { const res = (() => { const f = s => { const [m, d] = s.split('-').map(Number); return MD.slice(0, m - 1).reduce((a, b) => a + b, 0) + d; }; const st = Math.max(f(I.arriveAlice), f(I.arriveBob)), en = Math.min(f(I.leaveAlice), f(I.leaveBob)); T.at({ alice: `${I.arriveAlice} to ${I.leaveAlice}`, bob: `${I.arriveBob} to ${I.leaveBob}` }); T.n('Later arrival as day of year?', st, 'Days in earlier months, plus the day.'); T.n('Earlier departure as day of year?', en, 'Days in earlier months, plus the day.'); return Math.max(0, en - st + 1); })(); T.n('Days spent together?', res, 'Departure minus arrival plus 1, or 0.'); return res; }
   });
 
   D('closest-fair-integer', {
     t: 'Closest Fair Integer: odd lengths jump ahead',
     r: 'A fair number has an even digit count. If n has an odd number of digits L, jump to the smallest fair number with L + 1 digits: 1 then zeros then ones (10…0011…1). Otherwise scan upward.',
     g: R => ({ n: R.pick([R.int(1, 9), R.int(10, 99), R.int(100, 999), R.int(1000, 1300)]) }),
-    s(I, T) { const fair = x => { const s = String(x); if (s.length % 2) return false; const e = [...s].filter(c => +c % 2 === 0).length; return 2 * e === s.length; }; const L = String(I.n).length; T.at({ n: I.n }); T.yn('Does n have an odd number of digits?', L % 2 === 1, 'Then no fair number of that length exists.'); if (L % 2) { const h = (L + 1) / 2; return +('1' + '0'.repeat(h) + '1'.repeat(h - 1)); } let x = I.n; while (!fair(x)) x++; T.n('How many numbers were skipped?', x - I.n, 'Scan upward to the first fair number.'); return x; }
+    s(I, T) { const res = (() => { const fair = x => { const s = String(x); if (s.length % 2) return false; const e = [...s].filter(c => +c % 2 === 0).length; return 2 * e === s.length; }; const L = String(I.n).length; T.at({ n: I.n }); T.yn('Does n have an odd number of digits?', L % 2 === 1, 'Then no fair number of that length exists.'); if (L % 2) { const h = (L + 1) / 2; T.n('Digits in the answer?', L + 1, 'Jump to the next even length.'); return +('1' + '0'.repeat(h) + '1'.repeat(h - 1)); } let x = I.n; while (!fair(x)) x++; T.n('How many numbers were skipped?', x - I.n, 'Scan upward to the first fair number.'); return x; })(); T.n('Closest fair integer?', res, 'Equal counts of even and odd digits.'); return res; }
   });
 
   D('number-of-common-factors', {
     t: 'Number of Common Factors: divisors of the gcd',
     r: 'Common factors are exactly the divisors of gcd(a, b). Count them up to √g in pairs.',
     g: R => ({ a: R.int(1, 60), b: R.int(1, 60) }),
-    s(I, T) { const g = gcd(I.a, I.b); T.at({ a: I.a, b: I.b }); T.n('gcd(a, b)?', g, 'Euclid.'); let c = 0; for (let d = 1; d * d <= g; d++) if (g % d === 0) c += d * d === g ? 1 : 2; return c; }
+    s(I, T) { const res = (() => { const g = gcd(I.a, I.b); T.at({ a: I.a, b: I.b }); T.n('gcd(a, b)?', g, 'Euclid.'); T.yn('Is 1 always a common factor?', true, 'It divides everything.'); let c = 0; for (let d = 1; d * d <= g; d++) if (g % d === 0) c += d * d === g ? 1 : 2; return c; })(); T.n('Common factors?', res, 'Count the divisors of the gcd.'); return res; }
   });
 
   D('count-number-of-distinct-integers-after-reverse-operations', {
@@ -177,7 +177,7 @@
     t: 'Sum of a Number and Its Reverse: try every k ≤ num',
     r: 'num ≤ 10^5, so try every k from 0 to num and check k + rev(k) = num.',
     g: R => ({ num: R.pick([R.int(0, 200), 443, 63, 181]) }),
-    s(I, T) { let f = -1; for (let k = 0; k <= I.num; k++) if (k + rev(k) === I.num) { f = k; break; } T.at({ num: I.num }); T.n('Smallest k with k + rev(k) = num (−1 if none)?', f, 'Try each k.'); return f >= 0; }
+    s(I, T) { const res = (() => { let f = -1; for (let k = 0; k <= I.num; k++) if (k + rev(k) === I.num) { f = k; break; } T.at({ num: I.num }); T.n('Largest k worth trying?', I.num, 'k cannot exceed num.'); T.n('Smallest k with k + rev(k) = num (−1 if none)?', f, 'Try each k.'); return f >= 0; })(); T.yn('Can num be written that way?', res, 'True when some k works.'); return res; }
   });
 
   D('number-of-subarrays-with-gcd-equal-to-k', {
@@ -191,14 +191,14 @@
     t: 'Distinct Strings After Flips: 2^(n − k + 1)',
     r: 'Each of the n − k + 1 windows is flipped or not, and different choices give different strings. Answer 2^(n − k + 1) mod 10^9 + 7.',
     g: R => { const s = R.str(R.int(1, 8), '01'); return { s, k: R.int(1, s.length) }; },
-    s(I, T) { const e = I.s.length - I.k + 1; T.at({ s: I.s, k: I.k }); T.n('How many windows of size k?', e, 'n − k + 1.'); return Number(pw(2, e)); }
+    s(I, T) { const res = (() => { const e = I.s.length - I.k + 1; T.at({ s: I.s, k: I.k }); T.n('How many windows of size k?', e, 'n minus k, plus 1.'); T.yn('Can each window be flipped on its own?', true, 'Each window is an independent choice: flip or not.'); return Number(pw(2, e)); })(); T.n('Distinct strings (mod 1e9+7)?', res, '2 to the power of the window count.'); return res; }
   });
 
   D('average-value-of-even-numbers-that-are-divisible-by-three', {
     t: 'Average of Even Numbers Divisible by Three: multiples of 6',
     r: 'Even and divisible by 3 means divisible by 6. Average those (rounded down), or 0 if none.',
     g: R => ({ nums: R.ints(R.int(1, 6), 1, 30) }),
-    s(I, T) { const v = I.nums.filter(x => x % 6 === 0); T.at({ nums: A(I.nums, { hl: I.nums.map((x, i) => x % 6 ? -1 : i).filter(i => i >= 0) }) }); T.n('How many multiples of 6?', v.length, 'Even and divisible by 3.'); return v.length ? Math.floor(v.reduce((a, b) => a + b, 0) / v.length) : 0; }
+    s(I, T) { const res = (() => { const v = I.nums.filter(x => x % 6 === 0); T.at({ nums: A(I.nums, { hl: I.nums.map((x, i) => x % 6 ? -1 : i).filter(i => i >= 0) }) }); T.n('How many multiples of 6?', v.length, 'Even and divisible by 3.'); T.n('Sum of them?', v.reduce((a, b) => a + b, 0), 'Add the highlighted values.'); return v.length ? Math.floor(v.reduce((a, b) => a + b, 0) / v.length) : 0; })(); T.n('Average, rounded down?', res, 'Sum divided by count, or 0 if none.'); return res; }
   });
 
   D('number-of-subarrays-with-lcm-equal-to-k', {
@@ -240,21 +240,21 @@
     t: 'Closest Primes in a Range: sieve, then neighbors',
     r: 'Sieve up to right, list the primes in [left, right] and check consecutive pairs for the smallest gap (first pair on ties).',
     g: R => { const l = R.int(1, 40); return { left: l, right: l + R.int(0, 30) }; },
-    s(I, T) { const p = []; for (let x = I.left; x <= I.right; x++) if (isPrime(x)) p.push(x); T.at({ left: I.left, right: I.right }); T.n('How many primes in range?', p.length, 'From the sieve.'); let best = [-1, -1]; for (let i = 1; i < p.length; i++) if (best[0] < 0 || p[i] - p[i - 1] < best[1] - best[0]) best = [p[i - 1], p[i]]; return best; }
+    s(I, T) { const res = (() => { const p = []; for (let x = I.left; x <= I.right; x++) if (isPrime(x)) p.push(x); T.at({ left: I.left, right: I.right }); T.n('How many primes in range?', p.length, 'From the sieve.'); let best = [-1, -1]; for (let i = 1; i < p.length; i++) if (best[0] < 0 || p[i] - p[i - 1] < best[1] - best[0]) best = [p[i - 1], p[i]]; return best; })(); T.n('First prime of the closest pair? (−1 if none)', res[0], 'Earliest pair with the smallest gap.'); T.n('Gap between them? (0 if none)', res[0] < 0 ? 0 : res[1] - res[0], 'Smallest difference between neighbouring primes.'); return res; }
   });
 
   D('categorize-box-according-to-criteria', {
     t: 'Categorize Box According to Criteria',
     r: 'Bulky: any dimension ≥ 10^4 or volume ≥ 10^9. Heavy: mass ≥ 100. Return "Both", "Bulky", "Heavy" or "Neither".',
     g: R => ({ length: R.pick([R.int(1, 2000), 10000, R.int(500, 1500)]), width: R.int(1, 2000), height: R.int(1, 2000), mass: R.int(1, 200) }),
-    s(I, T) { const v = I.length * I.width * I.height, bulky = [I.length, I.width, I.height].some(x => x >= 1e4) || v >= 1e9, heavy = I.mass >= 100; T.at({ dims: `${I.length} × ${I.width} × ${I.height}`, mass: I.mass }); T.yn('Is it bulky?', bulky, `A dimension ≥ 10^4 or volume ${v} ≥ 10^9.`); T.yn('Is it heavy?', heavy, 'mass ≥ 100.'); return bulky && heavy ? 'Both' : bulky ? 'Bulky' : heavy ? 'Heavy' : 'Neither'; }
+    s(I, T) { const res = (() => { const v = I.length * I.width * I.height, bulky = [I.length, I.width, I.height].some(x => x >= 1e4) || v >= 1e9, heavy = I.mass >= 100; T.at({ dims: `${I.length} by ${I.width} by ${I.height}`, mass: I.mass }); T.yn('Is it bulky?', bulky, `A side of at least 10^4, or volume ${v} of at least 10^9.`); T.yn('Is it heavy?', heavy, 'Mass of at least 100.'); return bulky && heavy ? 'Both' : bulky ? 'Bulky' : heavy ? 'Heavy' : 'Neither'; })(); T.c('Category?', ['Both', 'Bulky', 'Heavy', 'Neither'], res, 'Combine the two answers.'); return res; }
   });
 
   D('difference-between-element-sum-and-digit-sum-of-an-array', {
     t: 'Element Sum vs Digit Sum',
     r: 'Add the elements, add all their digits, and return the absolute difference.',
     g: R => ({ nums: R.ints(R.int(1, 5), 1, 200) }),
-    s(I, T) { const e = I.nums.reduce((a, b) => a + b, 0), d = I.nums.reduce((a, x) => a + [...String(x)].reduce((s, c) => s + +c, 0), 0); T.at({ nums: A(I.nums) }); T.n('Element sum?', e, 'Add the numbers.'); T.n('Digit sum?', d, 'Add every digit.'); return Math.abs(e - d); }
+    s(I, T) { const res = (() => { const e = I.nums.reduce((a, b) => a + b, 0), d = I.nums.reduce((a, x) => a + [...String(x)].reduce((s, c) => s + +c, 0), 0); T.at({ nums: A(I.nums) }); T.n('Element sum?', e, 'Add the numbers.'); T.n('Digit sum?', d, 'Add every digit.'); return Math.abs(e - d); })(); T.n('Absolute difference?', res, 'Element sum minus digit sum.'); return res; }
   });
 
   D('count-the-number-of-good-subsequences', {

@@ -35,7 +35,7 @@
     t: 'Minimum Amount of Time to Fill Cups',
     r: 'Fill the two largest counts together each second. The answer is max(largest, ⌈total/2⌉).',
     g: R => ({ amount: R.ints(3, 0, 8) }),
-    s(I, T) { const m = Math.max(...I.amount), s = sum(I.amount); T.at({ amount: A(I.amount) }); T.n('Largest single count?', m, 'Only one of that type per second.'); T.n('⌈total / 2⌉?', Math.ceil(s / 2), 'At most two cups per second.'); return Math.max(m, Math.ceil(s / 2)); }
+    s(I, T) { const res = (() => { const m = Math.max(...I.amount), s = sum(I.amount); T.at({ amount: A(I.amount) }); T.n('Largest single count?', m, 'Only one of that type per second.'); T.n('Half the total, rounded up?', Math.ceil(s / 2), 'At most two cups per second.'); return Math.max(m, Math.ceil(s / 2)); })(); T.n('Fewest seconds?', res, 'The larger of the two limits.'); return res; }
   });
 
   D('max-sum-of-a-pair-with-equal-sum-of-digits', {
@@ -56,14 +56,14 @@
     t: 'Minimum Deletions to Make Array Divisible',
     r: 'An element divides every numsDivide value iff it divides their gcd. Sort nums; the answer is the index of the first element dividing the gcd (−1 if none).',
     g: R => ({ nums: R.ints(R.int(1, 6), 1, 8), numsDivide: (m => R.ints(R.int(1, 4), 1, 4).map(x => x * m))(R.int(1, 6)) }),
-    s(I, T) { const g = I.numsDivide.reduce(gcd), s = I.nums.slice().sort((a, b) => a - b); T.at({ numsDivide: A(I.numsDivide) }); T.n('gcd of numsDivide?', g, 'The new minimum must divide it.'); const i = s.findIndex(x => g % x === 0); return i; }
+    s(I, T) { const res = (() => { const g = I.numsDivide.reduce(gcd), s = I.nums.slice().sort((a, b) => a - b); T.at({ numsDivide: A(I.numsDivide) }); T.n('gcd of numsDivide?', g, 'The new minimum must divide it.'); T.n('Smallest value in nums?', s[0], 'Sort nums and try values in order.'); const i = s.findIndex(x => g % x === 0); return i; })(); T.n('Fewest deletions? (−1 if impossible)', res, 'Index of the first value that divides the gcd.'); return res; }
   });
 
   D('make-array-zero-by-subtracting-equal-amounts', {
     t: 'Make Array Zero by Subtracting Equal Amounts',
     r: 'Each operation removes the current smallest positive value entirely (and lowers the rest). So the answer is the number of distinct positive values.',
     g: R => ({ nums: R.ints(R.int(1, 7), 0, 6) }),
-    s(I, T) { const d = new Set(I.nums.filter(x => x > 0)); T.at({ nums: A(I.nums) }); T.n('Smallest positive value (0 if none)?', d.size ? Math.min(...d) : 0, 'Subtract it everywhere.'); return d.size; }
+    s(I, T) { const res = (() => { const d = new Set(I.nums.filter(x => x > 0)); T.at({ nums: A(I.nums) }); T.n('Zeros at the start?', I.nums.filter(x => x === 0).length, 'They need no work.'); T.n('Smallest positive value (0 if none)?', d.size ? Math.min(...d) : 0, 'Subtract it everywhere.'); return d.size; })(); T.n('Operations needed?', res, 'One per distinct positive value.'); return res; }
   });
 
   D('find-the-k-sum-of-an-array', {
@@ -85,7 +85,7 @@
     r: 'Sum views per creator and track each creator\'s best video (most views, then lexicographically smallest id). Return every creator with the maximum total.',
     g: R => { const n = R.int(1, 6); return { creators: Array.from({ length: n }, () => R.pick(['al', 'bo', 'cy'])), ids: Array.from({ length: n }, () => R.pick(['a', 'b', 'c', 'd'])), views: R.ints(n, 0, 6) }; },
     cmp: (o, e) => Array.isArray(o) && JSON.stringify(o.map(x => JSON.stringify(x)).sort()) === JSON.stringify(e.map(x => JSON.stringify(x)).sort()),
-    s(I, T) { const tot = {}, best = {}; I.creators.forEach((c, i) => { tot[c] = (tot[c] || 0) + I.views[i]; const b = best[c]; if (b === undefined || I.views[i] > I.views[b] || (I.views[i] === I.views[b] && I.ids[i] < I.ids[b])) best[c] = i; }); const m = Math.max(...Object.values(tot)); T.at({ totals: K(tot) }); T.n('Highest popularity?', m, 'Sum of views per creator.'); return Object.keys(tot).filter(c => tot[c] === m).map(c => [c, I.ids[best[c]]]); }
+    s(I, T) { const res = (() => { const tot = {}, best = {}; I.creators.forEach((c, i) => { tot[c] = (tot[c] || 0) + I.views[i]; const b = best[c]; if (b === undefined || I.views[i] > I.views[b] || (I.views[i] === I.views[b] && I.ids[i] < I.ids[b])) best[c] = i; }); const m = Math.max(...Object.values(tot)); T.at({ totals: K(tot) }); T.n('How many creators?', Object.keys(tot).length, 'Group views by creator.'); T.n('Highest popularity?', m, 'Sum of views per creator.'); return Object.keys(tot).filter(c => tot[c] === m).map(c => [c, I.ids[best[c]]]); })(); T.n('Creators tied for the top?', res.length, 'Everyone with the highest popularity.'); return res; }
   });
 
   D('delete-greatest-value-in-each-row', {
@@ -127,7 +127,7 @@
     t: 'Put Marbles in Bags',
     r: 'Each cut between i and i+1 adds w[i] + w[i+1] to the score. Choose k − 1 cuts: max score uses the largest pair sums, min the smallest; return the difference.',
     g: R => { const w = R.ints(R.int(1, 6), 1, 9); return { weights: w, k: R.int(1, w.length) }; },
-    s(I, T) { const p = []; for (let i = 0; i + 1 < I.weights.length; i++) p.push(I.weights[i] + I.weights[i + 1]); p.sort((a, b) => a - b); T.at({ pairSums: A(p) }); const c = I.k - 1; T.n('How many cuts?', c, 'k bags → k − 1 cuts.'); return sum(p.slice(p.length - c)) - sum(p.slice(0, c)); }
+    s(I, T) { const res = (() => { const p = []; for (let i = 0; i + 1 < I.weights.length; i++) p.push(I.weights[i] + I.weights[i + 1]); p.sort((a, b) => a - b); T.at({ pairSums: A(p) }); const c = I.k - 1; T.n('How many cuts?', c, 'k bags need k minus 1 cuts.'); T.n('Sum of the largest cut pair sums?', sum(p.slice(p.length - c)), 'Best cuts for the maximum score.'); return sum(p.slice(p.length - c)) - sum(p.slice(0, c)); })(); T.n('Maximum score minus minimum score?', res, 'Largest cut sums minus smallest cut sums.'); return res; }
   });
 
   D('take-gifts-from-the-richest-pile', {
@@ -148,14 +148,14 @@
     t: 'Make the Prefix Sum Non-negative',
     r: 'Scan with a running prefix and a min-heap of negatives seen. Whenever the prefix drops below 0, move the most negative element to the end (pop it, add it back) and count one move.',
     g: R => { for (;;) { const a = R.ints(R.int(1, 7), -6, 6); if (sum(a) >= 0) return { nums: a }; } },
-    s(I, T) { const h = PQ((a, b) => a - b); let p = 0, c = 0; I.nums.forEach((x, i) => { if (x < 0) h.push(x); p += x; if (p < 0) { const y = h.pop(); p -= y; c++; T.at({ nums: A(I.nums, { i }) }); T.n('Value moved to the end?', y, 'The most negative so far.'); } }); return c; }
+    s(I, T) { const res = (() => { const h = PQ((a, b) => a - b); let p = 0, c = 0; T.at({ nums: A(I.nums) }); T.n('Negative values?', I.nums.filter(x => x < 0).length, 'Only these can be moved.'); I.nums.forEach((x, i) => { if (x < 0) h.push(x); p += x; if (p < 0) { const y = h.pop(); p -= y; c++; T.at({ nums: A(I.nums, { i }) }); T.n('Value moved to the end?', y, 'The most negative so far.'); } }); return c; })(); T.n('Fewest moves?', res, 'One per time the prefix sum dipped below 0.'); return res; }
   });
 
   D('mice-and-cheese', {
     t: 'Mice and Cheese',
     r: 'Start with mouse 2 eating everything. Switching cheese i to mouse 1 gains reward1[i] − reward2[i]; take the k largest gains.',
     g: R => { const n = R.int(1, 6); return { reward1: R.ints(n, 1, 9), reward2: R.ints(n, 1, 9), k: R.int(0, n) }; },
-    s(I, T) { const base = sum(I.reward2), d = I.reward1.map((v, i) => v - I.reward2[i]).sort((a, b) => b - a); T.at({ reward2: A(I.reward2) }); T.n('Points if mouse 2 eats everything?', base, 'Sum of reward2.'); T.at({ gains: A(d) }); return base + sum(d.slice(0, I.k)); }
+    s(I, T) { const res = (() => { const base = sum(I.reward2), d = I.reward1.map((v, i) => v - I.reward2[i]).sort((a, b) => b - a); T.at({ reward2: A(I.reward2) }); T.n('Points if mouse 2 eats everything?', base, 'Sum of reward2.'); T.at({ gains: A(d) }); T.n(`Extra points from the top ${I.k} gains?`, sum(d.slice(0, I.k)), 'Give mouse 1 the cheeses with the biggest gain.'); return base + sum(d.slice(0, I.k)); })(); T.n('Maximum points?', res, 'Base plus the chosen gains.'); return res; }
   });
 
   D('sum-in-a-matrix', {
@@ -169,7 +169,7 @@
     t: 'Maximum Elegance of a K-Length Subsequence',
     r: 'Take the k most profitable items. Then scan the rest in profit order: an item with an unseen category may replace the smallest duplicate-category item, trading profit for distinct² gain. Track the best elegance.',
     g: R => { const n = R.int(1, 6); return { items: Array.from({ length: n }, () => [R.int(1, 9), R.int(1, 3)]), k: R.int(1, n) }; },
-    s(I, T) { const it = I.items.slice().sort((a, b) => b[0] - a[0]), seen = new Set(), dup = []; let tot = 0; for (let i = 0; i < I.k; i++) { tot += it[i][0]; if (seen.has(it[i][1])) dup.push(it[i][0]); else seen.add(it[i][1]); } let best = tot + seen.size ** 2; T.at({ topK: A(it.slice(0, I.k).map(x => x.join('/'))) }); T.n('Elegance of the k most profitable?', best, 'profit + distinct².'); for (let i = I.k; i < it.length; i++) if (!seen.has(it[i][1]) && dup.length) { tot += it[i][0] - dup.pop(); seen.add(it[i][1]); best = Math.max(best, tot + seen.size ** 2); } return best; }
+    s(I, T) { const res = (() => { const it = I.items.slice().sort((a, b) => b[0] - a[0]), seen = new Set(), dup = []; let tot = 0; for (let i = 0; i < I.k; i++) { tot += it[i][0]; if (seen.has(it[i][1])) dup.push(it[i][0]); else seen.add(it[i][1]); } let best = tot + seen.size ** 2; T.at({ topK: A(it.slice(0, I.k).map(x => `${x[0]} in category ${x[1]}`)) }); T.n('Distinct categories among them?', seen.size, 'Repeats can be swapped out later.'); T.n('Elegance of the k most profitable?', best, 'Total profit plus the distinct count squared.'); for (let i = I.k; i < it.length; i++) if (!seen.has(it[i][1]) && dup.length) { tot += it[i][0] - dup.pop(); seen.add(it[i][1]); best = Math.max(best, tot + seen.size ** 2); } return best; })(); T.n('Maximum elegance?', res, 'Best after swapping repeats for new categories.'); return res; }
   });
 
   D('maximum-spending-after-buying-items', {
@@ -225,7 +225,7 @@
     t: 'Final Array State After K Multiplication Operations II',
     r: 'Simulate with a heap only until the minimum times the multiplier exceeds the maximum. After that the operations cycle: with q = ⌊k/n⌋ and r = k mod n, every element gets q multiplications and the r smallest (by value, index) get one more — use fast power mod 1e9+7.',
     g: R => ({ nums: R.ints(R.int(1, 4), 1, 9), k: R.int(1, 12), multiplier: R.int(1, 3) }),
-    s(I, T) { const n = I.nums.length, m = I.multiplier; if (m === 1) { T.at({ multiplier: 1 }); T.yn('Does anything change?', false, 'Multiplying by 1.'); return I.nums.slice(); } const a = I.nums.slice(); let k = I.k, steps = 0; for (; k > 0; k--) { let mi = 0; a.forEach((v, i) => { if (v < a[mi]) mi = i; }); if (a[mi] * m > Math.max(...a)) break; a[mi] *= m; steps++; } T.at({ nums: A(a.slice()), opsLeft: k }); T.n('Operations done before the cycle starts?', steps, 'Until min × multiplier > max.'); const ord = a.map((v, i) => [v, i]).sort((x, y) => x[0] - y[0] || x[1] - y[1]), q = Math.floor(k / n), r = k % n, out = []; ord.forEach(([v, i], p) => { out[i] = Number(BigInt(v) % MOD * powMod(BigInt(m), BigInt(q + (p < r ? 1 : 0))) % MOD); }); return out; }
+    s(I, T) { const n = I.nums.length, m = I.multiplier; if (m === 1) { T.at({ multiplier: 1 }); T.yn('Does anything change?', false, 'Multiplying by 1.'); T.n('Value at index 0 at the end?', I.nums[0], 'Unchanged.'); T.n('Operations that change a value?', 0, 'None of them do.'); return I.nums.slice(); } const a = I.nums.slice(); let k = I.k, steps = 0; for (; k > 0; k--) { let mi = 0; a.forEach((v, i) => { if (v < a[mi]) mi = i; }); if (a[mi] * m > Math.max(...a)) break; a[mi] *= m; steps++; } T.at({ nums: A(a.slice()), opsLeft: k }); T.n('Operations done before the cycle starts?', steps, 'Until the min times the multiplier passes the max.'); T.n('Full rounds over every element after that?', Math.floor(k / n), 'Each round multiplies every value once.'); T.n('Extra operations after the full rounds?', k % n, 'They go to the smallest values.'); const ord = a.map((v, i) => [v, i]).sort((x, y) => x[0] - y[0] || x[1] - y[1]), q = Math.floor(k / n), r = k % n, out = []; ord.forEach(([v, i], p) => { out[i] = Number(BigInt(v) % MOD * powMod(BigInt(m), BigInt(q + (p < r ? 1 : 0))) % MOD); }); return out; }
   });
 
   D('k-th-nearest-obstacle-queries', {
@@ -246,14 +246,14 @@
     t: 'Maximum Sum With at Most K Elements',
     r: 'From row i only its limits[i] largest values are usable. Pool those candidates and take the k largest.',
     g: R => { const n = R.int(1, 3), m = R.int(1, 3), limits = R.ints(n, 0, m); return { grid: R.grid(n, m, 0, 9), limits, k: R.int(0, sum(limits)) }; },
-    s(I, T) { const pool = I.grid.flatMap((r, i) => r.slice().sort((a, b) => b - a).slice(0, I.limits[i])).sort((a, b) => b - a); T.at({ candidates: A(pool) }); T.n('How many candidates?', pool.length, 'Σ limits.'); return sum(pool.slice(0, I.k)); }
+    s(I, T) { const res = (() => { const pool = I.grid.flatMap((r, i) => r.slice().sort((a, b) => b - a).slice(0, I.limits[i])).sort((a, b) => b - a); T.at({ candidates: A(pool) }); T.n('How many candidates?', pool.length, 'Each row gives up to its limit.'); T.n('Largest candidate? (0 if none)', pool.length ? pool[0] : 0, 'Take the biggest first.'); return sum(pool.slice(0, I.k)); })(); T.n('Maximum sum?', res, 'The k largest candidates.'); return res; }
   });
 
   D('maximize-profit-from-task-assignment', {
     t: 'Maximize Profit from Task Assignment',
     r: 'Group tasks by required skill. Each worker of skill s takes the most profitable remaining task of skill s (max-heap per skill). The extra worker then takes the single most profitable leftover task.',
     g: R => ({ workers: R.ints(R.int(1, 5), 1, 4), tasks: Array.from({ length: R.int(1, 5) }, () => [R.int(1, 4), R.int(1, 9) * 10]) }),
-    s(I, T) { const by = {}; I.tasks.forEach(([s, p]) => (by[s] = by[s] || []).push(p)); Object.values(by).forEach(a => a.sort((x, y) => y - x)); const wc = {}; I.workers.forEach(w => wc[w] = (wc[w] || 0) + 1); let tot = 0; const left = []; Object.entries(by).forEach(([s, a]) => { const c = wc[s] || 0; tot += sum(a.slice(0, c)); left.push(...a.slice(c)); }); T.at({ tasksBySkill: K(Object.fromEntries(Object.entries(by).map(([s, a]) => [s, a.join(',')]))), workers: A(I.workers) }); T.n('Profit from skill-matched workers?', tot, 'Each takes the best task of its skill.'); return tot + (left.length ? Math.max(...left) : 0); }
+    s(I, T) { const res = (() => { const by = {}; I.tasks.forEach(([s, p]) => (by[s] = by[s] || []).push(p)); Object.values(by).forEach(a => a.sort((x, y) => y - x)); const wc = {}; I.workers.forEach(w => wc[w] = (wc[w] || 0) + 1); let tot = 0; const left = []; Object.entries(by).forEach(([s, a]) => { const c = wc[s] || 0; tot += sum(a.slice(0, c)); left.push(...a.slice(c)); }); T.at({ tasksBySkill: K(Object.fromEntries(Object.entries(by).map(([s, a]) => [s, a.join(', ')]))), workers: A(I.workers) }); T.n('Profit from skill-matched workers?', tot, 'Each takes the best task of its skill.'); T.n('Tasks left for the extra worker?', left.length, 'The extra worker takes the best of them.'); return tot + (left.length ? Math.max(...left) : 0); })(); T.n('Maximum profit?', res, 'Matched profit plus the best leftover task.'); return res; }
   });
 
   D('choose-k-elements-with-maximum-sum', {
