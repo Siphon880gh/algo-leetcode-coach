@@ -3,6 +3,9 @@
   "kind": "mini-games",
   "prompt": "PROMPTS/loop-mini-games.md",
   "output_dir": "content/games",
+  "scores_doc": "docs/mini-game-scores.md",
+  "last_scored_lc": 4041,
+  "note": "Progress is tracked by LeetCode number in docs/mini-game-scores.md (all guides through #4041 are scored, and every qualifier has a game). Resume at #4042.",
   "repos": [
     "doocs-leetcode",
     "hello-algo",
@@ -12,12 +15,12 @@
     "walkccc-leetcode"
   ],
   "cursor": {
-    "repo": null,
-    "last_id": null
+    "repo": "doocs-leetcode",
+    "last_id": "solution/4000-4099/4041.Minimum Operations to Form Subset Sum II"
   },
   "next": {
     "repo": "doocs-leetcode",
-    "id": "solution/0000-0099/0001.Two Sum"
+    "id": "solution/4000-4099/4042.Valid K-Unique Subarrays II"
   },
   "completed": [],
   "skipped": [],

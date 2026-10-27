@@ -2,12 +2,12 @@
 
 Every guide in `content/guides/` scored against the **loosened criteria** in [mini-game-criteria.md](mini-game-criteria.md#loosened-criteria-use-these). Score order: I/F/V/L/T/M, 0–2 each. A guide qualifies at 8/12 or more.
 
-- Guides scored: **3483**
-- Qualify: **3042** (153 already had a game from the strict pass, 2889 new)
-- Do not qualify: **441**
-- Games built so far for qualifying guides: **3042 / 3042**
+- Guides scored: **4042**
+- Qualify: **3534** (153 already had a game from the strict pass, 3381 new)
+- Do not qualify: **508**
+- Games built so far for qualifying guides: **3534 / 3534**
 
-Qualifying guides by pattern module: dp 442, math 241, greedy 224, tree 211, strings 191, binary-search 183, graph 163, two-pointers 140, design 135, grid 119, sliding-window 109, prefix-sum 97, hash 91, bits 88, backtracking 86, heap 76, union-find 71, sim 60, array 57, linked-list 56, stack 56, range-tree 37, trie 36, mono-stack 34, sorting 24, intervals 15.
+Qualifying guides by pattern module: dp 512, math 290, greedy 272, tree 240, strings 223, binary-search 194, graph 182, two-pointers 153, design 142, hash 141, grid 130, prefix-sum 124, sliding-window 122, bits 105, backtracking 92, array 84, union-find 80, heap 76, sim 73, stack 62, linked-list 56, range-tree 50, sorting 41, trie 39, mono-stack 36, intervals 15.
 
 "Pattern" is the engine module family the game is grouped under. "Built" means `content/games/{game}/` exists.
 
@@ -3495,4 +3495,563 @@ Qualifying guides by pattern module: dp 442, math 241, greedy 224, tree 211, str
 | 3480 | `maximize-subarrays-after-removing-one-conflicting-pair` | Hard | 2/2/2/1/2/2 | 11 | yes | `maximize-subarrays-after-removing-one-conflicting-pair-game` | range-tree | yes |  |
 | 3481 | `apply-substitutions` | Med | 2/2/2/2/2/2 | 12 | yes | `apply-substitutions-game` | graph | yes |  |
 | 3482 | `analyze-organization-hierarchy` | Hard | – | – | no | – | – | – | SQL: the skill is query syntax over tables, not a per-step algorithmic decision. |
+| 3483 | `unique-3-digit-even-numbers` | Easy | 1/2/2/2/1/1 | 9 | yes | `unique-3-digit-even-numbers-game` | hash | yes |  |
+| 3484 | `design-spreadsheet` | Med | 1/2/2/2/1/1 | 9 | yes | `design-spreadsheet-game` | design | yes |  |
+| 3485 | `longest-common-prefix-of-k-strings-after-removal` | Hard | 2/2/2/1/2/2 | 11 | yes | `longest-common-prefix-of-k-strings-after-removal-game` | trie | yes |  |
+| 3486 | `longest-special-path-ii` | Hard | 2/2/2/1/2/2 | 11 | yes | `longest-special-path-ii-game` | tree | yes |  |
+| 3487 | `maximum-unique-subarray-sum-after-deletion` | Easy | 1/2/1/2/1/1 | 8 | yes | `maximum-unique-subarray-sum-after-deletion-game` | greedy | yes |  |
+| 3488 | `closest-equal-element-queries` | Med | 2/2/2/2/1/1 | 10 | yes | `closest-equal-element-queries-game` | hash | yes |  |
+| 3489 | `zero-array-transformation-iv` | Med | 2/2/2/2/2/2 | 12 | yes | `zero-array-transformation-iv-game` | dp | yes |  |
+| 3490 | `count-beautiful-numbers` | Hard | 1/2/2/1/2/1 | 9 | yes | `count-beautiful-numbers-game` | dp | yes |  |
+| 3491 | `phone-number-prefix` | Easy | 1/2/1/2/1/1 | 8 | yes | `phone-number-prefix-game` | strings | yes |  |
+| 3492 | `maximum-containers-on-a-ship` | Easy | 1/2/1/2/1/1 | 8 | yes | `maximum-containers-on-a-ship-game` | math | yes |  |
+| 3493 | `properties-graph` | Med | 2/2/2/2/2/2 | 12 | yes | `properties-graph-game` | union-find | yes |  |
+| 3494 | `find-the-minimum-amount-of-time-to-brew-potions` | Med | 2/2/2/2/1/1 | 10 | yes | `find-the-minimum-amount-of-time-to-brew-potions-game` | sim | yes |  |
+| 3495 | `minimum-operations-to-make-array-elements-zero` | Hard | 1/2/2/1/1/1 | 8 | yes | `minimum-operations-to-make-array-elements-zero-game` | bits | yes |  |
+| 3496 | `maximize-score-after-pair-deletions` | Med | 2/2/1/2/1/1 | 9 | yes | `maximize-score-after-pair-deletions-game` | greedy | yes |  |
+| 3497 | `analyze-subscription-conversion` | Med | – | – | no | – | – | – | SQL: the skill is query syntax over tables, not a per-step algorithmic decision. |
+| 3498 | `reverse-degree-of-a-string` | Easy | 1/2/1/2/1/1 | 8 | yes | `reverse-degree-of-a-string-game` | strings | yes |  |
+| 3499 | `maximize-active-section-with-trade-i` | Med | 2/2/2/2/2/2 | 12 | yes | `maximize-active-section-with-trade-i-game` | strings | yes |  |
+| 3500 | `minimum-cost-to-divide-array-into-subarrays` | Hard | 2/2/2/1/2/2 | 11 | yes | `minimum-cost-to-divide-array-into-subarrays-game` | dp | yes |  |
+| 3501 | `maximize-active-section-with-trade-ii` | Hard | 2/2/2/1/2/2 | 11 | yes | `maximize-active-section-with-trade-ii-game` | strings | yes |  |
+| 3502 | `minimum-cost-to-reach-every-position` | Easy | 1/2/2/2/1/1 | 9 | yes | `minimum-cost-to-reach-every-position-game` | array | yes |  |
+| 3503 | `longest-palindrome-after-substring-concatenation-i` | Med | 2/2/2/2/1/1 | 10 | yes | `longest-palindrome-after-substring-concatenation-i-game` | dp | yes |  |
+| 3504 | `longest-palindrome-after-substring-concatenation-ii` | Hard | 2/2/2/1/2/2 | 11 | yes | `longest-palindrome-after-substring-concatenation-ii-game` | dp | yes |  |
+| 3505 | `minimum-operations-to-make-elements-within-k-subarrays-equal` | Hard | 2/2/2/1/2/2 | 11 | yes | `minimum-operations-to-make-elements-within-k-subarrays-equal-game` | dp | yes |  |
+| 3506 | `find-time-required-to-eliminate-bacterial-strains` | Hard | 2/2/1/1/2/2 | 10 | yes | `find-time-required-to-eliminate-bacterial-strains-game` | greedy | yes |  |
+| 3507 | `minimum-pair-removal-to-sort-array-i` | Easy | 1/2/2/2/1/1 | 9 | yes | `minimum-pair-removal-to-sort-array-i-game` | sim | yes |  |
+| 3508 | `implement-router` | Med | 2/2/2/2/2/2 | 12 | yes | `implement-router-game` | design | yes |  |
+| 3509 | `maximum-product-of-subsequences-with-an-alternating-sum-equal-to-k` | Hard | 2/2/2/1/2/1 | 10 | yes | `maximum-product-of-subsequences-with-an-alternating-sum-equal-to-k-game` | dp | yes |  |
+| 3510 | `minimum-pair-removal-to-sort-array-ii` | Hard | 2/2/2/1/2/1 | 10 | yes | `minimum-pair-removal-to-sort-array-ii-game` | sim | yes |  |
+| 3511 | `make-a-positive-array` | Med | 2/2/2/2/1/1 | 10 | yes | `make-a-positive-array-game` | greedy | yes |  |
+| 3512 | `minimum-operations-to-make-array-sum-divisible-by-k` | Easy | 1/2/1/2/1/1 | 8 | yes | `minimum-operations-to-make-array-sum-divisible-by-k-game` | math | yes |  |
+| 3513 | `number-of-unique-xor-triplets-i` | Med | 2/2/1/2/1/1 | 9 | yes | `number-of-unique-xor-triplets-i-game` | bits | yes |  |
+| 3514 | `number-of-unique-xor-triplets-ii` | Med | 2/2/2/2/1/1 | 10 | yes | `number-of-unique-xor-triplets-ii-game` | bits | yes |  |
+| 3515 | `shortest-path-in-a-weighted-tree` | Hard | 2/2/2/1/2/2 | 11 | yes | `shortest-path-in-a-weighted-tree-game` | tree | yes |  |
+| 3516 | `find-closest-person` | Easy | 1/2/1/2/1/1 | 8 | yes | `find-closest-person-game` | math | yes |  |
+| 3517 | `smallest-palindromic-rearrangement-i` | Med | 2/2/2/2/2/2 | 12 | yes | `smallest-palindromic-rearrangement-i-game` | strings | yes |  |
+| 3518 | `smallest-palindromic-rearrangement-ii` | Hard | 2/2/2/1/2/2 | 11 | yes | `smallest-palindromic-rearrangement-ii-game` | strings | yes |  |
+| 3519 | `count-numbers-with-non-decreasing-digits` | Hard | 1/2/2/1/2/1 | 9 | yes | `count-numbers-with-non-decreasing-digits-game` | math | yes |  |
+| 3520 | `minimum-threshold-for-inversion-pairs-count` | Med | 2/2/2/2/2/2 | 12 | yes | `minimum-threshold-for-inversion-pairs-count-game` | binary-search | yes |  |
+| 3521 | `find-product-recommendation-pairs` | Med | – | – | no | – | – | – | SQL: the skill is query syntax over tables, not a per-step algorithmic decision. |
+| 3522 | `calculate-score-after-performing-instructions` | Med | 1/2/2/2/1/1 | 9 | yes | `calculate-score-after-performing-instructions-game` | sim | yes |  |
+| 3523 | `make-array-non-decreasing` | Med | 1/2/2/2/1/1 | 9 | yes | `make-array-non-decreasing-game` | greedy | yes |  |
+| 3524 | `find-x-value-of-array-i` | Med | 2/2/2/2/2/2 | 12 | yes | `find-x-value-of-array-i-game` | dp | yes |  |
+| 3525 | `find-x-value-of-array-ii` | Hard | 2/2/2/1/2/1 | 10 | yes | `find-x-value-of-array-ii-game` | range-tree | yes |  |
+| 3526 | `range-xor-queries-with-subarray-reversals` | Hard | 1/2/2/1/1/1 | 8 | yes | `range-xor-queries-with-subarray-reversals-game` | range-tree | yes |  |
+| 3527 | `find-the-most-common-response` | Med | 1/2/1/2/1/1 | 8 | yes | `find-the-most-common-response-game` | hash | yes |  |
+| 3528 | `unit-conversion-i` | Med | 2/2/2/2/2/2 | 12 | yes | `unit-conversion-i-game` | graph | yes |  |
+| 3529 | `count-cells-in-overlapping-horizontal-and-vertical-substrings` | Med | 2/2/2/2/2/1 | 11 | yes | `count-cells-in-overlapping-horizontal-and-vertical-substrings-game` | strings | yes |  |
+| 3530 | `maximum-profit-from-valid-topological-order-in-dag` | Hard | 2/2/2/1/2/2 | 11 | yes | `maximum-profit-from-valid-topological-order-in-dag-game` | dp | yes |  |
+| 3531 | `count-covered-buildings` | Med | 2/2/2/2/2/2 | 12 | yes | `count-covered-buildings-game` | hash | yes |  |
+| 3532 | `path-existence-queries-in-a-graph-i` | Med | 2/2/2/2/2/2 | 12 | yes | `path-existence-queries-in-a-graph-i-game` | union-find | yes |  |
+| 3533 | `concatenated-divisibility` | Hard | 2/2/2/1/2/2 | 11 | yes | `concatenated-divisibility-game` | dp | yes |  |
+| 3534 | `path-existence-queries-in-a-graph-ii` | Hard | 2/2/2/1/2/2 | 11 | yes | `path-existence-queries-in-a-graph-ii-game` | graph | yes |  |
+| 3535 | `unit-conversion-ii` | Med | 2/2/2/2/2/1 | 11 | yes | `unit-conversion-ii-game` | graph | yes |  |
+| 3536 | `maximum-product-of-two-digits` | Easy | 1/2/1/2/1/1 | 8 | yes | `maximum-product-of-two-digits-game` | math | yes |  |
+| 3537 | `fill-a-special-grid` | Med | 2/2/2/2/1/1 | 10 | yes | `fill-a-special-grid-game` | grid | yes |  |
+| 3538 | `merge-operations-for-minimum-travel-time` | Hard | 2/2/2/1/2/1 | 10 | yes | `merge-operations-for-minimum-travel-time-game` | dp | yes |  |
+| 3539 | `find-sum-of-array-product-of-magical-sequences` | Hard | 2/2/1/1/2/2 | 10 | yes | `find-sum-of-array-product-of-magical-sequences-game` | dp | yes |  |
+| 3540 | `minimum-time-to-visit-all-houses` | Med | 2/2/2/2/2/2 | 12 | yes | `minimum-time-to-visit-all-houses-game` | prefix-sum | yes |  |
+| 3541 | `find-most-frequent-vowel-and-consonant` | Easy | 1/2/1/2/1/1 | 8 | yes | `find-most-frequent-vowel-and-consonant-game` | hash | yes |  |
+| 3542 | `minimum-operations-to-convert-all-elements-to-zero` | Med | 2/2/2/2/2/1 | 11 | yes | `minimum-operations-to-convert-all-elements-to-zero-game` | mono-stack | yes |  |
+| 3543 | `maximum-weighted-k-edge-path` | Med | 2/2/2/2/2/2 | 12 | yes | `maximum-weighted-k-edge-path-game` | dp | yes |  |
+| 3544 | `subtree-inversion-sum` | Hard | 2/2/2/1/2/2 | 11 | yes | `subtree-inversion-sum-game` | tree | yes |  |
+| 3545 | `minimum-deletions-for-at-most-k-distinct-characters` | Easy | 1/2/2/2/1/1 | 9 | yes | `minimum-deletions-for-at-most-k-distinct-characters-game` | greedy | yes |  |
+| 3546 | `equal-sum-grid-partition-i` | Med | 2/2/2/2/2/2 | 12 | yes | `equal-sum-grid-partition-i-game` | prefix-sum | yes |  |
+| 3547 | `maximum-sum-of-edge-values-in-a-graph` | Hard | 2/2/2/1/2/2 | 11 | yes | `maximum-sum-of-edge-values-in-a-graph-game` | greedy | yes |  |
+| 3548 | `equal-sum-grid-partition-ii` | Hard | 2/2/2/1/2/2 | 11 | yes | `equal-sum-grid-partition-ii-game` | prefix-sum | yes |  |
+| 3549 | `multiply-two-polynomials` | Hard | 2/2/1/1/2/2 | 10 | yes | `multiply-two-polynomials-game` | math | yes |  |
+| 3550 | `smallest-index-with-digit-sum-equal-to-index` | Easy | 1/2/2/2/1/1 | 9 | yes | `smallest-index-with-digit-sum-equal-to-index-game` | math | yes |  |
+| 3551 | `minimum-swaps-to-sort-by-digit-sum` | Med | 2/2/2/2/2/2 | 12 | yes | `minimum-swaps-to-sort-by-digit-sum-game` | sorting | yes |  |
+| 3552 | `grid-teleportation-traversal` | Med | 2/2/2/2/2/2 | 12 | yes | `grid-teleportation-traversal-game` | grid | yes |  |
+| 3553 | `minimum-weighted-subgraph-with-the-required-paths-ii` | Hard | 2/2/2/1/2/2 | 11 | yes | `minimum-weighted-subgraph-with-the-required-paths-ii-game` | tree | yes |  |
+| 3554 | `find-category-recommendation-pairs` | Hard | – | – | no | – | – | – | SQL: the skill is query syntax over tables, not a per-step algorithmic decision. |
+| 3555 | `smallest-subarray-to-sort-in-every-sliding-window` | Med | 2/2/2/2/2/2 | 12 | yes | `smallest-subarray-to-sort-in-every-sliding-window-game` | sorting | yes |  |
+| 3556 | `sum-of-largest-prime-substrings` | Med | 1/2/2/2/1/1 | 9 | yes | `sum-of-largest-prime-substrings-game` | math | yes |  |
+| 3557 | `find-maximum-number-of-non-intersecting-substrings` | Med | 2/2/2/2/2/2 | 12 | yes | `find-maximum-number-of-non-intersecting-substrings-game` | greedy | yes |  |
+| 3558 | `number-of-ways-to-assign-edge-weights-i` | Med | 1/2/2/2/1/1 | 9 | yes | `number-of-ways-to-assign-edge-weights-i-game` | tree | yes |  |
+| 3559 | `number-of-ways-to-assign-edge-weights-ii` | Hard | 2/2/2/2/2/1 | 11 | yes | `number-of-ways-to-assign-edge-weights-ii-game` | tree | yes |  |
+| 3560 | `find-minimum-log-transportation-cost` | Easy | 1/2/1/2/1/1 | 8 | yes | `find-minimum-log-transportation-cost-game` | math | yes |  |
+| 3561 | `resulting-string-after-adjacent-removals` | Med | 2/2/2/2/2/2 | 12 | yes | `resulting-string-after-adjacent-removals-game` | stack | yes |  |
+| 3562 | `maximum-profit-from-trading-stocks-with-discounts` | Hard | 2/2/2/1/2/2 | 11 | yes | `maximum-profit-from-trading-stocks-with-discounts-game` | tree | yes |  |
+| 3563 | `lexicographically-smallest-string-after-adjacent-removals` | Hard | 2/2/2/1/2/2 | 11 | yes | `lexicographically-smallest-string-after-adjacent-removals-game` | dp | yes |  |
+| 3564 | `seasonal-sales-analysis` | Med | – | – | no | – | – | – | SQL: the skill is query syntax over tables, not a per-step algorithmic decision. |
+| 3565 | `sequential-grid-path-cover` | Med | 2/2/2/2/2/1 | 11 | yes | `sequential-grid-path-cover-game` | backtracking | yes |  |
+| 3566 | `partition-array-into-two-equal-product-subsets` | Med | 1/2/2/2/1/1 | 9 | yes | `partition-array-into-two-equal-product-subsets-game` | backtracking | yes |  |
+| 3567 | `minimum-absolute-difference-in-sliding-submatrix` | Med | 2/2/2/2/2/1 | 11 | yes | `minimum-absolute-difference-in-sliding-submatrix-game` | sorting | yes |  |
+| 3568 | `minimum-moves-to-clean-the-classroom` | Med | 2/2/2/2/2/2 | 12 | yes | `minimum-moves-to-clean-the-classroom-game` | grid | yes |  |
+| 3569 | `maximize-count-of-distinct-primes-after-split` | Hard | 2/2/2/1/2/2 | 11 | yes | `maximize-count-of-distinct-primes-after-split-game` | range-tree | yes |  |
+| 3570 | `find-books-with-no-available-copies` | Easy | – | – | no | – | – | – | SQL: the skill is query syntax over tables, not a per-step algorithmic decision. |
+| 3571 | `find-the-shortest-superstring-ii` | Easy | 2/2/2/2/2/2 | 12 | yes | `find-the-shortest-superstring-ii-game` | strings | yes |  |
+| 3572 | `maximize-ysum-by-picking-a-triplet-of-distinct-xvalues` | Med | 2/2/2/2/2/2 | 12 | yes | `maximize-ysum-by-picking-a-triplet-of-distinct-xvalues-game` | hash | yes |  |
+| 3573 | `best-time-to-buy-and-sell-stock-v` | Med | 2/2/2/2/2/2 | 12 | yes | `best-time-to-buy-and-sell-stock-v-game` | dp | yes |  |
+| 3574 | `maximize-subarray-gcd-score` | Hard | 2/2/2/1/2/2 | 11 | yes | `maximize-subarray-gcd-score-game` | math | yes |  |
+| 3575 | `maximum-good-subtree-score` | Hard | 2/2/2/1/2/2 | 11 | yes | `maximum-good-subtree-score-game` | tree | yes |  |
+| 3576 | `transform-array-to-all-equal-elements` | Med | 2/2/2/2/2/2 | 12 | yes | `transform-array-to-all-equal-elements-game` | greedy | yes |  |
+| 3577 | `count-the-number-of-computer-unlocking-permutations` | Med | 0/2/2/2/1/0 | 7 | no | – | – | – | Brainteaser: the answer is an observation, not a sequence of steps (score 7/12). |
+| 3578 | `count-partitions-with-max-min-difference-at-most-k` | Med | 2/2/2/2/2/2 | 12 | yes | `count-partitions-with-max-min-difference-at-most-k-game` | sliding-window | yes |  |
+| 3579 | `minimum-steps-to-convert-string-with-operations` | Hard | 2/2/2/1/2/2 | 11 | yes | `minimum-steps-to-convert-string-with-operations-game` | dp | yes |  |
+| 3580 | `find-consistently-improving-employees` | Med | – | – | no | – | – | – | SQL: the skill is query syntax over tables, not a per-step algorithmic decision. |
+| 3581 | `count-odd-letters-from-number` | Easy | 1/2/1/2/1/1 | 8 | yes | `count-odd-letters-from-number-game` | hash | yes |  |
+| 3582 | `generate-tag-for-video-caption` | Easy | 1/2/1/2/1/1 | 8 | yes | `generate-tag-for-video-caption-game` | strings | yes |  |
+| 3583 | `count-special-triplets` | Med | 2/2/2/2/2/2 | 12 | yes | `count-special-triplets-game` | hash | yes |  |
+| 3584 | `maximum-product-of-first-and-last-elements-of-a-subsequence` | Med | 2/2/2/2/2/2 | 12 | yes | `maximum-product-of-first-and-last-elements-of-a-subsequence-game` | two-pointers | yes |  |
+| 3585 | `find-weighted-median-node-in-tree` | Hard | 2/2/2/1/2/2 | 11 | yes | `find-weighted-median-node-in-tree-game` | tree | yes |  |
+| 3586 | `find-covid-recovery-patients` | Med | – | – | no | – | – | – | SQL: the skill is query syntax over tables, not a per-step algorithmic decision. |
+| 3587 | `minimum-adjacent-swaps-to-alternate-parity` | Med | 2/2/2/2/2/2 | 12 | yes | `minimum-adjacent-swaps-to-alternate-parity-game` | greedy | yes |  |
+| 3588 | `find-maximum-area-of-a-triangle` | Med | 2/2/2/2/2/1 | 11 | yes | `find-maximum-area-of-a-triangle-game` | math | yes |  |
+| 3589 | `count-prime-gap-balanced-subarrays` | Med | 2/2/2/2/2/2 | 12 | yes | `count-prime-gap-balanced-subarrays-game` | sliding-window | yes |  |
+| 3590 | `kth-smallest-path-xor-sum` | Hard | 2/2/2/1/2/2 | 11 | yes | `kth-smallest-path-xor-sum-game` | tree | yes |  |
+| 3591 | `check-if-any-element-has-prime-frequency` | Easy | 1/2/2/2/1/1 | 9 | yes | `check-if-any-element-has-prime-frequency-game` | hash | yes |  |
+| 3592 | `inverse-coin-change` | Med | 2/2/2/2/2/2 | 12 | yes | `inverse-coin-change-game` | dp | yes |  |
+| 3593 | `minimum-increments-to-equalize-leaf-paths` | Med | 2/2/2/2/2/2 | 12 | yes | `minimum-increments-to-equalize-leaf-paths-game` | tree | yes |  |
+| 3594 | `minimum-time-to-transport-all-individuals` | Hard | 2/2/2/1/2/1 | 10 | yes | `minimum-time-to-transport-all-individuals-game` | graph | yes |  |
+| 3595 | `once-twice` | Med | 1/2/2/2/1/1 | 9 | yes | `once-twice-game` | bits | yes |  |
+| 3596 | `minimum-cost-path-with-alternating-directions-i` | Med | 0/2/1/2/1/0 | 6 | no | – | – | – | Brainteaser: the answer is an observation, not a sequence of steps (score 6/12). |
+| 3597 | `partition-string` | Med | 1/2/2/2/1/1 | 9 | yes | `partition-string-game` | strings | yes |  |
+| 3598 | `longest-common-prefix-between-adjacent-strings-after-removals` | Med | 2/2/2/2/2/2 | 12 | yes | `longest-common-prefix-between-adjacent-strings-after-removals-game` | strings | yes |  |
+| 3599 | `partition-array-to-minimize-xor` | Med | 2/2/2/2/2/2 | 12 | yes | `partition-array-to-minimize-xor-game` | dp | yes |  |
+| 3600 | `maximize-spanning-tree-stability-with-upgrades` | Hard | 2/2/2/1/2/2 | 11 | yes | `maximize-spanning-tree-stability-with-upgrades-game` | union-find | yes |  |
+| 3601 | `find-drivers-with-improved-fuel-efficiency` | Med | – | – | no | – | – | – | SQL: the skill is query syntax over tables, not a per-step algorithmic decision. |
+| 3602 | `hexadecimal-and-hexatrigesimal-conversion` | Easy | 1/2/1/2/1/1 | 8 | yes | `hexadecimal-and-hexatrigesimal-conversion-game` | math | yes |  |
+| 3603 | `minimum-cost-path-with-alternating-directions-ii` | Med | 2/2/2/2/2/2 | 12 | yes | `minimum-cost-path-with-alternating-directions-ii-game` | dp | yes |  |
+| 3604 | `minimum-time-to-reach-destination-in-directed-graph` | Med | 2/2/2/2/2/2 | 12 | yes | `minimum-time-to-reach-destination-in-directed-graph-game` | graph | yes |  |
+| 3605 | `minimum-stability-factor-of-array` | Hard | 2/2/2/1/2/2 | 11 | yes | `minimum-stability-factor-of-array-game` | binary-search | yes |  |
+| 3606 | `coupon-code-validator` | Easy | 1/2/2/2/1/1 | 9 | yes | `coupon-code-validator-game` | sorting | yes |  |
+| 3607 | `power-grid-maintenance` | Med | 2/2/2/2/2/2 | 12 | yes | `power-grid-maintenance-game` | union-find | yes |  |
+| 3608 | `minimum-time-for-k-connected-components` | Med | 2/2/2/2/2/2 | 12 | yes | `minimum-time-for-k-connected-components-game` | union-find | yes |  |
+| 3609 | `minimum-moves-to-reach-target-in-grid` | Hard | 2/2/2/1/2/2 | 11 | yes | `minimum-moves-to-reach-target-in-grid-game` | math | yes |  |
+| 3610 | `minimum-number-of-primes-to-sum-to-target` | Med | 2/2/2/2/2/2 | 12 | yes | `minimum-number-of-primes-to-sum-to-target-game` | dp | yes |  |
+| 3611 | `find-overbooked-employees` | Med | – | – | no | – | – | – | SQL: the skill is query syntax over tables, not a per-step algorithmic decision. |
+| 3612 | `process-string-with-special-operations-i` | Med | 1/2/2/2/1/1 | 9 | yes | `process-string-with-special-operations-i-game` | sim | yes |  |
+| 3613 | `minimize-maximum-component-cost` | Med | 2/2/2/2/2/2 | 12 | yes | `minimize-maximum-component-cost-game` | union-find | yes |  |
+| 3614 | `process-string-with-special-operations-ii` | Hard | 2/2/2/1/2/2 | 11 | yes | `process-string-with-special-operations-ii-game` | sim | yes |  |
+| 3615 | `longest-palindromic-path-in-graph` | Hard | 2/2/2/1/2/2 | 11 | yes | `longest-palindromic-path-in-graph-game` | graph | yes |  |
+| 3616 | `number-of-student-replacements` | Med | 1/2/2/2/1/1 | 9 | yes | `number-of-student-replacements-game` | array | yes |  |
+| 3617 | `find-students-with-study-spiral-pattern` | Hard | – | – | no | – | – | – | SQL: the skill is query syntax over tables, not a per-step algorithmic decision. |
+| 3618 | `split-array-by-prime-indices` | Med | 1/2/2/2/1/1 | 9 | yes | `split-array-by-prime-indices-game` | math | yes |  |
+| 3619 | `count-islands-with-total-value-divisible-by-k` | Med | 2/2/2/2/2/1 | 11 | yes | `count-islands-with-total-value-divisible-by-k-game` | grid | yes |  |
+| 3620 | `network-recovery-pathways` | Hard | 2/2/2/1/2/2 | 11 | yes | `network-recovery-pathways-game` | binary-search | yes |  |
+| 3621 | `number-of-integers-with-popcount-depth-equal-to-k-i` | Hard | 1/2/2/1/2/1 | 9 | yes | `number-of-integers-with-popcount-depth-equal-to-k-i-game` | bits | yes |  |
+| 3622 | `check-divisibility-by-digit-sum-and-product` | Easy | 1/2/1/2/1/1 | 8 | yes | `check-divisibility-by-digit-sum-and-product-game` | math | yes |  |
+| 3623 | `count-number-of-trapezoids-i` | Med | 2/2/2/2/2/1 | 11 | yes | `count-number-of-trapezoids-i-game` | math | yes |  |
+| 3624 | `number-of-integers-with-popcount-depth-equal-to-k-ii` | Hard | 1/2/2/1/2/1 | 9 | yes | `number-of-integers-with-popcount-depth-equal-to-k-ii-game` | range-tree | yes |  |
+| 3625 | `count-number-of-trapezoids-ii` | Hard | 1/2/2/1/2/1 | 9 | yes | `count-number-of-trapezoids-ii-game` | math | yes |  |
+| 3626 | `find-stores-with-inventory-imbalance` | Med | – | – | no | – | – | – | SQL: the skill is query syntax over tables, not a per-step algorithmic decision. |
+| 3627 | `maximum-median-sum-of-subsequences-of-size-3` | Med | 2/2/2/2/2/2 | 12 | yes | `maximum-median-sum-of-subsequences-of-size-3-game` | greedy | yes |  |
+| 3628 | `maximum-number-of-subsequences-after-one-inserting` | Med | 2/2/2/2/2/2 | 12 | yes | `maximum-number-of-subsequences-after-one-inserting-game` | prefix-sum | yes |  |
+| 3629 | `minimum-jumps-to-reach-end-via-prime-teleportation` | Med | 2/2/2/2/2/2 | 12 | yes | `minimum-jumps-to-reach-end-via-prime-teleportation-game` | graph | yes |  |
+| 3630 | `partition-array-for-maximum-xor-and-and` | Hard | 1/2/2/1/2/1 | 9 | yes | `partition-array-for-maximum-xor-and-and-game` | bits | yes |  |
+| 3631 | `sort-threats-by-severity-and-exploitability` | Med | 1/2/2/2/1/1 | 9 | yes | `sort-threats-by-severity-and-exploitability-game` | sorting | yes |  |
+| 3632 | `subarrays-with-xor-at-least-k` | Hard | 2/2/2/1/2/2 | 11 | yes | `subarrays-with-xor-at-least-k-game` | trie | yes |  |
+| 3633 | `earliest-finish-time-for-land-and-water-rides-i` | Easy | 1/2/2/2/1/1 | 9 | yes | `earliest-finish-time-for-land-and-water-rides-i-game` | greedy | yes |  |
+| 3634 | `minimum-removals-to-balance-array` | Med | 2/2/2/2/2/2 | 12 | yes | `minimum-removals-to-balance-array-game` | sliding-window | yes |  |
+| 3635 | `earliest-finish-time-for-land-and-water-rides-ii` | Med | 2/2/2/2/2/1 | 11 | yes | `earliest-finish-time-for-land-and-water-rides-ii-game` | greedy | yes |  |
+| 3636 | `threshold-majority-queries` | Hard | 2/2/2/1/2/1 | 10 | yes | `threshold-majority-queries-game` | hash | yes |  |
+| 3637 | `trionic-array-i` | Easy | 1/2/2/2/1/1 | 9 | yes | `trionic-array-i-game` | array | yes |  |
+| 3638 | `maximum-balanced-shipments` | Med | 2/2/2/2/2/2 | 12 | yes | `maximum-balanced-shipments-game` | greedy | yes |  |
+| 3639 | `minimum-time-to-activate-string` | Med | 2/2/2/2/2/2 | 12 | yes | `minimum-time-to-activate-string-game` | binary-search | yes |  |
+| 3640 | `trionic-array-ii` | Hard | 2/2/2/1/2/2 | 11 | yes | `trionic-array-ii-game` | dp | yes |  |
+| 3641 | `longest-semi-repeating-subarray` | Med | 2/2/2/2/2/2 | 12 | yes | `longest-semi-repeating-subarray-game` | sliding-window | yes |  |
+| 3642 | `find-books-with-polarized-opinions` | Med | – | – | no | – | – | – | SQL: the skill is query syntax over tables, not a per-step algorithmic decision. |
+| 3643 | `flip-square-submatrix-vertically` | Easy | 1/2/2/2/1/1 | 9 | yes | `flip-square-submatrix-vertically-game` | two-pointers | yes |  |
+| 3644 | `maximum-k-to-sort-a-permutation` | Med | 1/2/2/2/1/1 | 9 | yes | `maximum-k-to-sort-a-permutation-game` | bits | yes |  |
+| 3645 | `maximum-total-from-optimal-activation-order` | Med | 2/2/2/2/2/2 | 12 | yes | `maximum-total-from-optimal-activation-order-game` | greedy | yes |  |
+| 3646 | `next-special-palindrome-number` | Hard | 1/2/2/1/1/1 | 8 | yes | `next-special-palindrome-number-game` | backtracking | yes |  |
+| 3647 | `maximum-weight-in-two-bags` | Med | 2/2/2/2/2/2 | 12 | yes | `maximum-weight-in-two-bags-game` | dp | yes |  |
+| 3648 | `minimum-sensors-to-cover-grid` | Med | 0/2/1/2/1/0 | 6 | no | – | – | – | Pure one-line formula (⌈n/(2k+1)⌉ × ⌈m/(2k+1)⌉): no sequence of steps to play. |
+| 3649 | `number-of-perfect-pairs` | Med | 2/2/2/2/2/2 | 12 | yes | `number-of-perfect-pairs-game` | two-pointers | yes |  |
+| 3650 | `minimum-cost-path-with-edge-reversals` | Med | 2/2/2/2/2/2 | 12 | yes | `minimum-cost-path-with-edge-reversals-game` | graph | yes |  |
+| 3651 | `minimum-cost-path-with-teleportations` | Hard | 2/2/2/1/2/2 | 11 | yes | `minimum-cost-path-with-teleportations-game` | dp | yes |  |
+| 3652 | `best-time-to-buy-and-sell-stock-using-strategy` | Med | 2/2/2/2/2/2 | 12 | yes | `best-time-to-buy-and-sell-stock-using-strategy-game` | sliding-window | yes |  |
+| 3653 | `xor-after-range-multiplication-queries-i` | Med | 1/2/2/2/1/1 | 9 | yes | `xor-after-range-multiplication-queries-i-game` | sim | yes |  |
+| 3654 | `minimum-sum-after-divisible-sum-deletions` | Med | 2/2/2/2/2/2 | 12 | yes | `minimum-sum-after-divisible-sum-deletions-game` | prefix-sum | yes |  |
+| 3655 | `xor-after-range-multiplication-queries-ii` | Hard | 1/2/2/1/2/1 | 9 | yes | `xor-after-range-multiplication-queries-ii-game` | prefix-sum | yes |  |
+| 3656 | `determine-if-a-simple-graph-exists` | Med | 2/2/2/2/2/2 | 12 | yes | `determine-if-a-simple-graph-exists-game` | greedy | yes |  |
+| 3657 | `find-loyal-customers` | Med | – | – | no | – | – | – | SQL: the skill is query syntax over tables, not a per-step algorithmic decision. |
+| 3658 | `gcd-of-odd-and-even-sums` | Easy | 0/2/1/2/1/0 | 6 | no | – | – | – | Pure one-line formula (gcd(n², n(n+1)) = n): no sequence of steps to play. |
+| 3659 | `partition-array-into-k-distinct-groups` | Med | 1/2/1/2/1/1 | 8 | yes | `partition-array-into-k-distinct-groups-game` | hash | yes |  |
+| 3660 | `jump-game-ix` | Med | 2/2/2/2/2/2 | 12 | yes | `jump-game-ix-game` | array | yes |  |
+| 3661 | `maximum-walls-destroyed-by-robots` | Hard | 2/2/2/1/2/2 | 11 | yes | `maximum-walls-destroyed-by-robots-game` | dp | yes |  |
+| 3662 | `filter-characters-by-frequency` | Easy | 1/2/1/2/1/1 | 8 | yes | `filter-characters-by-frequency-game` | hash | yes |  |
+| 3663 | `find-the-least-frequent-digit` | Easy | 1/2/1/2/1/1 | 8 | yes | `find-the-least-frequent-digit-game` | hash | yes |  |
+| 3664 | `two-letter-card-game` | Med | 2/2/2/2/2/1 | 11 | yes | `two-letter-card-game-game` | hash | yes |  |
+| 3665 | `twisted-mirror-path-count` | Med | 2/2/2/2/2/2 | 12 | yes | `twisted-mirror-path-count-game` | dp | yes |  |
+| 3666 | `minimum-operations-to-equalize-binary-string` | Hard | 2/2/2/1/2/2 | 11 | yes | `minimum-operations-to-equalize-binary-string-game` | graph | yes |  |
+| 3667 | `sort-array-by-absolute-value` | Easy | 1/2/2/2/1/1 | 9 | yes | `sort-array-by-absolute-value-game` | two-pointers | yes |  |
+| 3668 | `restore-finishing-order` | Easy | 1/2/1/2/1/1 | 8 | yes | `restore-finishing-order-game` | hash | yes |  |
+| 3669 | `balanced-k-factor-decomposition` | Med | 1/2/1/2/1/1 | 8 | yes | `balanced-k-factor-decomposition-game` | backtracking | yes |  |
+| 3670 | `maximum-product-of-two-integers-with-no-common-bits` | Med | 2/2/2/2/2/1 | 11 | yes | `maximum-product-of-two-integers-with-no-common-bits-game` | bits | yes |  |
+| 3671 | `sum-of-beautiful-subsequences` | Hard | 2/2/2/1/2/2 | 11 | yes | `sum-of-beautiful-subsequences-game` | math | yes |  |
+| 3672 | `sum-of-weighted-modes-in-subarrays` | Med | 2/2/2/2/2/1 | 11 | yes | `sum-of-weighted-modes-in-subarrays-game` | sliding-window | yes |  |
+| 3673 | `find-zombie-sessions` | Hard | – | – | no | – | – | – | SQL: the skill is query syntax over tables, not a per-step algorithmic decision. |
+| 3674 | `minimum-operations-to-equalize-array` | Easy | 0/2/1/2/1/0 | 6 | no | – | – | – | Brainteaser: the answer is an observation, not a sequence of steps (score 6/12). |
+| 3675 | `minimum-operations-to-transform-string` | Med | 1/2/1/2/1/1 | 8 | yes | `minimum-operations-to-transform-string-game` | greedy | yes |  |
+| 3676 | `count-bowl-subarrays` | Med | 2/2/2/2/2/2 | 12 | yes | `count-bowl-subarrays-game` | mono-stack | yes |  |
+| 3677 | `count-binary-palindromic-numbers` | Hard | 1/2/2/1/2/1 | 9 | yes | `count-binary-palindromic-numbers-game` | bits | yes |  |
+| 3678 | `smallest-absent-positive-greater-than-average` | Easy | 1/2/2/2/1/1 | 9 | yes | `smallest-absent-positive-greater-than-average-game` | hash | yes |  |
+| 3679 | `minimum-discards-to-balance-inventory` | Med | 2/2/2/2/2/1 | 11 | yes | `minimum-discards-to-balance-inventory-game` | sliding-window | yes |  |
+| 3680 | `generate-schedule` | Med | 1/2/1/2/1/1 | 8 | yes | `generate-schedule-game` | greedy | yes |  |
+| 3681 | `maximum-xor-of-subsequences` | Hard | 2/2/2/1/2/2 | 11 | yes | `maximum-xor-of-subsequences-game` | bits | yes |  |
+| 3682 | `minimum-index-sum-of-common-elements` | Med | 1/2/2/2/1/1 | 9 | yes | `minimum-index-sum-of-common-elements-game` | hash | yes |  |
+| 3683 | `earliest-time-to-finish-one-task` | Easy | 1/2/1/2/1/1 | 8 | yes | `earliest-time-to-finish-one-task-game` | array | yes |  |
+| 3684 | `maximize-sum-of-at-most-k-distinct-elements` | Easy | 1/2/2/2/1/1 | 9 | yes | `maximize-sum-of-at-most-k-distinct-elements-game` | sorting | yes |  |
+| 3685 | `subsequence-sum-after-capping-elements` | Med | 2/2/2/2/2/2 | 12 | yes | `subsequence-sum-after-capping-elements-game` | dp | yes |  |
+| 3686 | `number-of-stable-subsequences` | Hard | 2/2/2/1/2/2 | 11 | yes | `number-of-stable-subsequences-game` | dp | yes |  |
+| 3687 | `library-late-fee-calculator` | Easy | 1/2/1/2/1/1 | 8 | yes | `library-late-fee-calculator-game` | sim | yes |  |
+| 3688 | `bitwise-or-of-even-numbers-in-an-array` | Easy | 1/2/1/2/1/1 | 8 | yes | `bitwise-or-of-even-numbers-in-an-array-game` | bits | yes |  |
+| 3689 | `maximum-total-subarray-value-i` | Med | 0/2/1/2/1/0 | 6 | no | – | – | – | Pure one-line formula (k × (max − min)): no sequence of steps to play. |
+| 3690 | `split-and-merge-array-transformation` | Med | 2/2/1/2/1/1 | 9 | yes | `split-and-merge-array-transformation-game` | graph | yes |  |
+| 3691 | `maximum-total-subarray-value-ii` | Hard | 2/2/2/1/2/2 | 11 | yes | `maximum-total-subarray-value-ii-game` | greedy | yes |  |
+| 3692 | `majority-frequency-characters` | Easy | 1/2/2/2/1/1 | 9 | yes | `majority-frequency-characters-game` | hash | yes |  |
+| 3693 | `climbing-stairs-ii` | Med | 2/2/2/2/2/2 | 12 | yes | `climbing-stairs-ii-game` | dp | yes |  |
+| 3694 | `distinct-points-reachable-after-substring-removal` | Med | 2/2/2/2/2/1 | 11 | yes | `distinct-points-reachable-after-substring-removal-game` | prefix-sum | yes |  |
+| 3695 | `maximize-alternating-sum-using-swaps` | Hard | 2/2/2/1/2/2 | 11 | yes | `maximize-alternating-sum-using-swaps-game` | union-find | yes |  |
+| 3696 | `maximum-distance-between-unequal-words-in-array-i` | Easy | 1/2/2/2/1/1 | 9 | yes | `maximum-distance-between-unequal-words-in-array-i-game` | array | yes |  |
+| 3697 | `compute-decimal-representation` | Easy | 1/2/1/2/1/1 | 8 | yes | `compute-decimal-representation-game` | math | yes |  |
+| 3698 | `split-array-with-minimum-difference` | Med | 2/2/2/2/1/1 | 10 | yes | `split-array-with-minimum-difference-game` | prefix-sum | yes |  |
+| 3699 | `number-of-zigzag-arrays-i` | Hard | 2/2/2/1/2/2 | 11 | yes | `number-of-zigzag-arrays-i-game` | dp | yes |  |
+| 3700 | `number-of-zigzag-arrays-ii` | Hard | 2/2/2/1/2/2 | 11 | yes | `number-of-zigzag-arrays-ii-game` | dp | yes |  |
+| 3701 | `compute-alternating-sum` | Easy | 1/2/1/2/1/1 | 8 | yes | `compute-alternating-sum-game` | sim | yes |  |
+| 3702 | `longest-subsequence-with-non-zero-bitwise-xor` | Med | 0/2/2/2/1/0 | 7 | no | – | – | – | Brainteaser: the answer is an observation, not a sequence of steps (score 7/12). |
+| 3703 | `remove-k-balanced-substrings` | Med | 2/2/2/2/2/2 | 12 | yes | `remove-k-balanced-substrings-game` | stack | yes |  |
+| 3704 | `count-no-zero-pairs-that-sum-to-n` | Hard | 2/2/1/1/1/2 | 9 | yes | `count-no-zero-pairs-that-sum-to-n-game` | math | yes |  |
+| 3705 | `find-golden-hour-customers` | Med | – | – | no | – | – | – | SQL: the skill is query syntax over tables, not a per-step algorithmic decision. |
+| 3706 | `maximum-distance-between-unequal-words-in-array-ii` | Med | 2/2/2/2/1/1 | 10 | yes | `maximum-distance-between-unequal-words-in-array-ii-game` | array | yes |  |
+| 3707 | `equal-score-substrings` | Easy | 1/2/2/2/1/1 | 9 | yes | `equal-score-substrings-game` | prefix-sum | yes |  |
+| 3708 | `longest-fibonacci-subarray` | Med | 2/2/2/2/1/1 | 10 | yes | `longest-fibonacci-subarray-game` | array | yes |  |
+| 3709 | `design-exam-scores-tracker` | Med | 2/2/2/2/1/2 | 11 | yes | `design-exam-scores-tracker-game` | design | yes |  |
+| 3710 | `maximum-partition-factor` | Hard | 2/2/2/1/2/2 | 11 | yes | `maximum-partition-factor-game` | graph | yes |  |
+| 3711 | `maximum-transactions-without-negative-balance` | Med | 2/2/2/2/2/2 | 12 | yes | `maximum-transactions-without-negative-balance-game` | greedy | yes |  |
+| 3712 | `sum-of-elements-with-frequency-divisible-by-k` | Easy | 1/2/2/2/1/1 | 9 | yes | `sum-of-elements-with-frequency-divisible-by-k-game` | hash | yes |  |
+| 3713 | `longest-balanced-substring-i` | Med | 2/2/2/2/1/1 | 10 | yes | `longest-balanced-substring-i-game` | hash | yes |  |
+| 3714 | `longest-balanced-substring-ii` | Med | 2/2/1/1/2/2 | 10 | yes | `longest-balanced-substring-ii-game` | hash | yes |  |
+| 3715 | `sum-of-perfect-square-ancestors` | Hard | 2/2/2/1/2/2 | 11 | yes | `sum-of-perfect-square-ancestors-game` | tree | yes |  |
+| 3716 | `find-churn-risk-customers` | Med | – | – | no | – | – | – | SQL: the skill is query syntax over tables, not a per-step algorithmic decision. |
+| 3717 | `minimum-operations-to-make-the-array-beautiful` | Med | 2/2/2/2/2/1 | 11 | yes | `minimum-operations-to-make-the-array-beautiful-game` | dp | yes |  |
+| 3718 | `smallest-missing-multiple-of-k` | Easy | 1/2/1/2/1/1 | 8 | yes | `smallest-missing-multiple-of-k-game` | hash | yes |  |
+| 3719 | `longest-balanced-subarray-i` | Med | 2/2/2/2/1/1 | 10 | yes | `longest-balanced-subarray-i-game` | prefix-sum | yes |  |
+| 3720 | `lexicographically-smallest-permutation-greater-than-target` | Med | 2/2/2/2/2/2 | 12 | yes | `lexicographically-smallest-permutation-greater-than-target-game` | strings | yes |  |
+| 3721 | `longest-balanced-subarray-ii` | Hard | 2/2/1/1/2/2 | 10 | yes | `longest-balanced-subarray-ii-game` | prefix-sum | yes |  |
+| 3722 | `lexicographically-smallest-string-after-reverse` | Med | 1/2/2/2/1/1 | 9 | yes | `lexicographically-smallest-string-after-reverse-game` | two-pointers | yes |  |
+| 3723 | `maximize-sum-of-squares-of-digits` | Med | 1/2/1/2/1/1 | 8 | yes | `maximize-sum-of-squares-of-digits-game` | greedy | yes |  |
+| 3724 | `minimum-operations-to-transform-array` | Med | 2/2/2/2/2/1 | 11 | yes | `minimum-operations-to-transform-array-game` | greedy | yes |  |
+| 3725 | `count-ways-to-choose-coprime-integers-from-rows` | Hard | 2/2/2/1/2/2 | 11 | yes | `count-ways-to-choose-coprime-integers-from-rows-game` | math | yes |  |
+| 3726 | `remove-zeros-in-decimal-representation` | Easy | 0/2/1/2/1/0 | 6 | no | – | – | – | Pure one-line formula (drop the 0 digits): no sequence of steps to play. |
+| 3727 | `maximum-alternating-sum-of-squares` | Med | 1/2/2/2/1/1 | 9 | yes | `maximum-alternating-sum-of-squares-game` | sorting | yes |  |
+| 3728 | `stable-subarrays-with-equal-boundary-and-interior-sum` | Med | 2/2/2/2/2/2 | 12 | yes | `stable-subarrays-with-equal-boundary-and-interior-sum-game` | prefix-sum | yes |  |
+| 3729 | `count-distinct-subarrays-divisible-by-k-in-sorted-array` | Hard | 2/2/1/1/2/2 | 10 | yes | `count-distinct-subarrays-divisible-by-k-in-sorted-array-game` | hash | yes |  |
+| 3730 | `maximum-calories-burnt-from-jumps` | Med | 2/2/2/2/1/1 | 10 | yes | `maximum-calories-burnt-from-jumps-game` | greedy | yes |  |
+| 3731 | `find-missing-elements` | Easy | 1/2/1/2/1/1 | 8 | yes | `find-missing-elements-game` | hash | yes |  |
+| 3732 | `maximum-product-of-three-elements-after-one-replacement` | Med | 0/2/1/2/1/0 | 6 | no | – | – | – | Pure one-line formula (10^5 × the two largest abs(x)): no sequence of steps to play. |
+| 3733 | `minimum-time-to-complete-all-deliveries` | Med | 2/2/2/2/2/1 | 11 | yes | `minimum-time-to-complete-all-deliveries-game` | binary-search | yes |  |
+| 3734 | `lexicographically-smallest-palindromic-permutation-greater-than-target` | Hard | 2/2/1/1/2/2 | 10 | yes | `lexicographically-smallest-palindromic-permutation-greater-than-target-game` | strings | yes |  |
+| 3735 | `lexicographically-smallest-string-after-reverse-ii` | Hard | 2/2/1/1/1/2 | 9 | yes | `lexicographically-smallest-string-after-reverse-ii-game` | two-pointers | yes |  |
+| 3736 | `minimum-moves-to-equal-array-elements-iii` | Easy | 0/2/1/2/1/0 | 6 | no | – | – | – | Pure one-line formula (Σ(max − x)): no sequence of steps to play. |
+| 3737 | `count-subarrays-with-majority-element-i` | Med | 2/2/2/2/1/1 | 10 | yes | `count-subarrays-with-majority-element-i-game` | prefix-sum | yes |  |
+| 3738 | `longest-non-decreasing-subarray-after-replacing-at-most-one-element` | Med | 2/2/2/2/2/2 | 12 | yes | `longest-non-decreasing-subarray-after-replacing-at-most-one-element-game` | dp | yes |  |
+| 3739 | `count-subarrays-with-majority-element-ii` | Hard | 2/2/2/1/2/2 | 11 | yes | `count-subarrays-with-majority-element-ii-game` | prefix-sum | yes |  |
+| 3740 | `minimum-distance-between-three-equal-elements-i` | Easy | 1/2/2/2/1/1 | 9 | yes | `minimum-distance-between-three-equal-elements-i-game` | hash | yes |  |
+| 3741 | `minimum-distance-between-three-equal-elements-ii` | Med | 2/2/2/2/1/1 | 10 | yes | `minimum-distance-between-three-equal-elements-ii-game` | hash | yes |  |
+| 3742 | `maximum-path-score-in-a-grid` | Med | 2/2/2/2/2/2 | 12 | yes | `maximum-path-score-in-a-grid-game` | dp | yes |  |
+| 3743 | `maximize-cyclic-partition-score` | Hard | 2/2/1/1/2/2 | 10 | yes | `maximize-cyclic-partition-score-game` | dp | yes |  |
+| 3744 | `find-kth-character-in-expanded-string` | Med | 2/2/2/2/1/1 | 10 | yes | `find-kth-character-in-expanded-string-game` | strings | yes |  |
+| 3745 | `maximize-expression-of-three-elements` | Easy | 0/2/1/2/1/0 | 6 | no | – | – | – | Pure one-line formula (two largest − smallest): no sequence of steps to play. |
+| 3746 | `minimum-string-length-after-balanced-removals` | Med | 0/2/1/2/1/0 | 6 | no | – | – | – | Pure one-line formula (abs(count(a) − count(b))): no sequence of steps to play. |
+| 3747 | `count-distinct-integers-after-removing-zeros` | Med | 2/2/1/2/1/1 | 9 | yes | `count-distinct-integers-after-removing-zeros-game` | math | yes |  |
+| 3748 | `count-stable-subarrays` | Hard | 2/2/2/1/2/2 | 11 | yes | `count-stable-subarrays-game` | prefix-sum | yes |  |
+| 3749 | `evaluate-valid-expressions` | Hard | 2/2/2/1/2/2 | 11 | yes | `evaluate-valid-expressions-game` | stack | yes |  |
+| 3750 | `minimum-number-of-flips-to-reverse-binary-string` | Easy | 1/2/2/2/1/1 | 9 | yes | `minimum-number-of-flips-to-reverse-binary-string-game` | two-pointers | yes |  |
+| 3751 | `total-waviness-of-numbers-in-range-i` | Med | 1/2/1/2/1/1 | 8 | yes | `total-waviness-of-numbers-in-range-i-game` | dp | yes |  |
+| 3752 | `lexicographically-smallest-negated-permutation-that-sums-to-target` | Med | 2/2/1/2/1/1 | 9 | yes | `lexicographically-smallest-negated-permutation-that-sums-to-target-game` | greedy | yes |  |
+| 3753 | `total-waviness-of-numbers-in-range-ii` | Hard | 2/2/1/1/2/2 | 10 | yes | `total-waviness-of-numbers-in-range-ii-game` | dp | yes |  |
+| 3754 | `concatenate-non-zero-digits-and-multiply-by-sum-i` | Easy | 1/2/1/2/1/1 | 8 | yes | `concatenate-non-zero-digits-and-multiply-by-sum-i-game` | math | yes |  |
+| 3755 | `find-maximum-balanced-xor-subarray-length` | Med | 2/2/2/2/2/2 | 12 | yes | `find-maximum-balanced-xor-subarray-length-game` | prefix-sum | yes |  |
+| 3756 | `concatenate-non-zero-digits-and-multiply-by-sum-ii` | Med | 2/2/2/2/1/1 | 10 | yes | `concatenate-non-zero-digits-and-multiply-by-sum-ii-game` | prefix-sum | yes |  |
+| 3757 | `number-of-effective-subsequences` | Hard | 2/2/1/1/2/2 | 10 | yes | `number-of-effective-subsequences-game` | bits | yes |  |
+| 3758 | `convert-number-words-to-digits` | Med | 2/2/2/2/1/1 | 10 | yes | `convert-number-words-to-digits-game` | trie | yes |  |
+| 3759 | `count-elements-with-at-least-k-greater-values` | Med | 1/2/2/2/1/1 | 9 | yes | `count-elements-with-at-least-k-greater-values-game` | sorting | yes |  |
+| 3760 | `maximum-substrings-with-distinct-start` | Med | 0/2/1/2/1/0 | 6 | no | – | – | – | Pure one-line formula (number of distinct letters): no sequence of steps to play. |
+| 3761 | `minimum-absolute-distance-between-mirror-pairs` | Med | 2/2/2/2/1/1 | 10 | yes | `minimum-absolute-distance-between-mirror-pairs-game` | hash | yes |  |
+| 3762 | `minimum-operations-to-equalize-subarrays` | Hard | 2/2/2/1/2/2 | 11 | yes | `minimum-operations-to-equalize-subarrays-game` | range-tree | yes |  |
+| 3763 | `maximum-total-sum-with-threshold-constraints` | Med | 2/2/2/2/2/2 | 12 | yes | `maximum-total-sum-with-threshold-constraints-game` | greedy | yes |  |
+| 3764 | `most-common-course-pairs` | Hard | – | – | no | – | – | – | SQL: the skill is query syntax over tables, not a per-step algorithmic decision. |
+| 3765 | `complete-prime-number` | Med | 1/2/1/2/1/1 | 8 | yes | `complete-prime-number-game` | math | yes |  |
+| 3766 | `minimum-operations-to-make-binary-palindrome` | Med | 2/2/2/2/1/1 | 10 | yes | `minimum-operations-to-make-binary-palindrome-game` | bits | yes |  |
+| 3767 | `maximize-points-after-choosing-k-tasks` | Med | 2/2/2/2/2/1 | 11 | yes | `maximize-points-after-choosing-k-tasks-game` | greedy | yes |  |
+| 3768 | `minimum-inversion-count-in-subarrays-of-fixed-length` | Hard | 2/2/2/1/2/2 | 11 | yes | `minimum-inversion-count-in-subarrays-of-fixed-length-game` | range-tree | yes |  |
+| 3769 | `sort-integers-by-binary-reflection` | Easy | 1/2/2/2/1/1 | 9 | yes | `sort-integers-by-binary-reflection-game` | sorting | yes |  |
+| 3770 | `largest-prime-from-consecutive-prime-sum` | Med | 1/2/1/2/1/1 | 8 | yes | `largest-prime-from-consecutive-prime-sum-game` | math | yes |  |
+| 3771 | `total-score-of-dungeon-runs` | Med | 2/2/2/2/2/1 | 11 | yes | `total-score-of-dungeon-runs-game` | binary-search | yes |  |
+| 3772 | `maximum-subgraph-score-in-a-tree` | Hard | 2/2/2/1/2/2 | 11 | yes | `maximum-subgraph-score-in-a-tree-game` | tree | yes |  |
+| 3773 | `maximum-number-of-equal-length-runs` | Med | 1/2/2/2/1/1 | 9 | yes | `maximum-number-of-equal-length-runs-game` | hash | yes |  |
+| 3774 | `absolute-difference-between-maximum-and-minimum-k-elements` | Easy | 0/2/1/2/1/0 | 6 | no | – | – | – | Pure one-line formula (k largest − k smallest after a sort): no sequence of steps to play. |
+| 3775 | `reverse-words-with-same-vowel-count` | Med | 1/2/2/2/1/1 | 9 | yes | `reverse-words-with-same-vowel-count-game` | strings | yes |  |
+| 3776 | `minimum-moves-to-balance-circular-array` | Med | 2/2/2/2/2/1 | 11 | yes | `minimum-moves-to-balance-circular-array-game` | greedy | yes |  |
+| 3777 | `minimum-deletions-to-make-alternating-substring` | Hard | 2/2/2/1/2/1 | 10 | yes | `minimum-deletions-to-make-alternating-substring-game` | range-tree | yes |  |
+| 3778 | `minimum-distance-excluding-one-maximum-weighted-edge` | Med | 2/2/2/2/2/2 | 12 | yes | `minimum-distance-excluding-one-maximum-weighted-edge-game` | graph | yes |  |
+| 3779 | `minimum-number-of-operations-to-have-distinct-elements` | Med | 2/2/2/2/1/1 | 10 | yes | `minimum-number-of-operations-to-have-distinct-elements-game` | hash | yes |  |
+| 3780 | `maximum-sum-of-three-numbers-divisible-by-three` | Med | 2/2/2/2/1/1 | 10 | yes | `maximum-sum-of-three-numbers-divisible-by-three-game` | greedy | yes |  |
+| 3781 | `maximum-score-after-binary-swaps` | Med | 2/2/2/2/2/2 | 12 | yes | `maximum-score-after-binary-swaps-game` | greedy | yes |  |
+| 3782 | `last-remaining-integer-after-alternating-deletion-operations` | Hard | 2/2/1/1/1/2 | 9 | yes | `last-remaining-integer-after-alternating-deletion-operations-game` | math | yes |  |
+| 3783 | `mirror-distance-of-an-integer` | Easy | 0/2/1/2/1/0 | 6 | no | – | – | – | Pure one-line formula (abs(n − reverse(n))): no sequence of steps to play. |
+| 3784 | `minimum-deletion-cost-to-make-all-characters-equal` | Med | 1/2/2/2/1/1 | 9 | yes | `minimum-deletion-cost-to-make-all-characters-equal-game` | hash | yes |  |
+| 3785 | `minimum-swaps-to-avoid-forbidden-values` | Hard | 2/2/1/1/1/2 | 9 | yes | `minimum-swaps-to-avoid-forbidden-values-game` | greedy | yes |  |
+| 3786 | `total-sum-of-interaction-cost-in-tree-groups` | Hard | 2/2/2/1/2/2 | 11 | yes | `total-sum-of-interaction-cost-in-tree-groups-game` | tree | yes |  |
+| 3787 | `find-diameter-endpoints-of-a-tree` | Med | 2/2/2/2/2/1 | 11 | yes | `find-diameter-endpoints-of-a-tree-game` | tree | yes |  |
+| 3788 | `maximum-score-of-a-split` | Med | 2/2/2/2/1/1 | 10 | yes | `maximum-score-of-a-split-game` | prefix-sum | yes |  |
+| 3789 | `minimum-cost-to-acquire-required-items` | Med | 1/2/1/2/1/1 | 8 | yes | `minimum-cost-to-acquire-required-items-game` | greedy | yes |  |
+| 3790 | `smallest-all-ones-multiple` | Med | 2/2/2/2/1/1 | 10 | yes | `smallest-all-ones-multiple-game` | math | yes |  |
+| 3791 | `number-of-balanced-integers-in-a-range` | Hard | 2/2/1/1/2/2 | 10 | yes | `number-of-balanced-integers-in-a-range-game` | dp | yes |  |
+| 3792 | `sum-of-increasing-product-blocks` | Med | 1/2/1/2/1/1 | 8 | yes | `sum-of-increasing-product-blocks-game` | math | yes |  |
+| 3793 | `find-users-with-high-token-usage` | Easy | – | – | no | – | – | – | SQL: the skill is query syntax over tables, not a per-step algorithmic decision. |
+| 3794 | `reverse-string-prefix` | Easy | 0/2/1/2/1/0 | 6 | no | – | – | – | Pure one-line formula (reverse s[0..k−1]): no sequence of steps to play. |
+| 3795 | `minimum-subarray-length-with-distinct-sum-at-least-k` | Med | 2/2/2/2/2/2 | 12 | yes | `minimum-subarray-length-with-distinct-sum-at-least-k-game` | sliding-window | yes |  |
+| 3796 | `find-maximum-value-in-a-constrained-sequence` | Med | 2/2/2/2/2/1 | 11 | yes | `find-maximum-value-in-a-constrained-sequence-game` | greedy | yes |  |
+| 3797 | `count-routes-to-climb-a-rectangular-grid` | Hard | 2/2/2/1/2/2 | 11 | yes | `count-routes-to-climb-a-rectangular-grid-game` | dp | yes |  |
+| 3798 | `largest-even-number` | Easy | 0/2/1/2/1/0 | 6 | no | – | – | – | Pure one-line formula (cut after the last 2): no sequence of steps to play. |
+| 3799 | `word-squares-ii` | Med | 2/2/1/2/1/1 | 9 | yes | `word-squares-ii-game` | backtracking | yes |  |
+| 3800 | `minimum-cost-to-make-two-binary-strings-equal` | Med | 2/2/1/2/1/2 | 10 | yes | `minimum-cost-to-make-two-binary-strings-equal-game` | greedy | yes |  |
+| 3801 | `minimum-cost-to-merge-sorted-lists` | Hard | 2/2/2/1/2/2 | 11 | yes | `minimum-cost-to-merge-sorted-lists-game` | dp | yes |  |
+| 3802 | `number-of-ways-to-paint-sheets` | Hard | 2/2/1/1/1/2 | 9 | yes | `number-of-ways-to-paint-sheets-game` | math | yes |  |
+| 3803 | `count-residue-prefixes` | Easy | 1/2/2/2/1/1 | 9 | yes | `count-residue-prefixes-game` | hash | yes |  |
+| 3804 | `number-of-centered-subarrays` | Med | 2/2/2/2/1/1 | 10 | yes | `number-of-centered-subarrays-game` | prefix-sum | yes |  |
+| 3805 | `count-caesar-cipher-pairs` | Med | 2/2/2/2/1/1 | 10 | yes | `count-caesar-cipher-pairs-game` | hash | yes |  |
+| 3806 | `maximum-bitwise-and-after-increment-operations` | Hard | 2/2/2/1/2/2 | 11 | yes | `maximum-bitwise-and-after-increment-operations-game` | bits | yes |  |
+| 3807 | `minimum-cost-to-repair-edges-to-traverse-a-graph` | Med | 2/2/2/2/2/2 | 12 | yes | `minimum-cost-to-repair-edges-to-traverse-a-graph-game` | graph | yes |  |
+| 3808 | `find-emotionally-consistent-users` | Med | – | – | no | – | – | – | SQL: the skill is query syntax over tables, not a per-step algorithmic decision. |
+| 3809 | `best-reachable-tower` | Med | 1/2/1/2/1/1 | 8 | yes | `best-reachable-tower-game` | array | yes |  |
+| 3810 | `minimum-operations-to-reach-target-array` | Med | 1/2/1/2/1/1 | 8 | yes | `minimum-operations-to-reach-target-array-game` | hash | yes |  |
+| 3811 | `number-of-alternating-xor-partitions` | Med | 2/2/2/2/2/2 | 12 | yes | `number-of-alternating-xor-partitions-game` | dp | yes |  |
+| 3812 | `minimum-edge-toggles-on-a-tree` | Hard | 2/2/2/1/2/2 | 11 | yes | `minimum-edge-toggles-on-a-tree-game` | tree | yes |  |
+| 3813 | `vowel-consonant-score` | Easy | 0/2/1/2/1/0 | 6 | no | – | – | – | Pure one-line formula (⌊vowels / consonants⌋): no sequence of steps to play. |
+| 3814 | `maximum-capacity-within-budget` | Med | 2/2/2/2/2/1 | 11 | yes | `maximum-capacity-within-budget-game` | binary-search | yes |  |
+| 3815 | `design-auction-system` | Med | 2/2/2/2/1/2 | 11 | yes | `design-auction-system-game` | design | yes |  |
+| 3816 | `lexicographically-smallest-string-after-deleting-duplicate-characters` | Hard | 2/2/2/1/2/2 | 11 | yes | `lexicographically-smallest-string-after-deleting-duplicate-characters-game` | stack | yes |  |
+| 3817 | `good-indices-in-a-digit-string` | Med | 1/2/1/2/1/1 | 8 | yes | `good-indices-in-a-digit-string-game` | strings | yes |  |
+| 3818 | `minimum-prefix-removal-to-make-array-strictly-increasing` | Med | 1/2/2/2/1/1 | 9 | yes | `minimum-prefix-removal-to-make-array-strictly-increasing-game` | array | yes |  |
+| 3819 | `rotate-non-negative-elements` | Med | 1/2/1/2/1/1 | 8 | yes | `rotate-non-negative-elements-game` | array | yes |  |
+| 3820 | `pythagorean-distance-nodes-in-a-tree` | Med | 2/2/2/2/1/1 | 10 | yes | `pythagorean-distance-nodes-in-a-tree-game` | tree | yes |  |
+| 3821 | `find-nth-smallest-integer-with-k-one-bits` | Hard | 2/2/2/1/2/2 | 11 | yes | `find-nth-smallest-integer-with-k-one-bits-game` | bits | yes |  |
+| 3822 | `design-order-management-system` | Med | 2/2/2/2/1/2 | 11 | yes | `design-order-management-system-game` | design | yes |  |
+| 3823 | `reverse-letters-then-special-characters-in-a-string` | Easy | 1/2/2/2/1/1 | 9 | yes | `reverse-letters-then-special-characters-in-a-string-game` | two-pointers | yes |  |
+| 3824 | `minimum-k-to-reduce-array-within-limit` | Med | 2/2/2/2/1/1 | 10 | yes | `minimum-k-to-reduce-array-within-limit-game` | binary-search | yes |  |
+| 3825 | `longest-strictly-increasing-subsequence-with-non-zero-bitwise-and` | Med | 2/2/2/2/2/1 | 11 | yes | `longest-strictly-increasing-subsequence-with-non-zero-bitwise-and-game` | bits | yes |  |
+| 3826 | `minimum-partition-score` | Hard | 2/2/2/1/2/2 | 11 | yes | `minimum-partition-score-game` | dp | yes |  |
+| 3827 | `count-monobit-integers` | Easy | 0/2/1/2/1/0 | 6 | no | – | – | – | Pure one-line formula (0 plus every 2^b − 1 ≤ n): no sequence of steps to play. |
+| 3828 | `final-element-after-subarray-deletions` | Med | 0/2/1/2/1/0 | 6 | no | – | – | – | Brainteaser: the answer is an observation, not a sequence of steps (score 6/12). |
+| 3829 | `design-ride-sharing-system` | Med | 2/2/2/2/1/2 | 11 | yes | `design-ride-sharing-system-game` | design | yes |  |
+| 3830 | `longest-alternating-subarray-after-removing-at-most-one-element` | Hard | 2/2/1/1/2/2 | 10 | yes | `longest-alternating-subarray-after-removing-at-most-one-element-game` | dp | yes |  |
+| 3831 | `median-of-a-binary-search-tree-level` | Med | 2/2/2/2/1/1 | 10 | yes | `median-of-a-binary-search-tree-level-game` | tree | yes |  |
+| 3832 | `find-users-with-persistent-behavior-patterns` | Hard | – | – | no | – | – | – | SQL: the skill is query syntax over tables, not a per-step algorithmic decision. |
+| 3833 | `count-dominant-indices` | Easy | 1/2/2/2/1/1 | 9 | yes | `count-dominant-indices-game` | array | yes |  |
+| 3834 | `merge-adjacent-equal-elements` | Med | 2/2/2/2/1/1 | 10 | yes | `merge-adjacent-equal-elements-game` | stack | yes |  |
+| 3835 | `count-subarrays-with-cost-less-than-or-equal-to-k` | Med | 2/2/2/2/2/2 | 12 | yes | `count-subarrays-with-cost-less-than-or-equal-to-k-game` | sliding-window | yes |  |
+| 3836 | `maximum-score-using-exactly-k-pairs` | Hard | 2/2/2/1/2/2 | 11 | yes | `maximum-score-using-exactly-k-pairs-game` | dp | yes |  |
+| 3837 | `delayed-count-of-equal-elements` | Med | 2/2/2/2/1/1 | 10 | yes | `delayed-count-of-equal-elements-game` | hash | yes |  |
+| 3838 | `weighted-word-mapping` | Easy | 1/2/1/2/1/1 | 8 | yes | `weighted-word-mapping-game` | strings | yes |  |
+| 3839 | `number-of-prefix-connected-groups` | Med | 1/2/1/2/1/1 | 8 | yes | `number-of-prefix-connected-groups-game` | hash | yes |  |
+| 3840 | `house-robber-v` | Med | 2/2/2/2/2/2 | 12 | yes | `house-robber-v-game` | dp | yes |  |
+| 3841 | `palindromic-path-queries-in-a-tree` | Hard | 2/2/1/1/2/2 | 10 | yes | `palindromic-path-queries-in-a-tree-game` | tree | yes |  |
+| 3842 | `toggle-light-bulbs` | Easy | 1/2/1/2/1/1 | 8 | yes | `toggle-light-bulbs-game` | hash | yes |  |
+| 3843 | `first-element-with-unique-frequency` | Med | 1/2/2/2/1/1 | 9 | yes | `first-element-with-unique-frequency-game` | hash | yes |  |
+| 3844 | `longest-almost-palindromic-substring` | Med | 2/2/2/2/1/1 | 10 | yes | `longest-almost-palindromic-substring-game` | dp | yes |  |
+| 3845 | `maximum-subarray-xor-with-bounded-range` | Hard | 2/2/1/1/2/2 | 10 | yes | `maximum-subarray-xor-with-bounded-range-game` | sliding-window | yes |  |
+| 3846 | `total-distance-to-type-a-string-using-one-finger` | Med | 1/2/1/2/1/1 | 8 | yes | `total-distance-to-type-a-string-using-one-finger-game` | strings | yes |  |
+| 3847 | `find-the-score-difference-in-a-game` | Med | 1/2/1/2/1/1 | 8 | yes | `find-the-score-difference-in-a-game-game` | array | yes |  |
+| 3848 | `check-digitorial-permutation` | Med | 1/2/1/2/1/1 | 8 | yes | `check-digitorial-permutation-game` | math | yes |  |
+| 3849 | `maximum-bitwise-xor-after-rearrangement` | Med | 2/2/2/2/1/1 | 10 | yes | `maximum-bitwise-xor-after-rearrangement-game` | greedy | yes |  |
+| 3850 | `count-sequences-to-k` | Hard | 2/2/1/1/2/2 | 10 | yes | `count-sequences-to-k-game` | dp | yes |  |
+| 3851 | `maximum-requests-without-violating-the-limit` | Med | 2/2/2/2/2/1 | 11 | yes | `maximum-requests-without-violating-the-limit-game` | sliding-window | yes |  |
+| 3852 | `smallest-pair-with-different-frequencies` | Easy | 1/2/1/2/1/1 | 8 | yes | `smallest-pair-with-different-frequencies-game` | hash | yes |  |
+| 3853 | `merge-close-characters` | Med | 2/2/2/2/1/1 | 10 | yes | `merge-close-characters-game` | strings | yes |  |
+| 3854 | `minimum-operations-to-make-array-parity-alternating` | Med | 2/2/1/2/1/1 | 9 | yes | `minimum-operations-to-make-array-parity-alternating-game` | greedy | yes |  |
+| 3855 | `sum-of-k-digit-numbers-in-a-range` | Hard | 0/2/1/2/1/0 | 6 | no | – | – | – | Pure one-line formula (digit sum × count^(k−1) × repunit): no sequence of steps to play. |
+| 3856 | `trim-trailing-vowels` | Easy | 0/2/1/2/1/0 | 6 | no | – | – | – | Pure one-line formula (strip trailing vowels): no sequence of steps to play. |
+| 3857 | `minimum-cost-to-split-into-ones` | Med | 0/2/1/2/1/0 | 6 | no | – | – | – | Pure one-line formula (n(n−1)/2): no sequence of steps to play. |
+| 3858 | `minimum-bitwise-or-from-grid` | Med | 2/2/2/2/2/1 | 11 | yes | `minimum-bitwise-or-from-grid-game` | bits | yes |  |
+| 3859 | `count-subarrays-with-k-distinct-integers` | Hard | 2/2/1/1/2/2 | 10 | yes | `count-subarrays-with-k-distinct-integers-game` | sliding-window | yes |  |
+| 3860 | `unique-email-groups` | Med | 1/2/1/2/1/1 | 8 | yes | `unique-email-groups-game` | strings | yes |  |
+| 3861 | `minimum-capacity-box` | Easy | 1/2/1/2/1/1 | 8 | yes | `minimum-capacity-box-game` | array | yes |  |
+| 3862 | `find-the-smallest-balanced-index` | Med | 2/2/2/2/1/1 | 10 | yes | `find-the-smallest-balanced-index-game` | prefix-sum | yes |  |
+| 3863 | `minimum-operations-to-sort-a-string` | Med | 2/2/1/2/1/1 | 9 | yes | `minimum-operations-to-sort-a-string-game` | strings | yes |  |
+| 3864 | `minimum-cost-to-partition-a-binary-string` | Hard | 2/2/2/1/2/2 | 11 | yes | `minimum-cost-to-partition-a-binary-string-game` | dp | yes |  |
+| 3865 | `reverse-k-subarrays` | Med | 1/2/1/2/1/1 | 8 | yes | `reverse-k-subarrays-game` | array | yes |  |
+| 3866 | `first-unique-even-element` | Easy | 1/2/1/2/1/1 | 8 | yes | `first-unique-even-element-game` | hash | yes |  |
+| 3867 | `sum-of-gcd-of-formed-pairs` | Med | 1/2/2/2/1/1 | 9 | yes | `sum-of-gcd-of-formed-pairs-game` | math | yes |  |
+| 3868 | `minimum-cost-to-equalize-arrays-using-swaps` | Med | 2/2/1/2/1/1 | 9 | yes | `minimum-cost-to-equalize-arrays-using-swaps-game` | greedy | yes |  |
+| 3869 | `count-fancy-numbers-in-a-range` | Hard | 2/2/1/1/2/2 | 10 | yes | `count-fancy-numbers-in-a-range-game` | dp | yes |  |
+| 3870 | `count-commas-in-range` | Easy | 0/2/1/2/1/0 | 6 | no | – | – | – | Pure one-line formula (max(0, n − 999)): no sequence of steps to play. |
+| 3871 | `count-commas-in-range-ii` | Med | 1/2/1/2/1/1 | 8 | yes | `count-commas-in-range-ii-game` | math | yes |  |
+| 3872 | `longest-arithmetic-sequence-after-changing-at-most-one-element` | Med | 2/2/1/2/1/1 | 9 | yes | `longest-arithmetic-sequence-after-changing-at-most-one-element-game` | array | yes |  |
+| 3873 | `maximum-points-activated-with-one-addition` | Hard | 2/2/2/1/2/2 | 11 | yes | `maximum-points-activated-with-one-addition-game` | union-find | yes |  |
+| 3874 | `valid-subarrays-with-exactly-one-peak` | Med | 2/2/2/2/1/1 | 10 | yes | `valid-subarrays-with-exactly-one-peak-game` | array | yes |  |
+| 3875 | `construct-uniform-parity-array-i` | Easy | 0/2/1/1/1/0 | 5 | no | – | – | – | Brainteaser: the answer is an observation, not a sequence of steps (score 5/12). |
+| 3876 | `construct-uniform-parity-array-ii` | Med | 1/2/1/2/1/1 | 8 | yes | `construct-uniform-parity-array-ii-game` | math | yes |  |
+| 3877 | `minimum-removals-to-achieve-target-xor` | Med | 2/2/2/2/2/1 | 11 | yes | `minimum-removals-to-achieve-target-xor-game` | dp | yes |  |
+| 3878 | `count-good-subarrays` | Hard | 2/2/1/1/2/2 | 10 | yes | `count-good-subarrays-game` | stack | yes |  |
+| 3879 | `maximum-distinct-path-sum-in-a-binary-tree` | Med | 2/2/2/2/1/1 | 10 | yes | `maximum-distinct-path-sum-in-a-binary-tree-game` | tree | yes |  |
+| 3880 | `minimum-absolute-difference-between-two-values` | Easy | 1/2/1/2/1/1 | 8 | yes | `minimum-absolute-difference-between-two-values-game` | array | yes |  |
+| 3881 | `direction-assignments-with-exactly-k-visible-people` | Med | 0/2/1/2/1/0 | 6 | no | – | – | – | Pure one-line formula (2 × C(n−1, k)): no sequence of steps to play. |
+| 3882 | `minimum-xor-path-in-a-grid` | Med | 2/2/2/2/2/1 | 11 | yes | `minimum-xor-path-in-a-grid-game` | dp | yes |  |
+| 3883 | `count-non-decreasing-arrays-with-given-digit-sums` | Hard | 2/2/2/1/2/2 | 11 | yes | `count-non-decreasing-arrays-with-given-digit-sums-game` | dp | yes |  |
+| 3884 | `first-matching-character-from-both-ends` | Easy | 1/2/1/2/1/1 | 8 | yes | `first-matching-character-from-both-ends-game` | two-pointers | yes |  |
+| 3885 | `design-event-manager` | Med | 2/2/2/2/1/2 | 11 | yes | `design-event-manager-game` | design | yes |  |
+| 3886 | `sum-of-sortable-integers` | Hard | 2/2/1/1/2/2 | 10 | yes | `sum-of-sortable-integers-game` | sorting | yes |  |
+| 3887 | `incremental-even-weighted-cycle-queries` | Hard | 2/2/2/1/2/2 | 11 | yes | `incremental-even-weighted-cycle-queries-game` | union-find | yes |  |
+| 3888 | `minimum-operations-to-make-all-grid-elements-equal` | Hard | 2/2/1/1/2/2 | 10 | yes | `minimum-operations-to-make-all-grid-elements-equal-game` | grid | yes |  |
+| 3889 | `mirror-frequency-distance` | Med | 1/2/2/2/1/1 | 9 | yes | `mirror-frequency-distance-game` | hash | yes |  |
+| 3890 | `integers-with-multiple-sum-of-two-cubes` | Med | 1/2/1/2/1/1 | 8 | yes | `integers-with-multiple-sum-of-two-cubes-game` | math | yes |  |
+| 3891 | `minimum-increase-to-maximize-special-indices` | Med | 2/2/2/2/2/1 | 11 | yes | `minimum-increase-to-maximize-special-indices-game` | dp | yes |  |
+| 3892 | `minimum-operations-to-achieve-at-least-k-peaks` | Hard | 2/2/2/1/2/2 | 11 | yes | `minimum-operations-to-achieve-at-least-k-peaks-game` | dp | yes |  |
+| 3893 | `maximum-team-size-with-overlapping-intervals` | Med | 2/2/2/2/1/1 | 10 | yes | `maximum-team-size-with-overlapping-intervals-game` | sorting | yes |  |
+| 3894 | `traffic-signal-color` | Easy | 0/2/1/2/1/0 | 6 | no | – | – | – | Pure one-line formula (a few comparisons on timer): no sequence of steps to play. |
+| 3895 | `count-digit-appearances` | Med | 1/2/1/2/1/1 | 8 | yes | `count-digit-appearances-game` | math | yes |  |
+| 3896 | `minimum-operations-to-transform-array-into-alternating-prime` | Med | 2/2/1/2/1/1 | 9 | yes | `minimum-operations-to-transform-array-into-alternating-prime-game` | math | yes |  |
+| 3897 | `maximum-value-of-concatenated-binary-segments` | Hard | 2/2/1/1/2/2 | 10 | yes | `maximum-value-of-concatenated-binary-segments-game` | sorting | yes |  |
+| 3898 | `find-the-degree-of-each-vertex` | Easy | 0/2/1/2/1/0 | 6 | no | – | – | – | Pure one-line formula (row sums of the matrix): no sequence of steps to play. |
+| 3899 | `angles-of-a-triangle` | Med | 0/2/1/2/1/0 | 6 | no | – | – | – | Pure one-line formula (law of cosines): no sequence of steps to play. |
+| 3900 | `longest-balanced-substring-after-one-swap` | Med | 2/2/1/2/1/1 | 9 | yes | `longest-balanced-substring-after-one-swap-game` | prefix-sum | yes |  |
+| 3901 | `good-subsequence-queries` | Hard | 2/2/1/1/2/2 | 10 | yes | `good-subsequence-queries-game` | range-tree | yes |  |
+| 3902 | `zigzag-level-sum-of-binary-tree` | Med | 2/2/2/2/1/1 | 10 | yes | `zigzag-level-sum-of-binary-tree-game` | tree | yes |  |
+| 3903 | `smallest-stable-index-i` | Easy | 1/2/2/2/1/1 | 9 | yes | `smallest-stable-index-i-game` | prefix-sum | yes |  |
+| 3904 | `smallest-stable-index-ii` | Med | 2/2/2/2/1/1 | 10 | yes | `smallest-stable-index-ii-game` | prefix-sum | yes |  |
+| 3905 | `multi-source-flood-fill` | Med | 2/2/2/2/2/1 | 11 | yes | `multi-source-flood-fill-game` | grid | yes |  |
+| 3906 | `count-good-integers-on-a-grid-path` | Hard | 2/2/1/1/2/2 | 10 | yes | `count-good-integers-on-a-grid-path-game` | dp | yes |  |
+| 3907 | `count-smaller-elements-with-opposite-parity` | Med | 2/2/2/2/1/1 | 10 | yes | `count-smaller-elements-with-opposite-parity-game` | range-tree | yes |  |
+| 3908 | `valid-digit-number` | Easy | 0/2/1/2/1/0 | 6 | no | – | – | – | Pure one-line formula (contains x and does not start with x): no sequence of steps to play. |
+| 3909 | `compare-sums-of-bitonic-parts` | Med | 1/2/1/2/1/1 | 8 | yes | `compare-sums-of-bitonic-parts-game` | array | yes |  |
+| 3910 | `count-connected-subgraphs-with-even-node-sum` | Hard | 2/2/1/1/2/2 | 10 | yes | `count-connected-subgraphs-with-even-node-sum-game` | graph | yes |  |
+| 3911 | `k-th-smallest-remaining-even-integer-in-subarray-queries` | Hard | 2/2/1/1/2/2 | 10 | yes | `k-th-smallest-remaining-even-integer-in-subarray-queries-game` | binary-search | yes |  |
+| 3912 | `valid-elements-in-an-array` | Easy | 1/2/2/2/1/1 | 9 | yes | `valid-elements-in-an-array-game` | array | yes |  |
+| 3913 | `sort-vowels-by-frequency` | Med | 1/2/2/2/1/1 | 9 | yes | `sort-vowels-by-frequency-game` | strings | yes |  |
+| 3914 | `minimum-operations-to-make-array-non-decreasing` | Med | 1/2/1/2/1/1 | 8 | yes | `minimum-operations-to-make-array-non-decreasing-game` | greedy | yes |  |
+| 3915 | `maximum-sum-of-alternating-subsequence-with-distance-at-least-k` | Hard | 2/2/2/1/2/2 | 11 | yes | `maximum-sum-of-alternating-subsequence-with-distance-at-least-k-game` | dp | yes |  |
+| 3916 | `number-of-zigzag-arrays-iii` | Hard | 2/2/1/1/2/2 | 10 | yes | `number-of-zigzag-arrays-iii-game` | dp | yes |  |
+| 3917 | `count-indices-with-opposite-parity` | Easy | 1/2/2/2/1/1 | 9 | yes | `count-indices-with-opposite-parity-game` | array | yes |  |
+| 3918 | `sum-of-primes-between-number-and-its-reverse` | Med | 1/2/1/2/1/1 | 8 | yes | `sum-of-primes-between-number-and-its-reverse-game` | math | yes |  |
+| 3919 | `minimum-cost-to-move-between-indices` | Med | 2/2/2/2/1/1 | 10 | yes | `minimum-cost-to-move-between-indices-game` | prefix-sum | yes |  |
+| 3920 | `maximize-fixed-points-after-deletions` | Hard | 2/2/1/1/2/2 | 10 | yes | `maximize-fixed-points-after-deletions-game` | binary-search | yes |  |
+| 3921 | `score-validator` | Easy | 1/2/1/2/1/1 | 8 | yes | `score-validator-game` | sim | yes |  |
+| 3922 | `minimum-flips-to-make-binary-string-coherent` | Med | 1/2/1/2/1/1 | 8 | yes | `minimum-flips-to-make-binary-string-coherent-game` | strings | yes |  |
+| 3923 | `minimum-generations-to-target-point` | Med | 2/2/2/2/1/1 | 10 | yes | `minimum-generations-to-target-point-game` | sim | yes |  |
+| 3924 | `minimum-threshold-path-with-limited-heavy-edges` | Hard | 2/2/2/1/2/2 | 11 | yes | `minimum-threshold-path-with-limited-heavy-edges-game` | graph | yes |  |
+| 3925 | `concatenate-array-with-reverse` | Easy | 0/2/1/2/1/0 | 6 | no | – | – | – | Pure one-line formula (nums followed by its reverse): no sequence of steps to play. |
+| 3926 | `count-valid-word-occurrences` | Med | 1/2/1/2/1/1 | 8 | yes | `count-valid-word-occurrences-game` | strings | yes |  |
+| 3927 | `minimize-array-sum-using-divisible-replacements` | Med | 2/2/2/2/1/1 | 10 | yes | `minimize-array-sum-using-divisible-replacements-game` | hash | yes |  |
+| 3928 | `minimum-cost-to-buy-apples-ii` | Hard | 2/2/2/1/2/2 | 11 | yes | `minimum-cost-to-buy-apples-ii-game` | graph | yes |  |
+| 3929 | `minimum-partition-score-ii` | Hard | 2/2/1/1/2/2 | 10 | yes | `minimum-partition-score-ii-game` | dp | yes |  |
+| 3930 | `power-update-after-k-th-largest-insertion-ii` | Hard | 2/2/1/1/2/2 | 10 | yes | `power-update-after-k-th-largest-insertion-ii-game` | range-tree | yes |  |
+| 3931 | `check-adjacent-digit-differences` | Easy | 1/2/1/2/1/1 | 8 | yes | `check-adjacent-digit-differences-game` | strings | yes |  |
+| 3932 | `count-k-th-roots-in-a-range` | Med | 1/2/1/2/1/1 | 8 | yes | `count-k-th-roots-in-a-range-game` | math | yes |  |
+| 3933 | `largest-local-values-in-a-matrix-ii` | Med | 2/2/2/2/1/1 | 10 | yes | `largest-local-values-in-a-matrix-ii-game` | grid | yes |  |
+| 3934 | `smallest-unique-subarray` | Hard | 2/2/2/1/2/2 | 11 | yes | `smallest-unique-subarray-game` | binary-search | yes |  |
+| 3935 | `power-update-after-k-th-largest-insertion-i` | Med | 1/2/1/2/1/1 | 8 | yes | `power-update-after-k-th-largest-insertion-i-game` | range-tree | yes |  |
+| 3936 | `minimum-swaps-to-move-zeros-to-end` | Easy | 1/2/1/2/1/1 | 8 | yes | `minimum-swaps-to-move-zeros-to-end-game` | two-pointers | yes |  |
+| 3937 | `minimum-operations-to-make-array-modulo-alternating-i` | Med | 2/2/1/2/1/1 | 9 | yes | `minimum-operations-to-make-array-modulo-alternating-i-game` | hash | yes |  |
+| 3938 | `maximum-path-intersection-sum-in-a-grid` | Med | 2/2/1/1/2/1 | 9 | yes | `maximum-path-intersection-sum-in-a-grid-game` | grid | yes |  |
+| 3939 | `count-non-adjacent-subsets-in-a-rooted-tree` | Hard | 2/2/2/1/2/2 | 11 | yes | `count-non-adjacent-subsets-in-a-rooted-tree-game` | tree | yes |  |
+| 3940 | `limit-occurrences-in-sorted-array` | Easy | 1/2/2/2/1/1 | 9 | yes | `limit-occurrences-in-sorted-array-game` | two-pointers | yes |  |
+| 3941 | `password-strength` | Med | 1/2/1/2/1/1 | 8 | yes | `password-strength-game` | strings | yes |  |
+| 3942 | `minimum-operations-to-sort-a-permutation` | Med | 2/2/1/2/1/1 | 9 | yes | `minimum-operations-to-sort-a-permutation-game` | array | yes |  |
+| 3943 | `number-of-pairs-after-increment` | Hard | 2/2/1/1/2/2 | 10 | yes | `number-of-pairs-after-increment-game` | range-tree | yes |  |
+| 3944 | `minimum-operations-to-make-array-modulo-alternating-ii` | Hard | 2/2/1/1/2/2 | 10 | yes | `minimum-operations-to-make-array-modulo-alternating-ii-game` | hash | yes |  |
+| 3945 | `digit-frequency-score` | Easy | 0/2/1/2/1/0 | 6 | no | – | – | – | Pure one-line formula (the score is just the digit sum): no sequence of steps to play. |
+| 3946 | `maximum-number-of-items-from-sale-i` | Med | 2/2/1/2/1/1 | 9 | yes | `maximum-number-of-items-from-sale-i-game` | hash | yes |  |
+| 3947 | `maximum-number-of-items-from-sale-ii` | Med | 2/2/1/2/1/1 | 9 | yes | `maximum-number-of-items-from-sale-ii-game` | hash | yes |  |
+| 3948 | `lexicographically-maximum-mex-array` | Hard | 2/2/2/1/2/2 | 11 | yes | `lexicographically-maximum-mex-array-game` | greedy | yes |  |
+| 3949 | `subtree-inversion-sum-ii` | Hard | 2/2/1/1/2/2 | 10 | yes | `subtree-inversion-sum-ii-game` | tree | yes |  |
+| 3950 | `exactly-one-consecutive-set-bits-pair` | Easy | 0/2/1/2/1/0 | 6 | no | – | – | – | Pure one-line formula (popcount(n & (n >> 1)) == 1): no sequence of steps to play. |
+| 3951 | `minimum-energy-to-maintain-brightness` | Med | 1/2/2/2/1/1 | 9 | yes | `minimum-energy-to-maintain-brightness-game` | sorting | yes |  |
+| 3952 | `maximum-total-value-of-covered-indices` | Med | 2/2/2/2/1/1 | 10 | yes | `maximum-total-value-of-covered-indices-game` | greedy | yes |  |
+| 3953 | `maximum-score-with-co-prime-element` | Hard | 2/2/1/1/2/2 | 10 | yes | `maximum-score-with-co-prime-element-game` | math | yes |  |
+| 3954 | `sum-of-compatible-numbers-in-range-i` | Easy | 1/2/1/2/1/1 | 8 | yes | `sum-of-compatible-numbers-in-range-i-game` | math | yes |  |
+| 3955 | `valid-binary-strings-with-cost-limit` | Med | 2/2/2/2/1/1 | 10 | yes | `valid-binary-strings-with-cost-limit-game` | backtracking | yes |  |
+| 3956 | `maximum-sum-of-m-non-overlapping-subarrays-i` | Hard | 2/2/2/1/2/2 | 11 | yes | `maximum-sum-of-m-non-overlapping-subarrays-i-game` | dp | yes |  |
+| 3957 | `maximum-sum-of-m-non-overlapping-subarrays-ii` | Hard | 2/2/1/1/2/2 | 10 | yes | `maximum-sum-of-m-non-overlapping-subarrays-ii-game` | dp | yes |  |
+| 3958 | `minimum-cost-to-split-into-ones-ii` | Med | 0/2/1/2/1/0 | 6 | no | – | – | – | Pure one-line formula (n(n − 1)/2): no sequence of steps to play. |
+| 3959 | `check-good-integer` | Easy | 0/2/1/2/1/0 | 6 | no | – | – | – | Pure one-line formula (sum of d² − d over the digits): no sequence of steps to play. |
+| 3960 | `frequency-balance-subarray` | Med | 2/2/1/2/1/1 | 9 | yes | `frequency-balance-subarray-game` | hash | yes |  |
+| 3961 | `maximize-sum-of-device-ratings` | Med | 2/2/1/2/1/1 | 9 | yes | `maximize-sum-of-device-ratings-game` | greedy | yes |  |
+| 3962 | `maximum-subarray-sum-after-at-most-k-swaps` | Hard | 2/2/2/1/2/2 | 11 | yes | `maximum-subarray-sum-after-at-most-k-swaps-game` | sorting | yes |  |
+| 3963 | `create-grid-with-exactly-one-path` | Easy | 1/2/1/2/1/1 | 8 | yes | `create-grid-with-exactly-one-path-game` | grid | yes |  |
+| 3964 | `minimum-lights-to-illuminate-a-road` | Med | 2/2/2/2/1/1 | 10 | yes | `minimum-lights-to-illuminate-a-road-game` | greedy | yes |  |
+| 3965 | `finish-time-of-tasks-i` | Med | 2/2/2/2/1/1 | 10 | yes | `finish-time-of-tasks-i-game` | tree | yes |  |
+| 3966 | `count-good-integers-in-a-range` | Hard | 2/2/1/1/2/2 | 10 | yes | `count-good-integers-in-a-range-game` | math | yes |  |
+| 3967 | `finish-time-of-tasks-ii` | Hard | 2/2/1/1/2/2 | 10 | yes | `finish-time-of-tasks-ii-game` | tree | yes |  |
+| 3968 | `maximum-manhattan-distance-after-all-moves` | Med | 0/2/1/2/1/0 | 6 | no | – | – | – | Pure one-line formula (abs(U − D) + abs(R − L) + blanks): no sequence of steps to play. |
+| 3969 | `valid-subarrays-with-matching-sum-digits-i` | Med | 1/2/1/2/1/1 | 8 | yes | `valid-subarrays-with-matching-sum-digits-i-game` | hash | yes |  |
+| 3970 | `shortest-path-with-at-most-k-consecutive-identical-characters` | Med | 2/2/2/2/2/1 | 11 | yes | `shortest-path-with-at-most-k-consecutive-identical-characters-game` | graph | yes |  |
+| 3971 | `maximum-total-value` | Hard | 2/2/2/1/2/2 | 11 | yes | `maximum-total-value-game` | greedy | yes |  |
+| 3972 | `valid-subarrays-with-matching-sum-digits-ii` | Hard | 2/2/1/1/2/2 | 10 | yes | `valid-subarrays-with-matching-sum-digits-ii-game` | hash | yes |  |
+| 3973 | `distinct-gate-paths-to-lca` | Hard | 2/2/2/1/2/2 | 11 | yes | `distinct-gate-paths-to-lca-game` | tree | yes |  |
+| 3974 | `maximum-total-sum-of-k-selected-elements` | Med | 1/2/2/2/1/1 | 9 | yes | `maximum-total-sum-of-k-selected-elements-game` | greedy | yes |  |
+| 3975 | `filter-occupied-intervals` | Med | 2/2/2/2/1/1 | 10 | yes | `filter-occupied-intervals-game` | sorting | yes |  |
+| 3976 | `maximum-subarray-sum-after-multiplier` | Med | 2/2/2/1/2/1 | 10 | yes | `maximum-subarray-sum-after-multiplier-game` | dp | yes |  |
+| 3977 | `minimum-time-to-reach-target-with-limited-power` | Hard | 2/2/2/1/2/2 | 11 | yes | `minimum-time-to-reach-target-with-limited-power-game` | graph | yes |  |
+| 3978 | `unique-middle-element` | Easy | 0/2/1/2/1/0 | 6 | no | – | – | – | Pure one-line formula (count of the middle value equals 1): no sequence of steps to play. |
+| 3979 | `maximum-valid-pair-sum` | Med | 1/2/2/2/1/1 | 9 | yes | `maximum-valid-pair-sum-game` | array | yes |  |
+| 3980 | `minimum-operations-to-transform-binary-string` | Med | 2/2/1/1/1/1 | 8 | yes | `minimum-operations-to-transform-binary-string-game` | greedy | yes |  |
+| 3981 | `count-distinct-ways-to-form-target-from-two-strings` | Hard | 2/2/2/1/2/2 | 11 | yes | `count-distinct-ways-to-form-target-from-two-strings-game` | dp | yes |  |
+| 3982 | `sum-of-integers-with-maximum-digit-range` | Easy | 1/2/1/2/1/1 | 8 | yes | `sum-of-integers-with-maximum-digit-range-game` | array | yes |  |
+| 3983 | `subsequence-after-one-replacement` | Med | 2/2/2/2/1/1 | 10 | yes | `subsequence-after-one-replacement-game` | two-pointers | yes |  |
+| 3984 | `divisible-game` | Med | 2/2/1/2/1/1 | 9 | yes | `divisible-game-game` | math | yes |  |
+| 3985 | `palindromic-subarray-sum` | Hard | 2/2/2/1/2/2 | 11 | yes | `palindromic-subarray-sum-game` | dp | yes |  |
+| 3986 | `number-of-elapsed-seconds-between-two-times` | Easy | 0/2/1/2/1/0 | 6 | no | – | – | – | Pure one-line formula (convert both times to seconds and subtract): no sequence of steps to play. |
+| 3987 | `minimum-total-cost-to-process-all-elements` | Med | 1/2/2/2/1/1 | 9 | yes | `minimum-total-cost-to-process-all-elements-game` | array | yes |  |
+| 3988 | `create-grid-with-exactly-k-paths-i` | Med | 2/2/1/1/1/1 | 8 | yes | `create-grid-with-exactly-k-paths-i-game` | grid | yes |  |
+| 3989 | `maximum-consistent-columns-in-a-grid` | Hard | 2/2/2/2/1/1 | 10 | yes | `maximum-consistent-columns-in-a-grid-game` | dp | yes |  |
+| 3990 | `create-grid-with-exactly-k-paths-ii` | Hard | 2/1/1/1/1/1 | 7 | no | – | – | – | Score 7/12 is below 8. |
+| 3991 | `sort-array-using-prefix-reversals` | Med | 2/2/2/2/1/1 | 10 | yes | `sort-array-using-prefix-reversals-game` | sorting | yes |  |
+| 3992 | `rearrange-string-to-avoid-character-pair` | Easy | 1/2/1/1/1/1 | 7 | no | – | – | – | Score 7/12 is below 8. |
+| 3993 | `maximum-value-of-an-alternating-sequence` | Med | 0/2/1/2/1/0 | 6 | no | – | – | – | Pure one-line formula (s + m + (m − 1)·⌊(n − 2)/2⌋): no sequence of steps to play. |
+| 3994 | `minimum-adjacent-swaps-to-partition-array` | Med | 2/2/2/2/1/1 | 10 | yes | `minimum-adjacent-swaps-to-partition-array-game` | sorting | yes |  |
+| 3995 | `minimum-cost-to-convert-string-iii` | Hard | 2/2/2/1/2/2 | 11 | yes | `minimum-cost-to-convert-string-iii-game` | dp | yes |  |
+| 3996 | `even-number-of-knight-moves` | Easy | 0/2/1/2/1/0 | 6 | no | – | – | – | Pure one-line formula (same square colour, (x1 + y1) ≡ (x2 + y2) mod 2): no sequence of steps to play. |
+| 3997 | `count-dominant-nodes-in-a-binary-tree` | Med | 1/2/2/2/1/1 | 9 | yes | `count-dominant-nodes-in-a-binary-tree-game` | tree | yes |  |
+| 3998 | `transform-binary-string-using-subsequence-sort` | Med | 2/2/2/2/1/1 | 10 | yes | `transform-binary-string-using-subsequence-sort-game` | strings | yes |  |
+| 3999 | `minimum-number-of-string-groups-through-transformations` | Hard | 2/2/2/1/2/1 | 10 | yes | `minimum-number-of-string-groups-through-transformations-game` | strings | yes |  |
+| 4000 | `largest-integer-with-given-digit-sum` | Easy | 1/2/1/2/1/1 | 8 | yes | `largest-integer-with-given-digit-sum-game` | greedy | yes |  |
+| 4001 | `aggregate-two-time-series` | Med | 2/2/2/2/1/1 | 10 | yes | `aggregate-two-time-series-game` | two-pointers | yes |  |
+| 4002 | `count-valid-sequences` | Med | 0/2/1/2/1/0 | 6 | no | – | – | – | Pure one-line formula (C(n − 1, k − 1) minus the all-odd compositions): no sequence of steps to play. |
+| 4003 | `minimum-cost-path-with-alternating-directions-iii` | Hard | 2/2/2/1/2/2 | 11 | yes | `minimum-cost-path-with-alternating-directions-iii-game` | graph | yes |  |
+| 4004 | `minimum-moves-to-balance-circular-array-ii` | Hard | 2/2/1/1/2/1 | 9 | yes | `minimum-moves-to-balance-circular-array-ii-game` | math | yes |  |
+| 4005 | `minimum-operations-to-make-array-equal-iii` | Hard | 2/2/1/1/2/2 | 10 | yes | `minimum-operations-to-make-array-equal-iii-game` | math | yes |  |
+| 4006 | `count-valid-prefixes` | Easy | 1/2/2/2/1/1 | 9 | yes | `count-valid-prefixes-game` | strings | yes |  |
+| 4007 | `widest-possible-fence` | Hard | 2/2/2/1/2/2 | 11 | yes | `widest-possible-fence-game` | hash | yes |  |
+| 4008 | `minimum-initial-strength-to-defeat-all-monsters` | Med | 2/2/2/2/1/1 | 10 | yes | `minimum-initial-strength-to-defeat-all-monsters-game` | greedy | yes |  |
+| 4009 | `minimum-possible-maximum-waiting-time` | Hard | 2/2/1/1/2/2 | 10 | yes | `minimum-possible-maximum-waiting-time-game` | dp | yes |  |
+| 4010 | `maximize-pair-strength-using-gcd` | Easy | 1/2/1/2/1/1 | 8 | yes | `maximize-pair-strength-using-gcd-game` | math | yes |  |
+| 4011 | `count-subarrays-with-even-odd-ratio-i` | Med | 2/2/2/1/2/2 | 11 | yes | `count-subarrays-with-even-odd-ratio-i-game` | prefix-sum | yes |  |
+| 4012 | `count-of-unfinished-tasks-after-each-shift` | Med | 2/2/2/2/1/1 | 10 | yes | `count-of-unfinished-tasks-after-each-shift-game` | prefix-sum | yes |  |
+| 4013 | `count-subarrays-with-even-odd-ratio-ii` | Hard | 2/2/1/1/2/2 | 10 | yes | `count-subarrays-with-even-odd-ratio-ii-game` | prefix-sum | yes |  |
+| 4014 | `minimum-total-price-after-applying-discounts` | Med | 1/2/2/2/1/1 | 9 | yes | `minimum-total-price-after-applying-discounts-game` | greedy | yes |  |
+| 4015 | `weighted-sum-of-a-tree` | Med | 1/2/2/2/1/1 | 9 | yes | `weighted-sum-of-a-tree-game` | tree | yes |  |
+| 4016 | `maximum-area-of-two-non-overlapping-square-submatrices` | Med | 2/2/2/2/1/1 | 10 | yes | `maximum-area-of-two-non-overlapping-square-submatrices-game` | grid | yes |  |
+| 4017 | `peaks-in-array-ii` | Hard | 2/2/1/1/2/2 | 10 | yes | `peaks-in-array-ii-game` | range-tree | yes |  |
+| 4018 | `total-sum-of-interaction-cost-in-tree-groups-ii` | Hard | 2/2/1/1/2/2 | 10 | yes | `total-sum-of-interaction-cost-in-tree-groups-ii-game` | tree | yes |  |
+| 4019 | `merge-close-characters-ii` | Med | 2/2/2/2/1/1 | 10 | yes | `merge-close-characters-ii-game` | strings | yes |  |
+| 4020 | `elevator-requests-i` | Easy | 1/2/1/2/1/1 | 8 | yes | `elevator-requests-i-game` | sim | yes |  |
+| 4021 | `minimum-operations-to-make-a-rotated-palindrome-i` | Med | 2/2/1/2/1/1 | 9 | yes | `minimum-operations-to-make-a-rotated-palindrome-i-game` | strings | yes |  |
+| 4022 | `k-th-digit-in-infinite-string` | Med | 2/2/1/2/1/1 | 9 | yes | `k-th-digit-in-infinite-string-game` | math | yes |  |
+| 4023 | `elevator-requests-ii` | Hard | 2/2/2/1/2/2 | 11 | yes | `elevator-requests-ii-game` | dp | yes |  |
+| 4024 | `nearest-available-drone` | Easy | 1/2/1/2/1/1 | 8 | yes | `nearest-available-drone-game` | sim | yes |  |
+| 4025 | `minimize-the-maximum-waiting-time-at-synchronized-traffic-lights` | Med | 0/2/2/2/1/0 | 7 | no | – | – | – | Brainteaser: the answer is an observation, not a sequence of steps (score 7/12). |
+| 4026 | `maximum-gap-between-stations` | Med | 2/2/2/2/1/1 | 10 | yes | `maximum-gap-between-stations-game` | greedy | yes |  |
+| 4027 | `elevator-requests-iii` | Hard | 2/2/2/1/2/2 | 11 | yes | `elevator-requests-iii-game` | dp | yes |  |
+| 4028 | `minimum-operations-to-make-a-rotated-palindrome-ii` | Hard | 2/2/1/1/2/2 | 10 | yes | `minimum-operations-to-make-a-rotated-palindrome-ii-game` | strings | yes |  |
+| 4029 | `elevator-requests-iv` | Hard | 2/2/1/1/2/2 | 10 | yes | `elevator-requests-iv-game` | dp | yes |  |
+| 4030 | `check-ascii-palindromic` | Easy | 1/2/1/1/1/1 | 7 | no | – | – | – | Score 7/12 is below 8. |
+| 4031 | `find-all-numbers-disappeared-in-an-array-ii` | Med | 1/2/2/2/1/1 | 9 | yes | `find-all-numbers-disappeared-in-an-array-ii-game` | array | yes |  |
+| 4032 | `longest-subarray-with-at-most-k-distinct-prime-factors` | Med | 2/2/2/2/2/1 | 11 | yes | `longest-subarray-with-at-most-k-distinct-prime-factors-game` | sliding-window | yes |  |
+| 4033 | `valid-k-unique-subarrays-i` | Hard | 2/2/1/1/2/2 | 10 | yes | `valid-k-unique-subarrays-i-game` | hash | yes |  |
+| 4034 | `minimum-bishop-moves-to-reach-target` | Med | 0/2/1/2/1/0 | 6 | no | – | – | – | Pure one-line formula (colour check, then 1 if on a shared diagonal else 2): no sequence of steps to play. |
+| 4035 | `maximum-valid-split-positions-i` | Med | 2/2/1/2/1/1 | 9 | yes | `maximum-valid-split-positions-i-game` | math | yes |  |
+| 4036 | `lexicographically-largest-string-after-pair-transformations` | Med | 0/2/1/2/1/0 | 6 | no | – | – | – | Pure one-line formula (one letter per set bit of x, highest first): no sequence of steps to play. |
+| 4037 | `maximum-valid-split-positions-ii` | Hard | 2/2/1/1/2/2 | 10 | yes | `maximum-valid-split-positions-ii-game` | math | yes |  |
+| 4038 | `count-integers-appearing-in-a-single-block` | Easy | 1/2/1/2/1/1 | 8 | yes | `count-integers-appearing-in-a-single-block-game` | array | yes |  |
+| 4039 | `sum-of-decoded-numbers` | Med | 1/2/1/2/1/1 | 8 | yes | `sum-of-decoded-numbers-game` | math | yes |  |
+| 4040 | `minimum-operations-to-form-subset-sum-i` | Med | 2/2/2/1/2/2 | 11 | yes | `minimum-operations-to-form-subset-sum-i-game` | dp | yes |  |
+| 4041 | `minimum-operations-to-form-subset-sum-ii` | Hard | 2/2/1/1/2/2 | 10 | yes | `minimum-operations-to-form-subset-sum-ii-game` | dp | yes |  |
 | – | `add-mini-game` | – | – | – | no | – | – | – | Not an algo guide (no LeetCode problem). |
