@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Backtracking deduplication patterns: practice path',
-    'summary' => 'When inputs have duplicates, skip equal neighbors at the same depth after sorting — keep one representative branch.',
+    'title' => 'Deduplicated subsets of [1, 1, 2]',
+    'summary' => 'Sort, then decide when to skip an equal neighbor.',
     'category' => 'Algorithms',
     'subcategory' => 'Backtracking',
     'tags' => ['backtracking', 'dedup', 'step-by-step'],

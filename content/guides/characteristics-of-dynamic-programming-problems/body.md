@@ -1,27 +1,25 @@
 ## Tiny example
 
-Coin change (unlimited coins) vs a path that forbids revisiting cities randomly:
+Think about coin change with unlimited coins:
 
-- Coin change: best for capacity `c` depends on best for smaller capacities — **optimal substructure**
-- Future decisions do not rewrite the meaning of a finished sub-answer — **no aftereffect** (Markov-like state)
+- The best way to make amount `c` is built from the best ways to make smaller amounts. This is **optimal substructure**.
+- Once you know the best answer for a smaller amount, later decisions never change what that answer means. This is **no aftereffect**: the state records everything the future needs.
 
-If order of past choices still matters beyond what the state records, your state is incomplete (not “DP is impossible”).
-
+Compare a route through cities where you may not revisit a city. Knowing only "I am in city X" is not enough, because the future also depends on which cities you already used. That does not make DP impossible. It means the state must also record the visited set.
 
 ## How
 
-1. Name the state so it holds everything the future needs
-2. Check subanswers compose optimally
-3. Ensure transitions only read “smaller” states
-
+1. Name the state so it holds everything the remaining decisions need.
+2. Check that the best answers to smaller states combine into the best answer for the bigger state.
+3. Make sure each transition only reads states that are already solved.
 
 ## Trap
 
-Forcing DP on a problem that needs the full path set without encoding path info in the state.
+Forcing DP onto a problem whose future depends on the whole path, without putting that path information into the state.
 
-**Fix:** Enrich the state (or use another paradigm: search, greedy with proof, etc.).
+**Fix:** Add the missing information to the state, or use another approach such as search, or a greedy method you can prove.
 
-**Checklist:** state, transition, base, order · **Time/Space:** problem-specific
+**Checklist:** state, transition, base case, fill order · **Time and space:** depend on the problem
 
 > [!ui-builder] Mini game
 > INPUT_TOPIC: Theory or problem

@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Hash table problem patterns: practice path',
-    'summary' => 'Two-sum maps, anagram counts, prefix-sum + map, and grouping by key.',
+    'title' => 'Hash map patterns: what goes in the map?',
+    'summary' => 'Decide what to store for Two Sum, anagram groups and subarray sums.',
     'category' => 'Algorithms',
     'subcategory' => 'Hashing',
     'tags' => ['hash-table', 'patterns', 'step-by-step'],

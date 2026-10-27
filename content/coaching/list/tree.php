@@ -10,49 +10,49 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "State:\nsize=2, capacity=2, append 30\n\nFirst need?",
+            'message' => "State:\nsize = 2, capacity = 2\nappend 30\n\nWhat must happen first?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'Grow (e.g. to 4), copy, then write', 'next' => 'mid'],
-                ['label' => 'Write at index 2 with no growth', 'next' => 'w1'],
+                ['label' => 'Grow (for example to 4), copy, then write', 'next' => 'mid'],
+                ['label' => 'Write at index 2 without growing', 'next' => 'w1'],
             ],
         ],
         'w1' => [
-            'message' => "Wrong.\n\nCapacity is full — grow first.\n\nStep back.",
+            'message' => "Wrong.\n\nThe capacity is full, so the array has to grow first.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'start',
             'choices' => [],
         ],
         'mid' => [
-            'message' => "State:\nn appends with doubling\n\nAmortized cost each?",
+            'message' => "State:\nn appends, with the capacity doubling when full\n\nWhat is the amortized cost of each append?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'O(1)', 'next' => 'final'],
-                ['label' => 'O(n) every append', 'next' => 'w2'],
+                ['label' => 'O(n) for every append', 'next' => 'w2'],
             ],
         ],
         'w2' => [
-            'message' => "Wrong.\n\nOccasional copies still amortize to O(1).\n\nStep back.",
+            'message' => "Wrong.\n\nThe occasional copies still average out to O(1) per append.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'mid',
             'choices' => [],
         ],
         'final' => [
-            'message' => "State:\ninsert at middle of length-n dynamic array\n\nCost?",
+            'message' => "State:\ninsert into the middle of a dynamic array of length n\n\nWhat does it cost?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'O(n) shifts', 'next' => 'success'],
-                ['label' => 'O(1) because of capacity padding', 'next' => 'w3'],
+                ['label' => 'O(n), because elements shift', 'next' => 'success'],
+                ['label' => 'O(1), because of the spare capacity', 'next' => 'w3'],
             ],
         ],
         'w3' => [
-            'message' => "Wrong.\n\nFree slots at the end do not remove shifts.\n\nStep back.",
+            'message' => "Wrong.\n\nFree slots at the end do not remove the shifting.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'final',
             'choices' => [],
         ],
         'success' => [
-            'message' => "Correct.\n\n- Double on full append\n- Amortized O(1) append; mid-insert O(n)\n\nYou finished this path.",
+            'message' => "Correct.\n\n- Double the capacity when an append finds it full.\n- Appends are amortized O(1).\n- Inserting in the middle is O(n).\n\nYou finished this path.",
             'outcome' => 'success',
             'choices' => [],
         ],

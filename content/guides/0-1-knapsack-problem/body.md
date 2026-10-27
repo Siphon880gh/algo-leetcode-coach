@@ -1,39 +1,39 @@
 ## Tiny example
 
-Bag capacity **4**. Items (weight, value):
+The bag holds weight **4**. There are three items, written as (weight, value):
 
 - `(1, 15)`
 - `(3, 20)`
 - `(4, 30)`
 
-Each item **at most once**.
+You may take each item **at most once**.
 
-Picture the choices:
+Compare a few packings:
 
-- Take only `(4,30)` → value 30
-- Take `(1,15)` + `(3,20)` → value **35** ✓
-- Take `(1,15)` alone → 15
+- Take only `(4, 30)`. The value is 30.
+- Take `(1, 15)` and `(3, 20)`. The value is **35**, the best answer.
+- Take `(1, 15)` alone. The value is 15.
 
-1D DP: `dp[c]` = best value with capacity c. For each item, update **c from 4 down to w**:
+To solve it with one array, let `dp[c]` be the best value that fits in capacity `c`. For each item, update `c` from 4 down to the item's weight `w`:
 
 ```
 dp[c] = max(dp[c], dp[c - w] + v)
 ```
 
-Backward order keeps `dp[c-w]` meaning “without this item”.
+Going from high to low capacity keeps `dp[c - w]` meaning "the best value without this item", so no item is counted twice.
 
 ## How
 
-1. Start `dp` all zeros
-2. For each item, scan capacities high → low
-3. Take-or-skip via the `max` above
-4. Answer `dp[W]`
+1. Start with `dp` filled with zeros.
+2. For each item, scan the capacities from high to low.
+3. At each capacity, keep the better of skipping the item and taking it, using the `max` above.
+4. The answer is `dp[W]`.
 
 ## Trap
 
-Scanning capacity upward — the same item can be counted twice (you accidentally solved unbounded).
+Scanning capacity upward. Then the same item can be counted more than once, and you have accidentally solved the unbounded knapsack.
 
-**Fix:** 0-1 ⇒ backward. Unbounded ⇒ forward.
+**Fix:** For 0-1 knapsack, scan capacity backward. For unbounded knapsack, scan it forward.
 
 **Time:** O(nW)  
 **Space:** O(W)

@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Graph ops: add edge 1-2',
-    'summary' => 'Update both list sides and contrast matrix set.',
+    'title' => 'Graph operations: add an edge',
+    'summary' => 'Add an edge and update the lists on both ends, then compare that with setting one cell in a matrix.',
     'category' => 'Data Structures',
     'subcategory' => 'Graphs',
     'tags' => ['graph', 'operations', 'step-by-step'],

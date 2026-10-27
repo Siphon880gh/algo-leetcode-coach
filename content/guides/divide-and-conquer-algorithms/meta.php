@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 return [
     'title' => 'Divide and conquer: split, solve, combine',
-    'summary' => 'Break a problem into independent subproblems, solve them, then merge answers — merge sort and many tree tasks.',
+    'summary' => 'Divide and conquer splits a problem into independent pieces, solves each one, and merges the answers, as merge sort does.',
     'category' => 'Algorithms',
     'subcategory' => 'Divide and Conquer',
     'kind' => 'algo',

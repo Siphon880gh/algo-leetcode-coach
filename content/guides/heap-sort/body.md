@@ -1,25 +1,25 @@
 ## Tiny example
 
-Sort `[3, 1, 4, 2]` with heap sort (max-heap).
+Sort `[3, 1, 4, 2]` with heap sort, using a max-heap.
 
-1. Build a max-heap → heap-ish order, root holds the maximum (`4`)
-2. Swap root with the end → `4` sits in final place; shrink heap size
-3. Sift down the new root; repeat
+1. Build a max-heap. The root now holds the maximum, `4`.
+2. Swap the root with the last slot. Now `4` is in its final place, so shrink the heap by one.
+3. Sift the new root down, then repeat.
 
-Each extract grows the sorted suffix on the right.
+Each round grows a sorted section on the right side of the array.
 
 ## How
 
-1. `heapify` the array in O(n)
-2. For `end` from `n-1` down to `1`:
-   - Swap `a[0]` with `a[end]`
-   - Sift down at index `0` in the heap of size `end`
+1. Heapify the array in O(n).
+2. For `end` from `n − 1` down to `1`:
+   - Swap `a[0]` with `a[end]`.
+   - Sift down from index `0` inside the heap of size `end`.
 
 ## Trap
 
-Claiming build-heap is O(n log n) *and* therefore heap sort is slower than that alone suggests — the build is **O(n)**; the n extracts cost **O(n log n)** total.
+Thinking the build step is O(n log n) and adding that on top of the rest. The build is **O(n)**. The n extractions cost **O(n log n)** in total.
 
-**Fix:** Remember: build O(n), each sift O(log n), n times → **O(n log n)** time, **O(1)** extra space (not stable).
+**Fix:** The build is O(n), and each of the n sift-downs is O(log n). Heap sort takes **O(n log n)** time and **O(1)** extra space, and it is not stable.
 
 **Time:** O(n log n)  
 **Space:** O(1) extra

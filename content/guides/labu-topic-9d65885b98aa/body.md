@@ -1,34 +1,34 @@
 ## Tiny example
 
-One item: weight **2**, value **3**. Bag capacity **4**.
+There is one item with weight **2** and value **3**. The bag holds **4**.
 
 | Rule | What you may take | Best value |
 |------|-------------------|------------|
-| **0-1** | at most 1 copy | **3** (one item, leftover capacity 2 unused) |
-| **Complete / unbounded** | any number of copies | **6** (two copies) |
-| **Multiple** | at most **k** copies (say k=1) | **3** (same as 0-1 for k=1) |
+| **0-1** | at most 1 copy | **3** (one item, with capacity 2 left unused) |
+| **Complete (unbounded)** | any number of copies | **6** (two copies) |
+| **Multiple** | at most **k** copies (say k = 1) | **3** (the same as 0-1 when k = 1) |
 
-Same `dp[c]` idea — the **copy rule** changes the loop:
+All three use the same `dp[c]` idea. What changes the loop is the **copy rule**:
 
-| Flavor | 1D capacity loop | Why |
-|--------|------------------|-----|
-| 0-1 | **backward** high→low | updated small c cannot feed a larger c this pass |
-| Complete / unbounded | **forward** low→high | updated small c *should* feed more copies |
-| Multiple (≤k) | expand into k 0-1 items (or binary split) then backward | hard cap on copies |
+| Flavor | Capacity loop in one array | Why |
+|--------|----------------------------|-----|
+| 0-1 | **backward**, from high to low | a small capacity updated in this pass cannot feed a larger one |
+| Complete (unbounded) | **forward**, from low to high | a small capacity updated in this pass *should* feed more copies |
+| Multiple (at most k) | split into k separate 0-1 items (or use a binary split), then loop backward | there is a hard cap on copies |
 
 ## How
 
-1. Read the problem’s copy rule out loud
-2. Pick the matching loop / expansion
-3. Only then write code
+1. Say the problem's copy rule out loud.
+2. Choose the matching loop direction or expansion.
+3. Only then write the code.
 
 ## Trap
 
-Memorizing one knapsack loop and forcing it onto every statement.
+Memorizing one knapsack loop and forcing it onto every problem.
 
-**Fix:** Say “once / unlimited / ≤k” before touching `for c`.
+**Fix:** Before writing `for c`, decide whether each item is used once, an unlimited number of times, or at most k times.
 
-**Time:** typically O(nW) (plus log factors for binary split)
+**Time:** typically O(nW), plus a log factor for the binary split
 
 > [!ui-builder] Mini game
 > INPUT_TOPIC: Theory or problem

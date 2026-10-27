@@ -1,27 +1,25 @@
 ## Tiny example
 
-Stack vs queue on the same push sequence `1,2,3`:
+Push the same sequence, `1, 2, 3`, into a stack and into a queue:
 
-- Stack pop order: `3,2,1` (LIFO)
-- Queue dequeue order: `1,2,3` (FIFO)
+- The stack pops `3, 2, 1`. This is last in, first out (LIFO).
+- The queue removes `1, 2, 3`. This is first in, first out (FIFO).
 
-Rule: if the **newest** pending item should go next → stack. If the **oldest** → queue.
-
+The rule: if the **newest** waiting item should go next, use a stack. If the **oldest** should go next, use a queue.
 
 ## How
 
-1. Ask which pending item must leave next
-2. Pick LIFO or FIFO
-3. Only then pick a language container
-
+1. Ask which waiting item must leave next.
+2. Choose LIFO or FIFO.
+3. Only then choose a container in your language.
 
 ## Trap
 
-Using a stack for BFS levels.
+Using a stack to process BFS levels.
 
-**Fix:** BFS needs FIFO (queue).
+**Fix:** BFS needs FIFO order, so use a queue.
 
-**Time:** O(1) end ops · **Space:** O(n)
+**Time:** O(1) for operations at the ends · **Space:** O(n)
 
 > [!ui-builder] Mini game
 > INPUT_TOPIC: Theory or problem

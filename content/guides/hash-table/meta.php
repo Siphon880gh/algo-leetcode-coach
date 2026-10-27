@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Hash table: average O(1) key lookup',
-    'summary' => 'Hash the key to a bucket, then equality-check collisions — expected O(1) get/put if the load factor stays bounded.',
+    'title' => 'Hash table: look up a key in constant time on average',
+    'summary' => 'A hash table turns each key into a bucket number, so looking up a value usually takes constant time as long as the table does not get too full.',
     'category' => 'Data Structures',
     'subcategory' => 'Hash Map',
     'kind' => 'algo',

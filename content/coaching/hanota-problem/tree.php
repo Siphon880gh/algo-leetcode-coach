@@ -10,82 +10,49 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => 'State:
-n = 2
-A = [large, small]
-B = []
-C = []
-goal = both on C
-
-First legal move?',
+            'message' => "State:\nn = 2\nA = [large, small]\nB = []\nC = []\ngoal: both disks on C\n\nWhat is the first legal move?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'Small A→B', 'next' => 'after1'],
-                ['label' => 'Large A→C first', 'next' => 'w_large'],
+                ['label' => 'Move the small disk from A to B', 'next' => 'after1'],
+                ['label' => 'Move the large disk from A to C first', 'next' => 'w_large'],
             ],
         ],
         'w_large' => [
-            'message' => 'Wrong.
-
-Small still sits on large. Move the small aside first.
-
-Step back.',
+            'message' => "Wrong.\n\nThe small disk is still on top of the large one. Move the small disk out of the way first.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'start',
             'choices' => [],
         ],
         'after1' => [
-            'message' => 'State:
-A = [large]
-B = [small]
-C = []
-
-Next?',
+            'message' => "State:\nA = [large]\nB = [small]\nC = []\n\nWhat comes next?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'Large A→C, then small B→C', 'next' => 'ask_n3'],
-                ['label' => 'Small B→C now (large still on A)', 'next' => 'w_order'],
+                ['label' => 'Move the large disk from A to C, then the small disk from B to C', 'next' => 'ask_n3'],
+                ['label' => 'Move the small disk from B to C now, while the large disk is still on A', 'next' => 'w_order'],
             ],
         ],
         'w_order' => [
-            'message' => 'Wrong.
-
-That puts small on C alone, then large has nowhere legal. Move large to C while small waits on B.
-
-Step back.',
+            'message' => "Wrong.\n\nThen the small disk would sit alone on C, and the large disk could not go on top of it. Move the large disk to C while the small one waits on B.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'after1',
             'choices' => [],
         ],
         'ask_n3' => [
-            'message' => 'State:
-n=2 took 3 moves
-same pattern for n=3
-
-Total moves?',
+            'message' => "State:\nn = 2 took 3 moves\nuse the same pattern for n = 3\n\nHow many moves in total?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => '7 = 2³−1', 'next' => 'success'],
-                ['label' => '3 — one move per disk', 'next' => 'w_count'],
+                ['label' => '7, which is 2³ − 1', 'next' => 'success'],
+                ['label' => '3, one move per disk', 'next' => 'w_count'],
             ],
         ],
         'w_count' => [
-            'message' => 'Wrong.
-
-Move 2-tower aside (3) + largest (1) + 2-tower on top (3) = 7.
-
-Step back.',
+            'message' => "Wrong.\n\nMove the two smaller disks aside (3 moves), move the largest (1 move), then move the two disks on top (3 moves). That is 7.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'ask_n3',
             'choices' => [],
         ],
         'success' => [
-            'message' => 'Correct.
-
-- n=2: small aside, large, small on top
-- n=3: same idea → 7 moves
-
-You finished this path.',
+            'message' => "Correct.\n\n- With n = 2, move the small disk aside, move the large disk, then put the small disk on top.\n- With n = 3, the same idea takes 7 moves.\n\nYou finished this path.",
             'outcome' => 'success',
             'choices' => [],
         ],

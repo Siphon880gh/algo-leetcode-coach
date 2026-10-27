@@ -1,26 +1,24 @@
 ## Tiny example
 
-Undirected edges: `A—B`, `A—C`, `B—D`.
+The undirected edges are A–B, A–C and B–D.
 
-**BFS from A** (queue): visit order example `A, B, C, D` (level by level).
+**Breadth-first search (BFS) from A** uses a queue and visits the graph level by level, for example `A, B, C, D`.
 
-**DFS from A** (stack/recursion): one possible order `A, B, D, C` (go deep before siblings).
-
+**Depth-first search (DFS) from A** uses a stack or recursion and goes as deep as it can first. One possible order is `A, B, D, C`.
 
 ## How
 
-1. Mark nodes visited to avoid cycles
-2. BFS: queue neighbors; process in FIFO order
-3. DFS: recurse (or stack) on an unvisited neighbor before the next sibling
-
+1. Mark nodes as visited so that cycles do not trap you.
+2. For BFS, add neighbors to a queue and process them first in, first out.
+3. For DFS, recurse into an unvisited neighbor (or push it on a stack) before moving to the next sibling.
 
 ## Trap
 
-Forgetting the visited set on an undirected graph — infinite ping-pong on `A—B`.
+Forgetting the visited set on an undirected graph. The search bounces between `A` and `B` forever.
 
-**Fix:** Mark when you enqueue (BFS) or when you recurse (DFS). Never reprocess a visited node.
+**Fix:** Mark a node when you add it to the queue (BFS) or when you recurse into it (DFS), and never process a visited node again.
 
-**Time:** O(V+E) · **Space:** O(V)
+**Time:** O(V + E) · **Space:** O(V)
 
 > [!ui-builder] Mini game
 > INPUT_TOPIC: Theory or problem

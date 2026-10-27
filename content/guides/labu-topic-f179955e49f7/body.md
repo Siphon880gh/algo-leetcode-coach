@@ -1,31 +1,29 @@
 ## Tiny example
 
-Array pattern menu on `a=[1,2,3,4]`:
+Common array patterns, using `a = [1,2,3,4]`:
 
 | Pattern | Idea |
 |---------|------|
-| Two pointers | opposite ends or slow/fast |
-| Sliding window | grow/shrink a segment with a constraint |
-| Prefix sums | range sums in O(1) after O(n) |
-| In-place swap | rearrange with O(1) extra |
+| Two pointers | move in from opposite ends, or as a slow and a fast pointer |
+| Sliding window | grow and shrink a segment while it meets a constraint |
+| Prefix sums | answer range sums in O(1) after O(n) setup |
+| In-place swaps | rearrange with O(1) extra space |
 
-Example window: longest subarray with sum ≤ 3 on `[1,2,3,4]` grows/shrinks `L,R`.
-
+A window example: to find the longest subarray with sum ≤ 3 in `[1,2,3,4]`, move `R` to grow the window and move `L` to shrink it.
 
 ## How
 
-1. Match the prompt to a row
-2. State the invariant (window sum, pointers…)
-3. Advance pointers monotonically when possible
-
+1. Match the problem to a row.
+2. State the invariant, such as the window sum or what each pointer means.
+3. Move the pointers only forward when possible.
 
 ## Trap
 
-Resetting both pointers from scratch every time — accidentally O(n²).
+Resetting both pointers from scratch each time, which quietly makes the solution O(n²).
 
-**Fix:** Move pointers only forward when the invariant allows.
+**Fix:** Move the pointers only forward when the invariant allows it.
 
-**Time:** often O(n) when pointers only advance
+**Time:** often O(n) when the pointers only advance
 
 > [!ui-builder] Mini game
 > INPUT_TOPIC: Theory or problem

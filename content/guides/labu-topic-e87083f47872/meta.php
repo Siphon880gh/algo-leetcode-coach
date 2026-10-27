@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 return [
     'title' => 'Greedy problem patterns',
-    'summary' => 'Interval scheduling, jump game, gas station, Huffman-style — recognize the selection key.',
+    'summary' => 'Greedy problems such as interval scheduling, the jump game, the gas station and Huffman merging each have one key that decides every choice.',
     'category' => 'Algorithms',
     'subcategory' => 'Greedy',
     'kind' => 'algo',

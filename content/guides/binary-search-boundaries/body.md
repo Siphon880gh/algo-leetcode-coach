@@ -1,26 +1,24 @@
 ## Tiny example
 
-Sorted array `a = [1, 2, 2, 2, 5]`. Predicate “`a[i] >= 2`”.
+The sorted array is `a = [1, 2, 2, 2, 5]`. Ask the yes-or-no question "is `a[i] >= 2`?".
 
-- **Leftmost True** (first index where pred holds) → index `1`
-- **Rightmost True** for “`a[i] <= 2`” → index `3`
+- The **first index where the answer is yes** is `1`.
+- For the question "is `a[i] <= 2`?", the **last index where the answer is yes** is `3`.
 
-The loop must bias `mid` and update `lo`/`hi` so you do not skip the edge occurrence.
-
+To land on the edge, the loop has to choose `mid` and move `lo` or `hi` carefully, so it never skips past the first or last match.
 
 ## How
 
-1. Write a monotonic predicate `ok(i)`
-2. While the search range has more than one candidate, test `mid`
-3. For first-True: if `ok(mid)` move `hi = mid`; else `lo = mid+1`
-4. Verify `lo` at the end
-
+1. Write a yes-or-no test `ok(i)` that is false for a while and then true for the rest.
+2. While more than one candidate is left, test `mid`.
+3. To find the first true index: if `ok(mid)` is true, set `hi = mid`. Otherwise set `lo = mid + 1`.
+4. When the loop ends, check the answer at `lo`.
 
 ## Trap
 
-Using plain “find any equal” binary search when the problem asks for first/last position.
+Using a plain "find any match" binary search when the problem asks for the first or last position.
 
-**Fix:** Code the boundary template explicitly; draw the boolean strip `F F T T T`.
+**Fix:** Write the boundary version on purpose. It helps to draw the answers as a strip like `F F T T T` and look for the first `T`.
 
 **Time:** O(log n) · **Space:** O(1)
 

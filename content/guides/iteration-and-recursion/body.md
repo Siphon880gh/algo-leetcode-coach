@@ -1,26 +1,24 @@
 ## Tiny example
 
-Sum `1…n`.
+Add up the numbers from 1 to n.
 
-Iterative: `s=0; for i in 1…n: s+=i` — one frame, O(1) extra space.
+Iteratively: start with `s = 0`, then add each `i` from 1 to n. This uses one stack frame, so the extra space is O(1).
 
-Recursive: `sum(n)=n+sum(n-1)` — n stacked frames, O(n) space (unless tail-call optimized, which many languages lack).
-
+Recursively: `sum(n) = n + sum(n-1)`. This stacks n frames before any of them return, so it uses O(n) space. Tail-call optimization could avoid that, but many languages do not do it.
 
 ## How
 
-1. Same mathematical recurrence can be a loop or recursion
-2. Prefer iteration when depth would be large and no tree structure needs it
-3. Prefer recursion when the problem tree is natural (trees, D&C)
-
+1. The same recurrence can be written as a loop or as recursion.
+2. Prefer a loop when the depth would be large and the problem has no tree shape.
+3. Prefer recursion when the problem is naturally a tree, as in tree algorithms or divide and conquer.
 
 ## Trap
 
-Assuming recursion is “free” space-wise.
+Assuming recursion costs no extra memory.
 
-**Fix:** Count maximum depth as space.
+**Fix:** Count the maximum recursion depth as space.
 
-**Time:** usually same order · **Space:** recursion often costs the depth
+**Time:** usually the same for both · **Space:** recursion usually costs its depth
 
 > [!ui-builder] Mini game
 > INPUT_TOPIC: Theory or problem

@@ -1,28 +1,26 @@
 ## Tiny example
 
-Text `"hi👍"`.
+Take the text `"hi👍"`.
 
-- Unicode assigns code points (👍 is U+1F44D)
-- UTF-8 stores ASCII `h`,`i` as 1 byte each, and 👍 as **4** bytes
-- `len` in bytes ≠ number of user-perceived characters
+- Unicode gives every character a number called a code point. 👍 is U+1F44D.
+- UTF-8 stores the ASCII letters `h` and `i` in 1 byte each, and 👍 in **4** bytes.
+- So the length in bytes (6) is not the number of characters a person sees (3).
 
-ASCII is only 0–127; everything else needs Unicode + an encoding (UTF-8 common on the wire).
-
+ASCII only covers the values 0 to 127. Everything else needs Unicode plus an encoding. UTF-8 is the common one for files and networks.
 
 ## How
 
-1. Separate code point from encoded bytes
-2. Use UTF-8 unless a platform forces UTF-16
-3. For algorithms on “characters”, define whether you mean bytes, code points, or graphemes
-
+1. Keep the code point separate from the bytes that encode it.
+2. Use UTF-8 unless the platform forces UTF-16.
+3. When an algorithm talks about "characters", decide whether you mean bytes, code points or the symbols a user sees.
 
 ## Trap
 
-Cutting a UTF-8 string at an arbitrary byte index — you may split a multi-byte character.
+Cutting a UTF-8 string at an arbitrary byte index. You may split a character that takes several bytes.
 
-**Fix:** Index by well-defined units (codepoints/runes) or validated boundaries.
+**Fix:** Index by whole code points, or only cut at positions you know are character boundaries.
 
-**Space:** UTF-8 uses 1–4 bytes per code point
+**Space:** UTF-8 uses 1 to 4 bytes per code point
 
 > [!ui-builder] Mini game
 > INPUT_TOPIC: Theory or problem

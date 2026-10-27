@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Arrays, linked lists, and dynamic lists: recap',
-    'summary' => 'Arrays give O(1) index; linked lists give local splices; dynamic arrays amortize append — pick by the hot operation.',
+    'title' => 'Arrays, linked lists and dynamic arrays: recap',
+    'summary' => 'Arrays give instant index reads, linked lists give cheap local splices and dynamic arrays make appends cheap, so pick the one that suits your most common operation.',
     'category' => 'Data Structures',
     'subcategory' => 'Fundamentals',
     'kind' => 'algo',

@@ -10,35 +10,35 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "State:\n[3,1,4,1] find duplicate via set\n\nWhen caught?",
+            'message' => "State:\n[3, 1, 4, 1]\nfind a duplicate with a hash set\n\nWhen is the duplicate caught?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'At the second 1', 'next' => 'mid'],
-                ['label' => 'Never — sets ignore duplicates silently without checks', 'next' => 'w1'],
+                ['label' => 'Never, because sets quietly ignore duplicates', 'next' => 'w1'],
             ],
         ],
         'w1' => [
-            'message' => "Wrong.\n\nQuery membership before insert catches the repeat.\n\nStep back.",
+            'message' => "Wrong.\n\nChecking membership before inserting catches the repeat.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'start',
             'choices' => [],
         ],
         'mid' => [
-            'message' => "State:\nmembership test structure\n\n?",
+            'message' => "State:\nyou need fast membership tests\n\nWhich structure do you use?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'Hash set', 'next' => 'final'],
-                ['label' => 'Unsorted list with repeated full scans', 'next' => 'w2'],
+                ['label' => 'A hash set', 'next' => 'final'],
+                ['label' => 'An unsorted list, scanned in full each time', 'next' => 'w2'],
             ],
         ],
         'w2' => [
-            'message' => "Wrong.\n\nHash set is the upgrade.\n\nStep back.",
+            'message' => "Wrong.\n\nA hash set is the upgrade from repeated scans.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'mid',
             'choices' => [],
         ],
         'final' => [
-            'message' => "State:\nn inserts/lookups expected\n\nTime?",
+            'message' => "State:\nn inserts and lookups in a hash set\n\nWhat is the expected time?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'O(n)', 'next' => 'success'],
@@ -46,13 +46,13 @@ return [
             ],
         ],
         'w3' => [
-            'message' => "Wrong.\n\nExpected O(1) each × n.\n\nStep back.",
+            'message' => "Wrong.\n\nEach operation is expected O(1), so n of them take O(n).\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'final',
             'choices' => [],
         ],
         'success' => [
-            'message' => "Correct.\n\n- Hash answers “seen?”\n- Expected O(n)\n\nYou finished this path.",
+            'message' => "Correct.\n\n- A hash table answers \"have I seen this?\"\n- The expected time is O(n).\n\nYou finished this path.",
             'outcome' => 'success',
             'choices' => [],
         ],

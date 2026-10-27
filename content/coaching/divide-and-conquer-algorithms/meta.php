@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'D&C: max subarray needs the crossing case',
-    'summary' => 'Name the three candidates after splitting.',
+    'title' => 'Divide and conquer: max subarray needs the middle case',
+    'summary' => 'After splitting the array in half, name the three places the best subarray can be.',
     'category' => 'Algorithms',
     'subcategory' => 'Divide and Conquer',
     'tags' => ['divide-conquer', 'step-by-step'],

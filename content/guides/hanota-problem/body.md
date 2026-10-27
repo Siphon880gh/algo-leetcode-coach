@@ -1,41 +1,41 @@
 ## Tiny example
 
-Pegs **A** (start), **B** (helper), **C** (goal). Disks: small on large. Never larger on smaller.
+There are three pegs: **A** (start), **B** (helper) and **C** (goal). Disks sit small on top of large, and you may never put a larger disk on a smaller one.
 
-**n = 2** (small + large on A):
+**With n = 2** (a small and a large disk on A):
 
 ```
 start:  A=[large, small]  B=[]  C=[]
 ```
 
-1. Move small A→B  
+1. Move the small disk from A to B.  
    `A=[large]  B=[small]  C=[]`
-2. Move large A→C  
+2. Move the large disk from A to C.  
    `A=[]  B=[small]  C=[large]`
-3. Move small B→C  
+3. Move the small disk from B to C.  
    `A=[]  B=[]  C=[large, small]`
 
-Three moves = `2² − 1`.
+That is three moves, which is `2² − 1`.
 
-**n = 3** uses the same idea twice around moving the largest:
+**With n = 3**, use the same idea around the largest disk:
 
-1. Move 2-tower A→B (helper C) — 3 moves
-2. Move largest A→C — 1 move
-3. Move 2-tower B→C (helper A) — 3 moves  
+1. Move the top two disks from A to B, using C as the helper. That takes 3 moves.
+2. Move the largest disk from A to C. That takes 1 move.
+3. Move the two disks from B to C, using A as the helper. That takes 3 moves.
 
-Total **7** = `2³ − 1`.
+The total is **7**, which is `2³ − 1`.
 
 ## How
 
-1. If n==1, move the disk directly
-2. Else: move n−1 aside, move largest, move n−1 on top
-3. Count: `T(n) = 2·T(n-1) + 1` → `2ⁿ − 1`
+1. If there is one disk, move it directly.
+2. Otherwise, move the top n − 1 disks out of the way, move the largest disk, then move the n − 1 disks back on top of it.
+3. The move count follows `T(n) = 2 × T(n − 1) + 1`, which gives `2ⁿ − 1`.
 
 ## Trap
 
-Moving the largest while smaller disks still sit on it — illegal stack.
+Trying to move the largest disk while smaller disks are still on top of it. That move is not allowed.
 
-**Fix:** Always clear the n−1 tower first; the largest moves once per level.
+**Fix:** Always clear the n − 1 smaller disks first. The largest disk moves exactly once at each level.
 
 **Moves:** Θ(2ⁿ)  
 **Space:** O(n) recursion depth

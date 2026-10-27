@@ -1,27 +1,25 @@
 ## Tiny example
 
-Two snippets on size `n`:
+Two snippets on input size `n`:
 
-- Triple nested loops over `n` → about `n³` iterations → **O(n³)**
-- `for i in 0..n: for j in 0..i: …` → about `n²/2` → still **O(n²)** (drop constants)
+- Three nested loops over `n` run about `n³` times, which is **O(n³)**.
+- `for i in 0..n: for j in 0..i: …` runs about `n²/2` times, which is still **O(n²)**, because constants are dropped.
 
-Big-O names the **growth class**, not the exact millisecond count.
-
+Big-O names the **growth class**, not the exact number of milliseconds.
 
 ## How
 
-1. Count dominant operations as a function of n
-2. Drop constants and lower-order terms
-3. Report worst case unless asked otherwise
-
+1. Count the main operations as a function of n.
+2. Drop constants and lower-order terms.
+3. Report the worst case unless asked otherwise.
 
 ## Trap
 
-Saying “O(2n) is worse than O(n)” as if constants mattered in Big-O notation.
+Saying "O(2n) is worse than O(n)", as if constants mattered in Big-O notation.
 
-**Fix:** O(2n) and O(n) are the same class. Compare algorithms by class, then by constants via benchmarks.
+**Fix:** O(2n) and O(n) are the same class. Compare algorithms by class first, then compare constants with benchmarks.
 
-**Note:** Big-O is asymptotic; measure wall clocks for constants/cache.
+**Note:** Big-O describes growth for large n. Measure real times to see constants and cache effects.
 
 > [!ui-builder] Mini game
 > INPUT_TOPIC: Theory or problem

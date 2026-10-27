@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Drill: front insert costs',
-    'summary' => 'Contrast array shift vs linked-list head insert for inserting 5.',
+    'title' => 'Practice: the cost of inserting at the front',
+    'summary' => 'Compare shifting an array with linking a new head node when you insert 5.',
     'category' => 'Data Structures',
     'subcategory' => 'Fundamentals',
     'tags' => ['exercises', 'array', 'linked-list', 'step-by-step'],

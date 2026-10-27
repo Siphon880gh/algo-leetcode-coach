@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Trade space for time with hashing',
-    'summary' => 'Replace repeated linear scans with a hash set/map when you can spend O(n) memory for expected O(1) checks.',
+    'title' => 'Use a hash map to trade memory for speed',
+    'summary' => 'When code keeps rescanning to ask whether it has seen a value, a hash set or map answers in constant time at the cost of extra memory.',
     'category' => 'Algorithms',
     'subcategory' => 'Hashing',
     'kind' => 'algo',

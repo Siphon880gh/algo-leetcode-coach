@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 return [
     'title' => 'Quick sort: partition around a pivot',
-    'summary' => 'Pick a pivot, partition < / ≥, recurse — average O(n log n), worst O(n²) on bad pivots.',
+    'summary' => 'Pick a pivot, move smaller values to its left and larger values to its right, then sort each side, which averages O(n log n) but can hit O(n²) with bad pivots.',
     'category' => 'Algorithms',
     'subcategory' => 'Sorting',
     'kind' => 'algo',

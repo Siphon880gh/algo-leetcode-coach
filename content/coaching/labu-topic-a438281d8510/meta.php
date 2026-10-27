@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Unified iterative tree traversal: practice path',
-    'summary' => 'Use one stack loop with visited marks to produce preorder, inorder, and postorder.',
+    'title' => 'One stack loop for every traversal order',
+    'summary' => 'Decide when a node is pushed back and when it is output.',
     'category' => 'Data Structures',
     'subcategory' => 'Trees',
     'tags' => ['traversal', 'iterative', 'step-by-step'],

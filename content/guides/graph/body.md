@@ -1,6 +1,6 @@
 ## Tiny example
 
-Undirected graph:
+An undirected graph:
 
 ```
 A — B
@@ -8,24 +8,24 @@ A — B
 C — D
 ```
 
-Two common stores:
+There are two common ways to store it.
 
-**Adj list:** `A:[B,C]`, `B:[A,D]`, `C:[A,D]`, `D:[B,C]` — space O(V+E), iterate neighbors fast.
+**Adjacency list:** `A: [B, C]`, `B: [A, D]`, `C: [A, D]`, `D: [B, C]`. It uses O(V + E) space, and looping over a vertex's neighbors is fast.
 
-**Adj matrix:** 4×4 bit grid; `M[A][B]=1` — O(1) edge query, O(V²) space.
+**Adjacency matrix:** a 4 × 4 grid of bits where `M[A][B] = 1` means there is an edge. Checking one edge is O(1), but the grid uses O(V²) space.
 
-## Directed vs undirected
+## Directed and undirected edges
 
-Directed edge `A→B` appears only in `A`’s list. Undirected usually stores both `A→B` and `B→A`.
+A directed edge from `A` to `B` appears only in `A`'s list. An undirected edge is usually stored in both directions, once in each endpoint's list.
 
 ## Trap
 
-Using a matrix on a huge sparse graph (millions of vertices, few edges) and running out of memory.
+Using a matrix for a huge sparse graph, with millions of vertices but few edges, and running out of memory.
 
-**Fix:** Prefer adj lists for sparse graphs; matrices for dense graphs or when O(1) “is edge?” dominates.
+**Fix:** Use adjacency lists for sparse graphs. Use a matrix for dense graphs, or when constant-time edge checks matter most.
 
-**Time (list all edges via lists):** O(V+E)  
-**Space:** lists O(V+E); matrix O(V²)
+**Time to list every edge using adjacency lists:** O(V + E)  
+**Space:** O(V + E) for lists; O(V²) for a matrix
 
 > [!ui-builder] Mini game
 > INPUT_TOPIC: Theory or problem

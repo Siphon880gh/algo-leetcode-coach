@@ -10,11 +10,11 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "State:\nlevel order\n\nStructure?",
+            'message' => "State:\nyou want a level-order traversal\n\nWhich structure do you use?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'Queue', 'next' => 'mid'],
-                ['label' => 'Stack only', 'next' => 'w1'],
+                ['label' => 'A queue', 'next' => 'mid'],
+                ['label' => 'Only a stack', 'next' => 'w1'],
             ],
         ],
         'w1' => [
@@ -24,25 +24,25 @@ return [
             'choices' => [],
         ],
         'mid' => [
-            'message' => "State:\niterative preorder stack\n\nPush children order typically?",
+            'message' => "State:\niterative preorder with a stack\n\nIn what order do you usually push the children?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'Right then left so left pops first', 'next' => 'final'],
-                ['label' => 'Left then right always without thinking', 'next' => 'w2'],
+                ['label' => 'Right, then left, so the left child pops first', 'next' => 'final'],
+                ['label' => 'Left, then right, without thinking about it', 'next' => 'w2'],
             ],
         ],
         'w2' => [
-            'message' => "Wrong.\n\nStack reverses push order.\n\nStep back.",
+            'message' => "Wrong.\n\nA stack reverses the push order.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'mid',
             'choices' => [],
         ],
         'final' => [
-            'message' => "State:\niterative postorder hard part?\n\n",
+            'message' => "State:\niterative postorder\n\nWhat is the hard part?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'Knowing whether a node is expanded or ready to visit', 'next' => 'success'],
-                ['label' => 'Impossible without recursion', 'next' => 'w3'],
+                ['label' => 'Knowing whether a node still needs expanding or is ready to visit', 'next' => 'success'],
+                ['label' => 'It is impossible without recursion', 'next' => 'w3'],
             ],
         ],
         'w3' => [
@@ -52,7 +52,7 @@ return [
             'choices' => [],
         ],
         'success' => [
-            'message' => "Correct.\n\n- Queue for BFS; stack+phase for DFS orders\n\nYou finished this path.",
+            'message' => "Correct.\n\n- Use a queue for BFS.\n- Use a stack with phase marks for the DFS orders.\n\nYou finished this path.",
             'outcome' => 'success',
             'choices' => [],
         ],

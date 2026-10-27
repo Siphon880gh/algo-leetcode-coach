@@ -1,29 +1,33 @@
 ## Tiny example
 
-Same input `[3, 1, 4, 2]` under different tools:
+The same input, `[3, 1, 4, 2]`, could be sorted by any of these:
 
 | Algorithm | Typical time | Extra space | Notes |
 |-----------|--------------|-------------|-------|
-| Insertion | O(n²) / O(n) best | O(1) | Great nearly sorted |
-| Merge | Θ(n log n) | Θ(n) | Stable |
-| Quick | avg O(n log n) | O(log n) | Watch worst case |
-| Heap | O(n log n) | O(1) | Not stable |
-
+| Insertion | O(n²), or O(n) at best | O(1) | great when nearly sorted |
+| Merge | Θ(n log n) | Θ(n) | stable |
+| Quick | O(n log n) on average | O(log n) | watch the worst case |
+| Heap | O(n log n) | O(1) | not stable |
 
 ## How
 
-1. Identify constraints: stability? memory? input distribution?
-2. Pick a tool that matches (library sort is usually introsort/timsort)
-3. For interviews, know the invariants and traps of each classic sort
-
+1. Identify the constraints. Do you need stability? How much memory is there? What does the input look like?
+2. Pick an algorithm that fits. Library sorts are usually introsort or Timsort.
+3. For interviews, know the invariant and the trap of each classic sort.
 
 ## Trap
 
-Memorizing one Big-O and applying it to every sort situation.
+Memorizing one Big-O and applying it to every sorting situation.
 
-**Fix:** Ask: stable? in-place? guaranteed n log n? tiny n? integers with small range?
+**Fix:** Ask these questions:
 
-**Time/Space:** depends on the chosen algorithm — see table
+- Does it need to be stable?
+- Does it need to be in place?
+- Do you need a guaranteed n log n?
+- Is n tiny?
+- Are the keys integers in a small range?
+
+**Time and space:** depend on the algorithm, as shown in the table
 
 > [!ui-builder] Mini game
 > INPUT_TOPIC: Theory or problem

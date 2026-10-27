@@ -1,31 +1,29 @@
 ## Tiny example
 
-Climbing stairs: `n=4` ways (1/2 steps).
+Climbing stairs: you climb 1 or 2 steps at a time. With `n = 4` there are 5 ways to reach the top.
 
-Playbook:
+The playbook has four stages:
 
-1. **Brute recursion:** `f(i)=f(i-1)+f(i-2)`
-2. **Memo** on `i`
-3. **Table** `dp[i]` bottom-up
-4. **Compress** to two variables
+1. **Plain recursion:** `f(i) = f(i-1) + f(i-2)`.
+2. **Memoization:** cache each `f(i)` the first time you compute it.
+3. **Table:** fill `dp[i]` from the bottom up.
+4. **Compress:** keep only the last two values in two variables.
 
-Same relation; changing only the evaluation strategy.
-
+The recurrence stays the same in every stage. Only the way you evaluate it changes.
 
 ## How
 
-1. Define state + transition on paper
-2. Memoize top-down until correct
-3. Translate bottom-up; then drop dimensions if safe
-
+1. Write the state and the transition on paper.
+2. Add memoization to the top-down recursion and check that it is correct.
+3. Turn it into a bottom-up table, then drop dimensions you no longer need.
 
 ## Trap
 
-Jumping straight to a rolled 1D loop before the transition is trustworthy.
+Jumping straight to a compressed one-dimensional loop before you trust the transition.
 
-**Fix:** Get the recursive definition right first — compression is last.
+**Fix:** Get the recursive definition right first. Compression comes last.
 
-**Time:** usually O(states × transitions) · **Space:** shrinks across the playbook
+**Time:** usually O(number of states × transitions per state) · **Space:** shrinks as you move through the stages
 
 > [!ui-builder] Mini game
 > INPUT_TOPIC: Theory or problem

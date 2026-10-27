@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Top-k: min-heap of size 3',
-    'summary' => 'Track largest-3 on [5,1,9,3,7,8] without full sort.',
+    'title' => 'Top k: a min-heap of size 3',
+    'summary' => 'Track the 3 largest values of [5, 1, 9, 3, 7, 8] without sorting everything.',
     'category' => 'Algorithms',
     'subcategory' => 'Heap',
     'tags' => ['top-k', 'heap', 'step-by-step'],

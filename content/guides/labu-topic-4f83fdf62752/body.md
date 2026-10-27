@@ -1,6 +1,6 @@
 ## Tiny example
 
-Tree vocabulary on
+Tree vocabulary, using this tree:
 
 ```
       1
@@ -10,27 +10,25 @@ Tree vocabulary on
   4
 ```
 
-- **Depth** of 4: 2 edges from root (if counting edges)
-- **Height** of tree: longest root→leaf path edges (2 here)
-- **Perfect / full / complete**: different shape constraints — complete is heap-shaped; perfect is every level full
+- **Depth** of node 4: 2, counting the edges from the root.
+- **Height** of the tree: 2, the number of edges on the longest path from the root to a leaf.
+- **Perfect, full and complete** are different shape rules. A complete tree has the heap shape. A perfect tree has every level full.
 
-Interview follow-ups love these words — keep definitions consistent.
-
+Interviewers often ask follow-up questions using these words, so keep your definitions consistent.
 
 ## How
 
-1. Pick edge-count vs node-count convention and stick to it
-2. Classify shape words carefully
-3. Use complete-tree indexing only when the shape qualifies
-
+1. Choose whether you count edges or nodes, and stick to it.
+2. Classify shape words carefully.
+3. Use complete-tree array indexing only when the tree really has that shape.
 
 ## Trap
 
-Calling any bushy tree “complete”.
+Calling any bushy tree "complete".
 
-**Fix:** Complete ≈ filled level-by-level left-justified (heap shape).
+**Fix:** A complete tree is filled level by level, with the last level packed to the left. That is the heap shape.
 
-**Note:** definitions vary slightly by textbook — state yours
+**Note:** textbooks define these words slightly differently, so state the definition you are using.
 
 > [!ui-builder] Mini game
 > INPUT_TOPIC: Theory or problem

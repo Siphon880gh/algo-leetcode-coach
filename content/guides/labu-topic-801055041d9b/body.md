@@ -1,26 +1,27 @@
 ## Tiny example
 
-Warm-up before full edit distance: delete-only distance.
+A warm-up before full edit distance: the distance when only deletions are allowed.
 
-`a="ab"`, `b="a"`. Delete `b` from `a` → 1 edit.
+Take `a = "ab"` and `b = "a"`. Deleting `b` from `a` takes 1 edit.
 
-Table on prefixes: if chars equal, diagonal; else delete costs 1 from either side.
+Fill a table over prefixes:
 
-This builds the same **prefix DP habit** as Levenshtein without all three ops yet.
+- If the two characters are equal, copy the diagonal value.
+- Otherwise, a deletion from either side costs 1.
 
+This builds the same **prefix table habit** as Levenshtein distance, before you add all three operations.
 
 ## How
 
-1. Practice LCS / delete-only tables on tiny strings
-2. Add replace/insert when ready for full edit distance
-3. Keep `dp[i][j]` = answer for prefixes
-
+1. Practice longest common subsequence and delete-only tables on tiny strings.
+2. Add replace and insert when you are ready for full edit distance.
+3. Keep `dp[i][j]` as the answer for the prefixes of length i and j.
 
 ## Trap
 
-Jumping into three-op edit distance with no prefix-table comfort.
+Jumping into the three-operation edit distance before you are comfortable with prefix tables.
 
-**Fix:** Master equal-char diagonal + one op first.
+**Fix:** First master the free diagonal move for equal characters, plus one operation.
 
 **Time:** O(mn) · **Space:** O(mn)
 

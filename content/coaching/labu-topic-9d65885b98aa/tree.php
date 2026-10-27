@@ -10,80 +10,49 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => 'State:
-item (weight=2, value=3)
-W = 4
-rule = each item at most once
-
-Best value?',
+            'message' => "State:\nitem with weight 2 and value 3\nW = 4\nrule: each item at most once\n\nWhat is the best value?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => '3 — one copy; leftover 2 unused', 'next' => 'ask_unb'],
-                ['label' => '6 — two copies anyway', 'next' => 'w_01'],
+                ['label' => '3, from one copy with capacity 2 left over', 'next' => 'ask_unb'],
+                ['label' => '6, from two copies anyway', 'next' => 'w_01'],
             ],
         ],
         'w_01' => [
-            'message' => 'Wrong.
-
-0-1 forbids a second copy. Best is 3.
-
-Step back.',
+            'message' => "Wrong.\n\nThe 0-1 rule forbids a second copy. The best is 3.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'start',
             'choices' => [],
         ],
         'ask_unb' => [
-            'message' => 'State:
-same item (2,3), W=4
-rule = unlimited copies
-
-Best value?',
+            'message' => "State:\nthe item is still weight 2 and value 3, with W = 4\nrule: unlimited copies\n\nWhat is the best value?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => '6 — two copies', 'next' => 'ask_loop'],
-                ['label' => '3 — still one copy', 'next' => 'w_unb'],
+                ['label' => '6, from two copies', 'next' => 'ask_loop'],
+                ['label' => '3, from one copy', 'next' => 'w_unb'],
             ],
         ],
         'w_unb' => [
-            'message' => 'Wrong.
-
-Unlimited means 2+2 weights fit → value 6.
-
-Step back.',
+            'message' => "Wrong.\n\nWith unlimited copies, two items of weight 2 fit, for a value of 6.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'ask_unb',
             'choices' => [],
         ],
         'ask_loop' => [
-            'message' => 'State:
-1D dp array
-unlimited copies of this item
-
-Capacity loop direction?',
+            'message' => "State:\none dp array\nunlimited copies of this item\n\nWhich way does the capacity loop go?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'Forward (low → high) so copies stack', 'next' => 'success'],
-                ['label' => 'Backward (high → low) like 0-1', 'next' => 'w_loop'],
+                ['label' => 'Forward, from low to high, so copies stack', 'next' => 'success'],
+                ['label' => 'Backward, from high to low, as in 0-1', 'next' => 'w_loop'],
             ],
         ],
         'w_loop' => [
-            'message' => 'Wrong.
-
-Backward blocks reuse. Forward lets dp[2]=3 feed dp[4]=6.
-
-Step back.',
+            'message' => "Wrong.\n\nA backward loop blocks reuse. A forward loop lets dp[2] = 3 feed dp[4] = 6.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'ask_loop',
             'choices' => [],
         ],
         'success' => [
-            'message' => 'Correct.
-
-- Copy rule first: once / unlimited / ≤k
-- Loop direction encodes reuse
-- Same item, three different answers
-
-You finished this path.',
+            'message' => "Correct.\n\n- Decide the copy rule first: once, unlimited, or at most k.\n- The loop direction controls reuse.\n- One item gives three different answers under the three rules.\n\nYou finished this path.",
             'outcome' => 'success',
             'choices' => [],
         ],

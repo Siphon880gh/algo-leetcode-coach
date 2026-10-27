@@ -10,49 +10,49 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "State:\ncombinations size 2 from [1,2,3]\n\nIncludes?",
+            'message' => "State:\ncombinations of size 2 from [1, 2, 3]\n\nWhich list is correct?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => '[1,2],[1,3],[2,3]', 'next' => 'mid'],
-                ['label' => 'Also [2,1] as different', 'next' => 'w1'],
+                ['label' => '[1, 2], [1, 3], [2, 3]', 'next' => 'mid'],
+                ['label' => 'The same three, plus [2, 1] as a different one', 'next' => 'w1'],
             ],
         ],
         'w1' => [
-            'message' => "Wrong.\n\nCombinations ignore order.\n\nStep back.",
+            'message' => "Wrong.\n\nCombinations ignore order, so [2, 1] is the same as [1, 2].\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'start',
             'choices' => [],
         ],
         'mid' => [
-            'message' => "State:\navoid ordered dups in combinations\n\nTrick?",
+            'message' => "State:\nyou want to avoid listing the same combination in two orders\n\nWhat is the trick?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'Start index / pick only forward', 'next' => 'final'],
-                ['label' => 'used[] exactly like permutations', 'next' => 'w2'],
+                ['label' => 'Keep a start index and only pick forward', 'next' => 'final'],
+                ['label' => 'Use a used[] array exactly as in permutations', 'next' => 'w2'],
             ],
         ],
         'w2' => [
-            'message' => "Wrong.\n\nForward index is the usual combo trick.\n\nStep back.",
+            'message' => "Wrong.\n\nA forward start index is the usual trick for combinations.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'mid',
             'choices' => [],
         ],
         'final' => [
-            'message' => "State:\nN-Queens board search\n\nChoice list?",
+            'message' => "State:\nN-Queens board search\n\nWhat is the choice list at each row?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'Columns (or cells) that are not banned', 'next' => 'success'],
-                ['label' => 'Take/skip each number 1..n as a subset', 'next' => 'w3'],
+                ['label' => 'The columns (or cells) that are not attacked', 'next' => 'success'],
+                ['label' => 'Take or skip each number from 1 to n, as for subsets', 'next' => 'w3'],
             ],
         ],
         'w3' => [
-            'message' => "Wrong.\n\nBoard search tries placements.\n\nStep back.",
+            'message' => "Wrong.\n\nBoard search tries placements on the board.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'final',
             'choices' => [],
         ],
         'success' => [
-            'message' => "Correct.\n\n- Same template; different choice lists\n- Combos pick forward\n\nYou finished this path.",
+            'message' => "Correct.\n\n- Every family uses the same template with a different choice list.\n- Combinations pick only forward.\n\nYou finished this path.",
             'outcome' => 'success',
             'choices' => [],
         ],

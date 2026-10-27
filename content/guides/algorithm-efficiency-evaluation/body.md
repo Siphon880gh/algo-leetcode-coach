@@ -1,27 +1,25 @@
 ## Tiny example
 
-Same algorithm idea in two environments:
+Run the same algorithm in two environments:
 
-- Big-O says both are O(n)
-- Benchmark: language A finishes 10ms; language B 80ms on the same n — constants, allocator, cache
+- Big-O says both versions are O(n).
+- A benchmark on the same n shows language A finishing in 10 ms and language B in 80 ms. The gap comes from constants: the allocator, the cache, and the runtime.
 
-Use asymptotics to **rule out** bad growth; use timers/profilers to compare constants.
-
+Use Big-O to **rule out** algorithms that grow too fast. Use timers and profilers to compare constant factors.
 
 ## How
 
-1. Derive Big-O for scaling arguments
-2. Measure wall time / ops for fixed realistic n
-3. Watch cache locality and hidden library costs
-
+1. Work out the Big-O to argue about how the cost scales.
+2. Measure wall-clock time, or count operations, for a fixed and realistic n.
+3. Watch for cache effects and hidden costs inside library calls.
 
 ## Trap
 
-Picking an O(n log n) algorithm over an O(n²) one for n=20 without measuring — the quadratic may win on tiny n.
+Choosing an O(n log n) algorithm over an O(n²) one when n is 20, without measuring. On tiny inputs the quadratic one may be faster.
 
-**Fix:** Asymptotics matter as n grows; for tiny n, constants dominate.
+**Fix:** Big-O matters as n grows. For tiny n, constant factors dominate.
 
-**Tools:** Big-O + benchmarks + profilers
+**Tools:** Big-O analysis, benchmarks, and profilers
 
 > [!ui-builder] Mini game
 > INPUT_TOPIC: Theory or problem

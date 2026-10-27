@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Linked list: walk vs splice',
-    'summary' => 'On the list 7, 3, 9, compare reaching index 2 with deleting 3 when you hold the node before it.',
+    'title' => 'Linked list: walking versus splicing',
+    'summary' => 'On the list 10, 20, 30, compare inserting after the head, searching for 30 and jumping to index 2.',
     'category' => 'Data Structures',
     'subcategory' => 'Linked List',
     'tags' => ['linked-list', 'step-by-step'],

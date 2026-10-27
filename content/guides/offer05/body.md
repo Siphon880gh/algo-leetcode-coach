@@ -1,4 +1,4 @@
-## Tiny example (剑指 Offer 05)
+## Tiny example (Sword Finger Offer 05)
 
 Replace every space with `%20`.
 
@@ -6,39 +6,39 @@ Replace every space with `%20`.
 s = "We are"
 ```
 
-Spaces: 1. Each space becomes 3 characters (`%20`), so length grows by 2 per space.
+There is 1 space. Each space becomes 3 characters (`%20`), so the length grows by 2 for each space.
 
-New length = `6 + 2×1 = 8`.
+The new length is `6 + 2×1 = 8`.
 
-Fill a buffer **from the end** so expanding writes do not overwrite characters you still need to read:
+Fill the buffer **from the end**, so the longer writes do not overwrite characters you still need to read:
 
-1. Read `'e'` → write at the end
-2. Read `'r'` → write
-3. Read `'a'` → write
-4. Read `' '` → write `%20` (three chars)
-5. Continue with `'e'`, `'W'`
+1. Read `'e'` and write it at the end.
+2. Read `'r'` and write it.
+3. Read `'a'` and write it.
+4. Read `' '` and write `%20`, which is three characters.
+5. Continue with `'e'`, then `'W'`.
 
-Result: `We%20are`
+The result is `We%20are`.
 
 ## Why from the end?
 
-If you write `%20` left-to-right in a shared buffer, you shove unread letters right and easily clobber them. Writing into already-reserved tail space keeps unread prefix intact.
+If you write `%20` from left to right in a shared buffer, you push unread letters to the right and can easily overwrite them. Writing into the reserved space at the end leaves the unread part untouched.
 
 ## Steps
 
-1. Count spaces
-2. Allocate / set length to `n + 2 × spaces`
-3. Two indices: read from old end, write toward new end
-4. On space, write `%20` and move write index by 3; else copy one char
+1. Count the spaces.
+2. Allocate, or set the length to, `n + 2 × spaces`.
+3. Keep two indices: one reads from the old end, and one writes from the new end.
+4. On a space, write `%20` and move the write index by 3. Otherwise, copy one character.
 
 ## Trap
 
-Inserting `%20` in the middle of a live string repeatedly (each insert shifts the tail).
+Inserting `%20` into the middle of the string again and again. Each insert shifts everything after it.
 
-**Fix:** Count once, size once, write once from the end — **O(n)** time, **O(n)** space for the new buffer (or in-place if the buffer already has spare room).
+**Fix:** Count once, size the buffer once, and write once from the end. This takes **O(n)** time and **O(n)** space for the new buffer, or works in place if the buffer already has room.
 
 **Time:** O(n)  
-**Space:** O(n) (or O(1) extra if the buffer is pre-sized)
+**Space:** O(n), or O(1) extra if the buffer is already sized
 
 > [!ui-builder] Mini game
 > INPUT_TOPIC: Theory or problem

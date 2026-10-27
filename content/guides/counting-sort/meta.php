@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Counting sort: tally then place',
-    'summary' => 'When keys are integers in a small range 0…K, count frequencies and write outputs — O(n+K).',
+    'title' => 'Counting sort: count the keys, then place them',
+    'summary' => 'When every key is a small integer, count how often each one appears and write them back in order, with no comparisons at all.',
     'category' => 'Algorithms',
     'subcategory' => 'Sorting',
     'kind' => 'algo',

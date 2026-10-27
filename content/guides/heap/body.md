@@ -1,6 +1,6 @@
 ## Tiny example
 
-Max-heap as an array: `[9, 5, 6, 2, 3]`
+A max-heap stored as an array: `[9, 5, 6, 2, 3]`
 
 ```
       9
@@ -10,27 +10,27 @@ Max-heap as an array: `[9, 5, 6, 2, 3]`
   2   3
 ```
 
-Parent ≥ children. Peek max = root `9` in O(1).
+Every parent is at least as large as its children. Peeking at the maximum means reading the root, `9`, in O(1).
 
-Push `10`: add at end, **sift up** swapping with parents until order holds → root becomes `10`.
+To push `10`, add it at the end and **sift it up**: swap it with its parent while it is larger. Here it rises all the way, and the root becomes `10`.
 
-Pop max: move last to root, **sift down**.
+To pop the maximum, move the last element to the root and **sift it down**: swap it with its larger child until the order holds again.
 
-## Ops
+## Operations
 
-| Op | Time |
+| Operation | Time |
 |----|------|
-| peek top | O(1) |
-| push / pop | O(log n) |
-| build heap | O(n) |
+| Peek at the top | O(1) |
+| Push or pop | O(log n) |
+| Build a heap from n items | O(n) |
 
 ## Trap
 
-Expecting a binary heap to support O(log n) **arbitrary delete by value** without a handle/index map.
+Expecting a binary heap to delete an arbitrary value in O(log n) without knowing where that value is.
 
-**Fix:** Heap gives fast top access. For delete-by-value or change-key, keep an index map (or use a balanced BST / specialized heap).
+**Fix:** A heap gives fast access to the top. To delete by value or change a key, keep a map from value to index, or use a balanced search tree or a specialized heap.
 
-**Time:** see table · **Space:** O(n)
+**Time:** see the table · **Space:** O(n)
 
 > [!ui-builder] Mini game
 > INPUT_TOPIC: Theory or problem

@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Radix sort: digit by digit with a stable pass',
-    'summary' => 'Stable-sort by least significant digit, then the next — O(d(n+k)) for d digits of base k.',
+    'title' => 'Radix sort: digit by digit with stable passes',
+    'summary' => 'Stable-sort by the last digit, then the next one, and so on, which takes O(d(n + k)) time for d digits in base k.',
     'category' => 'Algorithms',
     'subcategory' => 'Sorting',
     'kind' => 'algo',

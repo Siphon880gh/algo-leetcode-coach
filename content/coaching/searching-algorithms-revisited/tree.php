@@ -10,49 +10,49 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "State:\none lookup in an unsorted array, n large\n\nOften enough?",
+            'message' => "State:\none lookup in a large unsorted array\n\nWhat is often enough?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'Linear scan O(n)', 'next' => 'mid'],
-                ['label' => 'Must binary search without sorting first', 'next' => 'w1'],
+                ['label' => 'A linear scan, O(n)', 'next' => 'mid'],
+                ['label' => 'Binary search, without sorting first', 'next' => 'w1'],
             ],
         ],
         'w1' => [
-            'message' => "Wrong.\n\nBinary search needs sorted order first.\n\nStep back.",
+            'message' => "Wrong.\n\nBinary search only works on sorted data.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'start',
             'choices' => [],
         ],
         'mid' => [
-            'message' => "State:\n10^6 queries “is x present?”\n\nGood investment?",
+            'message' => "State:\n10^6 queries asking \"is x present?\"\n\nWhat is a good investment?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'Hash set expected O(1)', 'next' => 'final'],
-                ['label' => 'Rescan the array each query', 'next' => 'w2'],
+                ['label' => 'A hash set, with expected O(1) lookups', 'next' => 'final'],
+                ['label' => 'Scanning the array again for each query', 'next' => 'w2'],
             ],
         ],
         'w2' => [
-            'message' => "Wrong.\n\nPreprocess into a set/map.\n\nStep back.",
+            'message' => "Wrong.\n\nPreprocess the data into a set or map.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'mid',
             'choices' => [],
         ],
         'final' => [
-            'message' => "State:\nsorted array, static data\n\nQuery?",
+            'message' => "State:\na sorted array that never changes\n\nHow do you answer queries?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'Binary search O(log n)', 'next' => 'success'],
-                ['label' => 'Hash only — binary search impossible on arrays', 'next' => 'w3'],
+                ['label' => 'Binary search, O(log n)', 'next' => 'success'],
+                ['label' => 'Only with a hash, since binary search is impossible on arrays', 'next' => 'w3'],
             ],
         ],
         'w3' => [
-            'message' => "Wrong.\n\nSorted arrays are binary-search friendly.\n\nStep back.",
+            'message' => "Wrong.\n\nSorted arrays are ideal for binary search.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'final',
             'choices' => [],
         ],
         'success' => [
-            'message' => "Correct.\n\n- Pay to preprocess when queries are many\n- Pick structure by need\n\nYou finished this path.",
+            'message' => "Correct.\n\n- Pay for preprocessing when there are many queries.\n- Choose the structure by what you need.\n\nYou finished this path.",
             'outcome' => 'success',
             'choices' => [],
         ],

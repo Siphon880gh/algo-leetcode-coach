@@ -10,49 +10,49 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "State:\nreverse a list; about to change cur.next\n\nFirst?",
+            'message' => "State:\nyou are reversing a linked list\nyou are about to change cur.next\n\nWhat must you do first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Save nxt = cur.next', 'next' => 'mid'],
-                ['label' => 'Set cur.next = prev immediately with no save', 'next' => 'w1'],
+                ['label' => 'Set cur.next = prev right away, without saving anything', 'next' => 'w1'],
             ],
         ],
         'w1' => [
-            'message' => "Wrong.\n\nSave the forward link first.\n\nStep back.",
+            'message' => "Wrong.\n\nOnce cur.next changes, the rest of the list is unreachable. Save the forward link first.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'start',
             'choices' => [],
         ],
         'mid' => [
-            'message' => "State:\ndelete head possibly\n\nHelper?",
+            'message' => "State:\nthe operation might delete the head node\n\nWhat helper makes this easier?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'Dummy node before head', 'next' => 'final'],
-                ['label' => 'No helper ever', 'next' => 'w2'],
+                ['label' => 'A dummy node placed before the head', 'next' => 'final'],
+                ['label' => 'No helper. Handle every case by hand.', 'next' => 'w2'],
             ],
         ],
         'w2' => [
-            'message' => "Wrong.\n\nDummy unifies edge cases.\n\nStep back.",
+            'message' => "Wrong.\n\nA dummy node turns \"delete the head\" into an ordinary delete.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'mid',
             'choices' => [],
         ],
         'final' => [
-            'message' => "State:\nfind middle\n\n?",
+            'message' => "State:\nyou need the middle node of the list\n\nWhich technique fits?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'Fast/slow pointers', 'next' => 'success'],
-                ['label' => 'Hash every node index first always', 'next' => 'w3'],
+                ['label' => 'Fast and slow pointers', 'next' => 'success'],
+                ['label' => 'First store every node\'s index in a hash map', 'next' => 'w3'],
             ],
         ],
         'w3' => [
-            'message' => "Wrong.\n\nFast/slow is the classic O(1)-space mid.\n\nStep back.",
+            'message' => "Wrong.\n\nFast and slow pointers find the middle in one pass with O(1) extra space.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'final',
             'choices' => [],
         ],
         'success' => [
-            'message' => "Correct.\n\n- Dummy, fast/slow, save-next\n- Draw before rewiring\n\nYou finished this path.",
+            'message' => "Correct.\n\n- Dummy head, fast and slow pointers, and saving next are the core tools.\n- Draw the pointers before rewiring them.\n\nYou finished this path.",
             'outcome' => 'success',
             'choices' => [],
         ],

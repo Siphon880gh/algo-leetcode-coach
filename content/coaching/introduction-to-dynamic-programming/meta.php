@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Intro DP: fill Fib from 0 and 1',
+    'title' => 'Intro to DP: fill Fibonacci from 0 and 1',
     'summary' => 'Fill Fibonacci numbers left to right and see why that beats plain recursion.',
     'category' => 'Algorithms',
     'subcategory' => 'Dynamic Programming',

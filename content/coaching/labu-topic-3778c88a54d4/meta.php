@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Counterintuitive probability puzzles: practice path',
-    'summary' => 'Slow down and enumerate equally likely outcomes — intuition about randomness often lies.',
+    'title' => 'Probability: two children, at least one boy',
+    'summary' => 'Cross out the outcome the clue rules out and count what is left.',
     'category' => 'Algorithms',
     'subcategory' => 'Math',
     'tags' => ['probability', 'step-by-step'],

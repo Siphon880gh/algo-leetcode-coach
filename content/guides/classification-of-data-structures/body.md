@@ -1,28 +1,28 @@
 ## Tiny example
 
-You need a **queue ADT** (FIFO). Physical layouts that can implement it:
+You need a **queue**: first in, first out. That describes what the operations mean, which is the abstract data type (ADT).
 
-- Ring buffer in an array
-- Linked nodes with head/tail pointers
-- Language `deque`
+Several memory layouts can implement it:
 
-Logical ADT (what operations mean) ≠ physical layout (how memory is arranged).
+- A ring buffer inside an array
+- Linked nodes with head and tail pointers
+- The language's built-in `deque`
 
+The ADT says what the operations do. The physical layout says how memory is arranged. They are separate choices.
 
 ## How
 
-1. Name the ADT ops and complexities you need
-2. Pick a layout that hits those costs
-3. Do not confuse “list” the ADT with “linked list” the layout
-
+1. Name the operations you need and how fast each one must be.
+2. Pick a layout that meets those costs.
+3. Do not mix up "list" the ADT with "linked list" the layout.
 
 ## Trap
 
-Saying “use a list” without saying whether you mean array-backed or linked — complexities differ.
+Saying "use a list" without saying whether it is backed by an array or by linked nodes. Their costs are very different.
 
-**Fix:** Specify the layout when Big-O matters.
+**Fix:** Name the layout whenever Big-O matters.
 
-**Takeaway:** ADT vs implementation
+**Takeaway:** Choose the ADT first, then the implementation.
 
 > [!ui-builder] Mini game
 > INPUT_TOPIC: Theory or problem

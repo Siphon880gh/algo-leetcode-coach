@@ -10,49 +10,49 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "State:\n0-based array [1,2,3,4,5]\nnode index i = 1 (value 2)\n\nLeft child index?",
+            'message' => "State:\n0-based array [1, 2, 3, 4, 5]\nnode at index i = 1 (value 2)\n\nWhat is the index of its left child?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => '3 — 2*1 + 1', 'next' => 'parent'],
-                ['label' => '2 — 2*1 (1-based formula on a 0-based array)', 'next' => 'w_formula'],
+                ['label' => '3, from 2 × 1 + 1', 'next' => 'parent'],
+                ['label' => '2, from 2 × 1 (the 1-based formula used on a 0-based array)', 'next' => 'w_formula'],
             ],
         ],
         'w_formula' => [
-            'message' => "Wrong.\n\nOn 0-based heaps, left is 2i+1. Index 2 is the right child of root.\n\nStep back.",
+            'message' => "Wrong.\n\nWith 0-based indexing the left child is at 2i + 1. Index 2 is the root's right child.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'start',
             'choices' => [],
         ],
         'parent' => [
-            'message' => "State:\ni = 4\n\nParent index?",
+            'message' => "State:\nnode at index i = 4\n\nWhat is the index of its parent?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => '1 — (4-1)//2', 'next' => 'sparse'],
-                ['label' => '8 — 2*4', 'next' => 'w_par'],
+                ['label' => '1, from (4 − 1) // 2', 'next' => 'sparse'],
+                ['label' => '8, from 2 × 4', 'next' => 'w_par'],
             ],
         ],
         'w_par' => [
-            'message' => "Wrong.\n\nParent is (i-1)//2 for 0-based heaps.\n\nStep back.",
+            'message' => "Wrong.\n\nWith 0-based indexing the parent is at (i − 1) // 2. 2 × 4 would point down to a child, not up.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'parent',
             'choices' => [],
         ],
         'sparse' => [
-            'message' => "State:\ntree is very sparse (almost a chain)\n\nIdeal storage?",
+            'message' => "State:\nthe tree is very sparse, almost a single chain\n\nWhat is the best way to store it?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'Pointer nodes — array would leave many holes', 'next' => 'success'],
-                ['label' => 'Always an array — holes are free', 'next' => 'w_holes'],
+                ['label' => 'Pointer-based nodes, because an array would leave many empty slots', 'next' => 'success'],
+                ['label' => 'Always an array, because empty slots cost nothing', 'next' => 'w_holes'],
             ],
         ],
         'w_holes' => [
-            'message' => "Wrong.\n\nArray packing shines for complete shapes like heaps.\n\nStep back.",
+            'message' => "Wrong.\n\nArray storage shines for complete shapes like heaps. A chain-like tree would waste most of the array.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'sparse',
             'choices' => [],
         ],
         'success' => [
-            'message' => "Correct.\n\n- 0-based: left 2i+1, right 2i+2\n- Best for complete trees/heaps\n\nYou finished this path.",
+            'message' => "Correct.\n\n- With 0-based indexing, the left child is at 2i + 1 and the right child at 2i + 2.\n- This layout is best for complete trees and heaps.\n\nYou finished this path.",
             'outcome' => 'success',
             'choices' => [],
         ],

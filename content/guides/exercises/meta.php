@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Drill: array access vs linked-list insert',
-    'summary' => 'Short exercises comparing what reads and inserts cost in arrays and linked lists.',
+    'title' => 'Practice: array reads versus linked-list inserts',
+    'summary' => 'Short exercises that compare what reading and inserting cost in an array and in a linked list.',
     'category' => 'Data Structures',
     'subcategory' => 'Fundamentals',
     'kind' => 'algo',

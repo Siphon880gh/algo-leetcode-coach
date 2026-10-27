@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Hash table fundamentals (pattern note)',
-    'summary' => 'Expected O(1) membership and frequency maps — first upgrade from nested scans.',
+    'title' => 'Hash table basics',
+    'summary' => 'Hash sets and maps answer "have I seen this?" and "how many?" in expected O(1), which makes them the first upgrade from nested loops.',
     'category' => 'Data Structures',
     'subcategory' => 'Hash Map',
     'kind' => 'algo',

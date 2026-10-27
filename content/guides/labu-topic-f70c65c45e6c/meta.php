@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 return [
     'title' => 'Backtracking deduplication patterns',
-    'summary' => 'When inputs have duplicates, skip equal neighbors at the same depth after sorting — keep one representative branch.',
+    'summary' => 'When the input has duplicates, sort it and skip an equal neighbor at the same depth, so each distinct answer is built only once.',
     'category' => 'Algorithms',
     'subcategory' => 'Backtracking',
     'kind' => 'algo',

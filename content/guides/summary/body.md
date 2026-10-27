@@ -1,31 +1,29 @@
 ## Tiny example
 
-Pick a structure for the hot operation:
+Pick a structure by the operation you do most often:
 
 | Need | Prefer |
 |------|--------|
-| `a[i]` often | Array / dynamic array |
-| Head inserts / splices | Linked list |
-| Many appends | Dynamic array (amortized) |
-| Membership by key | Hash set/map |
+| frequent `a[i]` reads | array or dynamic array |
+| inserting at the head, or splicing | linked list |
+| many appends | dynamic array (amortized) |
+| membership by key | hash set or map |
 
-Example: build a list by repeatedly `push_front` → linked list (or deque). Build by repeatedly `append` → dynamic array.
-
+Example: if you build a list by calling `push_front` again and again, use a linked list (or a deque). If you build it with `append`, use a dynamic array.
 
 ## How
 
-1. Name the hottest operation
-2. Match the layout
-3. Re-evaluate if the hot op changes
-
+1. Name the operation you do most often.
+2. Choose the layout that makes it cheap.
+3. Think again if that operation changes.
 
 ## Trap
 
 Defaulting to one structure for every problem.
 
-**Fix:** Re-read the hot path; switch when the bottleneck changes.
+**Fix:** Look at the hot path again, and switch structures when the bottleneck changes.
 
-**Time:** depends on the chosen layout’s hot op
+**Time:** depends on how the chosen layout handles the most common operation
 
 > [!ui-builder] Mini game
 > INPUT_TOPIC: Theory or problem

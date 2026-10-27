@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Counterintuitive probability puzzles',
-    'summary' => 'Slow down and enumerate equally likely outcomes — intuition about randomness often lies.',
+    'title' => 'Probability puzzles that fool intuition',
+    'summary' => 'When a probability puzzle feels obvious, list every equally likely outcome first, because intuition about chance is often wrong.',
     'category' => 'Algorithms',
     'subcategory' => 'Math',
     'kind' => 'algo',

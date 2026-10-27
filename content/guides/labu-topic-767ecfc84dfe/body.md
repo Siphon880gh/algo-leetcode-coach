@@ -1,26 +1,24 @@
 ## Tiny example
 
-Backtracking theory on placing numbers into a size-2 path from `{1,2}` without reuse:
+Use backtracking to place the numbers `{1, 2}` into a path of length 2, without reusing a number.
 
-Decision tree leaves = permutations. Prune when a partial path repeats a used number.
+The leaves of the decision tree are the permutations. Prune a branch as soon as the partial path repeats a number that is already used.
 
-Correctness = every feasible leaf explored (minus pruned dead ends that cannot win).
-
+The search is correct because it explores every leaf that could be a valid answer. The only branches skipped are dead ends that cannot succeed.
 
 ## How
 
-1. Define the choice list at each depth
-2. Mark/unmark used resources
-3. Prune when constraints fail early
-
+1. Define the list of choices at each depth.
+2. Mark a resource as used when you take it, and unmark it afterward.
+3. Prune as soon as a constraint fails.
 
 ## Trap
 
-Pruning without proving the partial path cannot be completed — may drop valid answers.
+Pruning a branch without being sure it cannot be completed. You may drop valid answers.
 
-**Fix:** Only prune when no extension can succeed.
+**Fix:** Prune only when no extension of the partial path can succeed.
 
-**Time:** O(size of tree explored) · **Space:** O(depth)
+**Time:** O(size of the explored tree) · **Space:** O(depth)
 
 > [!ui-builder] Mini game
 > INPUT_TOPIC: Theory or problem

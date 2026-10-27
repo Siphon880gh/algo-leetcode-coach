@@ -1,13 +1,13 @@
 ## Tiny example
 
-Prices `[1, 2, 4]`. At most one share at a time. Maximize profit.
+The prices are `[1, 2, 4]`. You may hold at most one share at a time, and you want the most profit.
 
-Keep two running values after each day:
+After each day, keep two running values:
 
-- **cash** = best profit with no share in hand
-- **hold** = best profit while holding a share (usually negative after buying)
+- **cash**: the best profit so far with no share in hand.
+- **hold**: the best profit so far while holding a share. This is usually negative right after you buy.
 
-Start before day 0: `cash = 0`, `hold = −∞` (impossible to hold yet).
+Before the first day, `cash = 0` and `hold = −∞`, because you cannot hold a share yet.
 
 | After price | cash | hold |
 |-------------|------|------|
@@ -15,24 +15,24 @@ Start before day 0: `cash = 0`, `hold = −∞` (impossible to hold yet).
 | 2 | 1 (sell) | −1 |
 | 4 | **3** (sell) | −1 |
 
-Final answer = cash = **3** (bought at 1, sold at 4).
+The final answer is the cash value, **3**: buy at 1 and sell at 4.
 
-Cooldown / fee variants only change the transitions (for example cash updates from an older day).
+Variants with a cooldown or a fee only change the update rules. For example, with a cooldown, cash is updated from an older day.
 
 ## How
 
-1. Name states in words (cash vs hold, maybe cooldown)
-2. Write how each state updates from yesterday
-3. Walk the price array once
-4. Answer the “no share” state at the end
+1. Name the states in words: cash, hold, and possibly cooldown.
+2. Write how each state updates from the previous day.
+3. Walk through the prices once.
+4. Return the "no share" state at the end.
 
 ## Trap
 
-Encoding “buy and sell same day freely” when the problem forbids overlapping trades.
+Writing updates that let you buy and sell freely on the same day when the problem forbids overlapping trades.
 
-**Fix:** hold only updates from cash−price; cash only from hold+price (plus any cooldown rule).
+**Fix:** Update hold only from cash minus the price, and cash only from hold plus the price, plus any cooldown rule.
 
-**Time:** O(n) · **Space:** O(1) for the classic two-state form
+**Time:** O(n) · **Space:** O(1) for the classic two-state version
 
 > [!ui-builder] Mini game
 > INPUT_TOPIC: Theory or problem

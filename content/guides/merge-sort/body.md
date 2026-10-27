@@ -2,28 +2,28 @@
 
 Sort `[3, 1, 4, 2]`.
 
-1. Split → `[3, 1]` and `[4, 2]`
-2. Sort left → `[1, 3]`; sort right → `[2, 4]`
-3. Merge two sorted runs:
+1. Split it into `[3, 1]` and `[4, 2]`.
+2. Sort the left half to get `[1, 3]`, and the right half to get `[2, 4]`.
+3. Merge the two sorted runs, always taking the smaller of the two front values:
 
 ```
 i on [1, 3], j on [2, 4]
-take 1 → take 2 → take 3 → take 4
+take 1, then 2, then 3, then 4
 result [1, 2, 3, 4]
 ```
 
 ## How
 
-1. If length ≤ 1, return
-2. Recursively sort left and right halves
-3. Merge into a temporary buffer by always taking the smaller head
-4. Copy back (or build a new array)
+1. If the length is at most 1, return.
+2. Recursively sort the left and right halves.
+3. Merge them into a temporary buffer, always taking the smaller front value.
+4. Copy the buffer back, or build a new array.
 
 ## Trap
 
-Forgetting the **O(n) auxiliary** buffer and claiming “in-place like heapsort”.
+Forgetting the **O(n) extra** buffer and claiming merge sort is "in place, like heapsort".
 
-**Fix:** Classic merge sort uses **Θ(n)** extra space. Time is **Θ(n log n)** comparisons in all cases — stable if you break ties toward the left run.
+**Fix:** Classic merge sort uses **Θ(n)** extra space. It always takes **Θ(n log n)** comparisons, whatever the input. It is stable if you break ties in favor of the left run.
 
 **Time:** Θ(n log n)  
 **Space:** Θ(n)

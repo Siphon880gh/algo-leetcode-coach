@@ -11,29 +11,29 @@ f(4)=1+2=3
 f(5)=2+3=5
 ```
 
-Every DP solution names **four** pieces the same way:
+Every DP solution names the same **four** pieces:
 
-1. **State** — what does one cell mean? Here: `f(i)` = the i-th Fib number
-2. **Transition** — how do you build it? `f(i) = f(i-1) + f(i-2)`
-3. **Base cases** — where do you start? `f(0)=0`, `f(1)=1`
-4. **Order** — which cells first? Increasing `i` so smaller indices exist
+1. **State:** what does one cell mean? Here, `f(i)` is the i-th Fibonacci number.
+2. **Transition:** how do you build it? `f(i) = f(i-1) + f(i-2)`.
+3. **Base cases:** where do you start? `f(0)=0` and `f(1)=1`.
+4. **Order:** which cells come first? Increasing `i`, so the smaller indices already exist.
 
-If you cannot say those four out loud, nested loops will feel random.
+If you cannot say these four out loud, the nested loops will feel random.
 
 ## How
 
-1. Write one sentence for the state
-2. Write the transition from smaller states
-3. Pin bases that need no recursion
-4. Choose bottom-up order (or top-down + memo) that respects dependencies
+1. Write one sentence describing the state.
+2. Write the transition from smaller states.
+3. Fix the base cases that need no recursion.
+4. Choose a bottom-up order, or top-down with a memo, that respects the dependencies.
 
 ## Trap
 
 Coding a 2D array before you can say what `dp[i]` means.
 
-**Fix:** State sentence first; dimensions follow from the sentence.
+**Fix:** Write the state sentence first. The dimensions follow from it.
 
-**Habit:** state → transition → base → order
+**Habit:** state, then transition, then base cases, then order
 
 > [!ui-builder] Mini game
 > INPUT_TOPIC: Theory or problem

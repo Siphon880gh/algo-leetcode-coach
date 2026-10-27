@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 return [
     'title' => 'Left rotate string (Sword Finger Offer 58-II)',
-    'summary' => 'Rotate s left by n: move the first n chars to the end — reverse helpers or slicing.',
+    'summary' => 'Rotate a string left by n by moving the first n characters to the end, using either slicing or three reversals.',
     'category' => 'Algorithms',
     'subcategory' => 'Strings',
     'kind' => 'algo',

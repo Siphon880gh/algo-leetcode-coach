@@ -10,49 +10,49 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "State:\na = [1, 2, 2, 2, 5]\nneed first index with a[i] >= 2\n\nAnswer?",
+            'message' => "State:\na = [1, 2, 2, 2, 5]\nneed the first index where a[i] >= 2\n\nWhat is the answer?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => '1', 'next' => 'mid'],
-                ['label' => '3 — that is the last 2', 'next' => 'w1'],
+                ['label' => '3, the last 2', 'next' => 'w1'],
             ],
         ],
         'w1' => [
-            'message' => "Wrong.\n\nFirst ≥2 is the leftmost 2 at index 1.\n\nStep back.",
+            'message' => "Wrong.\n\nThe first value that is at least 2 is the leftmost 2, at index 1.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'start',
             'choices' => [],
         ],
         'mid' => [
-            'message' => "State:\nboolean strip F F T T T\nlooking for first T\n\nIf ok(mid) is True, move?",
+            'message' => "State:\nthe test answers look like F F T T T\nyou want the first T\n\nIf ok(mid) is true, how do you move?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'hi = mid — answer is mid or left of mid', 'next' => 'final'],
-                ['label' => 'lo = mid — discard the left including mid', 'next' => 'w2'],
+                ['label' => 'Set hi = mid, because the answer is mid or somewhere left of it', 'next' => 'final'],
+                ['label' => 'Set lo = mid, throwing away everything left of mid', 'next' => 'w2'],
             ],
         ],
         'w2' => [
-            'message' => "Wrong.\n\nA True mid might be the first True; keep it with hi=mid.\n\nStep back.",
+            'message' => "Wrong.\n\nA true mid might be the very first true, so keep it in range with hi = mid.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'mid',
             'choices' => [],
         ],
         'final' => [
-            'message' => "State:\nneed last index with a[i] == 2 in that array\n\nIndex?",
+            'message' => "State:\nsame array a = [1, 2, 2, 2, 5]\nneed the last index where a[i] == 2\n\nWhich index is it?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => '3', 'next' => 'success'],
-                ['label' => '1 — first is the same as last here', 'next' => 'w3'],
+                ['label' => '1, because the first and last are the same here', 'next' => 'w3'],
             ],
         ],
         'w3' => [
-            'message' => "Wrong.\n\nLast 2 sits at index 3.\n\nStep back.",
+            'message' => "Wrong.\n\nThere are three 2s. The last one sits at index 3.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'final',
             'choices' => [],
         ],
         'success' => [
-            'message' => "Correct.\n\n- Boundary search ≠ “any hit”\n- Bias lo/hi for first vs last\n\nYou finished this path.",
+            'message' => "Correct.\n\n- A boundary search is not the same as finding any match.\n- Move lo and hi differently depending on whether you want the first or the last.\n\nYou finished this path.",
             'outcome' => 'success',
             'choices' => [],
         ],

@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Dynamic array: doubling vs +1 growth',
-    'summary' => 'Trace capacity as you append and see why doubling beats growing by one.',
+    'title' => 'Dynamic array: growing when full',
+    'summary' => 'Trace an append into a full array, the amortized cost of appends and an insert in the middle.',
     'category' => 'Data Structures',
     'subcategory' => 'Arrays',
     'tags' => ['dynamic-array', 'amortized', 'step-by-step'],

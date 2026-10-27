@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Bucket sort: partition by range, then sort locally',
-    'summary' => 'Scatter elements into buckets by value range, sort each bucket, concatenate — average O(n) on uniform data.',
+    'title' => 'Bucket sort: split by range, then sort each bucket',
+    'summary' => 'Bucket sort drops values into buckets by range, sorts each small bucket, and joins them, which is fast when the data is spread evenly.',
     'category' => 'Algorithms',
     'subcategory' => 'Sorting',
     'kind' => 'algo',

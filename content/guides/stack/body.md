@@ -1,38 +1,38 @@
 ## Tiny example
 
-Push then pop:
+Push three values, then pop one:
 
 ```
 stack = []
-push 3 → [3]
-push 1 → [3, 1]
-push 4 → [3, 1, 4]
-pop    → returns 4, stack = [3, 1]
+push 3:  [3]
+push 1:  [3, 1]
+push 4:  [3, 1, 4]
+pop:     returns 4, stack = [3, 1]
 ```
 
-Last in, first out (**LIFO**). Only the **top** moves.
+This is last in, first out (**LIFO**). Only the **top** changes.
 
 ## Where it shows up
 
-1. Matching brackets — push opens, pop on close
-2. Undo history — each edit pushed, undo pops
-3. DFS / recursion simulation — frames on a stack
-4. Monotonic stack — next greater/smaller element patterns
+1. Matching brackets. Push each opening bracket, and pop when you see a closing one.
+2. Undo history. Each edit is pushed, and undo pops it.
+3. DFS, or simulating recursion. The frames sit on a stack.
+4. Monotonic stacks, for finding the next greater or smaller element.
 
-## Ops
+## Operations
 
-| Op | Cost |
-|----|------|
-| push / pop / peek top | O(1) |
-| search deep value | O(n) |
+| Operation | Cost |
+|-----------|------|
+| push, pop, or peek at the top | O(1) |
+| search for a value deeper down | O(n) |
 
 ## Trap
 
-Using a stack but peeking/removing from the **bottom** (or indexing the middle) as if it were a deque/array of equal cost.
+Using a stack but reading or removing from the **bottom** (or the middle), as if it were a deque or an array with the same cost.
 
-**Fix:** If you need both ends, use a deque. A stack’s contract is top-only.
+**Fix:** If you need both ends, use a deque. A stack only promises access to the top.
 
-**Time:** O(1) per push/pop  
+**Time:** O(1) per push and per pop  
 **Space:** O(n)
 
 > [!ui-builder] Mini game

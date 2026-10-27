@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 return [
     'title' => 'Dynamic array (list): amortized growth',
-    'summary' => 'A resizable array that doubles capacity so append stays amortized O(1), with occasional O(n) copies.',
+    'summary' => 'A dynamic array doubles its capacity when it fills up, so appends cost amortized O(1) even though an occasional append copies everything.',
     'category' => 'Data Structures',
     'subcategory' => 'Arrays',
     'kind' => 'algo',

@@ -1,28 +1,26 @@
 ## Tiny example
 
-Dynamic array starts `[]` capacity 1 (implementation-defined). Append sequence:
+A dynamic array starts empty, `[]`, with capacity 1 (the exact starting size depends on the implementation). Append three values:
 
-1. Append `10` → `[10]` 
-2. Append `20` → may grow to capacity 2 → `[10,20]`
-3. Append `30` → grow to 4, copy, write → `[10,20,30,_]`
+1. Append `10`, giving `[10]`.
+2. Append `20`. The array may grow to capacity 2, giving `[10,20]`.
+3. Append `30`. The array grows to capacity 4, copies the old values, then writes, giving `[10,20,30,_]`.
 
-Doubling makes **n appends amortized O(1)** each.
-
+Because the capacity doubles, **n appends cost amortized O(1)** each.
 
 ## How
 
-1. If size == capacity, allocate ~2× buffer and copy
-2. Write at `size`, then size++
-3. Mid-insert still shifts — different cost from append
-
+1. If the size equals the capacity, allocate a buffer about twice as large and copy the values over.
+2. Write at index `size`, then increase the size by one.
+3. Inserting in the middle still shifts elements, which costs more than appending.
 
 ## Trap
 
-Confusing amortized append O(1) with mid-insert O(1).
+Confusing the amortized O(1) cost of appending with the cost of inserting in the middle.
 
-**Fix:** Growth helps appends. Inserting at index `k` still shifts the tail.
+**Fix:** Growth helps appends. Inserting at index `k` still shifts everything after it.
 
-**Time (n appends):** O(n) total · **Time (mid-insert):** O(n) · **Space:** O(capacity)
+**Time (n appends):** O(n) total · **Time (insert in the middle):** O(n) · **Space:** O(capacity)
 
 > [!ui-builder] Mini game
 > INPUT_TOPIC: Theory or problem

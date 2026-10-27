@@ -1,27 +1,25 @@
 ## Tiny example
 
-Recursion cost on Fib vs linear sum.
+Compare the cost of two recursions.
 
-- `sum(n)=n+sum(n-1)`: **n** calls, depth n → time O(n), space O(n)
-- Naive `fib(n)`: exploding tree → time Θ(φⁿ), space O(n) depth
+- `sum(n) = n + sum(n-1)` makes **n** calls in a single chain, n deep. Time is O(n) and space is O(n).
+- Naive `fib(n)` makes two calls at every level, so the call tree explodes. Time is Θ(φⁿ), while space is only O(n), because the deepest chain is n calls long.
 
-Time follows **how many calls do work**; space follows **maximum depth**.
-
+Time follows **how many calls do work**. Space follows the **maximum depth**.
 
 ## How
 
-1. Draw the call tree size
-2. Depth = space (approx)
-3. Add memo when the tree re-touches states
-
+1. Draw the call tree and estimate its size.
+2. Take the depth as the space cost (roughly).
+3. Add a memo when the tree visits the same states again.
 
 ## Trap
 
-Saying Fib recursion is O(n) time because the formula mentions n.
+Saying recursive Fibonacci takes O(n) time because the formula mentions n.
 
-**Fix:** Count nodes in the call tree, not the parameter name.
+**Fix:** Count the nodes in the call tree, not the size of the parameter.
 
-**Fib naive:** exponential time · **Memo Fib:** O(n) time
+**Naive Fibonacci:** exponential time · **Memoized Fibonacci:** O(n) time
 
 > [!ui-builder] Mini game
 > INPUT_TOPIC: Theory or problem

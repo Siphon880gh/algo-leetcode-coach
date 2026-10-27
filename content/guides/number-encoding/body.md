@@ -1,30 +1,28 @@
 ## Tiny example
 
-`int8` two’s complement:
+Two's complement in `int8`:
 
-- `5` → `00000101`
-- `-1` → `11111111`
-- Adding `1` to `01111111` (127) wraps to `-128` on overflow
+- `5` is stored as `00000101`.
+- `-1` is stored as `11111111`.
+- Adding `1` to `01111111` (127) overflows and wraps around to `-128`.
 
-Floats: `0.1 + 0.2` may not equal `0.3` exactly — binary fractions.
+Floating-point numbers: `0.1 + 0.2` may not equal `0.3` exactly, because these decimals have no exact binary fraction.
 
-Algorithms: prefer integers for indices/counts; know wrap rules in contests (`mod 2^32` languages).
-
+In algorithms, prefer integers for indices and counts, and know the wraparound rules in contests (some languages wrap modulo 2^32).
 
 ## How
 
-1. Use two’s complement mental model for signed ints
-2. Check overflow on sums/products
-3. Compare floats with tolerance or avoid them for exactness
-
+1. Think of signed integers as two's complement.
+2. Check for overflow in sums and products.
+3. Compare floats with a tolerance, or avoid them when you need exact results.
 
 ## Trap
 
-Assuming right-shift on signed negatives always fills zeros (logical shift).
+Assuming that right-shifting a negative signed number always fills with zeros (a logical shift).
 
-**Fix:** Know arithmetic vs logical shift in your language.
+**Fix:** Know whether your language uses an arithmetic or a logical shift.
 
-**Bug class:** overflow and float equality
+**Common bugs:** overflow and comparing floats for equality
 
 > [!ui-builder] Mini game
 > INPUT_TOPIC: Theory or problem

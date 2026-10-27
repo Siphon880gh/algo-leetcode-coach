@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Max container: walk ends on [1,8,…,7]',
+    'title' => 'Max container: walk the two ends inward',
     'summary' => 'Move two pointers inward, always from the shorter wall, and keep the best area.',
     'category' => 'Algorithms',
     'subcategory' => 'Two Pointers',

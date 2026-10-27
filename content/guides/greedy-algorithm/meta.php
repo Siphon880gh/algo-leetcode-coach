@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Greedy algorithms: local best, global hope',
-    'summary' => 'At each step take the choice that looks best now — correct only with a proof (exchange / stay-ahead).',
+    'title' => 'Greedy algorithms: take the best choice right now',
+    'summary' => 'A greedy algorithm always takes the choice that looks best right now, which is only correct when you can prove it never blocks a better answer.',
     'category' => 'Algorithms',
     'subcategory' => 'Greedy',
     'kind' => 'algo',

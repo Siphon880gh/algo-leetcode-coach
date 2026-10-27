@@ -10,49 +10,49 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "State:\nUTF-8 string with one emoji (U+1F44D)\n\nBytes for that emoji?",
+            'message' => "State:\na UTF-8 string containing one emoji, U+1F44D\n\nHow many bytes does that emoji take?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => '4', 'next' => 'mid'],
-                ['label' => '1 — every char is one byte in UTF-8', 'next' => 'w1'],
+                ['label' => '1, because every character is one byte in UTF-8', 'next' => 'w1'],
             ],
         ],
         'w1' => [
-            'message' => "Wrong.\n\nSupplementary code points need 4 bytes in UTF-8.\n\nStep back.",
+            'message' => "Wrong.\n\nCode points above U+FFFF need 4 bytes in UTF-8.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'start',
             'choices' => [],
         ],
         'mid' => [
-            'message' => "State:\nbyte length vs character count\n\nEqual always?",
+            'message' => "State:\ncomparing the byte length with the number of characters\n\nAre they always equal?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'No — multi-byte code points break equality', 'next' => 'final'],
-                ['label' => 'Yes for all Unicode text', 'next' => 'w2'],
+                ['label' => 'No. Characters that take several bytes make them differ.', 'next' => 'final'],
+                ['label' => 'Yes, for all Unicode text', 'next' => 'w2'],
             ],
         ],
         'w2' => [
-            'message' => "Wrong.\n\nASCII-only is the special case.\n\nStep back.",
+            'message' => "Wrong.\n\nThey only match for plain ASCII text.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'mid',
             'choices' => [],
         ],
         'final' => [
-            'message' => "State:\nsplice UTF-8 at a random mid-byte\n\nRisk?",
+            'message' => "State:\nyou cut a UTF-8 string at a random byte in the middle\n\nWhat can go wrong?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'Split a character — corrupt string', 'next' => 'success'],
-                ['label' => 'UTF-8 self-heals any cut', 'next' => 'w3'],
+                ['label' => 'You split a character and corrupt the string', 'next' => 'success'],
+                ['label' => 'Nothing, because UTF-8 repairs any cut', 'next' => 'w3'],
             ],
         ],
         'w3' => [
-            'message' => "Wrong.\n\nCuts must respect boundaries.\n\nStep back.",
+            'message' => "Wrong.\n\nA cut must fall on a character boundary.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'final',
             'choices' => [],
         ],
         'success' => [
-            'message' => "Correct.\n\n- Unicode code points; UTF-8 bytes\n- Do not confuse lengths\n\nYou finished this path.",
+            'message' => "Correct.\n\n- Unicode assigns code points, and UTF-8 turns them into bytes.\n- Do not mix up byte length and character count.\n\nYou finished this path.",
             'outcome' => 'success',
             'choices' => [],
         ],

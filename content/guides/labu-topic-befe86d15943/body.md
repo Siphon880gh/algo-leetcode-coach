@@ -1,30 +1,28 @@
 ## Tiny example
 
-List problem patterns with tiny cues:
+Linked list problem patterns and the clue that points to each one:
 
-| Pattern | Cue | Sketch |
-|---------|-----|--------|
-| Reverse | “reverse k nodes” | save next, flip, advance |
-| Merge | two sorted lists | dummy + pick smaller head |
-| Cycle | “might loop” | fast/slow meet |
-| Intersect | shared suffix | switch-head pointers |
-| Partition | pivot value | two buckets then join |
+| Pattern | Clue | Sketch |
+|---------|------|--------|
+| Reverse | "reverse k nodes" | save next, flip the link, advance |
+| Merge | two sorted lists | dummy head, then pick the smaller head |
+| Cycle | "might loop" | fast and slow pointers meet |
+| Intersect | the lists share a tail | each pointer switches to the other head at the end |
+| Partition | a pivot value | build two lists, then join them |
 
-Recognize the cue, then reuse the pointer sketch.
-
+Recognize the clue, then reuse the pointer sketch.
 
 ## How
 
-1. Match the prompt to a pattern row
-2. Draw the pointer moves
-3. Code with saved `next` / dummy as needed
-
+1. Match the problem statement to a row in the table.
+2. Draw the pointer moves.
+3. Write the code, saving `next` and using a dummy head where needed.
 
 ## Trap
 
-Mixing cycle detection with intersect logic in one pointer soup without stating which pattern.
+Mixing cycle detection and intersection logic in one tangle of pointers without deciding which pattern you are using.
 
-**Fix:** Name the pattern first; keep one sketch.
+**Fix:** Name the pattern first, and stick to one sketch.
 
 **Time:** usually O(n) · **Space:** O(1)
 

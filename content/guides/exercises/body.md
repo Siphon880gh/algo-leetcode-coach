@@ -1,28 +1,26 @@
 ## Tiny example
 
-Drill with `a=[10,20,30]`.
+Practice with `a = [10, 20, 30]`.
 
-1. Read `a[2]` → `30` in O(1)
-2. Insert `5` at array head → shift all right → O(n) → `[5,10,20,30]`
-3. Same insert at head of linked list `10→20→30` → rewire one pointer → O(1)
+1. Reading `a[2]` gives `30` in O(1).
+2. Inserting `5` at the front of the array shifts every element right, giving `[5, 10, 20, 30]`. That is O(n).
+3. Inserting `5` at the front of the linked list `10→20→30` only needs the new node to point at the old head. That is O(1).
 
-Feel the tradeoff: arrays win index reads; linked lists win local head inserts.
-
+The tradeoff: arrays win at reading by index, and linked lists win at inserting next to a node you already hold.
 
 ## How
 
-1. Time an index read on an array
-2. Time a head insert on an array (shifts)
-3. Time a head insert on a linked list (pointer rewire)
-
+1. Time an index read on an array.
+2. Time an insert at the front of an array, which shifts everything.
+3. Time an insert at the front of a linked list, which only rewires a pointer.
 
 ## Trap
 
-Assuming every “insert” is O(1) because linked-list inserts sometimes are.
+Assuming every insert is O(1) because some linked-list inserts are.
 
-**Fix:** Ask: insert where, and do you already hold a neighbor pointer?
+**Fix:** Ask where the insert happens, and whether you already hold a pointer to the neighboring node.
 
-**Time:** array index O(1); array head insert O(n); list head insert O(1)
+**Time:** array index read O(1); array insert at the front O(n); linked-list insert at the head O(1)
 
 > [!ui-builder] Mini game
 > INPUT_TOPIC: Theory or problem

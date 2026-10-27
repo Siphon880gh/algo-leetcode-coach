@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 return [
     'title' => 'Graph operations on matrix and list forms',
-    'summary' => 'Add/remove vertices and edges, and iterate neighbors — costs differ sharply by representation.',
+    'summary' => 'Adding and removing vertices and edges costs very different amounts depending on whether the graph is stored as lists or as a matrix.',
     'category' => 'Data Structures',
     'subcategory' => 'Graphs',
     'kind' => 'algo',

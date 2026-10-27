@@ -1,38 +1,38 @@
-## Tiny example (剑指 Offer 58-II)
+## Tiny example (Sword Finger Offer 58-II)
 
-Left-rotate string `s` by `n` characters.
+Rotate the string `s` left by `n` characters.
 
 ```
 s = "abcdefg"
 n = 2
 ```
 
-The first `2` chars `ab` move to the end → `"cdefgab"`.
+The first `2` characters, `ab`, move to the end, giving `"cdefgab"`.
 
-## How (three reversals, in-place friendly)
+## How (three reversals, which works in place)
 
-Think of `s` as `A + B` with `|A| = n`.
+Think of `s` as `A + B`, where `A` is the first n characters.
 
-1. Reverse all of `s` → `B_rev + A_rev`
-2. Reverse the new prefix of length `|B|` → `B + A_rev`
-3. Reverse the suffix of length `|A|` → `B + A`
+1. Reverse all of `s`. This gives reversed B followed by reversed A.
+2. Reverse the first `|B|` characters. This gives `B` followed by reversed A.
+3. Reverse the last `|A|` characters. This gives `B + A`.
 
 For the example:
 
-1. Reverse all: `gfedcba`
-2. Reverse first `5` (`7-2`): `cdefgba`
-3. Reverse last `2`: `cdefgab`
+1. Reverse everything: `gfedcba`.
+2. Reverse the first `5` characters (`7-2`): `cdefgba`.
+3. Reverse the last `2`: `cdefgab`.
 
-(Equivalently: slice `s[n:] + s[:n]` if creating a new string is allowed.)
+If you are allowed to create a new string, the slice `s[n:] + s[:n]` does the same thing.
 
 ## Trap
 
-Rotating one character at a time with deletes/inserts at the front — O(n) per step → O(n²).
+Rotating one character at a time by deleting from the front and appending. Each step costs O(n), so the total is O(n²).
 
-**Fix:** One slice concat, or the three-reversal trick — **O(n)** time.
+**Fix:** Use one slice and concatenation, or the three-reversal trick, for **O(n)** time.
 
 **Time:** O(n)  
-**Space:** O(1) extra with reversals in-place; O(n) if you build a new string
+**Space:** O(1) extra with in-place reversals; O(n) if you build a new string
 
 > [!ui-builder] Mini game
 > INPUT_TOPIC: Theory or problem

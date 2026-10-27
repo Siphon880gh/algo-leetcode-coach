@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Linked list fundamentals (pattern note): practice path',
-    'summary' => 'Dummy heads, fast/slow pointers, and careful next rewires — the core toolkit.',
+    'title' => 'Linked list basics: practice the three tools',
+    'summary' => 'Decide what to do first when reversing a list, deleting the head and finding the middle.',
     'category' => 'Data Structures',
     'subcategory' => 'Linked List',
     'tags' => ['linked-list', 'step-by-step'],

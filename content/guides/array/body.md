@@ -6,34 +6,34 @@ Five exam scores:
 scores = [72, 88, 91, 65, 80]
 ```
 
-- Read index `2` → `91` in **O(1)** (address = base + 2 × element_size)
-- Insert `99` at index `2` → every later score shifts right one slot → **O(n)**
+- Reading index `2` gives `91` in **O(1)**. The address is base + 2 × element_size.
+- Inserting `99` at index `2` moves every later score one slot to the right, which is **O(n)**.
 
-That is the array tradeoff: **random read is cheap; mid-insert/delete is expensive.**
+That is the array tradeoff: **reading any index is cheap, and inserting or deleting in the middle is expensive.**
 
 ## Why contiguous memory matters
 
-Element `i` lives at `base + i × size`. No pointer chase. Walking `0 … n−1` streams through cache lines.
+Element `i` lives at `base + i × size`, so there is no pointer to follow. Walking from `0` to `n − 1` reads memory in order, which the cache handles well.
 
-A linked list of the same five scores needs a pointer hop per step to reach index 2.
+A linked list holding the same five scores needs one pointer hop per step to reach index 2.
 
-## Ops at a glance
+## Costs at a glance
 
-| Op | Cost | Why |
+| Operation | Cost | Why |
 |----|------|-----|
 | `a[i]` | O(1) | Address arithmetic |
-| append at end (fixed capacity) | O(1) | Write next free slot |
-| insert/delete at index `k` | O(n) | Shift the tail |
-| search unsorted value | O(n) | Scan |
+| Append at the end (capacity left) | O(1) | Write the next free slot |
+| Insert or delete at index `k` | O(n) | Shift the tail |
+| Search for a value (unsorted) | O(n) | Scan |
 
 ## Trap
 
-Treating “arrays are always fast” as “every update is O(1)”.
+Believing "arrays are fast" means every update is O(1).
 
-**Fix:** Index reads are O(1). Shifting for a hole in the middle is O(n). Dynamic arrays also pay occasional growth copies on append.
+**Fix:** Index reads are O(1). Opening a hole in the middle means shifting, which is O(n). Dynamic arrays also pay for an occasional copy when they grow on append.
 
 **Time (index read):** O(1)  
-**Time (mid-insert):** O(n)  
+**Time (insert in the middle):** O(n)  
 **Space:** O(n)
 
 > [!ui-builder] Mini game

@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 return [
     'title' => 'Toward edit distance: DP warm-ups on prefixes',
-    'summary' => 'Before full Levenshtein, practice dp on string prefixes — LCS and delete-only distances build the same table habit.',
+    'summary' => 'Before full edit distance, practice tables over string prefixes with simpler problems such as delete-only distance and common subsequences.',
     'category' => 'Algorithms',
     'subcategory' => 'Dynamic Programming',
     'kind' => 'algo',

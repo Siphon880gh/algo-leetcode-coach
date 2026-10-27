@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'DP hallmarks: optimal substructure and no aftereffect',
-    'summary' => 'Best of a state depends only on smaller states — future choices do not rewrite past optimal suffixes (no aftereffect).',
+    'title' => 'Signs a problem fits dynamic programming',
+    'summary' => 'A problem suits dynamic programming when best answers build from smaller best answers and the state records everything later choices need.',
     'category' => 'Algorithms',
     'subcategory' => 'Dynamic Programming',
     'kind' => 'algo',

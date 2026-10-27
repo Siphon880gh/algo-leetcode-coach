@@ -1,26 +1,27 @@
 ## Tiny example
 
-Recursive traversals on `1,(2,3)`:
+Recursive traversals on a tree with root `1`, left child `2` and right child `3`:
 
-- Preorder visit slot **before** both calls → `1,2,3`
-- Inorder slot **between** calls → `2,1,3`
-- Postorder slot **after** both calls → `2,3,1`
+- **Preorder** visits the node **before** both recursive calls, giving `1, 2, 3`.
+- **Inorder** visits it **between** the calls, giving `2, 1, 3`.
+- **Postorder** visits it **after** both calls, giving `2, 3, 1`.
 
-Same recursion skeleton; only the visit line moves.
-
+The recursion is the same in all three. Only the line that visits the node moves.
 
 ## How
 
-1. Write `visit; left; right` / `left; visit; right` / `left; right; visit`
-2. Trace one tiny tree
-3. Reuse for problems that need a specific order
-
+1. Write the three versions:
+   - preorder: visit, left, right
+   - inorder: left, visit, right
+   - postorder: left, right, visit
+2. Trace one tiny tree by hand.
+3. Reuse the version that matches the order a problem needs.
 
 ## Trap
 
-Assuming inorder always prints sorted values on non-BST trees.
+Assuming inorder always prints sorted values, even on trees that are not binary search trees.
 
-**Fix:** Sorted inorder needs the BST invariant too.
+**Fix:** Inorder is sorted only when the tree keeps the binary search tree invariant.
 
 **Time:** O(n) · **Space:** O(h)
 

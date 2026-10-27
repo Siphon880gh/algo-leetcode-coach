@@ -1,34 +1,34 @@
 ## Tiny example
 
-Subsets of `[1, 2]`:
+List every subset of `[1, 2]`. Start with an empty path:
 
 ```
 path = []
 ```
 
-1. **Take 1** → `path = [1]` → recurse
-   - skip 2 → record `[1]`
-   - take 2 → record `[1,2]`
-2. **Pop 1** → `path = []`
-3. **Skip 1** → recurse → record `[]` and `[2]`
+1. **Take 1**, so `path = [1]`, and recurse.
+   - Skip 2 and record `[1]`.
+   - Take 2 and record `[1, 2]`.
+2. **Undo**: pop 1, so `path = []` again.
+3. **Skip 1** and recurse. This records `[]` and `[2]`.
 
-Backtracking = **choose → explore → undo**. Prune when a partial path cannot succeed (for example sum already past a target).
+Backtracking means you **choose, explore, then undo**. You can also prune: stop early when a partial path can no longer succeed, for example when its sum is already past the target.
 
 ## How
 
-1. State = current `path` + index / choice point
-2. If illegal → return (prune)
-3. If complete → record answer
-4. Else try each next choice, recurse, then undo
+1. The state is the current `path` plus where you are in the input.
+2. If the path breaks a rule, return right away. This is pruning.
+3. If the path is complete, record it.
+4. Otherwise try each next choice: add it, recurse, then undo it.
 
 ## Trap
 
-Forgetting `path.pop()` so sibling branches see leftover values.
+Forgetting `path.pop()`, so the next branch still sees values left over from the previous one.
 
-**Fix:** Every append has a matching undo before the next sibling — or pass a fresh copy.
+**Fix:** Every append needs a matching undo before you try the next choice. Passing a fresh copy into the recursion also works.
 
-**Time:** often O(branch^depth)  
-**Space:** O(depth) for the live path
+**Time:** often O(branches ^ depth)  
+**Space:** O(depth) for the current path
 
 > [!ui-builder] Mini game
 > INPUT_TOPIC: Theory or problem

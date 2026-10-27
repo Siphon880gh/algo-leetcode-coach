@@ -10,35 +10,35 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "State:\nn times list.contains on size-n list\n\nReal time?",
+            'message' => "State:\nyou call list.contains n times on a list of size n\n\nWhat is the real time?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'O(n²)', 'next' => 'mid'],
-                ['label' => 'O(n) — one call per i', 'next' => 'w1'],
+                ['label' => 'O(n), one call per i', 'next' => 'w1'],
             ],
         ],
         'w1' => [
-            'message' => "Wrong.\n\nEach contains may scan n elements.\n\nStep back.",
+            'message' => "Wrong.\n\nEach contains call may scan all n elements.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'start',
             'choices' => [],
         ],
         'mid' => [
-            'message' => "State:\nimmutable string builder via repeated s+=c for n chars\n\nRisk?",
+            'message' => "State:\nyou build an immutable string with s += c for n characters\n\nWhat is the risk?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'O(n²) copying', 'next' => 'final'],
-                ['label' => 'Always O(n)', 'next' => 'w2'],
+                ['label' => 'O(n²) time spent copying', 'next' => 'final'],
+                ['label' => 'None, it is always O(n)', 'next' => 'w2'],
             ],
         ],
         'w2' => [
-            'message' => "Wrong.\n\nEach append may copy the whole string.\n\nStep back.",
+            'message' => "Wrong.\n\nEach append may copy the whole string so far.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'mid',
             'choices' => [],
         ],
         'final' => [
-            'message' => "State:\ntimeout though “one loop”\n\nFirst question?",
+            'message' => "State:\nthe code times out even though it is \"one loop\"\n\nWhat do you ask first?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'What does each iteration cost?', 'next' => 'success'],
@@ -52,7 +52,7 @@ return [
             'choices' => [],
         ],
         'success' => [
-            'message' => "Correct.\n\n- Multiply by per-iteration cost\n- Watch library pitfalls\n\nYou finished this path.",
+            'message' => "Correct.\n\n- Multiply by the cost of each iteration.\n- Watch out for slow library calls.\n\nYou finished this path.",
             'outcome' => 'success',
             'choices' => [],
         ],

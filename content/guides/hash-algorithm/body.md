@@ -1,24 +1,22 @@
 ## Tiny example
 
-Hash string keys into buckets of size 8.
+You want to put string keys into a table with 8 buckets.
 
-Naive `hash("cat") = sum of char codes` might cluster similar words. A better mix (avalanche): scramble bits so `"cat"` and `"cats"` land far apart.
+A naive hash such as `hash("cat") = the sum of the character codes` can bunch similar words together. A better hash mixes the bits thoroughly, so `"cat"` and `"cats"` land far apart. This is called the avalanche effect.
 
-Goal: different keys look **uniformly random** across `0 … capacity-1` after `% capacity`.
-
+The goal: after taking `% capacity`, different keys should look **evenly spread** across the buckets `0` to `capacity − 1`.
 
 ## How
 
-1. Map key → integer (language hash / custom)
-2. Fold into bucket index (`% capacity` or bitmask if power-of-two)
-3. Judge quality by collision rate / load factor, not by “feels random”
-
+1. Turn the key into an integer, using the language's hash or your own.
+2. Fold that integer into a bucket index, with `% capacity`, or with a bit mask when the capacity is a power of two.
+3. Judge the hash by its collision rate and load factor, not by whether it feels random.
 
 ## Trap
 
-Using only the low bits of a key (like `key % 100` when keys are multiples of 100) — everything collides.
+Using only the low digits or bits of a key, such as `key % 100` when every key is a multiple of 100. Then every key collides.
 
-**Fix:** Mix high bits too; test with realistic key distributions.
+**Fix:** Mix in the high bits too, and test with realistic keys.
 
 **Time:** O(1) to compute a typical hash · **Space:** O(1)
 

@@ -10,49 +10,49 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "State:\nedges A—B, A—C, B—D\nstart = A\nalgorithm = BFS\n\nStructure for neighbors?",
+            'message' => "State:\nedges: A and B, A and C, B and D\nstart at A\nalgorithm: BFS\n\nWhich structure holds the neighbors waiting to be visited?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'Queue — FIFO level order', 'next' => 'mid'],
-                ['label' => 'Stack only — that forces DFS shape', 'next' => 'w1'],
+                ['label' => 'A queue, giving first in, first out level order', 'next' => 'mid'],
+                ['label' => 'A stack, which would give a depth-first shape', 'next' => 'w1'],
             ],
         ],
         'w1' => [
-            'message' => "Wrong.\n\nBFS needs a queue.\n\nStep back.",
+            'message' => "Wrong.\n\nBreadth-first search needs a queue.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'start',
             'choices' => [],
         ],
         'mid' => [
-            'message' => "State:\nundirected edge A—B\nvisited set forgotten\n\nRisk?",
+            'message' => "State:\nundirected edge between A and B\nyou forgot the visited set\n\nWhat goes wrong?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'Infinite A↔B bounce', 'next' => 'final'],
-                ['label' => 'None — undirected graphs cannot cycle', 'next' => 'w2'],
+                ['label' => 'The search bounces between A and B forever', 'next' => 'final'],
+                ['label' => 'Nothing, because undirected graphs cannot have cycles', 'next' => 'w2'],
             ],
         ],
         'w2' => [
-            'message' => "Wrong.\n\nUndirected edges are cycles of length 2 for traversal.\n\nStep back.",
+            'message' => "Wrong.\n\nDuring a traversal, every undirected edge acts like a two-step cycle.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'mid',
             'choices' => [],
         ],
         'final' => [
-            'message' => "State:\nV vertices, E edges, adj lists\n\nTime to traverse all?",
+            'message' => "State:\nV vertices and E edges, stored as adjacency lists\n\nHow long does it take to traverse everything?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'O(V+E)', 'next' => 'success'],
-                ['label' => 'O(V²) always, even when sparse', 'next' => 'w3'],
+                ['label' => 'O(V + E)', 'next' => 'success'],
+                ['label' => 'O(V²), even when the graph is sparse', 'next' => 'w3'],
             ],
         ],
         'w3' => [
-            'message' => "Wrong.\n\nAdj-list traversal is linear in vertices+edges.\n\nStep back.",
+            'message' => "Wrong.\n\nWith adjacency lists, a traversal is linear in vertices plus edges.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'final',
             'choices' => [],
         ],
         'success' => [
-            'message' => "Correct.\n\n- BFS queue / DFS stack\n- Visited set required\n- O(V+E)\n\nYou finished this path.",
+            'message' => "Correct.\n\n- BFS uses a queue and DFS uses a stack or recursion.\n- You need a visited set.\n- Both take O(V + E).\n\nYou finished this path.",
             'outcome' => 'success',
             'choices' => [],
         ],

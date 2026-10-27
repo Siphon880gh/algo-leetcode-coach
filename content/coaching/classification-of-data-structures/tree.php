@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "State:\nneed FIFO ops\n\nADT name?",
+            'message' => "State:\nyou need first in, first out operations\n\nWhich ADT is that?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Queue', 'next' => 'mid'],
@@ -18,41 +18,41 @@ return [
             ],
         ],
         'w1' => [
-            'message' => "Wrong.\n\nFIFO is the queue ADT.\n\nStep back.",
+            'message' => "Wrong.\n\nFirst in, first out is the queue ADT. A heap returns the highest priority item instead.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'start',
             'choices' => [],
         ],
         'mid' => [
-            'message' => "State:\nqueue ADT\n\nValid layout?",
+            'message' => "State:\nyou are implementing the queue ADT\n\nWhich layout can work?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'Ring buffer or linked head/tail — both can work', 'next' => 'final'],
-                ['label' => 'Only a balanced BST can be a queue', 'next' => 'w2'],
+                ['label' => 'A ring buffer, or linked nodes with head and tail pointers', 'next' => 'final'],
+                ['label' => 'Only a balanced search tree', 'next' => 'w2'],
             ],
         ],
         'w2' => [
-            'message' => "Wrong.\n\nMany layouts implement FIFO.\n\nStep back.",
+            'message' => "Wrong.\n\nMany layouts can implement first in, first out.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'mid',
             'choices' => [],
         ],
         'final' => [
-            'message' => "State:\n“list” in conversation about O(1) index\n\nClarify?",
+            'message' => "State:\nsomeone says \"use a list\" while talking about O(1) index reads\n\nWhat should you ask?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'Array-backed vs linked — index costs differ', 'next' => 'success'],
-                ['label' => 'No need — all lists have O(1) index', 'next' => 'w3'],
+                ['label' => 'Whether it is backed by an array or by linked nodes, because index costs differ', 'next' => 'success'],
+                ['label' => 'Nothing, because every list has O(1) index reads', 'next' => 'w3'],
             ],
         ],
         'w3' => [
-            'message' => "Wrong.\n\nLinked lists do not give O(1) index.\n\nStep back.",
+            'message' => "Wrong.\n\nA linked list has to walk to reach an index, so it is not O(1).\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'final',
             'choices' => [],
         ],
         'success' => [
-            'message' => "Correct.\n\n- Separate ADT from layout\n- Pick layout for the hot op\n\nYou finished this path.",
+            'message' => "Correct.\n\n- Keep the ADT separate from the layout.\n- Pick the layout that makes your most frequent operation cheap.\n\nYou finished this path.",
             'outcome' => 'success',
             'choices' => [],
         ],

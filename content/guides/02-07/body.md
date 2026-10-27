@@ -2,25 +2,27 @@
 
 List A: `a1→a2→c1→c2→c3`  
 List B: `b1→b2→b3→c1→c2→c3`  
-Intersection starts at `c1`.
+The two lists share the nodes from `c1` onward, so the intersection starts at `c1`.
 
-Two pointers: start `p=A.head`, `q=B.head`. When a pointer hits null, redirect it to the **other** head. They travel `lenA+lenB` in different orders and meet at `c1` (or both null if no intersection).
+Use two pointers. Start `p` at the head of A and `q` at the head of B. Move both one node at a time. When a pointer runs off the end of its list, send it to the head of the **other** list.
 
+Each pointer ends up walking A and B once, just in a different order, so both travel `lenA + lenB` steps. That lines them up, and they meet at `c1`. If the lists share no node, both reach null at the same time.
 
 ## How
 
-1. p,q at heads
-2. While p is not q: p = p.next or other head if null; same for q
-3. Return p
-
+1. Set `p` to the head of A and `q` to the head of B.
+2. While `p` and `q` are different nodes:
+   - Move `p` to `p.next`, or to the head of B if `p` is null.
+   - Move `q` to `q.next`, or to the head of A if `q` is null.
+3. Return `p`. It is the first shared node, or null.
 
 ## Trap
 
-Comparing node **values** instead of node identity — duplicates fool you.
+Comparing node **values** instead of the nodes themselves. Two different nodes can hold the same value.
 
-**Fix:** Intersect means shared **nodes** (same reference), not equal values.
+**Fix:** The lists intersect where they share the same **node** (the same reference), not where values happen to be equal.
 
-**Time:** O(m+n) · **Space:** O(1)
+**Time:** O(m + n) · **Space:** O(1)
 
 > [!ui-builder] Mini game
 > INPUT_TOPIC: Theory or problem

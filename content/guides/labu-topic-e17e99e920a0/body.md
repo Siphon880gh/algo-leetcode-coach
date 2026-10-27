@@ -1,27 +1,25 @@
 ## Tiny example
 
-Hash fundamentals: upgrade nested scans.
+Hash tables are the first upgrade from nested scans.
 
-Find if any duplicate in `[3,1,4,1]`:
+Does `[3,1,4,1]` contain a duplicate?
 
-- Nested loops O(n²)
-- Hash set: insert while scanning; `1` already present → duplicate in expected O(n)
+- Nested loops compare every pair, which takes O(n²).
+- A hash set lets you check each value and then insert it while scanning. When you reach the second `1`, it is already present, so you found a duplicate in expected O(n).
 
-First tool when you hear “seen before?” / “frequency of…”.
-
+Reach for a hash table first whenever a problem asks "have I seen this before?" or "how often does this appear?".
 
 ## How
 
-1. Allocate set/map
-2. Query then update (order depends on the problem)
-3. Watch mutable keys
-
+1. Create a set or a map.
+2. Look up, then update. The order depends on the problem.
+3. Watch out for mutable keys.
 
 ## Trap
 
-Using a list as a “set” and calling `in` inside a loop — still O(n²).
+Using a list as a "set" and calling `in` inside a loop. That is still O(n²).
 
-**Fix:** Real hash set/map for membership.
+**Fix:** Use a real hash set or map for membership tests.
 
 **Time:** expected O(n) · **Space:** O(n)
 

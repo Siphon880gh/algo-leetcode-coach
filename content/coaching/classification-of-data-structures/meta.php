@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'ADT vs layout: implementing a queue',
-    'summary' => 'Pick FIFO as the ADT, then choose a layout that keeps ends O(1).',
+    'title' => 'What it does versus how it is stored: a queue',
+    'summary' => 'Pick first in, first out as the job, then choose a layout that keeps both ends O(1).',
     'category' => 'Data Structures',
     'subcategory' => 'Fundamentals',
     'tags' => ['ADT', 'step-by-step'],

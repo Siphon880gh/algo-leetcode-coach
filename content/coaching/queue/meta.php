@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Queue: BFS order on a 4-node tree',
-    'summary' => 'Trace first-in, first-out order on a small tree and avoid stack and shift mistakes.',
+    'title' => 'Queue: dequeue order and BFS',
+    'summary' => 'Dequeue from a small queue, pick the structure for BFS and avoid the slow pop(0).',
     'category' => 'Data Structures',
     'subcategory' => 'Queue',
     'tags' => ['queue', 'BFS', 'step-by-step'],

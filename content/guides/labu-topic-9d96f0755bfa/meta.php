@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 return [
     'title' => 'Recursion time and space',
-    'summary' => 'Time follows how many calls do work; space follows maximum depth — Fibonacci tree vs linear chain.',
+    'summary' => 'The time of a recursion depends on how many calls it makes, while its memory depends on how deep the calls go, as Fibonacci and a simple sum show.',
     'category' => 'Algorithms',
     'subcategory' => 'Recursion',
     'kind' => 'algo',

@@ -1,31 +1,31 @@
 ## Tiny example
 
-Sort `[3, 1, 4, 2]` ascending with bubble sort.
+Sort `[3, 1, 4, 2]` in ascending order with bubble sort.
 
-Pass 1 (compare neighbors left→right):
+Pass 1 compares neighbors from left to right:
 
-1. `3,1` → swap → `[1, 3, 4, 2]`
-2. `3,4` → ok
-3. `4,2` → swap → `[1, 3, 2, 4]`
+1. `3` and `1` are out of order, so swap them. The array is `[1, 3, 4, 2]`.
+2. `3` and `4` are in order, so leave them.
+3. `4` and `2` are out of order, so swap them. The array is `[1, 3, 2, 4]`.
 
-Largest value `4` has “bubbled” to the end. Later passes ignore the frozen suffix.
+The largest value, `4`, has "bubbled" to the end. Later passes can ignore that last slot because it is already final.
 
-After more passes: `[1, 2, 3, 4]`.
+After more passes the array is `[1, 2, 3, 4]`.
 
 ## How
 
-1. For pass `i` from `0 … n-2`
-2. Scan `j` from `0 … n-2-i`
-3. If `a[j] > a[j+1]`, swap
-4. Optional: stop early if a pass does zero swaps
+1. Run pass `i` for `i` from `0` to `n - 2`.
+2. In each pass, scan `j` from `0` to `n - 2 - i`.
+3. If `a[j] > a[j + 1]`, swap them.
+4. Optionally, stop early when a pass makes no swaps.
 
 ## Trap
 
-Thinking every “swap sort” is O(n log n).
+Assuming every swapping sort is O(n log n).
 
-**Fix:** Bubble is **O(n²)** comparisons/swaps in the worst and average case (best O(n) with the early-stop flag on sorted input).
+**Fix:** Bubble sort makes **O(n²)** comparisons and swaps in the average and worst case. With the early-stop check, an already sorted input takes O(n).
 
-**Time:** O(n²) typical · **Space:** O(1)
+**Time:** O(n²) in general · **Space:** O(1)
 
 > [!ui-builder] Mini game
 > INPUT_TOPIC: Theory or problem

@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Build-heap: Floyd’s heapify in linear time',
-    'summary' => 'Sift down from the last parent to the root — O(n), faster than n × O(log n) pushes.',
+    'title' => 'Build a heap in linear time with Floyd\'s heapify',
+    'summary' => 'Sifting down from the last parent to the root builds a heap in linear time, faster than pushing the items one at a time.',
     'category' => 'Data Structures',
     'subcategory' => 'Heap',
     'kind' => 'algo',

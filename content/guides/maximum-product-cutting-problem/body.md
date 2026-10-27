@@ -1,29 +1,30 @@
 ## Tiny example
 
-Break integer `n=10` into summands ≥1 to **maximize product**.
+Split the integer `n = 10` into parts of at least 1 so that the **product** of the parts is as large as possible.
 
-Prefer parts near **3**:
+Prefer parts close to **3**:
 
-1. `10 = 3+3+4` but `4=2+2` and `2·2=4 > 4` as a single part product? Wait: single 4 product is 4; `2+2` product 4 — equal. Prefer avoiding leftover 1s.
-2. Better: `3+3+2+2` → product `3·3·2·2=36`
+- `10 = 3 + 3 + 4` gives `3 · 3 · 4 = 36`.
+- Splitting the 4 into `2 + 2` gives `3 · 3 · 2 · 2 = 36`. This is the same product, because 2 · 2 = 4.
+- `10 = 3 + 3 + 3 + 1` gives only `27`. The part of 1 adds nothing to the product.
 
-Rule of thumb: use as many 3s as possible; if remainder 1, replace `3+1` with `2+2`; remainder 2 is fine.
+So the best product for 10 is **36**.
 
+Rule of thumb: use as many 3s as possible. If the remainder is 1, replace `3 + 1` with `2 + 2`. A remainder of 2 is fine as it is.
 
 ## How
 
-1. If using the greedy math: count threes with the remainder fix
-2. Or DP: `dp[i]=max product breaking i`
-3. Never leave a part of 1
-
+1. With the math shortcut, count the 3s and apply the remainder fix.
+2. Or use DP, where `dp[i]` is the best product from splitting i.
+3. Never leave a part of 1.
 
 ## Trap
 
-Breaking into all 1s or leaving a remainder 1 (`3+1`).
+Splitting into all 1s, or leaving a remainder of 1 (`3 + 1`).
 
-**Fix:** Remainder 1 → use `2+2` instead of `3+1`.
+**Fix:** When the remainder is 1, use `2 + 2` instead of `3 + 1`.
 
-**Time:** O(1) greedy math or O(n²) DP · **Space:** O(1) or O(n)
+**Time:** O(1) with the math shortcut, or O(n²) with DP · **Space:** O(1) or O(n)
 
 > [!ui-builder] Mini game
 > INPUT_TOPIC: Theory or problem

@@ -10,79 +10,49 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => 'State:
-W = 4
-item A (1,15) may be taken many times
-row starts [0,0,0,0,0]
-fill left→right
-
-After A, what is capacity 4?',
+            'message' => "State:\nW = 4\nitem A (1, 15) may be taken many times\nits row starts as [0, 0, 0, 0, 0]\nfill it from left to right\n\nAfter A, what is the value for capacity 4?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => '60 — four copies of A', 'next' => 'ask_take'],
-                ['label' => '15 — only one copy', 'next' => 'w_one'],
+                ['label' => '60, from four copies of A', 'next' => 'ask_take'],
+                ['label' => '15, from only one copy', 'next' => 'w_one'],
             ],
         ],
         'w_one' => [
-            'message' => 'Wrong.
-
-Complete knapsack allows repeats. 1+1+1+1 weights fit → 60.
-
-Step back.',
+            'message' => "Wrong.\n\nThe complete knapsack allows repeats. Four items of weight 1 fit, which gives 60.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'start',
             'choices' => [],
         ],
         'ask_take' => [
-            'message' => 'State:
-filling cell (i=A, c=4)
-take needs a value that may already include earlier A\'s
-
-Which read?',
+            'message' => "State:\nfilling the cell for item A at capacity 4\nthe take option needs a value that may already include earlier copies of A\n\nWhich cell should it read?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'dp[i][c-1] + 15 — same row', 'next' => 'ask_skip'],
-                ['label' => 'dp[i-1][c-1] + 15 — previous row only', 'next' => 'w_prev'],
+                ['label' => 'dp[i][c − 1] + 15, in the same row', 'next' => 'ask_skip'],
+                ['label' => 'dp[i − 1][c − 1] + 15, in the previous row only', 'next' => 'w_prev'],
             ],
         ],
         'w_prev' => [
-            'message' => 'Wrong.
-
-Previous-row-only is 0-1. Same-row lets copy #2 see copy #1.
-
-Step back.',
+            'message' => "Wrong.\n\nReading only the previous row is the 0-1 rule. Reading the same row lets the second copy build on the first.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'ask_take',
             'choices' => [],
         ],
         'ask_skip' => [
-            'message' => 'State:
-skip means “do not use item A at all”
-
-Skip reads?',
+            'message' => "State:\nskip means \"do not use item A at all\"\n\nWhich cell does skip read?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'dp[i-1][c] — previous item row', 'next' => 'success'],
-                ['label' => 'dp[i][c] — already includes A', 'next' => 'w_skip'],
+                ['label' => 'dp[i − 1][c], in the previous item\'s row', 'next' => 'success'],
+                ['label' => 'dp[i][c], which already includes A', 'next' => 'w_skip'],
             ],
         ],
         'w_skip' => [
-            'message' => 'Wrong.
-
-Skip must come from the row that never saw this item.
-
-Step back.',
+            'message' => "Wrong.\n\nSkip has to come from the row that never saw this item.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'ask_skip',
             'choices' => [],
         ],
         'success' => [
-            'message' => 'Correct.
-
-- Unlimited copies → take reads same row
-- Four A\'s fill capacity 4 → 60
-
-You finished this path.',
+            'message' => "Correct.\n\n- With unlimited copies, the take option reads the same row.\n- Four copies of A fill capacity 4 for a value of 60.\n\nYou finished this path.",
             'outcome' => 'success',
             'choices' => [],
         ],

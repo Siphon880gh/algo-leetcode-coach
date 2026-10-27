@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'DP playbook: brute force → memo → table → compress',
-    'summary' => 'Write the recursive definition first, memoize, then translate bottom-up, then drop dimensions when safe.',
+    'title' => 'DP playbook: recursion, memo, table, then compress',
+    'summary' => 'Write the recursive definition first, then add memoization, then turn it into a table, and only then trim the memory.',
     'category' => 'Algorithms',
     'subcategory' => 'Dynamic Programming',
     'kind' => 'algo',

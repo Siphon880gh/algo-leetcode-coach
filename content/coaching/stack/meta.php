@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 return [
     'title' => 'Stack: validate "([])"',
-    'summary' => 'Walk bracket matching on ( [ ] ) and catch the FIFO mistake.',
+    'summary' => 'Match the brackets in ( [ ] ) and avoid treating the stack like a queue.',
     'category' => 'Data Structures',
     'subcategory' => 'Stack',
     'tags' => ['stack', 'brackets', 'step-by-step'],

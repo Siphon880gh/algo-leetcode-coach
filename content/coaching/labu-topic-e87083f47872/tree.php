@@ -10,49 +10,49 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "State:\njump game [2,3,1,1,4]\n\nTrack?",
+            'message' => "State:\njump game on [2, 3, 1, 1, 4]\n\nWhat do you keep track of?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'Farthest reachable index', 'next' => 'mid'],
-                ['label' => 'Earliest interval end', 'next' => 'w1'],
+                ['label' => 'The farthest reachable index', 'next' => 'mid'],
+                ['label' => 'The earliest interval end', 'next' => 'w1'],
             ],
         ],
         'w1' => [
-            'message' => "Wrong.\n\nJump game tracks farthest.\n\nStep back.",
+            'message' => "Wrong.\n\nThe jump game tracks how far you can reach.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'start',
             'choices' => [],
         ],
         'mid' => [
-            'message' => "State:\ni > farthest mid scan\n\n?",
+            'message' => "State:\nduring the scan, i is greater than farthest\n\nWhat does that mean?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'Cannot reach the end', 'next' => 'final'],
-                ['label' => 'Always still possible', 'next' => 'w2'],
+                ['label' => 'You cannot reach the end', 'next' => 'final'],
+                ['label' => 'It is still always possible', 'next' => 'w2'],
             ],
         ],
         'w2' => [
-            'message' => "Wrong.\n\nYou already cannot stand on i.\n\nStep back.",
+            'message' => "Wrong.\n\nYou cannot even stand on index i, so the end is out of reach.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'mid',
             'choices' => [],
         ],
         'final' => [
-            'message' => "State:\ninterval scheduling key?\n\n",
+            'message' => "State:\ninterval scheduling\n\nWhat is the key for choosing?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'Earliest finishing time', 'next' => 'success'],
-                ['label' => 'Farthest jump', 'next' => 'w3'],
+                ['label' => 'The earliest finishing time', 'next' => 'success'],
+                ['label' => 'The farthest jump', 'next' => 'w3'],
             ],
         ],
         'w3' => [
-            'message' => "Wrong.\n\nScheduling uses end times.\n\nStep back.",
+            'message' => "Wrong.\n\nInterval scheduling chooses by end time.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'final',
             'choices' => [],
         ],
         'success' => [
-            'message' => "Correct.\n\n- Cue → greedy key\n- Jump uses farthest\n\nYou finished this path.",
+            'message' => "Correct.\n\n- Match the clue to a greedy key.\n- The jump game tracks the farthest reachable index.\n\nYou finished this path.",
             'outcome' => 'success',
             'choices' => [],
         ],

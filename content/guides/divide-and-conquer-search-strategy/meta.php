@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 return [
     'title' => 'Binary search as divide and conquer',
-    'summary' => 'Each step discards half the search space using a mid test — the textbook divide-and-conquer search.',
+    'summary' => 'Binary search is divide and conquer: each test of the middle element throws away half of what is left.',
     'category' => 'Algorithms',
     'subcategory' => 'Binary Search',
     'kind' => 'algo',

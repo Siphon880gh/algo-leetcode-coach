@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Heap sort: swap root with end',
-    'summary' => 'After building a max-heap, place the next largest at the end via swap+sift.',
+    'title' => 'Heap sort: swap the root with the end',
+    'summary' => 'After building a max-heap, put the next largest value at the end by swapping it there and sifting down.',
     'category' => 'Algorithms',
     'subcategory' => 'Sorting',
     'tags' => ['heap-sort', 'sorting', 'step-by-step'],

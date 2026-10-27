@@ -1,28 +1,26 @@
 ## Tiny example
 
-Greedy foundations with interval scheduling:
+Greedy basics, using interval scheduling.
 
-Intervals `(start,end)`: `(1,3),(2,4),(3,5)`. Select max non-overlapping.
+The intervals, written as (start, end), are `(1,3)`, `(2,4)` and `(3,5)`. Choose as many as possible without overlaps.
 
-Greedy: always take the interval that **ends earliest** among remaining compatible ones → pick `(1,3)` then `(3,5)`.
+Greedy rule: among the remaining compatible intervals, always take the one that **ends earliest**. This picks `(1,3)`, then `(3,5)`.
 
-Needs a proof (exchange argument). Without a proof, a counterexample may exist.
-
+A greedy rule needs a proof, such as an exchange argument. Without one, a counterexample may exist.
 
 ## How
 
-1. Propose a selection key
-2. Sort and commit
-3. Prove or find a counterexample
-
+1. Propose a rule for choosing.
+2. Sort, and commit to each choice.
+3. Prove the rule, or look for a counterexample.
 
 ## Trap
 
-Shipping greedy because it passed one sample.
+Trusting a greedy rule because it passed one sample.
 
-**Fix:** Demand a proof sketch or a known safe pattern.
+**Fix:** Require a proof sketch, or use a pattern already known to be safe.
 
-**Time:** often O(n log n) from sorting
+**Time:** often O(n log n), from sorting
 
 > [!ui-builder] Mini game
 > INPUT_TOPIC: Theory or problem

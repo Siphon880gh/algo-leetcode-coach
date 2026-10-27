@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 return [
     'title' => 'Linked list problem patterns',
-    'summary' => 'Reverse, merge, cycle, intersect, and partition — reuse pointer patterns.',
+    'summary' => 'Most linked list problems are one of five pointer patterns: reverse, merge, find a cycle, find an intersection, or partition.',
     'category' => 'Algorithms',
     'subcategory' => 'Linked List',
     'kind' => 'algo',

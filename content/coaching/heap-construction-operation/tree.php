@@ -10,49 +10,49 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "State:\nn = 5 array, 0-based\n\nLast parent index for bottom-up heapify?",
+            'message' => "State:\nan array of n = 5 items, indexed from 0\n\nAt which index does bottom-up heapify start?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => '(n-2)//2 = 1', 'next' => 'cost'],
-                ['label' => 'n-1 = 4 — start sift at the last leaf', 'next' => 'w_leaf'],
+                ['label' => '(n − 2) // 2 = 1, the last parent', 'next' => 'cost'],
+                ['label' => 'n − 1 = 4, the last leaf', 'next' => 'w_leaf'],
             ],
         ],
         'w_leaf' => [
-            'message' => "Wrong.\n\nLeaves already satisfy heap order; start at the last parent.\n\nStep back.",
+            'message' => "Wrong.\n\nLeaves have no children, so they already satisfy the heap order. Start at the last parent.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'start',
             'choices' => [],
         ],
         'cost' => [
-            'message' => "State:\nbottom-up heapify vs n pushes from empty\n\nFaster build?",
+            'message' => "State:\nbottom-up heapify versus n pushes into an empty heap\n\nWhich build is faster?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'Heapify O(n) beats n pushes O(n log n)', 'next' => 'dir'],
-                ['label' => 'They are the same big-O always', 'next' => 'w_same'],
+                ['label' => 'Heapify, at O(n), beats n pushes at O(n log n)', 'next' => 'dir'],
+                ['label' => 'They always have the same Big-O', 'next' => 'w_same'],
             ],
         ],
         'w_same' => [
-            'message' => "Wrong.\n\nThe algorithms differ: heapify is linear; repeated push is n log n.\n\nStep back.",
+            'message' => "Wrong.\n\nThey are different algorithms. Heapify is linear, and repeated pushes are n log n.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'cost',
             'choices' => [],
         ],
         'dir' => [
-            'message' => "State:\nheapify step at a parent\n\nOperation?",
+            'message' => "State:\nheapify is processing one parent\n\nWhich operation does it apply?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'Sift down — restore heap order in that subtree', 'next' => 'success'],
-                ['label' => 'Sift up only — parents never sift down in build', 'next' => 'w_up'],
+                ['label' => 'Sift down, to restore the heap order in that subtree', 'next' => 'success'],
+                ['label' => 'Sift up only, because a build never sifts down', 'next' => 'w_up'],
             ],
         ],
         'w_up' => [
-            'message' => "Wrong.\n\nFloyd build sifts **down** from the last parent to the root.\n\nStep back.",
+            'message' => "Wrong.\n\nFloyd's build sifts each parent down, going from the last parent to the root.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'dir',
             'choices' => [],
         ],
         'success' => [
-            'message' => "Correct.\n\n- Last parent → root, sift down\n- Build O(n), not O(n log n)\n\nYou finished this path.",
+            'message' => "Correct.\n\n- Go from the last parent to the root, sifting each one down.\n- The build is O(n), not O(n log n).\n\nYou finished this path.",
             'outcome' => 'success',
             'choices' => [],
         ],

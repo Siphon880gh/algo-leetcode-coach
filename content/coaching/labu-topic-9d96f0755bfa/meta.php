@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Recursion time and space: practice path',
-    'summary' => 'Time follows how many calls do work; space follows maximum depth — Fibonacci tree vs linear chain.',
+    'title' => 'Recursion cost: count calls, measure depth',
+    'summary' => 'Price naive Fibonacci and a linear recursion, then fix the blow-up.',
     'category' => 'Algorithms',
     'subcategory' => 'Recursion',
     'tags' => ['recursion', 'complexity', 'step-by-step'],

@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Unbounded: stack copies to 60',
+    'title' => 'Unbounded knapsack: stack copies up to 60',
     'summary' => 'Fill capacities 1 to 4 with a weight-1 item worth 15 and see the value climb by 15 each step.',
     'category' => 'Algorithms',
     'subcategory' => 'Dynamic Programming',

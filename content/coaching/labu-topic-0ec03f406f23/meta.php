@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Stock DP: walk [1,2,4] with cash/hold',
+    'title' => 'Stock DP: walk [1, 2, 4] with cash and hold',
     'summary' => 'Walk prices 1, 2, and 4 day by day, updating cash and hold until the profit is 3.',
     'category' => 'Algorithms',
     'subcategory' => 'Dynamic Programming',

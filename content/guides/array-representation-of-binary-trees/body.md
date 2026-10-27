@@ -1,13 +1,13 @@
 ## Tiny example
 
-Complete tree stored in an array (heap indexing):
+A complete tree stored in an array (the same layout a heap uses):
 
 ```
 index:  0  1  2  3  4
 value:  1  2  3  4  5
 ```
 
-Means:
+This array means:
 
 ```
       1
@@ -17,23 +17,23 @@ Means:
   4   5
 ```
 
-For node at index `i` (0-based):
+For the node at index `i` (counting from 0):
 
-- left child → `2i + 1`
-- right child → `2i + 2`
-- parent → `(i - 1) // 2` (i > 0)
+- Its left child is at `2i + 1`.
+- Its right child is at `2i + 2`.
+- Its parent is at `(i - 1) // 2`, for any `i` greater than 0.
 
 ## When it fits
 
-**Complete** (or nearly complete) trees: heaps. Sparse trees waste holes in the array — pointer nodes may be better.
+This works best for **complete** or nearly complete trees, such as heaps. A sparse tree leaves many empty slots in the array, so pointer-based nodes may be better.
 
 ## Trap
 
-Using `2i` and `2i+1` with 0-based arrays (that formula is the 1-based habit).
+Using `2i` and `2i + 1` on an array that starts at index 0. That formula belongs to arrays that start at index 1.
 
-**Fix:** Pick 0-based (`2i+1`, `2i+2`) or 1-based (`2i`, `2i+1`) and stay consistent.
+**Fix:** Choose 0-based indexing (`2i + 1`, `2i + 2`) or 1-based indexing (`2i`, `2i + 1`) and stick with it.
 
-**Time:** O(1) parent/child index math · **Space:** O(n) for a complete tree
+**Time:** O(1) to compute a parent or child index · **Space:** O(n) for a complete tree
 
 > [!ui-builder] Mini game
 > INPUT_TOPIC: Theory or problem

@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Array problem patterns: practice path',
-    'summary' => 'Two pointers, sliding window, prefix sums, and in-place swaps cover a huge fraction of array prompts.',
+    'title' => 'Array patterns: pick one from the clue',
+    'summary' => 'Choose a pattern for range sums, a constrained window and pairing from both ends.',
     'category' => 'Algorithms',
     'subcategory' => 'Arrays',
     'tags' => ['array', 'patterns', 'step-by-step'],

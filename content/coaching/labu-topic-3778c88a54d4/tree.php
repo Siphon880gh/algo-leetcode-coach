@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "State:\ntwo children, at least one boy, equal likelihood\n\nP(both boys)?",
+            'message' => "State:\ntwo children, at least one is a boy\nboys and girls are equally likely\n\nWhat is the chance that both are boys?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => '1/3', 'next' => 'mid'],
@@ -18,27 +18,27 @@ return [
             ],
         ],
         'w1' => [
-            'message' => "Wrong.\n\n conditioned space has 3 outcomes, one is BB.\n\nStep back.",
+            'message' => "Wrong.\n\nAfter the clue, three equally likely outcomes remain (BB, BG, GB), and only one of them is BB.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'start',
             'choices' => [],
         ],
         'mid' => [
-            'message' => "State:\nfirst step on such puzzles\n\n?",
+            'message' => "State:\nyou face a new probability puzzle like this\n\nWhat is the first step?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'Enumerate equally likely outcomes', 'next' => 'final'],
-                ['label' => 'Trust intuition immediately', 'next' => 'w2'],
+                ['label' => 'List the equally likely outcomes', 'next' => 'final'],
+                ['label' => 'Trust your intuition right away', 'next' => 'w2'],
             ],
         ],
         'w2' => [
-            'message' => "Wrong.\n\nEnumeration beats vibes.\n\nStep back.",
+            'message' => "Wrong.\n\nWriting out the outcomes beats a gut feeling.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'mid',
             'choices' => [],
         ],
         'final' => [
-            'message' => "State:\ncondition “at least one boy” removes?\n\n",
+            'message' => "State:\nthe condition is \"at least one boy\"\n\nWhich outcome does it rule out?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'GG', 'next' => 'success'],
@@ -46,13 +46,13 @@ return [
             ],
         ],
         'w3' => [
-            'message' => "Wrong.\n\nGG has no boy.\n\nStep back.",
+            'message' => "Wrong.\n\nGG is the only outcome with no boy.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'final',
             'choices' => [],
         ],
         'success' => [
-            'message' => "Correct.\n\n- Enumerate → condition → count\n- Here 1/3\n\nYou finished this path.",
+            'message' => "Correct.\n\n- List the outcomes, apply the condition, then count.\n- Here the answer is 1/3.\n\nYou finished this path.",
             'outcome' => 'success',
             'choices' => [],
         ],

@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Algorithm templates cheat sheet: practice path',
-    'summary' => 'Keep short skeletons for binary search bounds, sliding window, Union-Find, and topo BFS — fill the problem-specific parts.',
+    'title' => 'Templates: match the problem to a skeleton',
+    'summary' => 'Pick the right template for a boundary search and a prerequisite problem.',
     'category' => 'Algorithms',
     'subcategory' => 'Templates',
     'tags' => ['templates', 'step-by-step'],

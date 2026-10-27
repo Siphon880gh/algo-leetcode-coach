@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 return [
     'title' => 'Permutations via backtracking',
-    'summary' => 'At depth d choose any unused element, recurse to n, then unmark — n! leaves.',
+    'summary' => 'At each depth, pick any element that is not used yet, recurse until the path is full, then unmark it, which produces all n! orderings.',
     'category' => 'Algorithms',
     'subcategory' => 'Backtracking',
     'kind' => 'algo',

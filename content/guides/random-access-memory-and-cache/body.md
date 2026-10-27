@@ -1,28 +1,26 @@
 ## Tiny example
 
-Scan n ints.
+Scan n integers.
 
-**Array:** addresses `base, base+4, base+8, …` — CPU pulls whole **cache lines**; sequential scan streams fast.
+**In an array**, the addresses are `base, base+4, base+8, …`. The CPU loads whole **cache lines** at a time, so a sequential scan streams through memory quickly.
 
-**Linked list:** each `next` may jump to a distant address — more cache misses.
+**In a linked list**, each `next` pointer may jump to a distant address, which causes more cache misses.
 
-Same Big-O O(n), different wall clocks.
-
+Both are O(n), but the wall-clock times differ.
 
 ## How
 
-1. Prefer contiguous layouts for heavy scans
-2. Watch pointer-chasing structures in hot loops
-3. Profile when constants matter
-
+1. Prefer contiguous layouts for heavy scans.
+2. Be wary of pointer-chasing structures in hot loops.
+3. Profile when constant factors matter.
 
 ## Trap
 
-Ignoring locality because “both are O(n)”.
+Ignoring memory locality because "both are O(n)".
 
-**Fix:** Big-O equal ≠ same speed; cache misses cost real time.
+**Fix:** The same Big-O does not mean the same speed. Cache misses cost real time.
 
-**Practice tip:** arrays/vectors for tight loops when possible
+**Practice tip:** use arrays or vectors for tight loops when you can
 
 > [!ui-builder] Mini game
 > INPUT_TOPIC: Theory or problem

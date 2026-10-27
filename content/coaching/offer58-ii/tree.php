@@ -10,35 +10,35 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "State:\ns = \"abcdefg\"\nn = 2\n\nAfter left rotate, result?",
+            'message' => "State:\ns = \"abcdefg\"\nn = 2\n\nWhat is the result of the left rotation?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => '"cdefgab"', 'next' => 'method'],
-                ['label' => '"fgabcde" — that is a right rotate shape', 'next' => 'w_right'],
+                ['label' => '"fgabcde", which is what a right rotation gives', 'next' => 'w_right'],
             ],
         ],
         'w_right' => [
-            'message' => "Wrong.\n\nLeft rotate by 2 moves the prefix `ab` to the end → `cdefgab`.\n\nStep back.",
+            'message' => "Wrong.\n\nA left rotation by 2 moves the prefix `ab` to the end, giving `cdefgab`.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'start',
             'choices' => [],
         ],
         'method' => [
-            'message' => "State:\nin-place preference\nA = first n chars, B = rest\n\nThree-reversal idea?",
+            'message' => "State:\nyou prefer to work in place\nA is the first n characters, and B is the rest\n\nWhat is the three-reversal idea?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'Reverse all, reverse new prefix |B|, reverse suffix |A|', 'next' => 'cost'],
+                ['label' => 'Reverse everything, then the first |B| characters, then the last |A|', 'next' => 'cost'],
                 ['label' => 'Delete s[0] and append it, n times', 'next' => 'w_slow'],
             ],
         ],
         'w_slow' => [
-            'message' => "Wrong.\n\nThat is the O(n²) trap when each delete shifts. Prefer slice or three reversals.\n\nStep back.",
+            'message' => "Wrong.\n\nThat is the O(n²) trap when each delete shifts the string. Use a slice or three reversals.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'method',
             'choices' => [],
         ],
         'cost' => [
-            'message' => "State:\nthree reversals on length n\n\nTime?",
+            'message' => "State:\nthree reversals on a string of length n\n\nWhat is the time cost?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'O(n)', 'next' => 'success'],
@@ -46,13 +46,13 @@ return [
             ],
         ],
         'w_q' => [
-            'message' => "Wrong.\n\nEach reversal is linear; three of them are still O(n).\n\nStep back.",
+            'message' => "Wrong.\n\nEach reversal is linear, so three of them are still O(n).\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'cost',
             'choices' => [],
         ],
         'success' => [
-            'message' => "Correct.\n\n- Left rotate = `s[n:] + s[:n]`\n- Or three reversals in O(n)\n\nYou finished this path.",
+            'message' => "Correct.\n\n- A left rotation is `s[n:] + s[:n]`.\n- Three reversals also do it in O(n).\n\nYou finished this path.",
             'outcome' => 'success',
             'choices' => [],
         ],

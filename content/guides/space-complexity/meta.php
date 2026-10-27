@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Space complexity: extra memory vs input size',
-    'summary' => 'Count auxiliary memory as n grows — recursion stacks and hash maps count; the input array usually does not.',
+    'title' => 'Space complexity: extra memory as the input grows',
+    'summary' => 'Count the extra memory your code needs as n grows, including recursion stacks and hash maps, but usually not the input array itself.',
     'category' => 'Algorithms',
     'subcategory' => 'Complexity',
     'kind' => 'algo',

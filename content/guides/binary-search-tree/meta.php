@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Binary search tree: ordered left < root < right',
-    'summary' => 'Each node’s left subtree holds smaller keys, right holds larger — search follows one path of length height.',
+    'title' => 'Binary search tree: smaller keys left, larger keys right',
+    'summary' => 'In a binary search tree every smaller key sits to the left and every larger key to the right, so a search follows one path down from the root.',
     'category' => 'Data Structures',
     'subcategory' => 'Trees',
     'kind' => 'algo',

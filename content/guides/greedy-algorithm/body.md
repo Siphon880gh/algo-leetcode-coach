@@ -1,33 +1,35 @@
 ## Tiny example
 
-Make change for `36` with coins `[25, 10, 5, 1]` (US-like).
+Make change for `36` using the coins `[25, 10, 5, 1]`, like US coins.
 
-Greedy plan: always take the largest coin that fits.
+The greedy plan is to always take the largest coin that still fits.
 
-1. Take one `25` → remain `11`
-2. Take one `10` → remain `1`
-3. Take one `1` → remain `0`
+1. Take one `25`. That leaves `11`.
+2. Take one `10`. That leaves `1`.
+3. Take one `1`. That leaves `0`.
 
-Total 3 coins. Here the greedy choice works.
+That is 3 coins, and here the greedy choice is the best possible.
 
 ## When greedy is safe
 
-You need a proof (exchange argument / greedy stays ahead) or a known safe pattern (interval scheduling by end time, Huffman, etc.). **Counterexample coins** like `[1, 3, 4]` for amount `6`: greedy `4+1+1` uses 3 coins, but `3+3` uses 2.
+You need a proof, such as an exchange argument or a "greedy stays ahead" argument, or a pattern already known to be safe, such as interval scheduling by earliest end time or Huffman coding.
+
+Here is a **counterexample**: with coins `[1, 3, 4]` and amount `6`, greedy takes `4 + 1 + 1`, which is 3 coins. But `3 + 3` uses only 2.
 
 ## How to try it
 
-1. Sort or order candidates by the greedy key
-2. Commit to the next locally best choice that stays feasible
-3. Never revise earlier picks (that would be backtracking/DP)
+1. Order the candidates by the greedy key, often by sorting.
+2. Commit to the next locally best choice that keeps the answer valid.
+3. Never go back and change an earlier pick. Going back would be backtracking or dynamic programming.
 
 ## Trap
 
-Assuming “locally best” is globally best because it worked on one sample.
+Assuming the locally best choice is best overall because it worked on one sample.
 
-**Fix:** Find a tiny counterexample, or cite the pattern’s proof. If you cannot, use DP/backtracking.
+**Fix:** Look for a tiny counterexample, or point to the proof for the pattern. If you cannot do either, use dynamic programming or backtracking.
 
-**Time:** often O(n log n) from sorting, then O(n)  
-**Space:** O(1) extra beyond the input order
+**Time:** often O(n log n) to sort, then O(n)  
+**Space:** O(1) beyond the sorted input
 
 > [!ui-builder] Mini game
 > INPUT_TOPIC: Theory or problem

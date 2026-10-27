@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 return [
     'title' => 'Offer 05: expand spaces from the end',
-    'summary' => 'On \'We are\', compute new length and write %20 from the back.',
+    'summary' => 'On "We are", work out the new length and write %20 from the back.',
     'category' => 'Algorithms',
     'subcategory' => 'Strings',
     'tags' => ['offer', 'strings', 'step-by-step'],

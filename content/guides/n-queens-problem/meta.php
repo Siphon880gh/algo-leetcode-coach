@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'N-Queens: place on a 4×4 board, then ban col + diagonals',
+    'title' => 'N-Queens: fill a 4×4 board, banning columns and diagonals',
     'summary' => 'Place queens one row at a time on a small board, backing up whenever a column or diagonal is already attacked.',
     'category' => 'Algorithms',
     'subcategory' => 'Backtracking',

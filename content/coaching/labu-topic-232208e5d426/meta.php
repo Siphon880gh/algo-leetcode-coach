@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Complete 2D: four copies → 60',
+    'title' => 'Complete knapsack table: four copies reach 60',
     'summary' => 'Fill a bag of size 4 with repeated light items and see why taking reads the row you are filling.',
     'category' => 'Algorithms',
     'subcategory' => 'Dynamic Programming',

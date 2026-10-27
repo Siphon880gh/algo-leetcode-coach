@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Binary tree traversal: BFS levels and DFS orders',
+    'title' => 'Binary tree traversal: level order and depth-first orders',
     'summary' => 'Visit tree nodes level by level with a queue, or depth-first in preorder, inorder, or postorder.',
     'category' => 'Data Structures',
     'subcategory' => 'Trees',

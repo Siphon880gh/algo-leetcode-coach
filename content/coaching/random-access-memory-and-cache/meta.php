@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Cache: array scan vs pointer chase',
+    'title' => 'Cache: array scan versus pointer chasing',
     'summary' => 'Explain why summing an array beats summing a linked list at the same Big-O.',
     'category' => 'Data Structures',
     'subcategory' => 'Fundamentals',

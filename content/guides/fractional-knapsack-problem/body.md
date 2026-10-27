@@ -1,30 +1,28 @@
 ## Tiny example
 
-Items `(weight, value)`: `(10,60), (20,100), (30,120)`, capacity `50`. Fractions allowed.
+The items, as (weight, value), are `(10, 60)`, `(20, 100)` and `(30, 120)`. The capacity is `50`, and you may take part of an item.
 
-Value density: `6`, `5`, `4`. Greedy:
+The value per unit of weight is `6`, `5` and `4`. Take the best ratio first:
 
-1. Take all of first (10) → value 60, remain 40
-2. Take all of second (20) → value 100, remain 20
-3. Take `20/30` of third → value 80
+1. Take all of the first item (weight 10). The value so far is 60, and 40 capacity is left.
+2. Take all of the second item (weight 20). The value so far is 160, and 20 capacity is left.
+3. Take 20 of the third item's 30 units of weight. That adds 80.
 
-Total **240**. Optimal because fractions are allowed.
-
+The total is **240**. This greedy choice is optimal because you are allowed to take fractions.
 
 ## How
 
-1. Sort by value/weight descending
-2. Take whole items while they fit
-3. Take a fraction of the next item to fill the bag
-
+1. Sort the items by value per unit of weight, highest first.
+2. Take whole items while they fit.
+3. Take a fraction of the next item to fill the rest of the bag.
 
 ## Trap
 
-Using this greedy on **0-1** knapsack (no fractions) — it can be wrong.
+Using this greedy method on the **0-1** knapsack, where fractions are not allowed. It can give the wrong answer there.
 
-**Fix:** If fractions are forbidden, switch to DP. Density greedy needs the fractional model.
+**Fix:** If fractions are not allowed, use dynamic programming. The ratio greedy only works when you can split items.
 
-**Time:** O(n log n) sort · **Space:** O(1) extra beyond sort
+**Time:** O(n log n) for the sort · **Space:** O(1) beyond the sort
 
 > [!ui-builder] Mini game
 > INPUT_TOPIC: Theory or problem

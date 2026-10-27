@@ -10,49 +10,49 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "State:\nprompt says list might contain a cycle\n\nPattern?",
+            'message' => "State:\nthe problem says the list might contain a cycle\n\nWhich pattern fits?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'Fast/slow', 'next' => 'mid'],
-                ['label' => 'Merge two sorted lists', 'next' => 'w1'],
+                ['label' => 'Fast and slow pointers', 'next' => 'mid'],
+                ['label' => 'Merging two sorted lists', 'next' => 'w1'],
             ],
         ],
         'w1' => [
-            'message' => "Wrong.\n\nCycle → Floyd fast/slow.\n\nStep back.",
+            'message' => "Wrong.\n\nA possible cycle calls for Floyd's fast and slow pointers.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'start',
             'choices' => [],
         ],
         'mid' => [
-            'message' => "State:\nshared node suffix of two lists\n\nPattern?",
+            'message' => "State:\ntwo lists share the same tail of nodes\n\nWhich pattern fits?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'Intersect switch-heads', 'next' => 'final'],
+                ['label' => 'Intersection, by switching heads', 'next' => 'final'],
                 ['label' => 'Partition around a pivot', 'next' => 'w2'],
             ],
         ],
         'w2' => [
-            'message' => "Wrong.\n\nIntersect equalizes lengths via switches.\n\nStep back.",
+            'message' => "Wrong.\n\nSwitching to the other head evens out the lengths so the pointers meet at the shared node.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'mid',
             'choices' => [],
         ],
         'final' => [
-            'message' => "State:\nabout to flip cur.next\n\n?",
+            'message' => "State:\nyou are about to change cur.next\n\nWhat do you do first?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'Save nxt first', 'next' => 'success'],
-                ['label' => 'No temps needed', 'next' => 'w3'],
+                ['label' => 'Save nxt = cur.next', 'next' => 'success'],
+                ['label' => 'Nothing. No temporary variable is needed.', 'next' => 'w3'],
             ],
         ],
         'w3' => [
-            'message' => "Wrong.\n\nAlways save before rewire.\n\nStep back.",
+            'message' => "Wrong.\n\nAlways save the next node before rewiring.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'final',
             'choices' => [],
         ],
         'success' => [
-            'message' => "Correct.\n\n- Cue → pattern → pointer sketch\n- O(n) walks\n\nYou finished this path.",
+            'message' => "Correct.\n\n- Spot the clue, pick the pattern, then draw the pointers.\n- These walks are O(n).\n\nYou finished this path.",
             'outcome' => 'success',
             'choices' => [],
         ],

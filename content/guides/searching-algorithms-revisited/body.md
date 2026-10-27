@@ -1,31 +1,29 @@
 ## Tiny example
 
-Find `x` in data:
+Finding a value `x` in different structures:
 
-| Structure | Search |
-|-----------|--------|
+| Structure | Search cost |
+|-----------|-------------|
 | Unsorted array | O(n) scan |
-| Sorted array | O(log n) binary |
+| Sorted array | O(log n) binary search |
 | Hash set | expected O(1) |
 | Balanced BST | O(log n) |
 
-You **pay preprocessing** (sort, build hash, build tree) to speed queries.
-
+You **pay for preprocessing**, such as sorting or building a hash table or a tree, to make each query faster.
 
 ## How
 
-1. Count how many queries you will make
-2. If many, invest in a structure
-3. If one query on unsorted data, a linear scan may be enough
-
+1. Count how many queries you will make.
+2. If there are many, invest in a structure.
+3. If there is one query on unsorted data, a linear scan may be enough.
 
 ## Trap
 
-Sorting for a single search on n=1e7 when you only needed one lookup — wasted O(n log n).
+Sorting n = 10⁷ items when you only needed one lookup. That wastes O(n log n).
 
-**Fix:** Match structure cost to query count.
+**Fix:** Match the cost of building a structure to the number of queries.
 
-**Time:** depends on structure — see table
+**Time:** depends on the structure, as shown in the table
 
 > [!ui-builder] Mini game
 > INPUT_TOPIC: Theory or problem

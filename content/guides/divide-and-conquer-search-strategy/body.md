@@ -1,25 +1,23 @@
 ## Tiny example
 
-Sorted `a=[1,3,5,7,9]`, find `7`.
+Find `7` in the sorted array `a = [1, 3, 5, 7, 9]`.
 
-1. Mid `5` → target larger → discard left half
-2. Mid of right `7` → found
+1. The middle value is `5`. The target is larger, so throw away the left half.
+2. The middle of the right half is `7`. Found it.
 
-Each step halves the search space — divide-and-conquer search (binary search).
-
+Each step cuts the search space in half. This divide-and-conquer search is binary search.
 
 ## How
 
-1. Maintain a live range `[lo,hi)` or `[lo,hi]`
-2. Test mid; discard the half that cannot hold the answer
-3. Stop when range collapses or mid hits
-
+1. Keep a range that still might hold the answer, such as `[lo, hi)` or `[lo, hi]`.
+2. Test the middle and throw away the half that cannot contain the answer.
+3. Stop when the range is empty or the middle is the target.
 
 ## Trap
 
-Discarding the wrong half when duplicates/boundaries matter.
+Throwing away the wrong half when duplicates or exact boundaries matter.
 
-**Fix:** Write the invariant (“answer lies in range”) and a boundary template when needed.
+**Fix:** Write down the rule you keep true ("the answer is inside the range") and use a boundary template when you need the first or last match.
 
 **Time:** O(log n) · **Space:** O(1)
 

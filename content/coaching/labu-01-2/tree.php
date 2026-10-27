@@ -10,36 +10,21 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => 'State:
-dp = [0, 0, 0, 0, 0]
-W = 4
-next item A (1,15)
-0-1 rule: each item once
-
-Which way do you scan c?',
+            'message' => "State:\ndp = [0, 0, 0, 0, 0]\nW = 4\nnext item: A (1, 15)\n0-1 rule: each item once\n\nWhich way do you scan c?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => '4 → 1 (high to low)', 'next' => 'after_dir'],
-                ['label' => '1 → 4 (low to high)', 'next' => 'w_dir'],
+                ['label' => 'From 4 down to 1 (high to low)', 'next' => 'after_dir'],
+                ['label' => 'From 1 up to 4 (low to high)', 'next' => 'w_dir'],
             ],
         ],
         'w_dir' => [
-            'message' => 'Wrong.
-
-Low→high lets an updated small c feed a larger c in the same pass — A would look reusable.
-
-Step back.',
+            'message' => "Wrong.\n\nScanning upward lets a freshly updated small capacity feed a larger one in the same pass, so A could be used twice.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'start',
             'choices' => [],
         ],
         'after_dir' => [
-            'message' => 'State:
-after A, dp = [0, 15, 15, 15, 15]
-now B (3,20), still scanning high→low
-update c=4: max(15, dp[1]+20)
-
-New dp[4]?',
+            'message' => "State:\nafter A, dp = [0, 15, 15, 15, 15]\nnow B (3, 20), still scanning from high to low\nupdate c = 4: max(15, dp[1] + 20)\n\nWhat is the new dp[4]?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => '35', 'next' => 'ask_final'],
@@ -47,45 +32,27 @@ New dp[4]?',
             ],
         ],
         'w_35' => [
-            'message' => 'Wrong.
-
-dp[1] is still 15 (A only). 15+20=35.
-
-Step back.',
+            'message' => "Wrong.\n\ndp[1] is still 15, from A alone. 15 + 20 = 35.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'after_dir',
             'choices' => [],
         ],
         'ask_final' => [
-            'message' => 'State:
-dp[4] = 35 after A and B
-add C (4,30): max(35, dp[0]+30)=max(35,30)
-
-Final answer?',
+            'message' => "State:\ndp[4] = 35 after A and B\nadd C (4, 30): max(35, dp[0] + 30) = max(35, 30)\n\nWhat is the final answer?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => '35 — same optimum as the 2D table', 'next' => 'success'],
-                ['label' => '30 — C replaces everything', 'next' => 'w_c'],
+                ['label' => '35, the same best value as the full table', 'next' => 'success'],
+                ['label' => '30, because C replaces everything', 'next' => 'w_c'],
             ],
         ],
         'w_c' => [
-            'message' => 'Wrong.
-
-max keeps 35. Rolling 1D must match the 2D answer.
-
-Step back.',
+            'message' => "Wrong.\n\nThe max keeps 35. The one-array version must give the same answer as the full table.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'ask_final',
             'choices' => [],
         ],
         'success' => [
-            'message' => 'Correct.
-
-- One array, scan capacity backward
-- Each item stays once
-- Same 35 as the full table
-
-You finished this path.',
+            'message' => "Correct.\n\n- Use one array and scan capacity backward.\n- Each item is still used at most once.\n- You get the same 35 as the full table.\n\nYou finished this path.",
             'outcome' => 'success',
             'choices' => [],
         ],

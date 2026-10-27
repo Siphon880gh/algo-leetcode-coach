@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Hash functions: scatter keys uniformly',
-    'summary' => 'A hash maps keys to integers; good hashes look random across buckets so chains stay short.',
+    'title' => 'Hash functions: spread keys evenly',
+    'summary' => 'A hash function turns a key into a number, and a good one spreads keys evenly over the buckets so each bucket stays short.',
     'category' => 'Data Structures',
     'subcategory' => 'Hash Map',
     'kind' => 'algo',

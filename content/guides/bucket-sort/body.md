@@ -1,28 +1,28 @@
 ## Tiny example
 
-Sort floats roughly uniform in `[0, 1)`: `[0.42, 0.11, 0.75, 0.08]`.
+Sort these values, which are spread roughly evenly between 0 and 1: `[0.42, 0.11, 0.75, 0.08]`.
 
-1. Create 4 buckets (one per quarter of the range)
-2. Scatter: `0.08` and `0.11` → bucket 0; `0.42` → bucket 1; `0.75` → bucket 2
-3. Sort each bucket (insertion sort is fine when buckets are small)
-4. Concatenate buckets → `[0.08, 0.11, 0.42, 0.75]`
+1. Make 4 buckets, one for each quarter of the range.
+2. Scatter the values. `0.08` and `0.11` go to bucket 0, `0.42` goes to bucket 1, and `0.75` goes to bucket 2.
+3. Sort each bucket. Insertion sort is fine because the buckets are small.
+4. Join the buckets in order: `[0.08, 0.11, 0.42, 0.75]`.
 
 ## How
 
-1. Choose bucket count and a hash/range rule
-2. Scatter each element
-3. Sort locally
-4. Stitch
+1. Choose how many buckets to use and a rule that maps each value to a bucket.
+2. Put each element in its bucket.
+3. Sort each bucket.
+4. Join the buckets in order.
 
-Average **O(n)** when data is uniform enough that buckets stay small; worst **O(n²)** if everything lands in one bucket and you use a quadratic local sort.
+On average this is **O(n)** when the data is spread evenly enough that buckets stay small. In the worst case, everything lands in one bucket, and a quadratic sort inside it makes the whole thing **O(n²)**.
 
 ## Trap
 
-Assuming bucket sort is always linear regardless of distribution.
+Assuming bucket sort is linear no matter how the data is spread.
 
-**Fix:** State the uniformity assumption — or fall back to an O(n log n) sort inside buckets.
+**Fix:** Say that you are assuming evenly spread data, or sort each bucket with an O(n log n) sort.
 
-**Time:** average O(n) under uniformity · **Space:** O(n + buckets)
+**Time:** O(n) on average for evenly spread data · **Space:** O(n + number of buckets)
 
 > [!ui-builder] Mini game
 > INPUT_TOPIC: Theory or problem

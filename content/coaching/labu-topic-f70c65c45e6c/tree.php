@@ -10,49 +10,49 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "State:\nsubsets of [1,1,2], need unique sets\n\nPrep?",
+            'message' => "State:\nsubsets of [1, 1, 2]\neach subset should appear once\n\nWhat do you do first?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'Sort so equal 1s are adjacent', 'next' => 'mid'],
+                ['label' => 'Sort, so the equal 1s are next to each other', 'next' => 'mid'],
                 ['label' => 'Never sort', 'next' => 'w1'],
             ],
         ],
         'w1' => [
-            'message' => "Wrong.\n\nSorting enables the neighbor skip rule.\n\nStep back.",
+            'message' => "Wrong.\n\nSorting is what makes the neighbor skip rule work.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'start',
             'choices' => [],
         ],
         'mid' => [
-            'message' => "State:\nat a depth, nums[i]==nums[i-1], and i-1 not used here\n\n?",
+            'message' => "State:\nat this depth, nums[i] == nums[i-1]\nand i-1 was not used at this depth\n\nWhat do you do?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Skip i', 'next' => 'final'],
-                ['label' => 'Must take i anyway', 'next' => 'w2'],
+                ['label' => 'Take i anyway', 'next' => 'w2'],
             ],
         ],
         'w2' => [
-            'message' => "Wrong.\n\nThat skip removes duplicate branches.\n\nStep back.",
+            'message' => "Wrong.\n\nSkipping i removes the duplicate branch.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'mid',
             'choices' => [],
         ],
         'final' => [
-            'message' => "State:\nwithout dedup\n\nRisk?",
+            'message' => "State:\nyou leave out the deduplication step\n\nWhat is the risk?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'Duplicate answers in the result list', 'next' => 'success'],
-                ['label' => 'Faster correct answers', 'next' => 'w3'],
+                ['label' => 'Duplicate subsets in the result', 'next' => 'success'],
+                ['label' => 'Faster, still correct answers', 'next' => 'w3'],
             ],
         ],
         'w3' => [
-            'message' => "Wrong.\n\nDup branches emit dup subsets.\n\nStep back.",
+            'message' => "Wrong.\n\nDuplicate branches produce duplicate subsets.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'final',
             'choices' => [],
         ],
         'success' => [
-            'message' => "Correct.\n\n- Sort + skip equal unused neighbors\n- Unique results\n\nYou finished this path.",
+            'message' => "Correct.\n\n- Sort, then skip an equal neighbor that was not used.\n- Each result appears once.\n\nYou finished this path.",
             'outcome' => 'success',
             'choices' => [],
         ],

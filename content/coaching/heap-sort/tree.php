@@ -10,49 +10,49 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "State:\na = [3, 1, 4, 2]\nafter build max-heap\n\nRoot holds?",
+            'message' => "State:\na = [3, 1, 4, 2]\nthe max-heap has just been built\n\nWhat is at the root?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => '4 — maximum of the array', 'next' => 'extract'],
-                ['label' => '1 — minimum of the array', 'next' => 'w_min'],
+                ['label' => '4, the maximum of the array', 'next' => 'extract'],
+                ['label' => '1, the minimum of the array', 'next' => 'w_min'],
             ],
         ],
         'w_min' => [
-            'message' => "Wrong.\n\nA max-heap root is the maximum.\n\nStep back.",
+            'message' => "Wrong.\n\nThe root of a max-heap is the maximum.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'start',
             'choices' => [],
         ],
         'extract' => [
-            'message' => "State:\nswap root with last, shrink heap, sift down\n\nWhat are you building?",
+            'message' => "State:\nyou keep swapping the root with the last slot, shrinking the heap, and sifting down\n\nWhat are you building?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'A growing sorted suffix of maxima on the right', 'next' => 'build'],
-                ['label' => 'A sorted prefix of minima on the left only', 'next' => 'w_pref'],
+                ['label' => 'A sorted section of the largest values, growing on the right', 'next' => 'build'],
+                ['label' => 'A sorted section of the smallest values, growing on the left', 'next' => 'w_pref'],
             ],
         ],
         'w_pref' => [
-            'message' => "Wrong.\n\nClassic heap sort parks extracted maxima at the end.\n\nStep back.",
+            'message' => "Wrong.\n\nClassic heap sort parks each extracted maximum at the end of the array.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'extract',
             'choices' => [],
         ],
         'build' => [
-            'message' => "State:\nbuild-heap on n items\n\nCost?",
+            'message' => "State:\nbuild a heap from n items\n\nHow much does that cost?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'O(n) — not O(n log n)', 'next' => 'success'],
-                ['label' => 'O(n log n) — each insert from empty is required', 'next' => 'w_build'],
+                ['label' => 'O(n), not O(n log n)', 'next' => 'success'],
+                ['label' => 'O(n log n), because you must insert each item into an empty heap', 'next' => 'w_build'],
             ],
         ],
         'w_build' => [
-            'message' => "Wrong.\n\nBottom-up heapify is O(n). Repeated push-from-empty would be O(n log n).\n\nStep back.",
+            'message' => "Wrong.\n\nBottom-up heapify is O(n). Pushing the items one at a time would be O(n log n).\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'build',
             'choices' => [],
         ],
         'success' => [
-            'message' => "Correct.\n\n- Heapify O(n), then n× sift → O(n log n)\n- In-place, not stable\n\nYou finished this path.",
+            'message' => "Correct.\n\n- Heapify in O(n), then do n sift-downs, for O(n log n) in total.\n- It sorts in place and is not stable.\n\nYou finished this path.",
             'outcome' => 'success',
             'choices' => [],
         ],

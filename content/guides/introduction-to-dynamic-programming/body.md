@@ -1,6 +1,6 @@
 ## Tiny example
 
-Naive recursion for Fib(5) draws a tree that computes Fib(3) **twice**, Fib(2) many times:
+Plain recursion for Fib(5) draws a call tree that computes Fib(3) **twice** and Fib(2) several times:
 
 ```
 F(5)
@@ -10,31 +10,31 @@ F(5)
  └─ F(3)   ← same work again
 ```
 
-Bottom-up on a line instead:
+Instead, fill the values from the bottom up along a line:
 
 ```
 i:     0  1  2  3  4  5
 f(i):  0  1  1  2  3  5
 ```
 
-Each index once. Two running variables are enough — O(n) time, O(1) extra space.
+Each index is computed once. Two running variables are enough, so this takes O(n) time and O(1) extra space.
 
-DP = overlapping subproblems + optimal substructure, **cached**.
+Dynamic programming means you **cache** the answers to subproblems that repeat, when the best answer builds from smaller best answers.
 
 ## How
 
-1. Write the recursive relation on a tiny n
-2. Notice repeated calls
-3. Memoize or fill a table in dependency order
-4. Compress to a few variables when only recent states matter
+1. Write the recursive relation and try it on a tiny n.
+2. Notice which calls repeat.
+3. Memoize, or fill a table in the order the values depend on each other.
+4. When only the last few states matter, keep just a few variables.
 
 ## Trap
 
-Memoizing a tree of **unique** subproblems — map overhead buys nothing.
+Adding a memo to a recursion where every subproblem is **different**. The cache costs memory and saves nothing.
 
-**Fix:** Confirm the same state is asked more than once before adding a cache.
+**Fix:** Check that the same state really is asked for more than once before adding a cache.
 
-**Fib time:** O(n) with DP vs exponential naive
+**Fibonacci time:** O(n) with DP, compared with exponential time for plain recursion
 
 > [!ui-builder] Mini game
 > INPUT_TOPIC: Theory or problem

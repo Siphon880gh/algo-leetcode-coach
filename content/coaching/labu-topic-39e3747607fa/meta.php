@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Binary trees: skill map: practice path',
-    'summary' => 'Traverse, recurse on left/right, BFS layers, then BST/heap specializations — learn in that order.',
+    'title' => 'Binary trees: what to learn first',
+    'summary' => 'Choose the right next skill at each stage of learning binary trees.',
     'category' => 'Data Structures',
     'subcategory' => 'Trees',
     'tags' => ['binary-tree', 'map', 'step-by-step'],

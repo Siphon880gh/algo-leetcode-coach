@@ -1,31 +1,31 @@
 ## Tiny example
 
-One item: weight **2**, value **3**. Capacity **4**. Unlimited copies.
+There is one item with weight **2** and value **3**. The capacity is **4**, and you may take as many copies as you like.
 
 ```
 dp = [0, 0, 0, 0, 0]
 ```
 
-Scan **c = 2 → 4**:
+Scan **c from 2 up to 4**:
 
-1. c=2: `dp[2] = max(0, dp[0]+3) = 3`
-2. c=3: stays 0 (no fit improvement)
-3. c=4: `dp[4] = max(0, dp[2]+3) = 6` ← second copy
+1. At c = 2: `dp[2] = max(0, dp[0] + 3) = 3`.
+2. At c = 3: nothing improves, so `dp[3]` stays 0.
+3. At c = 4: `dp[4] = max(0, dp[2] + 3) = 6`. This is the second copy.
 
-Forward order is why copy #2 sees copy #1. Backward would freeze at 3.
+Scanning forward is what lets the second copy build on the first. Scanning backward would stop at 3.
 
 ## How
 
-1. Confirm the problem allows many copies
-2. For each item, loop capacity **low → high**
-3. `dp[c] = max(dp[c], dp[c-w] + v)`
-4. Answer `dp[W]`
+1. Check that the problem allows many copies of an item.
+2. For each item, loop the capacity from **low to high**.
+3. Set `dp[c] = max(dp[c], dp[c - w] + v)`.
+4. The answer is `dp[W]`.
 
 ## Trap
 
-Using the 0-1 backward loop — you under-count copies.
+Using the backward loop from 0-1 knapsack. You undercount the copies.
 
-**Fix:** Unlimited ⇒ forward.
+**Fix:** When copies are unlimited, scan forward.
 
 **Time:** O(nW) · **Space:** O(W)
 

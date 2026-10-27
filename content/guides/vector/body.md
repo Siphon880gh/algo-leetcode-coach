@@ -1,27 +1,27 @@
 ## Tiny example (growth)
 
-A C++ `vector` / Java `ArrayList` starts as `[10, 20]` with **capacity 2**. You append `30`. Capacity is full, so the structure must grow before writing:
+A C++ `vector` or a Java `ArrayList` holds `[10, 20]` with **capacity 2**. You append `30`. The capacity is full, so the structure has to grow before it can write:
 
-1. Allocate a new buffer with capacity 4 (typical doubling)
-2. Copy `10` and `20` into the new buffer
-3. Write `30` at the next free slot → `[10, 20, 30, _]`
+1. Allocate a new buffer with capacity 4 (doubling is typical).
+2. Copy `10` and `20` into the new buffer.
+3. Write `30` into the next free slot, giving `[10, 20, 30, _]`.
 
-After that, a few more appends are cheap until capacity fills again. Doubling keeps **n appends amortized O(1)** each (total O(n)).
+After that, the next few appends are cheap until the capacity fills up again. Doubling keeps **n appends at amortized O(1)** each, or O(n) in total.
 
-## Where mid-insert shows up
+## Where inserting in the middle shows up
 
-Some interview problems rebuild an order by **inserting at index `k`** (for example “people by height”: each person `[h, k]` wants `k` taller-or-equal people in front). With a contiguous vector, every mid-insert **shifts the tail** — O(n) per insert, so **n inserts → O(n²)** if you are not careful.
+Some interview problems rebuild an order by **inserting at index `k`**. One example is "queue reconstruction by height", where each person `[h, k]` wants exactly `k` people who are as tall or taller in front of them. In a contiguous vector, every insert in the middle **shifts everything after it**. That costs O(n) per insert, so **n inserts cost O(n²)** if you are not careful.
 
-That is a different skill from growth-by-doubling. Growth is about *append when full*; rebuild-by-height is about *insert in the middle*.
+This is a different skill from growing by doubling. Growth is about *appending when the buffer is full*. Rebuilding by height is about *inserting in the middle*.
 
 ## Trap
 
-Treating “insert at index `k`” as O(1) because append felt cheap after doubling.
+Treating "insert at index `k`" as O(1) because appending felt cheap after doubling.
 
-**Fix:** Appends after growth are amortized O(1). Mid-inserts still shift elements — count that cost, or use a structure that supports fast ordered inserts when constraints force it.
+**Fix:** Appends are amortized O(1) thanks to growth. Inserts in the middle still shift elements, so count that cost, or use a structure with fast ordered inserts when the constraints require it.
 
 **Time (n appends with doubling):** O(n)  
-**Time (n naive mid-inserts):** O(n²)  
+**Time (n naive inserts in the middle):** O(n²)  
 **Space:** O(n)
 
 > [!ui-builder] Mini game

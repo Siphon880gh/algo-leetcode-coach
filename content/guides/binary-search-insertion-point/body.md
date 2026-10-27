@@ -1,26 +1,24 @@
 ## Tiny example
 
-Sorted `a = [1, 3, 5, 7]`. Insert `4` while keeping sorted order.
+The sorted array is `a = [1, 3, 5, 7]`. You want to insert `4` and keep the array sorted.
 
-Lower_bound = first index with `a[i] >= 4` → index `2` (before `5`).
+The insertion point is the first index where `a[i] >= 4`. That is index `2`, just before `5`. This index is also called the lower bound.
 
-After insert conceptually: `[1, 3, 4, 5, 7]`.
-
+After the insert the array would be `[1, 3, 4, 5, 7]`.
 
 ## How
 
-1. Binary search for the first index `i` where `a[i] >= x` (or `> x` for upper_bound)
-2. That index is the insertion point (may be `n` if all elements are smaller)
-3. Shift / splice there if you actually mutate an array
-
+1. Binary search for the first index `i` where `a[i] >= x`. For the upper bound, search for `a[i] > x` instead.
+2. That index is the insertion point. It can be `n` when every element is smaller than `x`.
+3. If you really change the array, shift the tail and write `x` at that index.
 
 ## Trap
 
-Returning any index where `a[i] == x` when duplicates exist and you needed the lower edge.
+Returning any index where `a[i] == x`. With duplicates, that may not be the leftmost one, and if `x` is missing there is no match at all.
 
-**Fix:** Use the first-True boundary template on `a[i] >= x`.
+**Fix:** Use the "first index where the test is true" template with the test `a[i] >= x`.
 
-**Time:** O(log n) search (+ O(n) if shifting an array) · **Space:** O(1) for the search
+**Time:** O(log n) for the search, plus O(n) if you shift an array · **Space:** O(1) for the search
 
 > [!ui-builder] Mini game
 > INPUT_TOPIC: Theory or problem

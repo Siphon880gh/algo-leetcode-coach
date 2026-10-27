@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Greedy: earliest-finish activities',
-    'summary' => 'Select [1,4],[5,7],[8,9] and know knapsack is not always greedy.',
+    'title' => 'Greedy: pick the activities that finish earliest',
+    'summary' => 'Select [1, 4], [5, 7] and [8, 9], and see why the knapsack problem is not always greedy.',
     'category' => 'Algorithms',
     'subcategory' => 'Greedy',
     'tags' => ['greedy', 'step-by-step'],

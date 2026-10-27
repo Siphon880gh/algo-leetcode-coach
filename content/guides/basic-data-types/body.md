@@ -1,31 +1,31 @@
 ## Tiny example
 
-In a typical language:
+Typical sizes in a common language:
 
-| Type | Example width | Note |
+| Type | Typical size | Note |
 |------|---------------|------|
-| `bool` | 1 bit/byte | True/false |
-| `int32` | 4 bytes | Overflow at ±2³¹ |
-| `float64` | 8 bytes | Approx reals |
-| `char` / code unit | 1–4 bytes | Encoding matters |
+| `bool` | 1 byte | True or false |
+| `int32` | 4 bytes | Overflows past about ±2.1 billion (2³¹) |
+| `float64` | 8 bytes | Approximate real numbers |
+| `char` | 1 to 4 bytes | Depends on the text encoding |
 
-An array of 1000 `int32` needs ~4000 bytes of payload (plus header). Overflow wraps or errors — algorithms that sum large ranges must pick wider types or modular rules.
+An array of 1000 `int32` values needs about 4000 bytes for the values themselves, plus a small header.
 
+When an integer overflows, it either wraps around or raises an error. An algorithm that adds up large numbers must use a wider type or work modulo some number.
 
 ## How
 
-1. Know element size when estimating memory
-2. Know overflow behavior for integer algorithms
-3. Do not assume float equality without tolerance
-
+1. Know the size of each element when you estimate memory.
+2. Know what happens on integer overflow in your language.
+3. Never compare floats for exact equality. Use a tolerance.
 
 ## Trap
 
-Using float keys in a hash set for money/exact counts.
+Using floating-point numbers for money or exact counts, for example as hash set keys.
 
-**Fix:** Prefer integers for exact counts; floats are approximate.
+**Fix:** Use integers for exact values, such as counting money in cents. Floats are approximate.
 
-**Space:** element_size × n (+ overhead)
+**Space:** element size × n, plus overhead
 
 > [!ui-builder] Mini game
 > INPUT_TOPIC: Theory or problem

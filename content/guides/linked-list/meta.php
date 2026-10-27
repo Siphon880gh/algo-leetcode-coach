@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 return [
     'title' => 'Linked list: local edits, no random access',
-    'summary' => 'Nodes hold a value and a next pointer — O(1) splice if you hold the neighbor, O(n) to reach index i.',
+    'summary' => 'Each node holds a value and a pointer to the next one, so splicing next to a node you hold is O(1), but reaching index i takes O(n).',
     'category' => 'Data Structures',
     'subcategory' => 'Linked List',
     'kind' => 'algo',

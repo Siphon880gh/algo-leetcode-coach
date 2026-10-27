@@ -10,49 +10,49 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "State:\nkeys = [2, 0, 2, 1, 0]\nrange = 0..2\n\ncount array after one pass?",
+            'message' => "State:\nkeys = [2, 0, 2, 1, 0]\nevery key is between 0 and 2\n\nWhat is the count array after one pass?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => '[2, 1, 2] — frequencies of 0,1,2', 'next' => 'place'],
-                ['label' => '[0, 1, 2] — the sorted unique keys only', 'next' => 'w_unique'],
+                ['label' => '[2, 1, 2], the number of 0s, 1s and 2s', 'next' => 'place'],
+                ['label' => '[0, 1, 2], just the distinct keys in order', 'next' => 'w_unique'],
             ],
         ],
         'w_unique' => [
-            'message' => "Wrong.\n\nCounting stores frequencies, including duplicates.\n\nStep back.",
+            'message' => "Wrong.\n\nThe count array stores how many times each key appears, duplicates included.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'start',
             'choices' => [],
         ],
         'place' => [
-            'message' => "State:\nneed stable placement into output\n\nTypical scan direction?",
+            'message' => "State:\nyou need a stable placement into the output\n\nWhich way do you usually scan the input?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'Right to left while consuming prefix positions', 'next' => 'range'],
-                ['label' => 'Random order — stability never matters here', 'next' => 'w_rand'],
+                ['label' => 'Right to left, using up the running-total positions', 'next' => 'range'],
+                ['label' => 'In any order, because stability never matters here', 'next' => 'w_rand'],
             ],
         ],
         'w_rand' => [
-            'message' => "Wrong.\n\nStability is why we walk carefully with prefix sums.\n\nStep back.",
+            'message' => "Wrong.\n\nStability is the reason you walk the input carefully with the running totals.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'place',
             'choices' => [],
         ],
         'range' => [
-            'message' => "State:\nkeys are arbitrary 64-bit ids, k enormous\n\nUse counting sort?",
+            'message' => "State:\nthe keys are arbitrary 64-bit ids, so k is enormous\n\nShould you use counting sort?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'No — need small k; else memory/time O(k) explodes', 'next' => 'success'],
-                ['label' => 'Yes — counting always beats comparison sorts', 'next' => 'w_always'],
+                ['label' => 'No. It needs a small k, or the O(k) memory and time explode.', 'next' => 'success'],
+                ['label' => 'Yes. Counting sort always beats comparison sorts.', 'next' => 'w_always'],
             ],
         ],
         'w_always' => [
-            'message' => "Wrong.\n\nCounting needs a small universe. Comparison sorts handle general keys.\n\nStep back.",
+            'message' => "Wrong.\n\nCounting sort needs a small range of keys. Comparison sorts handle general keys.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'range',
             'choices' => [],
         ],
         'success' => [
-            'message' => "Correct.\n\n- Count → prefix → place\n- O(n+k) when k is small\n\nYou finished this path.",
+            'message' => "Correct.\n\n- Count the keys, build running totals, then place each key.\n- It runs in O(n + k) when k is small.\n\nYou finished this path.",
             'outcome' => 'success',
             'choices' => [],
         ],

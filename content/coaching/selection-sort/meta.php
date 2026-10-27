@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Selection sort: place mins on [3,1,2]',
-    'summary' => 'Swap the global min into index 0, then continue.',
+    'title' => 'Selection sort: place the minimums of [3, 1, 4, 2]',
+    'summary' => 'Swap the smallest value into index 0, then repeat on the rest.',
     'category' => 'Algorithms',
     'subcategory' => 'Sorting',
     'tags' => ['selection-sort', 'step-by-step'],

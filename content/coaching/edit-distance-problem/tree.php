@@ -10,85 +10,49 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => 'State:
-a = "cat"
-b = "cut"
-
-Empty table borders:
-dp[0][j] = j  (insert j letters into "")
-dp[i][0] = i  (delete i letters to get "")
-
-What is dp[1][1] for prefixes "c" → "c"?',
+            'message' => "State:\na = \"cat\"\nb = \"cut\"\n\nTable borders:\ndp[0][j] = j (insert j letters into the empty string)\ndp[i][0] = i (delete i letters to reach the empty string)\n\nWhat is dp[1][1], for turning \"c\" into \"c\"?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => '0 — last letters match, copy diagonal', 'next' => 'after_match'],
-                ['label' => '1 — always pay a replace', 'next' => 'w_match'],
+                ['label' => '0, because the last letters match, so copy the diagonal', 'next' => 'after_match'],
+                ['label' => '1, because you always pay for a replace', 'next' => 'w_match'],
             ],
         ],
         'w_match' => [
-            'message' => 'Wrong.
-
-Both prefixes end in c. Matching letters need no edit — carry dp[0][0]=0.
-
-Step back.',
+            'message' => "Wrong.\n\nBoth prefixes end in c. Matching letters need no edit, so carry over dp[0][0] = 0.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'start',
             'choices' => [],
         ],
         'after_match' => [
-            'message' => 'State:
-dp so far:
-  ""  c  cu
-c  0   0   1
-ca 1   1   ?
-
-Cell for "ca" → "cu" (last letters a vs u differ). Value?',
+            'message' => "State:\nthe table so far:\n  \"\"  c  cu\nc  0   0   1\nca 1   1   ?\n\nThe cell for turning \"ca\" into \"cu\" has different last letters, a and u. What is its value?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => '1 — replace a→u on top of dp[1][1]=0', 'next' => 'ask_full'],
-                ['label' => '2 — insert and delete both', 'next' => 'w_diff'],
+                ['label' => '1: replace a with u, on top of dp[1][1] = 0', 'next' => 'ask_full'],
+                ['label' => '2: one insert plus one delete', 'next' => 'w_diff'],
             ],
         ],
         'w_diff' => [
-            'message' => 'Wrong.
-
-1 + min(insert=dp[2][1]+…, delete=dp[1][2]+…, replace=dp[1][1]) = 1 + 0 = 1.
-
-Step back.',
+            'message' => "Wrong.\n\nThe cell is 1 plus the smallest of its three neighbors. The diagonal neighbor dp[1][1] is 0, so the value is 1 + 0 = 1.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'after_match',
             'choices' => [],
         ],
         'ask_full' => [
-            'message' => 'State:
-full strings cat → cut
-bottom-right of the table
-
-Edit distance?',
+            'message' => "State:\nfull strings: turn \"cat\" into \"cut\"\nlook at the bottom-right cell\n\nWhat is the edit distance?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => '1 — only replace a with u', 'next' => 'success'],
-                ['label' => '3 — length of cat', 'next' => 'w_len'],
+                ['label' => '1, by replacing a with u', 'next' => 'success'],
+                ['label' => '3, the length of "cat"', 'next' => 'w_len'],
             ],
         ],
         'w_len' => [
-            'message' => 'Wrong.
-
-Length is not distance. One replace finishes the job.
-
-Step back.',
+            'message' => "Wrong.\n\nThe length of a word is not the distance. One replace does the whole job.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'ask_full',
             'choices' => [],
         ],
         'success' => [
-            'message' => 'Correct.
-
-- Borders = pure inserts/deletes
-- Match → free diagonal
-- Differ → 1 + min of three neighbors
-
-You finished this path.',
+            'message' => "Correct.\n\n- The borders count pure inserts and pure deletes.\n- Matching letters copy the diagonal for free.\n- Different letters cost 1 plus the smallest of the three neighbors.\n\nYou finished this path.",
             'outcome' => 'success',
             'choices' => [],
         ],

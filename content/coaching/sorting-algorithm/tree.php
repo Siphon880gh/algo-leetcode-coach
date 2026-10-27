@@ -10,49 +10,49 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "State:\nneed stable O(n log n) sort with extra buffer OK\n\nGood classic pick?",
+            'message' => "State:\nyou need a stable O(n log n) sort, and an extra buffer is fine\n\nWhich classic algorithm fits?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Merge sort', 'next' => 'mid'],
-                ['label' => 'Heap sort — stable and needs Θ(n) buffer', 'next' => 'w1'],
+                ['label' => 'Heap sort, which is stable and needs a Θ(n) buffer', 'next' => 'w1'],
             ],
         ],
         'w1' => [
-            'message' => "Wrong.\n\nHeap sort is not stable and is in-place.\n\nStep back.",
+            'message' => "Wrong.\n\nHeap sort is not stable, and it works in place.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'start',
             'choices' => [],
         ],
         'mid' => [
-            'message' => "State:\narray almost sorted, n tiny\n\nStrong simple pick?",
+            'message' => "State:\nthe array is almost sorted, and n is tiny\n\nWhich simple algorithm fits well?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Insertion sort', 'next' => 'final'],
-                ['label' => 'Always radix — even for arbitrary objects', 'next' => 'w2'],
+                ['label' => 'Radix sort, always, even for arbitrary objects', 'next' => 'w2'],
             ],
         ],
         'w2' => [
-            'message' => "Wrong.\n\nNearly sorted arrays are insertion’s sweet spot.\n\nStep back.",
+            'message' => "Wrong.\n\nNearly sorted arrays are where insertion sort shines.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'mid',
             'choices' => [],
         ],
         'final' => [
-            'message' => "State:\nquicksort on sorted input with last-element pivot\n\nRisk?",
+            'message' => "State:\nquicksort on sorted input, using the last element as the pivot\n\nWhat is the risk?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'O(n²) partitions', 'next' => 'success'],
-                ['label' => 'Still Θ(n log n) guaranteed', 'next' => 'w3'],
+                ['label' => 'O(n²), from lopsided partitions', 'next' => 'success'],
+                ['label' => 'It is still guaranteed Θ(n log n)', 'next' => 'w3'],
             ],
         ],
         'w3' => [
-            'message' => "Wrong.\n\nThat pivot policy skews on sorted data.\n\nStep back.",
+            'message' => "Wrong.\n\nThat pivot choice produces lopsided partitions on sorted data.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'final',
             'choices' => [],
         ],
         'success' => [
-            'message' => "Correct.\n\n- Match sort to constraints\n- Know stability, space, and worst cases\n\nYou finished this path.",
+            'message' => "Correct.\n\n- Match the sort to the constraints.\n- Know each algorithm's stability, space and worst case.\n\nYou finished this path.",
             'outcome' => 'success',
             'choices' => [],
         ],

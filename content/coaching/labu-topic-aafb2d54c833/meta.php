@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Greedy algorithm foundations: practice path',
-    'summary' => 'Greedy picks the locally best choice — correct only when a proof says it never blocks a better global answer.',
+    'title' => 'Greedy basics: earliest end first',
+    'summary' => 'Pick intervals by earliest end, then decide what to do when a greedy rule has no proof.',
     'category' => 'Algorithms',
     'subcategory' => 'Greedy',
     'tags' => ['greedy', 'foundations', 'step-by-step'],

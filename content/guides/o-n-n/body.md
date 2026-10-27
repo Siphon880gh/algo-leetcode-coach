@@ -1,29 +1,27 @@
 ## Tiny example
 
-You wrote “one loop” over n strings, each up to length n, and inside you do `s += char` on an immutable string.
+You wrote "one loop" over n strings, each up to length n. Inside it, you build a string with `s += char`, and strings are immutable.
 
-Outer looks O(n), but:
+The outer loop looks O(n), but:
 
-1. Each string op may copy → hidden quadratic
-2. Element work is O(n) → total O(n²)
+1. Each string operation may copy the whole string, which hides a quadratic cost.
+2. The work per element is O(n), so the total is O(n²).
 
-“O(n)” on paper times out when the **hidden factor** is large or another n sneaks in.
-
+A solution that is "O(n)" on paper can time out when the **hidden factor** is large or another n sneaks in.
 
 ## How
 
-1. Expand what each iteration really costs
-2. Check library calls (copy, sort, contains on lists)
-3. Re-budget: maybe O(n·cost(element))
-
+1. Spell out what each iteration really costs.
+2. Check library calls, such as copying, sorting, or `contains` on a list.
+3. Recalculate the total, which may be O(n · cost per element).
 
 ## Trap
 
-Trusting a method named `contains` on a list is O(1) because “it’s one call”.
+Assuming a method like `contains` on a list is O(1) because "it is just one call".
 
-**Fix:** List contains is O(n). Use a set for membership.
+**Fix:** `contains` on a list is O(n). Use a set for membership tests.
 
-**Mindset:** multiply outer iterations by real per-iteration cost.
+**Mindset:** multiply the number of iterations by the real cost of each one.
 
 > [!ui-builder] Mini game
 > INPUT_TOPIC: Theory or problem

@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Array: index vs mid-insert',
-    'summary' => 'Decide costs on [72, 88, 91, 65, 80] — when O(1) holds and when a shift hurts.',
+    'title' => 'Array: reading by index versus inserting in the middle',
+    'summary' => 'Work out the costs on [72, 88, 91, 65, 80] and see when O(1) holds and when shifting hurts.',
     'category' => 'Data Structures',
     'subcategory' => 'Arrays',
     'tags' => ['array', 'step-by-step'],

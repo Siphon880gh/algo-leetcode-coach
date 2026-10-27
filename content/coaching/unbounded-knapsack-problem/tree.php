@@ -10,79 +10,49 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => 'State:
-dp = [0, 0, 0, 0, 0]
-W = 4
-item (1,15), unlimited copies
-
-After a forward scan of this item, dp[4]?',
+            'message' => "State:\ndp = [0, 0, 0, 0, 0]\nW = 4\nitem (1, 15), unlimited copies\n\nAfter a forward scan with this item, what is dp[4]?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => '60 — four stacked copies', 'next' => 'ask_dir'],
-                ['label' => '15 — only one copy', 'next' => 'w_one'],
+                ['label' => '60, from four stacked copies', 'next' => 'ask_dir'],
+                ['label' => '15, from only one copy', 'next' => 'w_one'],
             ],
         ],
         'w_one' => [
-            'message' => 'Wrong.
-
-Forward updates let dp[1]=15 feed dp[2]=30 … dp[4]=60.
-
-Step back.',
+            'message' => "Wrong.\n\nForward updates let dp[1] = 15 feed dp[2] = 30, and so on up to dp[4] = 60.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'start',
             'choices' => [],
         ],
         'ask_dir' => [
-            'message' => 'State:
-unlimited copies
-1D dp
-
-Capacity loop?',
+            'message' => "State:\nunlimited copies\none dp array\n\nWhich way does the capacity loop go?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'Low → high (forward)', 'next' => 'ask_vs'],
-                ['label' => 'High → low (backward)', 'next' => 'w_dir'],
+                ['label' => 'From low to high (forward)', 'next' => 'ask_vs'],
+                ['label' => 'From high to low (backward)', 'next' => 'w_dir'],
             ],
         ],
         'w_dir' => [
-            'message' => 'Wrong.
-
-Backward is the 0-1 pattern. Forward stacks copies.
-
-Step back.',
+            'message' => "Wrong.\n\nBackward is the 0-1 pattern. Forward lets copies stack.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'ask_dir',
             'choices' => [],
         ],
         'ask_vs' => [
-            'message' => 'State:
-same items, but each at most once (0-1)
-W = 4
-
-Best then?',
+            'message' => "State:\nnow suppose each item can be used at most once (0-1)\nW = 4\n\nWhat is the best value then?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => '35 — e.g. (1,15)+(3,20), not 60', 'next' => 'success'],
-                ['label' => '60 — repeats still allowed', 'next' => 'w_01'],
+                ['label' => '35, for example (1, 15) plus (3, 20), not 60', 'next' => 'success'],
+                ['label' => '60, because repeats are still allowed', 'next' => 'w_01'],
             ],
         ],
         'w_01' => [
-            'message' => 'Wrong.
-
-0-1 forbids stacking the weight-1 item. Optimum drops to 35.
-
-Step back.',
+            'message' => "Wrong.\n\nThe 0-1 rule forbids stacking the weight-1 item, so the best drops to 35.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'ask_vs',
             'choices' => [],
         ],
         'success' => [
-            'message' => 'Correct.
-
-- Forward loop stacks copies → 60 here
-- 0-1 would stop at 35
-
-You finished this path.',
+            'message' => "Correct.\n\n- A forward loop stacks copies, reaching 60 here.\n- The 0-1 rule would stop at 35.\n\nYou finished this path.",
             'outcome' => 'success',
             'choices' => [],
         ],

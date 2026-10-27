@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 return [
     'title' => 'Multiple knapsack: bounded copies',
-    'summary' => 'Item i may be taken up to k_i times — expand copies, binary-split counts, or loop a third multiplicity dimension.',
+    'summary' => 'When an item may be taken at most k times, expand it into separate copies or binary packs and solve it as a 0-1 knapsack.',
     'category' => 'Algorithms',
     'subcategory' => 'Dynamic Programming',
     'kind' => 'algo',

@@ -10,49 +10,49 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "State:\nneed first index where predicate becomes true\n\nTemplate?",
+            'message' => "State:\nyou need the first index where a condition becomes true\n\nWhich template fits?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'Boundary binary search', 'next' => 'mid'],
-                ['label' => 'Topo BFS', 'next' => 'w1'],
+                ['label' => 'Binary search for a boundary', 'next' => 'mid'],
+                ['label' => 'Topological sort with BFS', 'next' => 'w1'],
             ],
         ],
         'w1' => [
-            'message' => "Wrong.\n\nBounds binary search fits.\n\nStep back.",
+            'message' => "Wrong.\n\nFinding a boundary is the job of the binary search template.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'start',
             'choices' => [],
         ],
         'mid' => [
-            'message' => "State:\nbefore coding ok(mid)\n\n?",
+            'message' => "State:\nyou are about to write ok(mid)\n\nWhat do you do first?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'Sentence: what True means', 'next' => 'final'],
-                ['label' => 'Guess lo=mid+1 randomly', 'next' => 'w2'],
+                ['label' => 'Write one sentence saying what true means', 'next' => 'final'],
+                ['label' => 'Guess where to put lo = mid + 1', 'next' => 'w2'],
             ],
         ],
         'w2' => [
-            'message' => "Wrong.\n\nDefine the predicate first.\n\nStep back.",
+            'message' => "Wrong.\n\nDefine the condition first, then the bounds follow.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'mid',
             'choices' => [],
         ],
         'final' => [
-            'message' => "State:\ncourses with prerequisites\n\nTemplate?",
+            'message' => "State:\ncourses with prerequisites\n\nWhich template fits?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'Topo BFS / DFS cycle detect', 'next' => 'success'],
-                ['label' => 'Sliding window on strings', 'next' => 'w3'],
+                ['label' => 'Topological sort, with BFS or DFS cycle detection', 'next' => 'success'],
+                ['label' => 'A sliding window over strings', 'next' => 'w3'],
             ],
         ],
         'w3' => [
-            'message' => "Wrong.\n\nDependency order → topo.\n\nStep back.",
+            'message' => "Wrong.\n\nOrdering by dependencies is a topological sort.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'final',
             'choices' => [],
         ],
         'success' => [
-            'message' => "Correct.\n\n- Keep short skeletons\n- Fill problem-specific parts carefully\n\nYou finished this path.",
+            'message' => "Correct.\n\n- Keep the skeletons short.\n- Fill in the problem-specific parts carefully.\n\nYou finished this path.",
             'outcome' => 'success',
             'choices' => [],
         ],

@@ -10,49 +10,49 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "State:\npermutations of [1,2] via backtracking\n\nLeaves?",
+            'message' => "State:\nlist the permutations of [1, 2] with backtracking\n\nHow many leaves does the decision tree have?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => '2! = 2 complete orders', 'next' => 'mid'],
-                ['label' => '1 leaf only', 'next' => 'w1'],
+                ['label' => '2, one for each complete order (2! = 2)', 'next' => 'mid'],
+                ['label' => 'Only 1', 'next' => 'w1'],
             ],
         ],
         'w1' => [
-            'message' => "Wrong.\n\nBoth orders appear as leaves.\n\nStep back.",
+            'message' => "Wrong.\n\nBoth orders, [1, 2] and [2, 1], appear as leaves.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'start',
             'choices' => [],
         ],
         'mid' => [
-            'message' => "State:\npartial path already violates a hard constraint\n\n?",
+            'message' => "State:\nthe partial path already breaks a hard constraint\n\nWhat do you do?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'Prune — return', 'next' => 'final'],
-                ['label' => 'Keep exploring hoping it fixes itself', 'next' => 'w2'],
+                ['label' => 'Prune it and return', 'next' => 'final'],
+                ['label' => 'Keep exploring in case it fixes itself', 'next' => 'w2'],
             ],
         ],
         'w2' => [
-            'message' => "Wrong.\n\nDead partials should prune.\n\nStep back.",
+            'message' => "Wrong.\n\nA partial path that is already invalid can never become valid. Prune it.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'mid',
             'choices' => [],
         ],
         'final' => [
-            'message' => "State:\nafter trying a choice\n\n?",
+            'message' => "State:\nyou have finished trying one choice\n\nWhat must happen before the next choice at this depth?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'Undo marks before the next sibling', 'next' => 'success'],
-                ['label' => 'Leave marks for siblings', 'next' => 'w3'],
+                ['label' => 'Undo the marks you made', 'next' => 'success'],
+                ['label' => 'Leave the marks in place for the next choice', 'next' => 'w3'],
             ],
         ],
         'w3' => [
-            'message' => "Wrong.\n\nUndo is mandatory.\n\nStep back.",
+            'message' => "Wrong.\n\nUndoing is required, or the next choice sees the wrong state.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'final',
             'choices' => [],
         ],
         'success' => [
-            'message' => "Correct.\n\n- Decision tree + prune + undo\n- Explore feasible leaves\n\nYou finished this path.",
+            'message' => "Correct.\n\n- Walk the decision tree.\n- Prune dead ends.\n- Undo after each choice.\n\nYou finished this path.",
             'outcome' => 'success',
             'choices' => [],
         ],

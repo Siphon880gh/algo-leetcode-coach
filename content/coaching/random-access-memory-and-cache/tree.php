@@ -10,49 +10,49 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "State:\nscan n ints in an array vs linked list\n\nUsually faster?",
+            'message' => "State:\nscan n integers, stored in an array or in a linked list\n\nWhich is usually faster?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'Array — sequential cache lines', 'next' => 'mid'],
-                ['label' => 'Linked list — jumps are free', 'next' => 'w1'],
+                ['label' => 'The array, which reads cache lines in order', 'next' => 'mid'],
+                ['label' => 'The linked list, because pointer jumps are free', 'next' => 'w1'],
             ],
         ],
         'w1' => [
-            'message' => "Wrong.\n\nPointer chasing misses cache more.\n\nStep back.",
+            'message' => "Wrong.\n\nChasing pointers causes more cache misses.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'start',
             'choices' => [],
         ],
         'mid' => [
-            'message' => "State:\nboth walks are O(n)\n\nSame milliseconds?",
+            'message' => "State:\nboth walks are O(n)\n\nDo they take the same number of milliseconds?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'Not necessarily — locality differs', 'next' => 'final'],
-                ['label' => 'Yes — Big-O identical means identical time', 'next' => 'w2'],
+                ['label' => 'Not necessarily, because their memory locality differs', 'next' => 'final'],
+                ['label' => 'Yes, because the same Big-O means the same time', 'next' => 'w2'],
             ],
         ],
         'w2' => [
-            'message' => "Wrong.\n\nConstants and cache matter.\n\nStep back.",
+            'message' => "Wrong.\n\nConstant factors and the cache matter.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'mid',
             'choices' => [],
         ],
         'final' => [
-            'message' => "State:\nCPU fetches memory\n\nUnit often?",
+            'message' => "State:\nthe CPU fetches memory\n\nWhat unit does it usually load?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'Cache line (block), not one int at a time', 'next' => 'success'],
-                ['label' => 'Exactly one byte per request always', 'next' => 'w3'],
+                ['label' => 'A cache line (a block), not one integer at a time', 'next' => 'success'],
+                ['label' => 'Exactly one byte per request', 'next' => 'w3'],
             ],
         ],
         'w3' => [
-            'message' => "Wrong.\n\nHardware loads lines/blocks.\n\nStep back.",
+            'message' => "Wrong.\n\nThe hardware loads whole lines or blocks.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'final',
             'choices' => [],
         ],
         'success' => [
-            'message' => "Correct.\n\n- Contiguous scans stream\n- Pointer chase stalls\n\nYou finished this path.",
+            'message' => "Correct.\n\n- Contiguous scans stream through the cache.\n- Chasing pointers causes stalls.\n\nYou finished this path.",
             'outcome' => 'success',
             'choices' => [],
         ],

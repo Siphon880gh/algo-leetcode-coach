@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Fractional knapsack: take by value density',
-    'summary' => 'Sort items by value/weight and take greedily — fractions allowed, so the greedy choice is optimal.',
+    'title' => 'Fractional knapsack: take the best value per weight first',
+    'summary' => 'When you can take part of an item, sorting by value per unit of weight and filling the bag greedily gives the best total.',
     'category' => 'Algorithms',
     'subcategory' => 'Greedy',
     'kind' => 'algo',

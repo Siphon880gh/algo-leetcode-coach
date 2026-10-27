@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 return [
     'title' => 'Binary tree: at most two children per node',
-    'summary' => 'Each node has left and right references — the shape behind heaps, BSTs, and expression trees.',
+    'summary' => 'Each node in a binary tree has at most a left and a right child, the shape behind heaps, search trees and expression trees.',
     'category' => 'Data Structures',
     'subcategory' => 'Trees',
     'kind' => 'algo',

@@ -1,26 +1,24 @@
 ## Tiny example
 
-Sort keys `[170, 45, 75, 90, 802, 24, 2, 66]` with LSD radix (base 10).
+Sort the keys `[170, 45, 75, 90, 802, 24, 2, 66]` with LSD (least significant digit) radix sort in base 10.
 
-1. Stable-sort by **ones**
-2. Stable-sort by **tens**
-3. Stable-sort by **hundreds**
+1. Stable-sort by the **ones** digit.
+2. Stable-sort by the **tens** digit.
+3. Stable-sort by the **hundreds** digit.
 
-After all digit passes, the list is fully sorted. Each pass is a stable counting sort on digits `0…9`.
-
+After the last digit pass, the list is fully sorted. Each pass is a stable counting sort on the digits `0…9`.
 
 ## How
 
-1. Choose base `b` (often 10 or 256)
-2. For each digit position from least significant to most
-3. Stable counting-sort by that digit
-
+1. Choose a base `b`, often 10 or 256.
+2. Go through the digit positions from least significant to most significant.
+3. For each position, do a stable counting sort by that digit.
 
 ## Trap
 
-Using an **unstable** partition for a digit pass — later digits cannot fix earlier disorder.
+Using an **unstable** partition for a digit pass. Later passes cannot undo the disorder it causes.
 
-**Fix:** Each digit pass must be stable (counting sort into an output buffer).
+**Fix:** Every digit pass must be stable, for example a counting sort into an output buffer.
 
 **Time:** O(d · (n + b)) for d digits · **Space:** O(n + b)
 

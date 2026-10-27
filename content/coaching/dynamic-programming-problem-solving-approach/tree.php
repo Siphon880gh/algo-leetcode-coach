@@ -10,49 +10,49 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "State:\nstairs f(i)=f(i-1)+f(i-2)\n\nFirst step in the playbook?",
+            'message' => "State:\nstairs: f(i) = f(i - 1) + f(i - 2)\n\nWhat is the first step of the playbook?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'Write/verify the recursive definition', 'next' => 'mid'],
-                ['label' => 'Roll to two variables immediately', 'next' => 'w1'],
+                ['label' => 'Write the recursive definition and check it', 'next' => 'mid'],
+                ['label' => 'Compress to two variables right away', 'next' => 'w1'],
             ],
         ],
         'w1' => [
-            'message' => "Wrong.\n\nDefinition first; compression last.\n\nStep back.",
+            'message' => "Wrong.\n\nThe definition comes first. Compression comes last.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'start',
             'choices' => [],
         ],
         'mid' => [
-            'message' => "State:\ntop-down works with memo\n\nNext often?",
+            'message' => "State:\nthe top-down recursion with memoization works\n\nWhat usually comes next?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'Bottom-up table in dependency order', 'next' => 'final'],
-                ['label' => 'Delete the recurrence and guess loops', 'next' => 'w2'],
+                ['label' => 'A bottom-up table filled in dependency order', 'next' => 'final'],
+                ['label' => 'Throw away the recurrence and guess some loops', 'next' => 'w2'],
             ],
         ],
         'w2' => [
-            'message' => "Wrong.\n\nTranslate the same recurrence downward.\n\nStep back.",
+            'message' => "Wrong.\n\nTranslate the same recurrence into a table.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'mid',
             'choices' => [],
         ],
         'final' => [
-            'message' => "State:\ndp[i] only needs i-1 and i-2\n\nCompress?",
+            'message' => "State:\ndp[i] only needs dp[i - 1] and dp[i - 2]\n\nCan you compress it?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'Two variables', 'next' => 'success'],
-                ['label' => 'Cannot compress ever', 'next' => 'w3'],
+                ['label' => 'Yes, to two variables', 'next' => 'success'],
+                ['label' => 'No, it can never be compressed', 'next' => 'w3'],
             ],
         ],
         'w3' => [
-            'message' => "Wrong.\n\nRolling is safe when live windows are tiny.\n\nStep back.",
+            'message' => "Wrong.\n\nWhen each step only needs a couple of earlier values, you can keep just those.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'final',
             'choices' => [],
         ],
         'success' => [
-            'message' => "Correct.\n\n- Brute → memo → table → compress\n- Same transition throughout\n\nYou finished this path.",
+            'message' => "Correct.\n\n- Go from plain recursion, to memoization, to a table, to a compressed loop.\n- Keep the same transition the whole way.\n\nYou finished this path.",
             'outcome' => 'success',
             'choices' => [],
         ],

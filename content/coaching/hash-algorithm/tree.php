@@ -10,49 +10,49 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "State:\ncapacity=8, need bucket index\n\nLast step after hash(key)?",
+            'message' => "State:\ncapacity = 8\nyou need a bucket index\n\nWhat is the last step after computing hash(key)?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'Fold with % 8 (or bitmask)', 'next' => 'mid'],
-                ['label' => 'Skip folding — raw hash is already an index', 'next' => 'w1'],
+                ['label' => 'Fold it into range with % 8, or with a bit mask', 'next' => 'mid'],
+                ['label' => 'Nothing, because the raw hash is already an index', 'next' => 'w1'],
             ],
         ],
         'w1' => [
-            'message' => "Wrong.\n\nHashes are large ints; fold into the table size.\n\nStep back.",
+            'message' => "Wrong.\n\nHashes are large integers. You have to fold them into the size of the table.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'start',
             'choices' => [],
         ],
         'mid' => [
-            'message' => "State:\nkeys are always multiples of 100; hash is key%1000\n\nRisk?",
+            'message' => "State:\nevery key is a multiple of 100\nthe hash is key % 1000\n\nWhat is the risk?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'Many collisions — pattern in keys survives', 'next' => 'final'],
-                ['label' => 'None — any % is perfect', 'next' => 'w2'],
+                ['label' => 'Many collisions, because the pattern in the keys survives', 'next' => 'final'],
+                ['label' => 'None, because any modulus spreads keys perfectly', 'next' => 'w2'],
             ],
         ],
         'w2' => [
-            'message' => "Wrong.\n\nStructured keys need mixing, not a weak modulus alone.\n\nStep back.",
+            'message' => "Wrong.\n\nKeys with a pattern need real mixing. A weak modulus on its own keeps the pattern.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'mid',
             'choices' => [],
         ],
         'final' => [
-            'message' => "State:\ngood hash + low load\n\nAverage chain length?",
+            'message' => "State:\na good hash and a low load factor\n\nHow long is a typical bucket chain?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'Small — near constant', 'next' => 'success'],
-                ['label' => 'Always Θ(n)', 'next' => 'w3'],
+                ['label' => 'Short, close to a constant', 'next' => 'success'],
+                ['label' => 'Always proportional to n', 'next' => 'w3'],
             ],
         ],
         'w3' => [
-            'message' => "Wrong.\n\nUniform hashing keeps buckets short.\n\nStep back.",
+            'message' => "Wrong.\n\nWhen keys spread evenly, buckets stay short.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'final',
             'choices' => [],
         ],
         'success' => [
-            'message' => "Correct.\n\n- Hash then fold into buckets\n- Aim for uniformity\n\nYou finished this path.",
+            'message' => "Correct.\n\n- Hash the key, then fold it into a bucket index.\n- Aim for an even spread.\n\nYou finished this path.",
             'outcome' => 'success',
             'choices' => [],
         ],

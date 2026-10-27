@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Fact(4): loop vs call stack',
-    'summary' => 'Contrast O(1) iterative space with O(n) recursive frames.',
+    'title' => 'Factorial of 4: a loop versus the call stack',
+    'summary' => 'Compare the O(1) space of a loop with the O(n) stack frames of recursion.',
     'category' => 'Algorithms',
     'subcategory' => 'Recursion',
     'tags' => ['iteration', 'recursion', 'step-by-step'],

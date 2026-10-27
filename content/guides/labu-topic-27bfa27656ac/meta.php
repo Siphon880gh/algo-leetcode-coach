@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Strings: patterns to remember',
-    'summary' => 'Two pointers on chars, sliding window with counts, KMP/rolling hash when needed, and immutable-vs-builder costs.',
+    'title' => 'String patterns worth remembering',
+    'summary' => 'Most string problems come down to two pointers, a sliding window with letter counts, or building the result efficiently.',
     'category' => 'Algorithms',
     'subcategory' => 'Strings',
     'kind' => 'algo',

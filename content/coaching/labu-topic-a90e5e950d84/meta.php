@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'DP foundations: build Fib from empty',
+    'title' => 'DP foundations: build Fibonacci from nothing',
     'summary' => 'Fill Fibonacci from f(0) and f(1) up to f(5) by adding the two numbers before each one.',
     'category' => 'Algorithms',
     'subcategory' => 'Dynamic Programming',

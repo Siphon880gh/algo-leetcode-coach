@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Linked list problem patterns: practice path',
-    'summary' => 'Reverse, merge, cycle, intersect, and partition — reuse pointer patterns.',
+    'title' => 'Linked list patterns: spot the clue',
+    'summary' => 'Match a cycle clue and a shared-tail clue to their pointer patterns.',
     'category' => 'Algorithms',
     'subcategory' => 'Linked List',
     'tags' => ['linked-list', 'patterns', 'step-by-step'],

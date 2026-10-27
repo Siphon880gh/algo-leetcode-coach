@@ -8,29 +8,29 @@
   1   3
 ```
 
-Invariant: every key in the left subtree `<` node; every key on the right `>`.
+The rule: every key in a node's left subtree is smaller than the node, and every key in its right subtree is larger.
 
 Search for `3`:
 
-1. `3 < 4` → go left
-2. `3 > 2` → go right
-3. Found `3`
+1. `3` is less than `4`, so go left.
+2. `3` is greater than `2`, so go right.
+3. Found `3`.
 
-Inorder walk yields `1, 2, 3, 4, 6` (sorted).
+An inorder walk visits `1, 2, 3, 4, 6`, which is sorted.
 
-## Ops
+## Operations
 
-1. Search / insert — follow one path; O(h)
-2. Delete — careful successor/predecessor cases
-3. Balanced height keeps h = O(log n); a skewed chain is h = O(n)
+1. Search and insert follow a single path from the root, so they cost O(h), where h is the height.
+2. Delete has a few cases. A node with two children is replaced by its successor or predecessor.
+3. A balanced tree has height O(log n). A tree that has become a chain has height O(n).
 
 ## Trap
 
-Inserting sorted keys into an unbalanced BST without rotations → linked-list shape, O(n) search.
+Inserting keys in sorted order into a search tree that never rebalances. The tree turns into a chain, and searches become O(n).
 
-**Fix:** Use AVL/Red-Black/Treap, or shuffle inserts, or do not rely on O(log n) without a balance guarantee.
+**Fix:** Use a self-balancing tree (AVL, red-black or treap), shuffle the inserts, or stop assuming O(log n) without a balance guarantee.
 
-**Time:** O(h) per op · **Space:** O(n)
+**Time:** O(h) per operation · **Space:** O(n)
 
 > [!ui-builder] Mini game
 > INPUT_TOPIC: Theory or problem

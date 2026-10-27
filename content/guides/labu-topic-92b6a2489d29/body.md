@@ -1,30 +1,28 @@
 ## Tiny example
 
-Binary heap as priority queue.
+A binary heap used as a priority queue.
 
-Array `[9,5,6,2,3]` max-heap. Ops:
+The array `[9, 5, 6, 2, 3]` is a max-heap. Its operations:
 
-1. `peek` → 9
-2. `push(10)` → sift up
-3. `pop` → replace root with last, sift down
+1. `peek` returns 9.
+2. `push(10)` appends 10 and sifts it up.
+3. `pop` moves the last element to the root and sifts it down.
 
-Priority queue ADT = these ops; binary heap is the common layout.
-
+A priority queue is defined by these operations. A binary heap is the usual way to implement it.
 
 ## How
 
-1. Map ADT ops to sift up/down
-2. Remember build-heap O(n)
-3. For arbitrary delete, keep handles
-
+1. Map each operation to sifting up or sifting down.
+2. Remember that building a heap takes O(n).
+3. To delete an arbitrary element, keep handles to elements.
 
 ## Trap
 
-Expecting decrease-key to be O(log n) without an index map.
+Expecting decrease-key to run in O(log n) without a map from elements to their positions.
 
-**Fix:** Store handle→index if you need change-key.
+**Fix:** Store a map from each handle to its index if you need to change keys.
 
-**Time:** peek O(1); push/pop O(log n)
+**Time:** `peek` is O(1); `push` and `pop` are O(log n)
 
 > [!ui-builder] Mini game
 > INPUT_TOPIC: Theory or problem

@@ -1,28 +1,26 @@
 ## Tiny example
 
-Binary tree skill map — learn in order on a small tree `1,(2,3)`:
+Learn binary trees in this order, practicing on a small tree with root `1` and children `2` and `3`:
 
-1. Traverse (DFS orders + BFS levels)
-2. Recurse on left/right for answers (height, diameter pieces)
-3. Specialize: BST invariants, heap shape
+1. **Traverse.** Walk the tree in the DFS orders (preorder, inorder, postorder) and level by level with BFS.
+2. **Recurse.** Compute answers such as height, or the pieces of a diameter, by combining the results from the left and right children.
+3. **Specialize.** Study the rules of binary search trees and the shape of heaps.
 
-Do not jump to AVL rotations before you can traverse confidently.
-
+Do not jump to AVL rotations before you can traverse a tree confidently.
 
 ## How
 
-1. Master walk orders
-2. Write divide-and-conquer on left/right
-3. Then study BST/heap rules
-
+1. Master the walk orders.
+2. Write divide and conquer on the left and right subtrees.
+3. Then study the rules for binary search trees and heaps.
 
 ## Trap
 
-Memorizing BST insert before knowing inorder/preorder.
+Memorizing binary search tree insertion before you know inorder and preorder traversal.
 
-**Fix:** Traversal fluency first.
+**Fix:** Get fluent with traversals first.
 
-**Time:** walks O(n)
+**Time:** each walk is O(n)
 
 > [!ui-builder] Mini game
 > INPUT_TOPIC: Theory or problem

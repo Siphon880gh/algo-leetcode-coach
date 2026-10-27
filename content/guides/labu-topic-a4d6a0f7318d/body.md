@@ -1,30 +1,28 @@
 ## Tiny example
 
-Multiple / bounded knapsack: item i may be taken up to `k_i` times.
+In the multiple (bounded) knapsack, item i may be taken at most `k_i` times.
 
-Tiny case: item weight 2, value 5, `k=2`, `W=5`. Options: 0,1, or 2 copies → best value `10` (two copies) with weight 4.
+A tiny case: one item with weight 2 and value 5, `k = 2`, and `W = 5`. You can take 0, 1 or 2 copies. The best value is `10`, from two copies with total weight 4.
 
-Approaches:
+Three approaches:
 
-1. Expand into `k` separate 0-1 items (naive)
-2. Binary split counts (`1,2,4,…` packs) then 0-1
-3. Loop a multiplicity dimension carefully
-
+1. Expand the item into `k` separate 0-1 items. This is the simple version.
+2. Split the count into binary packs (`1, 2, 4, …`), then solve it as 0-1.
+3. Loop over the number of copies as an extra dimension, carefully.
 
 ## How
 
-1. Encode the multiplicity limit in the model
-2. Prefer binary splitting when k is large
-3. Fall back to 0-1 DP after expansion
-
+1. Build the copy limit into the model.
+2. Prefer binary splitting when k is large.
+3. After expanding, solve it with ordinary 0-1 DP.
 
 ## Trap
 
-Treating bounded items as unbounded (forward loop without a count cap).
+Treating bounded items as unbounded, with a forward loop that has no cap on the count.
 
-**Fix:** Cap copies via expansion or an explicit count loop.
+**Fix:** Cap the copies, either by expanding or with an explicit count loop.
 
-**Time:** depends on expansion; binary split ≈ O(n log k · W) · **Space:** O(W)
+**Time:** depends on the expansion; binary splitting is about O(n log k · W) · **Space:** O(W)
 
 > [!ui-builder] Mini game
 > INPUT_TOPIC: Theory or problem

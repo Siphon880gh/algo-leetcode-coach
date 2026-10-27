@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 return [
     'title' => 'Store complete binary trees in arrays',
-    'summary' => 'For heap-shaped trees, node i has children 2i+1 and 2i+2 — no pointers required.',
+    'summary' => 'A complete binary tree fits neatly in an array, where simple index math finds any node\'s children and parent without pointers.',
     'category' => 'Data Structures',
     'subcategory' => 'Trees',
     'kind' => 'algo',

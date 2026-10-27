@@ -2,26 +2,26 @@
 
 Sort `[3, 1, 4, 2]`.
 
-Start with sorted prefix `[3]`.
+Start with the sorted prefix `[3]`.
 
-1. Take `1` → slide left past `3` → `[1, 3, 4, 2]`
-2. Take `4` → already ≥ `3` → stays → `[1, 3, 4, 2]`
-3. Take `2` → slide left between `1` and `3` → `[1, 2, 3, 4]`
+1. Take `1`. Slide it left past `3`. The array is `[1, 3, 4, 2]`.
+2. Take `4`. It is already at least `3`, so it stays. The array is `[1, 3, 4, 2]`.
+3. Take `2`. Slide it left until it sits between `1` and `3`. The array is `[1, 2, 3, 4]`.
 
 ## How
 
-1. For `i` from `1 … n-1`
-2. Key = `a[i]`
-3. While previous items are greater, shift them right
-4. Drop key into the hole
+1. Loop `i` from `1` to `n − 1`.
+2. Let the key be `a[i]`.
+3. While the item before the key is larger, shift that item one slot right.
+4. Drop the key into the gap.
 
 ## Trap
 
-Expecting O(n log n) on reverse-sorted input.
+Expecting O(n log n) on input that is sorted in reverse.
 
-**Fix:** Insertion is **O(n²)** worst/average; **O(n)** on already-sorted (each key stops immediately). Great for tiny or nearly sorted arrays; not a general large-n sort.
+**Fix:** Insertion sort is **O(n²)** in the worst and average case, and **O(n)** on input that is already sorted, because each key stops right away. It is great for tiny or nearly sorted arrays, but it is not a general sort for large n.
 
-**Time:** O(n²) worst · **Space:** O(1)
+**Time:** O(n²) worst case · **Space:** O(1)
 
 > [!ui-builder] Mini game
 > INPUT_TOPIC: Theory or problem

@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Graph traversal: BFS and DFS',
-    'summary' => 'BFS uses a queue for layers / shortest unweighted paths; DFS uses a stack or recursion to dive deep.',
+    'title' => 'Graph traversal: breadth-first and depth-first search',
+    'summary' => 'Breadth-first search explores a graph layer by layer with a queue, while depth-first search dives as deep as it can before backing up.',
     'category' => 'Algorithms',
     'subcategory' => 'Graphs',
     'kind' => 'algo',

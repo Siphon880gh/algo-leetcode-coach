@@ -1,28 +1,26 @@
 ## Tiny example
 
-Array fundamentals on `[4,5,6]`:
+Array basics, using `[4, 5, 6]`:
 
-- Index `1` → `5` in O(1)
-- Insert at `1` shifts `5,6` right — O(n)
-- Prefix idea: `pre[i]=pre[i-1]+a[i]` enables range sums later
+- Reading index `1` gives `5` in O(1) time.
+- Inserting at index `1` shifts `5` and `6` one place to the right, which takes O(n) time.
+- A prefix array, `pre[i] = pre[i-1] + a[i]`, makes later range sums quick.
 
-Foundation for two pointers, sliding windows, and prefix sums.
-
+These ideas are the foundation for two pointers, sliding windows and prefix sums.
 
 ## How
 
-1. Use index math for reads
-2. Budget shifts for inserts
-3. Build prefixes when range queries appear
-
+1. Use index arithmetic for reads.
+2. Budget for shifting elements when you insert.
+3. Build prefix sums when range queries appear.
 
 ## Trap
 
-Doing many mid-inserts on a huge array when a deque/list splice would do.
+Doing many inserts in the middle of a huge array when a deque or a linked list would handle them cheaply.
 
-**Fix:** Match structure to the update pattern.
+**Fix:** Choose the structure that matches how you update the data.
 
-**Time:** reads O(1); mid-insert O(n); build prefix O(n)
+**Time:** reads are O(1); an insert in the middle is O(n); building prefix sums is O(n)
 
 > [!ui-builder] Mini game
 > INPUT_TOPIC: Theory or problem

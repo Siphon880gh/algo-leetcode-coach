@@ -8,27 +8,27 @@
   4
 ```
 
-- Root `1` has left `2` and right `3`
-- Node `2` has left `4` and right empty
-- Node `4` is a leaf
+- The root `1` has left child `2` and right child `3`.
+- Node `2` has left child `4` and no right child.
+- Node `4` has no children, so it is a leaf.
 
-Every node has **at most two children** (left and right). That shape underpins BSTs, heaps, expression trees, and many interview problems.
+Every node has **at most two children**, called left and right. This shape is behind binary search trees, heaps, expression trees and many interview problems.
 
 ## Vocabulary
 
-1. **Root** — top node
-2. **Leaf** — both children empty
-3. **Height / depth** — edges on the longest path (definitions vary by ±1; pick one and stay consistent)
-4. **Parent / child / sibling** — edge relationships
+1. **Root**: the top node.
+2. **Leaf**: a node with no children.
+3. **Height and depth**: the number of edges on the longest path. Books differ by one here, so pick a definition and stay consistent.
+4. **Parent, child and sibling**: how nodes relate through edges.
 
 ## Trap
 
-Drawing a “binary tree” with three children on one node — that is a general tree, not binary.
+Drawing a "binary tree" where one node has three children. That is a general tree, not a binary tree.
 
-**Fix:** Left and right slots only. If you need more children, use a general tree or left-child/right-sibling encoding.
+**Fix:** A binary tree has only a left slot and a right slot. If you need more children, use a general tree, or encode it with first-child and next-sibling links.
 
-**Time (visit every node once):** O(n)  
-**Space:** O(n) nodes; recursion stack O(h)
+**Time to visit every node once:** O(n)  
+**Space:** O(n) for the nodes, plus O(h) for the recursion stack
 
 > [!ui-builder] Mini game
 > INPUT_TOPIC: Theory or problem

@@ -1,41 +1,41 @@
 ## Tiny example
 
-You have a bag that holds weight **4**, and three items (weight, value):
+You have a bag that holds weight **4**, and three items, written as (weight, value):
 
 - A: `(1, 15)`
 - B: `(3, 20)`
 - C: `(4, 30)`
 
-Each item at most **once**. Best pack: A+B → value **35** (beats C alone = 30).
+Each item can be used at most **once**. The best packing is A plus B, worth **35**, which beats C alone at 30.
 
-Draw a table `dp[i][c]` = best value using the **first i items** with capacity **c**:
+Draw a table where `dp[i][c]` is the best value using only the **first i items** with capacity **c**:
 
 | i \ c | 0 | 1 | 2 | 3 | 4 |
 |-------|---|---|---|---|---|
 | 0 (none) | 0 | 0 | 0 | 0 | 0 |
 | 1 (A) | 0 | 15 | 15 | 15 | 15 |
-| 2 (A,B) | 0 | 15 | 15 | 20 | **35** |
-| 3 (A,B,C) | 0 | 15 | 15 | 20 | **35** |
+| 2 (A, B) | 0 | 15 | 15 | 20 | **35** |
+| 3 (A, B, C) | 0 | 15 | 15 | 20 | **35** |
 
-For each cell, compare:
+For each cell, compare two options:
 
-- **Skip** item i → `dp[i-1][c]`
-- **Take** item i (if `c >= w`) → `dp[i-1][c-w] + v`
+- **Skip** item i: `dp[i-1][c]`
+- **Take** item i, if `c >= w`: `dp[i-1][c-w] + v`
 
-Notice take always reads the **previous row** — that is what keeps each item once.
+The take option always reads the **previous row**. That is what keeps each item to one use.
 
 ## How
 
-1. Rows = items `0…n`, columns = capacities `0…W`
-2. Row 0 is all zeros
-3. For each item, fill its row left→right with skip vs take
-4. Answer = `dp[n][W]`
+1. The rows are items 0 to n, and the columns are capacities 0 to W.
+2. Row 0 is all zeros.
+3. For each item, fill its row from left to right, keeping the better of skip and take.
+4. The answer is `dp[n][W]`.
 
 ## Trap
 
-Taking from the **same** row (`dp[i][c-w]`) — that accidentally allows a second copy of the item.
+Taking from the **same** row, `dp[i][c-w]`. That quietly allows a second copy of the item.
 
-**Fix:** For 0-1, take reads `dp[i-1][…]` only.
+**Fix:** In 0-1 knapsack, the take option reads only `dp[i-1][...]`.
 
 **Time:** O(nW)  
 **Space:** O(nW)

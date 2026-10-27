@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 return [
-    'title' => '1D complete: (2,3) stacks to 6',
+    'title' => 'Complete knapsack in one array: stack copies to 6',
     'summary' => 'Fill a one-array knapsack forward for a repeatable item of weight 2 on capacity 4 until the best value is 6.',
     'category' => 'Algorithms',
     'subcategory' => 'Dynamic Programming',

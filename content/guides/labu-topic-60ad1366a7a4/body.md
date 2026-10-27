@@ -1,29 +1,27 @@
 ## Tiny example
 
-Algorithm templates cheat sheet — keep skeletons short:
+Keep a few short algorithm skeletons ready:
 
-1. **Binary search bounds** — first/last True template
-2. **Sliding window** — move `R`, shrink `L` while invalid
-3. **Union-Find** — `find` + `union` with path compression
-4. **Topo BFS** — indegree queue
+1. **Binary search for a boundary:** find the first or last index where a condition is true.
+2. **Sliding window:** move the right edge, and shrink from the left while the window is invalid.
+3. **Union-Find:** `find` and `union`, with path compression.
+4. **Topological sort with BFS:** a queue of nodes with no remaining prerequisites.
 
-Fill only the problem-specific predicate / edge list.
-
+For each problem, fill in only the problem-specific condition or edge list.
 
 ## How
 
-1. Memorize the skeleton control flow
-2. Plug in the predicate or graph
-3. Do not rewrite lo/hi math from scratch each time under stress
-
+1. Memorize the control flow of each skeleton.
+2. Plug in the condition or the graph.
+3. Do not rework the `lo` and `hi` arithmetic from scratch under pressure.
 
 ## Trap
 
-Cargo-culting a template with the wrong predicate (off-by-one forever).
+Copying a template blindly with the wrong condition, which leads to endless off-by-one errors.
 
-**Fix:** Write one sentence for what `ok(mid)` means before coding.
+**Fix:** Before coding, write one sentence saying what `ok(mid)` means.
 
-**Time:** template-dependent
+**Time:** depends on the template
 
 > [!ui-builder] Mini game
 > INPUT_TOPIC: Theory or problem

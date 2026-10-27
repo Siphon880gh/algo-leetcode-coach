@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Space: reverse vs mergesort buffer',
-    'summary' => 'Contrast O(1) in-place reverse with O(n) merge buffer and recursion.',
+    'title' => 'Space: in-place reverse versus the merge sort buffer',
+    'summary' => 'Compare an O(1) in-place reverse with the O(n) buffer and recursion of merge sort.',
     'category' => 'Algorithms',
     'subcategory' => 'Complexity',
     'tags' => ['Big-O', 'space', 'step-by-step'],

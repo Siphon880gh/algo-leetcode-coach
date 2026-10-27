@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'DP summary: house robber then pattern',
+    'title' => 'DP summary: house robber, then name the pattern',
     'summary' => 'Walk the houses 2, 7, 9, 3, and 1, keeping the best total so far, then name the pattern.',
     'category' => 'Algorithms',
     'subcategory' => 'Dynamic Programming',

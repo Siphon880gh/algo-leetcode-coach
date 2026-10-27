@@ -1,45 +1,45 @@
 ## Tiny example
 
-We reuse the bag and items from the 2D lesson:
+Use the same bag and items as the two-dimensional lesson:
 
-- A `(1,15)`, B `(3,20)`, C `(4,30)`, capacity **4**
-- Still each item **once**
-- Still answer **35**
+- A `(1, 15)`, B `(3, 20)` and C `(4, 30)`, with capacity **4**
+- Each item can still be used only **once**
+- The answer is still **35**
 
-Instead of a full table, keep one array `dp[0…4]` = best value for that capacity **so far**.
+Instead of a full table, keep one array, `dp[0]` to `dp[4]`, where each entry is the best value for that capacity **so far**.
 
-Start: `dp = [0, 0, 0, 0, 0]`
+Start with `dp = [0, 0, 0, 0, 0]`.
 
-Process A `(1,15)` scanning **c = 4, 3, 2, 1**:
+Process A `(1, 15)`, scanning **c = 4, 3, 2, 1**:
 
-1. c=4: `dp[4] = max(0, dp[3]+15) = 15`
-2. c=3: `dp[3] = 15`
-3. c=2: `dp[2] = 15`
-4. c=1: `dp[1] = 15`
+1. At c = 4: `dp[4] = max(0, dp[3] + 15) = 15`.
+2. At c = 3: `dp[3] = 15`.
+3. At c = 2: `dp[2] = 15`.
+4. At c = 1: `dp[1] = 15`.
 
 Now `dp = [0, 15, 15, 15, 15]`.
 
-Process B `(3,20)` scanning **c = 4, 3**:
+Process B `(3, 20)`, scanning **c = 4, 3**:
 
-1. c=4: `max(15, dp[1]+20) = 35`
-2. c=3: `max(15, dp[0]+20) = 20`
+1. At c = 4: `max(15, dp[1] + 20) = 35`.
+2. At c = 3: `max(15, dp[0] + 20) = 20`.
 
 Now `dp = [0, 15, 15, 20, 35]`.
 
-Why **high → low**? When you update `dp[4]`, `dp[1]` still means “before this item”. If you scanned low → high, `dp[1]` would already include A *and* you could layer A again.
+Why go from **high to low**? When you update `dp[4]`, `dp[1]` still holds the value from before this item. If you scanned from low to high, `dp[1]` would already include the current item, and you could add it a second time.
 
 ## How
 
-1. `dp[c] = 0` for all c
-2. For each item `(w,v)`, loop `c` from `W` down to `w`
-3. `dp[c] = max(dp[c], dp[c-w] + v)`
-4. Answer `dp[W]`
+1. Set `dp[c] = 0` for every c.
+2. For each item `(w, v)`, loop `c` from `W` down to `w`.
+3. Set `dp[c] = max(dp[c], dp[c - w] + v)`.
+4. The answer is `dp[W]`.
 
 ## Trap
 
-Looping `c` upward (0-1 broken → item reused).
+Looping `c` upward. That breaks the 0-1 rule, because an item can be reused.
 
-**Fix:** Backward for 0-1; forward only when repeats are allowed.
+**Fix:** Scan backward for 0-1 knapsack. Scan forward only when repeats are allowed.
 
 **Time:** O(nW)  
 **Space:** O(W)

@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'BFS vs DFS on a 4-node line-ish graph',
-    'summary' => 'Get BFS order 0,1,2,3 and remember visited.',
+    'title' => 'BFS and DFS on a small four-node graph',
+    'summary' => 'Get the breadth-first order 0, 1, 2, 3 and see why the visited set matters.',
     'category' => 'Algorithms',
     'subcategory' => 'Graphs',
     'tags' => ['BFS', 'DFS', 'step-by-step'],

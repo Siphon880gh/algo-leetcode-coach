@@ -1,44 +1,44 @@
 ## Tiny example
 
-Houses in a line: `[2, 7, 9, 3, 1]`. You cannot rob two neighbors.
+Houses stand in a line: `[2, 7, 9, 3, 1]`. You cannot rob two neighbors.
 
-Walk left→right with “best ending here”:
+Walk from left to right, keeping the best total so far:
 
 ```
 house:  2   7   9   3   1
 best:   2   7  11  11  12
 ```
 
-- At 9: max(skip→7, take→2+9=11) → 11
-- At 1: max(11, 11+1=12) → **12** (houses 2, 9, 1)
+- At 9: the better of skipping it (7) and taking it (2 + 9 = 11) is 11.
+- At 1: the better of 11 and 11 + 1 = 12 is **12**, from houses 2, 9 and 1.
 
-State sentence: `best[i]` = max money using houses `0…i`.
+The state sentence: `best[i]` is the most money you can get from houses `0` to `i`.
 
-**After** that sentence, you recognize a **linear take/skip** pattern — not knapsack, not interval DP.
+**Once** you can say that sentence, you recognize a **linear take-or-skip** pattern. It is not knapsack and not interval DP.
 
-Other shapes (once state is clear):
+Other shapes, once the state is clear:
 
-| Feel of the state | Common shape |
-|-------------------|--------------|
-| Best along an index | 1D linear |
-| Best for a prefix × capacity | knapsack-like |
-| Best for substring `i…j` | interval |
-| “Holding stock vs cash” | state machine |
+| What the state feels like | Common shape |
+|---------------------------|--------------|
+| Best value along an index | 1D linear |
+| Best value for a prefix and a capacity | knapsack-like |
+| Best value for a substring `i…j` | interval |
+| "Holding a stock or holding cash" | state machine |
 
 ## How
 
-1. Say the state in words on a tiny example
-2. Write the transition on that example
-3. Only then map to a named pattern
-4. Code the loops that match the dependencies
+1. Say the state in words, using a tiny example.
+2. Write the transition on that example.
+3. Only then match it to a named pattern.
+4. Write the loops in the order the dependencies require.
 
 ## Trap
 
-Pasting a knapsack template onto every DP prompt.
+Pasting a knapsack template onto every DP problem.
 
-**Fix:** State first; template second.
+**Fix:** Work out the state first, and choose a template second.
 
-**Habit:** example → state sentence → pattern name
+**Habit:** first an example, then a state sentence, then the pattern name
 
 > [!ui-builder] Mini game
 > INPUT_TOPIC: Theory or problem

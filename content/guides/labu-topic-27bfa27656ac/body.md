@@ -1,28 +1,26 @@
 ## Tiny example
 
-String patterns on `s="abba"`:
+Three string patterns, using `s = "abba"`:
 
-1. Two pointers on chars for palindrome checks
-2. Sliding window with counts for “longest substring with ≤k distinct”
-3. Immutable string concat in a loop → build with a buffer/builder
+1. Two pointers moving in from both ends check whether a string is a palindrome.
+2. A sliding window with letter counts finds things like "the longest substring with at most k distinct letters".
+3. Repeatedly adding to an immutable string in a loop is slow. Collect the pieces in a buffer or builder instead.
 
-Byte length ≠ character length under UTF-8 (see encoding Extra).
-
+Also remember that under UTF-8 the length in bytes is not the number of characters. The character encoding guide covers this.
 
 ## How
 
-1. Prefer builders for repeated concat
-2. Windows/pointers for substring constraints
-3. Define your unit (byte vs code point)
-
+1. Use a builder for repeated concatenation.
+2. Use a window or two pointers for limits on substrings.
+3. Decide which unit you are counting: bytes or code points.
 
 ## Trap
 
-Building strings with `s += chunk` in a hot loop on immutable strings.
+Building a string with `s += chunk` inside a hot loop when strings are immutable.
 
-**Fix:** Use a list/builder then join once.
+**Fix:** Collect the pieces in a list or builder, then join them once at the end.
 
-**Time:** window O(n); naive concat can be O(n²)
+**Time:** a sliding window is O(n); naive repeated concatenation can be O(n²)
 
 > [!ui-builder] Mini game
 > INPUT_TOPIC: Theory or problem

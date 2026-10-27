@@ -1,29 +1,27 @@
 ## Tiny example
 
-Greedy pattern cues:
+Each greedy problem has its own key for choosing:
 
 | Pattern | Key |
 |---------|-----|
 | Interval scheduling | earliest end |
-| Jump game | farthest reachable |
-| Gas station | net tank / start index tricks |
-| Huffman-ish | combine smallest first |
+| Jump game | farthest reachable index |
+| Gas station | running fuel balance, and where to restart |
+| Huffman-style merging | combine the smallest items first |
 
-Example jump game on `[2,3,1,1,4]`: track `farthest`; if index `i` passes farthest, fail; else update with `i+nums[i]`.
-
+Example, jump game on `[2,3,1,1,4]`: keep track of `farthest`. If index `i` is beyond `farthest`, you fail. Otherwise, update `farthest` with `i + nums[i]`.
 
 ## How
 
-1. Match cue to selection key
-2. Maintain a running best (farthest, tank, …)
-3. Prove or cite the pattern
-
+1. Match the problem's clue to a key for choosing.
+2. Keep a running best value, such as the farthest index or the fuel balance.
+3. Prove the rule, or rely on a known pattern.
 
 ## Trap
 
-Using earliest-end scheduling logic on jump game.
+Using the earliest-end logic from interval scheduling on the jump game.
 
-**Fix:** Different problems, different keys.
+**Fix:** Different problems need different keys.
 
 **Time:** usually O(n) or O(n log n)
 

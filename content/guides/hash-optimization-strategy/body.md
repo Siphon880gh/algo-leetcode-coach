@@ -1,28 +1,26 @@
 ## Tiny example
 
-Problem: for each index `i`, is there `j < i` with `nums[j] == target - nums[i]`? (Two Sum style)
+The problem: for each index `i`, is there an earlier index `j` with `nums[j] == target - nums[i]`? This is the Two Sum pattern.
 
-Nested loops: O(n²).
+With nested loops, you check every earlier index for every `i`, which is O(n²).
 
-Hash set/map: while scanning left→right, query `need = target - nums[i]` in expected O(1), then insert `nums[i]`.
+With a hash set or map, scan from left to right. At each `i`, look up `need = target - nums[i]` in expected O(1) time, then add `nums[i]`.
 
-You trade **O(n) memory** for dropping a linear scan per index.
-
+You spend **O(n) memory** to remove the inner scan for every index.
 
 ## How
 
-1. Spot a repeated “have I seen X?” or “last index of X?”
-2. Allocate a hash set/map
-3. Replace the inner scan with a lookup; update the map as you go
-
+1. Notice a repeated question such as "have I seen X before?" or "where did X last appear?".
+2. Create a hash set or hash map.
+3. Replace the inner scan with a lookup, and update the map as you go.
 
 ## Trap
 
-Hashing objects without proper `equals/hashCode`, then wondering why lookups miss.
+Using objects as keys without a proper equality and hash method, then wondering why lookups miss.
 
-**Fix:** Define equality consistently; prefer immutable keys.
+**Fix:** Define equality consistently with the hash, and prefer keys that cannot change.
 
-**Time:** expected O(n) for a linear scan with map · **Space:** O(n)
+**Time:** expected O(n) for one scan with a map · **Space:** O(n)
 
 > [!ui-builder] Mini game
 > INPUT_TOPIC: Theory or problem

@@ -1,33 +1,33 @@
 ## Tiny example
 
-Permutations of `[1, 2, 3]` (all orderings).
+The permutations of `[1, 2, 3]` are all of its orderings.
 
 One depth-first path:
 
-1. Pick `1` first → path `[1]`
-2. Pick `2` next → path `[1, 2]`
-3. Only `3` left → path `[1, 2, 3]` (record)
-4. Undo, try other unused numbers at each depth
+1. Pick `1` first, so the path is `[1]`.
+2. Pick `2` next, so the path is `[1, 2]`.
+3. Only `3` is left, so the path is `[1, 2, 3]`. Record it.
+4. Undo, and try the other unused numbers at each depth.
 
 There are `3! = 6` permutations.
 
-## How (swap style or used[] style)
+## How (with a used[] array or with swaps)
 
-**used[] style:**
+**With a used[] array:**
 
-1. If `path` length == n, record a copy
-2. For each index `i`, if not used, mark used, push `nums[i]`, recurse, pop, unmark
+1. If the length of `path` equals n, record a copy.
+2. For each index `i` that is not used: mark it used, push `nums[i]`, recurse, then pop and unmark it.
 
-**Swap style:** swap `nums[depth]` with each candidate `i >= depth`, recurse `depth+1`, swap back.
+**With swaps:** swap `nums[depth]` with each candidate `i >= depth`, recurse on `depth+1`, then swap back.
 
 ## Trap
 
-Pushing into `path` but recording the **same list reference** in the answer — later undos empty every saved permutation.
+Pushing onto `path` but recording the **same list object** in the answer. Later undos empty every saved permutation.
 
-**Fix:** Record `path[:] ` / a fresh copy at each leaf.
+**Fix:** Record `path[:]`, a fresh copy, at each leaf.
 
-**Time:** O(n · n!) to build all perms  
-**Space:** O(n) for path / recursion (plus O(n · n!) to store answers)
+**Time:** O(n · n!) to build all permutations  
+**Space:** O(n) for the path and the recursion (plus O(n · n!) to store the answers)
 
 > [!ui-builder] Mini game
 > INPUT_TOPIC: Theory or problem

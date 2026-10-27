@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Lower_bound on [1,2,2,2,3]',
-    'summary' => 'Maintain [lo,hi) for first index with value ≥ 2.',
+    'title' => 'First index with a value of at least 2',
+    'summary' => 'Keep a half-open range from lo to hi on [1, 2, 2, 2, 3] and narrow it to the first index holding a value of at least 2.',
     'category' => 'Algorithms',
     'subcategory' => 'Binary Search',
     'tags' => ['binary-search', 'bounds', 'step-by-step'],

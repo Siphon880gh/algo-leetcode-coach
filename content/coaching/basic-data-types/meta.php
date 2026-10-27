@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Types: overflow on MAX_INT',
-    'summary' => 'See 32-bit wrap on MAX_INT+1 and fix mid = (lo+hi)/2.',
+    'title' => 'Data types: overflow at the maximum int',
+    'summary' => 'See a 32-bit integer wrap around when you add 1 to the maximum, and learn the safe way to compute a midpoint.',
     'category' => 'Data Structures',
     'subcategory' => 'Fundamentals',
     'tags' => ['types', 'overflow', 'step-by-step'],

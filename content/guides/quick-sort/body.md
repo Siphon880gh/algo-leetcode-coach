@@ -1,30 +1,30 @@
 ## Tiny example
 
-Sort `[3, 1, 4, 2]` with pivot = last element `2`.
+Sort `[3, 1, 4, 2]`, using the last element, `2`, as the pivot.
 
-Partition so smaller keys go left of pivot:
+Partition the array so that smaller values end up to the left of the pivot:
 
-1. Scan; swap values `< 2` toward the left
-2. Place pivot → `[1, 2, 4, 3]` (exact layout depends on partition scheme; pivot index is final)
-3. Recurse on left of pivot and right of pivot
+1. Scan the array, swapping values `< 2` toward the left.
+2. Put the pivot in place, giving `[1, 2, 4, 3]`. The exact layout depends on the partition scheme, but the pivot's index is final.
+3. Recurse on the part left of the pivot and the part right of it.
 
-With good pivots, depth is ~log n; with always-worst pivots, depth is n.
+With good pivots, the recursion is about log n deep. If the pivot is always the worst choice, it is n deep.
 
-## How (Lomuto sketch)
+## How (Lomuto partition)
 
-1. Choose pivot (often `a[hi]`)
-2. Grow a boundary of items ≤ pivot
-3. Swap pivot into its final index `p`
-4. Quick-sort `lo … p-1` and `p+1 … hi`
+1. Choose a pivot, often `a[hi]`.
+2. Grow a region of items that are ≤ the pivot.
+3. Swap the pivot into its final index `p`.
+4. Quick-sort `lo … p-1` and `p+1 … hi`.
 
 ## Trap
 
-Always pivoting on a sorted array’s last element → **O(n²)** time.
+Always using the last element as the pivot on an already sorted array. That takes **O(n²)** time.
 
-**Fix:** Shuffle first, or use median-of-three / random pivot. Average **O(n log n)**; extra stack **O(log n)** expected.
+**Fix:** Shuffle first, or use the median of three, or a random pivot. The average is then **O(n log n)**, with an expected **O(log n)** of extra stack.
 
 **Time:** average O(n log n), worst O(n²)  
-**Space:** O(log n) stack expected
+**Space:** expected O(log n) of stack
 
 > [!ui-builder] Mini game
 > INPUT_TOPIC: Theory or problem

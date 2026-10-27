@@ -10,49 +10,49 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "State:\nsum 1…n via sum(n)=n+sum(n-1)\n\nExtra space typical?",
+            'message' => "State:\nadd up 1 to n using sum(n) = n + sum(n - 1)\n\nHow much extra space does this usually take?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'O(n) stack frames', 'next' => 'mid'],
-                ['label' => 'O(1) always identical to a loop', 'next' => 'w1'],
+                ['label' => 'O(n), one stack frame per call', 'next' => 'mid'],
+                ['label' => 'O(1), exactly the same as a loop', 'next' => 'w1'],
             ],
         ],
         'w1' => [
-            'message' => "Wrong.\n\nNaive recursion depth is n.\n\nStep back.",
+            'message' => "Wrong.\n\nPlain recursion goes n calls deep before returning.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'start',
             'choices' => [],
         ],
         'mid' => [
-            'message' => "State:\nbinary tree algorithms\n\nNatural style?",
+            'message' => "State:\nyou are writing a binary tree algorithm\n\nWhich style fits naturally?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'Recursion on left/right', 'next' => 'final'],
-                ['label' => 'Only nested for-loops over children counts', 'next' => 'w2'],
+                ['label' => 'Recursion on the left and right children', 'next' => 'final'],
+                ['label' => 'Only nested for loops over the children', 'next' => 'w2'],
             ],
         ],
         'w2' => [
-            'message' => "Wrong.\n\nTrees fit recursive structure.\n\nStep back.",
+            'message' => "Wrong.\n\nTrees have a recursive shape, so recursion fits them well.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'mid',
             'choices' => [],
         ],
         'final' => [
-            'message' => "State:\nconvert tail recursion to a loop\n\nWhy?",
+            'message' => "State:\nyou turn a tail-recursive function into a loop\n\nWhy do that?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'Bound space / avoid stack overflow', 'next' => 'success'],
-                ['label' => 'Make Big-O time smaller always', 'next' => 'w3'],
+                ['label' => 'To bound the space and avoid a stack overflow', 'next' => 'success'],
+                ['label' => 'To always make the Big-O time smaller', 'next' => 'w3'],
             ],
         ],
         'w3' => [
-            'message' => "Wrong.\n\nTime class often unchanged; space/stack is the win.\n\nStep back.",
+            'message' => "Wrong.\n\nThe time class usually stays the same. The saving is stack space.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'final',
             'choices' => [],
         ],
         'success' => [
-            'message' => "Correct.\n\n- Loops reuse one frame\n- Recursion stacks depth\n\nYou finished this path.",
+            'message' => "Correct.\n\n- A loop reuses one frame.\n- Recursion stacks up one frame per level of depth.\n\nYou finished this path.",
             'outcome' => 'success',
             'choices' => [],
         ],

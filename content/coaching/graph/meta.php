@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Graph storage: 3-node triangle',
-    'summary' => 'Contrast matrix Θ(V²) with list Θ(V+E) on edges 0-1,0-2,1-2.',
+    'title' => 'Graph storage: a three-node triangle',
+    'summary' => 'Compare the V² cells of a matrix with the lists for the edges 0-1, 0-2 and 1-2.',
     'category' => 'Data Structures',
     'subcategory' => 'Graphs',
     'tags' => ['graph', 'adjacency', 'step-by-step'],

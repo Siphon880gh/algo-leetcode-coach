@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Classifying structures: logical vs physical layout',
-    'summary' => 'Separate the ADT you mean (list, map, queue) from the layout that implements it (array, linked nodes, hash buckets).',
+    'title' => 'Data structures: what it does versus how it is stored',
+    'summary' => 'Separate the job a structure does, like a queue or a map, from the memory layout that implements it, like an array or linked nodes.',
     'category' => 'Data Structures',
     'subcategory' => 'Fundamentals',
     'kind' => 'algo',

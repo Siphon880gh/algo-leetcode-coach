@@ -1,30 +1,28 @@
 ## Tiny example
 
-Probability puzzle: two-child family, at least one boy. Boy/girl equally likely, ignore twins quirks.
+A puzzle: a family has two children, and at least one is a boy. Assume each child is a boy or a girl with equal chance, and ignore special cases like identical twins.
 
-Sample space of two children: `{BB,BG,GB,GG}` equally likely.
+Before using the clue, there are four equally likely outcomes: BB, BG, GB and GG.
 
-Condition on “at least one boy” → drop `GG` → `{BB,BG,GB}`.
+The clue "at least one boy" rules out GG, which leaves BB, BG and GB.
 
-Probability both boys = `1/3` (not `1/2`).
+So the chance that both are boys is `1/3`, not `1/2`.
 
-Lesson: **enumerate equally likely outcomes**; intuition often lies.
-
+The lesson: **list the equally likely outcomes**. Intuition about chance is often wrong.
 
 ## How
 
-1. Write the sample space
-2. Apply the condition by deleting outcomes
-3. Count survivors
-
+1. Write out all the equally likely outcomes.
+2. Apply the condition by crossing out the outcomes it rules out.
+3. Count what is left.
 
 ## Trap
 
-Replacing enumeration with a gut “50-50” call.
+Replacing the list of outcomes with a gut feeling of "50-50".
 
-**Fix:** Force a finite equally likely list (or clear density) first.
+**Fix:** Always write a finite list of equally likely outcomes first, or a clear probability model.
 
-**Skill:** careful conditioning, not formula memorization alone
+**Skill:** conditioning carefully, not just memorizing formulas
 
 > [!ui-builder] Mini game
 > INPUT_TOPIC: Theory or problem

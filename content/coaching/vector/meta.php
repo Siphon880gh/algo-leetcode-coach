@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Vector: grow-on-append vs insert-at-k',
+    'title' => 'Vector: growing on append versus inserting at k',
     'summary' => 'Trace a resize from capacity 2 to 4, then see why inserting in the middle costs more.',
     'category' => 'Data Structures',
     'subcategory' => 'Arrays',

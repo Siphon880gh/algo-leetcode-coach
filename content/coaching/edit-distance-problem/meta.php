@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Edit distance: walk kitten → sitting',
+    'title' => 'Edit distance: turn kitten into sitting',
     'summary' => 'Fill a small edit table and see why matching letters cost nothing.',
     'category' => 'Algorithms',
     'subcategory' => 'Dynamic Programming',

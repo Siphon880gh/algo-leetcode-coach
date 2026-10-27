@@ -10,49 +10,49 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "State:\nstack = [3, 1, 4]  (top is 4)\naction = pop\n\nWhat returns?",
+            'message' => "State:\nstack = [3, 1, 4] (4 is on top)\naction: pop\n\nWhat is returned?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => '4 — LIFO, top comes off first', 'next' => 'brackets'],
-                ['label' => '3 — FIFO, bottom comes off first', 'next' => 'w_fifo'],
+                ['label' => '4, because LIFO means the top comes off first', 'next' => 'brackets'],
+                ['label' => '3, because FIFO means the bottom comes off first', 'next' => 'w_fifo'],
             ],
         ],
         'w_fifo' => [
-            'message' => "Wrong.\n\nFIFO is a queue. A stack is LIFO — top first.\n\nStep back.",
+            'message' => "Wrong.\n\nFIFO describes a queue. A stack is LIFO, so the top comes off first.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'start',
             'choices' => [],
         ],
         'brackets' => [
-            'message' => "State:\ninput = \"([]\")\nscanning left to right\n\nOn seeing ')', what should the stack top be?",
+            'message' => "State:\ninput = \"([])\"\nscanning from left to right\n\nWhen you reach the final ')', what should be on top of the stack?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => "'(' — pop it to match this close", 'next' => 'mid'],
-                ['label' => "'[' — any open bracket is fine", 'next' => 'w_any'],
+                ['label' => '\'(\', which you pop to match this closing bracket', 'next' => 'mid'],
+                ['label' => '\'[\', since any opening bracket is fine', 'next' => 'w_any'],
             ],
         ],
         'w_any' => [
-            'message' => "Wrong.\n\nThe closer must match the most recent unmatched opener — the top.\n\nStep back.",
+            'message' => "Wrong.\n\nA closing bracket must match the most recent unmatched opening bracket, which is the top.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'brackets',
             'choices' => [],
         ],
         'mid' => [
-            'message' => "State:\nneed to remove the bottom element often\n\nIs a pure stack the right ADT?",
+            'message' => "State:\nyou often need to remove the bottom element\n\nIs a plain stack the right structure?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'No — use a deque (or list) if both ends matter', 'next' => 'success'],
-                ['label' => 'Yes — stack mid/bottom ops are still O(1)', 'next' => 'w_mid'],
+                ['label' => 'No. Use a deque (or a list) if both ends matter.', 'next' => 'success'],
+                ['label' => 'Yes. A stack still gives O(1) access to the middle and bottom.', 'next' => 'w_mid'],
             ],
         ],
         'w_mid' => [
-            'message' => "Wrong.\n\nStack contract is top-only. Bottom/mid access breaks the ADT and is usually O(n).\n\nStep back.",
+            'message' => "Wrong.\n\nA stack only promises access to the top. Reaching the bottom or middle breaks that and is usually O(n).\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'mid',
             'choices' => [],
         ],
         'success' => [
-            'message' => "Correct.\n\n- LIFO: push/pop/peek top in O(1)\n- Classic uses: brackets, undo, DFS frames\n\nYou finished this path.",
+            'message' => "Correct.\n\n- LIFO: push, pop and peek at the top in O(1).\n- Classic uses are brackets, undo and DFS frames.\n\nYou finished this path.",
             'outcome' => 'success',
             'choices' => [],
         ],

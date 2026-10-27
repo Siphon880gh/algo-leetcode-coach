@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Intro to DP: stop recomputing Fib',
+    'title' => 'Intro to DP: stop recomputing Fibonacci numbers',
     'summary' => 'See how dynamic programming saves work by computing each Fibonacci number once, from small to large.',
     'category' => 'Algorithms',
     'subcategory' => 'Dynamic Programming',

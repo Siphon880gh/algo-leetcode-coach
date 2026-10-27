@@ -1,26 +1,26 @@
 ## Tiny example
 
-Insert `1, 2, 3` into an empty AVL.
+Insert `1`, `2` and `3`, in that order, into an empty AVL tree.
 
-1. Insert `1`, then `2` → right child
-2. Insert `3` → right-right chain; balance factor at `1` becomes `-2` (right-heavy)
-3. **Left rotate** around `1` → root `2` with left `1` and right `3`
+1. Insert `1`. Then insert `2`, which becomes the right child of `1`.
+2. Insert `3`, which goes to the right of `2`. Now the tree leans right twice, and the balance factor at `1` becomes `-2`.
+3. Do a **left rotation** around `1`. Now `2` is the root, with `1` on its left and `3` on its right.
 
-Height is balanced again (|balance factor| ≤ 1 everywhere).
+The tree is balanced again: every balance factor is between −1 and 1.
 
 ## How
 
-1. BST insert/delete
-2. Walk back up; update heights
-3. If a node’s |bf| > 1, rotate (LL, RR, LR, RL cases)
+1. Insert or delete exactly as in a plain binary search tree.
+2. Walk back up toward the root, updating each node's height.
+3. If a node's balance factor goes below −1 or above 1, rotate. There are four cases: LL, RR, LR and RL.
 
 ## Trap
 
-Treating AVL like an unbalanced BST and skipping rotations after updates.
+Treating an AVL tree like a plain binary search tree and skipping the rotations after an update.
 
-**Fix:** Rotations are the point — they keep search **O(log n)** worst case.
+**Fix:** Rotations are the whole point. They keep searches **O(log n)** even in the worst case.
 
-**Time:** O(log n) per op · **Space:** O(n)
+**Time:** O(log n) per operation · **Space:** O(n)
 
 > [!ui-builder] Mini game
 > INPUT_TOPIC: Theory or problem

@@ -10,49 +10,49 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "State:\nrange sum many times on static array\n\nPattern?",
+            'message' => "State:\nmany range sum queries on an array that never changes\n\nWhich pattern fits?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Prefix sums', 'next' => 'mid'],
-                ['label' => 'Only nested loops forever', 'next' => 'w1'],
+                ['label' => 'Nested loops for every query', 'next' => 'w1'],
             ],
         ],
         'w1' => [
-            'message' => "Wrong.\n\nPrefixes are the upgrade.\n\nStep back.",
+            'message' => "Wrong.\n\nPrefix sums are the upgrade.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'start',
             'choices' => [],
         ],
         'mid' => [
-            'message' => "State:\nwindow sum constraint, pointers only move forward\n\nTime?",
+            'message' => "State:\na window with a sum constraint\nthe pointers only move forward\n\nWhat is the time cost?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'O(n)', 'next' => 'final'],
-                ['label' => 'O(n²) required', 'next' => 'w2'],
+                ['label' => 'O(n²), necessarily', 'next' => 'w2'],
             ],
         ],
         'w2' => [
-            'message' => "Wrong.\n\nEach index enters/leaves once.\n\nStep back.",
+            'message' => "Wrong.\n\nEach index enters the window once and leaves it once.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'mid',
             'choices' => [],
         ],
         'final' => [
-            'message' => "State:\nsort pairing from both ends\n\nPattern?",
+            'message' => "State:\npair up values in a sorted array, working from both ends\n\nWhich pattern fits?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'Two pointers opposite ends', 'next' => 'success'],
-                ['label' => 'Prefix only', 'next' => 'w3'],
+                ['label' => 'Two pointers from opposite ends', 'next' => 'success'],
+                ['label' => 'Prefix sums only', 'next' => 'w3'],
             ],
         ],
         'w3' => [
-            'message' => "Wrong.\n\nOpposite ends is classic two pointers.\n\nStep back.",
+            'message' => "Wrong.\n\nWorking from both ends is the classic two-pointer pattern.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'final',
             'choices' => [],
         ],
         'success' => [
-            'message' => "Correct.\n\n- Pick the array pattern by cue\n- Keep pointers monotonic\n\nYou finished this path.",
+            'message' => "Correct.\n\n- Pick the array pattern from the clue.\n- Keep the pointers moving forward.\n\nYou finished this path.",
             'outcome' => 'success',
             'choices' => [],
         ],

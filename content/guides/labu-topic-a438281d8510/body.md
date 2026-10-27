@@ -1,27 +1,25 @@
 ## Tiny example
 
-Unified iterative traversal idea: stack pairs `(node, state)`.
+One loop can produce all three traversal orders. Push pairs of `(node, state)` onto a stack.
 
-States example:
+Use two states:
 
-- `0` = first seen → push right/left / rearrange, set state to visit-later
-- `1` = ready to output
+- **First seen (WHITE):** the node has not been expanded. When you pop it, push its children and push the node itself again, in the order you need, with the node marked "ready".
+- **Ready (BLACK):** when you pop it, add it to the output.
 
-By choosing when to output, one framework emits pre/in/post.
-
+Where you push the node back, relative to its children, decides whether you get preorder, inorder or postorder.
 
 ## How
 
-1. Push `(root, WHITE)`
-2. Pop; if WHITE, push children/self with new colors in the order you need
-3. If BLACK (or visit state), append to answer
-
+1. Push `(root, WHITE)`.
+2. Pop. If the node is WHITE, push its children and the node itself, with new states, in the order you need.
+3. If the node is BLACK, append it to the answer.
 
 ## Trap
 
-Pushing children without re-pushing self for the visit phase in in/post.
+Pushing the children without pushing the node again for its visit step, in inorder or postorder.
 
-**Fix:** Self must return to the stack in the visit state for those orders.
+**Fix:** For those orders, the node itself must go back on the stack in the "ready" state.
 
 **Time:** O(n) · **Space:** O(h)
 

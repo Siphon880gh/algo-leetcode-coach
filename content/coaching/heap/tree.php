@@ -10,49 +10,49 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "State:\nmax-heap [9, 5, 6, 2, 3]\n\nPeek maximum?",
+            'message' => "State:\nmax-heap [9, 5, 6, 2, 3]\n\nWhat does peek return?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => '9 — root', 'next' => 'push'],
-                ['label' => '3 — a leaf is always the max', 'next' => 'w_leaf'],
+                ['label' => '9, the root', 'next' => 'push'],
+                ['label' => '3, because a leaf is always the maximum', 'next' => 'w_leaf'],
             ],
         ],
         'w_leaf' => [
-            'message' => "Wrong.\n\nIn a max-heap the root holds the maximum.\n\nStep back.",
+            'message' => "Wrong.\n\nIn a max-heap, the root holds the maximum.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'start',
             'choices' => [],
         ],
         'push' => [
-            'message' => "State:\npush 10 onto that heap\n\nMechanism?",
+            'message' => "State:\npush 10 onto that heap\n\nHow does the push work?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'Append at end, then sift up', 'next' => 'del'],
-                ['label' => 'Overwrite root immediately with 10', 'next' => 'w_root'],
+                ['label' => 'Add 10 at the end, then sift it up', 'next' => 'del'],
+                ['label' => 'Overwrite the root with 10 right away', 'next' => 'w_root'],
             ],
         ],
         'w_root' => [
-            'message' => "Wrong.\n\nThat breaks the heap. Append + sift up restores the order.\n\nStep back.",
+            'message' => "Wrong.\n\nOverwriting the root loses 9 and breaks the heap. Appending and then sifting up restores the order.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'push',
             'choices' => [],
         ],
         'del' => [
-            'message' => "State:\nneed to delete value 5 by value with no index map\n\nCheap O(log n) guaranteed?",
+            'message' => "State:\nyou need to delete the value 5\nthere is no map from values to indexes\n\nIs O(log n) guaranteed?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'No — plain heaps optimize the top, not arbitrary values', 'next' => 'success'],
-                ['label' => 'Yes — heaps always delete any value in O(log n)', 'next' => 'w_any'],
+                ['label' => 'No. A plain heap is fast at the top, not for arbitrary values.', 'next' => 'success'],
+                ['label' => 'Yes. Heaps always delete any value in O(log n).', 'next' => 'w_any'],
             ],
         ],
         'w_any' => [
-            'message' => "Wrong.\n\nWithout a handle you may scan O(n) to find 5 first.\n\nStep back.",
+            'message' => "Wrong.\n\nWithout knowing where 5 is, you may have to scan O(n) elements just to find it.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'del',
             'choices' => [],
         ],
         'success' => [
-            'message' => "Correct.\n\n- Peek O(1), push/pop O(log n)\n- Build O(n)\n- Arbitrary delete needs extra bookkeeping\n\nYou finished this path.",
+            'message' => "Correct.\n\n- Peek is O(1). Push and pop are O(log n).\n- Building a heap is O(n).\n- Deleting an arbitrary value needs extra bookkeeping.\n\nYou finished this path.",
             'outcome' => 'success',
             'choices' => [],
         ],

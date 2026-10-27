@@ -6,28 +6,28 @@ List all subsets of `[1, 2]`.
 path = []
 ```
 
-1. Decide about 1: **take** → `path = [1]` → recurse on 2 → record `[1]` and `[1,2]`
-2. **Undo** → `path = []`
-3. Decide about 1: **skip** → recurse on 2 → record `[]` and `[2]`
+1. For element 1, **take** it, so `path = [1]`. Recurse on element 2, which records `[1]` and `[1,2]`.
+2. **Undo**, so `path = []` again.
+3. For element 1, **skip** it. Recurse on element 2, which records `[]` and `[2]`.
 
-Result: `[], [2], [1], [1,2]`.
+The result is `[], [2], [1], [1,2]`.
 
-That choose → explore → undo loop **is** backtracking. It is not a new keyword — it is recursion that restores shared state.
+That loop of choosing, exploring and undoing **is** backtracking. It is not a new language keyword. It is recursion that restores shared state.
 
 ## How
 
-1. Keep a mutable `path` (or equivalent)
-2. Recurse after each choice
-3. Restore (`pop`) before the sibling choice
-4. Or pass an immutable copy (clearer, often slower)
+1. Keep a mutable `path`, or something similar.
+2. Recurse after each choice.
+3. Restore the state (`pop`) before trying the next choice.
+4. Alternatively, pass an immutable copy. This is clearer but often slower.
 
 ## Trap
 
-Thinking you need a special “backtrack” feature in the language.
+Thinking you need a special "backtrack" feature in the language.
 
 **Fix:** If you can recurse and undo, you can backtrack.
 
-**Space:** O(depth) for the live path
+**Space:** O(depth) for the current path
 
 > [!ui-builder] Mini game
 > INPUT_TOPIC: Theory or problem

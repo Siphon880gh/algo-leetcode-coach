@@ -2,27 +2,25 @@
 
 Iterative traversals:
 
-- **BFS levels:** queue → `1 | 2,3 | …`
-- **DFS preorder:** stack push right then left (so left pops first)
-- In/post iterative need a state mark or two-stack tricks
+- **BFS by levels:** use a queue. It visits `1`, then `2, 3`, and so on, level by level.
+- **DFS preorder:** use a stack. Push the right child and then the left child, so the left one is popped first.
+- **Inorder and postorder** done iteratively need a state mark on each node, or a two-stack trick.
 
-Same orders as recursion, explicit structures instead of the call stack.
-
+You get the same orders as with recursion, using an explicit structure instead of the call stack.
 
 ## How
 
-1. BFS → queue
-2. Preorder → stack with push order care
-3. For in/post, use color marks (visit vs expand) if needed
-
+1. For BFS, use a queue.
+2. For preorder, use a stack and push the children in the right order.
+3. For inorder and postorder, mark each node as "expand" or "visit" if needed.
 
 ## Trap
 
-Using one stack exactly like recursion without storing “phase”, then wondering why postorder breaks.
+Using one stack exactly like recursion without storing which phase each node is in, then wondering why postorder breaks.
 
-**Fix:** Store a state bit/phase with each stacked node.
+**Fix:** Store a phase flag with each node on the stack.
 
-**Time:** O(n) · **Space:** O(n) worst width/depth
+**Time:** O(n) · **Space:** O(n) in the worst case, for the widest level or the deepest path
 
 > [!ui-builder] Mini game
 > INPUT_TOPIC: Theory or problem

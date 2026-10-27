@@ -1,26 +1,26 @@
 ## Tiny example
 
-Graph with vertices `{A,B,C}` and one edge `A→B` stored as adj lists.
+A graph has vertices `A`, `B` and `C`, and one directed edge from `A` to `B`. It is stored as adjacency lists.
 
-1. Add edge `B→C` → append `C` to `B`’s list — O(1) amortized
-2. Check “is `A→C` present?” → scan `A`’s list — O(degree(A))
-3. Same check on a matrix → O(1) read of `M[A][C]`
-
+1. To add an edge from `B` to `C`, append `C` to the list for `B`. This is O(1) amortized.
+2. To check whether there is an edge from `A` to `C`, scan the list for `A`. This costs O(degree of A).
+3. With an adjacency matrix instead, the same check is one O(1) read of `M[A][C]`.
 
 ## How
 
-1. Choose representation (list vs matrix)
-2. Implement add/remove vertex/edge with that cost model
-3. Iterate neighbors with `for v in adj[u]` (lists) or a row scan (matrix)
-
+1. Choose a representation: adjacency lists or an adjacency matrix.
+2. Add and remove vertices and edges using that representation's costs.
+3. To visit the neighbors of `u`, loop over `adj[u]` for lists, or scan row `u` for a matrix.
 
 ## Trap
 
-Removing a vertex from adj lists but leaving dangling neighbor entries elsewhere.
+Removing a vertex's own list but leaving its id in other vertices' lists.
 
-**Fix:** Delete the vertex’s list and scrub its id from every other list (or use tombstones carefully).
+**Fix:** Delete the vertex's list and also remove its id from every other list. Tombstones also work if you handle them carefully.
 
-**Time:** list edge add O(1); matrix edge query O(1); list edge query O(deg) · **Space:** lists O(V+E); matrix O(V²)
+**Time with lists:** add an edge in O(1); check an edge in O(degree)  
+**Time with a matrix:** check an edge in O(1)  
+**Space:** O(V + E) for lists, O(V²) for a matrix
 
 > [!ui-builder] Mini game
 > INPUT_TOPIC: Theory or problem

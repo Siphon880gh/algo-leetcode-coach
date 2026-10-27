@@ -1,6 +1,6 @@
 ## Tiny example
 
-Student IDs → names:
+A table maps student IDs to names:
 
 | key   | value |
 |-------|-------|
@@ -8,30 +8,30 @@ Student IDs → names:
 | 15937 | Lin   |
 | 16750 | Sam   |
 
-Need the name for id `15937`.
+You need the name for ID `15937`.
 
-- Array / list scan: compare every key → O(n)
-- Hash table: `bucket = hash(15937) % capacity`, jump to that bucket, match the key → expected **O(1)**
+- Scanning a list compares every key, which is O(n).
+- A hash table computes `bucket = hash(15937) % capacity`, jumps to that bucket, and checks the key. That is expected **O(1)**.
 
-If another id lands in the same bucket (collision), that bucket holds a short chain (or probe list). You still **compare keys** until you find `15937` → `Lin`.
+If another ID lands in the same bucket (a collision), that bucket holds a short chain, or the table probes nearby slots. You still **compare keys** until you find `15937` and return `Lin`.
 
 ## Why it is fast
 
-Arrays give O(1) by numeric index. A hash table **manufactures** an index from an arbitrary key. Keep the load factor (`n / capacity`) bounded so chains stay short.
+An array gives O(1) access by a numeric index. A hash table **makes up** an index from any key. Keep the load factor (`n / capacity`) low so the chains stay short.
 
-## Common ops
+## Common operations
 
-1. `put` / `get` / `remove` — expected O(1); worst O(n) if everything collides
-2. Iterate all entries — O(capacity + n)
-3. Resize when load is too high — rehash into a larger table (amortized)
+1. `put`, `get` and `remove` take expected O(1). In the worst case, when every key collides, they take O(n).
+2. Iterating over all entries takes O(capacity + n).
+3. When the table gets too full, resize it by rehashing everything into a larger table. This is amortized O(1) per insert.
 
 ## Trap
 
-Use a mutable object as a key, insert it, then change a field that `hash` / `equals` depend on.
+Using a mutable object as a key, inserting it, and then changing a field that the hash or equality depends on.
 
-**Fix:** Prefer immutable keys (ints, strings, frozen tuples). The table will look in the *new* bucket and miss the old entry.
+**Fix:** Prefer keys that cannot change, such as integers, strings or frozen tuples. Otherwise the table looks in the key's *new* bucket and misses the old entry.
 
-**Time:** expected O(1) per op  
+**Time:** expected O(1) per operation  
 **Space:** O(capacity)
 
 > [!ui-builder] Mini game

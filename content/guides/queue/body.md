@@ -1,39 +1,39 @@
 ## Tiny example
 
-Enqueue then dequeue:
+Enqueue three values, then dequeue one:
 
 ```
 queue = []
-enqueue 3 → [3]
-enqueue 1 → [3, 1]
-enqueue 4 → [3, 1, 4]
-dequeue   → returns 3, queue = [1, 4]
+enqueue 3:  [3]
+enqueue 1:  [3, 1]
+enqueue 4:  [3, 1, 4]
+dequeue:    returns 3, queue = [1, 4]
 ```
 
-First in, first out (**FIFO**). Front leaves first; rear accepts new items.
+This is first in, first out (**FIFO**). Items leave from the front, and new items join at the rear.
 
 ## Where it shows up
 
-1. BFS level order — neighbors enter the rear, leave the front
-2. Task / print spoolers — fair ordering
-3. Sliding-window variants with a deque (double-ended queue)
+1. BFS level order. Neighbors join at the rear and leave from the front.
+2. Task and print queues, where the order must be fair.
+3. Sliding-window variants that use a deque (a double-ended queue).
 
-## Ops
+## Operations
 
-| Op | Cost (good implementation) |
-|----|------------------------------|
-| enqueue rear / dequeue front | O(1) |
-| peek front | O(1) |
+| Operation | Cost (good implementation) |
+|-----------|----------------------------|
+| enqueue at the rear, dequeue from the front | O(1) |
+| peek at the front | O(1) |
 
-A naive “queue” built by `pop(0)` on a dynamic array is O(n) per dequeue — prefer a real deque/ring buffer.
+A naive "queue" built with `pop(0)` on a dynamic array costs O(n) per dequeue. Use a real deque or a ring buffer instead.
 
 ## Trap
 
-Using a stack (LIFO) for BFS and wondering why levels scramble.
+Using a stack (LIFO) for BFS, and wondering why the levels get mixed up.
 
-**Fix:** BFS needs FIFO. DFS-style exploration uses a stack/recursion.
+**Fix:** BFS needs FIFO order. Depth-first exploration uses a stack or recursion.
 
-**Time:** O(1) per enqueue/dequeue  
+**Time:** O(1) per enqueue and per dequeue  
 **Space:** O(n)
 
 > [!ui-builder] Mini game

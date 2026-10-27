@@ -10,49 +10,49 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "State:\ndeque = [10, 20]\naction = push_front 5, then pop_back\n\nResulting deque?",
+            'message' => "State:\ndeque = [10, 20]\nactions: push_front 5, then pop_back\n\nWhat is the deque now?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => '[5, 10] — front gained 5, back lost 20', 'next' => 'bfs'],
-                ['label' => '[10, 20, 5] — front push actually appends', 'next' => 'w_front'],
+                ['label' => '[5, 10], because the front gained 5 and the back lost 20', 'next' => 'bfs'],
+                ['label' => '[10, 20, 5], because push_front really appends', 'next' => 'w_front'],
             ],
         ],
         'w_front' => [
-            'message' => "Wrong.\n\npush_front inserts at the front: [5, 10, 20], then pop_back → [5, 10].\n\nStep back.",
+            'message' => "Wrong.\n\npush_front adds at the front, giving [5, 10, 20]. Then pop_back removes 20, leaving [5, 10].\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'start',
             'choices' => [],
         ],
         'bfs' => [
-            'message' => "State:\nplain BFS level order\n\nDo you need both ends?",
+            'message' => "State:\nplain breadth-first search in level order\n\nDo you need both ends?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'No — a single-ended queue is enough', 'next' => 'win'],
-                ['label' => 'Yes — BFS must pop_back every time', 'next' => 'w_bfs'],
+                ['label' => 'No. A one-ended queue is enough.', 'next' => 'win'],
+                ['label' => 'Yes. BFS must pop from the back every time.', 'next' => 'w_bfs'],
             ],
         ],
         'w_bfs' => [
-            'message' => "Wrong.\n\nBFS only needs FIFO. Deque both-ends power is optional.\n\nStep back.",
+            'message' => "Wrong.\n\nBFS only needs first in, first out. Using both ends is optional.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'bfs',
             'choices' => [],
         ],
         'win' => [
-            'message' => "State:\nsliding-window maximum pattern\n\nWhy a monotonic deque helps?",
+            'message' => "State:\nthe sliding-window maximum pattern\n\nWhy does a monotonic deque help?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'Drop useless indices from the back; expire old ones from the front', 'next' => 'success'],
-                ['label' => 'Because deques sort the window automatically', 'next' => 'w_sort'],
+                ['label' => 'You drop useless indexes from the back and expired ones from the front', 'next' => 'success'],
+                ['label' => 'Because a deque keeps the window sorted automatically', 'next' => 'w_sort'],
             ],
         ],
         'w_sort' => [
-            'message' => "Wrong.\n\nYou maintain the mono invariant yourself with end pops — the deque does not auto-sort.\n\nStep back.",
+            'message' => "Wrong.\n\nThe deque does not sort anything. You keep its order yourself by popping from the ends.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'win',
             'choices' => [],
         ],
         'success' => [
-            'message' => "Correct.\n\n- Both ends O(1)\n- Use a deque when both ends matter; else stack/queue is clearer\n\nYou finished this path.",
+            'message' => "Correct.\n\n- Both ends are O(1).\n- Use a deque when both ends matter. Otherwise a stack or a queue is clearer.\n\nYou finished this path.",
             'outcome' => 'success',
             'choices' => [],
         ],

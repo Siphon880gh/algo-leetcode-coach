@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 return [
     'title' => 'Two pointers summary',
-    'summary' => 'Opposite ends or same-direction slow/fast — shrink the search while preserving an invariant.',
+    'summary' => 'Two pointers either move in from both ends or travel the same way at different speeds, and every move must keep the answer inside the range.',
     'category' => 'Algorithms',
     'subcategory' => 'Two Pointers',
     'kind' => 'algo',

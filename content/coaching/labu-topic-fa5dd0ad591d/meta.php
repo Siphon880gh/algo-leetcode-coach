@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Binary tree iterative traversals: practice path',
-    'summary' => 'Get the usual tree traversal orders with an explicit stack or queue instead of recursion.',
+    'title' => 'Iterative traversals: queue, stack and phase marks',
+    'summary' => 'Pick the structure for level order and preorder, then see what makes postorder hard.',
     'category' => 'Data Structures',
     'subcategory' => 'Trees',
     'tags' => ['traversal', 'iterative', 'step-by-step'],

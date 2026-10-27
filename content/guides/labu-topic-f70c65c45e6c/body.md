@@ -1,26 +1,24 @@
 ## Tiny example
 
-Dedup backtracking when input has duplicates: `[1,1,2]` subsets.
+Backtracking when the input has duplicates: the subsets of `[1,1,2]`.
 
-Sort first. At the same depth, if `nums[i]==nums[i-1]` and `i-1` was not taken in this depth, **skip**.
+Sort first. At the same depth, if `nums[i] == nums[i-1]` and `i-1` was not taken at this depth, **skip** `i`.
 
-That keeps one representative branch for identical choices.
-
+This keeps just one branch for each group of identical choices.
 
 ## How
 
-1. Sort
-2. At depth, skip equal neighbors when the previous equal was not used
-3. Still undo marks/path as usual
-
+1. Sort the input.
+2. At each depth, skip an equal neighbor when the previous equal value was not used.
+3. Undo the marks and the path as usual.
 
 ## Trap
 
-Skipping duplicates without sorting — neighbors are not the equals you think.
+Skipping duplicates without sorting. The neighbors are not the equal values you expect.
 
-**Fix:** Sort so equals sit together; then apply the skip rule.
+**Fix:** Sort so that equal values sit together, then apply the skip rule.
 
-**Time:** still exponential in worst case, but fewer dup leaves · **Space:** O(n)
+**Time:** still exponential in the worst case, but with fewer duplicate leaves · **Space:** O(n)
 
 > [!ui-builder] Mini game
 > INPUT_TOPIC: Theory or problem

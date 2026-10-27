@@ -1,28 +1,26 @@
 ## Tiny example
 
-Function copies an input array of length `n` into a new array, then loops.
+A function copies an input array of length `n` into a new array, then loops over it.
 
-- Input storage: usually **not** charged as extra space
-- New array: **O(n)** auxiliary
-- Recursion depth `h`: **O(h)** stack space counts
+- The input itself is usually **not** counted as extra space.
+- The new array is **O(n)** of extra space.
+- A recursion depth of `h` counts as **O(h)** of stack space.
 
-If you only use a few scalars, auxiliary space is **O(1)**.
-
+If you only use a few scalar variables, the extra space is **O(1)**.
 
 ## How
 
-1. Decide what “extra” means (beyond the input)
-2. Add arrays/maps you allocate
-3. Add maximum recursion depth / explicit stacks
-
+1. Decide what "extra" means, beyond the input.
+2. Add up the arrays and maps you allocate.
+3. Add the maximum recursion depth, or the size of any explicit stack.
 
 ## Trap
 
-Claiming a recursive DFS is O(1) space because you “did not new an array”.
+Claiming a recursive DFS uses O(1) space because you did not allocate an array.
 
-**Fix:** The call stack is memory. Depth h ⇒ O(h) space.
+**Fix:** The call stack is memory. A depth of h means O(h) space.
 
-**Report:** auxiliary space as n grows (and mention stack if recursive).
+**Report:** the extra space as n grows, and mention the stack if the code is recursive.
 
 > [!ui-builder] Mini game
 > INPUT_TOPIC: Theory or problem

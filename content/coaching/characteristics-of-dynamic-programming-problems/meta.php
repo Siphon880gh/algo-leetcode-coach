@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'DP traits: coin change state',
-    'summary' => 'Why dp[x] alone is enough for unlimited coin change.',
+    'title' => 'Signs of DP: the coin change state',
+    'summary' => 'See why knowing only the amount left is enough state for coin change with unlimited coins.',
     'category' => 'Algorithms',
     'subcategory' => 'Dynamic Programming',
     'tags' => ['DP', 'step-by-step'],

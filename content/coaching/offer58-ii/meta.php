@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Offer 58-II: left rotate by 2',
-    'summary' => 'Turn abcdefg into cdefgab; remember n %= length.',
+    'title' => 'Offer 58-II: rotate left by 2',
+    'summary' => 'Turn abcdefg into cdefgab, and remember to take n modulo the length.',
     'category' => 'Algorithms',
     'subcategory' => 'Strings',
     'tags' => ['offer', 'rotate', 'step-by-step'],

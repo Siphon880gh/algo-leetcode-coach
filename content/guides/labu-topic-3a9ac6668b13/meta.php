@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 return [
     'title' => 'Backtracking: problem families',
-    'summary' => 'Subsets, combinations, permutations, partition, and board search share one template with different choice lists.',
+    'summary' => 'Subsets, combinations, permutations, partitions and board searches all use one backtracking template, and only the list of choices changes.',
     'category' => 'Algorithms',
     'subcategory' => 'Backtracking',
     'kind' => 'algo',

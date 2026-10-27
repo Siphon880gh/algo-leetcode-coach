@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Backtracking theory: practice path',
-    'summary' => 'Search a decision tree of partial solutions; prune; undo — correctness from exhaustive explored leaves minus pruned dead ends.',
+    'title' => 'Backtracking theory: leaves, pruning and undo',
+    'summary' => 'Count the leaves for a small permutation and decide when to prune and undo.',
     'category' => 'Algorithms',
     'subcategory' => 'Backtracking',
     'tags' => ['backtracking', 'theory', 'step-by-step'],

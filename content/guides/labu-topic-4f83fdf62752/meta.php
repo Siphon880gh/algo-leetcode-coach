@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 return [
     'title' => 'Binary tree theory essentials',
-    'summary' => 'Height, depth, complete vs full vs perfect — vocabulary that interview follow-ups expect.',
+    'summary' => 'Get the words right for height, depth and the full, complete and perfect shapes, because interviewers expect them.',
     'category' => 'Data Structures',
     'subcategory' => 'Trees',
     'kind' => 'algo',

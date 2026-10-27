@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 return [
     'title' => 'Array fundamentals (pattern note)',
-    'summary' => 'Contiguous storage, O(1) index, O(n) mid insert — foundation for two pointers and prefix sums.',
+    'summary' => 'Arrays sit in one block of memory, so reading by index is instant but inserting in the middle shifts everything after it.',
     'category' => 'Data Structures',
     'subcategory' => 'Arrays',
     'kind' => 'algo',

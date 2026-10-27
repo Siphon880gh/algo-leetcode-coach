@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Backtracking: problem families: practice path',
-    'summary' => 'Subsets, combinations, permutations, partition, and board search share one template with different choice lists.',
+    'title' => 'Backtracking families: name the choice list',
+    'summary' => 'Tell combinations from permutations and pick the choices for N-Queens.',
     'category' => 'Algorithms',
     'subcategory' => 'Backtracking',
     'tags' => ['backtracking', 'patterns', 'step-by-step'],

@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Complete knapsack: same item, many copies',
-    'summary' => 'Unbounded knapsack with a light high-value item: copies stack because take reads the same row you are filling.',
+    'title' => 'Complete knapsack: many copies of the same item',
+    'summary' => 'When an item can be taken again and again, the take option reads the row you are filling, so copies stack up.',
     'category' => 'Algorithms',
     'subcategory' => 'Dynamic Programming',
     'kind' => 'algo',

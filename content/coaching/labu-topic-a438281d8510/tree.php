@@ -10,35 +10,35 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "State:\ncolor/state stack framework\n\nWhy re-push self?",
+            'message' => "State:\nthe stack holds (node, state) pairs\n\nWhy push the node itself back onto the stack?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'So a later state can visit after children', 'next' => 'mid'],
-                ['label' => 'Never needed', 'next' => 'w1'],
+                ['label' => 'So it can be visited later, after its children are expanded', 'next' => 'mid'],
+                ['label' => 'It is never needed', 'next' => 'w1'],
             ],
         ],
         'w1' => [
-            'message' => "Wrong.\n\nIn/post visit after expanding children.\n\nStep back.",
+            'message' => "Wrong.\n\nInorder and postorder visit a node after expanding its children, so the node has to come back.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'start',
             'choices' => [],
         ],
         'mid' => [
-            'message' => "State:\nwant preorder with colors\n\nWhen output?",
+            'message' => "State:\nyou want preorder with this framework\n\nWhen is a node output?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'On first sight (before children handled)', 'next' => 'final'],
+                ['label' => 'As soon as it is first seen, before its children', 'next' => 'final'],
                 ['label' => 'Only after both children', 'next' => 'w2'],
             ],
         ],
         'w2' => [
-            'message' => "Wrong.\n\nPreorder outputs early.\n\nStep back.",
+            'message' => "Wrong.\n\nPreorder outputs the node early.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'mid',
             'choices' => [],
         ],
         'final' => [
-            'message' => "State:\nn nodes\n\nTime?",
+            'message' => "State:\nthe tree has n nodes\n\nWhat is the time cost?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'O(n)', 'next' => 'success'],
@@ -46,13 +46,13 @@ return [
             ],
         ],
         'w3' => [
-            'message' => "Wrong.\n\nEach node enters a constant number of states.\n\nStep back.",
+            'message' => "Wrong.\n\nEach node passes through a fixed number of states.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'final',
             'choices' => [],
         ],
         'success' => [
-            'message' => "Correct.\n\n- (node,state) stack unifies orders\n- Output depends on state\n\nYou finished this path.",
+            'message' => "Correct.\n\n- A stack of (node, state) pairs handles every order.\n- The output step depends on the state.\n\nYou finished this path.",
             'outcome' => 'success',
             'choices' => [],
         ],

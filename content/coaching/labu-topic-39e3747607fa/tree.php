@@ -10,49 +10,49 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "State:\nfirst skill on binary trees\n\n?",
+            'message' => "State:\nyou are starting to learn binary trees\n\nWhich skill comes first?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'Traverse (DFS/BFS)', 'next' => 'mid'],
-                ['label' => 'AVL rotations first', 'next' => 'w1'],
+                ['label' => 'Traversal, with DFS and BFS', 'next' => 'mid'],
+                ['label' => 'AVL rotations', 'next' => 'w1'],
             ],
         ],
         'w1' => [
-            'message' => "Wrong.\n\nWalk the tree before balancing it.\n\nStep back.",
+            'message' => "Wrong.\n\nLearn to walk a tree before learning to balance one.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'start',
             'choices' => [],
         ],
         'mid' => [
-            'message' => "State:\nheight of a node\n\nNatural style?",
+            'message' => "State:\nyou want the height of a node\n\nWhat is the natural approach?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'Recurse on left/right', 'next' => 'final'],
+                ['label' => 'Recurse on the left and right children', 'next' => 'final'],
                 ['label' => 'Only BFS can compute height', 'next' => 'w2'],
             ],
         ],
         'w2' => [
-            'message' => "Wrong.\n\nDFS height is classic.\n\nStep back.",
+            'message' => "Wrong.\n\nComputing height with a DFS recursion is the classic approach.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'mid',
             'choices' => [],
         ],
         'final' => [
-            'message' => "State:\nafter traversals\n\nNext specialization?",
+            'message' => "State:\nyou are comfortable with traversals\n\nWhat do you specialize in next?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'BST / heap rules', 'next' => 'success'],
-                ['label' => 'Skip to network flow', 'next' => 'w3'],
+                ['label' => 'Binary search tree and heap rules', 'next' => 'success'],
+                ['label' => 'Skip ahead to network flow', 'next' => 'w3'],
             ],
         ],
         'w3' => [
-            'message' => "Wrong.\n\nBST/heap build on binary trees.\n\nStep back.",
+            'message' => "Wrong.\n\nBinary search trees and heaps build directly on binary trees.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'final',
             'choices' => [],
         ],
         'success' => [
-            'message' => "Correct.\n\n- Traverse → recurse → specialize\n\nYou finished this path.",
+            'message' => "Correct.\n\n- First traverse.\n- Then recurse on the children.\n- Then specialize.\n\nYou finished this path.",
             'outcome' => 'success',
             'choices' => [],
         ],

@@ -10,7 +10,7 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "State:\na=[4,5,6], read index 1\n\nCost?",
+            'message' => "State:\na = [4, 5, 6]\nread index 1\n\nWhat does it cost?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'O(1)', 'next' => 'mid'],
@@ -18,41 +18,41 @@ return [
             ],
         ],
         'w1' => [
-            'message' => "Wrong.\n\nIndex reads are O(1).\n\nStep back.",
+            'message' => "Wrong.\n\nReading by index is O(1).\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'start',
             'choices' => [],
         ],
         'mid' => [
-            'message' => "State:\ninsert at index 1\n\nCost?",
+            'message' => "State:\ninsert a value at index 1\n\nWhat does it cost?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'O(n) shifts', 'next' => 'final'],
+                ['label' => 'O(n), because later elements shift', 'next' => 'final'],
                 ['label' => 'O(1)', 'next' => 'w2'],
             ],
         ],
         'w2' => [
-            'message' => "Wrong.\n\nTail must move.\n\nStep back.",
+            'message' => "Wrong.\n\nEverything after the insert position has to move.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'mid',
             'choices' => [],
         ],
         'final' => [
-            'message' => "State:\nmany range sum queries\n\nPrep?",
+            'message' => "State:\nyou expect many range sum queries\n\nWhat do you prepare?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'Prefix sums', 'next' => 'success'],
-                ['label' => 'Resort every query', 'next' => 'w3'],
+                ['label' => 'Re-sort the array for every query', 'next' => 'w3'],
             ],
         ],
         'w3' => [
-            'message' => "Wrong.\n\nPrefixes answer ranges fast.\n\nStep back.",
+            'message' => "Wrong.\n\nPrefix sums answer each range quickly.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'final',
             'choices' => [],
         ],
         'success' => [
-            'message' => "Correct.\n\n- O(1) index; O(n) mid-insert\n- Prefixes for ranges\n\nYou finished this path.",
+            'message' => "Correct.\n\n- Reading by index is O(1).\n- Inserting in the middle is O(n).\n- Prefix sums answer range queries.\n\nYou finished this path.",
             'outcome' => 'success',
             'choices' => [],
         ],

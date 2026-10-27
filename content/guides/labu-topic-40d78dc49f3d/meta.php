@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 return [
     'title' => 'Stack and queue fundamentals',
-    'summary' => 'Stack = LIFO; queue = FIFO — choose by whether the newest or oldest pending item should go next.',
+    'summary' => 'A stack hands back the newest item first and a queue hands back the oldest, so pick the one that matches the order you need.',
     'category' => 'Data Structures',
     'subcategory' => 'Stack',
     'kind' => 'algo',

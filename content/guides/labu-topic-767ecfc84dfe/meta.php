@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 return [
     'title' => 'Backtracking theory',
-    'summary' => 'Search a decision tree of partial solutions; prune; undo — correctness from exhaustive explored leaves minus pruned dead ends.',
+    'summary' => 'Backtracking walks a tree of partial answers, cutting off branches that cannot work and undoing each choice before trying the next.',
     'category' => 'Algorithms',
     'subcategory' => 'Backtracking',
     'kind' => 'algo',

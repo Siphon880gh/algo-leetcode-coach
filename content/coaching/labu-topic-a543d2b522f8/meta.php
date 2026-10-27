@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Binary tree recursive traversals: practice path',
-    'summary' => 'Preorder, inorder, and postorder differ only in when you record the root.',
+    'title' => 'Recursive traversals: move the visit line',
+    'summary' => 'Write the preorder and inorder of a three-node tree and check when inorder is sorted.',
     'category' => 'Data Structures',
     'subcategory' => 'Trees',
     'tags' => ['traversal', 'recursion', 'step-by-step'],

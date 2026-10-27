@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 return [
     'title' => 'Insertion sort: grow a sorted prefix',
-    'summary' => 'Take the next element and insert it into the already-sorted left side — excellent on nearly sorted data.',
+    'summary' => 'Insertion sort takes the next element and slides it left into the sorted part, which is fast when the data is nearly sorted.',
     'category' => 'Algorithms',
     'subcategory' => 'Sorting',
     'kind' => 'algo',

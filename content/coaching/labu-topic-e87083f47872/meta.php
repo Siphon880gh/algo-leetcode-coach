@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Greedy problem patterns: practice path',
-    'summary' => 'Interval scheduling, jump game, gas station, Huffman-style — recognize the selection key.',
+    'title' => 'Greedy patterns: find the key',
+    'summary' => 'Track the farthest index in the jump game and pick the key for interval scheduling.',
     'category' => 'Algorithms',
     'subcategory' => 'Greedy',
     'tags' => ['greedy', 'patterns', 'step-by-step'],

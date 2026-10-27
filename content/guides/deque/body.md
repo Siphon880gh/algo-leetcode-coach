@@ -1,6 +1,6 @@
 ## Tiny example
 
-A double-ended queue lets both ends move:
+A double-ended queue (deque) lets you add and remove at both ends:
 
 ```
 deque = [10, 20]
@@ -12,21 +12,25 @@ pop_back      → returns 30, deque = [10, 20]
 
 ## Why not always use a deque?
 
-Stack = one end. Queue = front out / rear in. Deque = both ends. Extra power is great for sliding-window maxima and 0-1 BFS; it is overkill when a plain stack/queue already matches the problem.
+A stack uses one end. A queue adds at the back and removes from the front. A deque can do both at both ends.
 
-## Ops (amortized with a good ring buffer)
+That extra power is exactly what sliding-window maximum and 0-1 BFS need. When a plain stack or queue already fits the problem, the simpler structure is easier to read.
 
-1. push/pop at front — O(1)
-2. push/pop at back — O(1)
-3. random mid index — still O(n) unless you add extra structure
+## Operations
+
+With a good ring buffer, these are O(1) amortized:
+
+1. Push or pop at the front: O(1).
+2. Push or pop at the back: O(1).
+3. Reading an index in the middle can still be O(n), unless the implementation adds extra structure.
 
 ## Trap
 
-Calling it a “queue” in your head but popping the rear in BFS.
+Thinking of it as a "queue" but popping from the back during BFS.
 
-**Fix:** Name the ADT you mean. BFS needs front-out. Sliding-window max needs both ends with a monotonic deque pattern.
+**Fix:** Say which behavior you need. BFS removes from the front. Sliding-window maximum uses both ends with a monotonic deque.
 
-**Time:** O(1) end ops  
+**Time:** O(1) for operations at either end  
 **Space:** O(n)
 
 > [!ui-builder] Mini game

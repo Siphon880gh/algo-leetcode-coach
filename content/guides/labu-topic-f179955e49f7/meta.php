@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 return [
     'title' => 'Array problem patterns',
-    'summary' => 'Two pointers, sliding window, prefix sums, and in-place swaps cover a huge fraction of array prompts.',
+    'summary' => 'Two pointers, sliding windows, prefix sums and in-place swaps solve a large share of array problems.',
     'category' => 'Algorithms',
     'subcategory' => 'Arrays',
     'kind' => 'algo',

@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Binary tree theory essentials: practice path',
-    'summary' => 'Height, depth, complete vs full vs perfect — vocabulary that interview follow-ups expect.',
+    'title' => 'Tree vocabulary: depth, height and shapes',
+    'summary' => 'Measure a depth and name the tree shapes used by heaps and perfect trees.',
     'category' => 'Data Structures',
     'subcategory' => 'Trees',
     'tags' => ['binary-tree', 'theory', 'step-by-step'],

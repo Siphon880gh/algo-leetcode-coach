@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 return [
     'title' => 'When O(n) still times out',
-    'summary' => 'Linear passes can fail limits if you hide large constants, huge element costs, or accidental O(n²) inside “O(n)” APIs.',
+    'summary' => 'A single loop can still time out when each pass hides a large cost, such as copying a string or scanning a list inside an innocent-looking call.',
     'category' => 'Algorithms',
     'subcategory' => 'Complexity',
     'kind' => 'algo',

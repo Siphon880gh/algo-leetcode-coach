@@ -1,29 +1,29 @@
 ## Tiny example
 
-Build a max-heap from `[2, 3, 9, 5, 6]` **bottom-up**.
+Build a max-heap from `[2, 3, 9, 5, 6]` **from the bottom up**.
 
-With n = 5, the last parent sits at index `(n-2)//2 = 1` (the value `3`).
+With n = 5, the last parent is at index `(n-2)//2 = 1`, which holds the value `3`.
 
-Sift down from the last parent toward the root:
+Sift down each parent, from the last parent back to the root:
 
-1. Index 1 (`3`): children `5,6` → sift → swap toward larger child as needed
-2. Index 0 (`2`): sift down until heap order holds
+1. At index 1 (value `3`), the children are `5` and `6`. Swap `3` with the larger child, `6`.
+2. At index 0 (value `2`), sift down until the heap order holds. `2` swaps with `9`.
 
-Result shape has `9` at the root (exact array depends on ties/swaps) — **O(n)** total, not O(n log n).
+The result is `[9, 6, 2, 5, 3]`, with `9` at the root. The total work is **O(n)**, not O(n log n).
 
-## Contrast: n× push
+## Compare: n separate pushes
 
-Starting from empty and pushing n times is **O(n log n)**. Bottom-up heapify is tighter because lower subtrees are small.
+Starting empty and pushing n items one at a time costs **O(n log n)**. Building from the bottom up is faster because most nodes sit near the bottom, where sifting down is short.
 
 ## Trap
 
-Implementing “build” as n inserts and still quoting O(n).
+Implementing "build" as n inserts and still claiming O(n).
 
-**Fix:** Use Floyd heapify (sift down from the last parent). Prove sum of heights → O(n).
+**Fix:** Use Floyd's heapify, which sifts down from the last parent to the root. The sum of all the node heights is O(n), so the build is O(n).
 
 **Time (heapify):** O(n)  
 **Time (n pushes):** O(n log n)  
-**Space:** O(1) extra in-array
+**Space:** O(1) extra, done inside the array
 
 > [!ui-builder] Mini game
 > INPUT_TOPIC: Theory or problem

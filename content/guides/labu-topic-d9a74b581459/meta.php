@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 return [
     'title' => 'Hash table problem patterns',
-    'summary' => 'Two-sum maps, anagram counts, prefix-sum + map, and grouping by key.',
+    'summary' => 'Hash maps solve a few recurring problems: Two Sum lookups, counting characters, prefix sums and grouping items by a key.',
     'category' => 'Algorithms',
     'subcategory' => 'Hashing',
     'kind' => 'algo',

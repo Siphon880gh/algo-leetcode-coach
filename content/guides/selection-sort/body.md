@@ -2,26 +2,26 @@
 
 Sort `[3, 1, 4, 2]`.
 
-Pass 0 (build position 0):
+Pass 0 fills position 0:
 
-1. Scan whole range → minimum is `1` at index 1
-2. Swap with index 0 → `[1, 3, 4, 2]`
+1. Scan the whole range. The minimum is `1`, at index 1.
+2. Swap it with index 0, giving `[1, 3, 4, 2]`.
 
-Pass 1 (position 1): min of rest is `2` → swap → `[1, 2, 4, 3]`
+Pass 1 fills position 1. The minimum of the rest is `2`, so swap it into place, giving `[1, 2, 4, 3]`.
 
-Continue until `[1, 2, 3, 4]`.
+Continue until the array is `[1, 2, 3, 4]`.
 
 ## How
 
-1. For `i` in `0 … n-2`
-2. Find index of minimum in `a[i … n-1]`
-3. Swap with `a[i]`
+1. For each `i` from `0` to `n-2`:
+2. Find the index of the minimum in `a[i … n-1]`.
+3. Swap it with `a[i]`.
 
 ## Trap
 
-Confusing selection with insertion: selection **finds the min then swaps once**; insertion **slides** the next element left into a sorted prefix.
+Confusing selection sort with insertion sort. Selection sort **finds the minimum and swaps once**. Insertion sort **slides** the next element left into a sorted prefix.
 
-**Fix:** Name the invariant: after `i` passes, `a[0 … i-1]` holds the `i` smallest items (sorted).
+**Fix:** State the invariant: after `i` passes, `a[0 … i-1]` holds the `i` smallest items, in sorted order.
 
 **Time:** O(n²) always · **Space:** O(1)
 

@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'AVL tree: BST plus balance-factor rotations',
-    'summary' => 'After each insert/delete, rotate when a node’s subtree heights differ by more than 1 — searches stay O(log n).',
+    'title' => 'AVL tree: a search tree that rotates to stay balanced',
+    'summary' => 'An AVL tree checks heights after every insert or delete and rotates when one side gets too tall, so searches stay fast.',
     'category' => 'Data Structures',
     'subcategory' => 'Trees',
     'kind' => 'algo',

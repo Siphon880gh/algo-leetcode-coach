@@ -1,28 +1,26 @@
 ## Tiny example
 
-Linked-list toolkit on `1→2→3→4`.
+Three tools for linked lists, shown on `1→2→3→4`:
 
-1. **Dummy head** before `1` simplifies empty/head edge deletes
-2. **Fast/slow**: fast moves 2, slow 1 — mid of even/odd lists
-3. **Rewire**: save `nxt=cur.next` before changing pointers
+1. **A dummy head** placed before `1` makes deleting the head, or handling an empty list, work like any other case.
+2. **Fast and slow pointers**: fast moves two nodes per step and slow moves one. When fast reaches the end, slow is at the middle, for both odd and even lengths.
+3. **Safe rewiring**: save `nxt = cur.next` before you change any pointer.
 
-Most list bugs are lost `next` references.
-
+Most linked-list bugs come from losing a `next` reference.
 
 ## How
 
-1. Draw pointers before coding
-2. Use dummy when head may change
-3. Save `next` before rewires
-
+1. Draw the pointers before writing code.
+2. Use a dummy node whenever the head might change.
+3. Save `next` before rewiring.
 
 ## Trap
 
-Updating `cur.next` before saving the old next — losing the rest of the list.
+Changing `cur.next` before saving the old next node. The rest of the list is lost.
 
-**Fix:** Temp variable first; then rewire.
+**Fix:** Save it in a temporary variable first, then rewire.
 
-**Time:** O(n) typical walks · **Space:** O(1) pointer tricks
+**Time:** O(n) for the usual walks · **Space:** O(1) for these pointer tricks
 
 > [!ui-builder] Mini game
 > INPUT_TOPIC: Theory or problem

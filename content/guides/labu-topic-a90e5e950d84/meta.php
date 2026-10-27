@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'DP foundations: Fib as four named pieces',
+    'title' => 'DP foundations: Fibonacci in four named pieces',
     'summary' => 'Build a DP solution in four moves: name the state, write the recurrence, set the base cases, and fill in order.',
     'category' => 'Algorithms',
     'subcategory' => 'Dynamic Programming',

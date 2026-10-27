@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 return [
     'title' => 'Greedy algorithm foundations',
-    'summary' => 'Greedy picks the locally best choice — correct only when a proof says it never blocks a better global answer.',
+    'summary' => 'A greedy algorithm takes the best-looking choice at each step, and it is only correct when you can prove that choice never blocks a better answer.',
     'category' => 'Algorithms',
     'subcategory' => 'Greedy',
     'kind' => 'algo',

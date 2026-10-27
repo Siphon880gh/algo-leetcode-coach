@@ -10,49 +10,49 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "State:\na = [3, 1, 4, 2]\npivot = 2 (last)\n\nAfter a correct partition, where is 2?",
+            'message' => "State:\na = [3, 1, 4, 2]\npivot = 2 (the last element)\n\nAfter a correct partition, where is 2?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'At its final sorted index — left all ≤, right all ≥', 'next' => 'worst'],
-                ['label' => 'Still at the end — partition never moves the pivot', 'next' => 'w_end'],
+                ['label' => 'At its final sorted index, with smaller values to its left and larger ones to its right', 'next' => 'worst'],
+                ['label' => 'Still at the end, because partitioning never moves the pivot', 'next' => 'w_end'],
             ],
         ],
         'w_end' => [
-            'message' => "Wrong.\n\nPartition swaps the pivot into its final resting index.\n\nStep back.",
+            'message' => "Wrong.\n\nPartitioning swaps the pivot into its final position.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'start',
             'choices' => [],
         ],
         'worst' => [
-            'message' => "State:\nalready-sorted array, pivot always = last element\n\nRisk?",
+            'message' => "State:\nan array that is already sorted\nthe pivot is always the last element\n\nWhat is the risk?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'O(n²) — unbalanced partitions every time', 'next' => 'fix'],
-                ['label' => 'Still guaranteed O(n log n) comparisons', 'next' => 'w_guar'],
+                ['label' => 'O(n²) time, because every partition is lopsided', 'next' => 'fix'],
+                ['label' => 'It is still guaranteed O(n log n) comparisons', 'next' => 'w_guar'],
             ],
         ],
         'w_guar' => [
-            'message' => "Wrong.\n\nClassic quicksort is not comparison-guaranteed like mergesort.\n\nStep back.",
+            'message' => "Wrong.\n\nUnlike merge sort, classic quicksort has no O(n log n) guarantee.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'worst',
             'choices' => [],
         ],
         'fix' => [
-            'message' => "State:\nwant to avoid the sorted-input blowup\n\nPractical fix?",
+            'message' => "State:\nyou want to avoid the slowdown on sorted input\n\nWhat is the practical fix?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'Random pivot / shuffle / median-of-three', 'next' => 'success'],
-                ['label' => 'Disable recursion and only partition once', 'next' => 'w_once'],
+                ['label' => 'A random pivot, a shuffle, or the median of three', 'next' => 'success'],
+                ['label' => 'Stop recursing and partition only once', 'next' => 'w_once'],
             ],
         ],
         'w_once' => [
-            'message' => "Wrong.\n\nYou still need both sides sorted — fix the pivot policy instead.\n\nStep back.",
+            'message' => "Wrong.\n\nBoth sides still need sorting. Fix how the pivot is chosen instead.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'fix',
             'choices' => [],
         ],
         'success' => [
-            'message' => "Correct.\n\n- Partition around a pivot, recurse both sides\n- Average O(n log n); guard the O(n²) pivot trap\n\nYou finished this path.",
+            'message' => "Correct.\n\n- Partition around a pivot, then recurse on both sides.\n- The average is O(n log n), but guard against the O(n²) pivot trap.\n\nYou finished this path.",
             'outcome' => 'success',
             'choices' => [],
         ],

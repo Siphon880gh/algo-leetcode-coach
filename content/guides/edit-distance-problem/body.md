@@ -4,7 +4,7 @@ Turn `cat` into `cut`.
 
 You only need **one** edit: replace `a` with `u`.
 
-Imagine a grid whose rows are prefixes of `cat` and columns are prefixes of `cut`:
+Picture a grid. The rows are prefixes of `cat` and the columns are prefixes of `cut`:
 
 |   | "" | c | cu | cut |
 |---|----|---|----|-----|
@@ -13,32 +13,32 @@ Imagine a grid whose rows are prefixes of `cat` and columns are prefixes of `cut
 | ca | 2 | 1 | 1 | 2 |
 | cat | 3 | 2 | 2 | **1** |
 
-Reading `dp[row][col]` = “edits to turn that row-prefix into that col-prefix”:
+`dp[row][col]` is the number of edits needed to turn the row's prefix into the column's prefix.
 
-- Empty → any string of length `j` costs `j` inserts (top row)
-- Any string → empty costs `i` deletes (left column)
-- When the last letters **match** (`c`/`c`), copy the diagonal with **no** +1
-- When they **differ** (`a`/`u`), take `1 + min(insert, delete, replace)`
+- Turning the empty string into a string of length `j` takes `j` inserts. That fills the top row.
+- Turning a string of length `i` into the empty string takes `i` deletes. That fills the left column.
+- When the last letters **match** (like `c` and `c`), copy the diagonal value with **no** extra cost.
+- When they **differ** (like `a` and `u`), take 1 plus the smallest of the insert, delete and replace neighbors.
 
-Answer for full strings: bottom-right = **1**.
+The answer for the full strings is the bottom-right cell: **1**.
 
-Same idea scales to `kitten` → `sitting` = **3**.
+The same method gives `kitten` to `sitting` = **3**.
 
 ## How
 
-1. Build an `(m+1) × (n+1)` table for prefixes of `a` and `b`
-2. Fill borders with pure inserts / deletes
-3. For each cell: match → diagonal; else `1 + min` of three neighbors
-4. Return `dp[m][n]`
+1. Build an `(m+1) × (n+1)` table for the prefixes of `a` and `b`.
+2. Fill the top row with inserts and the left column with deletes.
+3. For each other cell: if the letters match, copy the diagonal. Otherwise take 1 plus the smallest of the three neighbors.
+4. Return `dp[m][n]`.
 
 ## Trap
 
-Always paying a replace even when the two letters are equal.
+Always paying for a replace, even when the two letters are equal.
 
 **Fix:** If `a[i-1] == b[j-1]`, take `dp[i-1][j-1]` with **no** extra cost.
 
 **Time:** O(mn)  
-**Space:** O(mn) (or O(min(m,n)) with a rolling row)
+**Space:** O(mn), or O(min(m, n)) if you keep only one row
 
 > [!ui-builder] Mini game
 > INPUT_TOPIC: Theory or problem

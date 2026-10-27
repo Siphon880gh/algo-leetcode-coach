@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 return [
     'title' => 'Array: contiguous slots and O(1) index access',
-    'summary' => 'Store values in adjacent memory so index i is address + i·size — fast reads, costly mid-inserts.',
+    'summary' => 'Arrays keep values side by side in memory, so reading any index is instant while inserting in the middle means shifting everything after it.',
     'category' => 'Data Structures',
     'subcategory' => 'Arrays',
     'kind' => 'algo',

@@ -1,32 +1,30 @@
 ## Tiny example
 
-Backtracking families share one template; choice lists differ:
+Every backtracking family uses the same template. What changes is the list of choices at each depth:
 
-| Family | Choice at a depth |
-|--------|-------------------|
-| Subsets | take / skip element i |
-| Combinations | pick next number ≥ last |
+| Family | Choice at each depth |
+|--------|----------------------|
+| Subsets | take or skip element i |
+| Combinations | pick a next number that is at least the last one |
 | Permutations | pick any unused index |
-| Partition | cut here / extend segment |
-| Board search | try each cell / column |
+| Partition | cut here, or extend the current segment |
+| Board search | try each cell or column |
 
-Example: combinations of size 2 from `[1,2,3]` → `[1,2],[1,3],[2,3]` by only picking forward.
-
+Example: the combinations of size 2 from `[1,2,3]` are `[1,2]`, `[1,3]` and `[2,3]`. You get exactly these by only picking forward.
 
 ## How
 
-1. Identify the family
-2. Write the choice generator
-3. Reuse choose→recurse→undo
-
+1. Identify the family.
+2. Write the code that lists the choices.
+3. Reuse the same loop: choose, recurse, then undo.
 
 ## Trap
 
-Using permutation unused[] logic for combinations and getting duplicates / wrong sizes.
+Using the permutation approach (an `unused[]` array) for combinations. You get duplicates or the wrong sizes.
 
-**Fix:** Combinations enforce sorted order / start index to avoid dup orderings.
+**Fix:** For combinations, keep a start index so the picks stay in sorted order. This avoids counting the same set in different orders.
 
-**Time:** family-dependent · **Space:** O(depth)
+**Time:** depends on the family · **Space:** O(depth)
 
 > [!ui-builder] Mini game
 > INPUT_TOPIC: Theory or problem

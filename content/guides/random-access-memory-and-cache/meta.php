@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 return [
     'title' => 'RAM and cache: why contiguous layouts run faster',
-    'summary' => 'CPUs fetch cache lines — walking an array streams memory; chasing linked-list pointers jumps and stalls.',
+    'summary' => 'CPUs load memory a cache line at a time, so walking an array streams quickly while following linked-list pointers jumps around and stalls.',
     'category' => 'Data Structures',
     'subcategory' => 'Fundamentals',
     'kind' => 'algo',

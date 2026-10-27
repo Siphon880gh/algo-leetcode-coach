@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Array fundamentals (pattern note): practice path',
-    'summary' => 'Contiguous storage, O(1) index, O(n) mid insert — foundation for two pointers and prefix sums.',
+    'title' => 'Array basics: read, insert and range sums',
+    'summary' => 'Price an index read and a middle insert, then prepare for range queries.',
     'category' => 'Data Structures',
     'subcategory' => 'Arrays',
     'tags' => ['array', 'step-by-step'],

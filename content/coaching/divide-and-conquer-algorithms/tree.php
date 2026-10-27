@@ -10,35 +10,35 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "State:\nmerge sort step after sorting halves\n\nPhase?",
+            'message' => "State:\nmerge sort has just sorted both halves\n\nWhich phase comes next?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'Combine — merge two sorted runs', 'next' => 'mid'],
-                ['label' => 'Divide again forever', 'next' => 'w1'],
+                ['label' => 'Combine, by merging the two sorted halves', 'next' => 'mid'],
+                ['label' => 'Divide again, forever', 'next' => 'w1'],
             ],
         ],
         'w1' => [
-            'message' => "Wrong.\n\nCombine merges the conquered halves.\n\nStep back.",
+            'message' => "Wrong.\n\nThe combine step merges the halves that were just sorted.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'start',
             'choices' => [],
         ],
         'mid' => [
-            'message' => "State:\nsubproblems recompute the exact same segment many times\n\nLean toward?",
+            'message' => "State:\nthe subproblems keep recomputing the exact same segment\n\nWhich approach fits better?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'DP / memo rather than pure D&C', 'next' => 'final'],
-                ['label' => 'Bigger stacks only', 'next' => 'w2'],
+                ['label' => 'Dynamic programming or memoization, rather than pure divide and conquer', 'next' => 'final'],
+                ['label' => 'Just a bigger call stack', 'next' => 'w2'],
             ],
         ],
         'w2' => [
-            'message' => "Wrong.\n\nOverlap is DP’s signal.\n\nStep back.",
+            'message' => "Wrong.\n\nSubproblems that repeat are the signal for dynamic programming.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'mid',
             'choices' => [],
         ],
         'final' => [
-            'message' => "State:\nT(n)=2T(n/2)+O(n)\n\nClass?",
+            'message' => "State:\nT(n) = 2T(n/2) + O(n)\n\nWhat is the running time?",
             'outcome' => 'continue',
             'choices' => [
                 ['label' => 'O(n log n)', 'next' => 'success'],
@@ -46,13 +46,13 @@ return [
             ],
         ],
         'w3' => [
-            'message' => "Wrong.\n\nMaster theorem / tree of work → n log n.\n\nStep back.",
+            'message' => "Wrong.\n\nThere are about log n levels of splitting, and each level does O(n) work in total. That gives O(n log n).\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'final',
             'choices' => [],
         ],
         'success' => [
-            'message' => "Correct.\n\n- Split, solve, combine\n- Independent subproblems\n\nYou finished this path.",
+            'message' => "Correct.\n\n- Split, solve, combine.\n- The subproblems are independent.\n\nYou finished this path.",
             'outcome' => 'success',
             'choices' => [],
         ],

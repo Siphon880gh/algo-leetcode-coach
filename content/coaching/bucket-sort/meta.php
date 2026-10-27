@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Bucket sort: two buckets on [0,1) floats',
-    'summary' => 'Scatter 0.42,0.05,0.81,0.39 and concat.',
+    'title' => 'Bucket sort: two buckets for values between 0 and 1',
+    'summary' => 'Scatter 0.42, 0.05, 0.81 and 0.39 into two buckets, then join them in order.',
     'category' => 'Algorithms',
     'subcategory' => 'Sorting',
     'tags' => ['bucket-sort', 'step-by-step'],

@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Stock DP: cash vs hold on a price line',
+    'title' => 'Stock profit DP: track cash and holding',
     'summary' => 'Find the best stock profit by tracking just two numbers each day: cash in hand and the value of holding a share.',
     'category' => 'Algorithms',
     'subcategory' => 'Dynamic Programming',

@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Heap: priority queue via a binary heap',
-    'summary' => 'A complete tree in an array where each parent is ≤ (min-heap) or ≥ (max-heap) its children — O(log n) push/pop.',
+    'title' => 'Heap: a priority queue built on a binary tree',
+    'summary' => 'A heap is a complete binary tree stored in an array where every parent beats its children, so the top item is always one step away.',
     'category' => 'Data Structures',
     'subcategory' => 'Heap',
     'kind' => 'algo',

@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Recursion+undo: subsets of [1,2]',
+    'title' => 'Recursion with undo: subsets of [1, 2]',
     'summary' => 'Take 1, undo it, then skip it, and notice that backtracking is just recursion.',
     'category' => 'Algorithms',
     'subcategory' => 'Recursion',

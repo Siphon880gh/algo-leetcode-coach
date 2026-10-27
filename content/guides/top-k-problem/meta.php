@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Top-k: a size-k heap beats full sort',
-    'summary' => 'Keep a min-heap of size k for the running top-k — O(n log k) vs O(n log n) sort.',
+    'title' => 'Top k: a small heap beats a full sort',
+    'summary' => 'Keep a min-heap of size k to track the k largest values so far, which takes O(n log k) time instead of O(n log n) for sorting.',
     'category' => 'Algorithms',
     'subcategory' => 'Heap',
     'kind' => 'algo',

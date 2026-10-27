@@ -10,39 +10,39 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "State:\nhot op = random index reads\n\nPrefer?",
+            'message' => "State:\nthe most common operation is reading random indexes\n\nWhat do you prefer?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'Array / dynamic array', 'next' => 'mid'],
-                ['label' => 'Singly linked list', 'next' => 'w1'],
+                ['label' => 'An array or dynamic array', 'next' => 'mid'],
+                ['label' => 'A singly linked list', 'next' => 'w1'],
             ],
         ],
         'w1' => [
-            'message' => "Wrong.\n\nLists make index O(n).\n\nStep back.",
+            'message' => "Wrong.\n\nA linked list makes index reads O(n).\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'start',
             'choices' => [],
         ],
         'mid' => [
-            'message' => "State:\nhot op = repeated push_front\n\nPrefer?",
+            'message' => "State:\nthe most common operation is push_front\n\nWhat do you prefer?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'Linked list or deque', 'next' => 'final'],
-                ['label' => 'Dynamic array without spare head room', 'next' => 'w2'],
+                ['label' => 'A linked list or a deque', 'next' => 'final'],
+                ['label' => 'A dynamic array with no spare room at the front', 'next' => 'w2'],
             ],
         ],
         'w2' => [
-            'message' => "Wrong.\n\nArray front insert shifts.\n\nStep back.",
+            'message' => "Wrong.\n\nInserting at the front of an array shifts every element.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'mid',
             'choices' => [],
         ],
         'final' => [
-            'message' => "State:\nhot op = “have I seen this key?”\n\nPrefer?",
+            'message' => "State:\nthe most common question is \"have I seen this key?\"\n\nWhat do you prefer?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'Hash set/map', 'next' => 'success'],
-                ['label' => 'Unsorted array scans forever without thought', 'next' => 'w3'],
+                ['label' => 'A hash set or map', 'next' => 'success'],
+                ['label' => 'Scanning an unsorted array every time', 'next' => 'w3'],
             ],
         ],
         'w3' => [
@@ -52,7 +52,7 @@ return [
             'choices' => [],
         ],
         'success' => [
-            'message' => "Correct.\n\n- Match structure to the hot operation\n- Arrays / lists / hash each win differently\n\nYou finished this path.",
+            'message' => "Correct.\n\n- Match the structure to the most common operation.\n- Arrays, linked lists and hash tables each win in different cases.\n\nYou finished this path.",
             'outcome' => 'success',
             'choices' => [],
         ],

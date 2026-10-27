@@ -10,49 +10,49 @@ return [
     'start' => 'start',
     'nodes' => [
         'start' => [
-            'message' => "State:\nmax-heap root\n\npeek?",
+            'message' => "State:\nthe root of a max-heap\n\nWhat does peek return?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'Maximum', 'next' => 'mid'],
-                ['label' => 'Minimum', 'next' => 'w1'],
+                ['label' => 'The maximum', 'next' => 'mid'],
+                ['label' => 'The minimum', 'next' => 'w1'],
             ],
         ],
         'w1' => [
-            'message' => "Wrong.\n\nMax-heap root is max.\n\nStep back.",
+            'message' => "Wrong.\n\nThe root of a max-heap is the maximum.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'start',
             'choices' => [],
         ],
         'mid' => [
-            'message' => "State:\npush\n\nMechanism?",
+            'message' => "State:\nyou push a new value\n\nHow does it work?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'Append + sift up', 'next' => 'final'],
+                ['label' => 'Append it, then sift it up', 'next' => 'final'],
                 ['label' => 'Overwrite a random leaf', 'next' => 'w2'],
             ],
         ],
         'w2' => [
-            'message' => "Wrong.\n\nAppend then sift up.\n\nStep back.",
+            'message' => "Wrong.\n\nAppend the value at the end, then sift it up.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'mid',
             'choices' => [],
         ],
         'final' => [
-            'message' => "State:\npriority queue ADT\n\nCommon layout?",
+            'message' => "State:\nyou need a priority queue\n\nWhat is the common implementation?",
             'outcome' => 'continue',
             'choices' => [
-                ['label' => 'Binary heap', 'next' => 'success'],
-                ['label' => 'Unsorted array only forever', 'next' => 'w3'],
+                ['label' => 'A binary heap', 'next' => 'success'],
+                ['label' => 'An unsorted array, always', 'next' => 'w3'],
             ],
         ],
         'w3' => [
-            'message' => "Wrong.\n\nHeaps give log updates.\n\nStep back.",
+            'message' => "Wrong.\n\nA heap gives O(log n) updates.\n\nStep back.",
             'outcome' => 'wrong',
             'rewind_to' => 'final',
             'choices' => [],
         ],
         'success' => [
-            'message' => "Correct.\n\n- Heap implements priority queue\n- Sift up/down\n\nYou finished this path.",
+            'message' => "Correct.\n\n- A heap implements a priority queue.\n- Updates sift up or down.\n\nYou finished this path.",
             'outcome' => 'success',
             'choices' => [],
         ],

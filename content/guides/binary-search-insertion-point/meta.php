@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 return [
     'title' => 'Binary search insertion point',
-    'summary' => 'Lower_bound index is where a new value should go to keep sorted order — same binary search on ≥ x.',
+    'summary' => 'Find where a new value belongs in a sorted array with one binary search for the first element that is at least as large.',
     'category' => 'Algorithms',
     'subcategory' => 'Binary Search',
     'kind' => 'algo',

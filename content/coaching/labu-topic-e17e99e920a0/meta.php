@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Hash table fundamentals (pattern note): practice path',
-    'summary' => 'Expected O(1) membership and frequency maps — first upgrade from nested scans.',
+    'title' => 'Hash basics: catch the duplicate',
+    'summary' => 'Find a repeated value with a hash set and price n lookups.',
     'category' => 'Data Structures',
     'subcategory' => 'Hash Map',
     'tags' => ['hash-table', 'step-by-step'],

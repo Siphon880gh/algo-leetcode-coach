@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Strings: patterns to remember: practice path',
-    'summary' => 'Two pointers on chars, sliding window with counts, KMP/rolling hash when needed, and immutable-vs-builder costs.',
+    'title' => 'String patterns: pick the right tool',
+    'summary' => 'Choose a tool for a palindrome check, a slow concatenation loop and a substring with limited letters.',
     'category' => 'Algorithms',
     'subcategory' => 'Strings',
     'tags' => ['strings', 'patterns', 'step-by-step'],

@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Intersect lists: switch heads',
-    'summary' => 'See why a and b meet at node 7, comparing identity not values.',
+    'title' => 'Intersecting lists: switch heads',
+    'summary' => 'Walk two pointers through both lists and see why they meet at the shared node, comparing nodes and not values.',
     'category' => 'Data Structures',
     'subcategory' => 'Linked List',
     'tags' => ['linked-list', 'two-pointers', 'step-by-step'],

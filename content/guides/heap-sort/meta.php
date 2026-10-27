@@ -2,8 +2,8 @@
 declare(strict_types=1);
 
 return [
-    'title' => 'Heap sort: build a max-heap, peel the top',
-    'summary' => 'Heapify, then repeatedly swap root with the end and sift down — O(n log n) in-place sort.',
+    'title' => 'Heap sort: build a max-heap, then take the top each time',
+    'summary' => 'Heap sort builds a max-heap and then keeps moving the largest value to the end, sorting in place in O(n log n).',
     'category' => 'Algorithms',
     'subcategory' => 'Sorting',
     'kind' => 'algo',
