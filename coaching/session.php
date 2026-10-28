@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 require_once dirname(__DIR__) . '/includes/layout.php';
 require_once dirname(__DIR__) . '/includes/problem.php';
+require_once dirname(__DIR__) . '/includes/problem_tools.php';
 
 $slug = isset($_GET['id']) ? (string) $_GET['id'] : '';
 $item = load_content('coaching', $slug);
@@ -434,6 +435,8 @@ if ($sessionSummary !== ''):
         </footer>
     </div>
 </div>
+
+<?php render_check_understanding_modal(problem_check_understanding_data($meta, (string) (($nodes[$startId] ?? [])['message'] ?? '')), false); ?>
 
 <?php
 layout_end();

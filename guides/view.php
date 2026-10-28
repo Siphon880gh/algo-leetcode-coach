@@ -4,6 +4,7 @@ declare(strict_types=1);
 require_once dirname(__DIR__) . '/includes/layout.php';
 require_once dirname(__DIR__) . '/includes/guide_md.php';
 require_once dirname(__DIR__) . '/includes/problem.php';
+require_once dirname(__DIR__) . '/includes/problem_tools.php';
 
 $slug = isset($_GET['id']) ? (string) $_GET['id'] : '';
 $item = load_content('guides', $slug);
@@ -205,6 +206,10 @@ if (is_file($mdPath)) {
         </footer>
     </div>
 </div>
+<?php
+$checkFallback = is_file($mdPath) ? problem_restatement_from_markdown((string) file_get_contents($mdPath)) : '';
+render_check_understanding_modal(problem_check_understanding_data($meta, $checkFallback), false);
+?>
 <?php endif; ?>
 
 <?php

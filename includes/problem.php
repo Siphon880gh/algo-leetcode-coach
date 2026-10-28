@@ -90,6 +90,39 @@ function problem_is_premium(int $n): bool
     return isset(problem_premium_numbers()[$n]);
 }
 
+/** Readable problem title from its LeetCode URL slug, e.g. "two-sum-ii-input-array-is-sorted". */
+function game_problem_title(int $n): string
+{
+    // Official titles the URL slug cannot spell (punctuation or casing).
+    $official = [
+        51 => 'N-Queens', 69 => 'Sqrt(x)', 74 => 'Search a 2D Matrix',
+        167 => 'Two Sum II - Input Array Is Sorted', 435 => 'Non-overlapping Intervals',
+        1679 => 'Max Number of K-Sum Pairs',
+    ];
+    if (isset($official[$n])) {
+        return $official[$n];
+    }
+    $url = content_leetcode_url($n);
+    if ($url === null) {
+        return '';
+    }
+    $words = explode('-', basename(rtrim($url, '/')));
+    $upper = ['ii' => 'II', 'iii' => 'III', 'iv' => 'IV', 'bst' => 'BST', 'k' => 'K', 'i' => 'I'];
+    $small = ['a', 'an', 'and', 'at', 'by', 'from', 'in', 'of', 'on', 'or', 'the', 'to', 'with'];
+    foreach ($words as $i => $w) {
+        if (isset($upper[$w])) {
+            $words[$i] = $upper[$w];
+        } elseif ($i > 0 && in_array($w, $small, true)) {
+            $words[$i] = $w;
+        } elseif (preg_match('/^(\d+)(sum)$/', $w, $m) === 1) {
+            $words[$i] = $m[1] . 'Sum';
+        } else {
+            $words[$i] = ucfirst($w);
+        }
+    }
+    return implode(' ', $words);
+}
+
 /**
  * Plain-text version of a statement, for AI prompt builders.
  */
@@ -144,14 +177,17 @@ function render_problem_statement(array $meta, string $variant = 'guide', bool $
             : 'Source: LeetCode ' . $n)
         . '</p>';
 
+    require_once __DIR__ . '/problem_tools.php';
+    $check = problem_check_understanding_button_html();
+
     if ($variant === 'session') {
-        echo '<details class="problem-statement problem-statement--session"' . ($open ? ' open' : '') . '>'
-            . '<summary class="problem-statement__summary">Problem</summary>'
+        echo '<details class="problem-statement problem-statement--session has-check-understanding"' . ($open ? ' open' : '') . '>'
+            . '<summary class="problem-statement__summary">Problem' . $check . '</summary>'
             . $body . $source . '</details>';
         return;
     }
 
-    echo '<section class="problem-statement" aria-labelledby="problem-statement-heading">'
-        . '<h2 id="problem-statement-heading" class="problem-statement__heading">Problem</h2>'
+    echo '<section class="problem-statement has-check-understanding" aria-labelledby="problem-statement-heading">'
+        . '<h2 id="problem-statement-heading" class="problem-statement__heading">Problem</h2>' . $check
         . $body . $source . '</section>';
 }

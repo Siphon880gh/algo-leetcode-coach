@@ -701,11 +701,13 @@ function content_youtube_link_html(int $n, string $title, bool $labeled = false)
 }
 
 /**
- * LeetCode number, Easy/Med/Hard, and YouTube search for numbered problems.
+ * LeetCode number, Easy/Med/Hard, and YouTube search for numbered problems, plus the
+ * companies that ask it (highest pay band first). Problem pages pass $companiesFirst so
+ * the company names sit above the number line; gallery tiles keep them below.
  *
  * @param mixed $meta
  */
-function content_leetcode_chrome_html($meta, bool $labeledYoutube = false): string
+function content_leetcode_chrome_html($meta, bool $labeledYoutube = false, bool $companiesFirst = false): string
 {
     $n = content_leetcode_number($meta);
     if ($n === null) {
@@ -722,10 +724,10 @@ function content_leetcode_chrome_html($meta, bool $labeledYoutube = false): stri
         $line .= '<span class="leetcode-no__sep" aria-hidden="true"></span>';
     }
 
-    return $line
-        . content_youtube_link_html($n, $title, $labeledYoutube)
-        . '</span>'
-        . content_leetcode_companies_html($n);
+    $line .= content_youtube_link_html($n, $title, $labeledYoutube) . '</span>';
+    $companies = content_leetcode_companies_html($n);
+
+    return $companiesFirst ? $companies . $line : $line . $companies;
 }
 
 /**
@@ -1078,32 +1080,46 @@ function content_leetcode_difficulty_options(): array
     ];
 }
 
-function render_content_filter_tag_group(string $group, string $label, string $icon): void
+/**
+ * "Passes" Filter item: one flyout with two columns, First pass and Second pass. Each column is
+ * the user-tag list app.js fills for that tag group (data-user-tag-filters / data-tag-group).
+ */
+function render_content_filter_passes(): void
 {
-    $id = 'resource-filter-tags-' . $group;
+    $columns = [
+        ['group' => 'first-pass', 'label' => 'First pass', 'icon' => '①'],
+        ['group' => 'second-pass', 'label' => 'Second pass', 'icon' => '②'],
+    ];
     ?>
-    <div class="filter-tags" data-filter-tags data-filter-tag-group="<?= e($group) ?>">
+    <div class="filter-tags filter-passes" data-filter-tags data-filter-tag-group="first-pass second-pass">
         <button
             type="button"
             class="filter-tags__btn"
             data-filter-tags-btn
             aria-expanded="false"
             aria-haspopup="true"
-            aria-controls="<?= e($id) ?>"
+            aria-controls="resource-filter-passes"
         >
             <span class="filter-tags__caret" aria-hidden="true">◂</span>
-            <span class="filter-tags__icon" aria-hidden="true"><?= e($icon) ?></span>
-            <?= e($label) ?>
+            <span class="filter-tags__icon" aria-hidden="true">①②</span>
+            Passes
         </button>
         <div
-            id="<?= e($id) ?>"
-            class="filter-tags__panel"
+            id="resource-filter-passes"
+            class="filter-tags__panel filter-passes__panel"
             data-filter-tags-panel
             hidden
             role="dialog"
-            aria-label="<?= e($label) ?>"
+            aria-label="Passes"
         >
-            <ul class="pop__list pop__list--tags" data-user-tag-filters data-tag-group="<?= e($group) ?>"></ul>
+            <div class="filter-passes__cols">
+                <?php foreach ($columns as $col): ?>
+                    <section class="filter-passes__col" aria-labelledby="resource-filter-passes-<?= e($col['group']) ?>">
+                        <p class="filter-passes__head" id="resource-filter-passes-<?= e($col['group']) ?>"><span aria-hidden="true"><?= e($col['icon']) ?></span> <?= e($col['label']) ?></p>
+                        <ul class="pop__list pop__list--tags" data-user-tag-filters data-tag-group="<?= e($col['group']) ?>"></ul>
+                    </section>
+                <?php endforeach; ?>
+            </div>
         </div>
     </div>
     <?php
@@ -1225,7 +1241,11 @@ function render_content_filter_difficulty(): void
 /**
  * @param list<array{id: string, name: string, companies: list<array{slug: string, name: string, seniorTcUsd?: ?int, seniorTitle?: string}>}> $groups
  */
-function render_content_filter_companies(array $groups): void
+/**
+ * $interviewsType (games, guides, coaching) adds the "Or problems most companies ask" link under
+ * Find a company; it opens the Problems with most interviews slide-in (includes/problem_tools.php).
+ */
+function render_content_filter_companies(array $groups, string $interviewsType = ''): void
 {
     if ($groups === []) {
         return;
@@ -1262,6 +1282,11 @@ function render_content_filter_companies(array $groups): void
                     spellcheck="false"
                 >
             </div>
+            <?php if ($interviewsType !== ''): ?>
+                <?php require_once __DIR__ . '/problem_tools.php'; ?>
+                <?php render_company_problems_link($interviewsType); ?>
+            <?php endif; ?>
+            <hr class="filter-company-divider">
             <p class="filter-company-empty" data-filter-company-empty hidden>No companies match.</p>
             <ul class="pop__list">
                 <?php foreach ($groups as $group): ?>
@@ -1421,7 +1446,7 @@ function render_resource_head_chrome(string $from, array $meta, string $ownSlug,
 
     $n = content_leetcode_number($meta);
     if ($n !== null) {
-        echo '<p class="leetcode-no">' . content_leetcode_chrome_html($meta, true) . '</p>';
+        echo '<p class="leetcode-no">' . content_leetcode_chrome_html($meta, true, true) . '</p>';
     }
 
     render_companion_link($from, $meta, $ownSlug);
@@ -1501,9 +1526,12 @@ function render_content_browse(array $items, array $opts): void
     $sub = trim((string) ($opts['sub'] ?? ''));
     $empty = (string) ($opts['empty'] ?? 'Nothing here yet.');
     $userTags = !empty($opts['user_tags']);
+    $companyPanelType = (string) ($opts['company_panel'] ?? '');
+    // The Problems with most interviews link sits in the Companies flyout, so it needs both.
     $tagSection = user_tag_section($script);
     $companyGroups = content_browse_has_leetcode($items) ? content_leetcode_companies_grouped() : [];
     $hasDifficulty = content_browse_has_leetcode($items);
+    $interviewsType = $companyPanelType !== '' && $companyGroups !== [] ? $companyPanelType : '';
     $hasSource = content_browse_has_source_filter($items);
     $hasFlyouts = $userTags || $companyGroups !== [] || $hasDifficulty || $hasSource;
     /** @var callable $itemHref */
@@ -1661,18 +1689,17 @@ function render_content_browse(array $items, array $opts): void
                         role="dialog"
                         aria-label="Filter"
                     >
-                        <?php if ($companyGroups !== []): ?>
-                            <?php render_content_filter_companies($companyGroups); ?>
+                        <?php if ($hasDifficulty): ?>
+                            <?php render_content_filter_difficulty(); ?>
                         <?php endif; ?>
                         <?php if ($userTags): ?>
-                            <?php render_content_filter_tag_group('first-pass', 'First-Pass Tag', '①'); ?>
-                            <?php render_content_filter_tag_group('second-pass', 'Second-Pass Tag', '②'); ?>
+                            <?php render_content_filter_passes(); ?>
+                        <?php endif; ?>
+                        <?php if ($companyGroups !== []): ?>
+                            <?php render_content_filter_companies($companyGroups, $interviewsType); ?>
                         <?php endif; ?>
                         <?php if ($hasSource): ?>
                             <?php render_content_filter_source(); ?>
-                        <?php endif; ?>
-                        <?php if ($hasDifficulty): ?>
-                            <?php render_content_filter_difficulty(); ?>
                         <?php endif; ?>
                         <p class="pop__title"><?= $userTags ? 'Topics' : 'Filter' ?></p>
                         <ul class="pop__list pop__list--topics">
@@ -1728,6 +1755,10 @@ function render_content_browse(array $items, array $opts): void
                     aria-label="Clear filters"
                     <?= $cat !== '' ? '' : 'hidden' ?>
                 >×</a>
+                <?php if ($interviewsType !== ''): ?>
+                    <?php require_once __DIR__ . '/problem_tools.php'; ?>
+                    <?php render_company_problems_panel($interviewsType); ?>
+                <?php endif; ?>
                 </div>
             </div>
         </div>

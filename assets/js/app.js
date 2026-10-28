@@ -1543,8 +1543,11 @@
     root.querySelectorAll('[data-filter-tags]').forEach(function (wrap) {
       var btn = wrap.querySelector('[data-filter-tags-btn]');
       if (!btn) return;
-      var group = wrap.getAttribute('data-filter-tag-group') || '';
-      var ids = (root._tagIdsByGroup && root._tagIdsByGroup[group]) || [];
+      // One flyout can hold several tag groups (Passes = first-pass + second-pass).
+      var ids = [];
+      (wrap.getAttribute('data-filter-tag-group') || '').split(/\s+/).forEach(function (group) {
+        if (group && root._tagIdsByGroup && root._tagIdsByGroup[group]) ids = ids.concat(root._tagIdsByGroup[group]);
+      });
       var groupOn = false;
       var i;
       for (i = 0; i < selectedTags.length; i++) {
@@ -4252,7 +4255,251 @@
     });
   }
 
+  // ---------- Problems with most interviews (Companies flyout link -> right slide-in on the gallery pages) ----------
+  function initCompanyProblemsPanel() {
+    var root = document.getElementById('company-problems-root');
+    var openBtn = document.getElementById('company-problems-open');
+    if (!root || !openBtn) return;
+    if (root.parentNode !== document.body) document.body.appendChild(root);
+    var panel = root.querySelector('.recent-panel');
+    var list = document.getElementById('company-problems-list');
+    var summary = document.getElementById('company-problems-summary');
+    var search = document.getElementById('company-problems-q');
+    var endpoint = root.getAttribute('data-endpoint') || '';
+    var rows = null;
+    var loading = false;
+
+    function diffClass(label) {
+      return label === 'Easy' ? 'easy' : (label === 'Hard' ? 'hard' : 'med');
+    }
+
+    function paintSummary(shown) {
+      if (!summary || !rows) return;
+      var total = rows.length;
+      summary.textContent = shown === total
+        ? total + ' problems · most interviews first'
+        : shown + ' of ' + total + ' problems';
+    }
+
+    function applySearch() {
+      if (!list || !rows) return;
+      var q = search ? String(search.value || '').trim().toLowerCase() : '';
+      var shown = 0;
+      list.querySelectorAll('li[data-q]').forEach(function (li) {
+        var hit = !q || li.getAttribute('data-q').indexOf(q) !== -1;
+        li.hidden = !hit;
+        if (hit) shown++;
+      });
+      paintSummary(shown);
+    }
+
+    function render() {
+      if (!list || !rows) return;
+      list.textContent = '';
+      if (!rows.length) {
+        var empty = document.createElement('li');
+        empty.className = 'company-problems__empty';
+        empty.textContent = 'No problems with companies yet.';
+        list.appendChild(empty);
+        paintSummary(0);
+        return;
+      }
+      var frag = document.createDocumentFragment();
+      rows.forEach(function (row) {
+        var li = document.createElement('li');
+        li.setAttribute('data-q', (row.n + ' ' + row.title).toLowerCase());
+        var a = document.createElement('a');
+        a.className = 'company-problems__row';
+        a.href = row.url;
+        var n = document.createElement('span');
+        n.className = 'company-problems__n';
+        n.textContent = row.n;
+        var title = document.createElement('span');
+        title.className = 'company-problems__title';
+        title.textContent = row.title;
+        if (row.difficulty) {
+          var d = document.createElement('span');
+          d.className = 'leetcode-diff leetcode-diff--' + diffClass(row.difficulty);
+          d.textContent = row.difficulty;
+          title.appendChild(d);
+        }
+        var count = document.createElement('span');
+        count.className = 'company-problems__count';
+        count.textContent = row.companies + (row.companies === 1 ? ' company' : ' companies');
+        a.appendChild(n);
+        a.appendChild(title);
+        a.appendChild(count);
+        li.appendChild(a);
+        frag.appendChild(li);
+      });
+      list.appendChild(frag);
+      applySearch();
+    }
+
+    function load() {
+      if (rows || loading || !endpoint) return;
+      loading = true;
+      if (summary) summary.textContent = 'Loading…';
+      fetch(endpoint, { credentials: 'same-origin' })
+        .then(function (res) {
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          return res.json();
+        })
+        .then(function (data) {
+          rows = data && Array.isArray(data.rows) ? data.rows : [];
+          render();
+        })
+        .catch(function () {
+          if (summary) summary.textContent = 'Could not load problems. Close and try again.';
+        })
+        .then(function () {
+          loading = false;
+        });
+    }
+
+    var filterBtn = openBtn.closest('[data-pop]') ? openBtn.closest('[data-pop]').querySelector('[data-pop-btn]') : null;
+
+    function open() {
+      // The link lives in the Filter popover: close the popover first (its document click handler).
+      document.dispatchEvent(new MouseEvent('click'));
+      root.setAttribute('aria-hidden', 'false');
+      root.classList.add('is-closing');
+      window.requestAnimationFrame(function () {
+        root.classList.add('is-open');
+      });
+      openBtn.setAttribute('aria-expanded', 'true');
+      document.body.style.overflow = 'hidden';
+      load();
+      if (search) search.focus();
+    }
+
+    function close() {
+      if (!root.classList.contains('is-open')) return;
+      root.classList.remove('is-open');
+      openBtn.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+      var finished = false;
+      var done = function () {
+        if (finished || root.classList.contains('is-open')) return;
+        finished = true;
+        root.classList.remove('is-closing');
+        root.setAttribute('aria-hidden', 'true');
+      };
+      if (panel) panel.addEventListener('transitionend', done, { once: true });
+      window.setTimeout(done, 360);
+      (filterBtn || openBtn).focus();
+    }
+
+    openBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      open();
+    });
+    root.querySelectorAll('[data-company-problems-close]').forEach(function (el) {
+      el.addEventListener('click', close);
+    });
+    if (search) search.addEventListener('input', applySearch);
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && root.classList.contains('is-open')) {
+        e.preventDefault();
+        close();
+      }
+    });
+  }
+
+  // ---------- Check understanding (prompt builder on the problem panel) ----------
+  function initCheckUnderstanding() {
+    var buttons = document.querySelectorAll('[data-check-understanding-open]');
+    var modal = document.getElementById('check-understanding-modal');
+    var dataEl = document.getElementById('check-understanding-data');
+    var data = null;
+    try {
+      data = dataEl ? JSON.parse(dataEl.textContent || 'null') : null;
+    } catch (err) {
+      data = null;
+    }
+    if (!modal || !data || typeof data.prompt !== 'string') {
+      buttons.forEach(function (btn) { btn.hidden = true; });
+      return;
+    }
+    var preview = document.getElementById('check-understanding-preview');
+    var mine = document.getElementById('check-understanding-mine');
+    var copyBtn = document.getElementById('check-understanding-copy');
+    var doneBtn = document.getElementById('check-understanding-done');
+    var chatgpt = document.getElementById('check-understanding-open-chatgpt');
+    var claude = document.getElementById('check-understanding-open-claude');
+    var lastFocus = null;
+    var ASK = 'Ask your first question now.';
+    var QUOTES = '"""';
+
+    function promptText() {
+      var base = data.prompt;
+      var own = mine ? String(mine.value || '').trim() : '';
+      if (!own) return base;
+      var extra = 'What I think the problem asks, in my own words:\n' + QUOTES + '\n' + own + '\n' + QUOTES + '\nStart by checking this.\n\n';
+      var at = base.lastIndexOf(ASK);
+      return at === -1 ? base + '\n\n' + extra.trim() : base.slice(0, at) + extra + base.slice(at);
+    }
+
+    function refresh() {
+      if (preview) preview.textContent = promptText();
+    }
+
+    function setOpen(isOpen) {
+      modal.hidden = !isOpen;
+      document.body.classList.toggle('modal-open', isOpen);
+      buttons.forEach(function (btn) { btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false'); });
+      if (isOpen) {
+        refresh();
+        var panelEl = modal.querySelector('.modal__panel');
+        if (panelEl && panelEl.focus) panelEl.focus();
+      } else if (lastFocus && lastFocus.focus) {
+        lastFocus.focus();
+      }
+    }
+
+    function copyThen(done) {
+      copyText(promptText()).then(done, done);
+    }
+
+    buttons.forEach(function (btn) {
+      btn.setAttribute('aria-expanded', 'false');
+      btn.addEventListener('click', function (e) {
+        // The button sits inside a <summary>; do not toggle the panel.
+        e.preventDefault();
+        e.stopPropagation();
+        lastFocus = btn;
+        setOpen(true);
+      });
+    });
+    var backdrop = modal.querySelector('[data-action="close-check-understanding"]');
+    if (backdrop) backdrop.addEventListener('click', function () { setOpen(false); });
+    if (doneBtn) doneBtn.addEventListener('click', function () { setOpen(false); });
+    if (mine) mine.addEventListener('input', refresh);
+    if (copyBtn) {
+      copyBtn.addEventListener('click', function () {
+        copyThen(function () { flashCopied(copyBtn); });
+      });
+    }
+    [chatgpt, claude].forEach(function (link) {
+      if (!link) return;
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        var href = link.href;
+        copyThen(function () { window.open(href, '_blank', 'noopener,noreferrer'); });
+      });
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !modal.hidden) {
+        e.preventDefault();
+        setOpen(false);
+      }
+    });
+  }
+
   initRecentTracking();
   initRecentPanel();
   initCuratedListProgress();
+  initCompanyProblemsPanel();
+  initCheckUnderstanding();
 })();

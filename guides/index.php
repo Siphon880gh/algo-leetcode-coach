@@ -39,6 +39,7 @@ render_content_browse($guides, [
     'cat' => $cat,
     'sub' => $sub,
     'user_tags' => $kind === 'algo',
+    'company_panel' => $kind === 'algo' ? 'guides' : '',
     'empty' => 'No guides in this section yet. Prompt Cursor with <code>.agents/skills/harness</code> to create one under <code>content/guides/</code> with <code>kind => \'' . e($kind) . '\'</code>.',
     'item_href' => static function (array $item): string {
         return url('guides/view.php?id=' . rawurlencode($item['slug']));
