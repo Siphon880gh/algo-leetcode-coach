@@ -1,0 +1,22 @@
+{
+  "slug": "bcg",
+  "name": "BCG",
+  "url": "https://leetcode.com/company/bcg/?favoriteSlug=bcg-all",
+  "favoriteSlug": "bcg-all",
+  "updatedAt": "2026-10-28T08:49:42Z",
+  "problems": [
+    9,
+    49,
+    68,
+    121,
+    125,
+    185,
+    209,
+    322,
+    621,
+    1457,
+    3433,
+    3447,
+    3452
+  ]
+}

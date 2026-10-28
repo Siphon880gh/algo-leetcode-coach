@@ -1,0 +1,23 @@
+{
+  "slug": "general-motors",
+  "name": "General Motors",
+  "url": "https://leetcode.com/company/general-motors/?favoriteSlug=general-motors-all",
+  "favoriteSlug": "general-motors-all",
+  "updatedAt": "2026-10-28T08:49:42Z",
+  "problems": [
+    41,
+    56,
+    64,
+    146,
+    200,
+    208,
+    297,
+    323,
+    689,
+    843,
+    1404,
+    1570,
+    1647,
+    4009
+  ]
+}

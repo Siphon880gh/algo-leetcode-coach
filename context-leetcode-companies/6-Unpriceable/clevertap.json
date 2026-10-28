@@ -1,0 +1,16 @@
+{
+  "slug": "clevertap",
+  "name": "CleverTap",
+  "url": "https://leetcode.com/company/clevertap/?favoriteSlug=clevertap-all",
+  "favoriteSlug": "clevertap-all",
+  "updatedAt": "2026-10-28T08:49:45Z",
+  "problems": [
+    56,
+    125,
+    127,
+    179,
+    442,
+    990,
+    1283
+  ]
+}

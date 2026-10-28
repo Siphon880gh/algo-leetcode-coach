@@ -1,0 +1,20 @@
+{
+  "slug": "razorpay",
+  "name": "Razorpay",
+  "url": "https://leetcode.com/company/razorpay/?favoriteSlug=razorpay-all",
+  "favoriteSlug": "razorpay-all",
+  "updatedAt": "2026-10-28T08:49:43Z",
+  "problems": [
+    56,
+    62,
+    146,
+    189,
+    387,
+    394,
+    483,
+    1574,
+    2054,
+    2070,
+    2499
+  ]
+}

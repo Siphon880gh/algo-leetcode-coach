@@ -1,0 +1,14 @@
+{
+  "slug": "chewy",
+  "name": "Chewy",
+  "url": "https://leetcode.com/company/chewy/?favoriteSlug=chewy-all",
+  "favoriteSlug": "chewy-all",
+  "updatedAt": "2026-10-28T08:49:46Z",
+  "problems": [
+    20,
+    56,
+    146,
+    283,
+    347
+  ]
+}

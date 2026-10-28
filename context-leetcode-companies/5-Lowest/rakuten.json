@@ -1,0 +1,17 @@
+{
+  "slug": "rakuten",
+  "name": "Rakuten",
+  "url": "https://leetcode.com/company/rakuten/?favoriteSlug=rakuten-all",
+  "favoriteSlug": "rakuten-all",
+  "updatedAt": "2026-10-28T08:49:44Z",
+  "problems": [
+    3,
+    40,
+    42,
+    48,
+    70,
+    146,
+    443,
+    994
+  ]
+}

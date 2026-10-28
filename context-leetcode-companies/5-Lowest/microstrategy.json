@@ -1,0 +1,17 @@
+{
+  "slug": "microstrategy",
+  "name": "MicroStrategy",
+  "url": "https://leetcode.com/company/microstrategy/?favoriteSlug=microstrategy-all",
+  "favoriteSlug": "microstrategy-all",
+  "updatedAt": "2026-10-28T08:49:44Z",
+  "problems": [
+    1,
+    46,
+    347,
+    419,
+    844,
+    1227,
+    1963,
+    2184
+  ]
+}

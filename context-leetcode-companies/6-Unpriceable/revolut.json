@@ -1,0 +1,18 @@
+{
+  "slug": "revolut",
+  "name": "Revolut",
+  "url": "https://leetcode.com/company/revolut/?favoriteSlug=revolut-all",
+  "favoriteSlug": "revolut-all",
+  "updatedAt": "2026-10-28T08:49:44Z",
+  "problems": [
+    14,
+    92,
+    257,
+    268,
+    279,
+    300,
+    438,
+    713,
+    1321
+  ]
+}

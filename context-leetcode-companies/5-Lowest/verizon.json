@@ -1,0 +1,15 @@
+{
+  "slug": "verizon",
+  "name": "Verizon",
+  "url": "https://leetcode.com/company/verizon/?favoriteSlug=verizon-all",
+  "favoriteSlug": "verizon-all",
+  "updatedAt": "2026-10-28T08:49:45Z",
+  "problems": [
+    283,
+    739,
+    1646,
+    1756,
+    2759,
+    3446
+  ]
+}

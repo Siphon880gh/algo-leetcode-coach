@@ -1,0 +1,19 @@
+{
+  "slug": "criteo",
+  "name": "Criteo",
+  "url": "https://leetcode.com/company/criteo/?favoriteSlug=criteo-all",
+  "favoriteSlug": "criteo-all",
+  "updatedAt": "2026-10-28T08:49:43Z",
+  "problems": [
+    1,
+    20,
+    33,
+    53,
+    349,
+    350,
+    383,
+    528,
+    645,
+    733
+  ]
+}

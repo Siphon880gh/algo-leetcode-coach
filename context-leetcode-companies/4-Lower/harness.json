@@ -1,0 +1,15 @@
+{
+  "slug": "harness",
+  "name": "Harness",
+  "url": "https://leetcode.com/company/harness/?favoriteSlug=harness-all",
+  "favoriteSlug": "harness-all",
+  "updatedAt": "2026-10-28T08:49:46Z",
+  "problems": [
+    16,
+    76,
+    146,
+    395,
+    741,
+    3878
+  ]
+}

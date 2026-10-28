@@ -1,0 +1,14 @@
+{
+  "slug": "natwest",
+  "name": "NatWest",
+  "url": "https://leetcode.com/company/natwest/?favoriteSlug=natwest-all",
+  "favoriteSlug": "natwest-all",
+  "updatedAt": "2026-10-28T08:49:46Z",
+  "problems": [
+    14,
+    28,
+    796,
+    1953,
+    3070
+  ]
+}

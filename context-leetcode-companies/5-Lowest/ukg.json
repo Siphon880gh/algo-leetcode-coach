@@ -1,0 +1,20 @@
+{
+  "slug": "ukg",
+  "name": "UKG",
+  "url": "https://leetcode.com/company/ukg/?favoriteSlug=ukg-all",
+  "favoriteSlug": "ukg-all",
+  "updatedAt": "2026-10-28T08:49:43Z",
+  "problems": [
+    1,
+    125,
+    410,
+    761,
+    2539,
+    2592,
+    3136,
+    3138,
+    3380,
+    3382,
+    3511
+  ]
+}

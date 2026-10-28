@@ -1,0 +1,15 @@
+{
+  "slug": "couchbase",
+  "name": "Couchbase",
+  "url": "https://leetcode.com/company/couchbase/?favoriteSlug=couchbase-all",
+  "favoriteSlug": "couchbase-all",
+  "updatedAt": "2026-10-28T08:49:46Z",
+  "problems": [
+    706,
+    904,
+    905,
+    922,
+    1209,
+    2700
+  ]
+}

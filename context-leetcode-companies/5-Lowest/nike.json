@@ -1,0 +1,15 @@
+{
+  "slug": "nike",
+  "name": "Nike",
+  "url": "https://leetcode.com/company/nike/?favoriteSlug=nike-all",
+  "favoriteSlug": "nike-all",
+  "updatedAt": "2026-10-28T08:49:45Z",
+  "problems": [
+    32,
+    49,
+    55,
+    122,
+    202,
+    287
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "factset",
+  "name": "FactSet",
+  "url": "https://leetcode.com/company/factset/?favoriteSlug=factset-all",
+  "favoriteSlug": "factset-all",
+  "updatedAt": "2026-10-28T08:49:45Z",
+  "problems": [
+    49,
+    121,
+    316,
+    1010,
+    1081,
+    1209
+  ]
+}

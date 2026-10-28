@@ -1,0 +1,16 @@
+{
+  "slug": "udemy",
+  "name": "Udemy",
+  "url": "https://leetcode.com/company/udemy/?favoriteSlug=udemy-all",
+  "favoriteSlug": "udemy-all",
+  "updatedAt": "2026-10-28T08:49:44Z",
+  "problems": [
+    4,
+    20,
+    21,
+    26,
+    36,
+    271,
+    3477
+  ]
+}

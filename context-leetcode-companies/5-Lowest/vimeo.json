@@ -1,0 +1,14 @@
+{
+  "slug": "vimeo",
+  "name": "Vimeo",
+  "url": "https://leetcode.com/company/vimeo/?favoriteSlug=vimeo-all",
+  "favoriteSlug": "vimeo-all",
+  "updatedAt": "2026-10-28T08:49:46Z",
+  "problems": [
+    15,
+    53,
+    155,
+    1042,
+    1803
+  ]
+}

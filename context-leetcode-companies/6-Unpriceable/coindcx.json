@@ -1,0 +1,14 @@
+{
+  "slug": "coindcx",
+  "name": "CoinDCX",
+  "url": "https://leetcode.com/company/coindcx/?favoriteSlug=coindcx-all",
+  "favoriteSlug": "coindcx-all",
+  "updatedAt": "2026-10-28T08:49:46Z",
+  "problems": [
+    20,
+    626,
+    841,
+    1155,
+    2008
+  ]
+}

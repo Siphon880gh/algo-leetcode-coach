@@ -1,0 +1,17 @@
+{
+  "slug": "att",
+  "name": "AT&T",
+  "url": "https://leetcode.com/company/att/?favoriteSlug=att-all",
+  "favoriteSlug": "att-all",
+  "updatedAt": "2026-10-28T08:49:44Z",
+  "problems": [
+    3,
+    20,
+    48,
+    49,
+    611,
+    1695,
+    2461,
+    2964
+  ]
+}

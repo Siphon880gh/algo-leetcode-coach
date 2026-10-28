@@ -1,0 +1,26 @@
+{
+  "slug": "myntra",
+  "name": "Myntra",
+  "url": "https://leetcode.com/company/myntra/?favoriteSlug=myntra-all",
+  "favoriteSlug": "myntra-all",
+  "updatedAt": "2026-10-28T08:49:42Z",
+  "problems": [
+    3,
+    11,
+    15,
+    22,
+    26,
+    41,
+    84,
+    121,
+    128,
+    280,
+    462,
+    494,
+    724,
+    994,
+    1011,
+    1302,
+    2008
+  ]
+}

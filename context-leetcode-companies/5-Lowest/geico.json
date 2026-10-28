@@ -1,0 +1,24 @@
+{
+  "slug": "geico",
+  "name": "Geico",
+  "url": "https://leetcode.com/company/geico/?favoriteSlug=geico-all",
+  "favoriteSlug": "geico-all",
+  "updatedAt": "2026-10-28T08:49:42Z",
+  "problems": [
+    12,
+    41,
+    56,
+    122,
+    309,
+    322,
+    1102,
+    1386,
+    1404,
+    1910,
+    2061,
+    2086,
+    2384,
+    2850,
+    3119
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "slug": "optum",
+  "name": "Optum",
+  "url": "https://leetcode.com/company/optum/?favoriteSlug=optum-all",
+  "favoriteSlug": "optum-all",
+  "updatedAt": "2026-10-28T08:49:45Z",
+  "problems": [
+    1,
+    3,
+    432,
+    1143,
+    1555,
+    2000
+  ]
+}

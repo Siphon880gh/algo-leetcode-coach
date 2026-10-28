@@ -1,0 +1,29 @@
+{
+  "slug": "siemens",
+  "name": "Siemens",
+  "url": "https://leetcode.com/company/siemens/?favoriteSlug=siemens-all",
+  "favoriteSlug": "siemens-all",
+  "updatedAt": "2026-10-28T08:49:42Z",
+  "problems": [
+    6,
+    20,
+    21,
+    49,
+    56,
+    121,
+    133,
+    146,
+    152,
+    162,
+    200,
+    218,
+    260,
+    344,
+    347,
+    420,
+    921,
+    1344,
+    2064,
+    3187
+  ]
+}

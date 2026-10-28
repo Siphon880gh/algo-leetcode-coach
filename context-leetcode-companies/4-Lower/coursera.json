@@ -1,0 +1,18 @@
+{
+  "slug": "coursera",
+  "name": "Coursera",
+  "url": "https://leetcode.com/company/coursera/?favoriteSlug=coursera-all",
+  "favoriteSlug": "coursera-all",
+  "updatedAt": "2026-10-28T08:49:43Z",
+  "problems": [
+    68,
+    453,
+    761,
+    780,
+    920,
+    945,
+    1112,
+    1137,
+    1366
+  ]
+}

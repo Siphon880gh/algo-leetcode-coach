@@ -1,0 +1,16 @@
+{
+  "slug": "hsbc",
+  "name": "HSBC",
+  "url": "https://leetcode.com/company/hsbc/?favoriteSlug=hsbc-all",
+  "favoriteSlug": "hsbc-all",
+  "updatedAt": "2026-10-28T08:49:44Z",
+  "problems": [
+    1,
+    5,
+    14,
+    70,
+    121,
+    419,
+    1323
+  ]
+}

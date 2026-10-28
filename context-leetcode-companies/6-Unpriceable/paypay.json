@@ -1,0 +1,19 @@
+{
+  "slug": "paypay",
+  "name": "PayPay",
+  "url": "https://leetcode.com/company/paypay/?favoriteSlug=paypay-all",
+  "favoriteSlug": "paypay-all",
+  "updatedAt": "2026-10-28T08:49:43Z",
+  "problems": [
+    1,
+    6,
+    33,
+    121,
+    394,
+    852,
+    1584,
+    2264,
+    2300,
+    3161
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "slug": "ozon",
+  "name": "Ozon",
+  "url": "https://leetcode.com/company/ozon/?favoriteSlug=ozon-all",
+  "favoriteSlug": "ozon-all",
+  "updatedAt": "2026-10-28T08:49:43Z",
+  "problems": [
+    1,
+    3,
+    20,
+    56,
+    121,
+    155,
+    184,
+    185,
+    242,
+    394,
+    896,
+    977
+  ]
+}

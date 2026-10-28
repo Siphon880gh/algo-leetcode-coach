@@ -1,0 +1,27 @@
+{
+  "slug": "wipro",
+  "name": "Wipro",
+  "url": "https://leetcode.com/company/wipro/?favoriteSlug=wipro-all",
+  "favoriteSlug": "wipro-all",
+  "updatedAt": "2026-10-28T08:49:42Z",
+  "problems": [
+    1,
+    3,
+    9,
+    14,
+    20,
+    49,
+    56,
+    67,
+    88,
+    118,
+    121,
+    242,
+    344,
+    415,
+    485,
+    557,
+    766,
+    1431
+  ]
+}

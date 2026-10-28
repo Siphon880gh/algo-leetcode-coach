@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-23T01:44:52Z",
+  "updatedAt": "2026-10-28T10:03:37Z",
   "companies": [
     {
       "slug": "6sense",
@@ -14,6 +14,13 @@
       "count": 101,
       "file": "5-Lowest/accenture.json",
       "level": "5-Lowest"
+    },
+    {
+      "slug": "accolite",
+      "name": "Accolite",
+      "count": 17,
+      "file": "6-Unpriceable/accolite.json",
+      "level": "6-Unpriceable"
     },
     {
       "slug": "adobe",
@@ -44,6 +51,20 @@
       "level": "1-Highest"
     },
     {
+      "slug": "airtel",
+      "name": "Airtel",
+      "count": 6,
+      "file": "6-Unpriceable/airtel.json",
+      "level": "6-Unpriceable"
+    },
+    {
+      "slug": "akamai",
+      "name": "Akamai",
+      "count": 15,
+      "file": "5-Lowest/akamai.json",
+      "level": "5-Lowest"
+    },
+    {
       "slug": "akuna-capital",
       "name": "Akuna Capital",
       "count": 17,
@@ -58,11 +79,32 @@
       "level": "6-Unpriceable"
     },
     {
+      "slug": "altimetrik",
+      "name": "Altimetrik",
+      "count": 5,
+      "file": "6-Unpriceable/altimetrik.json",
+      "level": "6-Unpriceable"
+    },
+    {
       "slug": "amazon",
       "name": "Amazon",
       "count": 2019,
       "file": "2-High/amazon.json",
       "level": "2-High"
+    },
+    {
+      "slug": "amd",
+      "name": "AMD",
+      "count": 17,
+      "file": "5-Lowest/amd.json",
+      "level": "5-Lowest"
+    },
+    {
+      "slug": "amdocs",
+      "name": "Amdocs",
+      "count": 5,
+      "file": "5-Lowest/amdocs.json",
+      "level": "5-Lowest"
     },
     {
       "slug": "american-express",
@@ -107,6 +149,13 @@
       "level": "2-High"
     },
     {
+      "slug": "arcesium",
+      "name": "Arcesium",
+      "count": 14,
+      "file": "6-Unpriceable/arcesium.json",
+      "level": "6-Unpriceable"
+    },
+    {
       "slug": "arista-networks",
       "name": "Arista Networks",
       "count": 37,
@@ -121,11 +170,25 @@
       "level": "3-Mid"
     },
     {
+      "slug": "athenahealth",
+      "name": "athenahealth",
+      "count": 5,
+      "file": "5-Lowest/athenahealth.json",
+      "level": "5-Lowest"
+    },
+    {
       "slug": "atlassian",
       "name": "Atlassian",
       "count": 58,
       "file": "3-Mid/atlassian.json",
       "level": "3-Mid"
+    },
+    {
+      "slug": "att",
+      "name": "AT&T",
+      "count": 8,
+      "file": "5-Lowest/att.json",
+      "level": "5-Lowest"
     },
     {
       "slug": "audible",
@@ -149,10 +212,24 @@
       "level": "5-Lowest"
     },
     {
+      "slug": "avito",
+      "name": "Avito",
+      "count": 8,
+      "file": "6-Unpriceable/avito.json",
+      "level": "6-Unpriceable"
+    },
+    {
       "slug": "axon",
       "name": "Axon",
       "count": 8,
       "file": "4-Lower/axon.json",
+      "level": "4-Lower"
+    },
+    {
+      "slug": "baidu",
+      "name": "Baidu",
+      "count": 10,
+      "file": "4-Lower/baidu.json",
       "level": "4-Lower"
     },
     {
@@ -161,6 +238,20 @@
       "count": 17,
       "file": "5-Lowest/barclays.json",
       "level": "5-Lowest"
+    },
+    {
+      "slug": "bcg",
+      "name": "BCG",
+      "count": 13,
+      "file": "5-Lowest/bcg.json",
+      "level": "5-Lowest"
+    },
+    {
+      "slug": "bitgo",
+      "name": "BitGo",
+      "count": 13,
+      "file": "6-Unpriceable/bitgo.json",
+      "level": "6-Unpriceable"
     },
     {
       "slug": "blackrock",
@@ -175,6 +266,13 @@
       "count": 1235,
       "file": "3-Mid/bloomberg.json",
       "level": "3-Mid"
+    },
+    {
+      "slug": "bny-mellon",
+      "name": "BNY Mellon",
+      "count": 18,
+      "file": "5-Lowest/bny-mellon.json",
+      "level": "5-Lowest"
     },
     {
       "slug": "bolt",
@@ -219,6 +317,13 @@
       "level": "1-Highest"
     },
     {
+      "slug": "c3-ai",
+      "name": "C3.ai",
+      "count": 12,
+      "file": "4-Lower/c3-ai.json",
+      "level": "4-Lower"
+    },
+    {
       "slug": "capgemini",
       "name": "Capgemini",
       "count": 36,
@@ -230,6 +335,20 @@
       "name": "Capital One",
       "count": 61,
       "file": "5-Lowest/capital-one.json",
+      "level": "5-Lowest"
+    },
+    {
+      "slug": "cashfree",
+      "name": "Cashfree",
+      "count": 6,
+      "file": "6-Unpriceable/cashfree.json",
+      "level": "6-Unpriceable"
+    },
+    {
+      "slug": "chewy",
+      "name": "Chewy",
+      "count": 5,
+      "file": "5-Lowest/chewy.json",
       "level": "5-Lowest"
     },
     {
@@ -252,6 +371,20 @@
       "count": 74,
       "file": "1-Highest/citadel.json",
       "level": "1-Highest"
+    },
+    {
+      "slug": "citi",
+      "name": "Citigroup",
+      "count": 8,
+      "file": "5-Lowest/citi.json",
+      "level": "5-Lowest"
+    },
+    {
+      "slug": "clevertap",
+      "name": "CleverTap",
+      "count": 7,
+      "file": "6-Unpriceable/clevertap.json",
+      "level": "6-Unpriceable"
     },
     {
       "slug": "cloudflare",
@@ -282,6 +415,20 @@
       "level": "2-High"
     },
     {
+      "slug": "coindcx",
+      "name": "CoinDCX",
+      "count": 5,
+      "file": "6-Unpriceable/coindcx.json",
+      "level": "6-Unpriceable"
+    },
+    {
+      "slug": "comcast",
+      "name": "Comcast",
+      "count": 6,
+      "file": "5-Lowest/comcast.json",
+      "level": "5-Lowest"
+    },
+    {
       "slug": "compass",
       "name": "Compass",
       "count": 7,
@@ -296,10 +443,31 @@
       "level": "4-Lower"
     },
     {
+      "slug": "couchbase",
+      "name": "Couchbase",
+      "count": 6,
+      "file": "6-Unpriceable/couchbase.json",
+      "level": "6-Unpriceable"
+    },
+    {
       "slug": "coupang",
       "name": "Coupang",
       "count": 48,
       "file": "5-Lowest/coupang.json",
+      "level": "5-Lowest"
+    },
+    {
+      "slug": "coursera",
+      "name": "Coursera",
+      "count": 9,
+      "file": "4-Lower/coursera.json",
+      "level": "4-Lower"
+    },
+    {
+      "slug": "criteo",
+      "name": "Criteo",
+      "count": 10,
+      "file": "5-Lowest/criteo.json",
       "level": "5-Lowest"
     },
     {
@@ -308,6 +476,13 @@
       "count": 12,
       "file": "3-Mid/crowdstrike.json",
       "level": "3-Mid"
+    },
+    {
+      "slug": "cyntexa",
+      "name": "Cyntexa",
+      "count": 6,
+      "file": "6-Unpriceable/cyntexa.json",
+      "level": "6-Unpriceable"
     },
     {
       "slug": "databricks",
@@ -331,6 +506,13 @@
       "level": "1-Highest"
     },
     {
+      "slug": "dell",
+      "name": "Dell",
+      "count": 14,
+      "file": "5-Lowest/dell.json",
+      "level": "5-Lowest"
+    },
+    {
       "slug": "deloitte",
       "name": "Deloitte",
       "count": 42,
@@ -343,6 +525,20 @@
       "count": 21,
       "file": "5-Lowest/deutsche-bank.json",
       "level": "5-Lowest"
+    },
+    {
+      "slug": "devrev",
+      "name": "DevRev",
+      "count": 5,
+      "file": "6-Unpriceable/devrev.json",
+      "level": "6-Unpriceable"
+    },
+    {
+      "slug": "directi",
+      "name": "Directi",
+      "count": 8,
+      "file": "6-Unpriceable/directi.json",
+      "level": "6-Unpriceable"
     },
     {
       "slug": "discord",
@@ -373,6 +569,20 @@
       "level": "3-Mid"
     },
     {
+      "slug": "dp-world",
+      "name": "DP World",
+      "count": 11,
+      "file": "6-Unpriceable/dp-world.json",
+      "level": "6-Unpriceable"
+    },
+    {
+      "slug": "dream11",
+      "name": "Dream11",
+      "count": 11,
+      "file": "6-Unpriceable/dream11.json",
+      "level": "6-Unpriceable"
+    },
+    {
       "slug": "dropbox",
       "name": "Dropbox",
       "count": 22,
@@ -385,6 +595,13 @@
       "count": 3,
       "file": "3-Mid/drw.json",
       "level": "3-Mid"
+    },
+    {
+      "slug": "dunzo",
+      "name": "Dunzo",
+      "count": 7,
+      "file": "6-Unpriceable/dunzo.json",
+      "level": "6-Unpriceable"
     },
     {
       "slug": "duolingo",
@@ -429,11 +646,25 @@
       "level": "2-High"
     },
     {
+      "slug": "factset",
+      "name": "FactSet",
+      "count": 6,
+      "file": "5-Lowest/factset.json",
+      "level": "5-Lowest"
+    },
+    {
       "slug": "faire",
       "name": "Faire",
       "count": 6,
       "file": "1-Highest/faire.json",
       "level": "1-Highest"
+    },
+    {
+      "slug": "fidelity",
+      "name": "Fidelity",
+      "count": 5,
+      "file": "5-Lowest/fidelity.json",
+      "level": "5-Lowest"
     },
     {
       "slug": "flexport",
@@ -450,6 +681,13 @@
       "level": "5-Lowest"
     },
     {
+      "slug": "fractal-analytics",
+      "name": "Fractal Analytics",
+      "count": 10,
+      "file": "6-Unpriceable/fractal-analytics.json",
+      "level": "6-Unpriceable"
+    },
+    {
       "slug": "freshworks",
       "name": "FreshWorks",
       "count": 10,
@@ -457,11 +695,32 @@
       "level": "4-Lower"
     },
     {
+      "slug": "geico",
+      "name": "Geico",
+      "count": 15,
+      "file": "5-Lowest/geico.json",
+      "level": "5-Lowest"
+    },
+    {
+      "slug": "general-motors",
+      "name": "General Motors",
+      "count": 14,
+      "file": "5-Lowest/general-motors.json",
+      "level": "5-Lowest"
+    },
+    {
       "slug": "github",
       "name": "Github",
       "count": 5,
       "file": "4-Lower/github.json",
       "level": "4-Lower"
+    },
+    {
+      "slug": "godaddy",
+      "name": "GoDaddy",
+      "count": 6,
+      "file": "5-Lowest/godaddy.json",
+      "level": "5-Lowest"
     },
     {
       "slug": "goldman-sachs",
@@ -492,6 +751,20 @@
       "level": "2-High"
     },
     {
+      "slug": "groww",
+      "name": "Groww",
+      "count": 7,
+      "file": "6-Unpriceable/groww.json",
+      "level": "6-Unpriceable"
+    },
+    {
+      "slug": "gsn-games",
+      "name": "GSN Games",
+      "count": 5,
+      "file": "6-Unpriceable/gsn-games.json",
+      "level": "6-Unpriceable"
+    },
+    {
       "slug": "guidewire",
       "name": "Guidewire",
       "count": 6,
@@ -506,11 +779,60 @@
       "level": "4-Lower"
     },
     {
+      "slug": "harness",
+      "name": "Harness",
+      "count": 6,
+      "file": "4-Lower/harness.json",
+      "level": "4-Lower"
+    },
+    {
+      "slug": "hashedin",
+      "name": "HashedIn",
+      "count": 28,
+      "file": "6-Unpriceable/hashedin.json",
+      "level": "6-Unpriceable"
+    },
+    {
+      "slug": "hcl",
+      "name": "HCL",
+      "count": 17,
+      "file": "5-Lowest/hcl.json",
+      "level": "5-Lowest"
+    },
+    {
+      "slug": "hive",
+      "name": "Hive",
+      "count": 7,
+      "file": "6-Unpriceable/hive.json",
+      "level": "6-Unpriceable"
+    },
+    {
+      "slug": "hp",
+      "name": "HP",
+      "count": 5,
+      "file": "6-Unpriceable/hp.json",
+      "level": "6-Unpriceable"
+    },
+    {
       "slug": "hrt",
       "name": "Hudson River Trading",
       "count": 16,
       "file": "1-Highest/hrt.json",
       "level": "1-Highest"
+    },
+    {
+      "slug": "hsbc",
+      "name": "HSBC",
+      "count": 7,
+      "file": "5-Lowest/hsbc.json",
+      "level": "5-Lowest"
+    },
+    {
+      "slug": "htc",
+      "name": "HTC",
+      "count": 5,
+      "file": "6-Unpriceable/htc.json",
+      "level": "6-Unpriceable"
     },
     {
       "slug": "huawei",
@@ -525,6 +847,13 @@
       "count": 10,
       "file": "4-Lower/hubspot.json",
       "level": "4-Lower"
+    },
+    {
+      "slug": "hulu",
+      "name": "Hulu",
+      "count": 5,
+      "file": "5-Lowest/hulu.json",
+      "level": "5-Lowest"
     },
     {
       "slug": "ibm",
@@ -548,11 +877,25 @@
       "level": "4-Lower"
     },
     {
+      "slug": "info-edge",
+      "name": "Info Edge",
+      "count": 6,
+      "file": "6-Unpriceable/info-edge.json",
+      "level": "6-Unpriceable"
+    },
+    {
       "slug": "infosys",
       "name": "Infosys",
       "count": 254,
       "file": "5-Lowest/infosys.json",
       "level": "5-Lowest"
+    },
+    {
+      "slug": "inmobi",
+      "name": "InMobi",
+      "count": 13,
+      "file": "6-Unpriceable/inmobi.json",
+      "level": "6-Unpriceable"
     },
     {
       "slug": "instacart",
@@ -576,11 +919,25 @@
       "level": "4-Lower"
     },
     {
+      "slug": "ixl",
+      "name": "IXL",
+      "count": 17,
+      "file": "5-Lowest/ixl.json",
+      "level": "5-Lowest"
+    },
+    {
       "slug": "jane-street",
       "name": "Jane Street",
       "count": 14,
       "file": "1-Highest/jane-street.json",
       "level": "1-Highest"
+    },
+    {
+      "slug": "josh-technology",
+      "name": "Josh Technology",
+      "count": 34,
+      "file": "6-Unpriceable/josh-technology.json",
+      "level": "6-Unpriceable"
     },
     {
       "slug": "jpmorgan",
@@ -601,6 +958,41 @@
       "name": "Juspay",
       "count": 20,
       "file": "6-Unpriceable/juspay.json",
+      "level": "6-Unpriceable"
+    },
+    {
+      "slug": "karat",
+      "name": "Karat",
+      "count": 10,
+      "file": "6-Unpriceable/karat.json",
+      "level": "6-Unpriceable"
+    },
+    {
+      "slug": "kla",
+      "name": "KLA",
+      "count": 8,
+      "file": "5-Lowest/kla.json",
+      "level": "5-Lowest"
+    },
+    {
+      "slug": "kla-tencor",
+      "name": "KLA Tencor",
+      "count": 5,
+      "file": "5-Lowest/kla-tencor.json",
+      "level": "5-Lowest"
+    },
+    {
+      "slug": "kotak-mahindra-bank",
+      "name": "Kotak Mahindra Bank",
+      "count": 9,
+      "file": "6-Unpriceable/kotak-mahindra-bank.json",
+      "level": "6-Unpriceable"
+    },
+    {
+      "slug": "lg-electronics",
+      "name": "LG Electronics",
+      "count": 6,
+      "file": "6-Unpriceable/lg-electronics.json",
       "level": "6-Unpriceable"
     },
     {
@@ -625,11 +1017,39 @@
       "level": "4-Lower"
     },
     {
+      "slug": "lti",
+      "name": "LTIMindtree",
+      "count": 10,
+      "file": "5-Lowest/lti.json",
+      "level": "5-Lowest"
+    },
+    {
+      "slug": "lucid",
+      "name": "Lucid",
+      "count": 6,
+      "file": "5-Lowest/lucid.json",
+      "level": "5-Lowest"
+    },
+    {
       "slug": "lyft",
       "name": "Lyft",
       "count": 25,
       "file": "5-Lowest/lyft.json",
       "level": "5-Lowest"
+    },
+    {
+      "slug": "makemytrip",
+      "name": "MakeMyTrip",
+      "count": 13,
+      "file": "6-Unpriceable/makemytrip.json",
+      "level": "6-Unpriceable"
+    },
+    {
+      "slug": "maq-software",
+      "name": "MAQ Software",
+      "count": 5,
+      "file": "6-Unpriceable/maq-software.json",
+      "level": "6-Unpriceable"
     },
     {
       "slug": "mastercard",
@@ -646,6 +1066,34 @@
       "level": "5-Lowest"
     },
     {
+      "slug": "medianet",
+      "name": "Media.net",
+      "count": 38,
+      "file": "6-Unpriceable/medianet.json",
+      "level": "6-Unpriceable"
+    },
+    {
+      "slug": "meesho",
+      "name": "Meesho",
+      "count": 36,
+      "file": "6-Unpriceable/meesho.json",
+      "level": "6-Unpriceable"
+    },
+    {
+      "slug": "mercari",
+      "name": "Mercari",
+      "count": 6,
+      "file": "5-Lowest/mercari.json",
+      "level": "5-Lowest"
+    },
+    {
+      "slug": "micro1",
+      "name": "micro1",
+      "count": 7,
+      "file": "6-Unpriceable/micro1.json",
+      "level": "6-Unpriceable"
+    },
+    {
       "slug": "microsoft",
       "name": "Microsoft",
       "count": 1367,
@@ -653,11 +1101,25 @@
       "level": "4-Lower"
     },
     {
+      "slug": "microstrategy",
+      "name": "MicroStrategy",
+      "count": 8,
+      "file": "5-Lowest/microstrategy.json",
+      "level": "5-Lowest"
+    },
+    {
       "slug": "millennium",
       "name": "Millennium",
       "count": 11,
       "file": "3-Mid/millennium.json",
       "level": "3-Mid"
+    },
+    {
+      "slug": "mitsogo",
+      "name": "Mitsogo",
+      "count": 10,
+      "file": "6-Unpriceable/mitsogo.json",
+      "level": "6-Unpriceable"
     },
     {
       "slug": "moloco",
@@ -681,6 +1143,48 @@
       "level": "5-Lowest"
     },
     {
+      "slug": "motive",
+      "name": "Motive",
+      "count": 10,
+      "file": "5-Lowest/motive.json",
+      "level": "5-Lowest"
+    },
+    {
+      "slug": "moveworks",
+      "name": "Moveworks",
+      "count": 6,
+      "file": "6-Unpriceable/moveworks.json",
+      "level": "6-Unpriceable"
+    },
+    {
+      "slug": "myntra",
+      "name": "Myntra",
+      "count": 17,
+      "file": "6-Unpriceable/myntra.json",
+      "level": "6-Unpriceable"
+    },
+    {
+      "slug": "nagarro",
+      "name": "Nagarro",
+      "count": 9,
+      "file": "5-Lowest/nagarro.json",
+      "level": "5-Lowest"
+    },
+    {
+      "slug": "natwest",
+      "name": "NatWest",
+      "count": 5,
+      "file": "6-Unpriceable/natwest.json",
+      "level": "6-Unpriceable"
+    },
+    {
+      "slug": "nebius",
+      "name": "Nebius",
+      "count": 6,
+      "file": "6-Unpriceable/nebius.json",
+      "level": "6-Unpriceable"
+    },
+    {
       "slug": "netapp",
       "name": "NetApp",
       "count": 12,
@@ -695,11 +1199,32 @@
       "level": "1-Highest"
     },
     {
+      "slug": "netskope",
+      "name": "Netskope",
+      "count": 7,
+      "file": "5-Lowest/netskope.json",
+      "level": "5-Lowest"
+    },
+    {
       "slug": "nextdoor",
       "name": "Nextdoor",
       "count": 3,
       "file": "4-Lower/nextdoor.json",
       "level": "4-Lower"
+    },
+    {
+      "slug": "nike",
+      "name": "Nike",
+      "count": 6,
+      "file": "5-Lowest/nike.json",
+      "level": "5-Lowest"
+    },
+    {
+      "slug": "nokia",
+      "name": "Nokia",
+      "count": 11,
+      "file": "6-Unpriceable/nokia.json",
+      "level": "6-Unpriceable"
     },
     {
       "slug": "nuro",
@@ -737,11 +1262,25 @@
       "level": "1-Highest"
     },
     {
+      "slug": "opentext",
+      "name": "OpenText",
+      "count": 7,
+      "file": "5-Lowest/opentext.json",
+      "level": "5-Lowest"
+    },
+    {
       "slug": "optiver",
       "name": "Optiver",
       "count": 7,
       "file": "1-Highest/optiver.json",
       "level": "1-Highest"
+    },
+    {
+      "slug": "optum",
+      "name": "Optum",
+      "count": 6,
+      "file": "5-Lowest/optum.json",
+      "level": "5-Lowest"
     },
     {
       "slug": "oracle",
@@ -756,6 +1295,20 @@
       "count": 4,
       "file": "3-Mid/oscar-health.json",
       "level": "3-Mid"
+    },
+    {
+      "slug": "oyo",
+      "name": "OYO",
+      "count": 8,
+      "file": "6-Unpriceable/oyo.json",
+      "level": "6-Unpriceable"
+    },
+    {
+      "slug": "ozon",
+      "name": "Ozon",
+      "count": 12,
+      "file": "6-Unpriceable/ozon.json",
+      "level": "6-Unpriceable"
     },
     {
       "slug": "palantir",
@@ -786,10 +1339,24 @@
       "level": "4-Lower"
     },
     {
+      "slug": "paypay",
+      "name": "PayPay",
+      "count": 10,
+      "file": "6-Unpriceable/paypay.json",
+      "level": "6-Unpriceable"
+    },
+    {
       "slug": "paytm",
       "name": "Paytm",
       "count": 27,
       "file": "5-Lowest/paytm.json",
+      "level": "5-Lowest"
+    },
+    {
+      "slug": "persistent-systems",
+      "name": "Persistent Systems",
+      "count": 7,
+      "file": "5-Lowest/persistent-systems.json",
       "level": "5-Lowest"
     },
     {
@@ -814,11 +1381,53 @@
       "level": "1-Highest"
     },
     {
+      "slug": "pocket-gems",
+      "name": "Pocket Gems",
+      "count": 15,
+      "file": "6-Unpriceable/pocket-gems.json",
+      "level": "6-Unpriceable"
+    },
+    {
+      "slug": "point72",
+      "name": "Point72",
+      "count": 6,
+      "file": "6-Unpriceable/point72.json",
+      "level": "6-Unpriceable"
+    },
+    {
+      "slug": "pornhub",
+      "name": "Pornhub",
+      "count": 11,
+      "file": "6-Unpriceable/pornhub.json",
+      "level": "6-Unpriceable"
+    },
+    {
+      "slug": "porter",
+      "name": "Porter",
+      "count": 5,
+      "file": "6-Unpriceable/porter.json",
+      "level": "6-Unpriceable"
+    },
+    {
+      "slug": "publicis-sapient",
+      "name": "Publicis Sapient",
+      "count": 9,
+      "file": "5-Lowest/publicis-sapient.json",
+      "level": "5-Lowest"
+    },
+    {
       "slug": "pure-storage",
       "name": "Pure Storage",
       "count": 8,
       "file": "4-Lower/pure-storage.json",
       "level": "4-Lower"
+    },
+    {
+      "slug": "pwc",
+      "name": "PwC",
+      "count": 7,
+      "file": "5-Lowest/pwc.json",
+      "level": "5-Lowest"
     },
     {
       "slug": "qualcomm",
@@ -849,11 +1458,25 @@
       "level": "2-High"
     },
     {
+      "slug": "rakuten",
+      "name": "Rakuten",
+      "count": 8,
+      "file": "5-Lowest/rakuten.json",
+      "level": "5-Lowest"
+    },
+    {
       "slug": "ramp-2",
       "name": "Ramp",
       "count": 4,
       "file": "1-Highest/ramp-2.json",
       "level": "1-Highest"
+    },
+    {
+      "slug": "razorpay",
+      "name": "Razorpay",
+      "count": 11,
+      "file": "6-Unpriceable/razorpay.json",
+      "level": "6-Unpriceable"
     },
     {
       "slug": "reddit",
@@ -868,6 +1491,13 @@
       "count": 5,
       "file": "3-Mid/remitly.json",
       "level": "3-Mid"
+    },
+    {
+      "slug": "revolut",
+      "name": "Revolut",
+      "count": 9,
+      "file": "6-Unpriceable/revolut.json",
+      "level": "6-Unpriceable"
     },
     {
       "slug": "riot-games",
@@ -975,10 +1605,24 @@
       "level": "4-Lower"
     },
     {
+      "slug": "shopee",
+      "name": "Shopee",
+      "count": 7,
+      "file": "6-Unpriceable/shopee.json",
+      "level": "6-Unpriceable"
+    },
+    {
       "slug": "shopify",
       "name": "Shopify",
       "count": 5,
       "file": "5-Lowest/shopify.json",
+      "level": "5-Lowest"
+    },
+    {
+      "slug": "siemens",
+      "name": "Siemens",
+      "count": 20,
+      "file": "5-Lowest/siemens.json",
       "level": "5-Lowest"
     },
     {
@@ -987,6 +1631,13 @@
       "count": 10,
       "file": "4-Lower/sig.json",
       "level": "4-Lower"
+    },
+    {
+      "slug": "sigmoid",
+      "name": "Sigmoid",
+      "count": 13,
+      "file": "6-Unpriceable/sigmoid.json",
+      "level": "6-Unpriceable"
     },
     {
       "slug": "snapchat",
@@ -1024,6 +1675,13 @@
       "level": "3-Mid"
     },
     {
+      "slug": "spinny",
+      "name": "Spinny",
+      "count": 8,
+      "file": "6-Unpriceable/spinny.json",
+      "level": "6-Unpriceable"
+    },
+    {
       "slug": "splunk",
       "name": "Splunk",
       "count": 8,
@@ -1036,6 +1694,13 @@
       "count": 14,
       "file": "5-Lowest/spotify.json",
       "level": "5-Lowest"
+    },
+    {
+      "slug": "sprinklr",
+      "name": "Sprinklr",
+      "count": 45,
+      "file": "6-Unpriceable/sprinklr.json",
+      "level": "6-Unpriceable"
     },
     {
       "slug": "square",
@@ -1073,6 +1738,13 @@
       "level": "5-Lowest"
     },
     {
+      "slug": "target",
+      "name": "Target",
+      "count": 6,
+      "file": "5-Lowest/target.json",
+      "level": "5-Lowest"
+    },
+    {
       "slug": "tcs",
       "name": "tcs",
       "count": 264,
@@ -1094,6 +1766,13 @@
       "level": "2-High"
     },
     {
+      "slug": "teradata",
+      "name": "Teradata",
+      "count": 8,
+      "file": "5-Lowest/teradata.json",
+      "level": "5-Lowest"
+    },
+    {
       "slug": "tesla",
       "name": "Tesla",
       "count": 40,
@@ -1106,6 +1785,13 @@
       "count": 5,
       "file": "3-Mid/the-trade-desk.json",
       "level": "3-Mid"
+    },
+    {
+      "slug": "thoughtspot",
+      "name": "ThoughtSpot",
+      "count": 5,
+      "file": "4-Lower/thoughtspot.json",
+      "level": "4-Lower"
     },
     {
       "slug": "tiktok",
@@ -1122,6 +1808,13 @@
       "level": "3-Mid"
     },
     {
+      "slug": "tinkoff",
+      "name": "Tinkoff",
+      "count": 18,
+      "file": "6-Unpriceable/tinkoff.json",
+      "level": "6-Unpriceable"
+    },
+    {
       "slug": "toast",
       "name": "Toast",
       "count": 5,
@@ -1129,11 +1822,25 @@
       "level": "4-Lower"
     },
     {
+      "slug": "trilogy",
+      "name": "Trilogy",
+      "count": 6,
+      "file": "6-Unpriceable/trilogy.json",
+      "level": "6-Unpriceable"
+    },
+    {
       "slug": "tripadvisor",
       "name": "Tripadvisor",
       "count": 5,
       "file": "4-Lower/tripadvisor.json",
       "level": "4-Lower"
+    },
+    {
+      "slug": "turing",
+      "name": "Turing",
+      "count": 29,
+      "file": "5-Lowest/turing.json",
+      "level": "5-Lowest"
     },
     {
       "slug": "twilio",
@@ -1171,11 +1878,25 @@
       "level": "3-Mid"
     },
     {
+      "slug": "udemy",
+      "name": "Udemy",
+      "count": 7,
+      "file": "5-Lowest/udemy.json",
+      "level": "5-Lowest"
+    },
+    {
       "slug": "uipath",
       "name": "UiPath",
       "count": 13,
       "file": "3-Mid/uipath.json",
       "level": "3-Mid"
+    },
+    {
+      "slug": "ukg",
+      "name": "UKG",
+      "count": 11,
+      "file": "5-Lowest/ukg.json",
+      "level": "5-Lowest"
     },
     {
       "slug": "upstart",
@@ -1185,6 +1906,27 @@
       "level": "3-Mid"
     },
     {
+      "slug": "urban-company",
+      "name": "Urban Company",
+      "count": 6,
+      "file": "6-Unpriceable/urban-company.json",
+      "level": "6-Unpriceable"
+    },
+    {
+      "slug": "verily",
+      "name": "Verily",
+      "count": 5,
+      "file": "5-Lowest/verily.json",
+      "level": "5-Lowest"
+    },
+    {
+      "slug": "verizon",
+      "name": "Verizon",
+      "count": 6,
+      "file": "5-Lowest/verizon.json",
+      "level": "5-Lowest"
+    },
+    {
       "slug": "verkada",
       "name": "Verkada",
       "count": 17,
@@ -1192,11 +1934,39 @@
       "level": "3-Mid"
     },
     {
+      "slug": "vimeo",
+      "name": "Vimeo",
+      "count": 5,
+      "file": "5-Lowest/vimeo.json",
+      "level": "5-Lowest"
+    },
+    {
+      "slug": "virtu",
+      "name": "Virtu Financial",
+      "count": 9,
+      "file": "6-Unpriceable/virtu.json",
+      "level": "6-Unpriceable"
+    },
+    {
+      "slug": "virtusa",
+      "name": "Virtusa",
+      "count": 6,
+      "file": "5-Lowest/virtusa.json",
+      "level": "5-Lowest"
+    },
+    {
       "slug": "visa",
       "name": "Visa",
       "count": 150,
       "file": "5-Lowest/visa.json",
       "level": "5-Lowest"
+    },
+    {
+      "slug": "vk",
+      "name": "VK",
+      "count": 12,
+      "file": "6-Unpriceable/vk.json",
+      "level": "6-Unpriceable"
     },
     {
       "slug": "vmware",
@@ -1211,6 +1981,13 @@
       "count": 135,
       "file": "4-Lower/walmart-labs.json",
       "level": "4-Lower"
+    },
+    {
+      "slug": "warnermedia",
+      "name": "WarnerMedia",
+      "count": 5,
+      "file": "5-Lowest/warnermedia.json",
+      "level": "5-Lowest"
     },
     {
       "slug": "wayfair",
@@ -1234,11 +2011,25 @@
       "level": "5-Lowest"
     },
     {
+      "slug": "weride",
+      "name": "WeRide",
+      "count": 10,
+      "file": "6-Unpriceable/weride.json",
+      "level": "6-Unpriceable"
+    },
+    {
       "slug": "whatnot",
       "name": "Whatnot",
       "count": 11,
       "file": "2-High/whatnot.json",
       "level": "2-High"
+    },
+    {
+      "slug": "wipro",
+      "name": "Wipro",
+      "count": 18,
+      "file": "5-Lowest/wipro.json",
+      "level": "5-Lowest"
     },
     {
       "slug": "wise",
@@ -1253,6 +2044,20 @@
       "count": 5,
       "file": "4-Lower/wish.json",
       "level": "4-Lower"
+    },
+    {
+      "slug": "wissen",
+      "name": "Wissen Technology",
+      "count": 11,
+      "file": "6-Unpriceable/wissen.json",
+      "level": "6-Unpriceable"
+    },
+    {
+      "slug": "wix",
+      "name": "Wix",
+      "count": 51,
+      "file": "6-Unpriceable/wix.json",
+      "level": "6-Unpriceable"
     },
     {
       "slug": "workday",
@@ -1290,6 +2095,27 @@
       "level": "5-Lowest"
     },
     {
+      "slug": "zenefits",
+      "name": "Zenefits",
+      "count": 21,
+      "file": "6-Unpriceable/zenefits.json",
+      "level": "6-Unpriceable"
+    },
+    {
+      "slug": "zepto",
+      "name": "Zepto",
+      "count": 5,
+      "file": "6-Unpriceable/zepto.json",
+      "level": "6-Unpriceable"
+    },
+    {
+      "slug": "zeta",
+      "name": "Zeta Global",
+      "count": 27,
+      "file": "6-Unpriceable/zeta.json",
+      "level": "6-Unpriceable"
+    },
+    {
       "slug": "zillow",
       "name": "Zillow",
       "count": 1,
@@ -1316,6 +2142,20 @@
       "count": 6,
       "file": "3-Mid/zoox.json",
       "level": "3-Mid"
+    },
+    {
+      "slug": "zopsmart",
+      "name": "Zopsmart",
+      "count": 14,
+      "file": "6-Unpriceable/zopsmart.json",
+      "level": "6-Unpriceable"
+    },
+    {
+      "slug": "zs-associates",
+      "name": "ZS Associates",
+      "count": 6,
+      "file": "6-Unpriceable/zs-associates.json",
+      "level": "6-Unpriceable"
     },
     {
       "slug": "zscaler",

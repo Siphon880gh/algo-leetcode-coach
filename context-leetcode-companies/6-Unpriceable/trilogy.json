@@ -1,0 +1,15 @@
+{
+  "slug": "trilogy",
+  "name": "Trilogy",
+  "url": "https://leetcode.com/company/trilogy/?favoriteSlug=trilogy-all",
+  "favoriteSlug": "trilogy-all",
+  "updatedAt": "2026-10-28T08:49:45Z",
+  "problems": [
+    592,
+    2403,
+    2425,
+    2438,
+    2564,
+    2569
+  ]
+}

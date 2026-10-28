@@ -1,0 +1,17 @@
+{
+  "slug": "teradata",
+  "name": "Teradata",
+  "url": "https://leetcode.com/company/teradata/?favoriteSlug=teradata-all",
+  "favoriteSlug": "teradata-all",
+  "updatedAt": "2026-10-28T08:49:44Z",
+  "problems": [
+    546,
+    857,
+    1402,
+    1885,
+    2528,
+    3082,
+    3629,
+    3766
+  ]
+}

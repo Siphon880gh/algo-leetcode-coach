@@ -1,0 +1,16 @@
+{
+  "slug": "hive",
+  "name": "Hive",
+  "url": "https://leetcode.com/company/hive/?favoriteSlug=hive-all",
+  "favoriteSlug": "hive-all",
+  "updatedAt": "2026-10-28T08:49:44Z",
+  "problems": [
+    42,
+    68,
+    200,
+    297,
+    528,
+    912,
+    1162
+  ]
+}

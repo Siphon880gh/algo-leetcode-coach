@@ -1,0 +1,14 @@
+{
+  "slug": "htc",
+  "name": "HTC",
+  "url": "https://leetcode.com/company/htc/?favoriteSlug=htc-all",
+  "favoriteSlug": "htc-all",
+  "updatedAt": "2026-10-28T08:49:46Z",
+  "problems": [
+    118,
+    509,
+    605,
+    787,
+    1512
+  ]
+}

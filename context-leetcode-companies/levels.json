@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-23T01:44:52Z",
+  "updatedAt": "2026-10-28T10:03:37Z",
   "source": "Levels.fyi US Software Engineer median total compensation at the level labeled Senior (or the closest 5–8 year IC band). TCS uses Comparably (Levels.fyi had no US senior SWE median). Data retrieved 2026-09-08. https://www.levels.fyi",
   "levels": [
     {
@@ -813,6 +813,14 @@
       "sourceUrl": "https://www.levels.fyi/companies/aurora/salaries/software-engineer/locations/united-states"
     },
     {
+      "slug": "c3-ai",
+      "name": "C3.ai",
+      "level": "4-Lower",
+      "seniorTcUsd": 294923,
+      "seniorTitle": "Senior Software Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/c3ai/salaries/software-engineer/locations/united-states"
+    },
+    {
       "slug": "audible",
       "name": "Audible",
       "level": "4-Lower",
@@ -1029,6 +1037,14 @@
       "sourceUrl": "https://www.levels.fyi/companies/wise/salaries/software-engineer/locations/united-states"
     },
     {
+      "slug": "coursera",
+      "name": "Coursera",
+      "level": "4-Lower",
+      "seniorTcUsd": 244865,
+      "seniorTitle": "Senior Software Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/coursera/salaries/software-engineer/locations/united-states"
+    },
+    {
       "slug": "microsoft",
       "name": "Microsoft",
       "level": "4-Lower",
@@ -1043,6 +1059,14 @@
       "seniorTcUsd": 241145,
       "seniorTitle": "SE3",
       "sourceUrl": "https://www.levels.fyi/companies/toast-inc/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "baidu",
+      "name": "Baidu",
+      "level": "4-Lower",
+      "seniorTcUsd": 240551,
+      "seniorTitle": "T6 (7 years median)",
+      "sourceUrl": "https://www.levels.fyi/companies/baidu/salaries/software-engineer/locations/united-states"
     },
     {
       "slug": "servicenow",
@@ -1133,6 +1157,14 @@
       "sourceUrl": "https://www.levels.fyi/companies/blackrock/salaries/software-engineer"
     },
     {
+      "slug": "harness",
+      "name": "Harness",
+      "level": "4-Lower",
+      "seniorTcUsd": 219000,
+      "seniorTitle": "Senior Software Engineer I",
+      "sourceUrl": "https://www.levels.fyi/companies/harness/salaries/software-engineer/locations/united-states"
+    },
+    {
       "slug": "6sense",
       "name": "6sense",
       "level": "4-Lower",
@@ -1155,6 +1187,14 @@
       "seniorTcUsd": 215382,
       "seniorTitle": "L2",
       "sourceUrl": "https://www.levels.fyi/companies/indeed/salaries/software-engineer"
+    },
+    {
+      "slug": "thoughtspot",
+      "name": "ThoughtSpot",
+      "level": "4-Lower",
+      "seniorTcUsd": 213562,
+      "seniorTitle": "Senior MTS",
+      "sourceUrl": "https://www.levels.fyi/companies/thoughtspot/salaries/software-engineer/locations/united-states"
     },
     {
       "slug": "yahoo",
@@ -1189,12 +1229,68 @@
       "sourceUrl": "https://www.levels.fyi/companies/cloudflare/salaries/software-engineer/locations/united-states"
     },
     {
+      "slug": "chewy",
+      "name": "Chewy",
+      "level": "5-Lowest",
+      "seniorTcUsd": 206942,
+      "seniorTitle": "Software Engineer 2 (6 years median)",
+      "sourceUrl": "https://www.levels.fyi/companies/chewy/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "udemy",
+      "name": "Udemy",
+      "level": "5-Lowest",
+      "seniorTcUsd": 206402,
+      "seniorTitle": "IC3 Senior Software Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/udemy/salaries/software-engineer/locations/united-states"
+    },
+    {
       "slug": "zillow",
       "name": "Zillow",
       "level": "5-Lowest",
       "seniorTcUsd": 205715,
       "seniorTitle": "Senior Software Engineer",
       "sourceUrl": "https://www.comparably.com/companies/zillow/salaries/senior-software-engineer"
+    },
+    {
+      "slug": "bcg",
+      "name": "BCG",
+      "level": "5-Lowest",
+      "seniorTcUsd": 204667,
+      "seniorTitle": "L2 Senior Software Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/bcg/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "verily",
+      "name": "Verily",
+      "level": "5-Lowest",
+      "seniorTcUsd": 203840,
+      "seniorTitle": "L4 (5 years median)",
+      "sourceUrl": "https://www.levels.fyi/companies/verily/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "vimeo",
+      "name": "Vimeo",
+      "level": "5-Lowest",
+      "seniorTcUsd": 202253,
+      "seniorTitle": "Senior Software Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/vimeo/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "siemens",
+      "name": "Siemens",
+      "level": "5-Lowest",
+      "seniorTcUsd": 201934,
+      "seniorTitle": "T9 Senior Software Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/siemens/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "mercari",
+      "name": "Mercari",
+      "level": "5-Lowest",
+      "seniorTcUsd": 201250,
+      "seniorTitle": "MG4 (6 years median)",
+      "sourceUrl": "https://www.levels.fyi/companies/mercari/salaries/software-engineer/locations/united-states"
     },
     {
       "slug": "zscaler",
@@ -1213,6 +1309,86 @@
       "sourceUrl": "https://www.comparably.com/companies/square/salaries/senior-software-engineer"
     },
     {
+      "slug": "warnermedia",
+      "name": "WarnerMedia",
+      "level": "5-Lowest",
+      "seniorTcUsd": 194722,
+      "seniorTitle": "Senior Software Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/warnermedia/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "godaddy",
+      "name": "GoDaddy",
+      "level": "5-Lowest",
+      "seniorTcUsd": 193653,
+      "seniorTitle": "SDE 3 (7 years median)",
+      "sourceUrl": "https://www.levels.fyi/companies/godaddy/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "rakuten",
+      "name": "Rakuten",
+      "level": "5-Lowest",
+      "seniorTcUsd": 193333,
+      "seniorTitle": "A E (7 years median)",
+      "sourceUrl": "https://www.levels.fyi/companies/rakuten/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "akamai",
+      "name": "Akamai",
+      "level": "5-Lowest",
+      "seniorTcUsd": 190297,
+      "seniorTitle": "Senior Software Engineer 1",
+      "sourceUrl": "https://www.levels.fyi/companies/akamai/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "kla",
+      "name": "KLA",
+      "level": "5-Lowest",
+      "seniorTcUsd": 189168,
+      "seniorTitle": "P3 (5 years median)",
+      "sourceUrl": "https://www.levels.fyi/companies/kla/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "kla-tencor",
+      "name": "KLA Tencor",
+      "level": "5-Lowest",
+      "seniorTcUsd": 189168,
+      "seniorTitle": "P3 (5 years median)",
+      "sourceUrl": "https://www.levels.fyi/companies/kla/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "amd",
+      "name": "AMD",
+      "level": "5-Lowest",
+      "seniorTcUsd": 188946,
+      "seniorTitle": "Senior Software Engineer L6",
+      "sourceUrl": "https://www.levels.fyi/companies/amd/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "netskope",
+      "name": "Netskope",
+      "level": "5-Lowest",
+      "seniorTcUsd": 188836,
+      "seniorTitle": "Senior Software Engineer MTS 4",
+      "sourceUrl": "https://www.levels.fyi/companies/netskope/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "hulu",
+      "name": "Hulu",
+      "level": "5-Lowest",
+      "seniorTcUsd": 183500,
+      "seniorTitle": "IC4 Senior Software Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/hulu/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "comcast",
+      "name": "Comcast",
+      "level": "5-Lowest",
+      "seniorTcUsd": 183077,
+      "seniorTitle": "Senior Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/comcast/salaries/software-engineer/locations/united-states"
+    },
+    {
       "slug": "capital-one",
       "name": "Capital One",
       "level": "5-Lowest",
@@ -1227,6 +1403,14 @@
       "seniorTcUsd": 177000,
       "seniorTitle": "Senior Software Engineer",
       "sourceUrl": "https://www.comparably.com/companies/samsung/salaries/senior-software-engineer"
+    },
+    {
+      "slug": "motive",
+      "name": "Motive",
+      "level": "5-Lowest",
+      "seniorTcUsd": 176667,
+      "seniorTitle": "L4 (5 years median)",
+      "sourceUrl": "https://www.levels.fyi/companies/motive-technologies/salaries/software-engineer/locations/united-states"
     },
     {
       "slug": "zoho",
@@ -1253,6 +1437,30 @@
       "sourceUrl": "https://www.comparably.com/companies/arista-networks/salaries/senior-software-engineer"
     },
     {
+      "slug": "nike",
+      "name": "Nike",
+      "level": "5-Lowest",
+      "seniorTcUsd": 172217,
+      "seniorTitle": "Senior SWE",
+      "sourceUrl": "https://www.levels.fyi/companies/nike/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "geico",
+      "name": "Geico",
+      "level": "5-Lowest",
+      "seniorTcUsd": 171996,
+      "seniorTitle": "Senior Software Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/geico/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "dell",
+      "name": "Dell",
+      "level": "5-Lowest",
+      "seniorTcUsd": 170855,
+      "seniorTitle": "Senior Engineer L7",
+      "sourceUrl": "https://www.levels.fyi/companies/dell-technologies/salaries/software-engineer/locations/united-states"
+    },
+    {
       "slug": "lyft",
       "name": "Lyft",
       "level": "5-Lowest",
@@ -1267,6 +1475,14 @@
       "seniorTcUsd": 169000,
       "seniorTitle": "Senior Software Engineer",
       "sourceUrl": "https://www.comparably.com/companies/tekion/salaries/senior-software-engineer"
+    },
+    {
+      "slug": "athenahealth",
+      "name": "athenahealth",
+      "level": "5-Lowest",
+      "seniorTcUsd": 168036,
+      "seniorTitle": "SMTS",
+      "sourceUrl": "https://www.levels.fyi/companies/athenahealth/salaries/software-engineer/locations/united-states"
     },
     {
       "slug": "mastercard",
@@ -1293,6 +1509,22 @@
       "sourceUrl": "https://www.comparably.com/companies/deutsche-bank/salaries/senior-software-engineer"
     },
     {
+      "slug": "pwc",
+      "name": "PwC",
+      "level": "5-Lowest",
+      "seniorTcUsd": 160289,
+      "seniorTitle": "L2 Senior Associate Software Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/pwc/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "criteo",
+      "name": "Criteo",
+      "level": "5-Lowest",
+      "seniorTcUsd": 158857,
+      "seniorTitle": "L4 Senior Software Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/criteo/salaries/software-engineer/locations/united-states"
+    },
+    {
       "slug": "huawei",
       "name": "Huawei",
       "level": "5-Lowest",
@@ -1309,12 +1541,44 @@
       "sourceUrl": "https://www.levels.fyi/companies/visa/salaries/software-engineer"
     },
     {
+      "slug": "optum",
+      "name": "Optum",
+      "level": "5-Lowest",
+      "seniorTcUsd": 155448,
+      "seniorTitle": "GL28 Senior Software Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/optum/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "factset",
+      "name": "FactSet",
+      "level": "5-Lowest",
+      "seniorTcUsd": 155351,
+      "seniorTitle": "Senior Software Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/factset/salaries/software-engineer/locations/united-states"
+    },
+    {
       "slug": "shopify",
       "name": "Shopify",
       "level": "5-Lowest",
       "seniorTcUsd": 152754,
       "seniorTitle": "Senior Software Engineer",
       "sourceUrl": "https://www.comparably.com/companies/shopify/salaries/senior-software-engineer"
+    },
+    {
+      "slug": "ixl",
+      "name": "IXL",
+      "level": "5-Lowest",
+      "seniorTcUsd": 152232,
+      "seniorTitle": "Senior Software Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/ixl-learning/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "fidelity",
+      "name": "Fidelity",
+      "level": "5-Lowest",
+      "seniorTcUsd": 152210,
+      "seniorTitle": "L5 Senior Software Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/fidelity-investments/salaries/software-engineer/locations/united-states"
     },
     {
       "slug": "barclays",
@@ -1357,6 +1621,14 @@
       "sourceUrl": "https://www.comparably.com/companies/flipkart/salaries/senior-software-engineer"
     },
     {
+      "slug": "verizon",
+      "name": "Verizon",
+      "level": "5-Lowest",
+      "seniorTcUsd": 149197,
+      "seniorTitle": "SMTS Senior",
+      "sourceUrl": "https://www.levels.fyi/companies/verizon/salaries/software-engineer/locations/united-states"
+    },
+    {
       "slug": "yelp",
       "name": "Yelp",
       "level": "5-Lowest",
@@ -1387,6 +1659,14 @@
       "seniorTcUsd": 146136,
       "seniorTitle": "602 Senior Associate",
       "sourceUrl": "https://www.levels.fyi/companies/jpmorgan-chase/salaries/software-engineer"
+    },
+    {
+      "slug": "teradata",
+      "name": "Teradata",
+      "level": "5-Lowest",
+      "seniorTcUsd": 145688,
+      "seniorTitle": "Senior Software Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/teradata/salaries/software-engineer/locations/united-states"
     },
     {
       "slug": "swiggy",
@@ -1421,12 +1701,60 @@
       "sourceUrl": "https://www.comparably.com/companies/americanexpress/salaries/senior-software-engineer"
     },
     {
+      "slug": "microstrategy",
+      "name": "MicroStrategy",
+      "level": "5-Lowest",
+      "seniorTcUsd": 141207,
+      "seniorTitle": "Senior Software Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/microstrategy/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "opentext",
+      "name": "OpenText",
+      "level": "5-Lowest",
+      "seniorTcUsd": 139456,
+      "seniorTitle": "Senior Software Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/opentext/salaries/software-engineer/locations/united-states"
+    },
+    {
       "slug": "mathworks",
       "name": "MathWorks",
       "level": "5-Lowest",
       "seniorTcUsd": 139000,
       "seniorTitle": "Senior Software Engineer",
       "sourceUrl": "https://www.comparably.com/companies/the-mathworks/salaries/senior-software-engineer"
+    },
+    {
+      "slug": "lucid",
+      "name": "Lucid",
+      "level": "5-Lowest",
+      "seniorTcUsd": 138291,
+      "seniorTitle": "Senior Software Engineer 1",
+      "sourceUrl": "https://www.levels.fyi/companies/lucid/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "bny-mellon",
+      "name": "BNY Mellon",
+      "level": "5-Lowest",
+      "seniorTcUsd": 137170,
+      "seniorTitle": "H Senior Developer",
+      "sourceUrl": "https://www.levels.fyi/companies/bny-mellon/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "ukg",
+      "name": "UKG",
+      "level": "5-Lowest",
+      "seniorTcUsd": 136928,
+      "seniorTitle": "P3 Senior Software Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/ukg/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "general-motors",
+      "name": "General Motors",
+      "level": "5-Lowest",
+      "seniorTcUsd": 135765,
+      "seniorTitle": "Software Engineer 2 L6 (5 years median)",
+      "sourceUrl": "https://www.levels.fyi/companies/general-motors/salaries/software-engineer/locations/united-states"
     },
     {
       "slug": "tcs",
@@ -1437,12 +1765,36 @@
       "sourceUrl": "https://www.comparably.com/companies/tcs/salaries/senior-software-engineer"
     },
     {
+      "slug": "citi",
+      "name": "Citigroup",
+      "level": "5-Lowest",
+      "seniorTcUsd": 134547,
+      "seniorTitle": "C12 AVP (5 years median)",
+      "sourceUrl": "https://www.levels.fyi/companies/citi/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "publicis-sapient",
+      "name": "Publicis Sapient",
+      "level": "5-Lowest",
+      "seniorTcUsd": 133500,
+      "seniorTitle": "Senior Associate Software Engineer I",
+      "sourceUrl": "https://www.levels.fyi/companies/publicis-sapient/salaries/software-engineer/locations/united-states"
+    },
+    {
       "slug": "spotify",
       "name": "Spotify",
       "level": "5-Lowest",
       "seniorTcUsd": 132500,
       "seniorTitle": "Senior Software Engineer",
       "sourceUrl": "https://www.comparably.com/companies/spotify/salaries/senior-software-engineer"
+    },
+    {
+      "slug": "wipro",
+      "name": "Wipro",
+      "level": "5-Lowest",
+      "seniorTcUsd": 130955,
+      "seniorTitle": "Senior Software Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/wipro/salaries/software-engineer/locations/united-states"
     },
     {
       "slug": "sap",
@@ -1459,6 +1811,22 @@
       "seniorTcUsd": 129000,
       "seniorTitle": "Senior Software Engineer",
       "sourceUrl": "https://www.comparably.com/companies/wells-fargo/salaries/senior-software-engineer"
+    },
+    {
+      "slug": "target",
+      "name": "Target",
+      "level": "5-Lowest",
+      "seniorTcUsd": 128564,
+      "seniorTitle": "L5 Senior Software Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/target/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "att",
+      "name": "AT&T",
+      "level": "5-Lowest",
+      "seniorTcUsd": 125433,
+      "seniorTitle": "L1, Step 3 Sr. Specialist Software Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/atandt/salaries/software-engineer/locations/united-states"
     },
     {
       "slug": "autodesk",
@@ -1485,12 +1853,60 @@
       "sourceUrl": "https://www.levels.fyi/companies/accenture/salaries/software-engineer/locations/united-states"
     },
     {
+      "slug": "nagarro",
+      "name": "Nagarro",
+      "level": "5-Lowest",
+      "seniorTcUsd": 112260,
+      "seniorTitle": "Senior Software Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/nagarro/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "virtusa",
+      "name": "Virtusa",
+      "level": "5-Lowest",
+      "seniorTcUsd": 112025,
+      "seniorTitle": "L2 (6 years median)",
+      "sourceUrl": "https://www.levels.fyi/companies/virtusa/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "persistent-systems",
+      "name": "Persistent Systems",
+      "level": "5-Lowest",
+      "seniorTcUsd": 112000,
+      "seniorTitle": "Senior Software Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/persistent-systems/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "amdocs",
+      "name": "Amdocs",
+      "level": "5-Lowest",
+      "seniorTcUsd": 111400,
+      "seniorTitle": "L3 (5 years median)",
+      "sourceUrl": "https://www.levels.fyi/companies/amdocs/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "hcl",
+      "name": "HCL",
+      "level": "5-Lowest",
+      "seniorTcUsd": 108929,
+      "seniorTitle": "L2 Senior Software Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/hcl-technologies/salaries/software-engineer/locations/united-states"
+    },
+    {
       "slug": "cognizant",
       "name": "Cognizant",
       "level": "5-Lowest",
       "seniorTcUsd": 103000,
       "seniorTitle": "Senior Software Engineer",
       "sourceUrl": "https://www.comparably.com/companies/cognizant/salaries/senior-software-engineer"
+    },
+    {
+      "slug": "hsbc",
+      "name": "HSBC",
+      "level": "5-Lowest",
+      "seniorTcUsd": 102810,
+      "seniorTitle": "GCB6 (5 years median)",
+      "sourceUrl": "https://www.levels.fyi/companies/hsbc/salaries/software-engineer/locations/united-states"
     },
     {
       "slug": "capgemini",
@@ -1509,6 +1925,14 @@
       "sourceUrl": "https://www.comparably.com/companies/epam-systems/salaries/senior-software-engineer"
     },
     {
+      "slug": "lti",
+      "name": "LTIMindtree",
+      "level": "5-Lowest",
+      "seniorTcUsd": 86111,
+      "seniorTitle": "P2 (5 years median)",
+      "sourceUrl": "https://www.levels.fyi/companies/lti/salaries/software-engineer/locations/united-states"
+    },
+    {
       "slug": "infosys",
       "name": "Infosys",
       "level": "5-Lowest",
@@ -1517,16 +1941,206 @@
       "sourceUrl": "https://www.levels.fyi/companies/infosys/salaries/software-engineer/locations/united-states"
     },
     {
+      "slug": "turing",
+      "name": "Turing",
+      "level": "5-Lowest",
+      "seniorTcUsd": 62316,
+      "seniorTitle": "Senior Software Engineer",
+      "sourceUrl": "https://www.levels.fyi/companies/turing/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "accolite",
+      "name": "Accolite",
+      "level": "6-Unpriceable",
+      "note": "Levels.fyi US has no senior SWE median; Comparably has no Senior Software Engineer salary data",
+      "sourceUrl": "https://www.comparably.com/companies/accolite-software/salaries"
+    },
+    {
       "slug": "agoda",
       "name": "Agoda",
       "level": "6-Unpriceable",
       "note": "Levels.fyi Thailand THB only; no US senior USD"
     },
     {
+      "slug": "airtel",
+      "name": "Airtel",
+      "level": "6-Unpriceable",
+      "note": "Levels.fyi US has no senior SWE median; Comparably has no Senior Software Engineer title (only Senior Developer $153,881 est.); page is Bharti Airtel",
+      "sourceUrl": "https://www.comparably.com/companies/bharti-airtel/salaries"
+    },
+    {
       "slug": "alibaba",
       "name": "Alibaba",
       "level": "6-Unpriceable",
       "note": "Levels.fyi China only; no US senior USD"
+    },
+    {
+      "slug": "altimetrik",
+      "name": "Altimetrik",
+      "level": "6-Unpriceable",
+      "note": "Levels.fyi US has no senior SWE median; Comparably has no Senior Software Engineer title (only Senior Developer $110,000 est.)",
+      "sourceUrl": "https://www.comparably.com/companies/altimetrik-corp/salaries"
+    },
+    {
+      "slug": "arcesium",
+      "name": "Arcesium",
+      "level": "6-Unpriceable",
+      "note": "Levels.fyi US has no senior SWE median; Comparably has no Senior Software Engineer salary data",
+      "sourceUrl": "https://www.comparably.com/companies/arcesium/salaries"
+    },
+    {
+      "slug": "avito",
+      "name": "Avito",
+      "level": "6-Unpriceable",
+      "note": "Levels.fyi US has no senior SWE median; Comparably has no Senior Software Engineer salary data",
+      "sourceUrl": "https://www.comparably.com/companies/avito"
+    },
+    {
+      "slug": "bitgo",
+      "name": "BitGo",
+      "level": "6-Unpriceable",
+      "note": "Levels.fyi US has no senior SWE median; Comparably has no Senior Software Engineer salary data",
+      "sourceUrl": "https://www.comparably.com/companies/bitgo/salaries"
+    },
+    {
+      "slug": "cashfree",
+      "name": "Cashfree",
+      "level": "6-Unpriceable",
+      "note": "Levels.fyi US has no senior SWE median; Comparably has no Senior Software Engineer salary data",
+      "sourceUrl": "https://www.comparably.com/companies/cashfree"
+    },
+    {
+      "slug": "clevertap",
+      "name": "CleverTap",
+      "level": "6-Unpriceable",
+      "note": "Levels.fyi US has no senior SWE median; Comparably has no Senior Software Engineer title (only Senior Developer $144,887 est.)",
+      "sourceUrl": "https://www.comparably.com/companies/clevertap/salaries"
+    },
+    {
+      "slug": "coindcx",
+      "name": "CoinDCX",
+      "level": "6-Unpriceable",
+      "note": "Levels.fyi US has no senior SWE median; Comparably has no Senior Software Engineer salary data",
+      "sourceUrl": "https://www.comparably.com/companies/coindcx"
+    },
+    {
+      "slug": "couchbase",
+      "name": "Couchbase",
+      "level": "6-Unpriceable",
+      "note": "Levels.fyi US has no senior SWE median; Comparably has no Senior Software Engineer title (only Senior Developer $138,000 est.)",
+      "sourceUrl": "https://www.comparably.com/companies/couchbase/salaries"
+    },
+    {
+      "slug": "cyntexa",
+      "name": "Cyntexa",
+      "level": "6-Unpriceable",
+      "note": "Levels.fyi US has no senior SWE median; Comparably has no Senior Software Engineer salary data",
+      "sourceUrl": "https://www.comparably.com/companies/cyntexa-labs"
+    },
+    {
+      "slug": "dp-world",
+      "name": "DP World",
+      "level": "6-Unpriceable",
+      "note": "Levels.fyi US has no senior SWE median; Comparably has no Senior Software Engineer title (only Developer $108,889 est.)",
+      "sourceUrl": "https://www.comparably.com/companies/dp-world/salaries"
+    },
+    {
+      "slug": "devrev",
+      "name": "DevRev",
+      "level": "6-Unpriceable",
+      "note": "Levels.fyi US has no senior SWE median; Comparably has no Senior Software Engineer salary data",
+      "sourceUrl": "https://www.comparably.com/companies/devrev"
+    },
+    {
+      "slug": "directi",
+      "name": "Directi",
+      "level": "6-Unpriceable",
+      "note": "Levels.fyi US has no senior SWE median; no Comparably page",
+      "sourceUrl": "https://www.levels.fyi/companies/directi/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "dream11",
+      "name": "Dream11",
+      "level": "6-Unpriceable",
+      "note": "Levels.fyi US has no senior SWE median; Comparably has no Senior Software Engineer salary data",
+      "sourceUrl": "https://www.comparably.com/companies/dream11/salaries"
+    },
+    {
+      "slug": "dunzo",
+      "name": "Dunzo",
+      "level": "6-Unpriceable",
+      "note": "Levels.fyi US has no senior SWE median; Comparably has no Senior Software Engineer salary data",
+      "sourceUrl": "https://www.comparably.com/companies/dunzo"
+    },
+    {
+      "slug": "fractal-analytics",
+      "name": "Fractal Analytics",
+      "level": "6-Unpriceable",
+      "note": "Levels.fyi US has no senior SWE median; Comparably has no Senior Software Engineer title (only Senior Developer $139,151 est.)",
+      "sourceUrl": "https://www.comparably.com/companies/fractal-analytics/salaries"
+    },
+    {
+      "slug": "gsn-games",
+      "name": "GSN Games",
+      "level": "6-Unpriceable",
+      "note": "No Levels.fyi page; Comparably has no Senior Software Engineer salary data",
+      "sourceUrl": "https://www.comparably.com/companies/gsn"
+    },
+    {
+      "slug": "groww",
+      "name": "Groww",
+      "level": "6-Unpriceable",
+      "note": "Levels.fyi US has no senior SWE median; Comparably has no Senior Software Engineer salary data",
+      "sourceUrl": "https://www.comparably.com/companies/groww"
+    },
+    {
+      "slug": "hp",
+      "name": "HP",
+      "level": "6-Unpriceable",
+      "note": "Levels.fyi US has no senior SWE median; Comparably has no Senior Software Engineer title (only Senior Developer $165,000 est.)",
+      "sourceUrl": "https://www.comparably.com/companies/hp/salaries"
+    },
+    {
+      "slug": "htc",
+      "name": "HTC",
+      "level": "6-Unpriceable",
+      "note": "Levels.fyi US has no senior SWE median; Comparably has no Senior Software Engineer title (only Senior Developer $144,066 est.)",
+      "sourceUrl": "https://www.comparably.com/companies/htc-corp/salaries"
+    },
+    {
+      "slug": "hashedin",
+      "name": "HashedIn",
+      "level": "6-Unpriceable",
+      "note": "Levels.fyi US has no senior SWE median; Comparably has no Senior Software Engineer salary data",
+      "sourceUrl": "https://www.comparably.com/companies/hashedin/salaries"
+    },
+    {
+      "slug": "hive",
+      "name": "Hive",
+      "level": "6-Unpriceable",
+      "note": "Levels.fyi US has no senior SWE median; Comparably has no Senior Software Engineer salary data",
+      "sourceUrl": "https://www.comparably.com/companies/hive"
+    },
+    {
+      "slug": "inmobi",
+      "name": "InMobi",
+      "level": "6-Unpriceable",
+      "note": "Levels.fyi US has no senior SWE median; Comparably has no Senior Software Engineer title (only Senior Developer $158,000 est.)",
+      "sourceUrl": "https://www.comparably.com/companies/inmobi/salaries"
+    },
+    {
+      "slug": "info-edge",
+      "name": "Info Edge",
+      "level": "6-Unpriceable",
+      "note": "Levels.fyi US has no senior SWE median; Comparably has no Senior Software Engineer title (only Senior Developer $148,790 est.)",
+      "sourceUrl": "https://www.comparably.com/companies/info-edge/salaries"
+    },
+    {
+      "slug": "josh-technology",
+      "name": "Josh Technology",
+      "level": "6-Unpriceable",
+      "note": "Levels.fyi US has no senior SWE median; Comparably has no Senior Software Engineer salary data; page is Josh Software, not Josh Technology Group",
+      "sourceUrl": "https://www.comparably.com/companies/josh-software/salaries"
     },
     {
       "slug": "juspay",
@@ -1536,16 +2150,296 @@
       "sourceUrl": "https://www.levels.fyi/companies/juspay/salaries/software-engineer/locations/united-states"
     },
     {
+      "slug": "karat",
+      "name": "Karat",
+      "level": "6-Unpriceable",
+      "note": "Levels.fyi US has no senior SWE median; Comparably has no Senior Software Engineer salary data",
+      "sourceUrl": "https://www.comparably.com/companies/karat/salaries"
+    },
+    {
+      "slug": "kotak-mahindra-bank",
+      "name": "Kotak Mahindra Bank",
+      "level": "6-Unpriceable",
+      "note": "Levels.fyi US has no senior SWE median; Comparably has no Senior Software Engineer salary data",
+      "sourceUrl": "https://www.comparably.com/companies/kotak-mahindra-bank/salaries"
+    },
+    {
+      "slug": "lg-electronics",
+      "name": "LG Electronics",
+      "level": "6-Unpriceable",
+      "note": "Levels.fyi US has no senior SWE median; Comparably has no Senior Software Engineer title (only Senior Developer $155,216 est.); page is LG Electronics North America",
+      "sourceUrl": "https://www.comparably.com/companies/lg-electronics/salaries"
+    },
+    {
+      "slug": "maq-software",
+      "name": "MAQ Software",
+      "level": "6-Unpriceable",
+      "note": "Levels.fyi US has no senior SWE median; Comparably has no Senior Software Engineer title (only Senior Developer $137,911 est.)",
+      "sourceUrl": "https://www.comparably.com/companies/maq-software/salaries"
+    },
+    {
+      "slug": "makemytrip",
+      "name": "MakeMyTrip",
+      "level": "6-Unpriceable",
+      "note": "Levels.fyi US has no senior SWE median; Comparably has no Senior Software Engineer title (only Senior Developer $141,127 est.)",
+      "sourceUrl": "https://www.comparably.com/companies/makemytrip/salaries"
+    },
+    {
+      "slug": "medianet",
+      "name": "Media.net",
+      "level": "6-Unpriceable",
+      "note": "Levels.fyi US has no senior SWE median; Comparably has no Senior Software Engineer salary data",
+      "sourceUrl": "https://www.comparably.com/companies/medianet/salaries"
+    },
+    {
+      "slug": "meesho",
+      "name": "Meesho",
+      "level": "6-Unpriceable",
+      "note": "Levels.fyi US has no senior SWE median; Comparably has no Senior Software Engineer salary data",
+      "sourceUrl": "https://www.comparably.com/companies/meesho/salaries"
+    },
+    {
+      "slug": "mitsogo",
+      "name": "Mitsogo",
+      "level": "6-Unpriceable",
+      "note": "Levels.fyi US has no senior SWE median; Comparably has no Senior Software Engineer salary data",
+      "sourceUrl": "https://www.comparably.com/companies/mitsogo-inc/salaries"
+    },
+    {
+      "slug": "moveworks",
+      "name": "Moveworks",
+      "level": "6-Unpriceable",
+      "note": "Levels.fyi US has no senior SWE median; Comparably has no Senior Software Engineer salary data",
+      "sourceUrl": "https://www.comparably.com/companies/moveworks"
+    },
+    {
+      "slug": "myntra",
+      "name": "Myntra",
+      "level": "6-Unpriceable",
+      "note": "Levels.fyi US has no senior SWE median; no Comparably page",
+      "sourceUrl": "https://www.levels.fyi/companies/myntra/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "natwest",
+      "name": "NatWest",
+      "level": "6-Unpriceable",
+      "note": "Levels.fyi US has no senior SWE median; Comparably has no Senior Software Engineer salary data",
+      "sourceUrl": "https://www.comparably.com/companies/national-westminster-bank"
+    },
+    {
+      "slug": "nebius",
+      "name": "Nebius",
+      "level": "6-Unpriceable",
+      "note": "Levels.fyi US has no senior SWE median; no Comparably page",
+      "sourceUrl": "https://www.levels.fyi/companies/nebius/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "nokia",
+      "name": "Nokia",
+      "level": "6-Unpriceable",
+      "note": "Levels.fyi US has no senior SWE median; Comparably has no Senior Software Engineer title (only Senior Developer $157,500 est.)",
+      "sourceUrl": "https://www.comparably.com/companies/nokia/salaries"
+    },
+    {
+      "slug": "oyo",
+      "name": "OYO",
+      "level": "6-Unpriceable",
+      "note": "Levels.fyi US has no senior SWE median; Comparably has no Senior Software Engineer title (only Senior Developer $141,345 est.)",
+      "sourceUrl": "https://www.comparably.com/companies/oyo/salaries"
+    },
+    {
+      "slug": "ozon",
+      "name": "Ozon",
+      "level": "6-Unpriceable",
+      "note": "Levels.fyi US has no senior SWE median; Comparably has no Senior Software Engineer salary data",
+      "sourceUrl": "https://www.comparably.com/companies/ozon/salaries"
+    },
+    {
+      "slug": "paypay",
+      "name": "PayPay",
+      "level": "6-Unpriceable",
+      "note": "Levels.fyi US has no senior SWE median; Comparably has no Senior Software Engineer salary data",
+      "sourceUrl": "https://www.comparably.com/companies/paypay/salaries"
+    },
+    {
       "slug": "phonepe",
       "name": "PhonePe",
       "level": "6-Unpriceable",
       "note": "Levels.fyi India INR only; no US senior USD"
     },
     {
+      "slug": "pocket-gems",
+      "name": "Pocket Gems",
+      "level": "6-Unpriceable",
+      "note": "Levels.fyi US has no senior SWE median; Comparably has no Senior Software Engineer title (only Senior Developer $156,700 est.)",
+      "sourceUrl": "https://www.comparably.com/companies/pocket-gems/salaries"
+    },
+    {
+      "slug": "point72",
+      "name": "Point72",
+      "level": "6-Unpriceable",
+      "note": "Levels.fyi US has no senior SWE median; Comparably has no Senior Software Engineer salary data",
+      "sourceUrl": "https://www.comparably.com/companies/point72/salaries"
+    },
+    {
+      "slug": "pornhub",
+      "name": "Pornhub",
+      "level": "6-Unpriceable",
+      "note": "Levels.fyi US has no senior SWE median; Comparably has no Senior Software Engineer title (only Senior Developer $138,064 est.); page is MindGeek",
+      "sourceUrl": "https://www.comparably.com/companies/mindgeek/salaries"
+    },
+    {
+      "slug": "porter",
+      "name": "Porter",
+      "level": "6-Unpriceable",
+      "note": "Levels.fyi US has no senior SWE median; Comparably has no Senior Software Engineer title (only Senior Developer $132,506 est.); entity unconfirmed (may not be Porter logistics)",
+      "sourceUrl": "https://www.comparably.com/companies/porter/salaries"
+    },
+    {
+      "slug": "razorpay",
+      "name": "Razorpay",
+      "level": "6-Unpriceable",
+      "note": "Levels.fyi US has no senior SWE median; no Comparably page",
+      "sourceUrl": "https://www.levels.fyi/companies/razorpay/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "revolut",
+      "name": "Revolut",
+      "level": "6-Unpriceable",
+      "note": "Levels.fyi US has no senior SWE median; Comparably has no Senior Software Engineer salary data",
+      "sourceUrl": "https://www.comparably.com/companies/revolut"
+    },
+    {
+      "slug": "shopee",
+      "name": "Shopee",
+      "level": "6-Unpriceable",
+      "note": "Levels.fyi US has no senior SWE median; Comparably has no Senior Software Engineer salary data",
+      "sourceUrl": "https://www.comparably.com/companies/shopee/salaries"
+    },
+    {
+      "slug": "sigmoid",
+      "name": "Sigmoid",
+      "level": "6-Unpriceable",
+      "note": "Levels.fyi US has no senior SWE median; Comparably has no Senior Software Engineer salary data",
+      "sourceUrl": "https://www.comparably.com/companies/sigmoid/salaries"
+    },
+    {
+      "slug": "spinny",
+      "name": "Spinny",
+      "level": "6-Unpriceable",
+      "note": "Levels.fyi US has no senior SWE median; Comparably has no Senior Software Engineer salary data",
+      "sourceUrl": "https://www.comparably.com/companies/spinny"
+    },
+    {
+      "slug": "sprinklr",
+      "name": "Sprinklr",
+      "level": "6-Unpriceable",
+      "note": "Levels.fyi US has no senior SWE median; Comparably has no Senior Software Engineer title (only Senior Developer $148,769 est.)",
+      "sourceUrl": "https://www.comparably.com/companies/sprinklr/salaries"
+    },
+    {
       "slug": "squarepoint-capital",
       "name": "Squarepoint Capital",
       "level": "6-Unpriceable",
       "note": "Levels.fyi UK GBP only; no US senior USD"
+    },
+    {
+      "slug": "tinkoff",
+      "name": "Tinkoff",
+      "level": "6-Unpriceable",
+      "note": "Levels.fyi US has no senior SWE median; no Comparably page",
+      "sourceUrl": "https://www.levels.fyi/companies/tinkoff-bank/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "trilogy",
+      "name": "Trilogy",
+      "level": "6-Unpriceable",
+      "note": "Levels.fyi US has no senior SWE median; Comparably has no Senior Software Engineer title (only Senior Developer $122,790 est.)",
+      "sourceUrl": "https://www.comparably.com/companies/trilogy/salaries"
+    },
+    {
+      "slug": "urban-company",
+      "name": "Urban Company",
+      "level": "6-Unpriceable",
+      "note": "No Levels.fyi page; Comparably has no Senior Software Engineer salary data",
+      "sourceUrl": "https://www.comparably.com/companies/urbanclap"
+    },
+    {
+      "slug": "vk",
+      "name": "VK",
+      "level": "6-Unpriceable",
+      "note": "Levels.fyi US has no senior SWE median; no Comparably page",
+      "sourceUrl": "https://www.levels.fyi/companies/vk/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "virtu",
+      "name": "Virtu Financial",
+      "level": "6-Unpriceable",
+      "note": "Levels.fyi US has no senior SWE median; Comparably has no Senior Software Engineer title (only Senior Developer $131,703 est.)",
+      "sourceUrl": "https://www.comparably.com/companies/virtu-financial/salaries"
+    },
+    {
+      "slug": "weride",
+      "name": "WeRide",
+      "level": "6-Unpriceable",
+      "note": "Levels.fyi US has no senior SWE median; no Comparably page",
+      "sourceUrl": "https://www.levels.fyi/companies/werideai/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "wissen",
+      "name": "Wissen Technology",
+      "level": "6-Unpriceable",
+      "note": "Levels.fyi US has no senior SWE median; no Comparably page",
+      "sourceUrl": "https://www.levels.fyi/companies/wissen-technology/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "wix",
+      "name": "Wix",
+      "level": "6-Unpriceable",
+      "note": "Levels.fyi US has no senior SWE median; no Comparably page",
+      "sourceUrl": "https://www.levels.fyi/companies/wixcom/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "zs-associates",
+      "name": "ZS Associates",
+      "level": "6-Unpriceable",
+      "note": "Levels.fyi US has no senior SWE median; Comparably has no Senior Software Engineer title (only Senior Developer $125,451 est.)",
+      "sourceUrl": "https://www.comparably.com/companies/zs-associates/salaries"
+    },
+    {
+      "slug": "zenefits",
+      "name": "Zenefits",
+      "level": "6-Unpriceable",
+      "note": "Levels.fyi US has no senior SWE median; Comparably has no Senior Software Engineer title (only Senior Developer $156,286 est.)",
+      "sourceUrl": "https://www.comparably.com/companies/zenefits/salaries"
+    },
+    {
+      "slug": "zepto",
+      "name": "Zepto",
+      "level": "6-Unpriceable",
+      "note": "Levels.fyi US has no senior SWE median; Comparably has no Senior Software Engineer salary data",
+      "sourceUrl": "https://www.comparably.com/companies/zepto"
+    },
+    {
+      "slug": "zeta",
+      "name": "Zeta Global",
+      "level": "6-Unpriceable",
+      "note": "Levels.fyi US has no senior SWE median; Comparably has no Senior Software Engineer title (only Senior Developer $138,428 est.)",
+      "sourceUrl": "https://www.comparably.com/companies/zeta-global/salaries"
+    },
+    {
+      "slug": "zopsmart",
+      "name": "Zopsmart",
+      "level": "6-Unpriceable",
+      "note": "Levels.fyi US has no senior SWE median; no Comparably page",
+      "sourceUrl": "https://www.levels.fyi/companies/zopsmart/salaries/software-engineer/locations/united-states"
+    },
+    {
+      "slug": "micro1",
+      "name": "micro1",
+      "level": "6-Unpriceable",
+      "note": "Levels.fyi US has no senior SWE median; no Comparably page",
+      "sourceUrl": "https://www.levels.fyi/companies/micro1/salaries/software-engineer/locations/united-states"
     }
   ]
 }

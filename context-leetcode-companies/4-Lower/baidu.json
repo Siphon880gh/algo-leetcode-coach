@@ -1,0 +1,19 @@
+{
+  "slug": "baidu",
+  "name": "Baidu",
+  "url": "https://leetcode.com/company/baidu/?favoriteSlug=baidu-all",
+  "favoriteSlug": "baidu-all",
+  "updatedAt": "2026-10-28T08:49:43Z",
+  "problems": [
+    124,
+    395,
+    397,
+    410,
+    413,
+    446,
+    488,
+    576,
+    588,
+    873
+  ]
+}

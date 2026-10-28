@@ -1,0 +1,15 @@
+{
+  "slug": "godaddy",
+  "name": "GoDaddy",
+  "url": "https://leetcode.com/company/godaddy/?favoriteSlug=godaddy-all",
+  "favoriteSlug": "godaddy-all",
+  "updatedAt": "2026-10-28T08:49:45Z",
+  "problems": [
+    20,
+    56,
+    441,
+    443,
+    1664,
+    1761
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "slug": "avito",
+  "name": "Avito",
+  "url": "https://leetcode.com/company/avito/?favoriteSlug=avito-all",
+  "favoriteSlug": "avito-all",
+  "updatedAt": "2026-10-28T08:49:44Z",
+  "problems": [
+    22,
+    49,
+    88,
+    104,
+    215,
+    238,
+    347,
+    907
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "slug": "hp",
+  "name": "HP",
+  "url": "https://leetcode.com/company/hp/?favoriteSlug=hp-all",
+  "favoriteSlug": "hp-all",
+  "updatedAt": "2026-10-28T08:49:46Z",
+  "problems": [
+    20,
+    409,
+    678,
+    2087,
+    2379
+  ]
+}

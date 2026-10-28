@@ -1,0 +1,15 @@
+{
+  "slug": "comcast",
+  "name": "Comcast",
+  "url": "https://leetcode.com/company/comcast/?favoriteSlug=comcast-all",
+  "favoriteSlug": "comcast-all",
+  "updatedAt": "2026-10-28T08:49:45Z",
+  "problems": [
+    1,
+    3,
+    20,
+    121,
+    125,
+    200
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "slug": "netskope",
+  "name": "Netskope",
+  "url": "https://leetcode.com/company/netskope/?favoriteSlug=netskope-all",
+  "favoriteSlug": "netskope-all",
+  "updatedAt": "2026-10-28T08:49:44Z",
+  "problems": [
+    3,
+    10,
+    23,
+    41,
+    460,
+    588,
+    647
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "slug": "devrev",
+  "name": "DevRev",
+  "url": "https://leetcode.com/company/devrev/?favoriteSlug=devrev-all",
+  "favoriteSlug": "devrev-all",
+  "updatedAt": "2026-10-28T08:49:46Z",
+  "problems": [
+    1,
+    460,
+    862,
+    1277,
+    2542
+  ]
+}

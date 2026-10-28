@@ -1,0 +1,17 @@
+{
+  "slug": "citi",
+  "name": "Citigroup",
+  "url": "https://leetcode.com/company/citi/?favoriteSlug=citi-all",
+  "favoriteSlug": "citi-all",
+  "updatedAt": "2026-10-28T08:49:44Z",
+  "problems": [
+    1,
+    3,
+    20,
+    48,
+    121,
+    150,
+    209,
+    1944
+  ]
+}

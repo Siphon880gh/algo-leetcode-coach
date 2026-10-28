@@ -1,0 +1,16 @@
+{
+  "slug": "shopee",
+  "name": "Shopee",
+  "url": "https://leetcode.com/company/shopee/?favoriteSlug=shopee-all",
+  "favoriteSlug": "shopee-all",
+  "updatedAt": "2026-10-28T08:49:44Z",
+  "problems": [
+    5,
+    55,
+    79,
+    146,
+    449,
+    528,
+    1885
+  ]
+}
