@@ -511,6 +511,12 @@ code {
   margin: 0 0 var(--space-2);
 }
 
+/* Problem pages put companies above the number line. Match the gap under the
+   company names to the gap between that line and the mode links. */
+.problem-head .leetcode-no {
+  gap: var(--space-2);
+}
+
 .leetcode-no__sep {
   width: 1px;
   height: 0.85em;
@@ -4182,6 +4188,10 @@ button.import-ai-panel__service {
   .problem-head.is-stuck .page-head__links {
     gap: var(--space-1);
     margin-bottom: 0;
+  }
+
+  .problem-head.is-stuck .leetcode-no {
+    gap: var(--space-1);
   }
 
   /* Long company lists scroll inside the stuck head instead of filling the screen. */
