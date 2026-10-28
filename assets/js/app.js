@@ -4516,7 +4516,7 @@
       var base = data.prompt;
       var own = mine ? String(mine.value || '').trim() : '';
       if (!own) return base;
-      var extra = 'What I think the problem asks, in my own words:\n' + QUOTES + '\n' + own + '\n' + QUOTES + '\nStart by checking this.\n\n';
+      var extra = 'What I think the problem asks, in my own words:\n' + QUOTES + '\n' + own + '\n' + QUOTES + '\nSkip the opening question and start by checking this.\n\n';
       var at = base.lastIndexOf(ASK);
       return at === -1 ? base + '\n\n' + extra.trim() : base.slice(0, at) + extra + base.slice(at);
     }

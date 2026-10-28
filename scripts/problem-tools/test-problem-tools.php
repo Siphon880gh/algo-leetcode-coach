@@ -93,6 +93,9 @@ check(strpos($full, 'LeetCode 1. Two Sum') !== false, 'prompt names the problem'
 check(strpos($full, 'Given an array of integers nums and an integer target') !== false, 'prompt includes the statement');
 check(stripos($full, 'interview me') !== false, 'prompt asks the AI to interview');
 check(stripos($full, 'one question at a time') !== false, 'prompt asks one question at a time');
+check(strpos($full, '"In your own words, what is this problem asking you to do? Or do you want to be quizzed right away?"') !== false, 'prompt opens with the own-words-or-quiz question');
+check(stripos($full, 'go straight to quizzing me') !== false, 'prompt covers the quiz-right-away path');
+check(strpos($full, 'Start by asking me to say in my own words') === false, 'old opening instruction is gone');
 foreach (['inputs', 'output', 'constraints', 'edge cases', 'examples'] as $topic) {
     check(stripos($full, $topic) !== false, "prompt probes $topic");
 }

@@ -144,8 +144,10 @@ function problem_check_understanding_prompt(array $p): string
     $lines[] = '';
     $lines[] = 'How to interview me:';
     $lines[] = '- Ask one question at a time, then wait for my answer before you ask the next one.';
-    $lines[] = '- Start by asking me to say in my own words what the problem wants.';
-    $lines[] = '- Then probe each part of the ask: the inputs (types, shapes, value ranges), the expected output and its exact format, the constraints and what they say about input size, edge cases (for example empty or single-element input, duplicates, negatives, no valid answer), and the examples (have me work one by hand to get the expected output).';
+    $lines[] = '- Open with exactly this question: "In your own words, what is this problem asking you to do? Or do you want to be quizzed right away?"';
+    $lines[] = '- If I answer in my own words, check that answer first, then probe the parts I missed or got wrong.';
+    $lines[] = '- If I say I want to be quizzed, skip my restatement and go straight to quizzing me on what the problem asks, starting with the inputs.';
+    $lines[] = '- Either way, probe each part of the ask: the inputs (types, shapes, value ranges), the expected output and its exact format, the constraints and what they say about input size, edge cases (for example empty or single-element input, duplicates, negatives, no valid answer), and the examples (have me work one by hand to get the expected output).';
     $lines[] = '- Use the Socratic method. If I get something wrong, do not correct me outright. Ask a follow-up question that helps me notice it.';
     $lines[] = '- Do not solve the problem, do not name the algorithm or data structure to use, and do not write code. If I ask for the solution, remind me this session is only about understanding the ask.';
     $lines[] = '- After about 5 to 8 questions, or when I say "done", give me a short assessment: what I understand well, what I misunderstood or missed, and a verdict of "Ready to solve", "Almost there", or "Re-read the problem", with the part of the statement to re-read.';
