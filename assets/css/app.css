@@ -4147,3 +4147,100 @@ button.import-ai-panel__service {
     display: none !important;
   }
 }
+
+/* ---------- Problem page head (Mini game, Algo Guide, Step-by-step) ----------
+   Desktop (>= 641px): the title, companies, LeetCode line, and mode links stick under the site
+   header. Mobile (<= 640px, same as app.js): not sticky; a round scroll-to-top button shows once
+   the head scrolls away. */
+
+.problem-head__crumb {
+  margin-bottom: var(--space-2);
+  animation: rise 0.5s ease-out;
+}
+
+@media (min-width: 641px) {
+  .problem-head {
+    position: sticky;
+    top: var(--site-header-h, 3.5rem);
+    z-index: 15;
+    background: var(--bg);
+  }
+
+  .problem-head.is-stuck {
+    margin-left: calc(var(--space-3) * -1);
+    margin-right: calc(var(--space-3) * -1);
+    padding: var(--space-2) var(--space-3);
+    border-bottom: 1px solid var(--panel-edge);
+    box-shadow: 0 8px 14px -12px rgba(26, 31, 36, 0.45);
+  }
+
+  .problem-head.is-stuck h1 {
+    font-size: 1.3rem;
+    margin-bottom: var(--space-1);
+  }
+
+  .problem-head.is-stuck .page-head__links {
+    gap: var(--space-1);
+    margin-bottom: 0;
+  }
+
+  /* Long company lists scroll inside the stuck head instead of filling the screen. */
+  .problem-head.is-stuck .leetcode-cos {
+    max-height: 2.9em;
+    overflow-y: auto;
+  }
+
+  .problem-head.is-stuck .companion-link {
+    margin-top: 0;
+  }
+}
+
+.scroll-top {
+  position: fixed;
+  right: max(1rem, env(safe-area-inset-right));
+  /* Sits above the corner key button (.site-keys, 3.25rem tall). */
+  bottom: calc(max(1rem, env(safe-area-inset-bottom)) + 4rem);
+  z-index: 40;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  padding: 0;
+  border: 1px solid var(--ink);
+  border-radius: 50%;
+  background: var(--panel);
+  color: var(--ink);
+  box-shadow: 0 1px 3px rgba(26, 31, 36, 0.16);
+  cursor: pointer;
+}
+
+.scroll-top[hidden] {
+  display: none;
+}
+
+.scroll-top:hover {
+  background: var(--ink);
+  color: var(--panel);
+}
+
+.scroll-top:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+@media (min-width: 641px) {
+  .scroll-top {
+    display: none;
+  }
+}
+
+@media print {
+  .scroll-top {
+    display: none !important;
+  }
+
+  .problem-head {
+    position: static;
+  }
+}

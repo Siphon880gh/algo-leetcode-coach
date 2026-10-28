@@ -234,11 +234,7 @@ layout_start([
 
 <a class="back-link" href="<?= e(url('coaching/index.php')) ?>">← Step-by-step</a>
 
-<div class="page-head">
-    <?php render_content_crumb($meta, 'coaching/index.php', []); ?>
-    <h1><?= e((string) ($meta['title'] ?? $slug)) ?></h1>
-    <?php render_resource_head_chrome('session', $meta, $slug, 'coaching/index.php'); ?>
-</div>
+<?php render_problem_page_head('session', $meta, $slug, 'coaching/index.php', (string) ($meta['title'] ?? $slug)); ?>
 
 <?php render_problem_statement($meta, 'session', $pathDepth === 0); ?>
 <?php

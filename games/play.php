@@ -69,12 +69,10 @@ layout_start([
 
 <a class="back-link" href="<?= e(url('games/index.php')) ?>">← All mini games</a>
 
-<div class="page-head">
-    <?php render_content_crumb($meta, 'games/index.php', []); ?>
-    <h1><?= e((string) ($meta['title'] ?? $slug)) ?></h1>
-    <?php render_resource_head_chrome('game', $meta, $slug, 'games/index.php'); ?>
-    <p><?= e((string) ($meta['summary'] ?? '')) ?></p>
-</div>
+<?php render_problem_page_head('game', $meta, $slug, 'games/index.php', (string) ($meta['title'] ?? $slug)); ?>
+<?php if (trim((string) ($meta['summary'] ?? '')) !== ''): ?>
+<p class="page-summary"><?= e((string) $meta['summary']) ?></p>
+<?php endif; ?>
 
 <?php render_game_problem($meta, $slug); ?>
 

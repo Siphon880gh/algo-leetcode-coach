@@ -189,5 +189,20 @@ if ($noCo !== null) {
     check(strpos($html, 'leetcode-cos') === false && strpos($html, 'leetcode-no__line') !== false, "problem $noCo with no companies shows no company row");
 }
 
+// ---- Problem page head: one sticky wrapper holds title, companies, LeetCode line, and mode links ----
+foreach (['game' => 'games/index.php', 'guide' => 'guides/index.php', 'session' => 'coaching/index.php'] as $from => $script) {
+    ob_start();
+    render_problem_page_head($from, ['leetcode' => 1, 'difficulty' => 'Easy', 'title' => 'Two Sum', 'category' => 'Arrays'], 'two-sum', $script, 'Two Sum <x>');
+    $html = (string) ob_get_clean();
+    $open = strpos($html, '<div class="page-head problem-head" data-problem-head>');
+    $crumb = strpos($html, 'class="crumb"');
+    check($open !== false && $crumb !== false && $crumb < $open, "$from head: crumb sits outside, before the sticky wrapper");
+    $inner = $open !== false ? substr($html, $open) : '';
+    check(strpos($inner, '<h1>Two Sum &lt;x&gt;</h1>') !== false, "$from head: escaped title inside the wrapper");
+    foreach (['leetcode-cos', 'leetcode-no__line', 'youtube-search', 'companion-link'] as $cls) {
+        check(strpos($inner, $cls) !== false, "$from head: $cls inside the wrapper");
+    }
+}
+
 echo "problem tools ok $pass bad $fail\n";
 exit($fail ? 1 : 0);

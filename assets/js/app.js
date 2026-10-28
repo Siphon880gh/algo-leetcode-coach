@@ -4407,6 +4407,86 @@
     });
   }
 
+  // ---------- Problem page head: sticky on desktop, scroll-to-top button on mobile ----------
+  // Mobile = window width <= 640px, the same breakpoint as the @media rules for .problem-head in app.css.
+  var PROBLEM_HEAD_MOBILE_MAX = 640;
+
+  function initProblemHead() {
+    var head = document.querySelector('[data-problem-head]');
+    if (!head) return;
+    var siteHeader = document.querySelector('.site-header');
+    var reduceMotion = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
+
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'scroll-top';
+    btn.hidden = true;
+    btn.setAttribute('aria-label', 'Scroll back to top');
+    btn.title = 'Back to top';
+    btn.innerHTML = '<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">'
+      + '<path d="M12 5l-7 7m7-7l7 7M12 5v14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    btn.addEventListener('click', function () {
+      var smooth = !(reduceMotion && reduceMotion.matches);
+      window.scrollTo({ top: 0, behavior: smooth ? 'smooth' : 'auto' });
+    });
+    document.body.appendChild(btn);
+
+    var queued = false;
+    var root = document.documentElement;
+
+    function isMobile() {
+      return window.innerWidth <= PROBLEM_HEAD_MOBILE_MAX;
+    }
+
+    // The stuck head is more compact. Pad its bottom margin by the height it lost so the page
+    // below doesn't jump, and set scroll-padding so anchors and scrollIntoView land below it.
+    function setStuck(on) {
+      if (on === head.classList.contains('is-stuck')) {
+        if (on) root.style.scrollPaddingTop = Math.round(head.getBoundingClientRect().bottom + 8) + 'px';
+        return;
+      }
+      if (!on) {
+        head.classList.remove('is-stuck');
+        head.style.marginBottom = '';
+        root.style.scrollPaddingTop = '';
+        return;
+      }
+      var naturalH = head.offsetHeight;
+      var baseMargin = parseFloat(window.getComputedStyle(head).marginBottom) || 0;
+      head.classList.add('is-stuck');
+      var lost = naturalH - head.offsetHeight;
+      if (lost > 0) head.style.marginBottom = (baseMargin + lost) + 'px';
+      root.style.scrollPaddingTop = Math.round(head.getBoundingClientRect().bottom + 8) + 'px';
+    }
+
+    function update() {
+      queued = false;
+      var headerH = siteHeader ? Math.round(siteHeader.getBoundingClientRect().height) : 0;
+      document.documentElement.style.setProperty('--site-header-h', headerH + 'px');
+      if (isMobile()) {
+        setStuck(false);
+        btn.hidden = head.getBoundingClientRect().bottom > 0;
+        return;
+      }
+      btn.hidden = true;
+      setStuck(window.scrollY > 0 && head.getBoundingClientRect().top <= headerH + 1);
+    }
+
+    function queue() {
+      if (queued) return;
+      queued = true;
+      window.requestAnimationFrame(update);
+    }
+
+    window.addEventListener('scroll', queue, { passive: true });
+    window.addEventListener('resize', function () {
+      // Re-measure from the natural (unstuck) size at the new width.
+      setStuck(false);
+      queue();
+    });
+    update();
+  }
+
   // ---------- Check understanding (prompt builder on the problem panel) ----------
   function initCheckUnderstanding() {
     var buttons = document.querySelectorAll('[data-check-understanding-open]');
@@ -4502,4 +4582,5 @@
   initCuratedListProgress();
   initCompanyProblemsPanel();
   initCheckUnderstanding();
+  initProblemHead();
 })();

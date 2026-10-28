@@ -1454,6 +1454,25 @@ function render_resource_head_chrome(string $from, array $meta, string $ownSlug,
 }
 
 /**
+ * Problem page head for Mini games, Algo Guides, and Step-by-step: the category crumb, then one
+ * wrapper with the title, company names, LeetCode number / difficulty / YouTube, and the links to
+ * the other modes. On desktop the wrapper sticks under the site header; on mobile (<= 640px) app.js
+ * shows a scroll-to-top button once it scrolls away. See .problem-head in app.css.
+ *
+ * @param array<string, string> $crumbQuery
+ */
+function render_problem_page_head(string $from, array $meta, string $ownSlug, string $script, string $title, array $crumbQuery = []): void
+{
+    echo '<div class="problem-head__crumb">';
+    render_content_crumb($meta, $script, $crumbQuery);
+    echo '</div>';
+    echo '<div class="page-head problem-head" data-problem-head>';
+    echo '<h1>' . e($title) . '</h1>';
+    render_resource_head_chrome($from, $meta, $ownSlug, $script);
+    echo '</div>';
+}
+
+/**
  * @param array<string, string> $params
  */
 function content_list_href(string $script, array $params): string

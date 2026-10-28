@@ -36,18 +36,16 @@ layout_start([
 
 <a class="back-link" href="<?= e(guide_list_url($kind)) ?>">← <?= e($sectionLabel) ?></a>
 
+<?php if ($kind === 'algo'): ?>
+<?php render_problem_page_head('guide', $meta, $slug, 'guides/index.php', $guideTitle, ['kind' => $kind]); ?>
+<?php else: ?>
 <div class="page-head">
     <?php render_content_crumb($meta, 'guides/index.php', ['kind' => $kind]); ?>
     <h1><?= e($guideTitle) ?></h1>
-    <?php if ($kind === 'algo'): ?>
-        <?php render_resource_head_chrome('guide', $meta, $slug, 'guides/index.php'); ?>
-    <?php else: ?>
-        <?php render_leetcode_row($meta); ?>
-    <?php endif; ?>
-    <?php if ($kind !== 'algo'): ?>
+    <?php render_leetcode_row($meta); ?>
     <p><?= e((string) ($meta['summary'] ?? '')) ?></p>
-    <?php endif; ?>
 </div>
+<?php endif; ?>
 
 <?php if ($kind === 'algo'): ?>
 <?php render_problem_statement($meta, 'guide'); ?>
