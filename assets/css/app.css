@@ -2735,6 +2735,31 @@ body.modal-open {
   text-decoration-color: rgba(74, 85, 96, 0.4);
 }
 
+.import-ai-panel__service.is-disabled {
+  opacity: 0.4;
+  filter: grayscale(1);
+  cursor: not-allowed;
+}
+
+.import-ai-panel__service.is-disabled:hover {
+  color: var(--ink-muted);
+  text-decoration: none;
+}
+
+.import-ai-panel__hint {
+  flex-basis: 100%;
+  font-size: 0.72rem;
+  color: var(--ink-muted);
+}
+
+.import-ai-panel__hint.is-stale {
+  color: #8a5a00;
+}
+
+.import-ai-panel__hint[hidden] {
+  display: none;
+}
+
 button.import-ai-panel__service {
   margin: 0;
   padding: 0;

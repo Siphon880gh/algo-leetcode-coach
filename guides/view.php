@@ -136,12 +136,13 @@ if (is_file($mdPath)) {
                 <div class="import-ai-panel__actions">
                     <button type="button" id="guide-gen-copy" class="import-ai-panel__copy">Copy prompt</button>
                     <span class="import-ai-panel__open-label">Open in</span>
-                    <a href="https://chatgpt.com/" target="_blank" rel="noopener noreferrer" id="guide-gen-open-chatgpt" class="import-ai-panel__service"><svg class="import-ai-panel__service-icon import-ai-panel__service-icon--chatgpt" width="14" height="14" aria-hidden="true" focusable="false"><use href="#icon-chatgpt"></use></svg><span>ChatGPT</span></a>
-                    <a href="https://claude.ai/new" target="_blank" rel="noopener noreferrer" id="guide-gen-open-claude" class="import-ai-panel__service"><svg class="import-ai-panel__service-icon import-ai-panel__service-icon--claude" width="14" height="14" aria-hidden="true" focusable="false"><use href="#icon-claude"></use></svg><span>Claude</span></a>
+                    <a href="https://chatgpt.com/" target="_blank" rel="noopener noreferrer" id="guide-gen-open-chatgpt" class="import-ai-panel__service is-disabled" aria-disabled="true" title="Copy the prompt first"><svg class="import-ai-panel__service-icon import-ai-panel__service-icon--chatgpt" width="14" height="14" aria-hidden="true" focusable="false"><use href="#icon-chatgpt"></use></svg><span>ChatGPT</span></a>
+                    <a href="https://claude.ai/new" target="_blank" rel="noopener noreferrer" id="guide-gen-open-claude" class="import-ai-panel__service is-disabled" aria-disabled="true" title="Copy the prompt first"><svg class="import-ai-panel__service-icon import-ai-panel__service-icon--claude" width="14" height="14" aria-hidden="true" focusable="false"><use href="#icon-claude"></use></svg><span>Claude</span></a>
                     <button type="button" id="guide-gen-open-cursor" class="import-ai-panel__service" aria-expanded="false" aria-controls="guide-gen-cursor-note">
                         <span>Cursor</span>
                         <span class="guide-gen-cursor-i" aria-hidden="true">i</span>
                     </button>
+                    <span id="guide-gen-hint" class="import-ai-panel__hint" aria-live="polite">Copy the prompt first</span>
                 </div>
                 <p id="guide-gen-cursor-note" class="guide-gen-cursor-note" hidden>Copy this prompt into Cursor for this repo. Use Ask Mode so it will not touch the codebase.</p>
             </div>
@@ -189,12 +190,13 @@ if (is_file($mdPath)) {
                 <div class="import-ai-panel__actions">
                     <button type="button" id="guide-ask-copy" class="import-ai-panel__copy">Copy prompt</button>
                     <span class="import-ai-panel__open-label">Open in</span>
-                    <a href="https://chatgpt.com/" target="_blank" rel="noopener noreferrer" id="guide-ask-open-chatgpt" class="import-ai-panel__service"><svg class="import-ai-panel__service-icon import-ai-panel__service-icon--chatgpt" width="14" height="14" aria-hidden="true" focusable="false"><use href="#icon-chatgpt"></use></svg><span>ChatGPT</span></a>
-                    <a href="https://claude.ai/new" target="_blank" rel="noopener noreferrer" id="guide-ask-open-claude" class="import-ai-panel__service"><svg class="import-ai-panel__service-icon import-ai-panel__service-icon--claude" width="14" height="14" aria-hidden="true" focusable="false"><use href="#icon-claude"></use></svg><span>Claude</span></a>
+                    <a href="https://chatgpt.com/" target="_blank" rel="noopener noreferrer" id="guide-ask-open-chatgpt" class="import-ai-panel__service is-disabled" aria-disabled="true" title="Copy the prompt first"><svg class="import-ai-panel__service-icon import-ai-panel__service-icon--chatgpt" width="14" height="14" aria-hidden="true" focusable="false"><use href="#icon-chatgpt"></use></svg><span>ChatGPT</span></a>
+                    <a href="https://claude.ai/new" target="_blank" rel="noopener noreferrer" id="guide-ask-open-claude" class="import-ai-panel__service is-disabled" aria-disabled="true" title="Copy the prompt first"><svg class="import-ai-panel__service-icon import-ai-panel__service-icon--claude" width="14" height="14" aria-hidden="true" focusable="false"><use href="#icon-claude"></use></svg><span>Claude</span></a>
                     <button type="button" id="guide-ask-open-cursor" class="import-ai-panel__service" aria-expanded="false" aria-controls="guide-ask-cursor-note">
                         <span>Cursor</span>
                         <span class="guide-gen-cursor-i" aria-hidden="true">i</span>
                     </button>
+                    <span id="guide-ask-hint" class="import-ai-panel__hint" aria-live="polite">Copy the prompt first</span>
                 </div>
                 <p id="guide-ask-cursor-note" class="guide-gen-cursor-note" hidden>Copy this prompt into Cursor for this repo. Use Ask Mode so it will not touch the codebase.</p>
             </div>

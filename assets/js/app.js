@@ -25,6 +25,45 @@
     }, 1600);
   }
 
+  function createPromptHandoff(getText, serviceEls, hintEl, copyBtn) {
+    var copied = null;
+    function sync() {
+      var text = getText() || '';
+      var ready = copied !== null && copied === text;
+      var why = copied === null ? 'Copy the prompt first' : 'Prompt changed, copy again';
+      (serviceEls || []).forEach(function (a) {
+        if (!a) return;
+        a.classList.toggle('is-disabled', !ready);
+        if (ready) {
+          a.removeAttribute('aria-disabled');
+          a.removeAttribute('title');
+        } else {
+          a.setAttribute('aria-disabled', 'true');
+          a.title = why;
+        }
+      });
+      if (hintEl) {
+        hintEl.textContent = ready ? '' : why;
+        hintEl.hidden = ready;
+        hintEl.classList.toggle('is-stale', !ready && copied !== null);
+      }
+      return ready;
+    }
+    function markCopied() {
+      copied = getText() || '';
+      sync();
+    }
+    function openIfReady(url) {
+      if (!sync()) {
+        if (copyBtn) copyBtn.focus();
+        return false;
+      }
+      window.open(url, '_blank', 'noopener,noreferrer');
+      return true;
+    }
+    return { sync: sync, markCopied: markCopied, openIfReady: openIfReady };
+  }
+
   document.querySelectorAll('[data-copy-target]').forEach(function (btn) {
     btn.addEventListener('click', function () {
       var sel = btn.getAttribute('data-copy-target');
@@ -344,6 +383,7 @@
     if (pathAiPreview) {
       pathAiPreview.textContent = currentCoachingPathAiPrompt();
     }
+    if (pathAiHandoff) pathAiHandoff.sync();
   }
 
   function setCoachingPathAiModalOpen(open) {
@@ -365,18 +405,25 @@
     }
   }
 
+  var pathAiHandoff = createPromptHandoff(
+    currentCoachingPathAiPrompt,
+    [pathAiChatgpt, pathAiClaude],
+    document.getElementById('coaching-path-ai-hint'),
+    pathAiCopy
+  );
+
   function copyCoachingPathAiPrompt(done) {
     copyText(currentCoachingPathAiPrompt()).then(function () {
+      pathAiHandoff.markCopied();
       if (typeof done === 'function') done();
     }).catch(function () {
+      pathAiHandoff.markCopied();
       if (typeof done === 'function') done();
     });
   }
 
   function openCoachingPathAiService(url) {
-    copyCoachingPathAiPrompt(function () {
-      window.open(url, '_blank', 'noopener,noreferrer');
-    });
+    pathAiHandoff.openIfReady(url);
   }
 
   if (pathAiOpen && pathAiModal) {
@@ -3163,6 +3210,7 @@
       hideGuideSelectMenu();
       setGuideGenCursorNoteOpen(false);
       if (guideGenPreview) guideGenPreview.textContent = currentGuideGenPrompt();
+      guideGenHandoff.sync();
       var panel = guideGenModal.querySelector('.modal__panel');
       if (panel && typeof panel.focus === 'function') panel.focus();
     } else if (lastGuideGenFocus && typeof lastGuideGenFocus.focus === 'function') {
@@ -3170,25 +3218,41 @@
     }
   }
 
+  var guideGenHandoff = createPromptHandoff(
+    currentGuideGenPrompt,
+    [guideGenChatgpt, guideGenClaude],
+    document.getElementById('guide-gen-hint'),
+    guideGenCopy
+  );
+
   function copyGuideGenPrompt(done) {
     copyText(currentGuideGenPrompt()).then(function () {
+      guideGenHandoff.markCopied();
       if (typeof done === 'function') done();
     }).catch(function () {
+      guideGenHandoff.markCopied();
       if (typeof done === 'function') done();
     });
   }
 
   function openGuideGenService(url) {
-    window.open(url, '_blank', 'noopener,noreferrer');
-    copyGuideGenPrompt(function () {
+    if (guideGenHandoff.openIfReady(url)) {
       if (guideGenCopy) flashCopied(guideGenCopy);
-    });
+    }
   }
+
+  var guideAskHandoff = createPromptHandoff(
+    currentGuideAskPrompt,
+    [guideAskChatgpt, guideAskClaude],
+    document.getElementById('guide-ask-hint'),
+    guideAskCopy
+  );
 
   function refreshGuideAskPreview() {
     if (!guideAskPreview) return;
     guideAskPreview.textContent = currentGuideAskPrompt();
     guideAskPreview.scrollTop = 0;
+    guideAskHandoff.sync();
   }
 
   function setGuideAskCursorNoteOpen(open) {
@@ -3222,17 +3286,18 @@
 
   function copyGuideAskPrompt(done) {
     copyText(currentGuideAskPrompt()).then(function () {
+      guideAskHandoff.markCopied();
       if (typeof done === 'function') done();
     }).catch(function () {
+      guideAskHandoff.markCopied();
       if (typeof done === 'function') done();
     });
   }
 
   function openGuideAskService(url) {
-    window.open(url, '_blank', 'noopener,noreferrer');
-    copyGuideAskPrompt(function () {
+    if (guideAskHandoff.openIfReady(url)) {
       if (guideAskCopy) flashCopied(guideAskCopy);
-    });
+    }
   }
 
   if (guideSelectRoot && guideSelectMenu && guideGenModal) {
@@ -4521,8 +4586,16 @@
       return at === -1 ? base + '\n\n' + extra.trim() : base.slice(0, at) + extra + base.slice(at);
     }
 
+    var checkHandoff = createPromptHandoff(
+      promptText,
+      [chatgpt, claude],
+      document.getElementById('check-understanding-hint'),
+      copyBtn
+    );
+
     function refresh() {
       if (preview) preview.textContent = promptText();
+      checkHandoff.sync();
     }
 
     function setOpen(isOpen) {
@@ -4539,7 +4612,13 @@
     }
 
     function copyThen(done) {
-      copyText(promptText()).then(done, done);
+      copyText(promptText()).then(function () {
+        checkHandoff.markCopied();
+        done();
+      }, function () {
+        checkHandoff.markCopied();
+        done();
+      });
     }
 
     buttons.forEach(function (btn) {
@@ -4565,8 +4644,7 @@
       if (!link) return;
       link.addEventListener('click', function (e) {
         e.preventDefault();
-        var href = link.href;
-        copyThen(function () { window.open(href, '_blank', 'noopener,noreferrer'); });
+        checkHandoff.openIfReady(link.href);
       });
     });
     document.addEventListener('keydown', function (e) {

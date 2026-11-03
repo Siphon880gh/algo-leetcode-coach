@@ -421,8 +421,9 @@ if ($sessionSummary !== ''):
                 <div class="import-ai-panel__actions">
                     <button type="button" id="coaching-path-ai-copy" class="import-ai-panel__copy">Copy prompt</button>
                     <span class="import-ai-panel__open-label">Open in</span>
-                    <a href="https://chatgpt.com/" target="_blank" rel="noopener noreferrer" id="coaching-path-open-chatgpt" class="import-ai-panel__service"><svg class="import-ai-panel__service-icon import-ai-panel__service-icon--chatgpt" width="14" height="14" aria-hidden="true" focusable="false"><use href="#icon-chatgpt"></use></svg><span>ChatGPT</span></a>
-                    <a href="https://claude.ai/new" target="_blank" rel="noopener noreferrer" id="coaching-path-open-claude" class="import-ai-panel__service"><svg class="import-ai-panel__service-icon import-ai-panel__service-icon--claude" width="14" height="14" aria-hidden="true" focusable="false"><use href="#icon-claude"></use></svg><span>Claude</span></a>
+                    <a href="https://chatgpt.com/" target="_blank" rel="noopener noreferrer" id="coaching-path-open-chatgpt" class="import-ai-panel__service is-disabled" aria-disabled="true" title="Copy the prompt first"><svg class="import-ai-panel__service-icon import-ai-panel__service-icon--chatgpt" width="14" height="14" aria-hidden="true" focusable="false"><use href="#icon-chatgpt"></use></svg><span>ChatGPT</span></a>
+                    <a href="https://claude.ai/new" target="_blank" rel="noopener noreferrer" id="coaching-path-open-claude" class="import-ai-panel__service is-disabled" aria-disabled="true" title="Copy the prompt first"><svg class="import-ai-panel__service-icon import-ai-panel__service-icon--claude" width="14" height="14" aria-hidden="true" focusable="false"><use href="#icon-claude"></use></svg><span>Claude</span></a>
+                    <span id="coaching-path-ai-hint" class="import-ai-panel__hint" aria-live="polite">Copy the prompt first</span>
                 </div>
             </div>
         </div>
