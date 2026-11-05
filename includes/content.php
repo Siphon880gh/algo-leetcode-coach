@@ -1678,15 +1678,40 @@ function render_content_browse(array $items, array $opts): void
         <div class="browse__toolbar">
             <h2 class="browse__heading"><?= e($heading) ?> <span class="resource-n">(<?= $visibleCount ?>)</span></h2>
             <div class="browse__actions">
-                <button
-                    type="button"
-                    class="pop__btn browse-sort"
-                    data-browse-sort="usual"
-                    aria-label="Sort, usual order"
-                >
-                    <?= content_toolbar_icon('sort') ?>
-                    <span data-browse-sort-label>Sort</span>
-                </button>
+                <div class="pop" data-pop>
+                    <button
+                        type="button"
+                        class="pop__btn browse-sort"
+                        data-pop-btn
+                        data-browse-sort="usual"
+                        aria-expanded="false"
+                        aria-controls="resource-sort"
+                        aria-haspopup="listbox"
+                        aria-label="Sort, usual order"
+                    >
+                        <?= content_toolbar_icon('sort') ?>
+                        <span data-browse-sort-label>Sort</span>
+                    </button>
+                    <span class="browse-sort__spin" data-browse-sort-spin hidden aria-hidden="true"></span>
+                    <div
+                        id="resource-sort"
+                        class="pop__panel pop__panel--sort"
+                        data-pop-panel
+                        hidden
+                        role="listbox"
+                        aria-label="Sort"
+                    >
+                        <p class="pop__title">Sort</p>
+                        <ul class="pop__list">
+                            <li><button type="button" class="pop__opt is-current" data-browse-sort-opt="usual" role="option" aria-selected="true">Usual order</button></li>
+                            <li><button type="button" class="pop__opt" data-browse-sort-opt="az" role="option" aria-selected="false">A to Z</button></li>
+                            <li><button type="button" class="pop__opt" data-browse-sort-opt="za" role="option" aria-selected="false">Z to A</button></li>
+                            <li><button type="button" class="pop__opt" data-browse-sort-opt="lc" role="option" aria-selected="false">LeetCode 1–n</button></li>
+                            <li><button type="button" class="pop__opt" data-browse-sort-opt="lcdesc" role="option" aria-selected="false">LeetCode n–1</button></li>
+                            <li><button type="button" class="pop__opt" data-browse-sort-opt="cat" role="option" aria-selected="false">Category</button></li>
+                        </ul>
+                    </div>
+                </div>
                 <div class="pop" data-pop>
                     <button
                         type="button"

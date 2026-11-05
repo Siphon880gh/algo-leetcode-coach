@@ -2645,9 +2645,13 @@
         });
         if (mode === 'za') ordered.reverse();
       }
+      var frag = document.createDocumentFragment();
       ordered.forEach(function (el) {
-        parent.appendChild(el);
+        frag.appendChild(el);
       });
+      var sentinel = parent.querySelector(':scope > .content-tiles__sentinel');
+      if (sentinel) parent.insertBefore(frag, sentinel);
+      else parent.appendChild(frag);
     }
 
     function titleOfTile(tile) {
@@ -2701,16 +2705,45 @@
       if (tileList) stamp(kids(tileList, '.content-tile'));
       if (root) root.setAttribute('data-browse-sort-mode', 'usual');
 
-      var modeIndex = 0;
+      var spin = root.querySelector('[data-browse-sort-spin]');
+      var opts = root.querySelectorAll('[data-browse-sort-opt]');
+      var sortGen = 0;
 
-      function setSortMode(mode, persist) {
-        if (tileList && tileList.getAttribute('data-tiles-pending') === '1' && typeof tileList._loadAllTiles === 'function') {
-          tileList._loadAllTiles(function () { setSortMode(mode, persist); });
-          return;
-        }
+      function tilesPending() {
+        return !!(tileList && tileList.getAttribute('data-tiles-pending') === '1' && typeof tileList._loadAllTiles === 'function');
+      }
+
+      function setBusy(on) {
+        if (spin) spin.hidden = !on;
+        if (on) btn.setAttribute('aria-busy', 'true');
+        else btn.removeAttribute('aria-busy');
+      }
+
+      function closeSortPop() {
+        var panel = btn.parentElement && btn.parentElement.querySelector('[data-pop-panel]');
+        if (!panel) return;
+        panel.hidden = true;
+        btn.setAttribute('aria-expanded', 'false');
+        syncMenuLayer();
+      }
+
+      function paintThen(fn) {
+        window.requestAnimationFrame(function () {
+          window.requestAnimationFrame(fn);
+        });
+      }
+
+      function syncOptState(mode) {
+        opts.forEach(function (opt) {
+          var on = opt.getAttribute('data-browse-sort-opt') === mode;
+          opt.classList.toggle('is-current', on);
+          opt.setAttribute('aria-selected', on ? 'true' : 'false');
+        });
+      }
+
+      function applyMode(mode, persist) {
         var idx = modes.indexOf(mode);
-        modeIndex = idx < 0 ? 0 : idx;
-        mode = modes[modeIndex];
+        mode = modes[idx < 0 ? 0 : idx];
         var label = btn.querySelector('[data-browse-sort-label]');
         btn.setAttribute('data-browse-sort', mode);
         btn.setAttribute('aria-label', spoken[mode]);
@@ -2719,16 +2752,45 @@
         if (root) root._resortTiles = function () { applySort(nav, mode, tileList); };
         applySort(nav, mode, tileList);
         if (root) syncBrowseIndicator(root);
+        syncOptState(mode);
         if (persist !== false) writeBrowsePersist({ sort: mode });
       }
 
-      btn.addEventListener('click', function (e) {
-        e.preventDefault();
-        setSortMode(modes[(modeIndex + 1) % modes.length]);
+      function setSortMode(mode, persist, showBusy) {
+        var gen = ++sortGen;
+        var busy = showBusy !== false;
+        if (busy) setBusy(true);
+
+        function finish() {
+          if (gen !== sortGen) return;
+          paintThen(function () {
+            if (gen !== sortGen) return;
+            applyMode(mode, persist);
+            setBusy(false);
+          });
+        }
+
+        if (tilesPending()) {
+          tileList._loadAllTiles(finish);
+          return;
+        }
+        if (busy) finish();
+        else applyMode(mode, persist);
+      }
+
+      opts.forEach(function (opt) {
+        opt.addEventListener('click', function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          var mode = opt.getAttribute('data-browse-sort-opt') || 'usual';
+          closeSortPop();
+          if (mode === (root.getAttribute('data-browse-sort-mode') || 'usual') && !tilesPending()) return;
+          setSortMode(mode);
+        });
       });
 
       var saved = readBrowsePersist();
-      if (saved.sort !== 'usual') setSortMode(saved.sort, false);
+      if (saved.sort !== 'usual') setSortMode(saved.sort, false, tilesPending());
       if (root && saved.q && typeof root._restoreBrowseSearch === 'function') {
         root._restoreBrowseSearch(saved.q);
       }
