@@ -1551,6 +1551,82 @@ function content_toolbar_icon(string $name): string
     return '';
 }
 
+const CONTENT_TILE_FIRST = 24;
+const CONTENT_TILE_PAGE = 48;
+
+/**
+ * One resource card. $lazy skips the entrance animation for cards added after first paint.
+ *
+ * @param array{slug: string, meta: array<string, mixed>} $item
+ * @param array<string, mixed> $opts
+ */
+function render_content_tile(array $item, array $opts, bool $lazy = false): void
+{
+    $script = (string) ($opts['script'] ?? '');
+    $baseQuery = is_array($opts['query'] ?? null) ? $opts['query'] : [];
+    $userTags = !empty($opts['user_tags']);
+    /** @var callable $itemHref */
+    $itemHref = $opts['item_href'];
+    $meta = $item['meta'];
+    $href = (string) $itemHref($item);
+    $tags = $meta['tags'] ?? [];
+    $lc = content_leetcode_number($meta);
+    $companySlugs = $lc !== null ? content_leetcode_company_slugs($lc) : [];
+    $difficulty = content_leetcode_difficulty_for_meta($meta);
+    $difficultyClass = $difficulty !== null ? content_leetcode_difficulty_class($difficulty) : '';
+    $tileTax = content_taxonomy($meta);
+    ?>
+    <li class="content-tile<?= $lazy ? ' content-tile--lazy' : '' ?>" data-category="<?= e($tileTax['category'] . ' / ' . $tileTax['subcategory']) ?>" data-browse-q="<?= e(content_browse_query_haystack($item)) ?>" data-source="<?= $lc !== null ? 'leetcode' : 'non-leetcode' ?>"<?php if ($lc !== null): ?> data-leetcode="<?= (int) $lc ?>"<?php endif; ?><?php if ($difficultyClass !== ''): ?> data-difficulty="<?= e($difficultyClass) ?>"<?php endif; ?><?php if ($companySlugs !== []): ?> data-companies="<?= e(implode(' ', $companySlugs)) ?>"<?php endif; ?><?php if ($userTags): ?> data-user-tag-resource="<?= e(user_tag_resource_key($script, (string) $item['slug'])) ?>"<?php endif; ?>>
+        <?php render_content_crumb($meta, $script, $baseQuery); ?>
+        <div class="content-tile__body">
+            <a class="content-tile__goto" href="<?= e($href) ?>">
+                <h3 class="content-tile__title"><?= e((string) ($meta['title'] ?? $item['slug'])) ?></h3>
+            </a>
+            <?php render_leetcode_row($meta); ?>
+            <a class="content-tile__goto" href="<?= e($href) ?>">
+                <p class="content-tile__desc"><?= e((string) ($meta['summary'] ?? '')) ?></p>
+                <?php if (is_array($tags) && $tags !== []): ?>
+                    <div class="tags">
+                        <?php foreach ($tags as $tag): ?>
+                            <span class="tag"><?= e((string) $tag) ?></span>
+                        <?php endforeach; ?>
+                    </div>
+                <?php endif; ?>
+            </a>
+        </div>
+        <?php if ($userTags): ?>
+            <?php render_user_tag_editor(); ?>
+        <?php endif; ?>
+    </li>
+    <?php
+}
+
+/**
+ * HTML fragment of cards after the first screen. Used before the page layout is sent.
+ *
+ * @param list<array{slug: string, meta: array<string, mixed>}> $items
+ * @param array<string, mixed> $opts
+ */
+function content_browse_emit_tiles_if_requested(array $items, array $opts): void
+{
+    if ((string) ($_GET['tiles'] ?? '') !== '1') {
+        return;
+    }
+    $cat = trim((string) ($opts['cat'] ?? ''));
+    $sub = trim((string) ($opts['sub'] ?? ''));
+    $offset = max(0, (int) ($_GET['offset'] ?? 0));
+    $visible = filter_content_taxonomy($items, $cat, $sub);
+    $slice = array_slice($visible, $offset, CONTENT_TILE_PAGE);
+    $done = ($offset + count($slice)) >= count($visible);
+    header('Content-Type: text/html; charset=utf-8');
+    header('Cache-Control: private, no-cache');
+    header('X-Tiles-Done: ' . ($done ? '1' : '0'));
+    foreach ($slice as $item) {
+        render_content_tile($item, $opts, true);
+    }
+    exit;
+}
+
 /**
  * Browse panel (category → subcategory → topics accordion) plus resource tiles with breadcrumbs.
  *
@@ -1808,42 +1884,129 @@ function render_content_browse(array $items, array $opts): void
             <?php else: ?>
                 <p class="empty-state" data-user-tag-empty hidden>No resources match those filters.</p>
                 <p class="empty-state" data-browse-empty hidden>No resources match that search.</p>
-                <ul class="content-tiles">
-                    <?php foreach ($visible as $item): ?>
-                        <?php
-                        $meta = $item['meta'];
-                        $href = (string) $itemHref($item);
-                        $tags = $meta['tags'] ?? [];
-                        $lc = content_leetcode_number($meta);
-                        $companySlugs = $lc !== null ? content_leetcode_company_slugs($lc) : [];
-                        $difficulty = content_leetcode_difficulty_for_meta($meta);
-                        $difficultyClass = $difficulty !== null ? content_leetcode_difficulty_class($difficulty) : '';
-                        $tileTax = content_taxonomy($meta);
-                        ?>
-                        <li class="content-tile" data-category="<?= e($tileTax['category'] . ' / ' . $tileTax['subcategory']) ?>" data-browse-q="<?= e(content_browse_query_haystack($item)) ?>" data-source="<?= $lc !== null ? 'leetcode' : 'non-leetcode' ?>"<?php if ($lc !== null): ?> data-leetcode="<?= (int) $lc ?>"<?php endif; ?><?php if ($difficultyClass !== ''): ?> data-difficulty="<?= e($difficultyClass) ?>"<?php endif; ?><?php if ($companySlugs !== []): ?> data-companies="<?= e(implode(' ', $companySlugs)) ?>"<?php endif; ?><?php if ($userTags): ?> data-user-tag-resource="<?= e(user_tag_resource_key($script, (string) $item['slug'])) ?>"<?php endif; ?>>
-                            <?php render_content_crumb($meta, $script, $baseQuery); ?>
-                            <div class="content-tile__body">
-                                <a class="content-tile__goto" href="<?= e($href) ?>">
-                                    <h3 class="content-tile__title"><?= e((string) ($meta['title'] ?? $item['slug'])) ?></h3>
-                                </a>
-                                <?php render_leetcode_row($meta); ?>
-                                <a class="content-tile__goto" href="<?= e($href) ?>">
-                                    <p class="content-tile__desc"><?= e((string) ($meta['summary'] ?? '')) ?></p>
-                                    <?php if (is_array($tags) && $tags !== []): ?>
-                                        <div class="tags">
-                                            <?php foreach ($tags as $tag): ?>
-                                                <span class="tag"><?= e((string) $tag) ?></span>
-                                            <?php endforeach; ?>
-                                        </div>
-                                    <?php endif; ?>
-                                </a>
-                            </div>
-                            <?php if ($userTags): ?>
-                                <?php render_user_tag_editor(); ?>
-                            <?php endif; ?>
-                        </li>
+                <?php
+                $tileFirst = array_slice($visible, 0, CONTENT_TILE_FIRST);
+                $tileMore = count($visible) > count($tileFirst);
+                $tileMoreHref = content_list_href($script, array_merge($baseQuery, [
+                    'cat' => $cat,
+                    'sub' => $sub,
+                    'tiles' => '1',
+                ]));
+                ?>
+                <ul class="content-tiles"<?php if ($tileMore): ?> data-tiles-pending="1" data-tiles-offset="<?= count($tileFirst) ?>" data-tiles-url="<?= e($tileMoreHref) ?>"<?php endif; ?>>
+                    <?php foreach ($tileFirst as $item): ?>
+                        <?php render_content_tile($item, [
+                            'script' => $script,
+                            'query' => $baseQuery,
+                            'user_tags' => $userTags,
+                            'item_href' => $itemHref,
+                        ]); ?>
                     <?php endforeach; ?>
                 </ul>
+                <?php if ($tileMore): ?>
+                <script>
+                (function () {
+                  var list = document.currentScript.previousElementSibling;
+                  if (!list || list.getAttribute('data-tiles-pending') !== '1') return;
+                  var base = list.getAttribute('data-tiles-url') || '';
+                  var offset = Number(list.getAttribute('data-tiles-offset') || '0');
+                  var root = list.closest('.browse');
+                  var busy = false;
+                  var waiters = [];
+                  var sentinel = document.createElement('li');
+                  sentinel.className = 'content-tiles__sentinel';
+                  sentinel.setAttribute('aria-hidden', 'true');
+                  list.appendChild(sentinel);
+
+                  function stamp(nodes) {
+                    var max = -1;
+                    list.querySelectorAll('.content-tile[data-browse-ord]').forEach(function (el) {
+                      var n = Number(el.getAttribute('data-browse-ord'));
+                      if (n > max) max = n;
+                    });
+                    nodes.forEach(function (el) {
+                      if (el.hasAttribute('data-browse-ord')) return;
+                      max += 1;
+                      el.setAttribute('data-browse-ord', String(max));
+                    });
+                  }
+
+                  function appendHtml(html) {
+                    var wrap = document.createElement('ul');
+                    wrap.innerHTML = html;
+                    var nodes = Array.prototype.filter.call(wrap.children, function (el) {
+                      return el.classList && el.classList.contains('content-tile');
+                    });
+                    stamp(nodes);
+                    nodes.forEach(function (el) { list.insertBefore(el, sentinel); });
+                    if (root && root.getAttribute('data-browse-sort-mode') && root.getAttribute('data-browse-sort-mode') !== 'usual' && typeof root._resortTiles === 'function') {
+                      root._resortTiles();
+                    }
+                    return nodes.length;
+                  }
+
+                  function finish(err) {
+                    busy = false;
+                    if (err) list.removeAttribute('data-tiles-pending');
+                    if (list._wantAll && list.getAttribute('data-tiles-pending') === '1') {
+                      fetchChunk();
+                      return;
+                    }
+                    list._wantAll = false;
+                    var queued = waiters.splice(0);
+                    queued.forEach(function (fn) { fn(); });
+                    if (!err && list.getAttribute('data-tiles-pending') === '1') {
+                      var rect = sentinel.getBoundingClientRect();
+                      if (rect.top < window.innerHeight + 1200) list._loadNext();
+                    }
+                  }
+
+                  function fetchChunk() {
+                    if (!list.getAttribute('data-tiles-pending')) {
+                      finish();
+                      return;
+                    }
+                    busy = true;
+                    var next = base + (base.indexOf('?') >= 0 ? '&' : '?') + 'offset=' + offset;
+                    fetch(next, { credentials: 'same-origin' }).then(function (res) {
+                      if (!res.ok) throw new Error('tiles');
+                      var done = res.headers.get('X-Tiles-Done') === '1';
+                      return res.text().then(function (html) { return { html: html, done: done }; });
+                    }).then(function (pack) {
+                      var n = appendHtml(pack.html);
+                      offset += n;
+                      list.setAttribute('data-tiles-offset', String(offset));
+                      if (pack.done || n === 0) list.removeAttribute('data-tiles-pending');
+                      if (root) root.dispatchEvent(new CustomEvent('browse-tiles-added'));
+                      busy = false;
+                      finish();
+                    }).catch(function () { finish(true); });
+                  }
+
+                  list._loadAllTiles = function (done) {
+                    list._wantAll = true;
+                    if (done) waiters.push(done);
+                    if (!list.getAttribute('data-tiles-pending')) { finish(); return; }
+                    if (busy) return;
+                    fetchChunk();
+                  };
+                  list._loadNext = function () {
+                    if (busy || !list.getAttribute('data-tiles-pending')) return;
+                    fetchChunk();
+                  };
+                  if ('IntersectionObserver' in window) {
+                    var io = new IntersectionObserver(function (entries) {
+                      if (!entries.some(function (entry) { return entry.isIntersecting; })) return;
+                      if (!list.getAttribute('data-tiles-pending')) { io.disconnect(); return; }
+                      list._loadNext();
+                    }, { rootMargin: '1200px' });
+                    io.observe(sentinel);
+                  } else {
+                    list._loadAllTiles();
+                  }
+                })();
+                </script>
+                <?php endif; ?>
             <?php endif; ?>
     </div>
     <?php

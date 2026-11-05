@@ -1014,7 +1014,9 @@
     if (!root) return;
 
     var section = root.getAttribute('data-user-tag-section') || 'guides';
-    var tiles = root.querySelectorAll('[data-user-tag-resource]');
+    function tiles() {
+      return root.querySelectorAll('[data-user-tag-resource]');
+    }
     var tagFlyouts = root.querySelectorAll('[data-filter-tags]');
 
     function setTagFlyoutOpen(wrap, open) {
@@ -1205,7 +1207,7 @@
       }
 
       function renderAll() {
-        tiles.forEach(function (tile) {
+        tiles().forEach(function (tile) {
           renderApplied(tile);
           var picker = tile.querySelector('[data-user-tag-picker]');
           if (picker && !picker.hidden) renderPicker(tile);
@@ -1214,10 +1216,12 @@
         applyFilterVisibility();
       }
 
-      tiles.forEach(function (tile) {
+      function bindTile(tile) {
+        if (tile.getAttribute('data-user-tag-bound') === '1') return;
         var openBtn = tile.querySelector('[data-user-tag-open]');
         var picker = tile.querySelector('[data-user-tag-picker]');
         if (!openBtn || !picker) return;
+        tile.setAttribute('data-user-tag-bound', '1');
         openBtn.addEventListener('click', function (e) {
           e.preventDefault();
           e.stopPropagation();
@@ -1232,6 +1236,14 @@
         });
         picker.addEventListener('click', function (e) {
           e.stopPropagation();
+        });
+      }
+
+      tiles().forEach(bindTile);
+      root.addEventListener('browse-tiles-added', function () {
+        root.querySelectorAll('[data-user-tag-resource]:not([data-user-tag-bound])').forEach(function (tile) {
+          bindTile(tile);
+          renderApplied(tile);
         });
       });
 
@@ -1513,6 +1525,17 @@
     var selectedDifficulty = root._difficultyFilterIds || [];
     var selectedSource = root._sourceFilterIds || [];
     var q = browseSearchQuery(root);
+    var filtering = selectedTags.length > 0 || selectedCompanies.length > 0 || selectedDifficulty.length > 0 || selectedSource.length > 0 || q !== '';
+    var pendingList = root.querySelector('.content-tiles[data-tiles-pending]');
+    if (filtering && pendingList && typeof pendingList._loadAllTiles === 'function' && !root._tilesLoading) {
+      root._tilesLoading = true;
+      pendingList._loadAllTiles(function () {
+        root._tilesLoading = false;
+        applyBrowseTileFilters(root);
+      });
+      return;
+    }
+    if (!filtering && pendingList) return;
     var tiles = root.querySelectorAll('.content-tile');
     var headingCount = root.querySelector('.browse__heading .resource-n');
     var filterBtn = root.querySelector('[aria-controls="resource-filter"]');
@@ -2403,12 +2426,17 @@
       }
 
       function applyTiles(q) {
+        var list = root.querySelector('.content-tiles');
+        if (q !== '' && list && list.getAttribute('data-tiles-pending') === '1' && typeof list._loadAllTiles === 'function') {
+          list._loadAllTiles(function () { applyTiles(q); });
+          return;
+        }
         if (typeof root._applyResourceFilter === 'function') {
           root._applyResourceFilter();
           return;
         }
         var shown = 0;
-        tiles.forEach(function (tile) {
+        root.querySelectorAll('.content-tile').forEach(function (tile) {
           var ok = browseTileMatches(tile, q);
           tile.classList.toggle('is-browse-miss', !ok);
           if (ok) shown += 1;
@@ -2676,6 +2704,10 @@
       var modeIndex = 0;
 
       function setSortMode(mode, persist) {
+        if (tileList && tileList.getAttribute('data-tiles-pending') === '1' && typeof tileList._loadAllTiles === 'function') {
+          tileList._loadAllTiles(function () { setSortMode(mode, persist); });
+          return;
+        }
         var idx = modes.indexOf(mode);
         modeIndex = idx < 0 ? 0 : idx;
         mode = modes[modeIndex];
@@ -2684,6 +2716,7 @@
         btn.setAttribute('aria-label', spoken[mode]);
         if (label) label.textContent = labels[mode];
         if (root) root.setAttribute('data-browse-sort-mode', mode);
+        if (root) root._resortTiles = function () { applySort(nav, mode, tileList); };
         applySort(nav, mode, tileList);
         if (root) syncBrowseIndicator(root);
         if (persist !== false) writeBrowsePersist({ sort: mode });

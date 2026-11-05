@@ -10,11 +10,23 @@ if ($kindParam !== 'cursor' && $kindParam !== 'algo') {
 }
 
 $kind = normalize_guide_kind($kindParam);
-$guides = list_guides($kind);
 $label = guide_kind_label($kind);
 $active = $kind === 'cursor' ? 'guides-cursor' : 'guides-algo';
 $cat = isset($_GET['cat']) ? trim((string) $_GET['cat']) : '';
 $sub = isset($_GET['sub']) ? trim((string) $_GET['sub']) : '';
+
+if ((string) ($_GET['tiles'] ?? '') === '1') {
+    content_browse_emit_tiles_if_requested(list_guides($kind), [
+    'script' => 'guides/index.php',
+    'query' => ['kind' => $kind],
+    'cat' => $cat,
+    'sub' => $sub,
+    'user_tags' => $kind === 'algo',
+    'item_href' => static function (array $item): string {
+        return url('guides/view.php?id=' . rawurlencode($item['slug']));
+    },
+    ]);
+}
 
 $blurb = $kind === 'cursor'
     ? 'How to use Cursor with this app\'s harness — fill prompt builders, copy into your IDE, and scaffold new games or step-by-step sessions.'
@@ -25,6 +37,7 @@ layout_start([
     'description' => $blurb,
     'active' => $active,
 ]);
+$guides = list_guides($kind);
 ?>
 
 <div class="page-head">

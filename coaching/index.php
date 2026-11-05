@@ -3,15 +3,28 @@ declare(strict_types=1);
 
 require_once dirname(__DIR__) . '/includes/layout.php';
 
-$sessions = list_content('coaching');
 $cat = isset($_GET['cat']) ? trim((string) $_GET['cat']) : '';
 $sub = isset($_GET['sub']) ? trim((string) $_GET['sub']) : '';
+
+if ((string) ($_GET['tiles'] ?? '') === '1') {
+    content_browse_emit_tiles_if_requested(list_content('coaching'), [
+    'script' => 'coaching/index.php',
+    'query' => [],
+    'cat' => $cat,
+    'sub' => $sub,
+    'user_tags' => true,
+    'item_href' => static function (array $item): string {
+        return url('coaching/session.php?id=' . rawurlencode($item['slug']));
+    },
+    ]);
+}
 
 layout_start([
     'title' => 'Step-by-step',
     'description' => 'Sessions where you step through a problem step by step. Each choice leads to a fixed next message, and a wrong ending tells you when to step back.',
     'active' => 'coaching',
 ]);
+$sessions = list_content('coaching');
 ?>
 
 <div class="page-head">

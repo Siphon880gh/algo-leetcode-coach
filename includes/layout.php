@@ -28,6 +28,15 @@ function layout_start(array $opts = []): void
     <link rel="stylesheet" href="<?= e(url('assets/css/app.css')) ?>?v=<?= (int) @filemtime(dirname(__DIR__) . '/assets/css/app.css') ?>">
 </head>
 <body>
+    <?php
+    echo premium_key_html();
+    if (function_exists('ob_get_level')) {
+        while (ob_get_level() > 0) {
+            ob_end_flush();
+        }
+    }
+    flush();
+    ?>
     <a class="skip-link" href="#main">Skip to content</a>
     <header class="site-header">
         <div class="site-header__inner">
@@ -86,7 +95,6 @@ function layout_end(): void
             </details>
         </div>
     </footer>
-    <?= premium_key_html() ?>
     <div id="recent-root" class="recent-root" aria-hidden="true">
         <button type="button" class="recent-backdrop" id="recent-backdrop" aria-label="Close recent" tabindex="-1"></button>
         <aside id="recent-panel" class="recent-panel" role="dialog" aria-modal="true" aria-labelledby="recent-title">

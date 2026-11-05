@@ -3,15 +3,28 @@ declare(strict_types=1);
 
 require_once dirname(__DIR__) . '/includes/layout.php';
 
-$games = list_content('games');
 $cat = isset($_GET['cat']) ? trim((string) $_GET['cat']) : '';
 $sub = isset($_GET['sub']) ? trim((string) $_GET['sub']) : '';
+
+if ((string) ($_GET['tiles'] ?? '') === '1') {
+    content_browse_emit_tiles_if_requested(list_content('games'), [
+    'script' => 'games/index.php',
+    'query' => [],
+    'cat' => $cat,
+    'sub' => $sub,
+    'user_tags' => true,
+    'item_href' => static function (array $item): string {
+        return url('games/play.php?id=' . rawurlencode($item['slug']));
+    },
+    ]);
+}
 
 layout_start([
     'title' => 'Mini games',
     'description' => 'Small games that make algorithm theory and LeetCode problems tangible.',
     'active' => 'games',
 ]);
+$games = list_content('games');
 ?>
 
 <div class="page-head">

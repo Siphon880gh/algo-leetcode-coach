@@ -1800,9 +1800,23 @@ code {
   background: var(--panel);
   border: 1px solid var(--panel-edge);
   border-radius: var(--radius);
-  animation: rise 0.5s ease-out;
   position: relative;
   z-index: 1;
+  content-visibility: auto;
+  contain-intrinsic-size: auto 14rem;
+}
+
+.content-tiles > .content-tile:not(.content-tile--lazy) {
+  animation: rise 0.5s ease-out;
+}
+
+.content-tiles__sentinel {
+  grid-column: 1 / -1;
+  height: 1px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  list-style: none;
 }
 
 .content-tile:has([aria-expanded="true"]) {
