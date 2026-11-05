@@ -181,16 +181,16 @@ function premium_fingerprint(): string
     return $pw === '' ? '' : hash_hmac('sha256', 'lcc-premium-unlock', $pw);
 }
 
-/** @var array{unlocked: bool, csrf: string}|null */
+/** @var array{unlocked: bool, csrf: string, notice: string}|null */
 $GLOBALS['__premium_state'] = null;
 
-/** @return array{unlocked: bool, csrf: string} */
+/** @return array{unlocked: bool, csrf: string, notice: string} */
 function premium_state(): array
 {
     if (is_array($GLOBALS['__premium_state'] ?? null)) {
         return $GLOBALS['__premium_state'];
     }
-    $state = ['unlocked' => false, 'csrf' => ''];
+    $state = ['unlocked' => false, 'csrf' => '', 'notice' => ''];
     if (premium_session_start(false)) {
         $fp = premium_fingerprint();
         $state['unlocked'] = $fp !== ''
@@ -198,6 +198,10 @@ function premium_state(): array
             && is_string($_SESSION['premium_fp'] ?? null)
             && hash_equals($fp, $_SESSION['premium_fp']);
         $state['csrf'] = is_string($_SESSION['csrf'] ?? null) ? $_SESSION['csrf'] : '';
+        if (is_string($_SESSION['unlock_notice'] ?? null) && $_SESSION['unlock_notice'] !== '') {
+            $state['notice'] = $_SESSION['unlock_notice'];
+            unset($_SESSION['unlock_notice']);
+        }
         session_write_close();
     }
     $GLOBALS['__premium_state'] = $state;
@@ -229,8 +233,28 @@ function premium_item_hidden(string $type, array $meta): bool
         && !premium_visible();
 }
 
+/** Password fields for the bottom sheet and the standalone unlock page. */
+function premium_login_fields_html(string $csrf, string $back, string $error): string
+{
+    $html = '';
+    if ($error !== '') {
+        $html .= '<p class="unlock-error" role="alert">' . e($error) . '</p>';
+    }
+    $html .= '<form class="login-sheet__form" method="post" action="' . e(url('unlock.php')) . '" autocomplete="off">'
+        . '<input type="hidden" name="action" value="unlock">'
+        . '<input type="hidden" name="sheet" value="1">'
+        . '<input type="hidden" name="csrf" value="' . e($csrf) . '">'
+        . '<input type="hidden" name="back" value="' . e($back) . '">'
+        . '<label class="login-sheet__label" for="login-sheet-password">Password</label>'
+        . '<input id="login-sheet-password" class="login-sheet__input" type="password" name="password" autocomplete="current-password" required>'
+        . '<button type="submit" class="btn btn--small btn--primary">Unlock Premium</button>'
+        . '</form>';
+
+    return $html;
+}
+
 /**
- * Corner key. Locked: opens the unlock page. Unlocked: locks premium pages.
+ * Corner key. Locked: opens a password sheet. Unlocked: locks premium pages.
  */
 function premium_key_html(): string
 {
@@ -247,20 +271,38 @@ function premium_key_html(): string
     $state = premium_state();
     $action = url('unlock.php');
     $unlocked = $state['unlocked'] && $state['csrf'] !== '';
-    $html = '<div class="site-keys"' . ($unlocked ? ' data-logged-in' : '') . '>';
+    $html = '<div class="site-keys">';
     if ($unlocked) {
         $html .= '<form class="site-key" method="post" action="' . e($action) . '">'
             . '<input type="hidden" name="action" value="lock">'
             . '<input type="hidden" name="csrf" value="' . e($state['csrf']) . '">'
             . '<input type="hidden" name="back" value="' . e($back) . '">'
-            . '<button type="submit" class="site-key__btn is-unlocked" aria-label="Logged in. Click to lock." title="Logged in">'
+            . '<button type="submit" class="site-key__btn is-unlocked" aria-label="Lock Premium">'
             . $openIcon
-            . '<span class="site-key__label">Logged in</span>'
+            . '<span class="site-key__hint" aria-hidden="true">Lock Premium</span>'
             . '</button>'
             . '</form>';
     } else {
         $keyHref = $action . '?' . http_build_query(['back' => $back]);
-        $html .= '<a class="site-key site-key__btn" href="' . e($keyHref) . '" aria-label="Unlock" title="Unlock" rel="nofollow">' . $keyIcon . '</a>';
+        $notice = (string) ($state['notice'] ?? '');
+        $open = $notice !== '' && $state['csrf'] !== '';
+        $html .= '<a class="site-key site-key__btn" href="' . e($keyHref) . '" aria-label="Unlock Premium" aria-controls="login-sheet" aria-expanded="false" rel="nofollow">'
+            . $keyIcon
+            . '<span class="site-key__hint" aria-hidden="true">Unlock Premium</span>'
+            . '</a>';
+        $html .= '<div class="login-sheet" id="login-sheet" aria-hidden="true"' . ($open ? ' data-open="1"' : '') . '>'
+            . '<button type="button" class="login-sheet__backdrop" aria-label="Close"></button>'
+            . '<div class="login-sheet__panel" role="dialog" aria-modal="true" aria-labelledby="login-sheet-title">'
+            . '<div class="login-sheet__bar" aria-hidden="true"></div>'
+            . '<div class="login-sheet__head">'
+            . '<h2 id="login-sheet-title" class="login-sheet__title">Unlock Premium</h2>'
+            . '<button type="button" class="login-sheet__close" aria-label="Close"><span aria-hidden="true">×</span></button>'
+            . '</div>'
+            . '<div id="login-sheet-body">'
+            . ($open ? premium_login_fields_html($state['csrf'], $back, $notice) : '')
+            . '</div>'
+            . '</div>'
+            . '</div>';
     }
     $html .= '</div>';
 

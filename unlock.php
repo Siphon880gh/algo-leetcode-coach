@@ -23,6 +23,7 @@ if (!is_string($_SESSION['csrf'] ?? null) || $_SESSION['csrf'] === '') {
 $back = premium_safe_back((string) ($_POST['back'] ?? $_GET['back'] ?? ''));
 $error = '';
 $status = 200;
+$sheet = (string) ($_POST['sheet'] ?? '') === '1';
 
 function unlock_ip_path(): string
 {
@@ -106,15 +107,29 @@ if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'POST') {
 }
 
 $csrfToken = $_SESSION['csrf'];
+if ($sheet && $error !== '') {
+    $_SESSION['unlock_notice'] = $error;
+    session_write_close();
+    header('Location: ' . $back, true, 303);
+    exit;
+}
+if ((string) ($_GET['sheet'] ?? '') === '1') {
+    session_write_close();
+    header('Content-Type: text/html; charset=utf-8');
+    header('X-Robots-Tag: noindex, nofollow');
+    header('Cache-Control: no-store');
+    echo premium_login_fields_html($csrfToken, $back, '');
+    exit;
+}
 session_write_close();
 premium_state_reset();
 $unlocked = premium_unlocked();
 
 http_response_code($status);
-layout_start(['title' => $unlocked ? 'Lock' : 'Unlock']);
+layout_start(['title' => $unlocked ? 'Lock Premium' : 'Unlock Premium']);
 ?>
 <div class="page-head">
-    <h1><?= $unlocked ? 'Unlocked' : 'Unlock' ?></h1>
+    <h1><?= $unlocked ? 'Lock Premium' : 'Unlock Premium' ?></h1>
 </div>
 <?php if ($error !== ''): ?>
 <p class="unlock-error" role="alert"><?= e($error) ?></p>
@@ -124,7 +139,7 @@ layout_start(['title' => $unlocked ? 'Lock' : 'Unlock']);
     <input type="hidden" name="action" value="lock">
     <input type="hidden" name="csrf" value="<?= e($csrfToken) ?>">
     <input type="hidden" name="back" value="<?= e($back) ?>">
-    <button type="submit" class="btn btn--small btn--ghost">Lock</button>
+    <button type="submit" class="btn btn--small btn--ghost">Lock Premium</button>
 </form>
 <?php else: ?>
 <form class="unlock-form" method="post" action="<?= e(url('unlock.php')) ?>" autocomplete="off">
@@ -133,7 +148,7 @@ layout_start(['title' => $unlocked ? 'Lock' : 'Unlock']);
     <input type="hidden" name="back" value="<?= e($back) ?>">
     <label class="visually-hidden" for="unlock-password">Password</label>
     <input id="unlock-password" type="password" name="password" placeholder="Password" required autofocus>
-    <button type="submit" class="btn btn--small btn--primary">Unlock</button>
+    <button type="submit" class="btn btn--small btn--primary">Unlock Premium</button>
 </form>
 <?php endif; ?>
 <a class="back-link" href="<?= e($back) ?>">← Back</a>

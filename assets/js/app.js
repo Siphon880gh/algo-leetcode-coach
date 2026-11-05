@@ -4663,6 +4663,86 @@
     });
   }
 
+  function initLoginSheet() {
+    var sheet = document.getElementById('login-sheet');
+    var btn = document.querySelector('a.site-key__btn');
+    if (!sheet || !btn) return;
+    var body = document.getElementById('login-sheet-body');
+    var panel = sheet.querySelector('.login-sheet__panel');
+    var backdrop = sheet.querySelector('.login-sheet__backdrop');
+    var closeBtn = sheet.querySelector('.login-sheet__close');
+
+    function finishClose() {
+      if (sheet.classList.contains('is-open')) return;
+      sheet.classList.remove('is-closing');
+      sheet.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    function setOpen(open) {
+      if (open) {
+        sheet.setAttribute('aria-hidden', 'false');
+        sheet.classList.add('is-closing');
+        window.requestAnimationFrame(function () {
+          sheet.classList.add('is-open');
+          var input = sheet.querySelector('input[name="password"]');
+          if (input) input.focus();
+        });
+        btn.setAttribute('aria-expanded', 'true');
+        document.body.style.overflow = 'hidden';
+        return;
+      }
+      if (!sheet.classList.contains('is-open')) return;
+      sheet.classList.remove('is-open');
+      btn.setAttribute('aria-expanded', 'false');
+      if (panel) panel.addEventListener('transitionend', finishClose, { once: true });
+      window.setTimeout(finishClose, 400);
+      btn.focus();
+    }
+
+    function openSheet() {
+      if (body && body.querySelector('form')) {
+        setOpen(true);
+        return;
+      }
+      var url = btn.getAttribute('href') || '';
+      var sheetUrl = url + (url.indexOf('?') >= 0 ? '&' : '?') + 'sheet=1';
+      btn.setAttribute('aria-busy', 'true');
+      fetch(sheetUrl, { credentials: 'same-origin' })
+        .then(function (res) {
+          if (!res.ok) throw new Error('sheet');
+          return res.text();
+        })
+        .then(function (html) {
+          if (body) body.innerHTML = html;
+          setOpen(true);
+        })
+        .catch(function () {
+          window.location.href = url;
+        })
+        .then(function () {
+          btn.removeAttribute('aria-busy');
+        });
+    }
+
+    btn.addEventListener('click', function (e) {
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+      e.preventDefault();
+      if (sheet.classList.contains('is-open')) setOpen(false);
+      else openSheet();
+    });
+    if (backdrop) backdrop.addEventListener('click', function () { setOpen(false); });
+    if (closeBtn) closeBtn.addEventListener('click', function () { setOpen(false); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && sheet.classList.contains('is-open')) {
+        e.preventDefault();
+        setOpen(false);
+      }
+    });
+    if (sheet.getAttribute('data-open') === '1') setOpen(true);
+  }
+
+  initLoginSheet();
   initRecentTracking();
   initRecentPanel();
   initCuratedListProgress();
