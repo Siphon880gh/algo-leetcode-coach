@@ -240,16 +240,23 @@ function premium_key_html(): string
     $back = (string) ($_SERVER['REQUEST_URI'] ?? '/');
     $keyIcon = '<svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true" focusable="false">'
         . '<path fill="currentColor" d="M7 14a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm5.65-4A6 6 0 1 0 12.65 14H17v3h3v-3h2v-4H12.65z"/></svg>';
+    $openIcon = '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">'
+        . '<rect x="4" y="11" width="16" height="10" rx="1.5"/>'
+        . '<path d="M8 11V7.5a4 4 0 0 1 7.8-1.2"/>'
+        . '</svg>';
     $state = premium_state();
     $action = url('unlock.php');
     $unlocked = $state['unlocked'] && $state['csrf'] !== '';
-    $html = '<div class="site-keys">';
+    $html = '<div class="site-keys"' . ($unlocked ? ' data-logged-in' : '') . '>';
     if ($unlocked) {
         $html .= '<form class="site-key" method="post" action="' . e($action) . '">'
             . '<input type="hidden" name="action" value="lock">'
             . '<input type="hidden" name="csrf" value="' . e($state['csrf']) . '">'
             . '<input type="hidden" name="back" value="' . e($back) . '">'
-            . '<button type="submit" class="site-key__btn is-unlocked" aria-label="Lock" title="Lock">' . $keyIcon . '</button>'
+            . '<button type="submit" class="site-key__btn is-unlocked" aria-label="Logged in. Click to lock." title="Logged in">'
+            . $openIcon
+            . '<span class="site-key__label">Logged in</span>'
+            . '</button>'
             . '</form>';
     } else {
         $keyHref = $action . '?' . http_build_query(['back' => $back]);

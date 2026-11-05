@@ -97,7 +97,7 @@ $allHref = content_list_href('lists/index.php', ['list' => $listId]);
                         aria-controls="clist-filter"
                         aria-haspopup="dialog"
                         aria-label="<?= $patternValid ? 'Filter, ' . e($pattern) : 'Filter' ?>"
-                    >Filter</button>
+                    ><?= content_toolbar_icon('filter') ?>Filter</button>
                     <div id="clist-filter" class="pop__panel" data-pop-panel hidden role="dialog" aria-label="Filter">
                         <p class="pop__title">Patterns</p>
                         <ul class="pop__list pop__list--topics">

@@ -1523,6 +1523,34 @@ function render_content_crumb(array $meta, string $script, array $baseQuery): vo
     <?php
 }
 
+/** Small toolbar glyph for Sort, Browse, or Filter. */
+function content_toolbar_icon(string $name): string
+{
+    $open = '<svg class="toolbar-ico" width="14" height="12" viewBox="0 0 14 12" aria-hidden="true" focusable="false">';
+    if ($name === 'sort') {
+        return $open
+            . '<rect x="0" y="0.75" width="14" height="1.7" fill="currentColor"/>'
+            . '<rect x="0" y="5.15" width="10" height="1.7" fill="currentColor"/>'
+            . '<rect x="0" y="9.55" width="6" height="1.7" fill="currentColor"/>'
+            . '</svg>';
+    }
+    if ($name === 'browse') {
+        return $open
+            . '<rect x="0" y="0.35" width="6" height="5" fill="currentColor"/>'
+            . '<rect x="8" y="0.35" width="6" height="5" fill="currentColor"/>'
+            . '<rect x="0" y="6.65" width="6" height="5" fill="currentColor"/>'
+            . '<rect x="8" y="6.65" width="6" height="5" fill="currentColor"/>'
+            . '</svg>';
+    }
+    if ($name === 'filter') {
+        return $open
+            . '<path fill="currentColor" d="M0 0.45h14L8.75 6.15V10.7L5.25 9.35V6.15L0 0.45z"/>'
+            . '</svg>';
+    }
+
+    return '';
+}
+
 /**
  * Browse panel (category → subcategory → topics accordion) plus resource tiles with breadcrumbs.
  *
@@ -1574,6 +1602,15 @@ function render_content_browse(array $items, array $opts): void
         <div class="browse__toolbar">
             <h2 class="browse__heading"><?= e($heading) ?> <span class="resource-n">(<?= $visibleCount ?>)</span></h2>
             <div class="browse__actions">
+                <button
+                    type="button"
+                    class="pop__btn browse-sort"
+                    data-browse-sort="usual"
+                    aria-label="Sort, usual order"
+                >
+                    <?= content_toolbar_icon('sort') ?>
+                    <span data-browse-sort-label>Sort</span>
+                </button>
                 <div class="pop" data-pop>
                     <button
                         type="button"
@@ -1582,7 +1619,7 @@ function render_content_browse(array $items, array $opts): void
                         aria-expanded="false"
                         aria-controls="resource-browse"
                         aria-haspopup="dialog"
-                    >Browse</button>
+                    ><?= content_toolbar_icon('browse') ?>Browse</button>
                     <div
                         id="resource-browse"
                         class="pop__panel pop__panel--browse"
@@ -1674,19 +1711,6 @@ function render_content_browse(array $items, array $opts): void
                         </nav>
                     </div>
                 </div>
-                <button
-                    type="button"
-                    class="pop__btn browse-sort"
-                    data-browse-sort="usual"
-                    aria-label="Sort, usual order"
-                >
-                    <svg class="browse-sort__icon" width="14" height="12" viewBox="0 0 14 12" aria-hidden="true" focusable="false">
-                        <rect x="0" y="0.75" width="14" height="1.7" fill="currentColor"/>
-                        <rect x="0" y="5.15" width="10" height="1.7" fill="currentColor"/>
-                        <rect x="0" y="9.55" width="6" height="1.7" fill="currentColor"/>
-                    </svg>
-                    <span data-browse-sort-label>Sort</span>
-                </button>
                 <div class="filter-ctrl">
                 <div class="pop" data-pop>
                     <button
@@ -1697,7 +1721,7 @@ function render_content_browse(array $items, array $opts): void
                         aria-controls="resource-filter"
                         aria-haspopup="dialog"
                         aria-label="<?= $cat !== '' ? 'Filter, ' . e($heading) : 'Filter' ?>"
-                    >Filter</button>
+                    ><?= content_toolbar_icon('filter') ?>Filter</button>
                     <div
                         id="resource-filter"
                         class="pop__panel<?= $hasFlyouts ? ' pop__panel--filter' : '' ?>"
