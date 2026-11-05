@@ -3048,7 +3048,8 @@ button.import-ai-panel__service {
     padding 0.32s ease,
     background 0.2s ease,
     color 0.2s ease,
-    border-color 0.2s ease;
+    border-color 0.2s ease,
+    opacity 0.2s ease;
 }
 
 .site-key__btn svg {
@@ -3086,12 +3087,16 @@ button.import-ai-panel__service {
 }
 
 .site-key__btn.is-unlocked {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: var(--accent-ink);
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+  color: var(--ink-muted);
+  opacity: 0.4;
 }
 
-.site-key__btn.is-unlocked:hover {
+.site-key__btn.is-unlocked:hover,
+.site-key__btn.is-unlocked:focus-visible {
+  opacity: 1;
   background: var(--ink);
   border-color: var(--ink);
   color: var(--panel);
