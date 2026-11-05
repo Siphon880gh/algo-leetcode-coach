@@ -1286,7 +1286,7 @@
 
   initUserTags();
 
-  var BROWSE_SORT_MODES = ['usual', 'az', 'za', 'lc', 'lcdesc'];
+  var BROWSE_SORT_MODES = ['usual', 'az', 'za', 'lc', 'lcdesc', 'cat'];
   var BROWSE_PERSIST_PREFIX = 'algos-browse-state-v1:';
 
   function browsePersistKey() {
@@ -2266,15 +2266,15 @@
 
   function syncBrowseIndicator(root) {
     var btn = root.querySelector('[aria-controls="resource-browse"]');
-    if (!btn) return;
+    var sortBtn = root.querySelector('[data-browse-sort]');
     var filtered = browseSearchQuery(root) !== '';
     var sorted = (root.getAttribute('data-browse-sort-mode') || 'usual') !== 'usual';
-    var on = filtered || sorted;
-    btn.classList.toggle('has-filter', on);
-    if (!on) btn.removeAttribute('aria-label');
-    else if (filtered && sorted) btn.setAttribute('aria-label', 'Browse, filtered and sorted');
-    else if (filtered) btn.setAttribute('aria-label', 'Browse, filtered');
-    else btn.setAttribute('aria-label', 'Browse, sorted');
+    if (btn) {
+      btn.classList.toggle('has-filter', filtered);
+      if (!filtered) btn.removeAttribute('aria-label');
+      else btn.setAttribute('aria-label', 'Browse, filtered');
+    }
+    if (sortBtn) sortBtn.classList.toggle('has-filter', sorted);
   }
 
   function initBrowseSearch() {
@@ -2542,13 +2542,14 @@
 
   function initBrowseSort() {
     var modes = BROWSE_SORT_MODES;
-    var labels = { usual: 'Sort', az: 'A-Z', za: 'Z-A', lc: '1-n', lcdesc: 'n-1' };
+    var labels = { usual: 'Sort', az: 'A-Z', za: 'Z-A', lc: '1-n', lcdesc: 'n-1', cat: 'Category' };
     var spoken = {
       usual: 'Sort, usual order',
       az: 'Sort, A to Z',
       za: 'Sort, Z to A',
       lc: 'Sort, LeetCode number ascending',
-      lcdesc: 'Sort, LeetCode number descending'
+      lcdesc: 'Sort, LeetCode number descending',
+      cat: 'Sort, by category then title'
     };
 
     function kids(parent, selector) {
@@ -2602,6 +2603,14 @@
             return byOrd(a, b);
           });
         }
+      } else if (mode === 'cat') {
+        ordered.sort(function (a, b) {
+          var ca = a.getAttribute('data-category') || '';
+          var cb = b.getAttribute('data-category') || '';
+          var c = ca.localeCompare(cb, undefined, { numeric: true, sensitivity: 'base' });
+          if (c !== 0) return c;
+          return getName(a).localeCompare(getName(b), undefined, { numeric: true, sensitivity: 'base' });
+        });
       } else {
         ordered.sort(function (a, b) {
           return getName(a).localeCompare(getName(b), undefined, { numeric: true, sensitivity: 'base' });
@@ -2626,7 +2635,8 @@
     }
 
     function applySort(nav, mode, tileList) {
-      var catMode = mode === 'lc' || mode === 'lcdesc' ? 'usual' : mode;
+      var catMode = mode === 'lc' || mode === 'lcdesc' ? 'usual' : (mode === 'cat' ? 'az' : mode);
+      var topicMode = mode === 'cat' ? 'az' : mode;
       var cats = kids(nav, '.taxonomy-acc');
       reorder(nav, cats, catMode, nameOfAcc);
       kids(nav, '.taxonomy-acc').forEach(function (cat) {
@@ -2635,7 +2645,7 @@
         kids(cat, '.taxonomy-acc').forEach(function (sub) {
           var list = sub.querySelector(':scope > .taxonomy-topics');
           if (!list) return;
-          reorder(list, kids(list, 'li'), mode, nameOfTopic, lcOfTopic);
+          reorder(list, kids(list, 'li'), topicMode, nameOfTopic, lcOfTopic);
         });
       });
       if (tileList) {
@@ -2644,10 +2654,9 @@
     }
 
     document.querySelectorAll('[data-browse-sort]').forEach(function (btn) {
-      var panel = btn.closest('[data-pop-panel]');
-      var nav = panel && panel.querySelector('.taxonomy');
-      var root = panel && panel.closest('.browse');
-      if (!panel || !nav) return;
+      var root = btn.closest('.browse');
+      var nav = root && root.querySelector('#resource-browse .taxonomy');
+      if (!root || !nav) return;
 
       var tileList = root && root.querySelector('.content-tiles');
       var cats = kids(nav, '.taxonomy-acc');
@@ -2682,7 +2691,6 @@
 
       btn.addEventListener('click', function (e) {
         e.preventDefault();
-        e.stopPropagation();
         setSortMode(modes[(modeIndex + 1) % modes.length]);
       });
 

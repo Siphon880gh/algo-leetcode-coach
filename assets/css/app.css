@@ -969,7 +969,7 @@ code {
   display: none;
 }
 
-/* Browse: tiles primary; Browse + Filter are secondary popovers */
+/* Browse: tiles primary; Browse, Sort, and Filter sit in the toolbar */
 .browse__toolbar {
   display: flex;
   align-items: baseline;
@@ -1102,7 +1102,6 @@ code {
   display: none;
 }
 
-.pop__panel--browse .pop__head,
 .pop__panel--browse .browse-search {
   flex: 0 0 auto;
 }
@@ -1498,19 +1497,6 @@ code {
   outline-offset: 2px;
 }
 
-.pop__head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--space-2);
-  margin: 0 0 var(--space-2);
-}
-
-.pop__head .pop__title {
-  margin: 0;
-  flex: 1 1 auto;
-}
-
 .pop__title {
   font-family: var(--font-mono);
   font-size: 0.68rem;
@@ -1523,38 +1509,10 @@ code {
 }
 
 .browse-sort {
-  appearance: none;
-  -webkit-appearance: none;
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  flex: 0 0 auto;
-  margin: 0;
-  padding: 0.15rem 0.35rem;
-  border: 0;
-  border-radius: var(--radius);
-  background: transparent;
-  font-family: inherit;
-  font-size: 0.78rem;
-  font-weight: 500;
-  line-height: 1;
-  letter-spacing: 0.01em;
   white-space: nowrap;
-  color: var(--ink-muted);
-  cursor: pointer;
-}
-
-.browse-sort:hover {
-  color: var(--ink);
-}
-
-.browse-sort:focus {
-  outline: none;
-}
-
-.browse-sort:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
 }
 
 .browse-sort__icon {

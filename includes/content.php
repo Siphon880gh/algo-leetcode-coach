@@ -1591,22 +1591,7 @@ function render_content_browse(array $items, array $opts): void
                         role="dialog"
                         aria-label="Browse"
                     >
-                        <div class="pop__head">
-                            <p class="pop__title">Browse</p>
-                            <button
-                                type="button"
-                                class="browse-sort"
-                                data-browse-sort="usual"
-                                aria-label="Sort, usual order"
-                            >
-                                <svg class="browse-sort__icon" width="14" height="12" viewBox="0 0 14 12" aria-hidden="true" focusable="false">
-                                    <rect x="0" y="0.75" width="14" height="1.7" fill="currentColor"/>
-                                    <rect x="0" y="5.15" width="10" height="1.7" fill="currentColor"/>
-                                    <rect x="0" y="9.55" width="6" height="1.7" fill="currentColor"/>
-                                </svg>
-                                <span data-browse-sort-label>Sort</span>
-                            </button>
-                        </div>
+                        <p class="pop__title">Browse</p>
                         <div class="browse-search" data-browse-search>
                             <div class="browse-search__field">
                                 <input
@@ -1689,6 +1674,19 @@ function render_content_browse(array $items, array $opts): void
                         </nav>
                     </div>
                 </div>
+                <button
+                    type="button"
+                    class="pop__btn browse-sort"
+                    data-browse-sort="usual"
+                    aria-label="Sort, usual order"
+                >
+                    <svg class="browse-sort__icon" width="14" height="12" viewBox="0 0 14 12" aria-hidden="true" focusable="false">
+                        <rect x="0" y="0.75" width="14" height="1.7" fill="currentColor"/>
+                        <rect x="0" y="5.15" width="10" height="1.7" fill="currentColor"/>
+                        <rect x="0" y="9.55" width="6" height="1.7" fill="currentColor"/>
+                    </svg>
+                    <span data-browse-sort-label>Sort</span>
+                </button>
                 <div class="filter-ctrl">
                 <div class="pop" data-pop>
                     <button
@@ -1796,8 +1794,9 @@ function render_content_browse(array $items, array $opts): void
                         $companySlugs = $lc !== null ? content_leetcode_company_slugs($lc) : [];
                         $difficulty = content_leetcode_difficulty_for_meta($meta);
                         $difficultyClass = $difficulty !== null ? content_leetcode_difficulty_class($difficulty) : '';
+                        $tileTax = content_taxonomy($meta);
                         ?>
-                        <li class="content-tile" data-browse-q="<?= e(content_browse_query_haystack($item)) ?>" data-source="<?= $lc !== null ? 'leetcode' : 'non-leetcode' ?>"<?php if ($lc !== null): ?> data-leetcode="<?= (int) $lc ?>"<?php endif; ?><?php if ($difficultyClass !== ''): ?> data-difficulty="<?= e($difficultyClass) ?>"<?php endif; ?><?php if ($companySlugs !== []): ?> data-companies="<?= e(implode(' ', $companySlugs)) ?>"<?php endif; ?><?php if ($userTags): ?> data-user-tag-resource="<?= e(user_tag_resource_key($script, (string) $item['slug'])) ?>"<?php endif; ?>>
+                        <li class="content-tile" data-category="<?= e($tileTax['category'] . ' / ' . $tileTax['subcategory']) ?>" data-browse-q="<?= e(content_browse_query_haystack($item)) ?>" data-source="<?= $lc !== null ? 'leetcode' : 'non-leetcode' ?>"<?php if ($lc !== null): ?> data-leetcode="<?= (int) $lc ?>"<?php endif; ?><?php if ($difficultyClass !== ''): ?> data-difficulty="<?= e($difficultyClass) ?>"<?php endif; ?><?php if ($companySlugs !== []): ?> data-companies="<?= e(implode(' ', $companySlugs)) ?>"<?php endif; ?><?php if ($userTags): ?> data-user-tag-resource="<?= e(user_tag_resource_key($script, (string) $item['slug'])) ?>"<?php endif; ?>>
                             <?php render_content_crumb($meta, $script, $baseQuery); ?>
                             <div class="content-tile__body">
                                 <a class="content-tile__goto" href="<?= e($href) ?>">
