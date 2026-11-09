@@ -1627,6 +1627,145 @@ function content_browse_emit_tiles_if_requested(array $items, array $opts): void
     exit;
 }
 
+/** Topic used by the Random picker: the subcategory, with singular/plural duplicates merged. */
+function content_random_topic(array $meta): string
+{
+    $sub = content_taxonomy($meta)['subcategory'];
+    $merge = ['Array' => 'Arrays', 'String' => 'Strings', 'Tree' => 'Trees', 'Graph' => 'Graphs'];
+    return $merge[$sub] ?? $sub;
+}
+
+/** Difficulty key for the Random picker: easy, med, hard, or '' when the item has none. */
+function content_random_difficulty(array $meta): string
+{
+    $d = content_leetcode_difficulty_for_meta($meta);
+    return $d !== null ? content_leetcode_difficulty_class($d) : '';
+}
+
+/**
+ * Items that match the Random picker. '' means any. Items are already filtered by the
+ * premium lock in list_content(), so locked resources never enter the pool.
+ *
+ * @param list<array{slug: string, meta: array<string, mixed>}> $items
+ * @return list<array{slug: string, meta: array<string, mixed>}>
+ */
+function content_random_pool(array $items, string $difficulty, string $topic): array
+{
+    $out = [];
+    foreach ($items as $item) {
+        if ($difficulty !== '' && content_random_difficulty($item['meta']) !== $difficulty) {
+            continue;
+        }
+        if ($topic !== '' && content_random_topic($item['meta']) !== $topic) {
+            continue;
+        }
+        $out[] = $item;
+    }
+    return $out;
+}
+
+/**
+ * Per-topic counts by difficulty, so the popover can show the match count and an empty state.
+ *
+ * @return array<string, array<string, int>>
+ */
+function content_random_counts(array $items): array
+{
+    $counts = [];
+    foreach ($items as $item) {
+        $t = content_random_topic($item['meta']);
+        $d = content_random_difficulty($item['meta']);
+        $d = $d === '' ? 'none' : $d;
+        $counts[$t][$d] = ($counts[$t][$d] ?? 0) + 1;
+    }
+    ksort($counts, SORT_NATURAL | SORT_FLAG_CASE);
+    return $counts;
+}
+
+/** JSON answer for ?random=1&d=…&t=…: one matching resource href, or null. */
+function content_browse_random_if_requested(array $items, array $opts): void
+{
+    if ((string) ($_GET['random'] ?? '') !== '1') {
+        return;
+    }
+    $d = (string) ($_GET['d'] ?? '');
+    if (!in_array($d, ['', 'easy', 'med', 'hard'], true)) {
+        $d = '';
+    }
+    $t = trim((string) ($_GET['t'] ?? ''));
+    $pool = content_random_pool($items, $d, $t);
+    /** @var callable $itemHref */
+    $itemHref = $opts['item_href'];
+    $href = null;
+    if ($pool !== []) {
+        $pick = $pool[random_int(0, count($pool) - 1)];
+        $href = (string) $itemHref($pick);
+    }
+    header('Content-Type: application/json; charset=utf-8');
+    header('Cache-Control: private, no-store');
+    echo json_encode(['href' => $href, 'count' => count($pool)], JSON_UNESCAPED_SLASHES);
+    exit;
+}
+
+/** Random button (split from Browse by a divider) and its Difficulty / Topic popover. */
+function render_content_random(array $items, string $script, array $baseQuery): void
+{
+    $counts = content_random_counts($items);
+    $topics = array_keys($counts);
+    $hasDifficulty = content_browse_has_leetcode($items);
+    $endpoint = content_list_href($script, array_merge($baseQuery, ['random' => '1']));
+    $defaultTopic = isset($counts['Arrays']) ? 'Arrays' : '';
+    $defaultDiff = $hasDifficulty ? 'easy' : '';
+    ?>
+    <div class="pop content-random" data-pop data-random data-random-url="<?= e($endpoint) ?>" data-random-default-d="<?= e($defaultDiff) ?>" data-random-default-t="<?= e($defaultTopic) ?>">
+        <button
+            type="button"
+            class="pop__btn"
+            data-pop-btn
+            aria-expanded="false"
+            aria-controls="resource-random"
+            aria-haspopup="dialog"
+        ><svg class="toolbar-ico" width="12" height="12" viewBox="0 0 14 14" aria-hidden="true" focusable="false"><rect x="0.75" y="0.75" width="12.5" height="12.5" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="4.25" cy="4.25" r="1.2" fill="currentColor"/><circle cx="9.75" cy="9.75" r="1.2" fill="currentColor"/><circle cx="7" cy="7" r="1.2" fill="currentColor"/></svg>Random</button>
+        <div
+            id="resource-random"
+            class="pop__panel pop__panel--random"
+            data-pop-panel
+            hidden
+            role="dialog"
+            aria-label="Random resource"
+        >
+            <p class="pop__title">Random</p>
+            <form class="content-random__form" data-random-form>
+                <?php if ($hasDifficulty): ?>
+                <label class="content-random__field">
+                    <span>Difficulty</span>
+                    <select class="recent-filter__select" name="d" data-random-d>
+                        <option value="">Any</option>
+                        <option value="easy">Easy</option>
+                        <option value="med">Medium</option>
+                        <option value="hard">Hard</option>
+                    </select>
+                </label>
+                <?php endif; ?>
+                <label class="content-random__field">
+                    <span>Topic</span>
+                    <select class="recent-filter__select" name="t" data-random-t>
+                        <option value="">Any</option>
+                        <?php foreach ($topics as $topic): ?>
+                            <option value="<?= e($topic) ?>"><?= e($topic) ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </label>
+                <p class="content-random__status" data-random-status aria-live="polite"></p>
+                <button type="submit" class="content-random__go" data-random-go>Random</button>
+            </form>
+            <script type="application/json" data-random-counts><?= json_encode($counts, JSON_HEX_TAG | JSON_HEX_AMP | JSON_UNESCAPED_UNICODE) ?></script>
+        </div>
+    </div>
+    <span class="content-random__sep" aria-hidden="true"></span>
+    <?php
+}
+
 /**
  * Browse panel (category → subcategory → topics accordion) plus resource tiles with breadcrumbs.
  *
@@ -1638,7 +1777,8 @@ function content_browse_emit_tiles_if_requested(array $items, array $opts): void
  *   sub?: string,
  *   empty: string,
  *   item_href: callable,
- *   user_tags?: bool
+ *   user_tags?: bool,
+ *   random?: bool
  * } $opts
  */
 function render_content_browse(array $items, array $opts): void
@@ -1712,6 +1852,9 @@ function render_content_browse(array $items, array $opts): void
                         </ul>
                     </div>
                 </div>
+                <?php if (!empty($opts['random'])): ?>
+                    <?php render_content_random($items, $script, $baseQuery); ?>
+                <?php endif; ?>
                 <div class="pop" data-pop>
                     <button
                         type="button"

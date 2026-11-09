@@ -2846,6 +2846,129 @@
     });
   });
 
+  /* Random picker: opens with the last applied Difficulty / Topic, then jumps to one match. */
+  function initRandomPicker() {
+    var DIFF_LABEL = { '': 'Any difficulty', easy: 'Easy', med: 'Medium', hard: 'Hard' };
+    document.querySelectorAll('[data-random]').forEach(function (root) {
+      var btn = root.querySelector('[data-pop-btn]');
+      var panel = root.querySelector('[data-pop-panel]');
+      var form = root.querySelector('[data-random-form]');
+      var selD = root.querySelector('[data-random-d]');
+      var selT = root.querySelector('[data-random-t]');
+      var status = root.querySelector('[data-random-status]');
+      var go = root.querySelector('[data-random-go]');
+      var url = root.getAttribute('data-random-url') || '';
+      if (!btn || !panel || !form || !selT || !go || !url) return;
+      var counts = {};
+      try {
+        var el = root.querySelector('[data-random-counts]');
+        counts = JSON.parse((el && el.textContent) || '{}') || {};
+      } catch (err) {}
+      var path = String(window.location.pathname || '').replace(/\/+$/, '') || '/';
+      var kind = '';
+      try { kind = new URLSearchParams(window.location.search).get('kind') || ''; } catch (err) {}
+      var key = 'random-picker:' + path + (kind ? '?kind=' + kind : '');
+      var defaults = {
+        d: root.getAttribute('data-random-default-d') || '',
+        t: root.getAttribute('data-random-default-t') || ''
+      };
+
+      function hasOption(sel, v) {
+        if (!sel) return false;
+        for (var i = 0; i < sel.options.length; i++) if (sel.options[i].value === v) return true;
+        return false;
+      }
+      function readSaved() {
+        var s = null;
+        try { s = JSON.parse(localStorage.getItem(key) || 'null'); } catch (err) {}
+        var d = s && typeof s.d === 'string' ? s.d : defaults.d;
+        var t = s && typeof s.t === 'string' ? s.t : defaults.t;
+        if (selD && !hasOption(selD, d)) d = defaults.d;
+        if (!hasOption(selT, t)) t = hasOption(selT, defaults.t) ? defaults.t : '';
+        return { d: selD ? d : '', t: t };
+      }
+      function current() {
+        return { d: selD ? selD.value : '', t: selT.value };
+      }
+      function matchCount(d, t) {
+        var n = 0;
+        Object.keys(counts).forEach(function (topic) {
+          if (t && topic !== t) return;
+          var row = counts[topic] || {};
+          Object.keys(row).forEach(function (dk) {
+            if (!d || dk === d) n += Number(row[dk]) || 0;
+          });
+        });
+        return n;
+      }
+      function describe(c) {
+        var parts = [];
+        if (selD) parts.push(DIFF_LABEL[c.d] || c.d);
+        parts.push(c.t || 'any topic');
+        return parts.join(' · ');
+      }
+      function update(msg) {
+        var c = current();
+        var n = matchCount(c.d, c.t);
+        go.disabled = n === 0;
+        status.classList.toggle('is-empty', n === 0);
+        if (msg) status.textContent = msg;
+        else if (n === 0) status.textContent = 'Nothing matches ' + describe(c) + '. Try another topic or Any.';
+        else status.textContent = n + (n === 1 ? ' match' : ' matches');
+      }
+      function restore() {
+        var s = readSaved();
+        if (selD) selD.value = s.d;
+        selT.value = s.t;
+        btn.setAttribute('title', 'Random: ' + describe(s));
+        update();
+      }
+      restore();
+
+      btn.addEventListener('click', function () {
+        // Unapplied edits are dropped; reopening shows the last applied settings.
+        restore();
+        window.setTimeout(function () {
+          if (!panel.hidden) (selD || selT).focus();
+        }, 0);
+      });
+      if (selD) selD.addEventListener('change', function () { update(); });
+      selT.addEventListener('change', function () { update(); });
+      panel.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') window.setTimeout(function () { btn.focus(); }, 0);
+      });
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var c = current();
+        if (matchCount(c.d, c.t) === 0) { update(); return; }
+        try { localStorage.setItem(key, JSON.stringify(c)); } catch (err) {}
+        btn.setAttribute('title', 'Random: ' + describe(c));
+        go.disabled = true;
+        update('Picking…');
+        var sep = url.indexOf('?') >= 0 ? '&' : '?';
+        fetch(url + sep + 'd=' + encodeURIComponent(c.d) + '&t=' + encodeURIComponent(c.t), {
+          credentials: 'same-origin',
+          headers: { Accept: 'application/json' }
+        })
+          .then(function (r) { return r.json(); })
+          .then(function (data) {
+            if (data && typeof data.href === 'string' && data.href) {
+              window.location.href = data.href;
+            } else {
+              update('Nothing matches ' + describe(c) + '. Try another topic or Any.');
+              go.disabled = true;
+            }
+          })
+          .catch(function () {
+            go.disabled = false;
+            update('Could not pick one. Try again.');
+          });
+      });
+    });
+  }
+
+  initRandomPicker();
+
   var guideSelectRoot = document.querySelector('[data-guide-select]');
   var guideSelectMenu = document.getElementById('guide-select-menu');
   var guideGenModal = document.getElementById('guide-gen-modal');

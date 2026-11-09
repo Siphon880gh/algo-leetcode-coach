@@ -6,6 +6,14 @@ require_once dirname(__DIR__) . '/includes/layout.php';
 $cat = isset($_GET['cat']) ? trim((string) $_GET['cat']) : '';
 $sub = isset($_GET['sub']) ? trim((string) $_GET['sub']) : '';
 
+if ((string) ($_GET['random'] ?? '') === '1') {
+    content_browse_random_if_requested(list_content('games'), [
+        'item_href' => static function (array $item): string {
+            return url('games/play.php?id=' . rawurlencode($item['slug']));
+        },
+    ]);
+}
+
 if ((string) ($_GET['tiles'] ?? '') === '1') {
     content_browse_emit_tiles_if_requested(list_content('games'), [
     'script' => 'games/index.php',
@@ -42,6 +50,7 @@ render_content_browse($games, [
     'cat' => $cat,
     'sub' => $sub,
     'user_tags' => true,
+    'random' => true,
     'company_panel' => 'games',
     'empty' => 'No games yet. Prompt Cursor with <code>.agents/skills/harness</code> to create one under <code>content/games/</code>.',
     'item_href' => static function (array $item): string {

@@ -15,6 +15,14 @@ $active = $kind === 'cursor' ? 'guides-cursor' : 'guides-algo';
 $cat = isset($_GET['cat']) ? trim((string) $_GET['cat']) : '';
 $sub = isset($_GET['sub']) ? trim((string) $_GET['sub']) : '';
 
+if ((string) ($_GET['random'] ?? '') === '1' && $kind === 'algo') {
+    content_browse_random_if_requested(list_guides($kind), [
+        'item_href' => static function (array $item): string {
+            return url('guides/view.php?id=' . rawurlencode($item['slug']));
+        },
+    ]);
+}
+
 if ((string) ($_GET['tiles'] ?? '') === '1') {
     content_browse_emit_tiles_if_requested(list_guides($kind), [
     'script' => 'guides/index.php',
@@ -52,6 +60,7 @@ render_content_browse($guides, [
     'cat' => $cat,
     'sub' => $sub,
     'user_tags' => $kind === 'algo',
+    'random' => $kind === 'algo',
     'company_panel' => $kind === 'algo' ? 'guides' : '',
     'empty' => 'No guides in this section yet. Prompt Cursor with <code>.agents/skills/harness</code> to create one under <code>content/guides/</code> with <code>kind => \'' . e($kind) . '\'</code>.',
     'item_href' => static function (array $item): string {
