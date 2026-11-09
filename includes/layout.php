@@ -167,6 +167,7 @@ function layout_end(): void
             </div>
         </aside>
     </div>
+    <script src="<?= e(url('assets/js/harness-ai.js')) ?>" defer data-folder="<?= e(basename(dirname(__DIR__))) ?>" data-app="Leetcode Practice Coach" data-offset-bottom="56px" data-ask="<?= e('Ask it to coach you on a LeetCode problem, or to add an Algo Guide, Cursor AI Guide, mini game, or step-by-step path with the `harness` skill in `.agents/skills/`. Reload this page to see it.') ?>"></script>
     <script src="<?= e(url('assets/js/app.js')) ?>?v=<?= (int) @filemtime(dirname(__DIR__) . '/assets/js/app.js') ?>" defer></script>
 </body>
 </html>
